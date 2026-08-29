@@ -1,0 +1,12 @@
+{
+  "name": "genesis-notice",
+  "version": "1.0.0",
+  "description": "游戏内远程通告横幅：仓库 notice.html 变更即发通告",
+  "styleFileList": [],
+  "scriptFileList": ["notice.js"],
+  "tweeFileList": [],
+  "imgFileList": [],
+  "additionFile": [],
+  "additionDir": [],
+  "dependenceInfo": []
+}

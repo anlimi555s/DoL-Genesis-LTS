@@ -70,7 +70,7 @@ node <工具目录>/insert2html.cjs "../Degrees of Lewdity 0.5.11.9.html.sc2patc
 构建完成后复制一份为分发名（每次构建后覆盖）：
 
 ```bash
-cp "Degrees of Lewdity 0.5.11.9.html.sc2patch.html.mod.html" "DoL-Genesis-LTS 稳定版 0.5.11.9.html"
+cp "Degrees of Lewdity 0.5.11.9.html.sc2patch.html.mod.html" "DoL-Genesis-LTS v0.1.html"
 ```
 
 分发用这个文件名，构建产物（原名）保留不动。
