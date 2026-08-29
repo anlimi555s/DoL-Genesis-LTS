@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "None",
+    "moduleResolution": "Node",
+    "outDir": ".",
+    "allowUmdGlobalAccess": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "declarationDir": "."
+  },
+  "include": [
+    "model.d.ts",
+    "renderer.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

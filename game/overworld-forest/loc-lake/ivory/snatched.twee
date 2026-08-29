@@ -1,0 +1,1684 @@
+:: Wraith Snatched Home Mirror
+<<effects>>
+You shamble over to your mirror. A pale <<girl>> with <<wraithEyes>> eyes stares back.
+<br><br>
+<<link [[Step away (0:01)|Wraith Snatched Home Mirror 2]]>><<pass 1>><</link>>
+<br>
+<span class="nextLink"><<link [[Stare (0:01)|Wraith Snatched Home Mirror 2]]>><<pass 1>><</link>></span>
+<br>
+
+:: Wraith Snatched Home Mirror 2
+<<effects>>
+You move each finger individually, as if to test them.
+<br><br>
+You place your hand against the mirror.
+<<if Time.hour is 3 and $hallucinations gte 2 and $daily.mirrorTentacles isnot 1 and $settings.tentaclesEnabled>>
+	The surface flashes a terrible red. You see an open space on the other side, but it quickly dissolves away.
+<<else>>
+	You can't feel the surface.
+<</if>>
+<br><br>
+Your head quickly tilts to the side, making sickening cracks. Your hands open and clench.
+<br><br>
+<<set $wraithWillMessage to true>>
+<i><span class="red">Fully restore your </span><span class="green">control</span><span class="red"> to take back your body.</span></i>
+<br><br>
+<span class="nextLink"><<link [[Step away (0:01)|Bedroom]]>><<pass 1>><<set $phase2 to 1>><</link>></span>
+<br>
+
+:: Wraith Snatched Home Window
+<<pass 10>><<effects>><<getTarget>>
+You steady yourself against the wall, and push yourself to the window.
+<br><br>
+<<if Time.hour gte 6 and $moonstate is "morning">>
+	The sun has started to come up. You stare at the horizon for some time. You can feel your mind begin to focus. You try to move your arm. <span class="green">It twitches.</span>
+	<br><br>
+	You sigh, and look at yourself in the reflection of the glass. You don't look so pale anymore. You giggle.
+	<br><br>
+	"<span class="nextLink">See you soon,</span>" the reflection says. <<trauma 50>><<gggtrauma>>
+	<br><br>
+	You shamble back to your bed, and crawl in. You slowly feel yourself slipping back into place, able to feel your skin, your hands, your legs, yourself again. <<control 50>><<ggcontrol>>
+	<br><br>
+	<span class="blue"><i>You're safe until the next blood moon.</i></span>
+	<br><br>
+	<<endWraith>>
+	<<clearWraith>>
+	<<link [[Separate|Sleep]]>><<set $sleephour to 1>><<unset $possessed>><<canvas-model-override "clear">><</link>><<ltiredness>>
+	<br>
+<<else>>
+	<<set $nextPassage to "Wraith Snatched Home Leave">>
+	<<set $nextPassageCheck to "Wraith Snatched Home Leave">>
+	The red moon fills you with a horrible chill. Translucent pale limbs quietly open the window. You place your hands on the frame.
+	<br><br>
+	<span class="nextLink"><<link [[Go.|Wraith Snatched Home Leave]]>><</link>></span>
+	<br>
+	<<link [[Grip the frame|Bedroom]]>><</link>>
+	<br>
+<</if>>
+
+:: Wraith Snatched Home Leave
+<<pass 10>><<effects>><<getTarget>><<rainWraith>>
+You push yourself out your window, into the night air.
+<br><br>
+The ground comes hurtling towards you. You never hit it.
+<br><br>
+Just before you do, you slow in mid-air and right yourself. The tips of your feet gently touch the ground without any disturbance or noise. You don't feel the <<print Weather.precipitation>> on your skin.
+<br><br>
+A long, translucent limb slithers up the side of the orphanage, and shuts your window.
+<br><br>
+<span class="nextLink"><<link [[Walk.|Domus Street]]>><<set $location to "town">><<set $wraith.exit to "town">><<set $bus to "domus">><<set $phase2 to 1>><<set $phaseWraith to 0>><</link>></span>
+<br>
+
+:: Wraith Snatched Cabin Mirror
+<<effects>>
+You shamble over to the mirror. A pale <<girl>> with <<wraithEyes>> eyes stares back.
+<br><br>
+<<link [[Step away (0:01)|Wraith Snatched Cabin Mirror 2]]>><<pass 1>><</link>>
+<br>
+<span class="nextLink"><<link [[Stare (0:01)|Wraith Snatched Cabin Mirror 2]]>><<pass 1>><</link>></span>
+<br>
+
+:: Wraith Snatched Cabin Mirror 2
+<<effects>>
+You move each finger individually, as if to test them.
+<br><br>
+You place your hand against the mirror.
+You can't feel the surface.
+<br><br>
+Your head quickly tilts to the side, making sickening cracks. Your hands open and clench.
+<br><br>
+<<set $wraithWillMessage to true>>
+<i><span class="red">Fully restore your </span><span class="green">control</span><span class="red"> to take back your body.</span></i>
+<br><br>
+<span class="nextLink"><<link [[Step away (0:01)|Cabin Actions]]>><<pass 1>><<set $phase2 to 1>><</link>></span>
+<br>
+
+:: Wraith Snatched Cabin Leave
+<<effects>><<getTarget>><<rainWraith>>
+Your gaze passes over Eden one last time. You open the door, walk out into the <<print Weather.precipitation>>, and escape into the forest.
+<br><br>
+<<if !$edenfreedom>>
+	<<set $edenescape to true>>
+<</if>>
+<span class="nextLink"><<link [[Walk.|Forest]]>><<endevent>><<set $location to "forest">><<set $wraith.exit to "forest">><<set $forest to 90>><<set $phase2 to 1>><<set $phaseWraith to 0>><</link>></span>
+
+:: Wraith Snatched Cave Reflection
+<<effects>>
+You approach the stream. You reach a hand in, and the surface becomes completely still.
+<br><br>
+You look at your reflection. A pale <<girl>> with <<wraithEyes>> eyes stares back.
+<br><br>
+<<link [[Step away (0:01)|Wraith Snatched Cave Reflection 2]]>><<pass 1>><</link>>
+<br>
+<span class="nextLink"><<link [[Stare (0:01)|Wraith Snatched Cave Reflection 2]]>><<pass 1>><</link>></span>
+<br>
+
+:: Wraith Snatched Cave Reflection 2
+<<effects>>
+You move each finger individually, as if to test them.
+<br><br>
+Your head quickly tilts to the side, making sickening cracks. Your hands open and clench. The <<wolf_cave_plural>> begin barking and howling at you, their tails frayed.
+<br><br>
+<<set $wraithWillMessage to true>>
+<i><span class="red">Fully restore your </span><span class="green">control</span><span class="red"> to take back your body.</span></i>
+<br><br>
+<span class="nextLink"><<link [[Step away (0:01)|Wolf Cave Clearing]]>><<pass 1>><<set $phase2 to 1>><</link>></span>
+<br>
+
+:: Wraith Snatched Cave Leave
+<<pass 10>><<effects>><<getTarget>>
+You point. You see a translucent limb strike a <<beastNEWinit 1 wolf>><<beasttype>>, who yelps and staggers away. <<endevent>>
+<br><br>
+The rest of them back away. You walk out into the forest, but can tell some of them are trying to follow you.
+<br><br>
+<span class="nextLink"><<link [[Walk.|Forest]]>><<set $location to "forest">><<set $wraith.exit to "forest">><<set $forest to 90>><<set $phase2 to 1>><<set $phaseWraith to 0>><</link>></span>
+
+:: Wraith Snatched Mansion Mirror
+<<effects>>
+You shamble over to the mirror. A pale <<girl>> with <<wraithEyes>> eyes stares back.
+<br><br>
+<<link [[Step away (0:01)|Wraith Snatched Mansion Mirror 2]]>><<pass 1>><</link>>
+<br>
+<span class="nextLink"><<link [[Stare (0:01)|Wraith Snatched Mansion Mirror 2]]>><<pass 1>><</link>></span>
+<br>
+
+:: Wraith Snatched Mansion Mirror 2
+<<effects>>
+You move each finger individually, as if to test them.
+<br><br>
+You place your hand against the mirror.
+You can't feel the surface.
+<br><br>
+Your head quickly tilts to the side, making sickening cracks. Your hands open and clench.
+<br><br>
+<<set $wraithWillMessage to true>>
+<i><span class="red">Fully restore your </span><span class="green">control</span><span class="red"> to take back your body.</span></i>
+<br><br>
+<span class="nextLink"><<link [[Step away (0:01)|Mansion Bedroom]]>><<pass 1>><<set $phase2 to 1>><</link>></span>
+<br>
+
+:: Wraith Snatched Mansion Leave
+<<effects>><<getTarget>><<rainWraith>>
+Your gaze passes over the mansion one last time.
+<br><br>
+
+You walk out into the <<print Weather.precipitation>>, and escape into the town.
+<br><br>
+
+<span class="nextLink"><<link [[Walk.|Danube Street]]>><<endevent>><<set $location to "town">><<set $wraith.exit to "town">><<set $phase2 to 1>><<set $phaseWraith to 0>><</link>></span>
+
+:: Wraith Snatched Far Mirror
+<<effects>><<endevent>>
+You shamble over to the mirror. A pale <<girl>> with <<wraithEyes>> eyes stares back.
+<br><br>
+<<link [[Step away (0:01)|Wraith Snatched Far Mirror 2]]>><<pass 1>><</link>>
+<br>
+<span class="nextLink"><<link [[Stare (0:01)|Wraith Snatched Far Mirror 2]]>><<pass 1>><</link>></span>
+<br>
+
+:: Wraith Snatched Far Mirror 2
+<<effects>>
+You move each finger individually, as if to test them.
+<br><br>
+You place your hand against the mirror. It passes right through. The surface flashes a terrible red.
+<br><br>
+Your head quickly tilts to the side, making sickening cracks. Your free hand opens and clenches.
+<br><br>
+<span class="nextLink"><<link [[Step inside (0:01)|Wraith Snatched Far Mirror 3]]>><<pass 1>><</link>></span>
+<br>
+
+:: Wraith Snatched Far Mirror 3
+<<effects>><<set $location to "tentworld">><<set $outside to 0>>
+You put your foot forward. It passes through the mirror. You place your other hand in.
+<br><br>
+You fall forwards, and everything goes a brilliant purple. You see writhing masses blotting out the sky, and an endless expanse of tendrils. It doesn't last.
+<br><br>
+You pass through a swirling purple disc, and emerge in a thicket. It looks like the forest just outside town. You look behind you, and see the Asylum.
+<br><br>
+Your head swiftly turns again, causing more cracks. You can't feel anything anymore.
+<br><br>
+<<set $wraithWillMessage to true>>
+<i><span class="red">Fully restore your </span><span class="green">control</span><span class="red"> to take back your body.</span></i>
+<br><br>
+<span class="nextLink"><<link [[Walk.|Forest]]>><<set $location to "forest">><<set $wraith.exit to "forest">><<set $forest to 90>><<set $phase2 to 1>><<set $phaseWraith to 0>><</link>></span>
+<br>
+
+:: Wraith Snatched Pirate Mirror
+<<effects>>
+You shamble over to an empty bottle on the floor. You pick it up. Against the tinted glass, a pale <<girl>> with <<wraithEyes>> eyes stares back.
+<br><br>
+<<link [[Drop it (0:01)|Wraith Snatched Pirate Mirror 2]]>><<pass 1>><</link>>
+<br>
+<span class="nextLink"><<link [[Stare (0:01)|Wraith Snatched Pirate Mirror 2]]>><<pass 1>><</link>></span>
+<br>
+
+:: Wraith Snatched Pirate Mirror 2
+<<effects>><<getTarget>><<rainWraith>>
+You move each finger individually, as if to test them.
+<br><br>
+
+You place your finger against the bottle. The surface flashes a terrible red, and you see a glimpse of an open space on the other side. You hold it up to you, as if judging the size.
+<br><br>
+
+You drop the bottle to your feet, shattering it. Your head quickly tilts to the side, making sickening cracks. Your hands open and clench.
+<br><br>
+
+<<set $wraithWillMessage to true>>
+<i><span class="red">Fully restore your </span><span class="green">control</span><span class="red"> to take back your body.</span></i>
+<br><br>
+
+<span class="nextLink"><<link [[Step away (0:01)|Pirate Bilge]]>><<pass 1>><<set $phase2 to 1>><</link>></span>
+<br>
+
+:: Wraith Snatched Pirate Railing
+<<effects>><<getTarget>>
+You grip the railing and look down. The waves, reflecting a red light, churn beneath you.
+<br><br>
+
+You stare at the water below. Slowly, the area directly below you begins to calm, until a perfect circle of still water floats amidst the waves, undisturbed even by the <<print Weather.precipitation>>.
+<br><br>
+
+You reach down toward the circle, and it flashes purple, the water beginning to swirl. You grip the railing, preparing to heft yourself over the side.
+<br><br>
+
+<span class="nextLink"><<link [[Dive (0:01)|Wraith Snatched Pirate Railing 2]]>><<pass 1>><</link>></span>
+<br>
+
+:: Wraith Snatched Pirate Railing 2
+<<effects>><<npc "Zephyr">><<person1>>
+
+"What you be doing out here?" a voice calls behind you. It's Captain Zephyr, blinking wearily. "Thought I heard a bottle break. It's awful late to be admiring the view, <<if $pirate_rank is 0>><<girl>><<else>><<lass>><</if>>. Especially on the night of the blood sea."
+<<outfitChecks>>
+<<if _fullyNaked>>
+	<<He>> takes in your nudity. "Your rags better not be overboard."
+<</if>>
+<br><br>
+
+You turn to look at Zephyr, stepping away from the railing. The circle stills once more. Words spill from your mouth.
+<<if $spear_vessel is "Zephyr">>
+	"<span class="wraith">You found warmth and locked it in a cage.</span>"
+<<elseif $wraith.state is "despair">>
+	"<span class="wraith">A thief, proud. Did you take it? No, no...</span>"
+<<else>>
+	"<span class="wraith">A nuisance. You'll try to keep <<phim>>, won't you?</span>"
+<</if>>
+Your head tilts at an unnatural angle.
+<br><br>
+
+Zephyr frowns. On a whim, <<he>> takes <<his>> spyglass from <<his>> side and peers at you. <<He>> clicks <<his>> tongue. "Ah. That'd do it." With a silent glare, <<he>> strides toward you.
+<br><br>
+
+<span class="nextLink"><<link [[Fight.|Wraith Snatched Pirate Fight]]>><<set $fightstart to 1>><</link>></span>
+
+:: Wraith Snatched Pirate Fight
+<<if $fightstart is 1>>
+	<<set $fightstart to 0>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust to -100>>
+	<<set $enemyanger to 200>>
+	<<npcidlegenitals>>
+	<<set $noAdmire to true>><<set $noBodyWriting to true>>
+	Your body is made to laugh. "<span class="wraith">Maybe this time you'll finally drown.</span>"
+	<br><br>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend or _controlRegain is 1>>
+	<span id="next" class="nextWraith"><<link [[Next.|Wraith Snatched Pirate Fight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next" class="nextWraith"><<link [[Next.|Wraith Snatched Pirate Fight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Wraith Snatched Pirate Fight Finish
+<<effects>><<getTarget true>>
+<<if $control gte $controlmax>>
+	<<wraithExorcise true true>><<clearWraith>><<endWraith>>
+	<span class="gold">You stop.</span> You can feel it pushing you to keep going, to keep fighting, but you dig your heels in and focus. You have your body back, and you don't plan on giving it up.
+	<br><br>
+
+	You double over in agony. It's pulling itself out of you, knowing it's been bested. You see a pair of pale, translucent arms erupt from your chest. With a great amount of effort, it expels itself out of you.
+	<br><br>
+
+	Its head snaps back, and it dissipates into nothingness with a brief shriek that echoes in your mind. Your ears ring, and you hear its voice all around you. "<span class="wraith">It's a great misfortune, learning to swim.</span>" Below you, the circle of still water returns to crashing waves.
+	<br><br>
+
+	<<npc "Zephyr">><<person1>>
+	<<if Weather.precipitation isnot "none">>
+		Zephyr scowls as the figure disappears.
+	<<else>>
+		Zephyr scowls as the <<print Weather.precipitation>> begins to clear up.
+	<</if>>
+	"And stay gone, dredgie." <<He>> looks you over. "I don't know what ye did to earn that thing's ire. You'd best keep its business out of me ship." <<He>> slaps you in the face twice, shocking you out of your stupor, before trudging back to <<his>> cabin.
+	<<pain 2>><<gpain>>
+	<br><br>
+
+	<<tearful>> you gather yourself.
+	<br><br>
+
+	<<endcombat>>
+
+	<<link [[Next|Pirate Deck]]>><<clotheson>><<set $eventskip to 1>><</link>>
+<<else>>
+	<<set $zephyr_seen to "wraith">>
+	<<if $enemyarousal gte $enemyarousalmax>><<ejaculation "short">><</if>>
+
+	Zephyr is shoved away from you, falling over <<himself>>. <<He>> slowly stands <<himself>> up, a grim look on <<his>> face.
+	<br><br>
+
+	You turn away from <<him>>, gripping the railing and lifting yourself up. Below you, the circle of undisturbed water ripples, becoming an angry purple whirlpool. You look over your shoulder at <<him>>. "<span class="wraith">Someday, captain mine, the waves will chew you too.</span>"
+	<br><br>
+
+	"No!" <<he>> bellows, already back on <<his>> feet. <<He>> charges at you, stretching out <<his>> arm. <<Hes>> too late. You slip off the railing and through the whirlpool. Everything goes a brilliant purple. You see writhing masses blotting out the sky, and an endless expanse of tendrils. It doesn't last.
+	<br><br>
+
+	You pass through a swirling purple disc, and emerge in a thicket. It looks like the forest just outside town. You look behind you, and see the Asylum.
+	<br><br>
+
+	Your head swiftly turns again, causing more cracks. You can't feel anything anymore.
+	<br><br>
+
+	<<endcombat>>
+
+	<span class="nextLink"><<link [[Walk.|Forest]]>><<clotheson>><<set $location to "forest">><<set $wraith.exit to "forest">><<set $forest to 90>><<set $phase2 to 1>><<set $phaseWraith to 0>><</link>></span>
+<</if>>
+
+:: Wraith Snatched Guest
+<<pass 10>><<effects>><<getTarget>>
+<<set $nextPassage to "Wraith Snatched Guest 2">>
+<<if $location is "home">>
+	<<if $robinbed is "yours" or $robinbed is "theirs">>
+		<<set _bedGuest to "Robin">>
+	<<else>>
+		<<set _bedGuest to "Kylar">>
+	<</if>>
+<<elseif $location is "cabin">>
+	<<set _bedGuest to "Eden">>
+<<elseif $location is "avery_mansion">>
+	<<set _bedGuest to "Avery">>
+<</if>>
+You quietly approach the bed. You stare at _bedGuest, unmoving.
+<br><br>
+You remain purely focused on <<nnpc_him _bedGuest>>. You raise an arm, and begin to reach for <<nnpc_him _bedGuest>>.
+<br><br>
+<<link [[Try to scream|Bedroom]]>><</link>>
+<br>
+<<if C.npc["Ivory Wraith"].lust gte random(12, 16) or !$wraithIntro>>
+	<span class="nextLink"><<link [[Take.|Wraith Snatched Guest 2]]>><</link>></span>
+<<else>>
+	<<set $wraithBedSpeech to true>>
+	<span class="nextLink"><<link [[Touch.|Wraith Snatched Guest 2]]>><</link>></span>
+<</if>>
+<br>
+
+:: Wraith Snatched Guest 2
+<<pass 5>><<effects>><<getTarget>><<set $phase2 to 1>>
+<<if $willpowerSuccess>>
+	<span class="green">You manage to force a short exhale.</span>
+	<br><br>
+<</if>>
+<<if $location is "home">>
+	<<if $robinbed is "yours" or $robinbed is "theirs">>
+		<<set _bedGuest to "Robin">>
+	<<else>>
+		<<set _bedGuest to "Kylar">>
+	<</if>>
+<<elseif $location is "cabin">>
+	<<set _bedGuest to "Eden">>
+<<elseif $location is "avery_mansion">>
+	<<set _bedGuest to "Avery">>
+<</if>>
+You place your hand on <<nnpc_his _bedGuest>> cheek. You can't feel it. You stroke it gently.
+<br><br>
+<<if $wraithBedSpeech>>
+	<<silently>><<speechWraith _bedGuest>><</silently>>
+	You speak in a voice that makes no sound. "<span class="wraith">_line1<<if $rng lte 10>> _line2<</if>></span>"
+	<br><br>
+
+	You slowly turn away.
+<<else>>
+	<<if $settings.tentaclesEnabled and random(0, 1)>>
+		You hear a faint slithering. The blankets move. You see pale tendrils creep into your vision as they begin to worm their way up the bed, and over <<nnpc_him _bedGuest>>.
+		<br><br>
+		<<nnpc_He _bedGuest>> stirs slightly, and all the tendrils snap away, vanishing out of sight without a sound.
+	<<else>>
+		Another hand softly touches <<nnpc_him _bedGuest>>. Then another, on <<nnpc_his _bedGuest>> chest. Another one begins tracing down <<nnpc_his _bedGuest>> stomach.
+		<br><br>
+		<<nnpc_He _bedGuest>> stirs slightly, and all the arms snap away, vanishing out of sight without a sound.
+	<</if>>
+	<br><br>
+	<<nnpc_He _bedGuest>> stills. You can't feel yourself breathing.
+<</if>>
+<br><br>
+<<switch $wraith.exit>>
+	<<case "home">>
+		<span class="nextLink"><<link [[Step away|Bedroom]]>><</link>></span>
+	<<case "cabin">>
+		<span class="nextLink"><<link [[Step away|Cabin Actions]]>><</link>></span>
+	<<case "mansion">>
+		<span class="nextLink"><<link [[Step away|Mansion Bedroom]]>><</link>></span>
+<</switch>>
+<br>
+
+:: Wraith Snatched Offspring
+<<control 20>><<effects>><<getTarget>>
+You clumsily walk over to the <<print $container[$location].name.toLowerCase()>>.
+<<set $outside to 0>>
+<<set _container to $container[$location]>>
+<<set $checkboxResult to {}>><<set _paleCount to 0>>
+<<for _i to 0; _i lt Object.keys(_container.creatures).length; _i++>>
+	<<if _container.creatures[_i] isnot null and _container.creatures[_i].creature.includes("Pale")>>
+		<<set _paleCount ++>>
+	<</if>>
+<</for>>
+You feverishly check on your pale <<pluralise _paleCount "child">>, taking <<pluralise _paleCount "it">> out and holding <<pluralise _paleCount "it">>.
+<br>
+<<creatureVisit>>
+<br><br>
+You hold <<pluralise _paleCount "it">> close to you. You feel a strange warmth growing within, and your vision starts to get blurry.
+<br><br>
+You're crying. <<set $pain to 100>><<set $phase2 to 2>>
+<br><br>
+You don't know how long you sit there. You hardly feel anything. Your face remains locked in cold unexpression. <<set _palePass to (45 + (15 * _paleCount))>><<pass _palePass>><<ggcontrol>>
+<br><br>
+Eventually, your gaze turns to <<if $wraith.exit is "home" and ($robinbed is "yours" or $robinbed is "theirs" or $kylarbed is 1)>><<if $robinbed is "yours" or $robinbed is "theirs">>Robin.<<else>>Kylar.<</if>><<else>>the lake.<</if>>
+<br><br>
+
+<<switch $wraith.exit>>
+	<<case "home">>
+		<<set $nextPassage to "Bedroom">>
+		<<set $nextPassageCheck to "Bedroom">>
+		<span class="nextLink"><<link [[Step away|Bedroom]]>><</link>></span>
+		<br>
+		<<link [[Try to stay still|Containers]]>><</link>>
+	<<case "lake">>
+		<<set $nextPassage to "Lake Waterfall">>
+		<<set $nextPassageCheck to "Lake Waterfall">>
+		<span class="nextLink"><<link [[The lake.|Lake Waterfall]]>><</link>></span>
+		<br>
+		<<link [[Try to stay still|Containers]]>><</link>>
+	<<case "alex_farm">>
+		<<set $nextPassage to "Bedroom">>
+		<span class="nextLink"><<link [[Step away|Bedroom]]>><</link>></span>
+		<br>
+		<<link [[Try to stay still|Containers]]>><</link>>
+<</switch>>
+<br>
+
+:: Wraith Snatched Intro
+<<effects>>
+<<set $wraithWillMessage to true>>
+<<if $location is "park">>
+	You shamble over to the fountain,
+<<elseif $location is "forest" or $location is "moor">>
+	You shamble over to a <<if Weather.isSnow>>frozen <</if>>pool of water,
+<<elseif $bus is "lakeshore">>
+	You shamble over to the edge of the lake,
+<<elseif $bus is "lakewaterfall">>
+	You shamble over to the <<if Weather.isSnow>>frozen <</if>>pond,
+<<elseif $location is "lake_ruin">>
+	You float over to a reflective part of the wall,
+<<elseif $location is "drain">>
+	You peek over the edge of the walkway,
+<<elseif $location is "sewers">>
+	You shamble over to a nearby shard of broken glass,
+<<elseif $location is "forest_shop">>
+	You shamble over to an antique snowglobe,
+<<elseif $outside is 1>>
+	You shamble over to a puddle,
+<<else>>
+	You shamble over to a window,
+<</if>>
+and look at your reflection. A pale <<girl>> with <<wraithEyes>> eyes stares back.
+<br><br>
+<<if $wraith.exit is "Gwylan">>
+	"I know you can hear me. Quit ignoring me."
+	<br><br>
+<</if>>
+You move each finger individually, as if to test them.
+<br><br>
+Your head quickly tilts to the side, making sickening cracks. Your hands open and clench.
+<br><br>
+<i><span class="red">Fully restore your</span> <span class="green">control</span> <span class="red">to take back your body.</span></i>
+<br><br>
+<span class="nextLink"><<exitWraith true>></span><<rainWraith>>
+<br>
+
+:: Wraith Resisted
+<<effects>>
+<<if Time.hour gte 6 and $moonstate is "morning">>
+	Your body begins to grow heavy as the first rays of sunlight crest over the horizon. You try to move your arm. <span class="green">It twitches.</span>
+	<br><br>
+	You fall to your knees, and your vision grows blurry. You see a set of pale, translucent arms emerging from your own. Your body goes stiff, and you start leaning backwards.
+	<br><br>
+	<<if $wraithIntro>>
+		The pale figure exits your body, staring back at you
+		<<if $wraith.state is "haunt">>
+			scornfully as it scratches at its scarred neck.
+			<br><br>
+
+			"<span class="wraith">You belong to me, thief.</span>"
+		<<elseif $wraith.state is "despair">>
+			mournfully as it scratches at its scarred, bare neck.
+			<br><br>
+
+			"<span class="wraith">Please... help me find it...</span>"
+		<<else>>
+			playfully as it thumbs a necklace made of ivory.
+			<br><br>
+
+			"<span class="wraith">You belong to me.</span>"
+		<</if>>
+		<<trauma 50>><<gggtrauma>>
+		<br><br>
+	<<else>>
+		A beautiful pale figure floats out of your body, towering over you.
+		<<if $wraith.state is "haunt">>
+			It angrily claws at its own neck as it stares you down. It places a hand under your chin.
+			<br><br>
+
+			"<span class="wraith">Cut short. Next time. See you soon, <<pcpetname "Wraith">>.</span>"
+		<<elseif $wraith.state is "despair">>
+			It mournfully claws at its own scarred, bare neck as it stares you down.
+			<br><br>
+
+			"<span class="wraith">Have you seen my necklace? I...</span>"
+		<<else>>
+			It's naked, save an ornate necklace of ivory around its neck. It places a hand under your chin.
+			<br><br>
+
+			"<span class="wraith">Cut short. Next time. See you soon, <<pcpetname "Wraith">>.</span>"
+		<</if>>
+		<<trauma 50>><<gggtrauma>>
+		<br><br>
+	<</if>>
+	It vanishes in a torrent of water. You slowly regain feeling in your body, and try to stand. It takes a few tries, but eventually, you hoist yourself up.
+	<br><br>
+	<<tearful>> you try to make sense of what happened to you.
+	<br><br>
+<<else>>
+	<span class="gold">You stop.</span>
+	<br><br>
+	You can feel it pushing you to take another step. It clashes against you, pushing against your mind and body, trying to assert its dominance. You have a hold of it now, and you're not letting go.
+	<br><br>
+	You double over in agony. It's pulling itself out of you, knowing it's been bested. You see a pair of pale, translucent arms erupt from your chest. With a great amount of effort, it expels itself out of you.
+	<br><br>
+	<<if $wraithIntro>>
+		The pale figure floats before you, staring at you
+		<<if $wraith.state is "haunt">>
+			scornfully as it scratches at its scarred neck.
+			<br><br>
+
+			"<span class="wraith">You belong to me. You will not hold against me forever, thief.</span>"
+		<<elseif $wraith.state is "despair">>
+			mournfully as it scratches at its scarred, bare neck.
+			<br><br>
+
+			"<span class="wraith">Please... help me find it...</span>"
+		<<else>>
+			playfully as it thumbs a necklace made of ivory.
+			<br><br>
+
+			"<span class="wraith">You belong to me. You will not hold against me forever.</span>"
+		<</if>>
+		<<trauma 50>><<gggtrauma>>
+		<br><br>
+	<<else>>
+		A beautiful pale figure floats before you.
+		<<if $wraith.state is "haunt">>
+			It angrily claws at its own neck as it stares you down. It places a hand under your chin.
+			<br><br>
+
+			"<span class="wraith">I will have you, graverobber. Soon.</span>"
+		<<elseif $wraith.state is "despair">>
+			It mournfully claws at its own scarred, bare neck as it stares you down.
+			<br><br>
+
+			"<span class="wraith">Have you seen my necklace? I...</span>"
+		<<else>>
+			It's naked, save an ornate necklace of ivory around its neck. It places a hand under your chin.
+			<br><br>
+
+			"<span class="wraith">Your will is strong. I like you.</span>"
+		<</if>>
+		<<trauma 50>><<gggtrauma>>
+		<br><br>
+	<</if>>
+	A massive torrent of water shoots up from below, completely engulfing it. You can only see its <<wraithEyes>> eyes glowing through it. When it passes, the figure is gone. <<tearful>> you try to make sense of what you just went through.
+	<br><br>
+<</if>>
+<<exposure>>
+<<clotheson>>
+<<exitWraith>>
+<<clearWraith>>
+
+:: Wraith Resisted Lake
+<<effects>>
+<<if Time.hour gte 6 and $moonstate is "morning">>
+	Your body begins to grow heavy as the first rays of sunlight reach the depths. You try to move your arm. <span class="green">It twitches.</span>
+	<br><br>
+	You float aimlessly in the water, and your vision grows blurry. You see a set of pale, translucent arms emerging from your own. Your body goes stiff, and you start leaning backwards.
+	<br><br>
+	<<if $wraithIntro>>
+		The pale figure exits your body, staring back at you
+		<<if $wraith.state is "haunt">>
+			scornfully as it scratches at its scarred neck.
+			<br><br>
+
+			"<span class="wraith">You belong to me, thief.</span>"
+		<<elseif $wraith.state is "despair">>
+			pleadingly as it scratches at its scarred neck.
+			<br><br>
+
+			"<span class="wraith">Where is it?</span>"
+		<<else>>
+			playfully as it thumbs a necklace made of ivory.
+			<br><br>
+
+			"<span class="wraith">You belong to me.</span>"
+		<</if>>
+		<<trauma 50>><<gggtrauma>>
+		<br><br>
+	<<else>>
+		A beautiful pale figure floats out of your body, towering over you.
+		<<if $wraith.state is "haunt">>
+			It angrily claws at its own neck as it stares you down. It places a hand under your chin.
+			<br><br>
+
+			"<span class="wraith">Cut short. Next time. See you soon, <<pcpetname "Wraith">>.</span>"
+		<<elseif $wraith.state is "despair">>
+			It mournfully claws at its own scarred neck as it stares you down.
+			<br><br>
+
+			"<span class="wraith">Have you seen my necklace? I...</span>"
+		<<else>>
+			It's naked, save an ornate necklace of ivory around its neck. It places a hand under your chin.
+			<br><br>
+
+			"<span class="wraith">Cut short. Next time. See you soon, <<pcpetname "Wraith">>.</span>"
+		<</if>>
+		<<trauma 50>><<gggtrauma>>
+		<br><br>
+	<</if>>
+	It vanishes with a bright flash. You slowly regain feeling in your body, and try to swim. It takes some time, but you're able to move yourself again.
+	<br><br>
+	<<tearful>> you try to make sense of what happened to you.
+<<else>>
+	<span class="gold">You stop.</span>
+	<br><br>
+	You can feel it pushing you to keep going. It clashes against you, pushing against your mind and body, trying to assert its dominance. You have a hold of it now, and you're not letting go.
+	<br><br>
+	You double over in agony. It's pulling itself out of you, knowing it's been bested. You see a pair of pale, translucent arms erupt from your chest. With a great amount of effort, it expels itself out of you.
+	<br><br>
+	<<if $wraithIntro>>
+		The pale figure floats before you, staring at you
+		<<if $wraith.state is "haunt">>
+			scornfully as it scratches at its scarred neck.
+			<br><br>
+
+			"<span class="wraith">You belong to me. You will not hold against me forever, thief.</span>"
+		<<elseif $wraith.state is "despair">>
+			mournfully as it scratches at its scarred, bare neck.
+			<br><br>
+
+			"<span class="wraith">Please... help me find it...</span>"
+		<<else>>
+			playfully as it thumbs a necklace made of ivory.
+			<br><br>
+
+			"<span class="wraith">You belong to me. You will not hold against me forever.</span>"
+		<</if>>
+		<<trauma 50>><<gggtrauma>>
+		<br><br>
+	<<else>>
+		A beautiful pale figure floats before you.
+		<<if $wraith.state is "haunt">>
+			It angrily claws at its own neck as it stares you down. It places a hand under your chin.
+			<br><br>
+
+			"<span class="wraith">I will have you, graverobber. Soon.</span>"
+		<<elseif $wraith.state is "despair">>
+			It mournfully claws at its own scarred, bare neck as it stares you down.
+			<br><br>
+
+			"<span class="wraith">Have you seen my necklace? I...</span>"
+		<<else>>
+			It's naked, save an ornate necklace of ivory around its neck. It places a hand under your chin.
+			<br><br>
+
+			"<span class="wraith">Your will is strong. I like you.</span>"
+		<</if>>
+		<<trauma 50>><<gggtrauma>>
+		<br><br>
+	<</if>>
+	A bright flash of light blinds you. When it passes, the figure is gone. <<tearful>> you try to make sense of what you just went through.
+	<br><br>
+<</if>>
+<<exposure>>
+<<clotheson>>
+<<exitWraith>>
+<<clearWraith>>
+
+:: Forest Blood Deeper
+<<effects>>
+DEBUG PASSAGE. Should be unreachable.
+<br><br>
+<<link [[Fuck|Bedroom]]>><<endevent>><</link>>
+
+:: Forest Blood Less Deep
+<<effects>>
+DEBUG PASSAGE. Should be unreachable.
+<br><br>
+<<link [[Fuck|Bedroom]]>><<endevent>><</link>>
+
+:: Lake Depths Ice Break
+<<effects>><<getTarget>>
+You look down. You see your reflection in the ice. A pale <<girl>> with <<wraithEyes>> eyes still stares back.
+<br><br>
+You find yourself sinking through the ice, submerging without causing a break.
+<br><br>
+<span class="nextLink"><<link [[Down.|Lake Underwater]]>><<set $phase2 to 1>><</link>></span>
+<br>
+
+:: Forest Blood Gwylan Rescue
+<<effects>>
+You hear the trees rustle behind you. You slowly turn to look. Something digs at the back of your mind, as if surprised at the intrusion. It quickly turns to annoyance.
+<br><br>
+
+Someone emerges from the treeline. <span class="green">It's Gwylan.</span> <<nnpc_Hes "Gwylan">> wearing a green hooded cloak.
+<br><br>
+
+"There you are!
+<<if $gwylan.timer.bloodVisit>>
+	I got worried after you left the shop earlier."
+<<elseif $gwylan.timer.bloodKnock>>
+	I heard someone knocking at the shop, and I thought it might have been you."
+<<else>>
+	I thought I saw you shambling past the shop."
+<</if>>
+<<nnpc_He "Gwylan">> looks you over, and steps closer. "Oh dear."
+<br><br>
+
+You stare at <<nnpc_him "Gwylan">>.
+<br><br>
+
+<span class="nextLink"><<link [[...|Forest Wraith Gwylan]]>><</link>></span>
+<br>
+
+:: Forest Blood Gwylan Rescue Repeat
+<<effects>>
+<<npc Gwylan>><<person1>>
+You hear the trees rustle behind you. You slowly turn to look. Something digs at the back of your mind, as if surprised at the intrusion. It quickly turns to annoyance.
+<br><br>
+
+Three green eyes stare from the shadows. A shape like a massive fox darts away, before reappearing somewhere else. It's all around you.
+<br><br>
+
+A branch breaks, and your body turns just in time to be tackled by something. <span class="green">It's Gwylan.</span>
+<<if npcIsPregnant("Gwylan")>>
+	Your body rolls with <<him>>, but throws <<him>> off. <<Hes>> sent reeling, but recovers quickly.
+<<else>>
+	Your body rolls with <<him>>, before kicking both of your legs into Gwylan's gut. <<Hes>> sent reeling, but recovers quickly.
+<</if>>
+<br><br>
+
+Your body and Gwylan stare each other down. <<rainWraith>>
+<br><br>
+
+"I know you can hear me in there, <<pcpetname "Gwylan" "name">>. I'll do my best, but..." <<His>> voice trembles. "I won't be able to get you out by myself. I need you to fight it, however you can."
+<br><br>
+
+<<if $hypnosis_traits.devotion gte 4>>
+	You feel like a fly trapped between two spiders.
+	<br><br>
+<</if>>
+
+Gwylan runs towards you!
+<br><br>
+
+<span class="nextLink"><<link [[Fight|Wraith Snatched Gwylan Fight]]>><<set $fightstart to 1>><</link>></span>
+<br>
+
+:: Forest Wraith Gwylan
+<<set $outside to 1>><<set $location to "forest">><<effects>><<set _notMoving to true>><<getTarget>>
+<<npc Gwylan>><<person1>>
+<<set $nextPassage to "Forest Wraith Gwylan 2">>
+
+Gwylan grabs your shoulder, looking into your eyes.
+<br><br>
+
+You take in a deep breath.
+<br><br>
+
+<<link [[Beg for help|Forest]]>><</link>>
+<br>
+<span class="nextLink"><<link [[I'm well, Gwylan.|Forest Wraith Gwylan 2]]>><</link>></span>
+<br>
+
+:: Forest Wraith Gwylan 2
+<<effects>><<set _notMoving to true>><<getTarget>>
+<<set $nextPassage to "Forest Wraith Gwylan 3">>
+Your body speaks.
+<<if $willpowerSuccess>>
+	<span class="green">Your voice cracks.</span>
+<</if>>
+
+"I'm well, Gwylan. I must have been sleepwalking. Thank you."
+<br><br>
+
+<<He>> tilts <<his>> head, looking closer. "Sleepwalking. <<if $exposed gte 2>>Naked.<</if>> Right." <<He>> takes a step back.
+"In that case, why not come by my shop? I have a remedy for sleepwalking<<if $exposed gte 2>>, and some warm clothes<</if>>."
+<br><br>
+
+You feel a throb in your head.
+<br><br>
+
+<<link [[Yes|Forest]]>><</link>>
+<br>
+<span class="nextLink"><<link [[No, thank you.|Forest Wraith Gwylan 3]]>><</link>></span>
+<br>
+
+:: Forest Wraith Gwylan 3
+<<effects>><<set _notMoving to true>><<getTarget>>
+<<set $nextPassage to "Forest Wraith Gwylan 4">>
+<<if $willpowerSuccess>>
+	<span class="green">You lean towards <<him>>, ever so slightly.</span>
+	<br><br>
+<</if>>
+
+Your body speaks. "No, thank you. I think I'm going..." You pause. "Home." The word doesn't sound right.
+<br><br>
+
+<<He>> frowns. "Alright. Let me walk with you, then. It's a dangerous night." You feel another throb.
+<br><br>
+
+<<link [[Please|Forest]]>><</link>>
+<br>
+<span class="nextLink"><<link [[No, thank you.|Forest Wraith Gwylan 4]]>><</link>></span>
+<br>
+
+:: Forest Wraith Gwylan 4
+<<effects>><<set _notMoving to true>><<getTarget>>
+<<set $nextPassage to "Forest">>
+<<if $willpowerSuccess>>
+	<span class="green">You manage to let out a short, strained breath.</span>
+	<br><br>
+<</if>>
+
+Your body speaks. "No, thank you. I prefer the solitude. It's a beautiful night."
+<br><br>
+
+<<He>> sighs. "Okay. Well... come see me tomorrow, then. I'm worried about you." <<He>> turns away, but pauses.
+<br><br>
+
+<<He>> walks back over to you, and hugs you tightly. Your body doesn't return it. "Your skin is very cold," <<he>> says. "Don't take long. I don't want you getting sick."
+<span class="red"><<He>> turns, and leaves.</span>
+<br><br>
+
+<<endevent>><<set $gwylanDoesALittleTrolling to true>>
+
+<span class="nextLink"><<link [[Walk.|Forest]]>><<set $phase2 to 1>><</link>></span>
+<br>
+
+:: Forest Wraith Gwylan 5
+<<effects>><<getTarget>>
+<<npc Gwylan>><<person1>>
+<<unset $nextPassage>>
+
+You shamble through the forest. You know-
+<br><br>
+
+"Where are you going?" Your head throbs multiple times in quick succession upon hearing Gwylan's voice. "That isn't towards home. That's towards the lake."
+<br><br>
+
+You hear rapid footsteps, and <<he>> grabs you by the shoulders from behind. "I'm afraid I have to insist now. You're coming with me, back to the shop." <<He>> grabs your hand, and tries to pull you along.
+<br><br>
+
+You don't budge. You slowly turn to face <<him>>. The intruder in your body feels distant for a moment, as if thinking. It pulls against you, testing your will.
+<br><br>
+
+After a moment, <span class="green">you start to walk with <<him>></span>.
+<br><br>
+
+<span class="nextLink"><<link [[Follow. For now.|Forest Wraith Gwylan 6]]>><<set $phase2 to 1>><<pass 10>><</link>></span>
+<br>
+
+:: Forest Wraith Gwylan 6
+<<set $outside to 0>><<set $location to "forest_shop">><<effects>><<getTarget>><<set $nextPassage to "Forest Wraith Gwylan 7">>
+"I've got a remedy that will make sure you sleep through the whole night. I wouldn't recommend drinking it more than twice a week though, unless you want regular sleep paralysis—"
+<br><br>
+
+Your body tunes Gwylan out. It does its best impression of normal walking. You feel strange. Almost as though it's going along with you, rather than you going along with it. <span class="purple">It's biding its time.</span>
+<br><br>
+
+You make it back to the forest shop with Gwylan. <<He>> leads you to a small table, before heading through a dark doorway.
+<br><br>
+
+Your eyes slowly move around the room, catching on a few of the knick-knacks around. "The gull's nest is empty," your body says. "You are all that remains."
+<br><br>
+
+"Sorry, what was that?" Gwylan's head pops out from the doorway. You stare at each other for a moment, saying nothing. <<He>> slowly ducks back into the other room.
+<br><br>
+
+You stare straight ahead for several minutes. The intruder's will pokes at yours. "<span class='wraith'>Fortunate, <<pcpetname "Wraith">>. Interference from the witch.</span>" You hear something like a laugh.
+<<if $wraith.state is "haunt">>
+	"<span class='wraith'>You will be pulled apart between us. Whom do you think is worse?</span>"
+<<else>>
+	"<span class='wraith'>Let us see which of us claims the fly from the web.</span>"
+<</if>>
+<br><br>
+
+Gwylan returns holding a tray with a tea kettle. <<He>> pours hot water into a cup, and holds it in front of you.
+"There you go!
+<<if $gwylanTea gte 4>>
+	Sorry that it isn't your favourite butterfly pea flower tea, but I think you'll enjoy it.
+<</if>>
+Drink it up." <<He>> pinches you on the cheek. You don't feel it. <<He>> sits on the opposite end of the table.
+<br><br>
+
+Your eyes look down at it. A <<wraithEyes>> tinge flashes over your vision, and your body feels sick looking at it.
+<br><br>
+
+<<link [[Drink it|Forest Shop]]>><</link>>
+<br>
+<span class="nextLink"><<link [[Do not.|Forest Wraith Gwylan 7]]>><</link>></span>
+<br>
+
+:: Forest Wraith Gwylan 7
+<<effects>><<set _notMoving to true>><<getTarget>><<set $nextPassage to "Forest Wraith Gwylan 8">>
+<<if $willpowerSuccess>>
+	<span class="green">Your arm twitches.</span>
+<</if>>
+The teacup sits in front of you, untouched. Your body looks back up to Gwylan.
+<br><br>
+
+You stare at each other.
+<br><br>
+
+"Something wrong?" <<he>> says.<br>
+"I'm not thirsty," your body says.<br>
+"Ah, drank too much water?"<br>
+Your head throbs.
+<br><br>
+
+You sit still.
+<br><br>
+
+<<link [[Drink it|Forest Shop]]>><</link>>
+<br>
+<span class="nextLink"><<link [[Do not.|Forest Wraith Gwylan 8]]>><</link>></span>
+<br>
+
+:: Forest Wraith Gwylan 8
+<<effects>><<set _notMoving to true>><<getTarget>><<unset $nextPassage>>
+<<if $willpowerSuccess>>
+	<span class="green">Your arm twitches.</span>
+<</if>>
+The teacup sits in front of you, untouched. "Go on, dear. It will help." You sit still.
+<br><br>
+
+Gwylan leans forward.
+<br><br>
+
+"I'll stay up with you then. I don't mind."<br>
+Your head throbs again. "Why?"<br>
+<<if $gwylanSeen.includes("romance")>>
+	"Because we're one."
+<<else>>
+	"Because burdens are meant to be shared."
+<</if>>
+<br><br>
+
+You let out a strained laugh. "<span class="wraith">To think your black heart is capable of such intimacy. Yours is more dead than mine.</span>"
+<br><br>
+
+Gwylan blinks. "Well, that was rude." <<He>> leans forward a little further. "It's just tea, dear. It's not like it will... <i>drown</i> you."
+<br><br>
+
+<span class="red">Your body lunges for <<him>> over the table.</span>
+<br><br>
+
+<<link [[Resist|Forest Wraith Gwylan 9]]>><</link>>
+<br>
+
+:: Forest Wraith Gwylan 9
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $control gte $controlmax>>
+	<span class="gold">You stop.</span> The pale figure doesn't. It flies out of your body as it lunges for Gwylan.
+	<br><br>
+
+	<<if $wraith.state is "haunt">>
+		<<He>> ducks, narrowly avoiding being raked by its blackened arm
+	<<else>>
+		<<He>> ducks, narrowly avoiding being grabbed
+	<</if>>
+	as it soars right past <<him>>. <<He>> rushes to your side, helping you stand as the numbness fades from your body. <<He>> stands protectively between you and it.
+	<br><br>
+
+	"This is my home. You have no power here. Begone." The entire shop seems to shudder in response. <span class="purple">Dozens of wooden mannequins stand behind the pale figure, each one making a grab for it.</span>
+	<br><br>
+
+	It waves its hand, and wooden limbs are scattered everywhere as a single pale tendril whips across them.
+	<<if $wraith.state is "haunt">>
+		It sneers. "<span class="wraith">Cruel gull. <<pShe>> is mine. If not on this night, then the next. I will wait forever if need be.</span>"
+	<<else>>
+		It laughs. "<span class="wraith">Clever gull. <<pShe>> is mine. I know you understand. To be alone forever-</span>"
+	<</if>>
+	<br><br>
+
+	"You aren't ready for forever," Gwylan says back. "You aren't even ready for right now." <<He>> raises a hand and snaps <<his>> fingers.
+	The mannequins stand again, and despite many missing arms, they all approach. Most are knocked away and broken further, but a few find their mark, restraining its limbs. It simply sprouts more, which grab and tear the mannequins apart.
+	<br><br>
+
+	It turns back with a smug grin, just in time for a ?gwylanItem to bounce off of its head with a loud thud. Its head is knocked to a tilt. It looks stunned for a moment, as if surprised it was actually hit by that.
+	It was just a distraction, though. Gwylan runs towards it, a golden bracelet in hand. <<He>> clasps it around the figure's arm, and yells a command.
+	<br><br>
+
+	<b>"<span class="witch">Go home!</span>"</b>
+	<br><br>
+
+	A matching golden shackle appears around the bracelet. The nearest window flies open on its own as Gwylan darts back to your side. <span class="purple">A screeching wind rips through the air, towards the window.</span> The figure is yanked towards it.
+	Its many hands grip the window frame for purchase, but each one becomes clasped in another golden shackle. It gives you both one last piercing look, before <span class="green">it's expelled from the shop</span>.
+<<else>>
+	Gwylan ducks, narrowly avoiding your lunge. You land behind <<him>> and turn.
+	<br><br>
+
+	"This is my home. You have no power here. Begone." The entire shop seems to shudder in response. <span class="purple">Dozens of wooden hands wrap around your arms and legs. You're surrounded by mannequins.</span>
+	<br><br>
+
+	Your body struggles against them.
+	<<if $wraith.state is "haunt">>
+		It sneers. "<span class="wraith">Cruel gull. <<pShe>> is mine. Join us. We can share this bliss forever.</span>"
+	<<else>>
+		It laughs. "<span class="wraith">Clever gull. <<pShe>> is mine. Join us. We can share this bliss forever.</span>"
+	<</if>>
+	<br><br>
+
+	"You aren't ready for forever," Gwylan says back. "You aren't even ready for right now."
+	<<if $hypnosis_traits.devotion gte 4>>
+		<<He>> slowly, but confidently, walks up to you and places a hand on your head. You don't feel it. "Besides, you're wrong. <<pShes>> mine." <<He>> giggles, before whispering in your ear.
+		<br><br>
+
+		<b>"<span class="witch">Sit.</span>"</b>
+		<br><br>
+
+		<<hypnosisText "<span class='blue'>Your body sits obediently.</span>">> The mannequins all release you.
+		<br><br>
+
+		The Wraith pushes against you, trying to force you to move. <span class="green">It can't.</span> You continue to sit in place.
+		"<<pcPetname "Gwylan" "good">>." <<He>> pets your head. You can feel it. The numbness is fading. <<trauma -1>><<ltrauma>><<gcontrol>>
+		<br><br>
+
+		<<He>> turns your head to face the nearest window, and whispers another command.
+	<<else>>
+		<<He>> grabs a ?gwylanItem from a nearby shelf, tosses it up and down in <<his>> hand for a moment, and <span class="red">whips it at you</span>.
+		<br><br>
+
+		It bounces off of your head with a loud thud, but you don't feel any pain. The intruder feels rattled, though. Just enough for you to exert your will for a precious moment. <<gcontrol>>
+		<br><br>
+
+		Gwylan runs up to you, and turns your head to face the nearest window. <<He>> whispers a command into your ear.
+	<</if>>
+	<br><br>
+
+	<b>"<span class="witch">Go home.</span>"</b>
+	<br><br>
+
+	The window flies open on its own. Your vision focuses on something, far into the forest. The trees seem to part for you. It's the lake.
+	<span class="purple">A screeching wind rips through the air, towards it.</span> The figure is pulled out of your body.
+	Its many hands grip the window frame for purchase, but each one becomes clasped in a golden shackle. It gives you both one last piercing look, before <span class="green">it's expelled from the shop</span>.
+<</if>>
+<br><br>
+
+The window slams shut. Gwylan holds you tightly.
+<br><br>
+
+<<set $wraith.state to "">>
+<<clearWraith>>
+<<set $wraithSkip to true>>
+<<gwylanRescueStats true "Wraith">>
+
+<<link [[Next|Forest Shop Wraith Talk]]>><<wraithExorcise true true>><<endevent>><</link>>
+<br>
+
+:: Wraith Snatched Gwylan Fight
+<<if $fightstart is 1>>
+	<<set $fightstart to 0>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust to -100>>
+	<<set $enemyanger to 200>>
+	<<npcidlegenitals>>
+	<<set $noAdmire to true>><<set $noBodyWriting to true>>
+	<<if !$wraith.will>>
+		<<set $wraith.will to random(1300, 1700)>>
+	<</if>>
+	Your body is made to laugh. "<span class="wraith">Wretched, jealous gull, picking at the scraps.</span>"
+	<br><br>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend or _controlRegain is 1>>
+	<span id="next" class="nextWraith"><<link [[Next.|Wraith Snatched Gwylan Fight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next" class="nextWraith"><<link [[Next.|Wraith Snatched Gwylan Fight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Wraith Snatched Gwylan Fight Finish
+<<effects>><<getTarget true>>
+<<if $control gte $controlmax>>
+	<<wraithExorcise true true>><<clearWraith>><<endWraith>>
+	<<npc Gwylan>><<person1>>
+	<span class="gold">You stop.</span> You can feel it pushing you to keep going, to keep fighting, but you dig your heels in and focus. You have your body back, and you don't plan on giving it up.
+	<br><br>
+
+	<<if $hypnosis_traits.devotion gte 4>>
+		<b>"<span class="witch">Sit!</span>"</b>
+		<br><br>
+
+		<<hypnosisText "<span class='blue'>You can't resist that, though. Your body collapses.</span>">> Gwylan quickly kneels next to you, pulling a vial from <<his>> belt. <<He>> rips the cork out, and holds it under your nose.
+		<br><br>
+
+		You tremble. All at once, the Wraith is pulled out of your body from above. It dissipates into nothingness with a brief shriek that echoes in your mind. Your ears ring, and you hear its voice all around you.
+	<<else>>
+		You double over in agony. It's pulling itself out of you, knowing it's been bested. You see a pair of pale, translucent arms erupt from your chest. With a great amount of effort, it expels itself out of you.
+		<br><br>
+
+		Its head snaps back, and it dissipates into nothingness with a brief shriek that echoes in your mind. Your ears ring, and you hear its voice all around you.
+	<</if>>
+	<<if $wraith.state is "haunt">>
+		"<span class="wraith">The albatross around your throat will drag you to the bottom.</span>"
+	<<else>>
+		"<span class="wraith">The fox snatches the albatross from the wind.</span>"
+	<</if>>
+	<br><br>
+
+	<<if Weather.precipitation is "none">>
+		Gwylan huffs as the figure disappears.
+	<<else>>
+		Gwylan huffs as the <<print Weather.precipitation>> begins to clear up.
+	<</if>>
+	"I'm sorry, but I won't let you have <<phim>>." <<He>> looks back to you. "You're a troublesome one, you know that?" <<He>> hugs you tightly.
+	<br><br>
+
+	<<if $hypnosis_traits.devotion gte 4>>
+		"Why didn't you lead with that?" you ask, hugging back.
+		<br><br>
+
+		"It had too much control, and the mixture wasn't what freed you. That just made the exit more clean." <<He>> smiles.
+	<</if>>
+	"Come on. I'll make you some tea back at the shop."
+	<br><br>
+
+	You're in no position to resist.
+	<<if $pain gte 75>>
+		Gwylan puts one of your arms around <<him>> and helps you walk.
+	<</if>>
+	It isn't a long trip to the shop.
+
+	<<endcombat>>
+	<br><br>
+
+	<<link [[Next|Forest Shop Wraith Talk Repeat]]>><<clotheson>><<set $forest to 0>><</link>>
+<<else>>
+	Gwylan falls to the ground. You fall on top of <<him>>, your hands around <<his>> throat. "<span class="wraith">The fox plays the part of the prey.</span>"
+	<br><br>
+
+	<<He>> can't breathe. <<His>> hands grip your wrists, but <<he>> can't pull them away. <<He>> reaches for something on <<his>> belt, but it's smacked away by another arm.
+	<br><br>
+
+	<span class="red"><<His>> struggling becomes weaker and weaker, <<his>> eyes becoming more dim. <<He>> releases you, <<his>> arms falling limp at <<his>> sides.</span>
+	<br><br>
+
+	"<span class="wraith">Alas. Your torment was never mine to end.</span>"
+	<br><br>
+
+	You release <<him>>, and <<he>> gasps for breath. <<He>> coughs as you stand. "<span class="wraith">Hie away, witch. Suffer alone in your self-made cage.</span>"
+	<br><br>
+
+	You start to walk away, but <<he>> grabs your ankle.
+	<<if $gwylanSeen.includes("partners") and C.npc.Gwylan.dom gte 135>>
+		<<gwylanRescueStats true "WraithFight">>
+		<<silently>><<endcombat>><</silently>><<npc Gwylan>><<person1>>
+		"You..." <<he>> gasps, <<his>> breath ragged and hoarse. "...can't have <<phim>>." <<He>> drags <<himself>> forwards. You look down in bemusement. "Nobody can."
+		<br><br>
+
+		<span class="nextLink"><<link [[Next|Wraith Snatched Gwylan Fight Finish Nobody]]>><</link>></span>
+	<<else>>
+		<<gwylanRescueStats false "WraithFight">>
+		<<His>> grip is weak and desperate. You kick it aside without effort.
+		<br><br>
+
+		You leave Gwylan weak and breathless in the clearing.
+		<<endcombat>>
+		<br><br>
+
+		<span class="nextLink"><<exitWraith true>></span>
+	<</if>>
+<</if>>
+
+:: Wraith Snatched Gwylan Fight Finish Nobody
+<<canvas-model-freeze "precipitation">>
+<span class="red">A whale sings a mournful song for its lost pod. A fox cries out for its kits. An albatross crashes to the sand with broken wings. A serpent sheds its skin, before devouring its own eggs.</span>
+The sky screams in anguish, before everything goes completely silent. <<if Weather.precipitation isnot "none">>The <<print Weather.precipitation>> freezes in the air.<</if>>
+<br><br>
+
+Nobody is here.
+<br><br>
+
+Nobody stands up.
+<br><br>
+
+Nobody's sharp, blackened fingers pierce through your chest. You feel nothing.
+<br><br>
+
+Nobody screams, antlers ablaze in red moonlight. All is silent.
+<br><br>
+
+Nobody rips the intruder from your body.
+<br><br>
+
+Nobody, and the Wraith, fade away in a torrent of water and rose petals.
+<br><br>
+
+<<link [[...|Wraith Snatched Gwylan Fight Finish Nobody 2]]>><</link>>
+
+:: Wraith Snatched Gwylan Fight Finish Nobody 2
+
+No one is here. You're alone. <<if Weather.precipitation isnot "none">>The <<print Weather.precipitation>> crashes to the ground.<</if>>
+<<silently>><<clotheson>><</silently>>
+<<set $wraith.state to "">>
+<<gwylanNobody 21>><<world_corruption "soft" 15>><<set $gwylanSeen.pushUnique("nobody")>>
+/* ToDo: Gwylan - have Gwylan mention this somehow after they return in 3 weeks */
+<br><br>
+
+Your head hurts. <<awareness -20>><<llawareness>>
+<br><br>
+
+<<exitWraith>>
+<<clearWraith>>
+<<set $wraithSkip to true>>
+
+
+:: Widgets Wraith Snatched [widget]
+<<widget "getTarget">>
+	<<if $possessed>>
+		<<set $eventskip to 1>>
+		<<if _args[0]>>
+			<<switch $passage>>
+				<<case "Bedroom">>
+					<<pass 1>>
+					<<set $wraith.exit to "home">>
+					<<if !$nextPassageCheck>>
+						<<set $phaseWraith to 0>>
+						<<set $nextPassageCheck to "Mirror">>
+						<<set $nextPassage to "Wraith Snatched Home Mirror">>
+						<<if pcAreArmsBound("any") or $feetuse is "bound">>
+							<<set $unbind to 1>>
+						<</if>>
+					<<else>>
+						<<if $phaseWraith lt 1 and $container and $container.home and $container.home.count gte 1 and !$wraithPaleVisit>>
+							<<for _i to 0; _i lt Object.keys($container.home.creatures).length; _i++>>
+								<<if $container.home.creatures[_i] isnot null and $container.home.creatures[_i].creature.includes("Pale")>>
+									<<set $wraithPaleVisit to "home">>
+								<</if>>
+							<</for>>
+							<<set $phaseWraith to 1>>
+						<</if>>
+						<<if $phaseWraith lt 2 and $wraithPaleVisit and $wraithPaleVisit is "home">>
+							<<set $nextPassageCheck to "Containers">>
+							<<set $nextPassage to "Wraith Snatched Offspring">>
+							<<set $phaseWraith to 2>>
+						<<elseif $phaseWraith lt 3 and ($robinbed is "yours" or $robinbed is "theirs" or $kylarbed is 1)>>
+							<<set $nextPassageCheck to "Bed">>
+							<<set $nextPassage to "Wraith Snatched Guest">>
+							<<set $phaseWraith to 3>>
+						<<else>>
+							<<set $nextPassageCheck to "Bedroom">>
+							<<set $nextPassage to "Wraith Snatched Home Window">>
+							<<set $phaseWraith to 4>>
+						<</if>>
+					<</if>>
+				<<case "Eden Cabin">>
+					<<pass 1>>
+					<<set $wraith.exit to "cabin">>
+					<<if !$nextPassageCheck>>
+						<<set $nextPassageCheck to "Cabin Actions">>
+						<<set $nextPassage to "Cabin Actions">>
+						<<set $phaseWraith to 0>>
+					<<else>>
+						<<set $phaseWraith to 4>>
+						<<set $nextPassageCheck to "Eden Clearing">>
+						<<set $nextPassage to "Wraith Snatched Cabin Leave">>
+					<</if>>
+				<<case "Cabin Actions">>
+					<<pass 1>>
+					<<if $phaseWraith is 0>>
+						<<set $phaseWraith to 1>>
+						<<set $nextPassageCheck to "Eden Mirror">>
+						<<set $nextPassage to "Wraith Snatched Cabin Mirror">>
+					<<elseif $phaseWraith lt 2>>
+						<<set $nextPassageCheck to "Eden Cabin Bed">>
+						<<set $nextPassage to "Wraith Snatched Guest">>
+						<<set $phaseWraith to 2>>
+					<<elseif $phaseWraith lt 3>>
+						<<set $nextPassageCheck to "Eden Cabin">>
+						<<set $nextPassage to "Eden Cabin">>
+						<<set $phaseWraith to 3>>
+						<<endevent>>
+						<<set $phase2 to 1>>
+					<</if>>
+				<<case "Wolf Cave">>
+					<<pass 1>>
+					<<if !$nextPassageCheck>>
+						<<set $nextPassageCheck to "Wolf Cave Clearing">>
+						<<set $nextPassage to "Wolf Cave Clearing">>
+						<<set $phaseWraith to 0>>
+					<</if>>
+				<<case "Wolf Cave Clearing">>
+					<<pass 5>>
+					<<if $phaseWraith is 0>>
+						<<set $nextPassageCheck to "Wolf Cave Wash">>
+						<<set $nextPassage to "Wraith Snatched Cave Reflection">>
+						<<set $phaseWraith to 1>>
+					<<else>>
+						<<set $nextPassageCheck to "Forest">>
+						<<set $nextPassage to "Wraith Snatched Cave Leave">>
+					<</if>>
+				<<case "Bird Tower">>
+					<<set $nextPassageCheck to "Bird Tower Mirror">>
+					<<set $nextPassage to "Wraith Snatched Far Mirror">>
+				<<case "Farm Alex Bedroom">>
+					<<set $nextPassageCheck to "Farm Bedroom">>
+					<<set $nextPassage to "Farm Bedroom">>
+				<<case "Farm Bedroom">>
+					<<set $nextPassageCheck to "Farm Mirror">>
+					<<set $nextPassage to "Wraith Snatched Far Mirror">>
+				<<case "Pirate Bilge">>
+					<<if $phaseWraith is 0>>
+						<<set $nextPassageCheck to "Wraith Snatched Pirate Mirror">>
+						<<set $nextPassage to "Wraith Snatched Pirate Mirror">>
+						<<set $phaseWraith to 1>>
+					<<else>>
+						<<set $nextPassageCheck to "Pirate Cabin">>
+						<<set $nextPassage to "Pirate Cabin">>
+					<</if>>
+				<<case "Pirate Cabin">>
+					<<set $nextPassageCheck to "Pirate Deck">>
+					<<set $nextPassage to "Pirate Deck">>
+				<<case "Pirate Deck">>
+					<<set $nextPassageCheck to "Wraith Snatched Pirate Railing">>
+					<<set $nextPassage to "Wraith Snatched Pirate Railing">>
+				<<case "Mansion Bedroom">>
+					<<pass 1>>
+					<<set $wraith.exit to "mansion">>
+					<<if !$nextPassageCheck>>
+						<<set $phaseWraith to 0>>
+						<<set $nextPassageCheck to "Mansion Mirror">>
+						<<set $nextPassage to "Wraith Snatched Mansion Mirror">>
+						<<if pcAreArmsBound("any") or $feetuse is "bound">>
+							<<set $unbind to 1>>
+						<</if>>
+					<<else>>
+						<<if $phaseWraith is 0 and $avery_mansion.schedule is "sleep">>
+							<<set $nextPassageCheck to "Mansion Talk">>
+							<<set $nextPassage to "Wraith Snatched Guest">>
+							<<set $phaseWraith to 1>>
+						<<else>>
+							<<set $nextPassageCheck to "Mansion Garden">>
+							<<set $nextPassage to "Mansion Garden">>
+							<<set $phaseWraith to 2>>
+						<</if>>
+					<</if>>
+				<<case "Mansion Garden">>
+					<<set $nextPassageCheck to "Danube Street">>
+					<<set $nextPassage to "Wraith Snatched Mansion Leave">>
+				<<case "Domus Street" "Barb Street" "Danube Street" "Residential Drain">>
+					<<pass 5>>
+					<<set $nextPassageCheck to "Residential Alleyways">>
+					<<set $nextPassage to "Residential Alleyways">>
+				<<case "Residential Alleyways">>
+					<<pass 5>>
+					<<set $nextPassageCheck to "Connudatus Street">>
+					<<set $nextPassage to "Connudatus Street">>
+				<<case "Connudatus Street" "Cliff Street" "Wolf Street" "Commercial Drain">>
+					<<pass 5>>
+					<<set $nextPassageCheck to "Commercial Alleyways">>
+					<<set $nextPassage to "Commercial Alleyways">>
+				<<case "Commercial Alleyways">>
+					<<pass 5>>
+					<<set $nextPassageCheck to "High Street">>
+					<<set $nextPassage to "High Street">>
+				<<case "Drain Exit">>
+					<<pass 5>>
+					<<set $nextPassageCheck to "Industrial Drain">>
+					<<set $nextPassage to "Industrial Drain">>
+				<<case "Sewers Residential" "Sewers Commercial" "Sewers Industrial">>
+					<<set $nextPassageCheck to "Sewers Possessed">>
+					<<set $nextPassage to "Sewers Possessed">>
+				<<case "Sewers Scrap" "Sewers Wood">>
+					<<set $nextPassageCheck to "Sewers Residential">>
+					<<set $nextPassage to "Sewers Residential">>
+				<<case "Sewers Mud" "Sewers Ruins">>
+					<<set $nextPassageCheck to "Sewers Commercial">>
+					<<set $nextPassage to "Sewers Commercial">>
+				<<case "Sewers Waterfall" "Sewers Algae" "Sewers Rubble">>
+					<<set $nextPassageCheck to "Sewers Industrial">>
+					<<set $nextPassage to "Sewers Industrial">>
+				<<case "Sewers Lake">>
+					<<set $nextPassageCheck to "Sewers Waterfall">>
+					<<set $nextPassage to "Sewers Waterfall">>
+				<<case "Sewers Webs">>
+					<<set $nextPassageCheck to "Sewers Wood">>
+					<<set $nextPassage to "Sewers Wood">>
+				<<case "Sewers Shrooms">>
+					<<set $nextPassageCheck to "Sewers Mud">>
+					<<set $nextPassage to "Sewers Mud">>
+				<<case "Sewers Hole">>
+					<<set $nextPassageCheck to "Sewers Ruins">>
+					<<set $nextPassage to "Sewers Ruins">>
+				<<case "Sewers Workshop">>
+					<<set $nextPassageCheck to "Sewers Scrap">>
+					<<set $nextPassage to "Sewers Scrap">>
+				<<case "Harvest Street" "Mer Street" "Industrial Drain">>
+					<<pass 5>>
+					<<set $nextPassageCheck to "Industrial Alleyways">>
+					<<set $nextPassage to "Industrial Alleyways">>
+				<<case "Industrial Alleyways">>
+					<<pass 5>>
+					<<set $nextPassageCheck to "Oxford Street">>
+					<<set $nextPassage to "Oxford Street">>
+				<<case "Oxford Street" "Starfish Street" "High Street">>
+					<<pass 5>>
+					<<set $nextPassageCheck to "Park">>
+					<<set $nextPassage to "Park">>
+				<<case "Park" "Elk Street">>
+					<<pass 5>>
+					<<set $nextPassageCheck to "Nightingale Street">>
+					<<set $nextPassage to "Nightingale Street">>
+				<<case "Nightingale Street">>
+					<<pass 5>>
+					<<set $nextPassageCheck to "Forest">>
+					<<set $nextPassage to "Forest">>
+					<<set $forest to 0>>
+					<<set $wraith.exit to "forest">>
+				<<case "Forest">>
+					<<pass 8>>
+					<<set $_gwylanRescueChance to 0>>
+					<<if $gwylan?.timer.bloodVisit>>
+						<<set $_gwylanRescueChance += 30>>
+					<<elseif $gwylan?.timer.bloodKnock>>
+						<<set $_gwylanRescueChance += 15>>
+					<</if>>
+					<<if $forest lte 20>>
+						<<set $_gwylanRescueChance += 10>>
+						<<set $nextPassageCheck to "Forest Blood Deeper">>
+						<<if gwylanCanRescueFromWraith() and $_gwylanRescueChance gte random(1, 100)>>
+							<<if $gwylanRescue?.seen.includes("Wraith")>>
+								<<set $nextPassage to "Forest Blood Gwylan Rescue Repeat">>
+							<<else>>
+								<<set $nextPassage to "Forest Blood Gwylan Rescue">>
+							<</if>>
+						<<else>>
+							<<set $nextPassage to "Forest">>
+						<</if>>
+						<<if $phaseWraith isnot 5>>
+							<<set $phaseWraith to 5>>
+						<<else>>
+							<<set $forestmod to 1.5>><<set $forest += 5>>
+							<<if $forest is 25>>
+								<<set _nextPassageCheckTemp to "Lake Shore">>
+								<<set _nextPassageTemp to "Lake Shore">>
+								<<set $wraith.exit to "lake">>
+							<</if>>
+						<</if>>
+					<<elseif $forest gt 40 and $forest lte 50>>
+						<<set $nextPassageCheck to "Lake Fishing Rock">>
+						<<set $nextPassage to "Lake Fishing Rock">>
+						<<set $wraith.exit to "lake">>
+					<<elseif $forest gt 30>>
+						<<set $nextPassageCheck to "Forest Blood Less Deep">>
+						<<set $nextPassage to "Forest">>
+						<<if $phaseWraith isnot 5>>
+							<<set $phaseWraith to 5>>
+						<<else>>
+							<<set $forestmod to 1.5>><<set $forest -= 5>>
+							<<if $forest is 50>>
+								<<set _nextPassageCheckTemp to "Lake Fishing Rock">>
+								<<set _nextPassageTemp to "Lake Fishing Rock">>
+							<</if>>
+						<</if>>
+					<<else>>
+						<<set $nextPassageCheck to "Lake Shore">>
+						<<set $nextPassage to "Lake Shore">>
+						<<set $wraith.exit to "lake">>
+					<</if>>
+				<<case "Lake Campsite">>
+					<<pass 5>>
+					<<set $nextPassageCheck to "Lake Fishing Rock">>
+					<<set $nextPassage to "Lake Fishing Rock">>
+					<<set $wraith.exit to "lake">>
+				<<case "Lake Fishing Rock">>
+					<<pass 5>>
+					<<set $nextPassageCheck to "Lake Waterfall">>
+					<<set $nextPassage to "Lake Waterfall">>
+					<<set $wraith.exit to "lake">>
+				<<case "Lake Firepit">>
+					<<pass 5>>
+					<<set $nextPassageCheck to "Lake Shore">>
+					<<set $nextPassage to "Lake Shore">>
+					<<set $wraith.exit to "lake">>
+				<<case "Lake Waterfall">>
+					<<pass 5>>
+					<<if $phaseWraith lt 1 and $container and $container.lake and $container.lake.count gte 1 and !$wraithPaleVisit>>
+						<<for _i to 0; _i lt Object.keys($container.lake.creatures).length; _i++>>
+							<<if $container.lake.creatures[_i] isnot null and $container.lake.creatures[_i].creature.includes("Pale")>>
+								<<set $wraithPaleVisit to "lake">>
+							<</if>>
+						<</for>>
+						<<set $phaseWraith to 1>>
+					<</if>>
+					<<if $wraithPaleVisit and $wraithPaleVisit is "lake" and $phaseWraith lt 3>>
+						<<set $nextPassageCheck to "Containers">>
+						<<set $nextPassage to "Wraith Snatched Offspring">>
+						<<set $phaseWraith to 3>>
+					<<else>>
+						<<set $nextPassageCheck to "Lake Shore">>
+						<<set $nextPassage to "Lake Shore">>
+						<<set $wraith.exit to "lake">>
+					<</if>>
+				<<case "Lake Shore">>
+					<<pass 5>>
+					<<if $phaseWraith lt 1 and $container and $container.lake and $container.lake.count gte 1 and !$wraithPaleVisit>>
+						<<for _i to 0; _i lt $container.lake.count; _i++>>
+							<<if $container.lake.creatures[_i].creature.includes("Pale")>>
+								<<set $wraithPaleVisit to "lake">>
+							<</if>>
+						<</for>>
+						<<set $phaseWraith to 1>>
+					<</if>>
+					<<if $phaseWraith lt 2 and $wraithPaleVisit and $wraithPaleVisit is "lake">>
+						<<set $nextPassageCheck to "Lake Waterfall">>
+						<<set $nextPassage to "Lake Waterfall">>
+						<<set $phaseWraith to 2>>
+					<<else>>
+						<<if Weather.isFrozen("lake")>>
+							<<set $nextPassageCheck to "Lake Shallows Ice">>
+							<<set $nextPassage to "Lake Shallows Ice">>
+						<<else>>
+							<<set $nextPassageCheck to "Lake Shallows">>
+							<<set $nextPassage to "Lake Shallows">>
+						<</if>>
+					<</if>>
+				<<case "Lake Shallows">>
+					<<pass 5>>
+					<<set $nextPassageCheck to "Lake Depths">>
+					<<set $nextPassage to "Lake Depths">>
+				<<case "Lake Shallows Ice">>
+					<<pass 5>>
+					<<set $nextPassageCheck to "Lake Depths Ice">>
+					<<set $nextPassage to "Lake Depths Ice">>
+				<<case "Lake Depths">>
+					<<pass 5>>
+					<<set $nextPassageCheck to "Lake Underwater">>
+					<<set $nextPassage to "Lake Underwater">>
+				<<case "Lake Depths Ice">>
+					<<pass 5>>
+					<<set $nextPassageCheck to "Lake Depths Ice Break">>
+					<<set $nextPassage to "Lake Depths Ice Break">>
+				<<case "Lake Underwater" "Lake Ruin Deep">>
+					<<pass 5>>
+					<<set $nextPassageCheck to "Lake Ruin">>
+					<<set $nextPassage to "Lake Ruin">>
+				<<case "Lake Ruin">>
+					<<pass 2>>
+					<<set $nextPassageCheck to "Lake Ruin Prison Intro">>
+					<<set $nextPassage to "Lake Ruin Prison Intro">>
+			<</switch>>
+		<</if>>
+		<<if !$wraith.will>>
+			<<if $wraith.state is "haunt">>
+				<<set $wraith.will to random(1300, 1700)>>
+			<<else>>
+				<<set $wraith.will to random(1100, 1500)>>
+			<</if>>
+		<</if>>
+		<<set _wraithWill to Math.floor(1 + $wraith.will)>>
+		<<if $wraith.possessCount is undefined>>
+			<<if $location is "forest" or $location is "lake">>
+				<<set _wraithWill /= 3>>
+			<<else>>
+				<<set _wraithWill /= 2>>
+			<</if>>
+		<</if>>
+		<<if $wraithWillMessage and !$combat>>
+			<<if $phase2 is 1>>
+				<<set $phase2 to 0>>
+				<<controlcaption>>
+				<br>
+			<<elseif ($passage isnot "Forest" or $passagePrev isnot "Forest") and $passage is $nextPassageIntended or $nextPassageCheck is $nextPassageIntended>>
+				<<controlcaption>>
+				<<set $willpowerSuccess to 0>>
+				<br>
+				<span class="pink">You let it take you.</span>
+				<<pain -2>><<stress -12>><<sub 2>><<lpain>><<llstress>><<set $wraith.will += 30>>
+				<<if numberOfEarSlime() and $worn.genitals.name is "chastity parasite" and $earSlime.vibration lt 60 and !$earSlime.defyCooldown>><<set $earSlime.vibration to 60>><<garousal>><</if>>
+				<br><br>
+			<<else>>
+				<<if numberOfEarSlime() and $earSlime.growth gte 100>><<set $earSlime.vibration to 0>><<set $earSlime.defyCooldown++>><</if>>
+				<<set $willpowerSuccess to 0>>
+				<<willpowerdifficulty 1 _wraithWill true>>
+				<<if $willpowerSuccess>>
+					<<control `Math.floor(currentSkillValue('willpower') / 40)`>>
+					<<controlcaption>>
+					<br>
+					<<if _notMoving>>
+						<span class="green">You fight for control.</span>
+					<<else>>
+						<span class="green">You fight for control. It becomes slower.</span>
+						<<pass 4>>
+					<</if>>
+					<<pain 4>><<stress 12>><<trauma 12>><<def 2>><<gpain>><<ggtrauma>><<ggstress>><<gcontrol>><<set $wraith.will -= Math.floor(currentSkillValue('willpower') / 8)>>
+					<br><br>
+				<<else>>
+					<<controlcaption>>
+					<br>
+					<span class="red">Your body does not obey.</span>
+					<<stress 6>><<trauma 6>><<willpower 1>><<def 1>><<gtrauma>><<gstress>><<gwillpower>><<set $wraith.will -= Math.floor(currentSkillValue('willpower') / 10)>>
+					<br><br>
+				<</if>>
+			<</if>>
+		<</if>>
+		<<if _nextPassageCheckTemp>>
+			<<set $nextPassage to _nextPassageTemp>>
+			<<set $nextPassageCheck to _nextPassageCheckTemp>>
+		<</if>>
+		<<if $phase2 is 2>>
+			<<set $phase2 to 0>><<set $pain to 0>>
+		<</if>>
+		<<if _args[0]>>
+			<<if $passage is "Forest" and $gwylanDoesALittleTrolling>>
+				<<unset $gwylanDoesALittleTrolling>>
+				<<set $nextPassage to "Forest Wraith Gwylan 5">>
+			<<elseif $bus isnot "lake_ruin_prison" and (Time.hour gte 6 and $moonstate is "morning" and $wraith.exit isnot "home" or $control gte $controlmax)>>
+				<<if $location is "lake_ruin">>
+					<<set $nextPassage to "Wraith Resisted Lake">>
+				<<else>>
+					<<set $nextPassage to "Wraith Resisted">>
+				<</if>>
+			<</if>>
+		<</if>>
+	<</if>>
+<</widget>>

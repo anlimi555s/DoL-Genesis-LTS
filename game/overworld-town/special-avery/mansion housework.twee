@@ -1,0 +1,1301 @@
+:: Mansion Housework Assess
+<<effects>><<avery_mansion>>
+
+<<avery_housework_check>>
+
+<<avery_mansion_description all>>
+
+<<if _avery_mansion_time is 0 and $avery_mansion.bedroom gte 1 and $avery_mansion.schedule is "sleep" and $avery_mansion.bedroom_state>>
+	<<set _avery_mansion_time to _avery_mansion_time + $avery_mansion.bedroom * _avery_housekeeping>>
+	It will take _avery_mansion_time minutes in total to clean the bedroom. Housekeeping skill will speed up indoor work.
+	<br><br>
+
+	<<socialiseicon "angry">><<link [[Ignore Avery's warning and clean the bedroom|Mansion Housework]]>><<set $avery_mansion.bedroom_state to "ignored">><</link>>
+<<elseif $avery_mansion.bedroom gte 1 and $avery_mansion.schedule is "sleep" and $avery_mansion.bedroom_state>>
+	<<set _avery_mansion_time_bedroom to _avery_mansion_time + $avery_mansion.bedroom * _avery_housekeeping>>
+	It will take _avery_mansion_time_bedroom minutes to clean everything, or _avery_mansion_time minutes if you leave the bedroom untouched. Housekeeping skill will speed up indoor work. Tending skill will speed up garden work.
+	<br><br>
+
+	<<socialiseicon "angry">><<link [[Ignore Avery's warning and clean everything|Mansion Housework]]>><<set $avery_mansion.bedroom_state to "ignored">><</link>>
+	<br>
+	<<icon "clothes/feather-duster.png">><<link [[Clean everything but the bedroom|Mansion Housework]]>><<set $avery_mansion.bedroom_state to "off-limits">><</link>>
+<<else>>
+	<<set _avery_mansion_time_bedroom to _avery_mansion_time + $avery_mansion.bedroom * _avery_housekeeping>>
+	It will take _avery_mansion_time_bedroom minutes in total to clean everything. Housekeeping skill will speed up indoor work. Tending skill will speed up garden work.
+	<br><br>
+
+	<<icon "clothes/feather-duster.png">><<link [[Clean|Mansion Housework]]>><</link>>
+<</if>>
+<br>
+<<getouticon>><<link [[Don't clean|$avery_passage]]>><</link>>
+<br>
+
+:: Mansion Housework
+<<effects>>
+
+<<set _housekeeping_time to Math.floor(10 - $housekeeping / 200)>>
+<<set _tending_time to Math.floor(10 - $tending / 200)>>
+<<avery_housework_check>>
+<<avery_mansion>>
+
+<<set _rooms to [
+	"lounge",
+	"kitchen",
+	"dining",
+	"display",
+	"bedroom",
+	"bathroom",
+	"garden",
+	"pool"
+]>>
+
+<<for _roomindex to 0; _roomindex lt _rooms.length; _roomindex++>>
+	<<if !_event_triggered and $avery_mansion[_rooms[_roomindex]] gte 1>>
+		<<avery_mansion_clean _rooms[_roomindex]>>
+	<</if>>
+<</for>>
+
+<<if _event_triggered isnot true>>
+	<br>
+	<<avery_mansion_end_links "housework">>
+<</if>>
+
+:: Mansion Housework Tease
+<<effects>>
+
+You stick your <<bottom>> out while you work, and wiggle it in a steady rhythm.<<exhibitionism1>>
+
+Avery rises, and grasps you by the hips. "Nice work," <<he>> says, pulling you against <<him>>. "Now how about you help me unwind?"
+<br><br>
+
+<<if hasSexStat("promiscuity", 2)>>
+	<<link [[Help Avery unwind|Mansion Housework Unwind]]>><</link>>
+	<br>
+<<else>>
+	<span class="blue">You're not lewd enough for such antics.</span>
+	<br>
+<</if>>
+<<link [[Apologise|Mansion Housework Apologise]]>><<npcincr Avery dom 1>><</link>><<gdom>>
+<br>
+<<link [[Push Avery away|Mansion Housework Push]]>><<npcincr Avery love -1>><<npcincr Avery rage 1>><<def 1>><</link>><<llove>><<garage>>
+<br>
+
+:: Mansion Housework Rude
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I could use a hand," you say. "Or are you going to just watch?"
+<<elseif $speech_attitude is "bratty">>
+	"Work must be a new concept to you," you say."
+<<else>>
+	"What's the matter?" you ask. "Don't you know what work looks like?"
+<</if>>
+<br><br>
+
+Avery sits upright. "I work harder than anyone I've ever met," <<he>> sneers.
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+	"But perhaps I should do more than just watch." <<He>> rises, and walks towards you with a menacing stance.
+	<br><br>
+
+	<<link [[Next|Mansion Housework Lounge Rape]]>><<set $molestationstart to 1>><</link>>
+	<br>
+<<else>>
+	<<He>> flexes the muscles in <<his>> hands, then leans on <<his>> elbow again. "I'm just trying to relax."
+	<br><br>
+
+	Avery's gaze follows you until you leave the room, but you do your best to ignore <<him>>.
+	<br><br>
+
+	<<endevent>>
+
+	<<avery_mansion_end_links "housework">>
+<</if>>
+
+
+
+:: Mansion Housework Ignore
+<<effects>>
+
+Avery's gaze follows you until you leave the room, but you do your best to ignore <<him>>.
+<br><br>
+
+<<endevent>>
+
+<<avery_mansion_end_links "housework">>
+
+
+:: Mansion Housework Apologise
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Please forgive me," you say. "But I've much work to do."
+<<elseif $speech_attitude is "bratty">>
+	"If only I could clean the house and satisfy you at the same time," you say. "Alas. One must wait for the other."
+<<else>>
+	"Not now," you say. "I'm sorry, but I really need to clean the house!"
+<</if>>
+<br><br>
+
+Avery pulls away from you, gives you a lewd look, and smiles. "I won't interfere with your work." <<He>> sits back down, but continues to stare at you.
+<br><br>
+<<endevent>>
+<<avery_mansion_end_links "housework">>
+
+:: Mansion Housework Push
+<<effects>>
+
+You kick against the wall in front of you, pushing your weight into Avery and forcing <<him>> away from you.
+<<if C.npc.Avery.rage gte 20 and $averyragerevealed is 1>>
+	<<He>> recovers fast, grasps your shoulders, and spins you to face <<his>> glare. "Don't try my patience," <<he>> says, pulling you against <<him>>. "Don't start what you won't finish."
+	<br><br>
+	<<link [[Next|Mansion Housework Lounge Rape]]>><<set $molestationstart to 1>><</link>>
+	<br>
+<<else>>
+	You catch a hint of a glare when you turn, but <<he>> returns to the sofa and continues watching you as if nothing were amiss.
+	<br><br>
+	<<endevent>>
+	<<avery_mansion_end_links "housework">>
+<</if>>
+
+:: Mansion Housework Unwind
+<<effects>>
+
+You push your <<bottom>> into Avery's crotch, making your interest clear. <<He>> hooks your waist with <<his>> arm, turns, and throws you onto the sofa.
+<br><br>
+
+<<link [[Next|Mansion Housework Lounge Sex]]>><<set $sexstart to 1>><</link>>
+<br>
+
+
+
+:: Mansion Housework Lounge Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 100>><<promiscuity2>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if _combatend>>
+	<span id="next"><<link [[Next|Mansion Housework Lounge Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Housework Lounge Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Housework Lounge Sex Finish
+
+<<set $outside to 0>><<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Avery reclines on the sofa, satisfied. "We made a bit of a mess," <<he>> says, looking at the cushions scattered through the room. "I'm sure you'll see to it."<<avery_housework_change "lounge" 1>><<larage>><<npcincr Avery rage -1>>
+	<br><br>
+	<<tearful>> you brush yourself down.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+<<elseif $enemyhealth lte 0>>
+	Avery steps back, and trips over the table in the centre of the room. It catches <<his>> fall, but not <<his>> pride if <<his>> face is anything to go by.<<garage>><<npcincr Avery rage 1>>
+	<br><br>
+	<<tearful>> you brush yourself down. Avery climbs to <<his>> feet, <<his>> eyes still on you. "You better start behaving better," <<he>> says as <<he>> sits back down. "For your sake. Now clean this mess up."<<avery_housework_change "lounge" 2>>
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+<<else>>
+	Avery pushes you away, and reclines on the sofa. "You're such a tease," <<he>> says. "Good thing I'm such a patient person."
+	<br><br>
+	<<tearful>> you brush yourself down.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+<</if>>
+
+<<avery_mansion_end_links "housework">>
+
+:: Mansion Housework Lounge Rape
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Mansion Housework Lounge Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Housework Lounge Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Housework Lounge Rape Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Avery reclines on the sofa, wipes <<his>> face with a handkerchief, and drops it atop you. "We made a bit of a mess," <<he>> says, looking at the cushions scattered through the room. "I'm sure you'll see to it."<<avery_housework_change "lounge" 1>><<gdom>><<npcincr Avery dom 1>><<larage>><<npcincr Avery rage -1>>
+	<br><br>
+	<<tearful>> you brush yourself down.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+<<elseif $enemyhealth lte 0>>
+	Avery steps back, and trips over the table in the centre of the room. It catches <<his>> fall, but not <<his>> pride if <<his>> face is anything to go by.<<ldom>><<npcincr Avery dom -1>>
+	<br><br>
+	<<tearful>> you brush yourself down. Avery climbs to <<his>> feet, <<his>> eyes still on you. "You better start behaving better," <<he>> says as <<he>> sits back down. "For your sake. Now clean this mess up."<<avery_housework_change "lounge" 2>>
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+<</if>>
+
+<<avery_mansion_end_links "housework">>
+
+
+:: Mansion Housework Drink
+<<effects>>
+
+You sit beside Avery, and sip the beverage. It's strong. Not diluted at all. Avery wraps an arm around your waist, and tops up <<his>> own drink.
+<br><br>
+
+"Have some more," <<he>> says, gesturing at your glass. "Don't be shy."
+<br><br>
+
+<<if playerIsPregnant() and playerAwareTheyArePregnant()>>
+	<span class="blue">You can't bring yourself to drink while you know you're with child.</span>
+<<else>>
+	<<link [[Drink|Mansion Housework Drink 2]]>><<alcohol 120>><</link>><<ggalcohol>>
+<</if>>
+<br>
+<<link [[Refuse|Mansion Housework Drink Refuse 2]]>><</link>>
+<br>
+
+
+:: Mansion Housework Drink Refuse
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I'm sorry," you say. "I shouldn't drink while looking after the house."
+<<elseif $speech_attitude is "bratty">>
+	"I'm cleaning," you say. "Do you want me to break something?"
+<<else>>
+	"I should stay sober while cleaning," you say.
+<</if>>
+<br><br>
+
+Avery shrugs, and lifts the glass meant for you. "To a clean house!" <<he>> downs it in one.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links "housework">>
+
+
+:: Mansion Housework Drink 2
+<<effects>>
+
+You finish the drink, and soon feel dizzy. Avery pats your <<bottom>> as you return to work.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links "housework">>
+
+:: Mansion Housework Drink Refuse 2
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Thank you," you say. "But that's enough for me."
+<<elseif $speech_attitude is "bratty">>
+	"No thanks," you say. "Any more and I'll mess up the house more than clean it."
+<<else>>
+	"No thank you," you say. "I should get back to work."
+<</if>>
+<br><br>
+
+Avery shrugs, and downs the rest of your glass <<himself>>. "To a clean house!"
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links "housework">>
+
+:: Mansion Housework Cream
+<<effects>>
+
+You retrieve the cream from the kitchen, and deliver it to Avery.
+<br><br>
+"Wait," <<he>> says as you turn away. <<He>> scoops some cream with <<his>> finger, and holds it out to you. "Lick it."
+<br><br>
+
+<<link [[Lick the cream off Avery's finger|Mansion Housework Cream Lick]]>><<npcincr Avery love 1>><</link>><<glove>>
+<br>
+<<link [[Refuse|Mansion Housework Cream Lick Refuse]]>><<npcincr Avery love -1>><</link>><<llove>>
+<br>
+
+:: Mansion Housework Cream Refuse
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Forgive me," you say. "I must focus on cleaning."
+<<elseif $speech_attitude is "bratty">>
+	"Get your own cream," you say. "I'm busy."
+<<else>>
+	"I'm too busy cleaning to fetch you cream," you say.
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte 20 and $averyragerevealed is 1>>
+	Avery places <<his>> spoon on <<his>> plate, angling it just so, then rises. <<He>> steps closer. "I won't ask again," <<he>> says. "Cream. Now."<<gstress>><<stress 6>>
+	<br><br>
+
+	<<link [[Fetch cream|Mansion Housework Cream]]>><</link>>
+	<br>
+	<<link [[Refuse|Mansion Housework Cream Refuse 2]]>><</link>>
+	<br>
+<<else>>
+	Avery lets <<his>> spoon clutter onto the plate. "Breakfast is done then."
+	<br><br>
+
+	<<endevent>>
+	<<avery_mansion_end_links "housework">>
+<</if>>
+
+:: Mansion Housework Cream Refuse 2
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Please," you say. "I must insist. I need to tidy things."
+<<elseif $speech_attitude is "bratty">>
+	"Don't make me repeat myself," you say. "Get your own damn cream."
+<<else>>
+	"I said I'm busy," you say. "You'll have to wait for your cream."
+<</if>>
+<br><br>
+
+Avery grasps your arm, and bends you over the table.
+<br><br>
+
+<<link [[Next|Mansion Housework Cream Rape]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Mansion Housework Cream Lick
+<<effects>>
+
+You lick the cream off Avery's finger, curling your tongue as you do. <<He>> dips and holds it out once again, <<his>> face giving nothing away.
+<br><br>
+
+<<link [[Lick|Mansion Housework Cream Lick 2]]>><<npcincr Avery love 1>><</link>><<glove>>
+<br>
+<<link [[Suck|Mansion Housework Cream Suck]]>><<npcincr Avery love 1>><</link>><<promiscuous1>><<glove>>
+<br>
+<<link [[Make excuses|Mansion Housework Cream Excuse]]>><</link>>
+<br>
+
+
+:: Mansion Housework Cream Lick 2
+<<effects>>
+
+You stick out your tongue, and devour the cream with a succession of quick licks. Avery's smile is satisfied. "Good <<girl>>. You can get back to work now."
+<br><br>
+<<He>> eats <<his>> dessert in silence, and doesn't take <<his>> eyes off you.
+<br><br>
+<<endevent>>
+
+<<avery_mansion_end_links "housework">>
+
+:: Mansion Housework Cream Suck
+<<effects>>
+
+<<set $seductiondifficulty to 8000>>
+<<seductioncheck>>
+<<seductionskilluptext>>
+<<seductionskilluse>>
+
+You lead with the tongue, and take the length of Avery's finger into your mouth, half-closing your eyes as you do.
+<<promiscuity1>>
+
+<<if $seductionrating gte $seductionrequired>>
+
+	You fix your eyes on Avery's. <span class="green"><<He>> looks mesmerised.</span> You bite <<his>> finger, hard enough to leave a mark. <<He>> remains focused on you as you withdraw.<<gglove>><<npcincr Avery love 1>><<larage>><<npcincr Avery rage -1>>
+	<br><br>
+
+	<<link [[Tease|Mansion Housework Cream Tease]]>><</link>>
+	<br>
+	<<link [[Just return to work|Mansion Housework Cream Return]]>><</link>>
+	<br>
+
+<<else>>
+
+	You feel a thread of drool dribble down your chin, <span class="red">and you know you've spoiled the effect.</span> Avery chuckles. "That'll be all."
+	<br><br>
+
+	<<He>> watches you in silence while <<he>> eats <<his>> dessert.
+	<br><br>
+
+	<<endevent>>
+	<<avery_mansion_end_links "housework">>
+
+<</if>>
+
+:: Mansion Housework Cream Tease
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Are you going to finish that?" you ask. Avery frowns at the dessert in front of <<him>>, as if seeing it for the first time.
+<<elseif $speech_attitude is "bratty">>
+	"I'm good aren't I?" you say. Avery chuckles, and returns to <<his>> dessert.
+<<else>>
+	"Is something the matter?" you ask. Avery recovers <<his>> senses, and returns to <<his>> dessert.
+<</if>>
+<br><br>
+You return to work as if nothing were amiss. It takes Avery a few moments to recover.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links "housework">>
+
+:: Mansion Housework Cream Return
+<<effects>>
+
+You return to work as if nothing were amiss. It takes Avery a few moments to recover, and finish <<his>> dessert.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links "housework">>
+
+:: Mansion Housework Cream Excuse
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I've had enough of your cream," you say. "Let me get back to work."
+<<elseif $speech_attitude is "bratty">>
+	"Enough cream for me," you say. "I'm getting back to work."
+<<else>>
+	"Sorry," you say. "But I should get back to work."
+<</if>>
+<br><br>
+
+Avery licks off the cream <<himself>>. <<He>> says nothing while eating <<his>> dessert, but doesn't take <<his>> eyes off you.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links "housework">>
+
+
+:: Mansion Housework Cream Lick Refuse
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"No cream for me," you say. "I need to watch my figure."
+<<elseif $speech_attitude is "bratty">>
+	"I don't know where your finger has been," you say. "Use a spoon."
+<<else>>
+	"No thank you," you say. "That's your breakfast, not mine"
+<</if>>
+<br><br>
+
+Avery sucks the cream off <<his>> finger <<himself>>. "Shame. It's not bad."
+<br><br>
+
+You return to your work, and Avery returns to <<his>> surreptitious gazing.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links "housework">>
+
+
+:: Mansion Housework Cream Rape
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Mansion Housework Cream Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Housework Cream Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Housework Cream Rape Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Avery returns to <<his>> breakfast. <<He>> looks at the mess <<he>> made of the table. "Be a dear and clean this up."
+	<br><br>
+	<<tearful>> you push yourself to your feet.<<avery_housework_change "dining" 1>><<larage>><<npcincr Avery rage -1>>
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+
+<<elseif $enemyhealth lte 0>>
+	Away staggers away from you, crashing into a cabinet across the room. <<He>> steadies with both hands, glaring at you all the while, but says nothing as <<he>> returns to <<his>> breakfast.<<avery_housework_change "dining" 1>><<garage>><<ldom>><<npcincr Avery rage 1>><<npcincr Avery dom -1>>
+	<br><br>
+	<<tearful>> you brush yourself down.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+
+<</if>>
+
+<<avery_mansion_end_links "housework">>
+
+
+:: Mansion Housework Garden Teach
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Can I give you a hand?" you ask. "I know a little bit."
+<<elseif $speech_attitude is "bratty">>
+	"Pass me the shears," you say. "I'll show you how it's done."
+<<else>>
+	"Let me help," you say, holding your hand out for the shears.
+<</if>>
+<br><br>
+<<if C.npc.Avery.love gte 70>>
+	Avery pauses, <span class="green">then hands you the shears.</span> <<He>> observes as you trim the holly, chin cradled in <<his>> palm.
+	<br><br>
+	"You've skilled hands," <<he>> says when you finish. "But then, I knew that already."<<gglove>><<npcincr Avery love 3>>
+	<br><br>
+	<<He>> takes back the shears, and continues trimming. <<He>> puts your technique to work.
+	<br><br>
+	<<endevent>>
+	<<avery_mansion_end_links "housework">>
+<<else>>
+	<span class="red">Avery stiffens.</span> "No, this holly doesn't need your attention. Stick to the weeds."<<llove>><<garage>><<npcincr Avery love -1>><<npcincr Avery rage 1>>
+	<br><br>
+	<<He>> continues as if you're not there.
+	<br><br>
+	<<endevent>>
+	<<avery_mansion_end_links "housework">>
+<</if>>
+
+
+:: Mansion Housework Garden Compliment
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"You're such a good gardener," you say. "I hope I can be so good one day."
+<<elseif $speech_attitude is "bratty">>
+	"Not bad," you say. "No wonder the plants around here look so good."
+<<else>>
+	"You're very skilled," you say. "A joy to watch."
+<</if>>
+<br><br>
+
+"I can't take all the credit," Avery says, removing a single leaf with care. "I was taught by the best."
+<br><br>
+
+<<He>> continues trimming with a bit more energy.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links "housework">>
+<br><br>
+
+:: Mansion Housework Garden Ignore
+<<effects>>
+
+You focus on your work in the garden, and leave Avery to manage the holly.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links "housework">>
+
+
+:: Mansion Housework Pool Work
+<<effects>>
+
+You work around Avery as best you can. <<He>> occasionally dives beneath the surface and swims underwater, before emerging elsewhere. <<His>> activity sends
+<<if $avery_mansion.pool is 3>>
+	leaves
+<<else>>
+	bugs
+<</if>>
+your way, making it easier in a way.
+<br><br>
+
+It goes well enough that you stop paying attention to Avery. You realise <<hes>> been underwater a moment too long, and an anxious prickle dances up your spine. A moment later, Avery emerges beside you, grasps your ankle, and trips you into the pool.
+<br><br>
+
+Avery seizes you as you emerge.<<gdom>><<npcincr Avery dom 1>>
+<br><br>
+
+<<set _waterDoesNotAttractAttention to true>><<water>><<waterbr 2>><<wash>><<effects>>
+
+<<link [[Laugh|Mansion Housework Pool Laugh]]>><<npcincr Avery love 1>><</link>><<glove>>
+<br>
+<<link [[Get angry|Mansion Housework Pool Angry]]>><<npcincr Avery rage 1>><</link>><<garage>>
+<br>
+<<link [[Just climb out and get dry (0:01)|Mansion Pool Climb]]>><<pass 1>><</link>>
+<br>
+
+:: Mansion Housework Pool Tell
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Excuse me," you say. "The pool will be cleaner if you wait a little."
+<<elseif $speech_attitude is "bratty">>
+	"Oi," you say. "Wait until I'm done."
+<<else>>
+	"Could you wait until I'm done?" you ask.
+<</if>>
+<br><br>
+
+Avery vanishes beneath the water again before you finish speaking, and gives no indication of having heard you.
+<br><br>
+
+<<link [[Work around Avery without complaint|Mansion Housework Pool Work]]>><<stress 6>><</link>><<gstress>>
+<br>
+<<link [[Stop cleaning for now|Mansion Pool]]>><<avery_housework_change "pool" 1>><</link>>
+<br>
+
+:: Mansion Housework Pool Laugh
+<<effects>>
+
+You can't see properly, but you hear Avery laughing too. "Get these clothes off," <<he>> says. "They'll dry out fast."
+<br><br>
+
+<<if hasSexStat("exhibitionism", 4)>>
+	<<link [[Strip|Mansion Housework Pool Strip]]>><<undress "avery_mansion_pool">><</link>><<exhibitionist4>>
+	<br>
+	<<link [[Say you're too shy (lie)|Mansion Housework Pool Shy]]>><</link>>
+	<br>
+<<else>>
+	<<link [[Say you're too shy|Mansion Housework Pool Shy]]>><</link>>
+	<br>
+<</if>>
+<<link [[Refuse|Mansion Housework Pool Refuse]]>><</link>>
+
+
+:: Mansion Housework Pool Strip
+<<effects>>
+
+You assist Avery in tugging off your wet clothing, and leave it on the side.
+<<exhibitionism4>>
+
+<<He>> swims up behind you before you turn back, and presses <<his>> face against yours while <<his>> hands trail down your chest.
+
+<<if C.npc.Avery.penis isnot "none">>
+	You feel <<his>> erect penis rest on your <<bottom>>.
+<<elseif $NPCList[0].penis isnot "none">>
+	You feel <<his>> strapon rest on your <<bottom>>.
+<</if>>
+<br><br>
+
+<<if hasSexStat("promiscuity", 2)>>
+	<<link [[Go along with it|Mansion Housework Pool Sex]]>><<set $sexstart to 1>><</link>><<promiscuous2>>
+	<br>
+<<else>>
+	<span class="blue">You're not promiscuous enough for such a thing!</span>
+	<br>
+<</if>>
+<<link [[Insist on just swimming (0:30)|Mansion Pool Swim Avery]]>><<pass 30>><</link>><<gtiredness>><<gswimming>>
+<br>
+
+:: Mansion Housework Pool Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<npcexpose>>
+	<<set $enemytrust += 100>><<promiscuity2>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if _combatend>>
+	<span id="next"><<link [[Next|Mansion Housework Pool Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Housework Pool Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Housework Pool Sex Finish
+
+<<set $outside to 0>><<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Avery releases you, and kicks <<himself>> off the wall into a swim.<<larage>><<glove>><<npcincr Avery rage -1>><<npcincr Avery love 1>>
+	<br><br>
+	<<tearful>> you catch your breath.
+	<br><br>
+	<<endcombat>>
+<<elseif $enemyhealth lte 0>>
+	You shove Avery away from you. <<He>> takes the hint, splashes you, then returns to <<his>> swim.<<garage>><<llove>><<npcincr Avery rage 1>><<npcincr Avery love -1>>
+	<br><br>
+	<<tearful>> you catch your breath.
+	<br><br>
+	<<endcombat>>
+<<else>>
+	Avery satisfies <<himself>> by splashing you, then returns to <<his>> swim.
+	<br><br>
+	<<tearful>> you catch your breath.
+	<br><br>
+	<<endcombat>>
+<</if>>
+
+<<link [[Swim (0:30)|Mansion Pool Swim Avery]]>><<pass 30>><<tiredness 6>><<npc "Avery">><<person1>><</link>><<gtiredness>><<gswimming>>
+<br>
+<<link [[Climb out (0:01)|Mansion Pool Climb]]>><<pass 1>><</link>>
+<br>
+
+
+:: Mansion Housework Pool Shy
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I'm not as brave as you," you say. "Forgive me."
+<<elseif $speech_attitude is "bratty">>
+	"I'm not getting my kit off outside," you say. "Are you mad?"
+<<else>>
+	"But I'm outside," you protest. "I can't take my clothes off here."
+<</if>>
+<br><br>
+
+"The water conceals you," Avery says, glancing down. You don't feel concealed. "Maybe another time." <<He>> kicks <<himself>> off the wall, into a swim.
+<br><br>
+
+<<link [[Swim (0:30)|Mansion Pool Swim Avery]]>><<pass 30>><<tiredness 6>><</link>><<gtiredness>><<gswimming>>
+<br>
+<<link [[Climb out (0:01)|Mansion Pool Climb]]>><<pass 1>><</link>>
+<br>
+
+:: Mansion Housework Pool Refuse
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I should be cleaning," you say.
+<<elseif $speech_attitude is "bratty">>
+	"Some of us have work to do," you say.
+<<else>>
+	"I'll leave such excitement to you," you say.
+<</if>>
+<br><br>
+
+Avery shrugs. "Suit yourself." <<He>> kicks <<himself>> off the wall, into a swim.
+<br><br>
+
+<<link [[Swim (0:30)|Mansion Pool Swim Avery]]>><<pass 30>><<tiredness 6>><</link>><<gtiredness>><<gswimming>>
+<br>
+<<link [[Climb out (0:01)|Mansion Pool Climb]]>><<pass 1>><</link>>
+<br>
+
+:: Mansion Housework Pool Angry
+<<effects>>
+
+<<if $speech_disable is "meek">>
+	"I'm in the middle of cleaning," you say. "Just let me get back to work."
+<<elseif $speech_disable is "bratty">>
+	"I was in the middle of something," you say. "Best watch your step next time you're minding your own business around the pool."
+<<else>>
+	"How would you like me to knock you into the pool like that?" you ask.
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte 20 and $averyragerevealed is 1>>
+	Avery's face darkens. "It was just a bit of fun," <<he>> says. "I can't even have that in my own pool."<<gstress>><<stress 6>>
+	<br><br>
+
+	<<link [[Apologise|Mansion Housework Pool Apologise]]>><<trauma 6>><<stress 6>><<npcincr Avery dom 1>><</link>><<gtrauma>><<gstress>><<gdom>>
+	<br>
+	<<link [[Argue|Mansion Housework Pool Argue]]>><</link>>
+	<br>
+<<else>>
+	An angry look darkens Avery's face for just a moment. <<He>> kicks <<himself>> off the wall, into a swim, without a word.
+	<br><br>
+
+	<<link [[Next|Mansion Pool Climb]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Housework Pool Apologise
+<<effects>>
+
+<<if $speech_disable is "meek">>
+	"Please forgive me," you say. "I want you to have fun! I was just surprised."
+<<elseif $speech_disable is "bratty">>
+	"Yeah yeah," you say. "Look. I'm sorry. You just took me by surprise."
+<<else>>
+	"I'm sorry," you say. "You're allowed to have fun. You just surprised me."
+<</if>>
+<br><br>
+
+The tension leaves Avery's face. <<He>> nods, and kicks <<himself>> off the wall, into a swim.
+<br><br>
+
+<<link [[Swim (0:30)|Mansion Pool Swim Avery]]>><<pass 30>><<tiredness 6>><</link>><<gtiredness>><<gswimming>>
+<br>
+<<link [[Climb out (0:01)|Mansion Pool Climb]]>><<pass 1>><</link>>
+<br>
+
+:: Mansion Housework Pool Argue
+<<effects>>
+
+<<if $speech_disable is "meek">>
+	"You should warn me next time," you say. "I'm trying to clean for you!"
+<<elseif $speech_disable is "bratty">>
+	"Maybe I'll have fun by beating the shit out of you," you say.
+<<else>>
+	"You can have fun on your own," you say. "Leave me out of it."
+<</if>>
+<br><br>
+
+"You little slut," <<he>> says, shoving you against the wall of the pool. "If that's how you want it, fine."
+<br><br>
+
+<<link [[Next|Mansion Housework Pool Rape]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+
+:: Mansion Housework Pool Rape
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+	<<set $enemyanger += 50>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Mansion Housework Pool Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Housework Pool Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Housework Pool Rape Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Satisfied, Avery pushes <<himself>> off the wall, and swims without another word.<<gdom>><<npcincr Avery dom 1>><<larage>><<npcincr Avery rage -1>>
+	<br><br>
+	<<tearful>> you cling to the pool's edge.
+	<br><br>
+	<<endcombat>>
+	<<link [[Next|Mansion Pool Climb]]>><<pass 1>><</link>>
+	<br>
+<<elseif $enemyhealth lte 0>>
+	You shove Avery away from you. <<He>> glares, looking ready to argue, but instead just kicks <<himself>> into a swim.
+	<br><br>
+	<<tearful>> you catch your breath.
+	<br><br>
+	<<endcombat>>
+	<<link [[Swim (0:30)|Mansion Pool Swim Avery]]>><<pass 30>><<tiredness 6>><<npc "Avery">><<person1>><</link>><<gtiredness>><<gswimming>>
+	<br>
+	<<link [[Climb out (0:01)|Mansion Pool Climb]]>><<pass 1>><</link>>
+	<br>
+<</if>>
+
+
+:: Mansion Housework Bedroom Insist
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I'm sorry," you say. "I won't be able to relax until I've finished cleaning."
+<<elseif $speech_attitude is "bratty">>
+	"I won't be long," you say. "I'm doing this for your benefit, you know."
+<<else>>
+	"I'll be done soon," you say. "Just sleep tight."
+<</if>>
+<br><br>
+<<if C.npc.Avery.rage gte 20 and $averyragerevealed is 1>>
+	"I won't ask again," Avery says, fumbling for the bedside lamp, and rising to <<his>> feet. "Get out. Now."
+	<br><br>
+
+	<<link [[Comply|Mansion Housework Bedroom Comply]]>><</link>>
+	<br>
+	<<link [[Refuse|Mansion Housework Bedroom Refuse]]>><<npcincr Avery rage 1>><<npcincr Avery love -1>><</link>><<garage>><<llove>>
+	<br>
+<<else>>
+	Still half asleep, Avery turns over, and covers <<his>> ear with half a pillow.
+	<br><br>
+
+	<<avery_mansion_clean_bedroom true>>
+	<br>
+
+	<<endevent>>
+	<<avery_mansion_end_links "housework">>
+<</if>>
+
+:: Mansion Housework Bedroom Agree
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Sorry," you say. "I'll continue later."
+<<elseif $speech_attitude is "bratty">>
+	"Fine," you say. "I don't want to disturb your beauty sleep."
+<<else>>
+	"Okay," you say. "I'll have time to do it later."
+<</if>>
+<br><br>
+
+Still half-asleep, Avery turns over, and pulls the covers over <<himself>>. You tiptoe from the room.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links "housework">>
+
+:: Mansion Housework Bedroom Comply
+<<set $avery_mansion.bedroom_state to "locked">>
+<<if $avery_passage is "Mansion Bedroom">>
+	<<set $avery_passage to "Mansion Lounge">>
+<</if>>
+<<effects>>
+
+You leave the room. You hear Avery lock the door with a click.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links "housework">>
+
+:: Mansion Housework Bedroom Refuse
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Sorry," you say. "But I absolutely must clean now."
+<<elseif $speech_attitude is "bratty">>
+	"Chill out," you say. "I won't be long."
+<<else>>
+	"I won't be long," you say. "Just be patient."
+<</if>>
+<br><br>
+
+Avery glares daggers at you, but just turns over and covers <<his>> ear with half a pillow.
+<br><br>
+
+<<avery_mansion_clean_bedroom true>>
+<br>
+
+<<endevent>>
+<<avery_mansion_end_links "housework">>
+
+:: Mansion Housework Bedroom Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Mansion Housework Bedroom Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Housework Bedroom Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Housework Bedroom Rape Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Avery climbs back in bed, and falls asleep at once.<<larage>><<npcincr Avery rage -1>>
+	<br><br>
+	<<tearful>> you brush yourself down.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+<<elseif $enemyhealth lte 0>>
+	Avery falls back on the bed. <<He>> glares daggers at you, but just turns over and covers <<his>> ear with half a pillow.<<avery_housework_change "bedroom" 1>><<garage>><<npcincr Avery rage 1>>
+	<br><br>
+	<<tearful>> you brush yourself down, and get back to work.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+<</if>>
+
+<<endevent>>
+<<avery_mansion_end_links "housework">>
+
+
+:: Mansion Housework Antiques
+<<effects>>
+
+You try to loosen the bolts. There are ten in total, and not one of them will move at all. You think you could loosen them though, given time.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links "housework">>
+
+:: Mansion Housework Antiques Ignore
+<<effects>>
+
+You turn away from the gold antiques, ignoring their allure for now.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links "housework">>
+
+
+
+:: Mansion Housework Antiques Lie
+<<effects>>
+
+<<if $phase is 1>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"I wouldn't steal from you!" you say.
+	<<elseif $speech_attitude is "bratty">>
+		"Don't look at me," you say. "Have you seen the way your guests look at them?"
+	<<else>>
+		"I didn't take them," you say. "I just keep things tidy."
+	<</if>>
+<<else>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"I wouldn't steal from you!" you say.
+	<<elseif $speech_attitude is "bratty">>
+		"Don't look at me," you say. "Have you seen the way your guests look at them?"
+	<<else>>
+		"I didn't take it," you say. "I just keep things tidy."
+	<</if>>
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed is 1>>
+	Avery steps closer, trembling with rage. "I bolted the fucking glass down myself. Do you think I'm a fool?" <<He>> grabs your arm.<<gggarage>><<gtrauma>><<gstress>><<npcincr Avery rage 12>><<trauma 6>><<stress 6>>
+	<br><br>
+
+	<<link [[Next|Avery Mansion Antiques Fight]]>><<set $fightstart to 1>><</link>>
+	<br>
+<<else>>
+	Avery doesn't look convinced. <<He>> forces a smile. "The glass was bolted down. Someone put a lot of energy into getting under it. This isn't the end of this."
+	<br><br>
+
+	<<He>> walks away.
+	<br><br>
+	<<endevent>>
+	<<avery_mansion_end_links "housework">>
+<</if>>
+
+
+:: Mansion Housework Antiques Silent
+<<effects>>
+
+You remain silent.
+<br><br>
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed is 1>>
+	Avery steps closer, trembling with rage. "You silence speaks fucking volumes." <<He>> grabs your arm.<<gggarage>><<gtrauma>><<gstress>><<npcincr Avery rage 12>><<trauma 6>><<stress 6>>
+	<br><br>
+
+	<<link [[Next|Avery Mansion Antiques Fight]]>><<set $fightstart to 1>><</link>>
+	<br>
+<<else>>
+	"Nothing to say for yourself?" Avery asks. "Objects don't get up and walk away themselves, do they? This isn't the end of this."
+	<br><br>
+
+	<<He>> walks away.
+	<br><br>
+	<<endevent>>
+	<<avery_mansion_end_links "housework">>
+<</if>>
+
+:: Mansion Housework Antiques Sell
+<<effects>>
+
+<<if $phase is 1>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"I-I," you say. "I'm sorry. I needed the money."
+	<<elseif $speech_attitude is "bratty">>
+		"I sold them," you say. "They're more useful as money for me, than an ornament for you."
+	<<else>>
+		"I sold them," you say. "I needed the money."
+	<</if>>
+<<else>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"I-I," you say. "I'm sorry. I needed the money."
+	<<elseif $speech_attitude is "bratty">>
+		"I sold it," you say. "They're more useful as money for me, than an ornament for you."
+	<<else>>
+		"I sold it," you say. "I needed the money."
+	<</if>>
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed is 1>>
+	<<if $phase is 1>>
+		"You sold them," Avery says, stepping closer and trembling with rage. "You fucking sold them." <<He>> grabs your arm.<<gggarage>><<gtrauma>><<gstress>><<npcincr Avery rage 12>><<trauma 6>><<stress 6>>
+	<<else>>
+		"You sold it," Avery says, stepping closer and trembling with rage. "You fucking sold it." <<He>> grabs your arm.<<gggarage>><<gtrauma>><<gstress>><<npcincr Avery rage 12>><<trauma 6>><<stress 6>>
+	<</if>>
+	<br><br>
+
+	<<link [[Next|Avery Mansion Antiques Fight]]>><<set $fightstart to 1>><</link>>
+	<br>
+<<else>>
+	Avery stares at you, as if waiting for a punchline. Then <<he>> forces a smile. It looks grotesque.
+	<<if $phase is 1>>
+		"They weren't yours to sell," <<he>> says.
+	<<else>>
+		"It wasn't yours to sell," <<he>> says.
+	<</if>>
+	<br><br>
+	<<He>> ponders a moment more, then turns away. "This isn't over."
+	<br><br>
+	<<endevent>>
+	<<avery_mansion_end_links "housework">>
+<</if>>
+
+:: Mansion Housework Antiques Museum
+<<effects>>
+
+<<if $phase is 1>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"I-I," you say. "I took them to a museum. I'm sorry."
+	<<elseif $speech_attitude is "bratty">>
+		"They belong in a museum," you say. "And that's where they are."
+	<<else>>
+		"I took them to a museum," you say.
+	<</if>>
+<<else>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"I-I," you say. "I took it to a museum. I'm sorry."
+	<<elseif $speech_attitude is "bratty">>
+		"It belongs in a museum," you say. "And that's where they are."
+	<<else>>
+		"It belongs in a museum," you say.
+	<</if>>
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed is 1>>
+	"A museum?" Avery says, stepping closer and trembling with rage. "Does that old fuck still run it? I'll have a word with <<nnpc_him "Winter">>. First though." <<He>> grabs your arm.<<gggarage>><<gtrauma>><<gstress>><<npcincr Avery rage 12>><<trauma 6>><<stress 6>>
+	<br><br>
+	<<link [[Next|Avery Mansion Antiques Fight]]>><<set $fightstart to 1>><</link>>
+	<br>
+<<else>>
+	Avery stares at you, as if waiting for a punchline. Then <<he>> laughs. "A museum. A museum!"
+	<br><br>
+	<<He>> ponders a moment more, then turns away, reaching for <<his>> phone. "This isn't over."
+	<br><br>
+	<<endevent>>
+	<<avery_mansion_end_links "housework">>
+<</if>>
+
+:: Mansion Housework Antiques Bailey
+<<effects>>
+
+<<if $phase is 1>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"B-Bailey took it, <<sir>>," you say. "During the party."
+	<<elseif $speech_attitude is "bratty">>
+		"Bailey stuffed it in <<nnpc_his "Bailey">> pockets during the party," you say. "Like I warned you."
+	<<else>>
+		"Bailey stole it during the party, remember?" you ask.
+	<</if>>
+<<else>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"B-Bailey took them, <<sir>>," you say. "During the party."
+	<<elseif $speech_attitude is "bratty">>
+		"Bailey stuffed them in <<nnpc_his "Bailey">> pockets during the party," you say. "Like I warned you."
+	<<else>>
+		"Bailey stole them during the party, remember?" you ask.
+	<</if>>
+<</if>>
+<br><br>
+
+Avery exhales lowly. "Yes, that seems like something a <<nnpc_gender "Bailey">> like <<nnpc_him "Bailey">> would do." Sarcasm drips from <<his>> voice. After a moment, though, <<his>> eyes narrow in uncertainty.
+<br><br>
+<<He>> ponders a moment more, then turns away, reaching for <<his>> phone. "This isn't over."
+<br><br>
+<<endevent>>
+<<avery_mansion_end_links "housework">>
+
+:: Avery Mansion Antiques Fight
+<<if $fightstart is 1>>
+	<<set $fightstart to 0>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust -= 100>>
+	<<set $enemyanger += 200>>
+	<<npcidlegenitals>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+
+
+<<if _combatend or ($pain gte 100 and $willpowerpain is 0)>>
+	<span id="next"><<link [[Next|Avery Mansion Antiques Fight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Avery Mansion Antiques Fight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Avery Mansion Antiques Fight Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Avery collapses, knocking and shattering a display as <<he>> falls.
+	<br><br>
+	<<tearful>> you step away. Avery struggles to <<his>> feet, and fixes you with a glare. "This isn't over." <<He>> walks away.<<ldom>><<npcincr Avery dom -1>><<larage>><<npcincr Avery rage -1>>
+	<br><br>
+
+<<elseif $enemyhealth lte 0>>
+	You shove Avery into a display. It shatters as <<he>> falls.
+	<br><br>
+	<<tearful>> you step away. Avery struggles to <<his>> feet, and fixes you with a glare. "This isn't over." <<He>> walks away.<<ldom>><<npcincr Avery dom -1>><<garage>><<npcincr Avery rage 1>>
+	<br><br>
+
+<<else>>
+	<<tearful>> you fall to the ground, too hurt to continue fighting.
+	<br><br>
+	Avery stands over you a moment, considering, then <<he>> walks away. "This isn't over."<<ggdom>><<npcincr Avery dom 3>>
+	<br><br>
+
+<</if>>
+
+<<clotheson>>
+<<endcombat>>
+<<avery_mansion_end_links "housework">>

@@ -1,0 +1,95 @@
+:: Wolf Street
+
+<<set $outside to 1>><<set $location to "town">><<effects>><<set $bus to "wolf">><<getTarget true>>
+You are on Wolf Street. The nearby forest bleeds into the town here, particularly where the temple sits.
+<<if Weather.dayState is "day">>
+	<<if Weather.precipitation is "rain">>
+		The trees sway in the wind.
+	<<elseif Weather.precipitation is "snow">>
+		The trees sway in the wind, dislodging snow from their branches.
+	<<else>>
+		It's one of the quieter parts of town.
+	<</if>>
+<<elseif Weather.dayState is "dawn">>
+	<<if Weather.precipitation is "rain">>
+		You hear chanting from within, clear above the rain.
+	<<elseif Weather.precipitation is "snow">>
+		You hear chanting from within, muffled by the snow.
+	<<else>>
+		You hear chanting from within.
+	<</if>>
+<<elseif Weather.dayState is "dusk">>
+	<<if Weather.precipitation is "rain">>
+		It strikes a forbidding silhouette against the dark rain.
+	<<elseif Weather.isSnow>>
+		The coating of snow does not detract from its forbidding silhouette.
+	<<else>>
+		It strikes a forbidding silhouette against the darkening sky.
+	<</if>>
+<<elseif Weather.dayState is "night">>
+	<<if Weather.precipitation is "rain">>
+		You can't even make out its silhouette behind the curtains of rain.
+		<<if $hallucinations gte 2>>
+			But you feel it watching.
+		<</if>>
+	<<else>>
+		It's almost pitch-black.
+	<</if>>
+<</if>>
+<<streeteffects>>
+<br><br>
+<<if $exposed gte 1>>
+	<<exhibitionism "street">>
+<</if>>
+<<if $arousal gte $arousalmax>>
+	<<orgasmstreet>>
+<</if>>
+<<if $stress gte $stressmax and !$possessed>>
+	<<passoutstreet>>
+<<else>>
+
+	<<if (dangerEvent() or $eventforced) and $eventskip is 0>>
+		<<eventsstreet>>
+	<<else>>
+		<<if $options.mapTop is true>>
+			<<map "wolf">>
+			<br>
+		<</if>>
+		Places of interest
+		<br>
+		<<wolficon>><<link [[Temple (0:01)|Temple]]>><<pass 1>><</link>>
+		<br>
+			<<if $soup_kitchen_known is 1 and $exposed lte 0>>
+				<!-- take passage of time into account -->
+				<<if Time.betweenHours(18, 20, 1)>>
+					<<kitchenicon "soup">><<link [[Soup kitchen (0:01)|Soup Kitchen]]>><<pass 1>><</link>>
+				<<else>>
+					<<kitchenicon "soup">><<link [[Soup kitchen (0:01)|Soup Kitchen Closed]]>><<pass 1>><</link>>
+				<</if>>
+			<br>
+			<</if>>
+		<<foresticon>><<link [[Forest (0:10)|Forest]]>><<pass 10>><<set $forest to 0>><<set $eventskip to 1>><</link>>
+		<br><br>
+		<<if $exposed gte 1 and Time.dayState isnot "night">>
+		<<else>>
+			<<add_link "Travel<br>">><<hideDisplay>>
+			<<danube>>
+			<<nightingale>>
+			<<connudatus>>
+			<<high>>
+			<<if $exposed lte 0>>
+				<<buswait>>
+			<</if>>
+			<<loiter>>
+		<</if>>
+		<<add_link "<br>Alternate routes<br>">><<hideDisplay>>
+		<<commercial>>
+		<<stormdrain>>
+		<<displayLinks>>
+		<<if $options.mapTop isnot true>>
+			<br>
+			<<map "wolf">>
+		<</if>>
+	<</if>>
+<</if>>
+<<set $eventskip to 0>>

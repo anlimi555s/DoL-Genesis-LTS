@@ -1,0 +1,150 @@
+:: Widgets Pubic Hair [widget]
+
+<<widget "pbhairinit">>
+	<!--PBHair extension START-->
+	<<if $pblevel lt 1 or !$pblevel>>
+		<<set $pblevel to 1>>
+	<</if>>
+
+	<<if $pbgrowth lt 1 or !$pbgrowth>>
+		<<set $pbgrowth to 1>>
+	<</if>>
+
+	<<if $pblevelballs lt 1 or !$pblevelballs>>
+		<<set $pblevelballs to 1>>
+	<</if>>
+
+	<<if $pbgrowthballs lt 1 or !$pbgrowthballs>>
+		<<set $pbgrowthballs to 1>>
+	<</if>>
+
+	<<if $pbstrip lt 0 or !$pbstrip>>
+		<<set $pbstrip to 0>>
+	<</if>>
+<</widget>>
+
+<<widget "personalUpkeep">>
+	<<set $bathroomExit to $passage>>
+	<<bathroomicon "toothbrush">><<link [[Brush teeth (0:05)|Bathroom Brush]]>><<pass 5>><</link>>
+	<br>
+	<<if $settings.pubicHairEnabled and ($pblevel gte 2 or $pbstrip gte 1 or $pblevelballs gte 2)>>
+		<<bathroomicon "shave">><<link [[Groom pubic hair|Shave]]>><</link>>
+		<<if ($makeup.owned.hairdye.length gt 0 and $bus is "avery_bathroom") or $bus isnot "avery_bathroom">><br><</if>>
+	<</if>>
+	<<if $makeup.owned.hairdye.length gt 0>>
+		<<cosmeticsicon "dyes">><<link [[Use hair dye|Dye Hair]]>><</link>>
+		<<if $bus isnot "avery_bathroom">><br><</if>>
+	<</if>>
+<</widget>>
+
+<<widget "shaveOptions">>
+	<br>
+	<<if $pblevel gte 2 or $pbstrip gte 1 or $pblevelballs gte 2>>
+		<<shavestyleicon 'clean'>><<link [[Shave clean (0:15)|$passage]]>><<set $phase2 to "pubes">><<pass 15>><<arousal 100>><<set $pblevel to 0>><<set $pbgrowth to 0>><<set $pblevelballs to 0>><<set $pbgrowthballs to 0>><<set $pbstrip to 0>><<set $makeup.pbcolour to 0>><<set $phase to "genitals">><</link>>
+		<br>
+	<</if>>
+	<<if $pblevel gte 5 or $pbstrip gte 2 or ($pbstrip is 1 and $pblevel gte 2)>>
+		<<shavestyleicon 'strip'>><<link [[Form a landing strip (0:15)|$passage]]>><<set $phase2 to "pubes">><<pass 15>><<arousal 100>><<set $pbstripName to "neat landing strip">><<set $pblevel to 0>><<set $pbgrowth to 0>><<set $pbstrip to 1>><<set $phase to "strip">><</link>>
+		<br>
+	<</if>>
+	<<if $pblevel gte 5 or $pbstrip gte 3 or ($pbstrip gte 2 and $pblevel gte 2)>>
+		<<shavestyleicon 'heart'>><<link [[Form a heart (0:15)|$passage]]>><<set $phase2 to "pubes">><<pass 15>><<arousal 100>><<set $pbstripName to "cute heart shape">><<set $pblevel to 0>><<set $pbgrowth to 0>><<set $pbstrip to 2>><<set $phase to "strip">><</link>>
+		<br>
+	<</if>>
+	<<if $pblevel gte 5 or $pbstrip gte 4 or ($pbstrip gte 3 and $pblevel gte 2)>>
+		<<shavestyleicon 'triangle'>><<link [[Form a triangle (0:15)|$passage]]>><<set $phase2 to "pubes">><<pass 15>><<arousal 100>><<set $pbstripName to "neat triangle">><<set $pblevel to 0>><<set $pbgrowth to 0>><<set $pbstrip to 3>><<set $phase to "strip">><</link>>
+		<br>
+	<</if>>
+	<<if $player.ballsExist is true>>
+		<<if $pblevel gte 2 or $pbstrip gte 1>>
+			<<shavestyleicon 'clean'>><<link [[Shave only pubis (0:10)|$passage]]>><<set $phase2 to "pubes">><<pass 10>><<arousal 50>><<set $pblevel to 0>><<set $pbgrowth to 0>><<set $pbstrip to 0>><<if $pblevelballs is 0>><<set $makeup.pbcolour to 0>><<set $phase to "pubis">><</if>><</link>>
+			<br>
+		<</if>>
+		<<if $pblevelballs gte 3>>
+			<<shavestyleicon 'balls'>><<link [[Shave only balls (0:05)|$passage]]>><<set $phase2 to "pubes">><<pass 5>><<arousal 50>><<set $pblevelballs to 0>><<set $pbgrowthballs to 0>><<if $pblevel is 0 and $pbstrip is 0>><<set $makeup.pbcolour to 0>><</if>><<set $phase to "balls">><</link>>
+			<br>
+		<</if>>
+	<</if>>
+	<<if $pblevel gt 5 or $pblevelballs gt 5>>
+		<<shavestyleicon 'trim'>>
+		<<link [[Trim short (0:10)|$passage]]>>
+			<<set $phase2 to "pubes">><<pass 10>><<arousal 100>>
+			<<if $pblevel gte 5>>
+				<<set $pblevel to 5>><<set $pbgrowth to 7>><<set $pbstrip to 0>>
+			<</if>>
+			<<if $pblevelballs gte 5>>
+				<<set $pblevelballs to 5>><<set $pbgrowthballs to 10>>
+			<</if>>
+			<<set $phase to "trim">>
+		<</link>>
+		<br>
+	<</if>>
+	<<if $pblevel isnot 0 or $pblevelballs isnot 0 or $pbstrip isnot 0>>
+		<br>
+	<</if>>
+<</widget>>
+
+<<widget "dyeOptions">>
+	<<set _naturalBrows to !$makeup.browscolour or $makeup.browscolour is $naturalhaircolour>>
+	<<set _naturalPubes to !$makeup.pbcolour or $makeup.pbcolour is $naturalhaircolour>>
+	<<set _browsPubesMatch to (_naturalBrows and _naturalPubes) or ($makeup.pbcolour is $makeup.browscolour)>>
+	<<set _dyePubes to $settings.pubicHairEnabled and ($pblevel gte 1 or $pbstrip gte 1 or $pblevelballs gte 1)>>
+	<<if _dyePubes>>
+		<<if !_naturalPubes and !_browsPubesMatch>>
+			Your pubic hair is coloured with <<hairmapcolourtext $makeup.pbcolour>> hair dye.
+		<<elseif _naturalPubes and !_naturalBrows>>
+			Your pubic hair is its natural <<hairmapcolourtext $naturalhaircolour>> colour.
+		<</if>>
+	<<elseif $settings.pubicHairEnabled>>
+		Your pubic hair is shaved clean and cannot be dyed.
+	<</if>>
+	<<if !_naturalBrows>>
+		Your <<= _dyePubes and _browsPubesMatch ? "brows and pubic hair" : "brows">> are coloured with <<hairmapcolourtext $makeup.browscolour>> hair dye. A hairdresser can restore your eyebrows to their natural <<hairmapcolourtext $naturalhaircolour>> colour.
+	<<else>>
+		Your <<= _dyePubes and _naturalBrows and _naturalPubes ? "brows and pubic hair" : "brows">> are their natural <<hairmapcolourtext $naturalhaircolour>> colour.
+	<</if>>
+	<br><br>
+
+	<<if $leftarm is "bound" and $rightarm is "bound">>
+		<span class="red"> Both of your arms are bound</span>, and you're unable to dye your hair.
+		<br>
+		<<exit>>
+	<</if>>
+	Dye your:
+	<div id="dyeButtons">
+		<label><<radiobutton "_hairPart" "browscolour" checked>> Brows <span class="gold">(0:15)</span></label>
+		<<if _dyePubes>>
+			| <label><<radiobutton "_hairPart" "pbcolour">> Pubic hair <span class="gold">(0:30)</span></label>
+		<</if>>
+	</div>
+	<<run $(() => { $('#dyeButtons').on('input change', (e) => { new Wikifier(null, "<<replace '#applyDye'>><<applyDye _hairPart>><</replace>>"); }) })>>
+	<br>
+
+	<div class="makeupList no-numberify capitalize" id="applyDye">
+		<<applyDye>>
+	</div>
+<</widget>>
+
+<<widget "applyDye">>
+	<<for _i to 0; _i lt _dyes.length; _i++>>
+		<<set _displayName = (_dyes[_i].colour in setup.colours.hair_map ? setup.colours.hair_map[_dyes[_i].colour].name : _dyes[_i].colour.charAt(0).toUpperCase() + _dyes[_i].colour.slice(1))>>
+		<<set _dyeName to _displayName + ` <span @class="'hair-' + _dyes[_i].colour.replace(/ /g, '-')"><span class="colour-sample bgcolour-hair colour-hair"></span> ×_dyes[_i].count`>>
+		<<set _wornColour to $makeup[_hairPart] is _dyes[_i].colour>>
+		<span @class="_wornColour ? 'makeupWorn' : 'makeupItem'">
+			<<capture _dyes, _i>>
+				<<if _wornColour>>
+					<<button _dyeName>><</button>>
+				<<else>>
+					<<button _dyeName $passage>>
+						<<set $makeup.owned.hairdye.find(x => x.colour == _dyes[_i].colour).count -= 1>>
+						<<set $phase to _hairPart>>
+						<<set $phase2 to "apply">>
+						<<set $makeup[_hairPart] to _dyes[_i].colour>>
+						<<if _hairPart is "browscolour">><<pass 15>><<else>><<pass 30>><</if>>
+						<<replace "#dyeOptions">><<dyeOptions>><</replace>>
+					<</button>>
+				<</if>>
+			<</capture>>
+		</span>
+	<</for>>
+<</widget>>

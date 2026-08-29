@@ -1,0 +1,121 @@
+/* Possibly can be deleted? */
+#daystate,
+#weather {
+	position: fixed;
+	left: 0;
+	z-index: 10;
+	user-select: none;
+}
+
+#daystate {
+	top: 0;
+}
+
+#weather {
+	top: 64px;
+}
+
+#oldlocation {
+	position: absolute;
+	z-index: 10;
+	left: 0;
+	top: 0;
+	height: 192px;
+	width: 64px;
+	overflow: hidden;
+}
+
+#oldlocationimg {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	transform: scale(2);
+	transform-origin: bottom left;
+	user-select: none;
+	pointer-events: none;
+}
+
+.skybox,
+.skybox-dawn,
+.skybox-dawn-haze,
+.skybox-day,
+.skybox-day-haze,
+.skybox-dusk,
+.skybox-dusk-haze,
+.skybox-night,
+.skybox-night-haze,
+.skybox-blood-moon,
+.skybox-blood-moon-haze,
+.skybox-dawn-tentacle,
+.skybox-day-tentacle,
+.skybox-dusk-tentacle,
+.skybox-night-tentacle,
+.skybox-blank {
+	position: fixed;
+	left: 0;
+	z-index: 9;
+	user-select: none;
+	top: 0;
+	width: 64px;
+	height: 192px;
+}
+
+.skybox-dawn {
+	background-color: #fd7d01;
+}
+
+.skybox-dawn-haze {
+	background-image: linear-gradient(#fd7d01, #e5d397 65%);
+}
+
+.skybox-day {
+	background-color: #408aca;
+}
+
+.skybox-day-haze {
+	background-image: linear-gradient(#408aca, #d0ffea 65%);
+}
+
+.skybox-dusk {
+	background-color: #fad6a5;
+}
+
+.skybox-dusk-haze {
+	background-image: linear-gradient(#fad6a5, #d7a350 65%);
+}
+
+.skybox-night {
+	background-color: #280137;
+}
+
+.skybox-night-haze {
+	background-image: linear-gradient(#280137, #1a2753 65%);
+}
+
+.skybox-blood-moon {
+	background-image: linear-gradient(#8b0804, #280137 20%);
+}
+
+.skybox-blood-moon-haze {
+	background-image: linear-gradient(#8b0804, #280137 20%, #4f284e 65%);
+}
+
+.skybox-dawn-tentacle {
+	background-color: #44056d;
+}
+
+.skybox-day-tentacle {
+	background-color: #69159d;
+}
+
+.skybox-dusk-tentacle {
+	background-color: #550e81;
+}
+
+.skybox-night-tentacle {
+	background-color: #2e0854;
+}
+
+.skybox-blank {
+	background-color: #000;
+}

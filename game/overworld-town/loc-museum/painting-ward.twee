@@ -1,0 +1,2737 @@
+:: Museum Bleeding Ward Painting
+<<effects>>
+<<npc Winter>><<person1>>
+
+You unroll the red moon painting and show it to Winter. <<His>> eyes widen, and <<he>> slowly takes it from you with lightly trembling hands.
+"Where did you find this?"
+<br><br>
+
+<<link [[Be honest|Museum Bleeding Ward Painting Honest]]>><<npcincr Winter love 1>><</link>><<glove>>
+<br>
+<<link [[Be evasive|Museum Bleeding Ward Painting Evasive]]>><</link>>
+<br>
+
+:: Museum Bleeding Ward Painting Honest
+<<effects>>
+
+<<if $wrenSeen?.includes("winter")>>
+	<<switch $speech_attitude>>
+		<<case "meek">>
+			"A friend of ours helped me," you say, putting your hands behind your back guiltily. "I-is it wrong to steal back from thieves?"
+		<<case "bratty">>
+			"Someone you've worked with before talked me into being a distraction. Nothing wrong with stealing from thieves," you say.
+		<<default>>
+			"One of our mutual friends helped me dig it out of a collection," you say plainly. "It was obviously stolen, so I stole it back. It's better off being here."
+	<</switch>>
+	<br><br>
+
+	"Wren," <<he>> says, as if reading your mind. "That makes us even, then. I appreciate this, but you shouldn't get yourself mixed up in <<nnpc_his "Wren">> business."
+<<else>>
+	<<switch $speech_attitude>>
+		<<case "meek">>
+			"I could tell it was stolen," you say, putting your hands behind your back guiltily. "I-is it wrong to steal back from thieves?"
+		<<case "bratty">>
+			"Stole it," you say plainly. "I'm not the criminal here, though. It has 'already stolen' written all over it."
+		<<default>>
+			"I got mixed up in a scheme and happened to come across it," you say plainly. "It was obviously stolen, so I stole it back. It's better off being here."
+	<</switch>>
+	<br><br>
+
+	"I see," <<he>> says. <<His>> frown is brief. "I appreciate this, but you shouldn't get yourself mixed up in such rotten business."
+	<<He>> pauses as <<he>> thumbs something on the canvas. There's a small piece of paper pinned to it. You don't know how it escaped your notice, but Winter seems to recognise something on it. "Wren. Of course," <<he>> sighs. "That makes us even, then." <<He>> removes the pin and tosses the scrap of paper.
+<</if>>
+<<He>> looks back down to the painting, a smile slowly forming. "This was stolen from me decades ago. I still have the frame. Having it returned means more than I can express." <<npcincr Winter love 3>><<gglove>>
+<br><br>
+
+<<He>> rolls the painting back up, placing it somewhere out of sight before returning and putting <<printmoney 200000>> in your hands. <<money 200000 "museumAntique">>
+<<if !$museum_paintings_intro>>
+	<<set $museum_paintings_intro to true>>
+	"There are other paintings that I would pay well to have in my collection," <<he>> says. "I do not know where any of them could be, however. <span class="blue">If you find any, please bring them to me.</span>"
+<</if>>
+<br><br>
+
+<<link [[Next|Museum]]>><<endevent>><</link>>
+<br>
+
+:: Museum Bleeding Ward Painting Evasive
+<<effects>>
+
+<<switch $speech_attitude>>
+	<<case "meek">>
+		"I sort of just... found it rolled up in a collection," you say. "The owner won't miss it."
+	<<case "bratty">>
+		"Just happened to find it," you say plainly. "It was collecting dust."
+	<<default>>
+		"It was rolled up in a collection," you say evasively. "I convinced the owner to part with it. Non-verbally."
+<</switch>>
+<br><br>
+
+"I see," <<he>> says. <<He>> pauses as <<he>> thumbs something on the canvas. There's a small piece of paper pinned to it. You don't know how it escaped your notice, but Winter seems to recognise something on it. "Wren. Of course," <<he>> sighs. "That makes us even, then." <<He>> removes the pin and tosses the scrap of paper.
+<<He>> looks back down to the painting, a smile slowly forming. "This was stolen from me years ago. I still have the frame. Having it returned means more than I can express." <<npcincr Winter love 3>><<gglove>>
+<br><br>
+
+<<He>> rolls the painting back up, placing it somewhere out of sight before returning and putting <<printmoney 200000>> in your hands. <<money 200000 "museumAntique">>
+<<if !$museum_paintings_intro>>
+	<<set $museum_paintings_intro to true>>
+	"There are other paintings that I would pay well to have in my collection," <<he>> says. "I do not know where any of them could be, however. <span class="blue">If you find any, please bring them to me.</span>"
+<</if>>
+<br><br>
+
+<<link [[Next|Museum]]>><<endevent>><</link>>
+<br>
+
+:: Museum Bleeding Ward Story
+<<effects>>
+<<npc Winter>>
+<<set _otherPronoun to C.npc.Winter.pronoun is "m" ? "f" : "m">>
+<<generateNPC 2 a _otherPronoun _otherPronoun 10>>
+<<person1>>
+<<if $museumAntiques.paintings.paintingward is "talk">>
+	"Why is this painting so important to you?" you ask Winter. "You gave me a lot of money for it."
+	<br><br>
+
+	<<He>> lets out a sigh. "This is a deeply personal story. I feel as though I owe it to you for returning it to me, though."
+<<else>>
+	"Could you tell me why this painting is so important to you again?" you ask Winter.
+	<br><br>
+
+	<<He>> lets out a sigh. "Surely you have better things to do than listen to an old <<personsimple>> ramble." <<He>> rolls <<his>> eyes, but can't hide the hint of a smile. "I'll start from the beginning."
+<</if>>
+
+<<He>> walks off for a moment, returning with a chair and inviting you to sit.
+<br><br>
+
+<<He>> sits down too. "The painting itself has significance in occult circles. It's titled <span class="gold">'Bleeding Ward'</span>.
+It's at least sixty years old, potentially older. The red hues are known to churn and flow on the canvas when viewed from different angles.
+The paint used in it has the curious property of appearing more saturated in dim light, while looking washed out and near-translucent in brighter light.
+With the right setup, it can even appear to glow in the dark."
+<br><br>
+
+"Some believe the artist predicted the future in painting it.
+A few years after it was given the public's eye, the moon began turning red more often than is normal, and with troubling consistency.
+It caused... unusual behaviours in both people and animals. Officially, the cause is blamed on light pollution and atmospheric differences in our region.
+The effects are simple mass hysteria. As for the figure depicted at the centre, <<person2>>no one can agree whether <<hes>> meant to represent the cause, the relief, or is simply a bystander."
+<br><br>
+
+<<person1>><<He>> scratches at <<his>> chin. "It does not hold value to me for any such extraordinary reasons.
+I don't know who painted it or why. The truth is, I simply know the <<person2>><<personsimple>> depicted in it.
+Or knew <<him>>, rather. <<He>> was a... friend. A good friend. This was my only physical memory of <<him>>."
+<br><br>
+
+<<person1>><<He>> turns <<his>> chair just enough to look at the painting, given a large section of the wall all to itself.
+<<if $museumAntiques.paintings.paintingward is "museum">>
+	The furnishings around it are extravagant, commanding a certain respect and reverence.
+<</if>>
+<<person2>>"<<Hes>> the <<daughter>> of the <<personsimple>> that saved my life when I was a child.
+Now, these are some very old memories. <span class="teal">I may get a few things wrong, and might need your help sorting out the order of events.</span>"
+<br><br>
+
+<<link [[Next|Museum Bleeding Ward Story 2]]>><</link>>
+<br>
+
+:: Museum Bleeding Ward Story 2
+<<effects>><<person1>>
+"Let this be a test of how much you've been paying attention in my class. How much do you know of the blitz?"
+<br><br>
+
+<<switch $historytrait>>
+	<<case 4>>
+		<span class="green">You remember your history lessons well.</span>
+		"It was a bombing campaign that happened all over the country during the war. The biggest targets were the capital and large cities with industrial centres, but any town with military or industrial infrastructure was a potential target, especially port towns."
+		<br><br>
+
+		<<He>> nods in approval. "Very good. I'm sure you can put the rest of the pieces together, then."
+		<br><br>
+
+		"Our town was a target?" you ask.
+		<br><br>
+
+		"Indeed.
+	<<case 3>>
+		<span class="teal">You remember your history lessons.</span>
+		"It was a bombing campaign that happened all over the country during the war."
+		<br><br>
+
+		<<He>> nods in approval. "Adequate. The primary targets, other than the capital, were military and industrial infrastructure, especially port towns. Like ours.
+	<<case 2>>
+		<span class="blue">You vaguely remember some of your lessons.</span>
+		"It was a bombing campaign during the war, right?"
+		<br><br>
+
+		<<He>> nods. "Better than knowing nothing, I suppose. It happened across our country from 1940 to 1941. The primary targets, other than the capital, were military and industrial infrastructure, especially port towns. Like ours.
+	<<default>>
+		<span class="red">You don't remember reading about it.</span>
+		"Sorry. I don't know anything about it," you say.
+		<br><br>
+
+		<<He>> shakes <<his>> head disapprovingly. "It was a bombing campaign against our country during the war. The primary targets, other than the capital, were military and industrial infrastructure, especially port towns. Like ours.
+<</switch>>
+The army practised in the moor nearby, and the Royal Navy used our docks. They launched many ships that were used in the evacuations from the front lines, but it wasn't usually a military port. It was thought to be too small to be of any strategic importance."
+<br><br>
+
+<<He>> shifts around in <<his>> chair. "That, of course, proved to be false. We were hit hard in a surprise night raid. I still care for one of the old air raid sirens here. Some of the bombs found their mark. Most didn't, and landed in the water, or on top of civilian infrastructure. The evacuation was sloppy and delayed, as no one expected us to be hit. That's where <<person2>><<he>> comes into my story. <<He>> was fast. <<He>> must have taken action right after..."
+<br><br>
+
+<<link [[...the air raid siren went silent.|Bleeding Ward]]>><<pass 30>><<endevent>><</link>>
+<br>
+
+:: Bleeding Ward
+<<bleedingWardStart>>
+
+<<set _thermoDisable to true>><<effects>>
+<<canvas-model-override "mouth" "neutral">>
+
+<<set $bleedingWard to {
+	winter: 0,
+	infant: 0,
+	pair: 0,
+	pub: 0,
+	street: 0,
+	stamps: 0,
+	coins: 0
+}>>
+
+<<set $bus to "home">>
+
+<span class="narration">Yes, right after the siren stopped. <<pShe>> must have been waiting, planning since the raid started. There's no other way someone could respond with such alacrity.</span>
+<br><br>
+
+The echo of the siren lingers in the air for just a moment. You look up to the dark morning sky. Fresh contrails still streak across, but the thunder of the plane engines slowly fades into memory.
+<br><br>
+
+You can already see some ruined homes. There's going to be a new batch of orphans. The vultures will descend on them fast.
+<br><br>
+
+"I'm going," you say to nobody. You rush out into the town.
+<br><br>
+
+<<link [[Go.|Bleeding Ward 2]]>><<pass 10>><</link>>
+<br>
+
+:: Bleeding Ward 2
+<<set _thermoDisable to true>><<effects>>
+The residential areas are in ruins, the remains of entire family legacies smouldering and strewn across what was once a road.
+<br><br>
+
+You read off the names of family homes from memory. No one could have evacuated yet. You skip any homes that look untouched for now.
+<br><br>
+
+You have shelter just outside town. No potential targets anywhere nearby. It will be safe, but there's no way you can house everyone.
+<br><br>
+
+Everyone isn't your goal.
+<br><br>
+
+Smoke billows on the horizon. The echoes of distant crying complete a chorus of ruin ripping through the air as unsteady debris collapses.
+<br><br>
+
+You head towards...
+<br>
+
+<<link [[...the smoke.|Bleeding Ward Winter]]>><<pass 10>><</link>>
+<br>
+<<link [[...the crying.|Bleeding Ward Infant]]>><<pass 10>><</link>>
+<br>
+
+
+:: Bleeding Ward Winter
+<<set _thermoDisable to true>><<effects>>
+<<set $bleedingWard.winter to 1>><<set $bus to "winter">>
+<<npc Winter>><<person1>>
+<<canvas-model-override "mouth" "smile">>
+<span class="narration">I was hiding in a broom closet. Even after the siren stopped, I was paralysed. I didn't know what was happening or why.</span>
+<br><br>
+
+<<if $bleedingWard.infant>>
+	You keep the infant close to your chest as you head towards the smoke. One source of smoke, at least. They cling to you, barely making a noise.
+<<else>>
+	You head towards the smoke. The nearest pillar of it, at least.
+<</if>>
+<br><br>
+
+You follow it to a building reduced to its front and western walls. You're about to step over the threshold of the collapsed eastern wall, but hesitate. You walk around to the front door and knock.
+<br><br>
+
+You hear a different door open. A moment passes, and you hear unsteady footsteps getting closer. Another moment passes, and it slowly opens. A nervous-looking red-haired <<nnpc_gendery "Winter">> stands behind it, no older than six or seven years old. <<Hes>> splotched with soot and ash, but looks unharmed.
+<br><br>
+
+"Surname?" you ask.<br>
+"W-Winter," <<he>> responds after a moment.<br>
+"That's not until next month," you say. <<He>> cracks a smile, but it fades quickly.<br>
+"Who are—"<br>
+"An old seabird." <<He>> tilts <<his>> head at you.<br>
+"You don't look very old."<br>
+"Oh, aren't you a sweetheart," you say with a smile as you ruffle <<his>> hair. "Was anyone else home?"<br>
+"N-no, it was just me. I heard about what you're supposed to do when the sirens start. So I hid in the cl-closet."<br><br>
+
+Your own smile fades. "You're smart. That probably saved you. Come on, I've got a place you can stay."
+<br><br>
+
+<<link [[Keep moving.|Bleeding Ward Winter 2]]>><<pass 5>><</link>>
+<br>
+
+:: Bleeding Ward Winter 2
+<<set _thermoDisable to true>><<effects>>
+<<canvas-model-override "mouth" "neutral">>
+<span class="narration"><<pHer>> face is forever burned into my memory. Everything around me was in ruins, but <<pshe>> was pristine. I couldn't help but follow <<phim>>.</span>
+<br><br>
+
+You turn to start looking for more survivors. "Uhm, please wait a moment, I have to look for something!" <<he>> says, closing the door. You wait for <<him>> outside.
+<br><br>
+
+Footsteps. Shuffling. Something that was once wood and is now likely charcoal turning to dust at <<his>> touch. "Ow, hot," you hear from inside. You resist the urge to check on <<him>>. <<He>> re-emerges, holding an ornate pocketwatch by the chain. The metal is warped, but it's still ticking away. You can even see a snowflake engraved into the glass, each spoke designating the hour.
+<br><br>
+
+"S-sorry. I'm not allowed to leave the house without it." After a moment's hesitation, <<he>> starts to follow you.
+<br><br>
+
+<<if $bleedingWard.infant>>
+	<<He>> walks next to you, <<his>> eyes locked on the baby. You stop and stare back at <<him>>.<br>
+	<<He>> looks away. "Is... is that your baby?"<br>
+	"It's a baby," you respond, continuing to walk.
+	<br><br>
+<</if>>
+
+Most of the other houses around here only have minor damage.
+<<bleedingWardOptions true>>
+
+
+:: Bleeding Ward Infant
+<<set _thermoDisable to true>><<effects>>
+<<set $bus to "manor">>
+<<if $bleedingWard.infant>>
+	You return to the ruined manor.
+	<<if $bleedingWard.winter and ($bleedingWard.pair + $bleedingWard.pub + $bleedingWard.street gte 2) and $bleedingWard.stamps isnot 1>>
+		You tell the group to wait outside, and take another look around.
+		<br><br>
+
+		You find something that you overlooked previously. Ration stamps, for pregnant women.
+		<br><br>
+
+		<<link [[Leave them.|Bleeding Ward Infant 2]]>><<set $phase to 0>><<set $phase2 to 0>><</link>>
+		<br>
+		<<link [[Steal them.|Bleeding Ward Infant 2]]>><<set $phase to 1>><<set $phase2 to 0>><</link>><<gcrime "thievery">>
+		<br>
+	<<else>>
+		There's nobody around, and you don't see anything useful. <<bleedingWardOptions>>
+	<</if>>
+<<else>>
+	<<if $bleedingWard.winter>>
+		<<set $bleedingWard.infant to 1>><<set $trauma += 500>>
+		<span class="narration">We found an infant at some point. <<pShe>> took them with us without a second thought.</span>
+		<br><br>
+
+		You follow the sound of crying to a manor with a gaping hole in the roof. The front door is blown out, along with all the windows and most of the second floor's walls, but it still stands. It fared far better than the three next buildings. There's nothing to identify which family lived here.
+		<<if $bleedingWard.pair or $bleedingWard.pub or $bleedingWard.street>>
+			You tell the children to wait outside, and head in.
+		<<else>>
+			You tell Winter to wait outside, and head in.
+		<</if>>
+		<br><br>
+
+		You continue to follow the crying to a small room. A nursery for one child. You rush to the side of the cot, giving the crying baby within a quick look over. They're completely unharmed, but shaken. They continue to cry and scream as you wrap them in their blanket and lift them.
+		<br><br>
+
+		"Shhhhh, shh." You start to hum to them. <span class="green">In an instant, the crying stops as they look at you, entirely transfixed.</span> "It could be worse. You could have been deafened by the blast," you say. They babble at you, reaching for your face.
+		<br><br>
+
+		You do a sweep through the rest of the manor, calling out for anyone. No voice rises to meet yours. Two bedrooms are collapsed beyond saving. You pull a piece of paper and a pen from your pocket, write down your address, and leave it under an expensive-looking statuette near the entrance. As you do, you notice a few slips of paper. <span class="teal">Unused ration stamps, for pregnant women.</span>
+		<br><br>
+
+		<<link [[Leave them.|Bleeding Ward Infant 2]]>><<set $phase to 0>><<set $phase2 to 1>><</link>>
+		<br>
+		<<link [[Steal them.|Bleeding Ward Infant 2]]>><<set $phase to 1>><<set $phase2 to 1>><</link>><<gcrime "thievery">>
+		<br>
+	<<else>>
+		<<set $bleedingWard.infant to 1>><<set $trauma += 500>>
+		<span class="narration">When I first saw <<phim>>, <<pshe>> was carrying an infant. I thought it was <<pher>> child.</span>
+		<br><br>
+
+		You follow the sound of crying first. Someone's likely hurt.
+		<br><br>
+
+		It gets more shrill the closer you get. You follow it to a manor with a gaping hole in the roof. The front door is blown out, along with all the windows and most of the second floor's walls, but it still stands. It fared far better than the three next buildings. There's nothing to identify which family lived here.
+		<br><br>
+
+		You continue to follow the crying to a small room. A nursery for one child. You rush to the side of the cot, giving the crying baby within a quick look over. They're completely unharmed, but shaken. They continue to cry and scream as you wrap them in their blanket and lift them.
+		<br><br>
+
+		"Shhhhh, shh." You start to hum to them. <span class="green">In an instant, the crying stops as they look at you, entirely transfixed.</span> "It could be worse. You could have been deafened by the blast," you say. They babble at you, reaching for your face.
+		<br><br>
+
+		You do a sweep through the rest of the manor, calling out for anyone. No voice rises to meet yours. Two bedrooms are collapsed beyond saving. You pull a piece of paper and a pen from your pocket, write down your address, and leave it under an expensive-looking statuette near the entrance. As you do, you find yourself admiring it and wondering how good it would look in...
+		<br><br>
+
+		Not now. You head back outside. <<bleedingWardOptions true>>
+	<</if>>
+<</if>>
+
+:: Bleeding Ward Infant 2
+<<set _thermoDisable to true>><<effects>>
+<<set $bus to "manor">>
+<<if $phase is 1>>
+	<<set $bleedingWard.stamps to 1>>
+	<<if $bleedingWard.pub and $money is 0>>
+		<span class="narration"><<pShe>> wasn't above stealing to keep us fed.</span>
+		<br><br>
+	<</if>>
+
+	You take the ration stamps, and look around for a mirror.
+	<br><br>
+
+	<<if $player.gender is "f">>
+		You stand in front of it, turning to the side and doing your best to lightly exaggerate your belly size. No one should ask any questions.
+	<<else>>
+		You stand in front of it and adjust your hair. You turn to the side and try to lightly exaggerate your belly size. You could easily be mistaken for a woman, and no one should ask any questions.
+	<</if>>
+<<else>>
+	You leave the stamps behind<<if $bleedingWard.pair or $bleedingWard.pub or $bleedingWard.street>> and rejoin the children<<elseif $bleedingWard.winter>> and rejoin Winter<</if>>.
+<</if>>
+<br><br>
+
+<<if $phase2 is 1>>
+	<<bleedingWardOptions true>>
+<<else>>
+	<<bleedingWardOptions>>
+<</if>>
+
+
+:: Bleeding Ward Pair
+<<set _thermoDisable to true>><<effects>>
+<<set $bus to "pair">>
+<<set $bleedingWard.pair to 1>>
+<span class="narration">There was a pair of young teenagers holding hands in front of a burning house. To this day, I feel as though there was something unusual about them.</span>
+<br><br>
+
+<<if $bleedingWard.pub or $bleedingWard.street>>
+	You lead the children to the second pillar of smoke.
+<<else>>
+	You head towards the second pillar of smoke with Winter.
+<</if>>
+You follow it to a smaller home, still burning. A few volunteers rush buckets of water back and forth, the main fire response likely happening elsewhere.
+<<if $bleedingWard.infant and $bleedingWard.street>>
+	It looks like the fire's nearly under control nonetheless.
+<<else>>
+	It burns defiantly despite their efforts.
+<</if>>
+<br><br>
+
+A pair of teens, one boy and one girl, are holding hands, watching the embers absently from a safe distance. Their eyes are empty. You slowly approach them.
+<br><br>
+
+"Surnames?" you ask gently. They turn to you in synch, staring at you.<br>
+"Adams," the boy says, eerily monotone.<br>
+"Macleary," the girl says, mirroring the boy's tone.<br>
+"Who are you?" they ask simultaneously.
+<br><br>
+
+<<bleedingWardName>> "You look just like your mother," you say to the girl. They both seem less tense, but the girl scowls.<br>
+"Mum's gone," she says flatly.
+<br><br>
+
+She was one of your best customers. You can see the redness under the girl's eyes. She's fresh out of tears.
+<br><br>
+
+<<link [[Offer them a place to stay.|Bleeding Ward Pair 2]]>><<pass 5>><</link>>
+<br>
+
+:: Bleeding Ward Pair 2
+<<set _thermoDisable to true>><<effects>>
+<<set $bus to "pair">>
+<<set $trauma += 1000>>
+<span class="narration"><<pShe>> was a paradox. Cold, yet warmer than everything around <<phim>>. Like a beacon in a snowstorm. No one ever thought to refuse <<pher>> offer for shelter.</span>
+<br><br>
+
+"I'm sorry. I have a place you can stay." You look to the boy. "Unless—"<br>
+"I lived here too," he interrupts. This must be the orphan boy she loved talking about so much. Orphaned again.<br>
+"A place for both of you, then." You give them the sweetest smile you can manage, but it doesn't reach your eyes.
+<br><br>
+
+They look to each other. Their hands squeeze a little tighter, and they look back to you. "Thank you," they say in unison, but the boy falters at the end. He starts sobbing, no longer able to hold back his own tears. He must have been trying to stay strong for her sake.
+<br><br>
+
+You give them a moment. He buries his face in her shoulder and cries heavily. You take the chance to examine the burning home.
+<br><br>
+
+<<if $bleedingWard.infant and $bleedingWard.street>>
+	The fire's been contained enough for you to get close. You spot something shining from the remains of a burnt vanity, sticking out of what once must have been a bedroom. You clamber over ashes and char, and see that it's a coin collection.
+	<br><br>
+
+	<<link [[Leave it.|Bleeding Ward Pair 3]]>><<set $phase to 0>><<set $phase2 to 1>><</link>>
+	<br>
+	<<link [[Steal it.|Bleeding Ward Pair 3]]>><<set $phase to 1>><<set $phase2 to 1>><</link>><<gcrime "thievery">>
+	<br>
+<<else>>
+	<span class="teal">You spot something shining from the remains of a burnt vanity, sticking out of what once must have been a bedroom.</span> You push away the urge to get a closer look, the heat of the fire licking at your skin. After a few minutes, the pair start to follow you.
+	<br><br>
+
+	<<bleedingWardOptions true>>
+<</if>>
+
+:: Bleeding Ward Pair Return
+<<set _thermoDisable to true>><<effects>>
+<<set $bus to "pair">>
+You return to the smouldering home. Adams and Macleary keep their distance.
+<<if $bleedingWard.coins>>
+	There's nothing of interest here. <<bleedingWardOptions>>
+<<elseif $bleedingWard.infant and $bleedingWard.street>>
+	<span class="teal">The fire has died down enough to get closer.</span>
+	<br><br>
+
+	You spot something shining from the remains of a burnt vanity, sticking out of what once must have been a bedroom. You clamber over ashes and char, and see that it's a coin collection.
+	<br><br>
+
+	<<link [[Leave it.|Bleeding Ward Pair 3]]>><<set $phase to 0>><<set $phase2 to 0>><</link>>
+	<br>
+	<<link [[Steal it.|Bleeding Ward Pair 3]]>><<set $phase to 1>><<set $phase2 to 0>><</link>><<gcrime "thievery">>
+	<br>
+<<else>>
+	The fire is still too intense to get closer.
+	<br><br>
+
+	<<bleedingWardOptions>>
+<</if>>
+
+:: Bleeding Ward Pair 3
+<<set _thermoDisable to true>><<effects>>
+<<set $bus to "pair">>
+<<if $phase is 1>>
+	<<set $bleedingWard.coins to 1>><<set $money += 1500>>
+	<<if $bleedingWard.pub and !$bleedingWard.stamps>>
+		<span class="narration"><<pShe>> wasn't above stealing to keep us fed.</span>
+		<br><br>
+	<</if>>
+
+	You examine the coins for heat damage. A few have melted together, but you're able to salvage <<printmoney 1500>> worth of coins.
+<<else>>
+	You leave the coins behind.
+<</if>>
+<br><br>
+
+<<if $phase2 is 1>>
+	<<bleedingWardOptions true>>
+<<else>>
+	<<bleedingWardOptions>>
+<</if>>
+
+:: Bleeding Ward Pub
+<<set _thermoDisable to true>><<effects>>
+<<canvas-model-override "mouth" "neutral">>
+<<set $bus to "pub">>
+<<if $bleedingWard.pub>>
+	<<if $bleedingWard.pair and $bleedingWard.infant and $bleedingWard.street and $bleedingWard.pub isnot 2>>
+		<span class="narration">There was a chilling beauty to <<phim>>. No matter how cold that shell was, we all knew <<pshe>> cared about us. Even if <<pshe>> tried to hide it.</span>
+		<br><br>
+	<</if>>
+	You head to the front of the pub. The entire entranceway has collapsed and been cleared away, but it's still running.
+	<br><br>
+
+	<<if $bleedingWard.pair and $bleedingWard.infant and $bleedingWard.street>>
+		<<if $bleedingWard.pub isnot 2>>
+			<<set $bleedingWard.pub to 2>>
+			<<endevent>><<generate1>><<saveNPC 0 "bleedingWardDrunkard">><<person1>>
+			<span class="teal">You should be able to find some food here.</span>
+			<br><br>
+
+			You gently hand the infant to Adams as you walk into the pub. He seems caught off-guard, like he's never even seen a baby before, but holds on tight and diligently.
+			<br><br>
+
+			"Oi!" someone yells. "Lookie here! It's mother, shaggin', goose!" You look to see a <<person>> thrusting <<his>> pelvis in your direction. "Must be sore after that many brats!" <<He>> laughs at <<himself>>, to the displeasure of the other patrons.
+			<br><br>
+
+			You ignore <<him>>, rushing the children forward to the bar. The man working the counter, the owner most likely, gives you an apologetic smile. You open your mouth to speak, but he cuts you off. "Sorry <<lass>>, not doing handouts. You'll have to pay just like everyone else."
+			<br><br>
+
+			You nod in understanding, but after a moment's hesitation, he leans in closer. "But I'm willing to waive the cost if you get rid of that prick," he points to the drunkard that yelled at you, "Discreetly. People just want an ounce of normalcy after the shell shock."
+			<br><br>
+		<</if>>
+		<<endevent>>
+		<<canvas-model-override "mouth" "neutral">>
+
+		<<if $bleedingWard.coins>>
+			<<link [[Pay for food with stolen coins|Bleeding Ward Food]]>><<set $phase to 1>><</link>>
+			<br>
+		<</if>>
+		<<if $bleedingWard.stamps>>
+			<<link [[Pay for food with stolen ration stamps|Bleeding Ward Food]]>><<set $phase to 2>><</link>>
+			<br>
+		<</if>>
+		<<if $bleedingWard.drunkard is 1>>
+			<<link [[Tell the pubkeeper that the drunkard is dealt with|Bleeding Ward Food]]>><<set $phase to 3>><</link>>
+			<br>
+		<<elseif !$bleedingWard.drunkard>>
+			<<link [[Deal with the drunkard|Bleeding Ward Drunkard]]>><<endevent>><</link>>
+			<br>
+		<</if>>
+		<br>
+		<<bleedingWardOptions>>
+	<<else>>
+		<<bleedingWardOptions>>
+	<</if>>
+<<else>>
+	<<set $bleedingWard.pub to 1>>
+	<span class="narration">I wasn't the only one to be so fascinated by <<phim>>. We found a little girl separated from her mother, and she took to following us like a lost puppy.</span>
+	<br><br>
+
+	You follow the sound of many voices. Halfway there, you hear a loud whistle from the same direction. You arrive to see a crowd in the middle of dispersing, a police officer waving groups away from something.
+	<br><br>
+
+	It's a pub. The front is completely collapsed, but the structure itself seems to be holding steady. Someone's still working the counter, cleaning a mug, and a few patrons sit in stools.
+	<br><br>
+
+	You feel something run into you at waist-height, before it falls to the ground. A little girl with a star-shaped pin in her hair sits on the ground before you now, looking up at you. "S-sorry, <<if $player.gender is "f">>miss<<else>>mister<</if>>! I... I thought you w... were..." she starts to sob.
+	<br><br>
+
+	Winter crouches down to her side. "Your mum?" <<he>> asks, and the girl nods as she wipes her eyes. "We can help you find her... right?" <<He>> looks up at you.
+	<br><br>
+
+	You shake your head. "No time." <<His>> face sinks. "...but we can give her shelter until she turns up." <<He>> smiles at that. You crouch and extend your hand to the girl, who looks up at you in wonder. She shakily takes it, and you lift her. "Surname?"<br>
+	"Greene," she says. <br>
+	"You look more blue to me," you say. She pouts at you. <br>
+	"What about you?" she asks. <br>
+	<<bleedingWardName>> She tilts her head, but doesn't question.
+	<br><br>
+
+	<<bleedingWardOptions true>>
+<</if>>
+
+
+:: Bleeding Ward Street
+<<set _thermoDisable to true>><<effects>>
+<<set $bus to "street">>
+<<set $bleedingWard.street to 1>>
+<span class="narration">I could never tell if <<pshe>> was unbothered, or simply stoic. No matter how much destruction we saw, <<pher>> composure never appeared to slip.</span>
+<br><br>
+
+You head towards the ruined street. Nearly every house on this block is collapsed. It's eerily quiet.
+<br><br>
+
+You simply stare over the rubble for a moment, unmoving. <<set $trauma += 1000>>
+<br><br>
+
+Winter tugs on your sleeve, snapping you out of it. You find a single building still standing. A sign reading 'Hopeful Hands' hangs by the front. You knock on the door.
+<br><br>
+
+After a moment, a large man answers. Behind him, a woman and a young boy. "Hello?"<br>
+"Surname?" you ask.<br>
+He looks at you unsure for a moment. "You first."<br>
+<<bleedingWardName>><br>
+He lets out a breath, but smiles. "Hope."<br>
+"Important to hold onto," you say. You try to look behind him, but he shifts to block your vision.
+<br><br>
+
+You look up at him, dead in the eyes despite how much he towers over you. "I'm offering shelter to any children freshly orphaned, homeless, or unable to evacuate. I'm sure there's a reason you haven't yet."
+<br><br>
+
+He stares you down a moment, sizing you up. "Aye. My wife and I will be sticking around to help. Where are you taking them?"<br>
+"A place just west of town, far away from anything that would be a target," you say. You quickly write down directions for him. He looks it over, thinking for a long moment.
+<br><br>
+
+Finally, he turns to his wife and son, kneeling down to his level. "You're going somewhere safe, alright?" The two embrace, the boy starting to tear up. You let them have their moment and say their goodbyes.
+<br><br>
+
+<<link [[Wait.|Bleeding Ward Street 2]]>><<pass 5>><</link>>
+<br>
+
+:: Bleeding Ward Street 2
+<<set _thermoDisable to true>><<effects>>
+<<set $bus to "street">>
+<span class="narration"><<pShe>> kept <<pherself>> closed off to any attempts to get to know <<phim>>. I couldn't understand why for a long time, but now I think it was for our own protection.</span>
+<br><br>
+
+You sit down on the steps outside.
+<<if $bleedingWard.infant>>
+	The baby keeps reaching up to your face.
+<</if>>
+<<if $bleedingWard.pair>>
+	<<if $bleedingWard.pub>>
+		Adams and Macleary sit with Greene, who tries to get them to chat. She has limited success.
+	<<else>>
+		Adams and Macleary sit down nearby, silent.
+	<</if>>
+<<elseif $bleedingWard.pub>>
+	Greene twirls around the street, unable to keep still and oblivious to the weight of everything around her. You grab her and make her sit before she trips over some rubble.
+<</if>>
+<br><br>
+
+Winter sits down right next to you. <<He>> keeps looking at you, seeming to want to say something. "Go on," you say.
+<br><br>
+
+"What's your real name?" <<he>> asks.<br>
+"My own business," you say. "If you have to call me something, <<if $player.gender is "m">>'Mister'<<else>>'Miss'<</if>> will do just fine."<br>
+<<He>> looks down, saddened. You ruffle <<his>> red hair again. "It's better this way, trust me."
+<br><br>
+
+The door opens behind you, and the boy, Hope, stands there, wiping his eyes and holding a tiny suitcase. He's wearing a hat that almost looks like a smaller version of yours. "I-I'm ready," he says. "Thank you for taking care of me."
+<br><br>
+
+<<bleedingWardOptions true>>
+
+:: Bleeding Ward Drunkard
+<<set _thermoDisable to true>><<effects>>
+<<canvas-model-override "mouth" "neutral">>
+<<loadNPC 0 "bleedingWardDrunkard">><<person1>>
+
+You ask the pub owner to watch over 'your' children for a moment. He nods in appreciation. "Careful, <<lass>>."
+<br><br>
+
+You approach the drunkard, tapping <<him>> on the shoulder. <<He>> spins in <<his>> chair, <<his>> gaze turning lecherous. "Aww, mother goose is interested after all! How about we make a few more ducklings, goose-y?"
+<br><br>
+
+<<link [[Invite <<him>> outside.|Bleeding Ward Drunkard Outside]]>><</link>>
+<br>
+<<link [[Punch <<him>>.|Bleeding Ward Drunkard Punch]]>><<stress -24>><</link>><<gcrime "assault">><<llstress>>
+<br>
+
+:: Bleeding Ward Drunkard Punch
+<<set _thermoDisable to true>><<effects>>
+<<set $bus to "pub">>
+<<set $bleedingWard.drunkard to 2>>
+<span class="narration"><<pShe>> could be quite direct.</span>
+<br><br>
+
+<<He>> can't even see straight, and you're going to make sure <<he>> can't for a while.
+<br><br>
+
+You crack your knuckles, and sock <<him>> right in the nose. You're met with the faintest crunch as <<his>> chair falls back. <<He>> crashes into the table, spilling <<his>> drink all over <<himself>> and ending up sprawled out on the pub floor. The other patrons all whoop and cheer, but the owner <span class="red">shoots you a disapproving glare</span>.
+<br><br>
+
+<<He>> shakily tries to stand up, <<his>> nose leaking blood like a faucet. "You fucking <<bitch>>! You broke my nose!" <<He>> lunges for you, but you simply step aside. <<He>> crashes into another table, spilling more drinks. The patrons at said table each give <<him>> a kick for <<his>> trouble.
+<br><br>
+
+Red-faced, <<he>> flees the pub. "You'll... you'll get yours, goose-y!"
+<br><br>
+
+You return to the owner. <<He>> shakes <<his>> head. "I said 'discreetly' for a reason, <<lass>>. I've half a mind to call the police, if I thought they'd answer. You can forget the handout."
+<br><br>
+
+You shrug. "That punch was for my sake."
+<<endevent>><<canvas-model-override "mouth" "neutral">>
+<br><br>
+
+<<if $bleedingWard.coins>>
+	<<link [[Pay for food with stolen coins (£15)|Bleeding Ward Food]]>><<set $phase to 1>><</link>>
+	<br>
+<</if>>
+<<if $bleedingWard.stamps>>
+	<<link [[Pay for food with stolen ration stamps|Bleeding Ward Food]]>><<set $phase to 2>><</link>>
+	<br>
+<</if>>
+<br>
+<<bleedingWardOptions>>
+
+:: Bleeding Ward Drunkard Outside
+<<set _thermoDisable to true>><<effects>>
+<<set $bleedingWard.drunkard to 1>>
+<span class="narration">I don't know what <<pshe>> did to that <<personsimple>>, and I'm not sure I ever want to.</span>
+<br><br>
+
+"Come on then," you say simply. "Show me what you're made of. Outside."
+<br><br>
+
+<<He>> laughs, chugging the rest of <<his>> drink and standing up. "I knew you couldn't resist."
+<br><br>
+
+You lead <<him>> outside, around the corner into an alleyway. <<He>> looks at you expectantly.
+<br><br>
+
+<<link [[Fight <<him>>.|Bleeding Ward Drunkard Sex]]>><<set $fightstart to 1>><</link>>
+<br>
+<<link [[Let <<him>> do what <<he>> will.|Bleeding Ward Drunkard Sex]]>><<set $molestationstart to 1>><</link>>
+<br>
+<<if $real_awareness gte 700 or $gwylanSeen?.includes("yearning")>>
+	<span class="nextLinkWitch"><<link [["\"Leave.\""|Bleeding Ward Drunkard Command]]>><</link>></span><<note "???" "forest-green">>
+	<br>
+<</if>>
+
+:: Bleeding Ward Drunkard Command
+<<set _thermoDisable to true>><<effects>>
+In <<his>> state, this will be effortless. You give the command. It wasn't in English, but it doesn't matter. <<He>> will understand. A soft verdant light fills the alleyway for just a moment. <span class="green"><<His>> eyes go empty.</span>
+<br><br>
+
+"L-leave..." <<he>> mutters. "Leaves...? Like the forest... so pretty, so green..." <<he>> stumbles out of the alleyway. Where <<hes>> going isn't your problem anymore.
+<br><br>
+
+<<clearNPC "bleedingWardDrunkard">>
+<<link [[Head back inside.|Bleeding Ward Pub]]>><<endevent>><</link>>
+<br>
+
+:: Bleeding Ward Drunkard Sex
+<<set _thermoDisable to true>>
+<<if $fightstart is 1>>
+	<<set $fightstart to 0>>
+	<<controlloss>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust -= 50>>
+	<<set $enemyanger += 100>>
+	<<set $enemyhealth to 200>>
+	<<npcidlegenitals>>
+	You land a solid punch to <<his>> gut while <<his>> guard is down. "Ow! You rotten fucking—"
+	<br>
+<<elseif $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<controlloss>>
+	<<maninit>>
+	<<set $enemyhealth to 300>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<set $pain to 0>>
+<<set $arousal to 0>>
+<<set $worn.upper.integrity to 200>>
+<<set $worn.lower.integrity to 200>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Get this over with.|Bleeding Ward Drunkard Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[...|Bleeding Ward Drunkard Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Bleeding Ward Drunkard Sex Finish
+<<set _thermoDisable to true>><<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	"Thanks for the fun, goose-y."
+	<br><br>
+
+	You're thoroughly unimpressed with <<his>> performance, but the job is done. <<He>> starts walking down the alley in the opposite direction of the pub.
+	<<clotheson>>
+	<<endcombat>>
+<<else>>
+	<<He>> makes one last attempt to tackle you, but you simply step aside. <<He>> runs right into the brick wall and knocks <<himself>> out.
+	<<clotheson>>
+	<<endcombat>>
+<</if>>
+
+<<canvas-model-override "mouth" "neutral">>
+<<clearNPC "bleedingWardDrunkard">>
+<<link [[Head back inside.|Bleeding Ward Pub]]>><<bodyliquid "clear">><</link>>
+<br>
+
+:: Bleeding Ward Food
+<<set _thermoDisable to true>><<effects>>
+<span class="narration">What else is there to say? <<pShe>> didn't have to feed us, but <<pshe>> did.</span>
+<br><br>
+
+<<if $phase is 3>>
+	"Mother goose led the stray away," you say to the pub owner.<br>
+	He smiles at you. "Much obliged, <<lass>>." He slides you a menu. "You're welcome to anything under £5."
+	<br><br>
+
+	The children all crowd around you, picking what they want from the menu.
+<<else>>
+	<<if $bleedingWard.drunkard is 1>>
+		<<set $phase to 3>>
+		The owner refuses your payment. "You did me a favour, your money's no good here for today." He slides you a menu. "You're welcome to anything under £5."
+		<br><br>
+
+		The children all crowd around you, picking what they want from the menu.
+	<<elseif $phase is 1>>
+		<<set $bleedingWard.coins to 2>><<set $money to 0>>
+		You pay for some basic food with the stolen coins. It's just enough for everyone.
+	<<else>>
+		<<set $bleedingWard.stamps to 2>>
+		You show your ration stamps, designating extra rations for pregnant women.
+		<<if $player.gender is "m">>
+			He eyes you suspiciously for a moment. "You've got me calling you '<<lass>>', and you didn't even correct me." He doesn't prod.
+		<<else>>
+			He eyes you for a moment. "Another on the way, eh?" He doesn't prod.
+		<</if>>
+		There isn't much in the way of choice. The actual rations are very specific, but include plenty of protein. There's enough food for everyone.
+	<</if>>
+<</if>>
+Luckily, the pub has some mashed fruit for the baby, too. <<if $phase isnot 3>>The owner includes it free of charge.<</if>>
+<br><br>
+
+<<if $phase isnot 3 and !$bleedingWard.drunkard>>
+	<<loadNPC 0 "bleedingWardDrunkard">><<person1>>
+	"Moooooother goooooooose!" The drunk <<person>> from before throws an arm over your shoulder as you wait for your food. You pay <<him>> no attention. "Breakfast for the brats? I want some eggs! Why don't we—"
+	<br><br>
+
+	<<Hes>> suddenly pulled away. You look over, and see Adams and Macleary each holding <<him>> by a sleeve. "Leave <<phim>> be," they say in unison. The <<person>> freezes up.
+	<br><br>
+
+	After a moment, <<he>> shakes them off. "Creepy fuckin' kids..." <<He>> slowly walks away, and doesn't bother you again.
+	<br><br>
+
+	"That was dangerous," you say to them, shooting a sharp glare. "Adults can be scary." Despite that, you nod your thanks to them. You think you almost see them smile for a moment.
+	<br><br>
+<</if>>
+<<endevent "phaseless">><<canvas-model-override "mouth" "neutral">>
+
+The food is ready after some time.
+<br><br>
+
+<<clearNPC "bleedingWardDrunkard">>
+
+<<link [[Eat.|Bleeding Ward Food 2]]>><<pass 1 hour>><</link>>
+<br>
+
+:: Bleeding Ward Food 2
+<<set _thermoDisable to true>><<effects>>
+<<npc Winter>><<person1>>
+<<canvas-model-override "mouth" "smile">>
+<span class="narration">I didn't see <<phim>> eat very often. I was convinced <<pshe>> just didn't need to.</span>
+<br><br>
+<<if $phase is 1>><<set _food to "basic">><<elseif $phase is 2>><<set _food to "rations">><<else>><<set _food to "any">><</if>>
+
+<<if _food is "basic">>
+	A small portion of meat and fruit sits before you. Good enough. Winter eats quietly next to you. Adams and Macleary share their portion. Hope devours his as though his life depended on it. Greene makes fun of him for it while doing the same to her own.
+<<elseif _food is "rations">>
+	A pair of eggs and some nondescript meat sit before you. You're not picky. Winter eats quietly next to you. Adams and Macleary share their portion. Hope devours his as though his life depended on it. Greene makes fun of him for it while doing the same to her own.
+<<else>>
+	You get some thin pancakes. Winter gets the same thing. Adams and Macleary share a steak. Hope devours a plate of scrambled eggs as though his life depended on it. Greene makes fun of him for it while doing the same to some toasted bread with jam.
+<</if>>
+You carefully spoon-feed the baby.
+<br><br>
+
+You stay alert, repeatedly shifting your gaze to the entranceway. You don't understand how people can be laid-back at a time like this, pretending that the town wasn't just bombed. You've never understood people all that well, though.
+<br><br>
+
+Hope's voice snaps you out of your trance. "<<if $player.gender is "f">>Miss<<else>>Mister<</if>>? Thank you for the food." He politely bows, before sitting back down next to Greene. You blink. What a strange thing to thank someone for. You didn't even make it.
+<br><br>
+
+You catch yourself smiling, and quickly correct it. "I don't understand," Winter says. "You don't know any of us. Why are you doing this? Are... are you an angel?"
+<br><br>
+
+You wince and hurry the rest of the kids along once they're done eating.
+<br><br>
+
+<<link [[Keep moving.|Bleeding Ward Food 3]]>><<pass 30>><</link>>
+<br>
+
+:: Bleeding Ward Food 3
+<<set _thermoDisable to true>><<effects>>
+<<canvas-model-override "mouth" "neutral">>
+<span class="narration"><<pShe>> looked nervous. It made the rest of us nervous, too.</span>
+<br><br>
+
+You exit the pub. "Come on, everyone grab a hand, we're going..." You stop as you look down the street you came from. A procession of monks and nuns have started to aid in the cleanup and evacuations.
+<br><br>
+
+You turn the other way. "We're going home," you finish. "We have to go another way. Stay close."
+<br><br>
+
+The kids you've rounded up will have to be enough for today. You're going to have to pass through a bad part of town, but it's better than the alternative.
+<br><br>
+
+<<link [[Keep moving.|Bleeding Ward Gang]]>><<endevent>><<pass 45>><</link>>
+<br>
+
+:: Bleeding Ward Gang
+<<set _thermoDisable to true>><<effects>>
+<<canvas-model-override "mouth" "neutral">>
+<<generate1>><<generate2>><<generate3>><<generate4>><<generate5>><<generate6>><<person1>>
+<span class="narration">On that day, I learned that there will always be someone exploiting others in times of strife. There will always be a devil waiting to spring its ambush.</span>
+<br><br>
+
+You have to take the ocean-side route. It's much further north than you wanted to go. You can see the fire at the docks from here, and the horizon is choked with black smoke. You don't have time to stop and stare. You lead your children through the twists and turns of debris. Most of the town is out and about by now, looking for loved ones or getting ready to evacuate.
+<br><br>
+
+You cross the canal to a deserted street.
+<br><br>
+
+With practised coordination, a group of <<people>> step out from some ruined buildings and block your path forward. You come to a stop, placing your arm in front of Winter. The rest of the kids stop in turn.
+<br><br>
+
+"G'day, <<if $player.gender is "m">>Mister<<else>>Miss<</if>>," the <<person>> in front says. The rest of them have dingy, ratty clothes, but not <<him>>. "Afraid this road's closed. Too many unstable buildings here. You'll have to head all the way back around town... unless you want us to guide you through." <<He>> smiles. "Our fee is quite modest."
+<br><br>
+
+There's too many of them, and you don't want to put the kids at risk. Turning around isn't an option either.
+<br><br>
+
+<<if $bleedingWard.coins is 1>>
+	<<link [[Pay their toll with the stolen coins (£15)|Bleeding Ward Gang Pay]]>><</link>>
+<<else>>
+	<span class="red">You don't have any money.</span>
+<</if>>
+<br>
+<<link [[Pay their toll with...|Bleeding Ward Gang 2]]>><<set $trauma += 1000>><</link>><<gggtrauma>>
+<br>
+
+:: Bleeding Ward Gang Pay
+<<set _thermoDisable to true>><<effects>>
+<<set $money to 0>>
+<span class="narration">On that day, I also learned what an angel looked like.</span>
+<br><br>
+
+You approach the <<person>> and hold out the coins. <<He>> looks impressed. "A collector? My, my." <<He>> starts to count them, and stops to think for a long moment.
+<br><br>
+
+"It's enough," <<he>> says. <<He>> motions for you to pass.
+<br><br>
+
+As you do, <<he>> grabs you by the arm. "...<i>almost</i> enough." <<His>> smile feels like it'll rot off <<his>> face. "It's enough for you and five. I didn't realise you had six," <<he>> says, gesturing to the baby.
+<br><br>
+
+The rest of the <<people>> start to chuckle under their breaths. "I'll make you a deal." <<He>> slowly raises <<his>> arm up, <span class="red">and points at Greene.</span> She shies away behind Hope. "Leave the girl with us, and—"
+<br><br>
+
+"What kind of maths are you working?" you interrupt.<br>
+"What?"<br>
+"I gave you fifteen pounds. How's that split between six people, never mind seven?"<br>
+"I—"<br>
+"You didn't think about price at all. You're just making this up on the spot."<br>
+"And so what if I am?"<br>
+"Fifteen is enough."
+<br><br>
+
+You step closer to <<him>>. <<He>> steps back, looking nervous. "No, it—"<br>
+"Fifteen is enough," you repeat, grabbing <<him>> by the wrist. <<Hes>> exactly where you want <<him>>. <<His>> confidence is in pieces.
+<<He>> looks at <<his>> group, who all look shocked. They're amateurs, not used to anyone talking back. It's a scheme of desperation.
+<br><br>
+
+You press your advantage. "If it's not enough, give it back. I'll gladly go around," you bluff.
+<br><br>
+
+<<He>> thinks for a moment, but you squeeze <<his>> wrist, ensuring <<he>> doesn't think too much.
+"Fifteen is enough," <<he>> finally says, moving aside.
+<br><br>
+
+The rest of the group is momentarily stunned as you look them over. A few back down from your harsh gaze. You grab Winter by the hand and move past them with everyone.
+<br><br>
+
+<<link [[Go.|Bleeding Ward Collapse]]>><<pass 10>><<endevent>><<set $phase to 1>><</link>>
+<br>
+
+:: Bleeding Ward Gang 2
+<<set _thermoDisable to true>><<effects>>
+<span class="narration"><<pShe>> told us to step back, around the corner onto one of the adjacent streets that led back the way we came. I... didn't see what happened next.</span>
+<br><br>
+
+<<link [[Suggest that <<pshe>> talked them down|Bleeding Ward Gang Leave]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Suggest that <<pshe>> paid with <<pher>> body|Bleeding Ward Gang Leave]]>><<set $phase to 2>><</link>>
+<br>
+<<link [[Suggest that <<pshe>> fought them off|Bleeding Ward Gang Leave]]>><<set $phase to 3>><</link>>
+<br>
+<<if $real_awareness gte 700 or $gwylanSeen?.includes("yearning")>>
+	<span class="nextLinkWitch"><<link [["\"Leave.\""|Bleeding Ward Gang Leave]]>><<set $phase to 4>><</link>></span><<note "???" "forest-green">>
+	<br>
+<<else>>
+	<<insufficientStat "awareness" "to suggest anything else">>
+<</if>>
+
+:: Bleeding Ward Gang Leave
+<<set _thermoDisable to true>><<effects>>
+<<switch $phase>>
+	<<case 1>>
+		<span class="narration">I don't know how <<pshe>> could talk down people like that. But perhaps you're right. When <<pshe>> called us back around a few minutes later, they were all gone.</span>
+		<br><br>
+
+		You call the kids back around. You shake off their questions coldly. You take one last look at the door to the ruined building on your left, seeing a limp leg twitch.
+	<<case 2>>
+		<span class="narration">How insolent to suggest such a thing. But perhaps you're right. When <<pshe>> called us back around a few minutes later, they were all gone.</span>
+		<br><br>
+
+		You call the kids back around. You shake off their questions coldly. You take one last look at the door to the ruined building on your left, seeing a limp leg twitch.
+	<<case 3>>
+		<span class="narration">Nonsense. <<pShe>> was capable, but surely the sheer number of people would have overwhelmed <<phim>>. Besides, when <<pshe>> called us back around a few minutes later, they were all gone.</span>
+		<br><br>
+
+		You call the kids back around. You shake off their questions coldly. You take one last look at the door to the ruined building on your left, seeing a limp leg twitch.
+	<<default>>
+		<span class="narration">...'Leave'? you think <<pshe>> just told them all to leave, and they listened? Nonsense. When <<pshe>> called us back around, they were...</span>
+		<br><br>
+
+		You place it back in your pocket, still holding your shirt over your mouth and nose. A soft verdant glow fills the street. <span class="green">A few of the gang members' eyes are glazed over.</span><br>
+		"Leaves," one mutters, looking in the direction of the forest.<br>
+		"Left," another one says, continually spinning counter-clockwise.<br>
+		"Breeze," a third says, suddenly lost as <<he>> looks at the ocean.
+		<br><br>
+
+		Their leader looks around at them. "What the fuck...?" You march up to <<him>>, just barely placing two fingers around <<his>> neck. <<He>> freezes.
+		<br><br>
+
+		<b>"<span class="witch">Sit.</span>"</b>
+		<br><br>
+
+		<span class="green">In an instant, <<hes>> on the ground, looking up at you with empty eyes.</span> You crouch down to <<his>> level, cupping <<his>> cheeks with your hands. <<His>> leg kicks like that of a dog. <b>"<span class="witch">Go home.</span>"</b> <<He>> scrambles to all fours, rushing into the nearest ruined building. Everyone else looks, and after a moment, follows. You hear them collapse one by one once inside.
+		<br><br>
+
+		You wait for the glow to disperse and call the kids back around, lowering your shirt from your nose. You shake off their questions coldly. You take one last look at the door to the ruined building on your left, seeing a limp leg kick like a dog's.
+		<br><br>
+
+		It'll take you months to replace that.
+<</switch>>
+<br><br>
+
+<<link [[Move.|Bleeding Ward Collapse]]>><<pass 10>><<endevent>><<set $phase to 0>><</link>>
+<br>
+
+:: Bleeding Ward Collapse
+<<set _thermoDisable to true>><<effects>>
+<<canvas-model-override "mouth" "neutral">>
+<<npc Winter>><<person1>>
+<span class="narration"><<pShe>> was already doing so much for us. I was wracked by shame and guilt for what happened next, for a long time.</span>
+<br><br>
+
+<<if $phase is 1>>
+	You let the kids stop to catch their breath. You're nearly home.
+	<br><br>
+
+	Something crashes into your waist. It's Greene again, hugging your waist tightly and sobbing. "Y-you're... you're..." She can't get the words out. You gently pat her head.
+	<br><br>
+
+	"Can you be my new <<pmother>>?!" She suddenly cries out. The words alone nearly knock the wind out of you. You fail to find a response, and just hold her while she sobs. <<stress 50>><<gggstress>><<trauma -24>><<lltrauma>>
+<<else>>
+	You stop to rest for just a moment. You're nearly home.
+<</if>>
+<br><br>
+
+"The place we're going is nice," you say. "Just a little further now." Adams and Macleary sit together against some rubble. Hope kicks some rocks around idly. Winter stares transfixed at the hollowed out shell of a partially collapsed building.
+<br><br>
+
+"What are you doing over there? You're as stiff as ice," you say,<<if $phase is 1>> gently shaking Greene off and<</if>> walking over to <<him>>.<br>
+"This will all be gone soon," <<he>> says. "They'll have to build something new."<br>
+You nod.<br>
+"I want to remember it like it was."<br>
+"What do you mean?" you ask.
+<br><br>
+
+"This was a biiiig building once," <<he>> says, gesturing up with <<his>> arms. "I always like looking up at big buildings, they make me feel so small and safe. They might build something not so big here, and I want to remember what it was. So I'm staring at it really hard so I remember forever!"
+<br><br>
+
+"Sometimes remembering isn't all that great," you say. "Especially a situation like this."<br>
+<<He>> shakes <<his>> head in protest. "I want to remember everything! If I picture it hard enough I can almost see it here!" <<He>> closes <<his>> eyes tightly, <<his>> tongue sticking out in concentration.
+<br><br>
+
+You shake your head and start to walk away. You're a good distance out when <span class="red">you hear the rubble shift.</span> Slowly, the building in front of Winter lurches towards <<him>> as the minuscule remaining support finally gives way. <<His>> eyes open.
+<br><br>
+
+<<link [[Save <<him>>.|Bleeding Ward Collapse 2]]>><</link>>
+<br>
+
+:: Bleeding Ward Collapse 2
+<<set _thermoDisable to true>><<effects>>
+<<headruined>><<set $pain to 50>><<canvas-model-override "tears" 0>>
+<span class="narration">
+	I can't rationally explain what happened next.
+	I'll blame it on the mind of a distracted child ripped back to reality like a deer in headlights.
+	The only thing I know for sure is that <<pshe>> ran to me, and tackled me to the ground.
+	<br><br>
+
+	When <<pshe>> landed on top of me, shielding me from the falling debris with <<pher>> body, it wasn't concrete I felt beneath me. It was damp grass.<br>
+	When my senses returned, it wasn't the smell of burning that hit me. It was roses.<br>
+	When my eyes opened, it wasn't rubble and ruin crashing down on me that I saw.<br>
+	It was only <<phim>>.
+	<br><br>
+
+	A dome of green, like the hills outside the moor, surrounded us. Maybe it was just the inside of <<pher>> clothes.
+	Maybe the dust-filtered light played tricks on me. Or maybe it's simply the failing memory of an old <<personsimple>>.
+	<br><br>
+
+	The debris fell all around us. Not a single piece struck me. <<pShe>> wasn't as fortunate. There was blood running down the side of <<pher>> head.
+</span>
+<br><br>
+<<set $worn.upper.integrity to 10>>
+<<set $worn.lower.integrity to 10>>
+
+You pull Winter from the collapsed building, your vision blurring. The other children all rush towards you, but you wave them back. You look down to the <<nnpc_gendery "Winter">> in your arms. <<Hes>> breathing, but <<his>> eyes are unfocused. <<Hes>> in shock.
+<br><br>
+
+Your ears ring. You collapse.
+<br><br>
+
+<<link [[...|Bleeding Ward Recover]]>><<pass 4 hours>><</link>>
+<br>
+
+:: Bleeding Ward Recover
+<<set _thermoDisable to true>><<effects>>
+<<set $pain to 50>><<tiredness 50>><<canvas-model-override "tears" 0>>
+<<generate2>><<person2>>
+<span class="narration">I was inconsolable. I thought my negligence had ended <<phim>>.</span>
+<br><br>
+
+You slowly open your eyes. The light's much different. You must have been out for a while.
+<br><br>
+
+"About time," says a voice you don't recognise. You sit up fast, causing a sharp pain to shoot through your head. "Easy there." A pair of firm hands hold your shoulders. A <<person2>><<person>> in a police uniform greets you as your vision finally comes back into focus.
+<br><br>
+
+"Name?" <<he>> asks.<br>
+"M-mother goose," you respond. <<He>> gives you a concerned glare.<br>
+
+You quickly look around. The children are still here, all of them quickly getting up upon seeing you wake. Winter rushes over to you, collapsing into hugging you. <<person1>><<His>> tears wet your shirt.
+<br><br>
+
+"This brat wouldn't stop snivelling the whole time," the <<person2>><<person>> says.
+<<if $bleedingWard.coins gte 1 or $bleedingWard.stamps gte 1 or $bleedingWard.drunkard is 2>>
+	"And you're lucky for that.
+	<<if $bleedingWard.drunkard is 2 and ($bleedingWard.coins gte 1 or $bleedingWard.stamps gte 1)>>
+		<span class="purple">Someone of your exact description was reported for both assault and looting,</span>
+	<<elseif $bleedingWard.drunkard is 2>>
+		<span class="purple">Someone of your exact description was reported for assault on a patron at the pub,</span>
+	<<else>>
+		<span class="purple">Someone of your exact description was reported for looting,</span>
+	<</if>>
+	but <<person1>><<he>> begged me not to take you, saying that you just saved <<his>> life, and that it was all <<his>> fault," <<person2>><<he>> says in a mocking tone, waving <<his>> hand. "Can tell by that crack in your head and the rubble behind you that <<person1>><<hes>> telling the truth."
+<</if>>
+You reach up to your head, and feel fresh bandages around the back.
+<br><br>
+
+"Forgive the first responders for the fast patch job, no time for triage, as I'm sure you understand. There's not enough shelter space for the injured, never mind everyone that lost a home, and most of that shelter isn't all that safe. Where were you taking these youngsters?"
+<br><br>
+
+"Just outside town to the west," you say, your voice hoarse. "Out of range of—"
+<br>
+"Yeah, yeah, good enough," <<person2>><<he>> says. "The Hope family said the same, just wanted to corroborate the story." <<He>> stands up with a groan. "I'll escort you the rest of the way. Let's go." <<He>> extends <<his>> hand to help you up.
+<br><br>
+
+You take it and stand up, leading the way. Winter clings to your hip the entire way there.
+<br><br>
+
+<<link [[Go home.|Bleeding Ward Home]]>><<endevent>><<pass 2 hours>><</link>>
+<br>
+
+:: Bleeding Ward Home
+<<set _thermoDisable to true>><<effects>>
+<<set $bus to "home">><<set $outside to 0>><<canvas-model-override "clear">><<canvas-model-override "mouth" "neutral">>
+<<npc Winter>><<person1>>
+<span class="narration">
+	<<pHer>> home was like something from a children's book. There was always something to do there.
+	Despite how long we stayed, I don't think any of us ever managed to fully explore it.
+	There was a garden full of plants I still haven't seen anywhere else to this day, and unused children's toys everywhere.
+	Despite that, <<pshe>> didn't seem to have any children of <<pher>> own.
+	<br><br>
+
+	Today, the town stretches just west enough to encompass where it was. At least, I think it was the west.
+</span>
+<br><br>
+
+You push the front door open. "We're home," you say to everybody.
+<br><br>
+
+Winter takes a cautious first step forward. <<His>> mouth hangs open. Greene rushes past <<him>>, and immediately starts to make herself comfortable. Her laughter fills the air.
+Adams and Macleary slowly step inside next. Adams still holds the baby close. You take them back, letting him finally relax.
+Hope enters last, placing his little suitcase down.
+<br><br>
+
+You look down to Winter, <<his>> mouth still hanging open. "You'll catch a fly," you say. <<He>> snaps out of <<his>> reverie.<br>
+"Sorry, I..." <<he>> starts.<br>
+"Like big buildings?" you finish for <<him>>. <<He>> smiles and nods.
+<br><br>
+
+<<link [[Home.|Bleeding Ward Home 2]]>><</link>>
+<br>
+
+:: Bleeding Ward Home 2
+<<set _thermoDisable to true>><<effects>>
+<<run Time.timeTravel(new DateTime(1940, 11, 3, 11, 0))>>
+<<set Weather.set("heavyPrecipitation", true, 1000)>>
+<<set $pain to 0>><<set $tiredness to 0>><<set $stress to 0>><<set $trauma -= 350>><<handheldwear "parasol" "forest green" "white">>
+<<set $worn.upper.integrity to 200>><<set $worn.lower.integrity to 200>>
+<span class="narration">
+	Something I vividly remember is just how rainy it became after that day.
+	It felt like a full month of nonstop rain, and the day after the first bombing was the worst of it.
+	But the rain didn't ever stop <<phim>>. Every day, <<pshe>> would leave, and return with another child that needed shelter.
+	No matter how many <<pshe>> brought, it never felt cramped. There was simply always more room.
+</span>
+<br><br>
+
+You nod your head forward, letting the miserable-looking girl through the front door before tapping the rain from your umbrella.
+<br><br>
+
+"We're home," you say to everybody. Winter immediately stands up, runs to you, and hugs you, the force of which makes you take a step back.
+You slowly return the embrace. <<stress 12>><<gstress>><<ltrauma>>
+<br><br>
+
+"This is Fisher," you say. "She'll be staying with us."<br>
+The other kids all crowd around, giving their greetings.<br>
+"Wow, are you really a fish?" Greene asks her.
+<br><br>
+
+Winter looks up to you, still clinging on. "How many more kids are you going to bring?" <<he>> asks.<br>
+"As many as I can," you answer plainly. <br>
+You look back to Fisher. She's finally smiling.
+<br><br>
+
+<<link [[Home...?|Bleeding Ward Home 3]]>><</link>>
+<br>
+
+:: Bleeding Ward Home 3
+<<set _thermoDisable to true>><<effects>>
+<<run Time.timeTravel(new DateTime(1940, 11, 19, 13, 0))>>
+<<set Weather.set("heavyPrecipitation", true, 1000)>>
+<<set $trauma -= 350>>
+<span class="narration">It felt so cold whenever <<pshe>> left, and so much warmer when <<pshe>> returned. We all felt it.</span>
+<br><br>
+
+You tap the rain from your umbrella and walk through the front door, holding a paper bag under your other arm.
+<br><br>
+
+"I'm home—"
+<br><br>
+
+You're nearly tackled off your feet as Winter, Greene, Hope and Fisher all crash into you. The impact sends a jolt of pain through the back of your head where the debris had hit you. <<pain 5>><<stress 24>><<gpain>><<ggstress>><<lltrauma>>
+<br><br>
+
+Something taps you on the shoulder. Macleary holds her hands out, offering to take the bag with a smile. It's the widest smile you've seen from her yet, and Adams wears a matching one. You hand over the bag with a nod of thanks, allowing you to return the smaller children's embrace.
+<br><br>
+
+After a moment, you clear your throat, prompting them to finally break off. "Everyone, it's Hope's birthday today. His family gave us a cake to celebrate." Their eyes all fill with excitement. Some of the newer children look over. "There's enough for everyone." You nod to Macleary, and she brings the bag to the kitchen.
+<br><br>
+
+Hope starts to tear up. As usual. At least it's happy tears, this time. Greene hugs him tightly.
+<br><br>
+
+The home is filled with the sounds of celebration as everyone sings for him.
+<br><br>
+
+<<link [[Home...|Bleeding Ward Home 4]]>><</link>>
+<br>
+
+:: Bleeding Ward Home 4
+<<set _thermoDisable to true>><<effects>><<set T.smokeOff to true>>
+<<run Time.timeTravel(new DateTime(1940, 12, 2, 3, 36))>>
+<<set Weather.set("lightClouds", true, 1000)>>
+<<set $trauma -= 350>><<set $tiredness to 1600>>
+<<upperundress "bleedingWard">><<lowerundress "bleedingWard">>
+<<feetundress "bleedingWard">><<handheldundress "bleedingWard">><<upperwear "oversized button-down" "olive">>
+<span class="narration">
+	I followed <<phim>> around everywhere.
+	Some of the time <<pshe>>'d shoo me away, saying <<pher>> work was sensitive. But <<pshe>> let me most of the time.
+	After a few weeks, <<pshe>> even stopped looking annoyed about it.
+</span>
+<br><br>
+
+<span class="red">You hear something moving in your bedroom.</span> You snap awake and sit up.
+<br><br>
+
+Your eyes scan the room. A tiny, shadowy figure stands at the foot of your bed. You wipe the drowsiness from your eyes. It's... Greene.
+<br><br>
+
+"<<if $player.gender is "m">>Mister?<<else>>Miss?<</if>> S-sorry for waking you up," she says softly.<br>
+"Greene? How did you even find my room?"<br>
+"W-Winter told me where it was."<br>
+"And how did <<he>> know that?"<br>
+"<<He>>... <<he>> watches you a whole lot."
+<br><br>
+
+You sigh. This is what you get for letting <<him>> follow you around so much. You scratch the back of your head.<br>
+"I had a really bad dream," she says. "Can I sleep in here tonight? I don't feel safe in my room."<br>
+You stare at her for a moment, processing her request.<br>
+"I... sure," you finally say. You think she smiles. You move your blankets aside, giving her room. She snuggles up next to you. <<lltrauma>>
+<br><br>
+
+"<<if $player.gender is "m">>Mister?<<else>>Miss?<</if>>"<br>
+You open your eyes. "Yes?"<br>
+"Why do you only call us by our surnames?"<br>
+"First names are too intimate for me. Why?"<br>
+"Winter wanted me to ask."<br>
+You close your eyes again.
+<br><br>
+
+"<<if $player.gender is "m">>Mister?<<else>>Miss?<</if>>"<br>
+You open your eyes again. "Yes, Greene?"<br>
+"My first name is A-."<br>
+"That won't work on me," you interrupt. "Did Winter tell you to try that, too?"<br>
+"Y-yes..."<br>
+You sigh. "That <<nnpc_gendery "Winter">> is far too curious."<br>
+Greene nods. "<<He>> said <<he>> wants to remember everything."<br>
+"I know. Go to sleep, Greene."
+<br><br>
+
+<<link [[Sleep.|Bleeding Ward Home Christmas]]>><</link>>
+<br>
+
+:: Bleeding Ward Home Christmas
+<<set _thermoDisable to true>><<effects>><<set T.smokeOff to true>>
+<<run Time.timeTravel(new DateTime(1940, 12, 25, 16, 0))>>
+<<set Weather.Temperature.set(-15)>><<set Weather.set("heavyPrecipitation", true, 1000)>>
+<<set $trauma -= 350>><<set $tiredness to 0>><<set $pain to 0>>
+<<storeonupper "bleedingWard">><<storeonlower "bleedingWard">>
+<<storeonfeet "bleedingWard">><<storeonhandheld "bleedingWard">><<feetwear "long boots" "black">><<canvas-model-override "mouth" "smile">>
+<span class="narration">
+	It was only <<phim>>, but <<pshe>> somehow always managed to take care of all of us. We were well-fed, cared for. Loved.
+	One would never think a <<woman>> that looked so cold could be so compassionate.
+	In time, we all began to think of <<phim>> as a <<pmother>>.
+</span>
+<br><br>
+
+You tap the snow from your umbrella as you walk through the front door.
+<br><br>
+
+"I'm home," you say to everybody.
+<br><br>
+
+You smell something... burning? You look around, but don't see anyone. You hear whispering from the kitchen.
+<br><br>
+
+You turn the corner. "Merry Christmas!" a chorus of voices yell to you. Everyone's in the kitchen. There's an abomination that vaguely resembles food on the table.
+You were planning on cooking that for a Christmas dinner. <<stress 24>><<ggstress>>
+<br><br>
+
+You stare, speechless. "We wanted to take some of the burden," Fisher says. "You're always taking care of us. We don't have anything to give you, so we..."<br>
+"We all worked together," Adams and Macleary say in unison.<br>
+"It was the least we could do," Winter says. "But I think we messed it up."
+<br><br>
+
+You can't help yourself, and laugh under your breath. You start to feel choked up. You spread out your arms wide. "Merry Christmas."
+The children all rush to you in a big group hug.
+<br><br>
+
+Dinner is awful. <<lltrauma>>
+<br><br>
+
+<<link [[...|Bleeding Ward Home 5]]>><</link>>
+<br>
+
+:: Bleeding Ward Home 5
+<<set _thermoDisable to true>><<effects>><<set T.smokeOff to true>>
+<<run Time.timeTravel(new DateTime(1941, 1, 18, 15, 30))>>
+<<set Weather.set("lightClouds", true, 1000)>>
+<<set $trauma -= 1000>><<set $stress to 0>><<handheldruined>>
+<span class="narration">
+	Children cycled out regularly over the months. Lost families reuniting, or picking up their children to flee the town entirely.
+	I don't remember the specifics of who ended up where, though.
+	<<pShe>> never asked for payment from the families, but didn't turn it down if it was offered. <<pShe>> only ever asked for something to remember each child by.
+	Thinking on it now, I don't know how <<pshe>> supported us.
+	<<pShe>> didn't seem to have any money on the first day, and yet money wasn't ever an issue.
+</span>
+<br><br>
+
+You shake Mr. Hope's hand. His grip is firm, and he nearly shakes your whole body with his massive frame. "We owe you a great debt," he says. His son stands next to him, wiping his eyes. Greene holds his other hand.
+<br><br>
+
+The two of them break off, hugging you by the waist. "Thank you so much," they say. Hope starts to sob. As usual. Maybe that's all he had to do to convince his father to adopt Greene.
+<br><br>
+
+Her mother never turned up, but never appeared in any casualty reports either. At least she's going to a good home, with a good friend.
+<br><br>
+
+Mr. Hope digs around in his pockets, handing you a stack of notes. You don't bother counting it. "Just... give me something to remember them by," you request. He looks down to them.<br>
+Hope removes his hat, holding it out to you. Greene does the same with her star-shaped hairpin.<br>
+You clutch them tightly, and move to hug the two of them even tighter.<br>
+"Be good," you say. They both nod.<br>
+"We'll never forget you," they both say. <<lltrauma>><br>
+"Nor I you," you respond.
+<br><br>
+
+The door closes.
+<br><br>
+
+<<link [[They're home now.|Bleeding Ward Home 6]]>><</link>>
+<br>
+
+:: Bleeding Ward Home 6
+<<set _thermoDisable to true>><<effects>><<set T.smokeOff to true>>
+<<run Time.timeTravel(new DateTime(1941, 3, 4, 11, 50))>>
+<<set Weather.set("lightClouds", true, 1000)>>
+<<set $trauma -= 1000>><<set $stress to 0>>
+<span class="narration">I started to miss the other kids. But <<pshe>> made the gradual loneliness easier to bear.</span>
+<br><br>
+
+You tap the dirt from your boots.
+<br><br>
+
+"I'm home," you say to all the budding flowers in your garden.
+<br><br>
+
+"Welcome home!" comes Winter's voice, making you jump. <<He>> springs out from around the corner of the house. <<stress 6>><<gstress>>
+<br><br>
+
+You stare daggers at <<him>>. "Winter. How many times—"<br>
+"I know the garden is off limits, but it's so lonely in the house!"<br>
+You keep your stern gaze on <<him>>, but you can't hold it. You know how hard it is. You know it all too well.
+<br><br>
+
+Adams and Macleary were taken in by a godparent last week. They gave you a mismatched pair of wool mittens to remember them by.
+Fisher's older brother finally returned from military service, and took her back in. She gave you a rusty coin she found on the sidewalk a week prior to leaving.
+That baby you found in the manor was taken by some government orderlies when it was determined they had no surviving family.
+It was just Winter and a few other kids now.
+<br><br>
+
+You sigh. "Well, come on then. Grab a trowel and a pair of work gloves. If you're going to bother me, you're at least going to make yourself useful."
+<br><br>
+
+<<His>> smile seems to make the clouds go away. It's contagious. <<lltrauma>>
+<br><br>
+
+<<link [[...|Bleeding Ward Home 7]]>><</link>>
+<br>
+
+:: Bleeding Ward Home 7
+<<set _thermoDisable to true>><<effects>><<set T.smokeOff to true>>
+<<run Time.timeTravel(new DateTime(1941, 4, 30, 20, 0))>>
+<<set Weather.set("heavyClouds", true, 1000)>>
+<<set $trauma to 0>><<canvas-model-override "tears" 4>><<canvas-model-override "mouth" "neutral">><<set $pain to 50>>
+<span class="narration">
+	Six months in total. I stayed as long as I could. I was one of the first ones there, and I was the last one to leave.
+	<br><br>
+
+	Truthfully, I didn't ever want to.
+	But when it was determined that the bombings had officially ended, <<pshe>> had no legal grounds to shelter us anymore.
+	I vaguely remember an attempt <<pshe>> made to become a licensed guardian. <<pShe>> wanted to designate <<pher>> home as an orphanage.
+	It fell through for reasons that flew over my head at the time.
+	<br><br>
+
+	What I do remember, is how tightly we held each other on that last day. It was the only time I saw <<phim>> cry.
+	Up until that point, I didn't think <<pshe>> saw me as a <<daughter>>, and knowing that <<pshe>> did made it that much harder to let go.
+</span>
+<br><br>
+
+You're home.
+<br><br>
+
+And it's about to be empty.
+<br><br>
+
+Children's toys lay unused on the floor. Walls and shelves that once echoed the sounds of joy now stare back silently. Neglected beds collect dust. Gloom surrounds you, cloying and all-consuming. You cling tightly to your last light.
+<br><br>
+
+Winter clings back. "P-please don't let me go," <<he>> sobs. "I want to stay!"<br>
+"I wish you could," you say. You choke on your words. "I wish you could."
+<br><br>
+
+That's all you do for the whole day, for as long as you can. Your head pounds.<br>
+The time comes.<br>
+Winter reaches into <<his>> pocket, and pulls <<his>> pocketwatch out.<br>
+"I-I'm not allowed to leave home without it. Everyone in the family has one. S-so, you need one too."<br>
+<<His>> words are the breaking point. Months of emotion crash through you. You can't hold back the tears anymore.
+<br><br>
+
+They have to pull you apart. It takes five of them.
+<br><br>
+
+The door slams shut. You're plunged into darkness. Alone.
+<br><br>
+
+<<link [[The worst part of living in a dream is waking up.|Bleeding Ward Checkpoint]]>><<endevent>><</link>>
+<br>
+
+:: Bleeding Ward Checkpoint
+<<bleedingWardEnd>>
+<<effects>>
+<<set $museumAntiques.paintings.paintingward to "museum">>
+<<npc Winter>>
+<<set _otherPronoun to C.npc.Winter.pronoun is "m" ? "f" : "m">>
+<<generateNPC 2 a _otherPronoun _otherPronoun 10>>
+<<person1>>
+
+Winter wipes <<his>> eyes.
+<br><br>
+
+"I begged the family to let me see <<person2>><<him>> again. It took years. They didn't want me to see <<him>> for reasons that they never explained to me. By the time they finally agreed, the house was deserted."
+<br><br>
+
+<<person1>><<He>> clears <<his>> throat. "Apologies. These are deep memories, and I may have gotten some of the details wrong." <<He>> reaches for a bottle of water.
+<br><br>
+
+"My voice isn't what it used to be, either. Talking so much is tiring. And I haven't even gotten to the painting yet! We can stop here, if you'd like."
+<br><br>
+
+<<link [[Ask Winter to tell you the rest of the story (0:15)|Bleeding Ward More]]>><</link>>
+<br>
+<<link [[Continue the story later|Bleeding Ward End Early]]>><</link>>
+<br>
+
+:: Bleeding Ward End Early
+<<effects>>
+<<set $bleedingWardCheckpoint to true>><<set $daily.winterStoryTime to false>>
+You tell Winter that you don't have time to hear the rest right now. <<He>> nods in understanding. "Some other time, maybe. I'll take the chance to rest my voice."
+<br><br>
+
+<<link [[Next|Museum]]>><<endevent>><</link>>
+<br>
+
+:: Bleeding Ward Resume
+<<effects>><<unset $bleedingWardCheckpoint>><<npc Winter>><<person1>>
+<<switch $speech_attitude>>
+	<<case "meek">>
+		"I-I want to hear the rest of your story," you say to Winter.
+	<<case "bratty">>
+		"I've got time now, I want to hear the rest of that story of yours," you say to Winter.
+	<<default>>
+		"I want to hear the rest of your story," you say to Winter.
+<</switch>>
+<br><br>
+
+<<He>> sighs and pulls up a chair. "Where did we leave off? Oh, right. A long time had passed." <<He>> makes <<himself>> comfortable.
+<br><br>
+
+"I remember this part much more, as it was more recent. Seeing the bombings, and the exploitation, is what made me join the army when I got older. The whole family approved. The war was long since over by that time, though. It was over two decades since the day of the first bombing. I went out on the town with some of my army mates. In fact, we went to the same pub..."
+<br><br>
+
+<<link [[...that had a collapsed entrance.|Bleeding Ward Epilogue]]>><<pass 15>><<endevent>><</link>>
+<br>
+
+:: Bleeding Ward More
+<<effects>>
+<<switch $speech_attitude>>
+	<<case "meek">>
+		"I-I want to hear the rest," you say, leaning forward in your chair.
+	<<case "bratty">>
+		"You can't just end a story on a heartache like that!" you say, leaning forward in your chair. "Spit out the rest!"
+	<<default>>
+		"I want to hear the rest," you say, leaning forward in your chair.
+<</switch>>
+<br><br>
+
+"Alright, alright," <<he>> says. <<He>> takes a long drink from <<his>> water bottle.
+<br><br>
+
+"I remember this part much more, as it was more recent. Seeing the bombings, and the exploitation, is what made me join the army when I got older. The whole family approved. The war was long since over by that time, though. It was over two decades since the day of the first bombing. I went out on the town with some of my army mates. In fact, we went to the same pub..."
+<br><br>
+
+<<link [[...that had a collapsed entrance.|Bleeding Ward Epilogue]]>><<pass 15>><<endevent>><</link>>
+<br>
+
+:: Bleeding Ward Epilogue
+<<bleedingWardStart "epilogue">>
+<<set _thermoDisable to true>><<set $underlowerwet to 0>><<effects>>
+<<npc Winter>><<person1>>
+
+<span class="narration">Yes, it was the very same one. I could still see the difference in colour between the front of the building and the rest of the structure, but the repairs were otherwise done masterfully. I saw someone that looked far too familiar that night.</span>
+<br><br>
+
+<<wearProp "beer mug">>
+
+Thunder gently rumbles outside. The pub gets louder as a group enters all at once. You steal a glance at the intrusion, and see a group of <<people>> in military uniforms. You take a heavy swig of your drink. <<galcohol>>
+<br><br>
+
+It suddenly gets quiet again. You notice, but not enough to think about it too much. You feel like putting your head on the bar and going to sleep.
+<br><br>
+
+"Hey <<if C.npc.Winter.gender is "m">>man<<else>>girl<</if>>, you alright? You look like you've seen a ghost." <<Hes>> not talking to you. Just ignore <<him>>.
+<br><br>
+
+"Y-yeah. Hey, you <<if C.npc.Winter.gender is "m">>lads<<else>>girls<</if>> go grab a table, I'll be right there." Still not talking to you. Just-
+<br><br>
+
+Someone takes the seat next to you. "Excuse me?"
+<br><br>
+
+Damn it.
+<br><br>
+
+<<link [["\"No, you can't buy me a drink.\""|Bleeding Ward Epilogue 2]]>><<pass 1>><<set $phase to 1>><</link>>
+<br>
+<<link [["\"That seat was taken.\""|Bleeding Ward Epilogue 2]]>><<pass 1>><<set $phase to 2>><</link>>
+<br>
+
+:: Bleeding Ward Epilogue 2
+<<set _thermoDisable to true>><<set $underlowerwet to 0>><<effects>>
+<span class="narration"><<pHer>> accent was different. Heavier. Almost melodic. I wasn't thinking entirely clearly, understand. My mind raced to unreasonable conclusions. Surely twenty years was long enough to simply develop a new accent, I thought, entirely ignoring that <<pshe>> didn't look a day older.</span>
+<br><br>
+
+<<if $phase is 1>>
+	<<He>> seems caught off-guard. "I can see that, you're enjoying the one you've got well enough," <<he>> says.
+<<else>>
+	<<He>> seems caught off guard. "I'll only be a moment," <<he>> says.
+<</if>>
+"You... I'm sorry, you look a lot like someone I knew a long time ago."
+<br><br>
+
+"Nice try, I've heard that one plenty. Pretend you know someone, say they look familiar, one of the oldest tricks in the book," you say. You finally turn to look at <<him>>.
+Your eyes scan <<him>> up and down. <<Hes>> quite <<if C.npc.Winter.gender is "m">>handsome<<else>>pretty<</if>>, <<his>> uniform is freshly pressed and well-cared for. You get a vague sense of recognition, but you get that with a lot of people. Your vision is a little fuzzy right now, though, maybe...
+<br><br>
+
+"I'm sorry, my memory must be failing me," <<he>> says politely as <<he>> stands back up. Something in <<his>> voice is disarming.
+<br><br>
+
+<<link [["\"Wait.\""|Bleeding Ward Epilogue 3]]>><<pass 1>><<set $phase to 1>><</link>>
+<br>
+<<link [[Grab <<his>> arm.|Bleeding Ward Epilogue 3]]>><<pass 1>><<set $phase to 2>><</link>>
+<br>
+
+:: Bleeding Ward Epilogue 3
+<<set _thermoDisable to true>><<set $underlowerwet to 0>><<effects>>
+<<handheldon>>
+<span class="narration">I knew I couldn't be mistaking that chilling beauty.</span>
+<br><br>
+
+<<if $phase is 1>>
+	<<He>> stops, and sits back down.
+<<else>>
+	You practically pull <<him>> back down into the seat.
+<</if>>
+You look at the nametag on <<his>> uniform.
+<br><br>
+
+Of course.
+<br><br>
+
+"You must be one of the brats <<if $player.gender is "m">>dad<<else>>mum<</if>> took in during the blitz," you say. "Winter... <<pshe>> talked about you all the time. An army brat now."
+<br><br>
+
+The look on <<his>> face is hard for you to stick a name on. Wonder? Relief? "I didn't know <<pshe>> had a <<pdaughter>>."
+<br><br>
+
+"The bombings were over by the time I was born," you explain. "We wouldn't have met." You chug the rest of your drink. <<set $drunk += 120>><<ggalcohol>>
+<br><br>
+
+"...but I still know plenty about you. <<pShe>> talked about you like you were my long-lost older <<sister_npc>>." <<His>> smile is radiant.
+<br><br>
+
+You retell <<him>> the stories. The other children. The building that collapsed on <<him>>. The pocketwatch. How <<he>> wanted to 'remember everything.'
+<br><br>
+
+<<link [[Talk with <<him>> more.|Bleeding Ward Epilogue 4]]>><<pass 3>><<set $phase to 0>><</link>>
+<br>
+
+:: Bleeding Ward Epilogue 4
+<<set _thermoDisable to true>><<set $underlowerwet to 0>><<effects>>
+<span class="narration">We talked for a long while, but there's only one question I got a clear answer to. The first one I asked.</span>
+<br><br>
+
+"So where is <<pshe>> now? I would love to see—"<br>
+"<<pShes>> gone."<br>
+A silence hangs over the pub.<br>
+"Sickness took <<phim>> a few years ago." You wave the bartender down for another drink. You see the look on Winter's face, and make it two.
+<br><br>
+
+<<He>> slides money of <<his>> own forward. "Please, allow me."<br>
+"Oh, aren't you a sweetheart," you say with a smile as you ruffle <<his>> red hair.
+<br><br>
+
+More silence.
+<br><br>
+
+"You made <<phim>> very happy," you say. "Before me, <<pshe>> had bad luck having kids. You gave <<phim>> hope, and without that hope, I don't think I would have been born. When it was <<pher>> time, <<pshe>> had a smile on <<pher>> face."
+<br><br>
+
+<<He>> doesn't respond, but <<he>> doesn't need to. You've softened the blow as much as you can.
+<br><br>
+
+<<link [[Drink with <<him>>.|Bleeding Ward Epilogue 5]]>><<set $drunk += 60>><<pass 10>><</link>><<galcohol>>
+<br>
+
+:: Bleeding Ward Epilogue 5
+<<set _thermoDisable to true>><<set $underlowerwet to 0>><<effects>>
+<<wearProp "beer mug">><<set $pain to 15>>
+<span class="narration"><<pShe>> thoroughly resisted any attempts to get to know <<phim>>. Just like <<pher>> <<pmother>>.</span>
+<br><br>
+
+You endure <<his>> questioning, giving non-answers and jokes in response each time. Your head pounds. <<gpain>>
+<br><br>
+
+"How rude of me for not asking this first. What's your name?" <<he>> finally asks.
+<br><br>
+
+"My own business," you answer. "If you have to call me something, call me 'the <<girl>> your mum warned you about.'" <<He>> lets out a small chuckle, but frowns.
+<br><br>
+
+You give <<him>> a side-eye, before you turn and lean towards <<him>>. "Oh, Lord, you're a mope. Drink a bit more and lighten up, will you?" You playfully punch <<him>> on the shoulder.
+"Just like <<if $player.gender is "m">>dad<<else>>mum<</if>> said, you want to fill up that rattling skull of yours and remember everything. You just have to know all about me, yeah?"
+<br><br>
+
+You lean closer, standing up at this point. "Did you ever consider that I might be here tryna' drown out some memories myself?
+And in comes you, prim and proper, <<if C.npc.Winter.gender is "m">>big handsome army man<<else>>pretty little army girl<</if>>, making me remember what I'm tryna' forget."
+<br><br>
+
+<<His>> breath tickles your face as <<he>> leans back away from you. You lean in further. <<He>> nearly tips <<his>> stool over. <<arousal 500>><<garousal>>
+<br><br>
+
+"I... I'm sorry. I'll just go." <<He>> slides out, <<his>> chair scraping loudly against the floor, and escapes to join <<his>> friends across the pub.
+<br><br>
+
+You sit back down with a pout. "Fool," you mutter, unsure of whether you're talking about <<him>> or yourself. You feel a warmth rising in you.
+<br><br>
+
+<<link [[...|Bleeding Ward Epilogue 6]]>><<pass 2>><</link>>
+<br>
+
+:: Bleeding Ward Epilogue 6
+<<set _thermoDisable to true>><<set $underlowerwet to 0>><<effects>>
+<span class="narration">I thought that would be the end of it.</span>
+<br><br>
+
+Your head rests on the bar, your eyes closed. Obnoxious music begins playing, denying you the mercy of blacking out.
+<br><br>
+
+You can't help yourself. After a few minutes, you peel your face off the bar and turn around, looking at the group. They're all talking and laughing, except <<him>>.
+You focus and listen in.
+<br><br>
+
+"...and <<he>> couldn't stand the stuff for weeks!" Laughter. "All over <<his>> chest!" More laughter. Noise.
+"What about you, Winter?" Your ears twitch. You listen more keenly for <<his>> voice. The other noises in the pub all fade away.
+"Any luck with that minx over there? Looks like <<pshe>> could go like belt-fed mortar."
+<br><br>
+
+<b>Minx?!</b>
+<br><br>
+
+You avert your gaze quickly.<br>
+"It's not like that," comes Winter's voice. Oh, it's not, is it? You'll show <<him>>. <<stress 24>><<arousal 500>><<ggstress>><<garousal>><br>
+"<<pShes>> the <<pdaughter>> of someone I knew as a kid."
+You look to <<him>> again, sizing <<him>> up once more.
+<br>
+<<if C.npc.Winter.gender is "m">>
+	Broad shoulders.<br>
+	Good muscles.<br>
+<<else>>
+	Tidy hair.<br>
+	Good hips.<br>
+<</if>>
+Smart.<br>
+Prior attachment.<br>
+Military, so won't be around often.<br>
+A beautiful memory.<br>
+Lived through severe trauma.<br>
+Remembers all of it.<br>
+<span class="red"><i>Perfect.</i></span><br>
+You lick your lips.<br>
+"Are you sure? I think <<pshe>> might be interested in you."<br>
+One of them is looking right at you. You look away again.
+<br><br>
+
+<<link [[Get ready.|Bleeding Ward Epilogue Spell]]>><<pass 2>><</link>>
+<br>
+
+:: Bleeding Ward Epilogue Spell
+<<set _thermoDisable to true>><<set $underlowerwet to 0>><<effects>>
+<span class="narration">My friends told me that <<pshe>> kept staring at me on and off. I didn't believe them at the time.</span>
+<br><br>
+
+You take a small packet from your pocket, tearing it open and emptying its contents into your drink.
+You then drop in a single hair, and slowly run your finger around the ring of the mug.
+<br><br>
+
+"Yeah? What makes you think so?" Winter's voice comes from across the pub.<br>
+"I'm telling you, <<pshe>> was just licking <<pher>> lips."
+<br><br>
+
+<i><span class="lewd">
+"One powdered feather plucked from great beast's wings,<br>
+Two parts fresh whale's brine, the mixture secures.<br>
+Requests thrice accepted, I'll hand you my strings,<br>
+One, Two, Three, I'm Yours."
+</span></i>
+<br><br>
+
+"Liar. Don't mess with me like that," <<he>> says.<br>
+"Whatever."
+<br><br>
+
+You finish your drink. <<set $drunk += 60>><<set $drugged += 200>><<galcohol>><<ggdrugged>>
+<br><br>
+
+<<link [[Approach.|Bleeding Ward Epilogue 7]]>><<pass 1>><</link>>
+<br>
+
+:: Bleeding Ward Epilogue 7
+<<set _thermoDisable to true>><<set $underlowerwet to 0>><<effects>>
+<<handheldon>>
+<span class="narration"><<pShe>> made me feel small in a way that still sends shivers up my spine, despite <<phim>> being a head shorter than me.</span>
+<br><br>
+
+"Oh, watch out, I think you made <<phim>> mad."<br>
+"What are you on about?"<br>
+You march right up behind <<him>>. One of <<his>> friends points at you. Winter straightens up, but doesn't turn around.<br>
+"So rude," you say,
+<<if $player.gender is "f">>
+	putting your hands on your hips.
+<<else>>
+	crossing your arms.
+<</if>>
+"You really can't take a hint. Look at me."<br>
+<<His>> friends jeer at <<him>>. "Better do what your <<girl>> says!"<br>
+Winter turns in <<his>> seat at a glacial pace. You lock eyes. <span class="red"><b>One.</b></span> <<arousal 500>><<garousal>>
+<br><br>
+
+You step forward, placing your hands on <<his>> shoulders. <<His>> friends all hoot and holler.<br>
+With a leg on either side of <<his>> seat, you sit on <<his>> lap. <<He>> freezes up, <<his>> face turning as red as <<his>> hair.<br>
+You take <<his>> arms in yours, moving them to your hips. "Need you to keep me steady," you say.<br>
+You reach behind <<him>> and take <<his>> drink. You lean back so <<he>> can see you clearly, and chug it. <<set $drunk += 240>><<ggalcohol>><br>
+<<His>> friends continue to holler, encouraging you.<br>
+You wipe your mouth, and place your arms on <<his>> shoulders again. "Order me another," you say. After a moment, <<he>> nods vigorously, flagging down the bartender. <span class="red"><b>Two.</b></span> <<arousal 500>><<ggarousal>>
+<br><br>
+
+You maintain eye contact, staring right through <<him>>. You exhale. Your breath is as sweet as your words.<br>
+"Now apologise for leaving me alone over there," you say.<br>
+"I... I'm sorry?"<br>
+"Say the words."<br>
+"I'm sorry for leaving you alone at the bar." <span class="red"><b>Three.</b></span> <<arousal 1000>><<gggarousal>>
+<br><br>
+
+<<link [[I'm yours.|Bleeding Ward Epilogue Bewitched]]>><<pass 5>><<control 50>><<set $trauma to 4499>><<stress -24>><</link>><<llltrauma>><<llstress>><<ggcontrol>>
+<br>
+
+:: Bleeding Ward Epilogue Bewitched
+<<set _thermoDisable to true>><<set $underlowerwet to 0>><<effects>>
+<<handheldon>><<set $pain to 0>>
+<span class="narration">
+	<<pShe>> looked at me in a very peculiar way. Satisfied? Smug? As if I had just done something <<pshe>> found very amusing.
+	It felt like I had passed some kind of test of <<phers>>, as <<pshe>> became much friendlier after that.
+</span>
+<br><br>
+
+You feel a jolt as it kicks in. Your head is much clearer. Your fingers and toes tingle for a moment, and the pounding in the back of your skull ceases.
+<br><br>
+
+"Good <<nnpc_gendery "Winter">>," you say, patting <<him>> on the head.
+<br><br>
+
+You feel spry, like you need to move.
+<br><br>
+
+You stand up from <<his>> lap and hold out your hand. "I want to dance," you say.
+"Consider it my side of the apology for being such a <<if $player.gender is "m">>prick<<else>>bint<</if>>. Can you dance?"<br>
+"Not if my life depended on it," <<he>> responds. <<He>> takes your hand anyways.<br>
+"It's okay. I can't either," you lie.
+<br><br>
+
+<<link [[Dance.|Bleeding Ward Epilogue Dance]]>><<pass 40>><</link>>
+<br>
+
+:: Bleeding Ward Epilogue Dance
+<<set _thermoDisable to true>><<set $underlowerwet to 0>><<effects>>
+<span class="narration">You should feel blessed that you'll never have to see our definition of 'dancing'. It was quite atrocious.</span>
+<br><br>
+
+You were hoping for slower music. Instead, you make yourself look like an absolute buffoon to some upbeat noise. Winter seems to be having fun, at least.
+<br><br>
+
+The mixture is certainly working. Every time you see <<his>> face, the heat inside you grows. <<arousal 1000>><<garousal>>
+<br><br>
+
+A few of <<his>> friends join in and out. A step, a pivot, a switch. You dance for a moment with someone whose face you'll forget in less than five minutes.<br>
+A pivot, a twirl, a step. Back to Winter. A face you won't be forgetting.
+<br><br>
+
+The music finally starts to slow down, giving you an excuse to get closer to <<him>>. You place your arms around <<him>> right away.
+<br><br>
+
+Questions. You need questions. You need to know more about <<him>> or this won't work. Keep it in your pants until then.
+<br><br>
+
+"Army <<nnpc_gendery "Winter">>. Are you thinking on serving forever?"<br>
+"Definitely not forever," <<he>> says. "No one lives that long. Besides, the family wants me to run the museum some day."
+<br><br>
+
+Right. <i>That</i> Winter family.<br>
+"What about you? What do you do?" <<he>> asks.<br>
+"Hopefully you, by the end of the night." You weren't supposed to let loose this quickly. At least it made <<him>> laugh.<br>
+"You're pretty funny," <<he>> says. "But it's not fair if this is one-sided."<br>
+"One-sided is what I do best. And that's your front side facing mine." That was terrible. But that one made <<him>> laugh too.
+<br><br>
+
+<<link [[Keep going.|Bleeding Ward Epilogue Dance 2]]>><<pass 40>><</link>>
+<br>
+
+:: Bleeding Ward Epilogue Dance 2
+<<set _thermoDisable to true>><<set $underlowerwet to 0>><<effects>>
+<span class="narration"><<pShe>> finally let <<pher>> guard down.</span>
+<br><br>
+
+"Come on. Give me something to work with," <<he>> says.
+<br><br>
+
+You sigh. "Alright. I'm a collector. I'm interested in coins, trinkets, the like. If you're going to be running a museum, we won't be so different. I'm just less public about it."
+<br><br>
+
+<<He>> suddenly twirls you. In your current state, it feels like your stomach just jumped down two flights of stairs without touching a single step.
+You can't help but giggle.
+<br><br>
+
+"That rose in your hair is <<if $player.gender is "m">>classy<<else>>pretty<</if>>," <<he>> says. "Did you grow that yourself?"<br>
+"I did. I love roses," you say through giggles. "Only red and white ones, though. I hate pink roses." You didn't mean to answer that so quickly.
+<br><br>
+
+Two genuine answers seemed to be enough for <<him>>. In turn, you draw the answers you need from <<his>> lips effortlessly as you continue to dance.
+<br><br>
+
+<<link [[Enough.|Bleeding Ward Epilogue 8]]>><<pass 2>><</link>>
+<br>
+
+:: Bleeding Ward Epilogue 8
+<<set _thermoDisable to true>><<set $underlowerwet to 0>><<effects>>
+<span class="narration">I don't remember much more of that night. <<pShe>> got me to drink a lot more than I was used to.</span>
+<br><br>
+
+"You still haven't told me your name," <<he>> says.
+<br><br>
+
+You rest your head in the crook of <<his>> neck. "We have a lot more catching up to do," you say. "I would have liked to know you much sooner than this. I'll make you a deal. If you can drink me under the table, I'll tell you anything you want."
+<br><br>
+
+<<He>> stops. "Anything?"<br>
+"Anything."
+<br><br>
+
+You nod back over to your table. <<He>> obliges, taking your hands and leading you over. You're grateful. It's getting hard to stay steady, and your lust is reaching a boiling point. You need to wrap this up soon. <<arousal 2000>><<ggarousal>>
+<br><br>
+
+<<He>> motions for you to sit first. You instead push <<him>> down and sit on <<his>> lap. You can hear <<his>> heart pounding in <<his>> chest. You stay in <<his>> lap for much of the night.
+<br><br>
+
+<<link [[Catch up.|Bleeding Ward Epilogue 9]]>><<pass 1 hour>><<set $drunk += 120>><<arousal 3000>><</link>><<gggalcohol>>
+<br>
+
+:: Bleeding Ward Epilogue 9
+<<set _thermoDisable to true>><<set $underlowerwet to 0>><<effects>><<canvas-model-override "clear">>
+<span class="narration">I never had a chance at beating <<phim>> in a drinking match.</span>
+<br><br>
+
+"I give," <<he>> says. "Can't drink any more. 'Less... you want me getting sick." <<His>> face is flushed. <<His>> friends all boo in disappointment.
+You take a victory swig, and they all cheer you on.
+<br><br>
+
+You're trembling. You can't conceal it anymore. "Don't feel too bad," you say. "I have a pretty h... high tolerance." You push up closer to <<him>>. You exaggerate the motion, practically grinding on <<him>>.
+<br><br>
+
+"There's a consolation prize," you say. "But only if you can answer a riddle for me."<br>
+"C-consolation prize? I'm interested," <<he>> says.<br>
+You look around. It's raining outside. No, too cliché.<br>
+You look at <<his>> friends. Your vision's too blurry to make out any details to use.<br>
+You think of the date.<br>
+You poorly stifle a laugh. You've got a good one.
+<br><br>
+
+"Hey," you whisper in <<his>> ear. "It's really hot in here. Can winter come in summer?"<br>
+<<He>> blinks. "What?"<br>
+You hold <<him>> tighter.<br>
+"I said..."<br>
+You whisper softer.<br>
+"<i>...can Winter cum in Summer?</i>"
+<br><br>
+
+<<link [[Answer the riddle.|Bleeding Ward Epilogue 10]]>><<pass 2 hours>><</link>>
+<br>
+
+:: Bleeding Ward Epilogue 10
+<<set _thermoDisable to true>><<set $underlowerwet to 0>><<effects>>
+<<set $location to "town">><<strip>><<canvas-model-override "arm_right" "idle">><<canvas-model-override "arm_left" "idle">>
+<<set $trauma to 3500>><<set $stress to 0>><<set $loveInterest.primary to "Winter">>
+<span class="narration">
+	We were far too drunk to continue. <<pShe>> asked me to take <<phim>> home.
+	I asked where <<pshe>> lived, and <<pshe>> clarified that <<pshe>> meant my home.
+	I obliged. Nothing happened after that, though.
+</span>
+<br><br>
+
+"Now it's too cold," you whisper. <<His>> hot breath tickles your skin. "Keep me warm."
+<<if $player.sex is "f">>
+	<<bodyliquid "vagina" "semen" 4>>
+	You let out a moan as you feel every inch of <<his>> length enter you. You ride <<him>> like an animal.
+<<else>>
+	<<bodyliquid "penis" "goo" 3>>
+	<<set $penisuse to "othervagina">><<set $penistarget to 0>><<set $NPCList[0].vagina to "penis">>
+	<<He>> lets out a moan as you slowly insert every inch of your length into <<him>>. <<He>> rides you like an animal.
+<</if>>
+Your first orgasm comes almost instantly. <<orgasm>>
+
+<span class="narration">No, really. I mean it. Nothing happened.</span>
+<br><br>
+
+<<if $player.sex is "f">>
+	"Give it to me. All of it." <span class="pink"><<He>> groans, and you feel <<his>> warm semen filling your womb.</span> Looks like <<he>> found the answer to the riddle. You need more. You grind on <<him>> for a minute, before continuing to ride.
+<<else>>
+	"Take it. All of it." <span class="pink"><<He>> shudders in climax, but you keep thrusting.</span> Looks like <<he>> found the answer to the riddle.
+<</if>>
+<br><br>
+
+<span class="narration">Why are you looking at me like that? Do you not believe me?</span>
+<br><br>
+
+<<if $player.sex is "f">>
+	"Wait, let me slow down," <<he>> says.<br>
+	"More. Fill me with it." You take both of <<his>> hands and ride <<him>> harder.
+<<else>>
+	"F-faster," <<he>> says.<br>
+	You take both of <<his>> hands and thrust your hips, forcing <<him>> to go faster.
+<</if>>
+<<orgasm>>
+
+<span class="narration">Fine. Believe what you will.</span>
+<br><br>
+
+"More!"
+<<if $player.sex is "f">>
+	<<He>> grips your hips tightly, thrusting harder and harder against you. <span class="pink"><<He>> ejaculates deep into your womb.</span>
+<<else>>
+	<<He>> rides you faster and faster. <span class="pink"><<He>> shudders in climax.</span>
+<</if>>
+<<orgasm>>
+A streak of lightning briefly lights the room, casting the brilliant shadow of your union on the wall. The following thunder fails to drown out your joined moans.
+<<orgasm>>
+
+<<link [[Together, As One.|Bleeding Ward Epilogue Morning After]]>><<bodyliquid "clear">><</link>><<llltrauma>>
+<br>
+
+:: Bleeding Ward Epilogue Morning After
+<<set _thermoDisable to true>><<set $underlowerwet to 0>><<effects>>
+<<run Time.timeTravel(new DateTime(1962, 6, 26, 6, 30))>>
+<<set Weather.set("lightClouds", true, 1000)>>
+<<silently>><<clotheson>><</silently>>
+<<set $tiredness to 0>><<set $arousal to 1500>><<set $orgasmdown to 0>>
+<<set $trauma to 3000>><<set $pain to 15>><<set $drunk to 0>><<set $drugged to 0>>
+<span class="narration">
+	While I may not remember the end of the night, I definitely remember how I felt the next morning.
+	I feel as though I had lost something. Or... I'm not sure how to say this. It was like I gained the absence of something.
+	Does that make sense?
+	<br><br>
+
+	It didn't help that I was very hungover. <<pShe>> looked better than ever, though. There was a new light in <<pher>> eyes.
+</span>
+<br><br>
+
+You lay there, staring at <<him>>. For most of the night, that's all you do.
+Over and over, your eyes trace every minuscule detail of <<his>> face. <<His>> body. The shape and tempo of your dance the night before.
+Every little thing <<he>> said. You trace it in your mind's eye again and again.
+<br><br>
+
+Someone once told you that, if you stare at something long enough, you'll remember it forever.
+<br><br>
+
+The rising sun lights up <<his>> face, and <<his>> eyes open. <<He>> looks surprised, sitting up and wiping the confusion and exhaustion from <<his>> eyes. "Good... morning?"
+<br><br>
+
+"About time," you say. "I didn't want you waking up alone, so I stayed here waiting." You shoot up out of bed, grabbing your clothes from the floor and getting dressed. "You're welcome. I'm going."
+<br><br>
+
+<<He>> blinks. "I'm sorry. I had fun last night—wait, you're leaving?"<br>
+"I can hardly stick around forever. What, didn't get enough of me last night?"<br>
+"No, it's not that, it's just... I still don't even know your name! Will I even see you again after this? I—"
+<br><br>
+
+You walk up to <<him>>, bringing your face uncomfortably close to <<his>> again. "You're so sappy. Next time, we'll go to my house instead, and I'll show you my collection."
+You ruffle <<his>> hair. "Don't spend too much time thinking about a seabird like me, though."
+<br><br>
+
+You stand in silence for a moment. <<He>> makes a move towards you, and tries to kiss you. You hold your palm up to <<his>> face. "Sorry, I don't do kisses. Too intimate."
+<br><br>
+
+You gather your things and leave.
+<br><br>
+
+<<link [[Time goes on.|Bleeding Ward Epilogue 11]]>><</link>>
+<br>
+
+:: Bleeding Ward Epilogue 11
+<<set _thermoDisable to true>><<set $underlowerwet to 0>><<effects>>
+<<run Time.timeTravel(new DateTime(1964, 2, 14, 13, 0))>>
+<<set Weather.set("heavyClouds", true, 1000)>><<set Weather.Temperature.set(-10)>>
+<<canvas-model-override "clear">>
+<<set $tiredness to 0>><<set $arousal to 1500>><<set $trauma to 2500>><<set $statFreezeIgnoreRestrictions to true>>
+<<upperwear "winter jacket" "wine" "white">>
+<<if $player.gender is "f">>
+	<<underupperwear "camisole" "black" "green">>
+<<else>>
+	<<underupperwear "undershirt" "green" "black">>
+	<<lowerwear "straight leg trousers" "black">>
+<</if>>
+<span class="narration">
+	We kept in touch. I would visit <<phim>> frequently, and a relationship formed between us.
+	<br><br>
+
+	It was on and off. We understood that, due to my military service, we wouldn't walk the same paths in life.
+	There were long stretches of time where we wouldn't see each other. But whenever I returned, our relationship would rekindle for a time.
+	<br><br>
+
+	Something about me being in the military seemed to bother <<phim>>.
+	The stories of the bombings that <<pher>> <<pmother>> told <<phim>> likely left a bad impression.
+	Still, <<pshe>> never said anything to me about it directly.
+	<br><br>
+
+	We left on good terms when I was transferred.
+</span>
+<br><br>
+
+You hear the door's bell jingle. You look up, and a smile crosses your face automatically, despite the fact that this is the last person you were hoping to see on today of all days. Your head throbs. You already know what this is going to be about. "Winter!"
+<br><br>
+
+<<He>> approaches your counter, returning a much more sad smile. "Hey. I'll be leaving on a long trip soon. A... really long one. I'm just here to say goodbye."
+<br><br>
+
+Your smile quickly fades. "Wow, incredible Valentine's Day present," you say. "More army junk?"<br>
+<<He>> shakes <<his>> head. "I've been transferred to the intelligence corps. I'm glad you mentioned that, actually. I know roses are cliché, but—"<br>
+"Oh God, you didn't actually bring me flowers, did you?" you ask.<br>
+<<He>> shuffles in place a bit. <<He>> slowly reveals a bouquet of roses. White and red.
+<br><br>
+
+<<link [[Hug <<him>>.|Bleeding Ward Epilogue 12]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Kiss <<him>> on the cheek.|Bleeding Ward Epilogue 12]]>><<set $phase to 2>><</link>>
+<br>
+
+:: Bleeding Ward Epilogue 12
+<<set _thermoDisable to true>><<set $underlowerwet to 0>><<effects>>
+<span class="narration">It felt... whole. Like everything was ending right when it was supposed to. We both had our own futures to worry about. Moreover, it felt like I had found something that was missing. Some sense of closure.</span>
+<br><br>
+
+"You idiot. You sappy idiot."
+<<if $phase is 1>>
+	You pull <<him>> into a hug.
+<<else>>
+	You lean in and kiss <<him>> on the cheek.
+<</if>>
+"Thank you." <<trauma -24>><<lltrauma>>
+<br><br>
+
+Neither of you need to say anything more about it. You both know this is going to be it. It was fun while it lasted, and it's not your first goodbye.
+<br><br>
+
+It still hurts.
+<br><br>
+
+It always hurts.
+<br><br>
+
+"I have something for you too, actually. I don't want you forgetting about me." You retreat into a side room, quickly returning with a rectangular object covered by a cloth.
+<br><br>
+
+"This was something of a vanity piece. A lot of people want their hands on it, though. You mentioned running the museum some day, and I was hoping this could be your first exhibit." You pull away the cloth.
+<br><br>
+
+Winter stares for a long moment. You can see the reflection of the red moon shimmering in <<his>> eyes. "Shameless," <<he>> finally says. "Fascinating work. It almost looks like the paint is moving." <<He>> stares for another minute. "They took some liberties with your hair, I see. Who'd you let paint you naked like that?"
+<br><br>
+
+"Friends," you respond, managing to both lie and evade the question at the same time. "If those hands of yours were any good for painting, I'd have let you do it too." You rest it against the counter. The two of you stare at each other.
+<br><br>
+
+<<link [[...|Bleeding Ward Epilogue 13]]>><</link>>
+<br>
+
+:: Bleeding Ward Epilogue 13
+<<set _thermoDisable to true>><<set $underlowerwet to 0>><<effects>>
+<span class="narration">A piece of advice. If you're blessed to know that your last goodbye is coming, make sure you remember it forever.</span>
+<br><br>
+
+You've never liked kissing. It carries emotions that eat you alive. <span @class="'pink ' + basicJitterCss()">Your tummy flutters.</span> This is a special occasion. <<arousal 5000>><<gggarousal>>
+<br><br>
+
+You let <<him>> pull you into a kiss. You intended for it to be quick. But you both hungrily go for another. And another. The first and last shared between you.
+<br><br>
+
+You separate. Then go in for another. "I'll miss my train," <<he>> says.
+<br><br>
+
+"Catch the next one." You grab <<him>> by the arms and drag <<him>> upstairs, to your bed.
+<br><br>
+
+<<link [[One last time.|Bleeding Ward Epilogue 14]]>><</link>>
+<br>
+
+:: Bleeding Ward Epilogue 14
+<<set _thermoDisable to true>><<set $underlowerwet to 0>><<effects>>
+<<run Time.timeTravel(new DateTime(1964, 2, 14, 18, 0))>>
+<<set Weather.set("heavyClouds", true, 1000)>><<set Weather.Temperature.set(-10)>>
+<<set $arousal to 0>><<set $stress to 5000>><<set $control to 75>><<set $tiredness to 400>>
+<<if $player.sex is "f">>
+	<<bodyliquid "vagina" "semen" 1>>
+<<else>>
+	<<bodyliquid "penis" "goo" 1>>
+<</if>>
+<span class="narration">
+	And that was it. I was gone for several years. When I finally returned, there was no trace of <<phim>>.
+	I had hoped we would at least remain friends, but life rarely works out that way. I counted myself blessed for meeting <<phim>> at all.
+	<br><br>
+
+	I had brought the painting here to the museum before I left, for safekeeping. When I returned, it was gone too.
+	As if it couldn't exist without <<phim>>. Only the frame was left behind. <<pHer>> one request to me was to display it here, and until now, I never got that chance.
+	<br><br>
+
+	That's why this painting means so much to me. And that's why I'll be forever grateful to you for returning it to me.
+</span>
+<br><br>
+
+You stand at the entrance. Your skull ripples with pain as you rest your head against the door. Your body shivers, demanding <<his>> warmth again.
+The brief respite of <<his>> touch is nothing in the face of the abyssal hole in your chest, left by <<his>> absence.
+<br><br>
+
+<<Hes>> gone.
+<br><br>
+
+It always has to end this way.
+<br><br>
+
+You know this.
+<br><br>
+
+So why does it still hurt so much?
+<br><br>
+
+<<link [[Leave.|Bleeding Ward Lost]]>><<bodyliquid "clear">><</link>>
+<br>
+
+:: Bleeding Ward Lost
+<<set _thermoDisable to true>><<set $underlowerwet to 0>><<effects>>
+<<set $location to "forest">><<set $outside to 1>>
+<<run Time.timeTravel(new DateTime(1964, 2, 29, 19, 0))>>
+<<set Weather.Temperature.set(-15)>>
+<<set Weather.set("heavyPrecipitation", true, 1000)>>
+<<set V.weatherObj.snow = (80)>>
+<<set $trauma to 5000>><<set $stress to 8000>><<set $control to 25>>
+<<if $player.sex is "f">>
+	<<underupperruined>>
+	<<if $settings.playerPregnancyHumanEnabled>>
+		<<playerPregnancy "Debug Man" "human" true "vagina" undefined true>>
+		<<set $sexStats.vagina.pregnancy.fetus[0].father to "Winter">>
+		<<set $sexStats.vagina.pregnancy.fetus[0].conceived to {day: 14, month: "February", year:1964}>>
+		<<if $sexStats.vagina.pregnancy.potentialFathers[0]>>
+			<<set $sexStats.vagina.pregnancy.potentialFathers[0].source to "Winter">>
+		<</if>>
+		<<set $sexStats.vagina.pregnancy.awareOfDetails to true>>
+		<<set $bellySizeDebug to 16>>
+	<</if>>
+<</if>>
+<<set $pregnancyStats.heatStillEnabled to false>>
+
+...
+<br><br>
+
+<<link [[Walk.|Bleeding Ward Lost 2]]>><<pass 1 hour>><</link>>
+<br>
+
+:: Bleeding Ward Lost 2
+<<set _thermoDisable to true>><<set $underlowerwet to 0>><<effects>>
+<<set $arousal to 0>><<set $pain to 15>>
+
+You keep walking, deeper into the forest. The back of your head burns. You trudge through the snow against the winter wind, but you don't shiver.
+<<if $player.sex is "f">>
+	There's a warmth inside you. A warmth <<he>> left. You place your hands over your womb.
+<<else>>
+	You're surrounded by warm walls, somewhere else. With <<him>>.
+<</if>>
+<br><br>
+
+<<link [[Go home.|Bleeding Ward Lost 3]]>><<pass 1 hour>><</link>>
+<br>
+
+:: Bleeding Ward Lost 3
+<<set _thermoDisable to true>><<set $underlowerwet to 0>><<effects>>
+<<set $location to "forest">><<canvas-model-override "tears" 4>><<canvas-model-override "eyes_half" true>><<canvas-model-override "trauma" true>>
+<<set $arousal to 0>><<set $pain to 15>>
+
+Just a little further now. The place you're going is nice.
+<br><br>
+
+The warmth changes. Burning. Yearning. The consequences of warmth fading away. Absence. Animosity. Back to warmth again. With every cold breath, the agonising change repeats.
+<br><br>
+
+You sit against a tree. The snow spreads its chill up your body.
+<br><br>
+
+You reach into your pocket. Your hands meet something cold. You pull it out by its chain. An ornate pocketwatch, the metal warped by heat. It ticks onwards regardless.
+Your thumb rubs the snowflake etched into the glass.
+<br><br>
+
+A drop of water falls onto it. Another. They quickly freeze. The ice turns red as you stare.
+<br><br>
+
+The echo of <<his>> voice lingers in the air. You look up to the reddening twilight sky. Fresh tears streak your vision, and the thunder of <<his>> pounding heart slowly fades into memory.
+<br><br>
+
+A memory you'll never be able to outlive.
+<br><br>
+
+<<if $player.sex is "f">>
+	"We're home,"
+<<else>>
+	"I'm home,"
+<</if>>
+you say to nobody.
+<br><br>
+
+<<link [[Where the heart lies.|Bleeding Ward End]]>><<endevent>><</link>>
+<br>
+
+:: Bleeding Ward End
+<<bleedingWardEnd>>
+<<effects>><<earnFeat "Warmest Winter">>
+<<npc Winter>><<person1>>
+Winter stands up.
+<br><br>
+
+<<He>> takes another long look at the painting.
+<br><br>
+
+"Thank you for listening. It's helpful sorting through old memories like that, keeps me sharp. My voice is sore now, though. I'll be here if you need anything else."
+<br><br>
+
+<<specialClothesUnlock "set" "vintage">>
+
+<<link [[Next|Museum]]>><<endevent>><</link>>
+<br>
+
+
+:: Widgets Bleeding Ward [widget]
+<<widget "bleedingWardStart">>
+	/*Store player stats*/
+	<<if !$frozenValues>>
+		<<freezePlayerStats>>
+	<</if>>
+	/*morph player into an old seabird*/
+	<<visionPrepMorph>>
+
+	<<if _args[0] is "epilogue">>
+		<<set $_epilogue to true>>
+	<</if>>
+	<<set $settings.condomLevel to 0>>
+	<<unset $condoms>>
+	<<set $spraymax to 0>>
+	<<if $_epilogue>>
+		<<set $money to 129000>>
+	<<else>>
+		<<set $money to 0>>
+	<</if>>
+
+	<<set $_otherPronoun to C.npc.Winter.pronoun is "m" ? "f" : "m">>
+	<<set $_otherGenitals to C.npc.Winter.gender is "m" ? "f" : "m">>
+	<<set $player.gender to $_otherPronoun>>
+	<<set $player.sex to $_otherGenitals>>
+	<<set $player.breastsize to $_otherPronoun is "m" ? 0 : 8>>
+	<<if $player.sex is "f">>
+		<<set $vaginastate to 0>>
+		<<set $vaginause to 0>>
+		<<set $penisstate to "none">>
+		<<set $penisuse to "none">>
+		<<set $player.vaginaExist to true>>
+		<<set $player.penisExist to false>>
+		<<set $player.ballsExist to false>>
+		<<set $player.virginity.vaginal to false>>
+		<<set $vaginalskill to 1000>>
+	<<elseif $player.sex is "m">>
+		<<set $penisstate to 0>>
+		<<set $penisuse to 0>>
+		<<set $vaginastate to "none">>
+		<<set $vaginause to "none">>
+		<<set $player.vaginaExist to false>>
+		<<set $player.penisExist to true>>
+		<<set $player.ballsExist to true>>
+		<<set $player.virginity.penile to false>>
+		<<if $settings.analEnabled>>
+			<<set $analskill to 1000>>
+		<</if>>
+		<<set $penileskill to 1000>>
+	<<else>>
+		<<set $vaginastate to 0>>
+		<<set $vaginause to 0>>
+		<<set $penisstate to 0>>
+		<<set $penisuse to 0>>
+		<<set $player.vaginaExist to true>>
+		<<set $player.penisExist to true>>
+		<<set $player.ballsExist to false>>
+		<<set $player.virginity.vaginal to false>>
+		<<set $player.virginity.penile to false>>
+		<<set $vaginalskill to 1000>>
+	<</if>>
+	<<if $player.penisExist is true>>
+		<<set $player.penissize to 5>>
+		<<set $semen_volume to 500>>
+		<<set $semen_amount to 500>>
+	<</if>>
+	/* Prevent things that often cause disrupting messages */
+	<<set $milk_volume to 0>>
+	<<set $milk_amount to 0>>
+	<<set $lactating to 0>>
+	<<set $player.virginity.temple to false>>
+	<<set $player.virginity.oral to false>>
+	<<set $player.virginity.anal to false>>
+	<<set $player.virginity.kiss to false>>
+	<<set $player.virginity.handholding to false>>
+	<<set $sexStats.anus.pregnancy.motherStatus to 0>><<set $sexStats.vagina.pregnancy.motherStatus to 0>>
+	<<set $sexStats.anus.pregnancy.totalBirthEvents to 0>><<set $sexStats.vagina.pregnancy.totalBirthEvents to 0>>
+	<<set $heterochromia to 0>>
+	<<set $vaginaWetness to 0>>
+	<<set $penisWetness to 0>>
+	<<set $anusWetness to 0>>
+	<<set $uncomfortable.hypnosis to true>>
+
+	/* body */
+	<<set $player.bodyshape to "curvy">>
+	<<set $facevariant to "aloof">>
+	<<set $player.freckles to true>>
+	<<set $naturalhaircolour = "softbrown">>
+	<<set $haircolour to "softbrown">>
+	<<set $hairColourStyle to "gradient">>
+	<<set $hairColourGradient to {"style": "high-ombre","colours": ["softbrown","brown"]}>>
+	<<set $hairfringecolour to "softbrown">>
+	<<set $hairFringeColourStyle to "gradient">>
+	<<set $hairFringeColourGradient to {"style": "face-frame","colours": ["lightbrown","brown"]}>>
+	<<if $_epilogue>>
+		<<if $player.gender is "f">>
+			<<set $hairlength to 400>>
+			<<set $hairlengthstage to "chest">>
+		<<else>>
+			<<set $hairlength to 200>>
+			<<set $hairlengthstage to "shoulder">>
+		<</if>>
+		<<set $hairtype to "ruffled">>
+		<<set $hairposition to "back">>
+	<<else>>
+		<<set $hairlength to 400>>
+		<<set $hairlengthstage to "chest">>
+		<<set $hairtype to "layered bob">>
+		<<set $hairposition to "front">>
+	<</if>>
+	<<set $fringelengthstage to "shoulder">>
+	<<set $fringetype to "ruffled">>
+	<<set $rightEyeColour to "green">>
+	<<set $leftEyeColour to "green">>
+	<<set $bodysize to 2>>
+	<<set $player.bottomsize to 3>>
+
+	<<set $makeup.lipstick = 0>>
+	<<set $makeup.eyeshadow = 0>>
+	<<set $makeup.eyelenses = {"left":0, "right":0}>>
+	<<set $makeup.blusher = 0>>
+	<<set $makeup.mascara = 0>>
+	<<set $makeup.mascara_running = 0>>
+	<<set $makeup.pbcolour = 0>>
+	<<set $makeup.browscolour = 0>>
+	<<set $makeup.concealer = 0>>
+	<<set $pbgrowth to 0>>
+	<<set $pblevel to 0>>
+	<<set Skin.color.tan to 40>>
+
+	<<run Object.keys(V.transformationParts).forEach((tf) => {
+		Object.entries(V.transformationParts[tf]).forEach(([part, value]) => {
+			if (value !== 'disabled') {
+				V.transformationParts[tf][part] = 'disabled';
+			}
+		});
+	})>>
+
+	<<if $_epilogue>>
+		<<set $arousal to 2500>>
+		<<set $pain to 15>>
+		<<set $tiredness to 1000>>
+		<<set $stress to 5000>>
+		<<set $trauma to 5000>>
+		<<set $drunk to 150>>
+		<<set $fox to 6>>
+		<<set $foxbuild to 100>>
+		<<set $transformationParts.traits.mateForLife to "default">>
+		<<set $transformationParts.traits.chase to "default">>
+		<<set $transformationParts.traits.sharpEyes to "default">>
+	<<else>>
+		<<set $arousal to 0>>
+		<<set $pain to 0>>
+		<<set $tiredness to 0>>
+		<<set $stress to 5000>>
+		<<set $trauma to 500>>
+	<</if>>
+	<<set $assertiveaction to "defiant">>
+	<<set $submissive to 0>>
+	<<set $physique to 8000>>
+	<<set $willpower to 1000>>
+	<<set $awarelevel to 2>>
+	<<set $real_awareness to $awareness>> /* This is here for a reason. */
+	<<set $awareness to 1000>>
+
+	<<set $purity to 500>>
+	<<set $beauty to 8000>>
+	<<set $drugged to 0>>
+	<<set $hallucinogen to 0>>
+
+	<<set $promiscuity to 35>>
+	<<set $exhibitionism to 85>>
+	<<set $deviancy to 85>>
+	<<set $skulduggery to 800>>
+	<<set $danceskill to 800>>
+	<<set $swimmingskill to 200>>
+	<<set $athletics to 800>>
+	<<set $tending to 1000>>
+	<<set $housekeeping to 1000>>
+	<<set $seductionskill to 1000>>
+	<<set $oralskill to 1000>>
+	<<set $handskill to 1000>>
+
+	<<unset $temple_rank>><<set $templePromised to "">>
+	<<unset $avery_fate>><<unset $auriga_artefact>>
+	<<set $sciencetrait to 4>><<set $mathstrait to 4>><<set $historytrait to 4>><<set $englishtrait to 4>><<set $schooltrait to 0>>
+	<<set $scienceprojectwon to 0>><<set $mathsprojectwon to 0>><<set $englishPlayWell to 0>>
+	<<set $featsPurityBoost to 0>><<set $innocencestate to 0>><<set $masochism_level to 0>><<set $sadism_level to 0>>
+	<<set $farm_stage to 0>><<set $islander_language to 0>><<set $quicksand to 0>><<set $moorLuck to 0>>
+	<<set $acceptance_penis_small to 0>><<set $acceptance_penis_big to 0>><<set $acceptance_breasts_small to 0>><<set $acceptance_breasts_big to 0>><<set $acceptance_pregnancy to 0>>
+	<<set $choketrait to 0>><<set $ejactrait to 0>><<set $milkdranktrait to 0>><<set $orgasmtrait to 0>><<set $rapetrait to 0>><<set $voretrait to 0>>
+	<<set $bestialitytrait to 1>><<set $tentacletrait to 1>><<set $molesttrait to 1>>
+	<<set $robinpaid to 0>><<set $syndromeeden to 0>><<set $syndromekylar to 0>><<set $syndromewolves to 0>><<set $syndromebird to 0>>
+	<<set $harper_appointments.hypnosis to 0>><<set $hypnosis_traits to {}>><<set $hypnosisTimers to {}>>
+	<<set $backgroundTraits to ['waif']>>
+	<<if $sexStats?.pills?.pills>>
+		<<set _pills to $sexStats.pills.pills>>
+		<<run Object.keys(_pills).forEach((key)=> {
+			if (T.pills[key]?.doseTaken) T.pills[key].doseTaken = 0;
+		})>>
+	<</if>>
+
+	<<set $loveInterest to {
+		primary: "None",
+		secondary: "None",
+		tertiary: "None"
+	}>>
+
+	/*change location and time*/
+	<<set $moonstate to 0>>
+	<<if $_epilogue>>
+		<<run Time.timeTravel(new DateTime(1962, 6, 25, 18, 0))>>
+		<<set Weather.set("heavyPrecipitation", true, 1000)>>
+		<<set $location to "pub">><<set $outside to 0>>
+	<<else>>
+		<<run Time.timeTravel(new DateTime(1940, 11, 2, 6, 13))>>
+		<<set Weather.set("lightClouds", true, 1000)>>
+		<<set $location to "blitz">><<set $outside to 1>>
+	<</if>>
+	/*give player clothes*/
+	<<if $_epilogue>>
+		<<generalRuined "face">>
+		<<if $player.gender is "f">>
+			<<headwear "rose" "red">>
+			<<neckwear 11 "red">>
+			<<upperwear "blouse" "green">>
+			<<underupperwear "plain bra" "red">>
+			<<underlowerwear "plain panties" "red">>
+			<<lowerwear "ballgown skirt" "black" "red">>
+			<<legswear "stockings">>
+			<<set $player.gender_posture to "f">>
+			<<set $player.gender_body to "f">>
+		<<else>>
+			<<headwear "rose" "white">>
+			<<neckwear 6>>
+			<<upperwear "tank top" "green">>
+			<<generalRuined "under_upper">>
+			<<underlowerwear "briefs" "red">>
+			<<lowerwear "wide leg trousers" "black">>
+			<<legswear "legwarmers" "black">>
+			<<set $player.gender_posture to "m">>
+			<<set $player.gender_body to "m">>
+		<</if>>
+		<<handswear "lace arm warmers" "black">>
+		<<feetwear "long boots" "black">>
+		<<generalRuined "genitals">>
+		<<generalRuined "handheld">>
+	<<else>>
+		<<generalRuined "face">>
+		<<if $player.gender is "f">>
+			<<headwear "bowler hat" "forest green" "white">>
+			<<neckwear 33 "black">>
+			<<upperwear "vintage skirtsuit" "forest green" "white">>
+			<<underupperwear "plain bra" "black">>
+			<<underlowerwear "plain panties" "black">>
+			<<legswear "stockings">>
+			<<set $player.gender_posture to "f">>
+			<<set $player.gender_body to "f">>
+		<<else>>
+			<<headwear "bowler hat" "forest green" "tan">>
+			<<generalRuined "neck">>
+			<<upperwear "vintage pantsuit" "forest green" "tan">>
+			<<generalRuined "under_upper">>
+			<<underlowerwear "briefs" "black">>
+			<<legswear "legwarmers" "black">>
+			<<set $player.gender_posture to "m">>
+			<<set $player.gender_body to "m">>
+		<</if>>
+		<<handswear "lace arm warmers" "black">>
+		<<feetwear "cordovan loafers">>
+		<<generalRuined "genitals">>
+		<<generalRuined "handheld">>
+	<</if>>
+	<<set $upperTucked to 0>><<set $lowerTucked to 0>>
+
+	<<add_bodywriting "pubic" "triquetra" magic>>
+
+<</widget>>
+
+<<widget "bleedingWardOptions">>
+	<<set $_progress to $bleedingWard.winter + $bleedingWard.infant + $bleedingWard.pair + $bleedingWard.pub + $bleedingWard.street>>
+	<<if _args[0]>>
+		<<switch $_progress>>
+			<<case 1>>The rising sun sets a gentle glow over the devastation.
+			<<case 2>>Families begin to slowly emerge from their homes.
+			<<case 3>>A small crowd rushes by, many holding empty buckets. You hear mention of a fire at the docks.
+			<<case 4>>The sun finally breaks over the horizon, bringing a new light to just how much was lost.
+			<<case 5>>
+				<<if $passage is "Bleeding Ward Pub">>
+					<<set $_headIn to true>>
+					Hope tugs on your shirt. His stomach rumbles audibly.
+				<<else>>
+					Greene tugs on your shirt. Her stomach rumbles audibly.
+				<</if>>
+				<span class="blue">You should find some food for all the kids before you keep moving.</span>
+		<</switch>>
+		<br><br>
+	<</if>>
+
+	<<if !$bleedingWard.winter>>
+		<<link [[Head towards the smoke.|Bleeding Ward Winter]]>><<pass 15>><</link>>
+		<br>
+	<<else>>
+		<<if !$bleedingWard.infant>>
+			You hear distant crying.
+		<</if>>
+		<<if !$bleedingWard.pair>>
+			You see another pillar of smoke on the horizon.
+		<</if>>
+		<<if !$bleedingWard.pub>>
+			You hear a bustling crowd somewhere nearby.
+		<</if>>
+		<<if !$bleedingWard.street>>
+			There's a completely ruined street adjacent to this one.
+		<</if>>
+		<<if !$bleedingWard.infant or !$bleedingWard.pair or !$bleedingWard.pub or !$bleedingWard.street>>
+			<br><br>
+		<</if>>
+
+
+		<<if $bus is "pub" and $_progress gte 5>>
+			Or, you could head towards...
+		<<else>>
+			You head towards...
+		<</if>>
+		<br>
+		<<if !$bleedingWard.infant>>
+			<<link [[...the crying.|Bleeding Ward Infant]]>><<pass 20>><</link>>
+			<br>
+		<<elseif $bus isnot "manor">>
+			<<link [[...the ruined manor.|Bleeding Ward Infant]]>><</link>>
+			<br>
+		<</if>>
+		<<if !$bleedingWard.pair>>
+			<<link [[...the second pillar of smoke.|Bleeding Ward Pair]]>><<pass 20>><</link>>
+			<br>
+		<<elseif $bus isnot "pair">>
+			<<link [[...the teens' smouldering home.|Bleeding Ward Pair Return]]>><</link>>
+			<br>
+		<</if>>
+		<<if $passage is "Bleeding Ward Pub" and $_headIn>>
+			<<link [[...the front of the pub.|Bleeding Ward Pub]]>><</link>>
+			<br>
+		<<elseif !$bleedingWard.pub>>
+			<<link [[...the sound of a crowd.|Bleeding Ward Pub]]>><<pass 20>><</link>>
+			<br>
+		<<elseif $bus isnot "pub">>
+			<<link [[...the pub.|Bleeding Ward Pub]]>><</link>>
+			<br>
+		<</if>>
+		<<if !$bleedingWard.street>>
+			<<link [[...the ruined street.|Bleeding Ward Street]]>><<pass 20>><</link>>
+			<br>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "bleedingWardName">>
+	<<set $_progress to $bleedingWard.winter + $bleedingWard.pair + $bleedingWard.pub + $bleedingWard.street>>
+	<<if !$bleedingWard.stork and $bleedingWard.infant>>
+		<<set $bleedingWard.stork to true>>
+		You look down at the baby, wrapped up in their blanket and clinging to your chest. "The stork," you say.
+	<<else>>
+		<<switch $_progress>>
+			<<case 2>>"A little birdie," you say.
+			<<case 3>>"The fairy god<<pmother>>," you say with a smile.
+			<<default>>"The pied piper," you say, looking back at your group.
+		<</switch>>
+	<</if>>
+<</widget>>
+
+<<widget "bleedingWardEnd">>
+	<<if !$frozenValues>>
+		<<exit>>
+	<</if>>
+	<<unfreezePlayerStats>>
+	<<canvas-model-override "clear">>
+<</widget>>

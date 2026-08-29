@@ -1,0 +1,50 @@
+:: Widgets speech-Morgan [widget]
+<<widget "speech-morgan">>
+	<<set _npc_speech to true>>
+	<<if $possessed>>
+		<<switch random(1,10)>>
+			<<case 1>>
+				<<He>> roars. "I won't let you hurt <<phim>>!"
+			<<case 2>>
+				<<He>> pleads. "Fight it, <<charles>>! Fight back!"
+			<<case 3>>
+				<<He>> spits. "Return to mist!"
+			<<case 4>>
+				<<He>> scowls. "Get out of here. Get out of <<phim>>!"
+			<<case 5>>
+				<<He>> scowls. "I can see you falling apart."
+			<<case 6>>
+				<<He>> hisses. "Don't make me repeat myself."
+			<<case 7>>
+				<<He>> screeches incoherently.
+			<<case 8>>
+				<<He>> meets your eye and nods reassuringly.
+			<<case 9>>
+				<<He>> babbles under <<his>> breath.
+			<<case 10>>
+				<<He>> shakes <<his>> head. "You'll fall. You'll fall, and you won't get back up."
+		<</switch>>
+	<<elseif ($speechpenisvirgin is 1 and $player.virginity.penile is "Morgan") or ($speechvaginavirgin is 1 and $player.virginity.vaginal is "Morgan")>>
+		<<He>> smiles. "This feels like your first time again. How did you do that <<charles>>?"
+	<<elseif $speechanusvirgin is 1 and $player.virginity.anal is "Morgan">>
+		<<He>> smiles. "<<charles>>, I got to pop your other cherry too! Isn't it wonderful?"
+	<<elseif $speechmouthvirgin is 1 and $player.virginity.oral is "Morgan">>
+		<<He>> smiles. "Did you forget how to do this?"
+	<<elseif $speechkissvirgin is 1 and $player.virginity.kiss is "Morgan">>
+		<<He>> smiles. "Don't you remember my taste?"
+	<<elseif $speechnamedrop is 1>>
+		<<set $speechnamedrop to 0>>
+		<<switch _loveInterest>>
+			<<default>>
+				<<He>> snarls. "<<charles>>, you belong to <<mummy>>!"
+		<</switch>>
+	<<elseif ($NPCList[_n].vagina is "feet" or $NPCList[_n].penis is "feet") and random(1, 10) is 1 and $settings.footFetishEnabled>>
+		<<He>> moans. "Oh, <<charles>>, your feet...!" /* I hate you I hate you I hate you */
+	<<elseif $speechsextoy is 1>>
+		<<set $speechsextoy to 0>>
+		<<set $_sexToy to ($rightarm is "heldSexToy" and $leftarm is "heldSexToy" ? "sex toys" : "sex toy")>>
+		<<He>> looks at your $_sexToy and speaks. "<<charles>>, what is that?"
+	<<else>>
+		<<set _noNameComment to true>>
+	<</if>>
+<</widget>>

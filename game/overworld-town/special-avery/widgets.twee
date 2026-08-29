@@ -1,0 +1,223 @@
+:: Avery Widgets [widget]
+<<widget "avery_cards_init">>
+	<<set $avery_cards to {}>>
+	<<set $avery_cards.drink to {}>>
+	<<set $avery_cards.drink.avery to "">>
+	<<set $avery_cards.drink.bailey to "">>
+	<<set $avery_cards.drink.leighton to "">>
+	<<set $avery_cards.drink.quinn to "">>
+	<<set $avery_cards.skill to {}>>
+	<<set $avery_cards.skill.avery to 50>>
+	<<set $avery_cards.skill.bailey to 50>>
+	<<set $avery_cards.skill.leighton to 50>>
+	<<set $avery_cards.skill.quinn to 50>>
+	<<set _rng to random(1, 4)>>
+	<<if _rng is 4>>
+		<<set $avery_cards.skill.avery += 1>>
+		<<set $avery_cards.skill.bailey += 2>>
+		<<set $avery_cards.skill.leighton += 3>>
+		<<set $avery_cards.skill.quinn += 4>>
+	<<elseif _rng is 3>>
+		<<set $avery_cards.skill.avery += 4>>
+		<<set $avery_cards.skill.bailey += 1>>
+		<<set $avery_cards.skill.leighton += 2>>
+		<<set $avery_cards.skill.quinn += 3>>
+	<<elseif _rng is 2>>
+		<<set $avery_cards.skill.avery += 3>>
+		<<set $avery_cards.skill.bailey += 4>>
+		<<set $avery_cards.skill.leighton += 1>>
+		<<set $avery_cards.skill.quinn += 2>>
+	<<else>>
+		<<set $avery_cards.skill.avery += 2>>
+		<<set $avery_cards.skill.bailey += 3>>
+		<<set $avery_cards.skill.leighton += 4>>
+		<<set $avery_cards.skill.quinn += 1>>
+	<</if>>
+	<<if $avery_cards_drinks_known is undefined>>
+		<<set $avery_cards_drinks_known to []>>
+	<</if>>
+<</widget>>
+
+<<widget "avery_cards_end">>
+	<<unset $avery_cards>>
+	<<clearNPC "Quinn_driver">>
+	<<clearNPC "Quinn_guard_1">>
+	<<clearNPC "Quinn_guard_2">>
+	<<clearNPC "Quinn_victim">>
+	<<clearNPC "Leighton_date">>
+<</widget>>
+
+<<widget "avery_cards_drink_text">>
+	<<print $avery_cards.drink[_args[0]]>>
+<</widget>>
+
+<<widget "card_skill">>
+	<<set $avery_cards.skill[_args[0]] += _args[1]>>
+<</widget>>
+
+<<widget "gcardskill">>
+	<<if !$settings.blindStatsEnabled>> |
+		<span class="def">+ <<print _args[0]>>'s card skill</span>
+	<</if>>
+<</widget>>
+
+<<widget "ggcardskill">>
+	<<if !$settings.blindStatsEnabled>> |
+		<span class="def">+ + <<print _args[0]>>'s card skill</span>
+	<</if>>
+<</widget>>
+
+<<widget "gggcardskill">>
+	<<if !$settings.blindStatsEnabled>> |
+		<span class="def">+ + + <<print _args[0]>>'s card skill</span>
+	<</if>>
+<</widget>>
+
+<<widget "lcardskill">>
+	<<if !$settings.blindStatsEnabled>> |
+		<span class="sub">- <<print _args[0]>>'s card skill</span>
+	<</if>>
+<</widget>>
+
+<<widget "llcardskill">>
+	<<if !$settings.blindStatsEnabled>> |
+		<span class="sub">- - <<print _args[0]>>'s card skill</span>
+	<</if>>
+<</widget>>
+
+<<widget "lllcardskill">>
+	<<if !$settings.blindStatsEnabled>> |
+		<span class="sub">- - - <<print _args[0]>>'s card skill</span>
+	<</if>>
+<</widget>>
+
+<<widget "avery_cards_win">>
+	<<unset $cards_win>>
+	<<set $avery_cards_win to $avery_cards.skill.avery>>
+	<<set $bailey_cards_win to $avery_cards.skill.bailey>>
+	<<set $leighton_cards_win to $avery_cards.skill.leighton>>
+	<<set $quinn_cards_win to $avery_cards.skill.quinn>>
+
+	<<set _names to ['avery_cards_win', 'bailey_cards_win', 'leighton_cards_win', 'quinn_cards_win']>>
+	<<run _names.sort((a, b) => { return State.variables[b] - State.variables[a] })>>
+
+	<<set $cards_win to _names[0]>>
+
+	<<unset $avery_cards_win>>
+	<<unset $bailey_cards_win>>
+	<<unset $leighton_cards_win>>
+	<<unset $quinn_cards_win>>
+<</widget>>
+
+<<widget "avery_date_options">>
+<<if $avery_location is 3>><<set $avery_location to 0>><<set $averydateattended to 1>><<set $averydatemissed to 0>>
+	<<if $avery_cards_intro gte 1>>
+		<<He>> drives you to Barb Street, pulling up outside Bailey's block of flats. "We'll be meeting my friends tonight," Avery says, climbing from the car. "Be on your best behaviour."
+		<br><br>
+
+		<<link [[Next|Avery Cards Repeat]]>><<set $outside to 0>><</link>>
+		<br>
+	<<else>>
+		<<He>> drives you to Barb Street, pulling up outside a block of flats. "We'll be meeting some friends of mine tonight," Avery says, climbing from the car. "Very respectable individuals."
+		<br><br>
+		<<link [[Say it looks like a dump|Avery Cards Dump]]>><<npcincr Avery love 1>><<set $endear -= 10>><</link>>
+		<br>
+		<<link [[Stay silent|Avery Cards Intro]]>><</link>>
+		<br>
+	<</if>>
+<<elseif $avery_location is 2>><<set $avery_location to 3>>
+	<<wearProp "key">>
+	<<He>> drives you to High Street, pulling up to an extravagant hotel. <<He>> hands you a key with a room number scribbled on it. "Here. Take this and I'll meet you up there. I'm going to park the car." You climb out of the car and head inside.
+	<br><br>
+
+	<<link [[Next|Avery Hotel]]>><<handheldon>><</link>>
+	<br>
+<<elseif $avery_location is 1>><<set $avery_location to 2>>
+
+	<<generate2>>
+	<<He>> drives you to Danube Street, up to the front gates of a mansion. <<He>> flashes an invitation at a <<person2>><<person>> in servant's garb, who waves you through just as another car pulls up behind you.
+	<br><br>
+	<<endevent>><<npc Avery>><<person1>>
+
+	<<link [[Next|Avery Party]]>><</link>>
+	<br>
+<<else>><<set $avery_location to 1>>
+	<<He>> drives you to Connudatus Street and parks outside a restaurant. <<He>> offers <<his>> hand as <<he>> leads you into the building.
+	<br><br>
+
+	<<link [[Take it|Avery Date 2]]>><<set $phase to 1>><</link>><<handholdingvirginitywarning>>
+	<br>
+	<<link [[Refuse|Avery Date 2]]>><<set $phase to 2>><<npcincr Avery love -1>><<set $endear -= 10>><</link>><<lendear>><<llove>>
+	<br>
+<</if>>
+<</widget>>
+
+<<widget "averyofficeoptions">>
+	<<if $daily.averyOfficeBan isnot true>>
+		<<if Time.hour gte 15>>
+			<<link [[Next|Avery Office Off Work]]>><<endevent>><</link>>
+			<<exit>>
+		<<else>>
+			<<icon "project-maths.png">><<link [[Work (1:00)|Avery Office Work]]>><<endevent>><<pass 60>><<set $daily.officeHoursWorked to ($daily.officeHoursWorked or 0) + 1>><</link>>
+			<br>
+		<</if>>
+	<</if>>
+	<<getouticon>><<link [[Exit (0:05)|Avery Office Leave]]>><<pass 5>><<endevent>><</link>>
+	<br>
+<</widget>>
+
+<<widget "averyofficewage">>
+	<<set _averyPay to (C.npc.Avery.love / 2) + $endear * 2 - C.npc.Avery.rage>>
+	<<if _averyPay lt 5>>
+		<<set _averyPay to 5>>
+	<</if>>
+	<<if _args[0] is "pay">><<moneyGain _averyPay>><</if>>
+<</widget>>
+
+<<widget "averyspa">>
+	<<if $averySpaBanWeeks is 0>>
+		<<unset $averySpaBanWeeks>>
+		<<set $averyRejectedSpa to true>>
+	<</if>>
+	<<if $averyragerevealed is 1>>
+		<<set _rageColour to (
+			C.npc.Avery.rage gte 80 ? "red" :
+			C.npc.Avery.rage gte 60 ? "pink" :
+			C.npc.Avery.rage gte 40 ? "purple" :
+			C.npc.Avery.rage gte 20 ? "lblue" : "green"
+		)>>
+	<<else>>
+		<<set _rageColour to "green">>
+	<</if>>
+	<span @class="_rageColour">It's Avery.</span>
+	<br><br>
+	<<He>> seems surprised to see you, but <<he>> hides it quickly.
+	<br><br>
+	"Well," <<he>> says, undoing <<his>> towel and setting it aside,
+	<<if $averySeen.includes("spa")>>
+		<<if $averyragerevealed is 1 and (C.npc.Avery.rage gte 60 or $averyRejectedSpa)>>
+			"I wonder if you'll obey me this time." <<He>> raises an eyebrow.
+		<<else>>
+			"It's nice to see you again, <<pcpetname "Avery">>. I'm sure you'll take good care of me, won't you?"
+		<</if>>
+	<<else>>
+		"I can't say I expected to see you
+		<<if $averyragerevealed is 1 and C.npc.Avery.rage gte 60>>
+			in a position of service, considering your attitude as of late." <<He>> raises an eyebrow.
+		<<else>>
+			here, <<pcpetname "Avery">>."
+		<</if>>
+	<</if>>
+	<br><br>
+	<<He>> lies down on the table, folding <<his>> arms underneath <<his>> head.
+	<br><br>
+	How do you want to behave?
+	<br><br>
+
+	<<link [[Cute|Avery Spa]]>><<set $spa.behaviour to "cute">><</link>><<note "+ Endearment?" "teal">>
+	<br>
+	<<link [[Sophisticated|Avery Spa]]>><<set $spa.behaviour to "sophisticated">><</link>><<note "+ Endearment?" "teal">>
+	<br>
+	<<link [[Alluring|Avery Spa]]>><<set $spa.behaviour to "alluring">><</link>><<promiscuous1>><<note "+ Endearment?" "teal">>
+	<br>
+<</widget>>

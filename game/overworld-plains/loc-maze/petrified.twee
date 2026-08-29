@@ -1,0 +1,344 @@
+:: Petrified
+<<effects>>
+
+<<petrified_init>>
+
+<<generate1>><<generate2>><<person1>>
+You remain at the side of the road, unable to move an inch, listening to the car draw closer. You hear it brake, then it comes into view. It's a police car. A <<person>> drives, with a <<person2>><<person>> beside <<person1>><<him>>. They both leer at you.
+<<if $exposed gte 1>>
+	You struggle to cover yourself, <span class="pink">but cannot.</span>
+<</if>>
+<br><br>
+
+"Who'd leave a statue as magnificent like this by the side of the road?" asks the <<person2>><<person>>, climbing from the vehicle. "What a waste."
+<br><br>
+
+"Maybe they'll be back for it," the <<person1>><<person>> replies, looking up and down the road. "Let's get it on board and get out of here."
+<br><br>
+
+<i>Escape chance increases depending on willpower.</i>
+<br><br>
+
+<<petrified_chance_text>>
+<br><br>
+
+<<link [[Try to move|Petrified 2]]>><<set $phase to 0>><<petrified_chance>><</link>><<gescape_chance>>
+<br>
+<<link [[Stay still|Petrified 2]]>><<set $phase to 1>><</link>>
+<br>
+
+:: Petrified 2
+<<effects>>
+
+<<if $petrified_chance gte $rng and $phase is 0>>
+	The <<person1>><<person>> and <<person2>><<person>> stand either side of you, and discuss how best to carry you to the car. You struggle to move until you feel a weight lift, <span class="green">freeing you.</span>
+	<br><br>
+	You spring to life. Both the <<person1>><<person>> jump back in shock, tripping over themselves. You run from the road and into the surrounding trees. They might get funny ideas once they recover.
+	<br><br>
+
+	<<link [[Next|Farmland]]>><<endevent>><<petrified_end>><</link>>
+	<br>
+<<else>>
+	The <<person1>><<person>> and <<person2>><<person>> stand either side of you, and discuss how best to carry you to the car.
+	<<if $phase is 0>>
+		You struggle to move, <span class="red">to no avail.</span>
+	<</if>>
+	The pair lift you by your shoulders and ankles, and rest you between the front seats.
+	<br><br>
+
+	They climb in either side of you. The <<person1>><<person>> starts the engine, and returns to the road.
+	<br><br>
+
+	<<petrified_chance_text>>
+	<br><br>
+
+	<<link [[Try to move|Petrified 3]]>><<set $phase to 0>><<petrified_chance>><</link>><<gescape_chance>>
+	<br>
+	<<link [[Stay still|Petrified 3]]>><<set $phase to 1>><</link>>
+	<br>
+<</if>>
+
+:: Petrified 3
+<<effects>>
+
+<<pass 10>>
+<<if $petrified_chance gte $rng and $phase is 0>>
+	It's a bumpy journey along the uneven road. Each bump feels like you could somehow leverage it to free yourself. You try to move with the jolts, and a weight lifts, <span class="green">freeing you</span>.
+	<br><br>
+
+	The "statue" coming to life shocks the <<person1>><<person>> so much that <<he>> loses control of the car. It swerves from the road and into a ditch. An air bag activates, covering the three of you.
+	<br><br>
+
+	You manage to squirm from the vehicle amid the driver's and other passenger's squirms and curses, and escape into the nearby trees.
+	<br><br>
+
+	<<link [[Next|Farm Road 6]]>><<petrified_end>><<endevent>><</link>>
+	<br>
+<<else>>
+	It's a bumpy journey along the uneven road.
+	<<if $phase is 0>>
+		Each bump feels like you could somehow leverage it to free yourself, <span class="red">but you're not sure how.</span>
+	<<else>>
+		Each bump sends your stiff body rocking back and forth.
+	<</if>>
+	The <<person2>><<person>> puts <<his>> arm around you to keep you steady, and doesn't miss the opportunity to grope your <<breasts>>.<<gstress>><<stress 6>><<lescape_chance>><<petrified_chance -5>>
+	<br><br>
+	"Pervert," the <<person1>><<person>> says. "It's a statue. A work of art. Not something to molest."
+	<br>
+	"It's so lifelike though," the <<person2>><<person>> replies. "Give it a feel."
+	<br><br>
+	The <<person1>><<person>> glances at you, then gropes your <<genitals>>.
+	<br><br>
+	"See?"
+	<br>
+	"It's realistic alright. Obscene."
+	<br><br>
+
+	<<petrified_chance_text>>
+	<br><br>
+
+	<<link [[Try to move|Petrified 4]]>><<set $phase to 0>><<petrified_chance>><</link>><<gescape_chance>>
+	<br>
+	<<link [[Stay still|Petrified 4]]>><<set $phase to 1>><</link>>
+	<br>
+<</if>>
+
+:: Petrified 4
+<<effects>>
+
+<<pass 10>>
+<<if $petrified_chance gte $rng and $phase is 0>>
+	The <<person1>><<person>> radios the station, and explains their find. You struggle to regain control. The <<person>> swerves a little to avoid a hedgehog on the road, knocking you aside. The motion lifts a weight, <span class="green">freeing you.</span>
+	<br><br>
+	The "statue" coming to life shocks the <<person1>><<person>> so much that <<he>> loses control of the car. It swerves from the road and into a ditch. An air bag activates, covering the three of you.
+	<br><br>
+
+	You manage to squirm from the vehicle amid the driver's and other passenger's squirms and curses, and escape into the nearby trees.
+	<br><br>
+
+	<<link [[Next|Farm Road 3]]>><<petrified_end>><<endevent>><</link>>
+	<br>
+<<else>>
+	The <<person1>><<person>> radios the station, and explains their find.
+	<<if $phase is 0>>
+		You struggle to regain control, <span class="red">to no avail.</span>
+	<</if>>
+	<br><br>
+
+	"We're taking it straight to the park," the <<person>> says. "A fountain there needs it, they say."
+	<br>
+	"Do we get a reward? A finder's fee?" <<person2>>Eyes not needed for the road, <<he>> examines you with an uncomfortable intensity.<<gstress>><<stress 6>>
+	<br>
+	"After an inspection. Maybe."
+	<br><br>
+
+	<<petrified_chance_text>>
+	<br><br>
+
+	<<link [[Try to move|Petrified 5]]>><<set $phase to 0>><<petrified_chance>><</link>><<gescape_chance>>
+	<br>
+	<<link [[Stay still|Petrified 5]]>><<set $phase to 1>><</link>>
+	<br>
+<</if>>
+
+:: Petrified 5
+<<set $outside to 1>><<set $location to "park">><<effects>>
+
+<<pass 10>>
+<<if $petrified_chance gte $rng and $phase is 0>>
+	You arrive in town. The <<person1>><<person>> drives to the park, and stops beside a cafe.
+	<br><br>
+	"We're hauling it from here," <<he>> says. The <<person2>><<person>> sighs.
+	<br><br>
+	You struggle to move. The <<person1>><<person>> lifts your by your shoulders and pulls you from the vehicle, standing you on your feet. As <<he>> does, you feel a weight lift. <span class="green">You regain control of your movement.</span>
+	<br><br>
+	The <<person1>><<person>> jumps back in shock, giving you a chance to escape. You rush down a nearby alley, past a couple of bewildered passers-by, and escape before anyone can think to stop you.
+	<br><br>
+
+	<<link [[Next|Park]]>><<petrified_end>><<endevent>><</link>>
+	<br>
+<<else>>
+	You arrive in town. The <<person1>><<person>> drives to the park, and stops beside a cafe.
+	<br><br>
+	"We're hauling it from here," <<he>> says. The <<person2>><<person>> sighs.
+	<br><br>
+	<<if $phase is 0>>
+		You struggle to move, <span class="red">but it's no use.</span>
+	<</if>>
+	The <<person1>><<person>> lifts you by your shoulders and pulls you from the vehicle, standing you on your feet.
+	<br><br>
+
+	The <<person2>><<person>> grasps your ankles, and together they carry you through the park. People stop to gawk. <<if $exposed gte 1>>You feel awfully exposed.<</if>>
+	<br><br>
+
+	<<petrified_chance_text>>
+	<br><br>
+
+	<<link [[Try to move|Petrified 6]]>><<set $phase to 0>><<petrified_chance>><</link>><<gescape_chance>>
+	<br>
+	<<link [[Stay still|Petrified 6]]>><<set $phase to 1>><</link>>
+	<br>
+<</if>>
+
+:: Petrified 6
+<<effects>>
+
+<<if $petrified_chance gte $rng and $phase is 0>>
+	They carry you to a fountain, and lean you against it to catch their breath. You peer at the flowing water as a light spray splashes your face. A cool sensation travels down your spine, <span class="green">and you regain control of your movement.</span>
+	<br><br>
+	You splash across the fountain, and glance over your shoulder just once. Both the <<person1>><<person>> and <<person2>><<person>> stare at you in shock. You make it to a nearby row of trees, and escape from view.
+	<br><br>
+
+	<<link [[Next|Park]]>><<petrified_end>><<endevent>><</link>>
+	<br>
+<<else>>
+	They carry you to a fountain, and lean you against it to catch their breath. You peer at the flowing water as a light spray splashes your face. A cool sensation travels down your spine.
+	<<if $phase is 0>>
+		You try to move, <span class="red">to no avail.</span>
+	<</if>>
+	<br><br>
+	"This'll be a job," the <<person1>><<person>> says. "I'll grab the arse. I think it's best we use our shoulders."
+	<br><br>
+	The <<person1>><<person>> kneels to haul you onto <<his>> shoulder, groping your <<bottom>> as <<he>> does. The <<person2>><<person>> grabs you in a similar way, <<his>> arm resting across your <<breasts>>.<<gstress>><<stress 6>><<petrified_chance -5>><<lescape_chance>>
+	<br><br>
+	Together, they house you onto the plinth in the middle of the fountain, and step back to admire their handiwork.
+	<br><br>
+
+	<<petrified_chance_text>>
+	<br><br>
+
+	<<link [[Try to move|Petrified 7]]>><<set $phase to 0>><<petrified_chance>><</link>><<gescape_chance>>
+	<br>
+	<<link [[Stay still|Petrified 7]]>><<set $phase to 1>><</link>>
+	<br>
+<</if>>
+
+:: Petrified 7
+<<effects>>
+
+<<if $petrified_chance gte $rng and $phase is 0>>
+	A dove flaps onto your shoulder. At once, <span class="green">you're able to move again.</span> The <<person1>><<person>> and <<person2>><<person>> back away in shock as you climb from the plinth, and escape into the park. You're hidden behind a row of trees before they can even think to intervene.
+	<br><br>
+
+	<<link [[Next|Park]]>><<petrified_end>><<endevent>><</link>>
+	<br>
+<<else>>
+	<<if $phase is 0>>
+		You try to move, <span class="red">to no avail.</span>
+	<</if>>
+	The <<person1>><<person>> and <<person2>><<person>> pull out their phones, and point them at you. Satisfied, they walk in the direction of their car, leaving you alone on the plinth.
+	<br><br>
+	<<endevent>>
+	<<pass 1>>
+	You're not alone for long. A group of delinquents arrive, and find the new "statue" interesting.
+	<br><br>
+	<<generatey1>><<generatey2>><<generatey3>><<generatey4>><<person1>>
+	A <<person>> steps forward, hands on hips. "This been here long?" <<he>> asks no one in particular. Without waiting for a response, <<he>> splashes into the fountain, and climbs the plinth. <<He>> grasps your waist and presses <<his>> crotch against your <<bottom>> from behind. "Someone take a picture."
+	<br><br>
+	The other delinquents have indignities of their own in mind. They take turns performing them, and taking pictures, and leave with a renewed swagger.<<gtrauma>><<gstress>><<trauma 6>><<stress 6>>
+	<br><br>
+	<<endevent>>
+
+	<<link [[Next (1:00)|Petrified 8]]>><<pass 60>><</link>>
+<</if>>
+
+:: Petrified 8
+<<effects>>
+
+<<generate1>><<generate2>><<generate3>><<generate4>><<generate5>><<person1>>
+You stand on the plinth in the middle of the park. People gawk as they walk by, curious about the new feature. A group of <<people>> are particularly taken with you. They stop and stare for a while. One takes a picture with <<his>> phone.
+<br><br>
+"What a hot statue."
+<br>
+"Surprised they put something like that up there."
+<br>
+"Someone in the mayor's office has good taste."
+<br><br>
+A dove flaps onto your shoulder, prompting more to reach for their phones.<<gggescape_chance>>
+<br><br>
+At the dove's touch, you feel a weight lift. <span class="green">You can move again.</span> Your legs tremble, and you tumble into the fountain below.
+<br><br>
+
+You rise to your feet as the group of <<people>> surround you.
+<br><br>
+"So is this performance art?"
+<br>
+"How about we take part?"
+<br><br>
+They step closer, lust in their eyes.
+<br><br>
+
+<<link [[Next|Petrified Gang]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Petrified Gang
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+	<<enable_rescue>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Petrified Gang Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Petrified Gang]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Petrified Gang Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	They leave you spent and shivering in the fountain.
+	<br><br>
+	<<tearful>> you struggle to your feet.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+
+<<elseif $enemyhealth lte 0>>
+	The <<people>> scatter before your ferocity.
+	<br><br>
+	<<tearful>> you brush yourself down.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+
+<<else>>
+	<<set $rescued += 1>>
+	"That <<girl>> is being attacked!"
+	<br><br>
+	The <<people>> assaulting you look for the culprit, and see eyes now watching them from all around. They drop you in the fountain, and walk away in a hurry.
+	<br><br>
+	<<tearful>> you brush yourself down.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+
+	A <<generate1>><<person1>><<person>> rushes up to you. "Are you alright? I saw what those brutes were doing."
+	<<if $exposed gte 1>>
+		<<He>> rummages in a satchel. "Here. It's not much, but it's all I have on me." <<He>> hands you some towels.<<towelup>>
+	<<else>>
+		<<He>> looks in the direction of your assailants. "I don't know what this town's coming to."
+	<</if>>
+	<br><br>
+	Once sure you're okay, <<he>> walks in the direction of Connudatus Street.
+	<br><br>
+	<<endevent>>
+
+<</if>>
+
+<<link [[Next|Park]]>><<set $eventskip to 1>><</link>>
+<br>

@@ -1,0 +1,25 @@
+:: Widgets speech-Zephyr [widget]
+<<widget "speech-zephyr">>
+	<<set _npc_speech to true>>
+	<<if $possessed>>
+		<<if $control gte $controlmax>>
+			<<He>> scoffs. "Now leave, and leave <<phim>> be."
+		<<elseif $npcspeechcycle is 0>>
+			<<He>> raises <<his>> telescope to <<his>> eye for a moment, before putting it away.
+		<<else>>
+			<<He>> stares you down, silent.
+		<</if>>
+	<<elseif $speechnamedrop is 1>>
+		<<set $speechnamedrop to 0>>
+		<<switch _loveInterest>>
+			<<case "Gwylan">>
+				<<He>> speaks. "Hah! How's little seabird doing?"
+			<<case "Black Wolf" "Great Hawk">>
+				<<He>> chortles. "Oh, you're full of tales."
+			<<default>>
+				<<He>> smirks. "A lover on land or a heart at sea, pick one."
+		<</switch>>
+	<<else>>
+		<<set _noNameComment to true>>
+	<</if>>
+<</widget>>

@@ -1,0 +1,339 @@
+:: Prison Wren Intro
+<<effects>>
+
+<<He>> reaches into <<his>> pocket, and produces a white, translucent gem between thumb and forefinger. "We call these shark's teeth," <<he>> says. "The birds here fish them from the water. Sometimes they end up down here."
+<br><br>
+
+<<He>> puts the tooth away. "If you find some, <span class="gold">find me in the yard on Fridays, after lunch.</span>" <<He>> smiles. "I'll make it worth your while."
+<br><br>
+
+<<if $phase is "intro">>
+	<span class="gold">"The name's Wren,"</span> <<he>> says as <<he>> brushes past you. "Until we meet again."
+	<br><br>
+<</if>>
+
+<<if isPubfameTaskAccepted("wren") and !$pubfame.seen.includes("prisonWren")>>
+	<<set $pubfame.seen.pushUnique("prisonWren")>>
+	<<= $phase is "intro" ? "This is the person that 'Mickey' wanted you to deliver the letter to." : "'Mickey' wanted you to deliver the letter to Wren.">> However, <span class="red">the guards confiscated the letter alongside your personal belongings.</span>
+	<br><br>
+<</if>>
+
+<<link [[Next|Prison Yard]]>><<endevent>><</link>>
+<br>
+
+:: Prison Wren
+<<effects>>
+
+<<npc "Wren">><<person1>>
+Wren smiles at you. "If you've got teeth," <<he>> says, "I have some goodies from the outside."
+<br><br>
+
+<span class="gold">You have<<icon "tending/sharks-teeth.png">><<number $prison.teeth>> shark's <<= $prison.teeth gt 1 ? "teeth" : "tooth">>.</span>
+<br><br>
+
+<<prisonicon "clothing">><<link [[Clothing selection|Prison Wren Clothes]]>><</link>>
+<br><br>
+
+<<if !$prison.hammer>>
+	Small hammer: <span class="gold">20</span> teeth
+	<br>
+	<<if $prison.teeth gte 20>>
+		<<prisonicon "hammer">><<link [[Buy|Prison Wren Hammer]]>><<prison_teeth -20>><<set $prison.hammer to 1>><</link>>
+	<<else>>
+		<span class="blue">You need more teeth.</span>
+	<</if>>
+	<br><br>
+<</if>>
+<<if $prison.mirror isnot 1>>
+	Mirror: <span class="gold">30</span> teeth
+	<br>
+	<<if $prison.teeth gte 30>>
+		<<prisonicon "mirror">><<link [[Buy|Prison Wren Mirror]]>><<prison_teeth -30>><<set $prison.mirror to 1>><</link>>
+	<<else>>
+		<span class="blue">You need more teeth.</span>
+	<</if>>
+	<br><br>
+<</if>>
+<<if $prison.code isnot 1>>
+	Code to the locked room in medical: <span class="gold">50</span> teeth
+	<br>
+	<<if $prison.teeth gte 50>>
+		<<prisonicon "code">><<link [[Buy|Prison Wren Code]]>><<prison_teeth -50>><<set $prison.code to 1>><</link>>
+	<<else>>
+		<span class="blue">You need more teeth.</span>
+	<</if>>
+	<br><br>
+<</if>>
+<<if $prison.poster isnot "man">>
+	Poster of a sexy gentleman: <span class="gold">50</span> teeth
+	<br>
+	<<if $prison.teeth gte 50>>
+		<<prisonicon "man">><<link [[Buy|Prison Wren Poster]]>><<set $poster_choice to "man">><<set $phase to 0>><</link>>
+	<<else>>
+		<span class="blue">You need more teeth.</span>
+	<</if>>
+	<br><br>
+<</if>>
+<<if $prison.poster isnot "woman">>
+	Poster of a sexy lady: <span class="gold">50</span> teeth
+	<br>
+	<<if $prison.teeth gte 50>>
+		<<prisonicon "woman">><<link [[Buy|Prison Wren Poster]]>><<set $poster_choice to "woman">><<set $phase to 0>><</link>>
+	<<else>>
+		<span class="blue">You need more teeth.</span>
+	<</if>>
+	<br><br>
+<</if>>
+<<if $prison.poster isnot "puppy">>
+	Poster of a cute puppy: <span class="gold">50</span> teeth
+	<br>
+	<<if $prison.teeth gte 50>>
+		<<prisonicon "puppy">><<link [[Buy|Prison Wren Poster]]>><<set $poster_choice to "puppy">><<set $phase to 0>><</link>>
+	<<else>>
+		<span class="blue">You need more teeth.</span>
+	<</if>>
+	<br><br>
+<</if>>
+<<if !$prison.rope>>
+	Rope: <span class="gold">100</span> teeth
+	<br>
+	<<if $prison.teeth gte 100>>
+		<<prisonicon "rope">><<link [[Buy|Prison Wren Rope]]>><<prison_teeth -100>><<set $prison.rope to 1>><</link>>
+	<<else>>
+		<span class="blue">You need more teeth.</span>
+	<</if>>
+	<br><br>
+<</if>>
+<<if $prison.yard_key is 1 and $prison.yard_door is 1>>
+	You have no more use for your large iron key. Wren offers you <span class="gold">200</span> teeth for it.
+	<br>
+	<<lockicon "iron key">><<link [[Sell|Prison Wren Yard Key]]>><<set $prison.yard_key to 0>><<prison_teeth 200>><</link>>
+	<br><br>
+<</if>>
+
+<<socialiseicon "ask">><<link [[Ask about escape|Prison Wren Ask]]>><</link>>
+<br><br>
+
+<<getouticon>><<link [[Leave|Prison Yard]]>><<endevent>><</link>>
+<br>
+
+
+:: Prison Wren Clothes
+<<set $wardrobe_location to "prison">>
+<<wardrobeSelection true>>
+<<set _clothingInfo = [
+		{
+			index:1,
+			name:"panties",
+			category:"under_lower",
+			teeth:5,
+		},
+		{
+			index:4,
+			name:"briefs",
+			category:"under_lower",
+			teeth:5,
+		},
+		{
+			index:12,
+			name:"bra",
+			category:"under_upper",
+			teeth:5,
+		},
+		{
+			index:22,
+			name:"vest",
+			category:"under_upper",
+			teeth:5,
+		},
+		{
+			index:85,
+			name:"shirt",
+			category:"upper",
+			teeth:10,
+		},
+		{
+			index:77,
+			name:"trousers",
+			category:"lower",
+			teeth:10,
+		},
+		{
+			index:86,
+			name:"jumpsuit",
+			category:"upper",
+			teeth:15,
+		},
+	]>>
+<<if $pickedColor is undefined>>
+	<<set $pickedColor = {}>>
+
+	<<for _i, _item range _clothingInfo>>
+		<<set _colorOptions = setup.clothes[_item.category].find(ele => ele.index === _item.index).colour_options.filter(item => item !== "custom");>>
+		<<set _rngPickedColor = _colorOptions[Math.floor(Math.random() * _colorOptions.length)]>>
+		<<set $pickedColor[_item.name] = _rngPickedColor>>
+	<</for>>
+<</if>>
+<<set _colorClass = function(color) {
+	if (color !== undefined) return "icon-" + color.replace(" ", "-");
+}>>
+
+<span class="gold">You have<<icon "tending/sharks-teeth.png">><<number $prison.teeth>> shark's <<= $prison.teeth gt 1 ? "teeth" : "tooth">>.</span>
+<br><br>
+
+<<for _i, _item range _clothingInfo>>
+	<<set _iconFile = setup.clothes[_item.category].find(ele => ele.index === _item.index).iconFile>>
+	<<set _icon to "clothes/"+_iconFile>>
+	<<set _negTeeth to -_item.teeth>>
+	<span class="capitalize">_item.name</span>: <span class="gold">_item.teeth</span> teeth
+	<br>
+	<<if $prison.teeth gte _item.teeth>>
+		<span @class="_colorClass($pickedColor[_item.name])"><<icon _icon>></span>
+		<<capture _item _negTeeth _iconName>>
+			<<link [[Buy|Prison Wren Clothes Buy]]>>
+				<<set $phase to _item.name>>
+				<<prison_teeth _negTeeth>>
+				<<switch _item.category>>
+					<<case "under_lower">>
+						<<underlowersend _item.index $wardrobe_location $pickedColor[_item.name]>>
+					<<case "under_upper">>
+						<<underuppersend _item.index $wardrobe_location $pickedColor[_item.name]>>
+					<<case "lower">>
+						<<lowersend _item.index $wardrobe_location>>
+					<<case "upper">>
+						<<uppersend _item.index $wardrobe_location>>
+				<</switch>>
+			<</link>>
+		<</capture>>
+	<<else>>
+		<span class="blue">You need more teeth.</span>
+	<</if>>
+	<br><br>
+<</for>>
+
+<<getouticon>><<link [[Leave|Prison Wren]]>><<unset $pickedColor>><<endevent>><</link>>
+<br>
+
+:: Prison Wren Clothes Buy
+<<effects>>
+
+<<switch $phase>>
+	<<case "panties" "briefs">>
+		"They'll be sent to your cell," Wren says. "I don't think the staff even bother to order their own. Everyone comes to me."
+	<<case "bra" "vest">>
+		"It'll be sent to your cell," Wren says. "I'm basically an underwear <<= $pronoun is "m" ? "salesman" : "saleswoman">>."
+	<<case "shirt">>
+		"It'll be sent to your cell," Wren says. "I like the old-fashioned style. Might be why I enjoy the estate so much."
+	<<case "trousers">>
+		"They'll be sent to your cell," Wren says. "Don't worry if they get a little muddy."
+	<<case "jumpsuit">>
+		"It'll be sent to your cell," Wren says. "I hear the prison has a ton of these, but they only give the one to newcomers."
+<</switch>>
+<br><br>
+
+<<link [[Next|Prison Wren Clothes]]>><<endevent>><</link>>
+<br>
+
+:: Prison Wren Code
+<<effects>><<wearProp "paper note">>
+
+Wren passes you a note with a four-digit number written down. "Dunno what they keep in there," <<he>> says. "Must be important though. Careful not to get caught. If you are caught, we've never met."
+<br><br>
+
+<<link [[Next|Prison Wren]]>><<endevent>><</link>>
+<br>
+
+:: Prison Wren Rope
+<<effects>><<wearProp "rope">>
+
+"Strong and long," Wren says. It looks like <<he>> wants to say something else, but <<he>> contents <<himself>> with a smirk.
+<br><br>
+
+<<link [[Next|Prison Wren]]>><<endevent>><</link>>
+<br>
+
+:: Prison Wren Yard Key
+<<effects>><<wearProp "shark tooth">>
+
+Wren hands you the teeth. "Good to have a spare." <<He>> smiles.
+<br><br>
+
+<<link [[Next|Prison Wren]]>><<endevent>><</link>>
+<br>
+
+:: Prison Wren Mirror
+<<effects>>
+
+Wren hands you a shard of reflective glass. "Watch the edges," <<he>> says. "I don't carry bandages."
+<br><br>
+
+<span class="gold">You now have a mirror. You can use it in your cell.</span>
+<br><br>
+
+<<link [[Next|Prison Wren]]>><<endevent>><</link>>
+<br>
+
+:: Prison Wren Hammer
+<<effects>><<wearProp "tiny hammer">>
+
+Wren hands you a small hammer, barely the size of your thumb. "Hope you weren't expecting bigger," <<he>> says. "Can't bring in whatever I like."
+<br><br>
+
+<span class="gold">You now have a small hammer.</span>
+<br><br>
+
+<<link [[Next|Prison Wren]]>><<endevent>><</link>>
+<br>
+
+
+:: Prison Wren Poster
+<<effects>><<wearProp "rolled poster">>
+
+<<if $prison.poster and $phase isnot 1>>
+	"I'll be taking the old one back," <<he>> says. "Consider it a favour. Too much garnish attracts the gawkers."
+	<br><br>
+
+	<<He>> rolls the teeth in <<his>> palm. "You still in?"
+	<br><br>
+
+	<<link [[Replace your poster|Prison Wren Poster]]>><<set $phase to 1>><</link>>
+	<br>
+	<<link [[Never mind|Prison Wren]]>><<unset $poster_choice>><</link>>
+	<br>
+<<else>>
+	"I'll have it put up in your cell," Wren says. "Free of charge."
+	<br><br>
+
+	<<if $phase is 1>>
+		<span class="gold">The poster on your cell wall has been replaced.</span>
+	<<else>>
+		<span class="gold">You now have a poster on your cell wall.</span>
+	<</if>>
+	<br><br>
+
+	<<link [[Next|Prison Wren]]>><<prison_teeth -50>><<set $prison.poster to $poster_choice>><<unset $poster_choice>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Prison Wren Ask
+<<effects>>
+<<generate_relaxed_guard 1>>
+"People don't escape from here," Wren says. "Only one person can steer a ship through the mist, and <<person2>><<hes>> not a mercenary. The watchers keep an eye out for swimmers. Doesn't matter anyway, as you can't reach the water. Best wait for the system to process you. Don't attract attention to yourself in the meantime."
+<br><br>
+<<person1>>
+"That said," <<he>> continues. "If you could reach the water, and the birds weren't willing or able to stop you, a strong swimmer might be able to make it." <<He>> shrugs. "Fun to think about."
+<br><br>
+
+<<link [[Ask <<him>> how <<he>> gets in and out|Prison Wren Ask 2]]>><</link>>
+<br>
+<<link [[Leave|Prison Wren]]>><<endevent>><</link>>
+<br>
+
+:: Prison Wren Ask 2
+<<effects>>
+
+Wren smiles. "That's <<= $prison_wren_boat_intro is 1 ? "my" : "our">> secret."
+<br><br>
+
+<<link [[Next|Prison Wren]]>><<endevent>><</link>>
+<br>

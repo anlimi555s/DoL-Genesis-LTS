@@ -1,0 +1,420 @@
+:: Gwylan Gifts List
+<<effects>>
+
+What gift would you like to give Gwylan?
+<br><br>
+
+<<food_gift_list>>
+
+<<if _food_gift_found is true>>
+	<<skinicon "give">><<link [[Give gift (0:05)|Gwylan Gifts]]>><<pass 5>><<give_gift Gwylan>><</link>>
+	<br>
+<</if>>
+<<refuseicon>><<link [[Reconsider|Gwylan Gifts List Reconsider]]>><</link>>
+<br>
+
+:: Gwylan Gifts List Reconsider
+<<effects>><<run statusCheck("Gwylan")>>
+
+<<if $location is "forest_shop">>
+	Gwylan continues rummaging around for something, not noticing your reconsideration at all.
+<<else>>
+	Gwylan continues staring out at the sea, not noticing your reconsideration at all.
+<</if>>
+<br><br>
+
+<<gwylanOptions>>
+
+:: Gwylan Gifts
+<<effects>><<run statusCheck("Gwylan")>>
+<<set _gift to setup.foodstuff[$gift].name + (setup.foodstuff[$gift].food.handheld_gift ? " gift" : "")>>
+<<wearProp _gift>>
+
+<<if $phase is 1>>
+	"I've brought you something," you say.
+<<elseif $phase is 2>>
+	"I made something," you say. "Just for you."
+<<else>>
+	"I've made you a gift," you say. "I hope you like it."
+<</if>>
+<br><br>
+
+<<if $gift is "plum_pudding">>
+	You hold out the plum pudding.
+	<<if _gwylanTF.known and $location is "forest_shop">>
+		Gwylan's eyes light up, and <<his>> fox ears stand up straight.
+	<<else>>
+		Gwylan's eyes light up.
+	<</if>>
+	"Oh my. You certainly know the fastest way to a <<personssimple>> heart." <<npcincr Gwylan dom 1>><<gyearning>>
+	<br><br>
+
+	<<He>> takes a large bite of it. "Made with real plums, too! Perfection." <<He>> closes <<his>> eyes and places a hand on <<his>> cheek as <<he>> chews. "I adore plums. The perfect texture and balance of sweetness and tartness. You could even taste it without a tongue."
+	<br><br>
+	<<saveFavoriteFood "Gwylan" $gift>>
+	<<earnFeat "Coven Comforts">>
+
+	<<He>> opens <<his>> eyes and blushes, realising <<hes>> already eaten half of it. "Oh dear, how rude of me. This would taste much better shared."
+	<<if $location is "forest_shop">>
+		<<He>> nods to a small table tucked away in the corner of the shop.
+	<</if>>
+	<br><br>
+
+	<<link [[Let Gwylan have all of it|Gwylan Gifts Plum]]>><</link>>
+	<br>
+	<<link [[Share it|Gwylan Gifts Plum Share]]>><<npcincr Gwylan lust 1>><</link>><<glust>>
+	<br>
+<<elseif $gift is "valentines_chocolate" and $valentines>>
+	<<earnFeat "Be My Valentine">>
+	You hold out the heart-shaped box of valentines chocolates. Gwylan leans forward and sniffs it.
+	<<if $gwylanSeen.includes("romance")>>
+		"Chocolates?" <<he>> asks. "For Valentine's Day! Why, I will be your Valentine, dear!" <<He>> flips open the box, and bites one of the chocolates in half.<<ggyearning>><<npcincr Gwylan dom 3>>
+		<br><br>
+
+		<<He>> licks <<his>> upper lip. "It tastes excellent. But then, anything made by you tastes good." <<He>> catches <<himself>> before biting another. "I hope I'm not breaking a convention by scoffing them straight away." <<He>> thinks a moment, then shrugs, and devours another. "As if I could resist your chocolate."
+		<br><br>
+		<<He>> scoffs yet another, then puts the box away for later.
+		<br><br>
+	<<else>>
+		"Chocolates?" <<he>> asks. "For little old me?"<<ggyearning>><<npcincr Gwylan dom 3>>
+		<br><br>
+
+		<<He>> opens the box, and appears to enjoy savouring the sight of them. "Are there any conventions? Can I eat them now?" Without waiting for an answer, <<he>> takes a chocolate, and bites it in half. "I'd say your talents are wasted on me, but that's for you to decide."
+		<br><br>
+		<<He>> scoffs another, then puts the box away for later.
+		<br><br>
+	<</if>>
+
+	<<gwylanOptions>>
+<<elseif setup.foodstuff[$gift].food.tags.includes("spicy")>>
+	You hold out the <<recipe_name $gift>>. Gwylan tilts <<his>> head.
+	<<if $location is "cafe" and !(between($chef_state, 7, 8) and $chef_rework lte 30)>>
+		"How did you sneak that past Sammy? Never mind, I'm sure I can squeeze that in alongside breakfast."
+	<</if>>
+
+	<<He>> smells it. "A spicy dish? I have trouble tasting those. I'm willing to try, though."
+	<br><br>
+
+	<<He>> takes a bite, and chews. <<His>> expression remains neutral. "Sorry, dear. I'm afraid I can't taste it at all." <<He>> smiles. "I won't let it go to waste, though. It might taste better shared."
+	<<if $location is "forest_shop">>
+		<<He>> nods to a small table tucked away in the corner of the shop.
+	<</if>>
+	<br><br>
+
+	<<link [[Let Gwylan have all of it|Gwylan Gifts Spicy]]>><</link>>
+	<br>
+	<<link [[Share it|Gwylan Gifts Spicy Share]]>><<npcincr Gwylan lust 1>><</link>><<glust>>
+	<br>
+
+<<elseif setup.foodstuff[$gift].food.tags.includes("drink")>>
+	You hold out the <<recipe_name $gift>>. <<He>> tilts <<his>> head. "A brew of your own? I'm intrigued." <<He>> gently takes it in both hands and smells it. "Interesting." <<He>> swirls it, before taking a small sip. The small sip quickly turns into <<him>> chugging it.
+	<br><br>
+
+	<<link [[Next|Gwylan Gifts Drink End]]>><</link>>
+<<else>>
+	You hold out the <<recipe_name $gift>>.
+	<<if $location is "cafe" and !(between($chef_state, 7, 8) and $chef_rework lte 30)>>
+		"How did you sneak that past Sammy? Never mind, I'm sure I can squeeze that in alongside breakfast."
+	<</if>>
+
+	<<He>> inspects it for a moment, before taking it in <<his>> hands. "It smells wonderful," <<he>> says. "I'm sure it tastes just as good. It would taste better shared, though."
+	<<if $location is "forest_shop">>
+		<<He>> nods to a small table tucked away in the corner of the shop.
+	<</if>>
+	<br><br>
+
+	<<link [[Let Gwylan have all of it|Gwylan Gifts Food]]>><</link>>
+	<br>
+	<<link [[Share it|Gwylan Gifts Food Share]]>><<npcincr Gwylan lust 1>><</link>><<glust>>
+	<br>
+<</if>>
+
+:: Gwylan Gifts Plum
+<<effects>><<run statusCheck("Gwylan")>>
+You shake your head, and insist on <<him>> eating it all.
+<br><br>
+
+<<if $location is "forest_shop">>
+	The whole shop seems to brighten up for a little while after <<he>> finishes it.
+<<else>>
+	<<He>> continues watching the sea as <<he>> finishes it. <<Hes>> practically glowing.
+<</if>>
+<br><br>
+
+<<if C.npc.Gwylan.dom gte 50>>
+	"You deserve a treat too, <<pcpetname "Gwylan">>."
+	<<if $location is "cafe" and !(between($chef_state, 7, 8) and $chef_rework lte 30)>>
+		<<He>> leans over the table and gives you a quick peck on the cheek.
+	<<else>>
+		<<He>> leans over the counter and gives you a quick peck on the cheek.
+	<</if>>
+	<<if !$gwylanSeen.includes("partners")>>
+		"Don't think about that too much," <<he>> says with a blush.
+	<</if>>
+<<else>>
+	"That was very thoughtful of you, dear. Thank you."
+<</if>>
+<br><br>
+
+<<gwylanOptions>>
+
+:: Gwylan Gifts Plum Share
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $location is "forest_shop">>
+	<<He>> leads you over to the small table, before disappearing through a dark doorway.
+	<<if $gwylanSeen.includes("dog_bowl")>>
+		<<if _gwylanStatus.includesAny("dom", "lust") or $gwylanSeen.includes("dog_bowl_name")>>
+			<<if !$gwylanSeen.includes("dog_bowl_name")>>
+				<<set $gwylanSeen.pushUnique("dog_bowl_name")>>
+				<<He>> returns with a <span class="pink">clean dog bowl</span>, which <<he>> puts in front of you.
+				It's different from last time. Small gems are embedded around it, and <span class="pink">your name is engraved on the side</span>.
+				<br><br>
+
+				Gwylan sways back and forth, blushing. "You've been such a <<pcpetname "Gwylan" "good">> for me, so I thought I'd make something to show you just how much I appreciate you, too. I hope you like it." <<npcincr Gwylan dom 5>><<ggyearning>>
+				<br><br>
+			<<else>>
+				<<He>> returns with <span class="pink">your dog bowl</span>.
+			<</if>>
+		<<else>>
+			<<He>> returns with a <span class="pink">clean dog bowl</span>, which <<he>> puts in front of you.
+		<</if>>
+		<<He>> places the remaining pudding in it.
+	<<else>>
+		<<set $gwylanSeen.pushUnique("dog_bowl")>>
+		"Oh no. I'm all out of clean dishes. Unless..." You hear some dishes clanking around.
+		<br><br>
+
+		<<He>> re-emerges, and places a <span class="pink">clean dog bowl</span> in front of you. <<He>> blushes as <<he>> puts the rest of the pudding in it. "I'm sorry about this, dear. I promise it's sanitary."
+		<<if $worn.neck.collared is 1>>
+			<<He>> looks at your collar. "I have a feeling you don't mind."
+		<</if>>
+	<</if>>
+	<br><br>
+
+	<<link [[Eat normally|Gwylan Gifts Food Pet Normal]]>><<set $phase to "plum">><<stress -2>><</link>><<lstress>>
+	<br>
+	<<if hasSexStat("deviancy", 2)>>
+		<<link [[Eat like a pet|Gwylan Gifts Food Petplay]]>><<set $phase to "plum">><<npcincr Gwylan lust 4>><</link>><<deviant2>><<gglust>>
+	<<else>>
+		<<insufficientStat "deviancy" "to eat like a pet">>
+	<</if>>
+	<br>
+<<else>>
+	<<He>> places half of what remains of the pudding on your plate. You did a good job. It's quite tasty.
+	<br><br>
+
+	<<if C.npc.Gwylan.dom gte 50>>
+		"You deserve a treat too, <<pcpetname "Gwylan">>."
+		<<if $location is "cafe" and !(between($chef_state, 7, 8) and $chef_rework lte 30)>>
+			<<He>> leans over the table and gives you a quick peck on the cheek.
+		<<else>>
+			<<He>> leans over the counter and gives you a quick peck on the cheek.
+		<</if>>
+		<<if !$gwylanSeen.includes("partners")>>
+			"Don't think about that too much," <<he>> says with a blush.
+		<</if>>
+	<<else>>
+		"That was very thoughtful of you, dear. Thank you."
+	<</if>>
+	<br><br>
+
+	<<gwylanOptions>>
+<</if>>
+
+:: Gwylan Gifts Spicy
+<<effects>><<run statusCheck("Gwylan")>>
+Gwylan eats in silence. It really doesn't seem like <<hes>> able to taste it at all. "I'm sure it's delicious," <<he>> says. "I appreciate the thought."
+<br><br>
+
+<<gwylanOptions>>
+
+:: Gwylan Gifts Spicy Share
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $location is "forest_shop">>
+	<<He>> leads you over to the small table, before disappearing through a dark doorway.
+	<<if $gwylanSeen.includes("dog_bowl")>>
+		<<if _gwylanStatus.includesAny("dom", "lust") or $gwylanSeen.includes("dog_bowl_name")>>
+			<<if !$gwylanSeen.includes("dog_bowl_name")>>
+				<<set $gwylanSeen.pushUnique("dog_bowl_name")>>
+				<<He>> returns with a <span class="pink">clean dog bowl</span>, which <<he>> puts in front of you.
+				It's different from last time. Small gems are embedded around it, and <span class="pink">your name is engraved on the side</span>.
+				<br><br>
+
+				Gwylan sways back and forth, blushing. "You've been such a <<pcpetname "Gwylan" "good">> for me, so I thought I'd make something to show you just how much I appreciate you, too. I hope you like it." <<npcincr Gwylan dom 5>><<ggyearning>>
+				<br><br>
+			<<else>>
+				<<He>> returns with <span class="pink">your dog bowl</span>.
+			<</if>>
+		<<else>>
+			<<He>> returns with a <span class="pink">clean dog bowl</span>, which <<he>> puts in front of you.
+		<</if>>
+		<<He>> places half of the meal in it.
+	<<else>>
+		<<set $gwylanSeen.pushUnique("dog_bowl")>>
+		"Oh no. I'm all out of clean dishes. Unless..." You hear some dishes clanking around.
+		<br><br>
+
+		<<He>> re-emerges, and places a <span class="pink">clean dog bowl</span> in front of you. <<He>> blushes as <<he>> puts half of the meal in it. "I'm sorry about this, dear. I promise it's sanitary."
+		<<if $worn.neck.collared is 1>>
+			<<He>> looks at your collar. "I have a feeling you don't mind."
+		<</if>>
+	<</if>>
+	<br><br>
+
+	<<link [[Eat normally|Gwylan Gifts Food Pet Normal]]>><<set $phase to "spicy">><<stress -2>><</link>><<lstress>>
+	<br>
+	<<if hasSexStat("deviancy", 2)>>
+		<<link [[Eat like a pet|Gwylan Gifts Food Petplay]]>><<set $phase to "spicy">><<npcincr Gwylan lust 4>><</link>><<deviant2>><<gglust>>
+	<<else>>
+		<<insufficientStat "deviancy" "to eat like a pet">>
+	<</if>>
+	<br>
+<<else>>
+	<<He>> places half of the portion on your plate. You did a good job. It's quite tasty. "Even if I can't taste it, I can enjoy eating it with you," <<he>> says. "It adds just the slightest hint of sweetness."
+	<br><br>
+
+	<<gwylanOptions>>
+<</if>>
+
+:: Gwylan Gifts Food
+<<effects>><<run statusCheck("Gwylan")>>
+You shake your head, and insist on <<him>> eating it all.
+<br><br>
+
+<<if $location is "forest_shop">>
+	<<He>> eats it rather quickly.
+<<else>>
+	<<He>> slowly enjoys it as <<he>> continues to watch the sea.
+<</if>>
+"Thank you for the meal, dear."
+<br><br>
+
+<<gwylanOptions>>
+
+:: Gwylan Gifts Food Share
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $location is "forest_shop">>
+	<<He>> leads you over to the small table, before disappearing through a dark doorway.
+	<<if $gwylanSeen.includes("dog_bowl")>>
+		<<if _gwylanStatus.includesAny("dom", "lust") or $gwylanSeen.includes("dog_bowl_name")>>
+			<<if !$gwylanSeen.includes("dog_bowl_name")>>
+				<<set $gwylanSeen.pushUnique("dog_bowl_name")>>
+				<<He>> returns with a <span class="pink">clean dog bowl</span>, which <<he>> puts in front of you.
+				It's different from last time. Small gems are embedded around it, and <span class="pink">your name is engraved on the side</span>.
+				<br><br>
+
+				Gwylan sways back and forth, blushing. "You've been such a <<pcpetname "Gwylan" "good">> for me, so I thought I'd make something to show you just how much I appreciate you, too. I hope you like it." <<npcincr Gwylan dom 5>><<ggyearning>>
+				<br><br>
+			<<else>>
+				<<He>> returns with <span class="pink">your dog bowl</span>.
+			<</if>>
+		<<else>>
+			<<He>> returns with a <span class="pink">clean dog bowl</span>, which <<he>> puts in front of you.
+		<</if>>
+		<<He>> places half of the food in it.
+	<<else>>
+		<<set $gwylanSeen.pushUnique("dog_bowl")>>
+		"Oh no. I'm all out of clean dishes. Unless..." You hear some dishes clanking around.
+		<br><br>
+
+		<<He>> re-emerges, and places a <span class="pink">clean dog bowl</span> in front of you. <<He>> blushes as <<he>> puts half of the food in it. "I'm sorry about this, dear. I promise it's sanitary."
+		<<if $worn.neck.collared is 1>>
+			<<He>> looks at your collar. "I have a feeling you don't mind."
+		<</if>>
+	<</if>>
+	<br><br>
+
+	<<link [[Eat normally|Gwylan Gifts Food Pet Normal]]>><<stress -2>><</link>><<lstress>>
+	<br>
+	<<if hasSexStat("deviancy", 2)>>
+		<<link [[Eat like a pet|Gwylan Gifts Food Petplay]]>><<npcincr Gwylan lust 4>><</link>><<deviant2>><<gglust>>
+	<<else>>
+		<<insufficientStat "deviancy" "to eat like a pet">>
+	<</if>>
+	<br>
+<<else>>
+	<<He>> places half of it on your plate. You did a good job. It's quite tasty.
+	<br><br>
+
+	"Thank you for the meal, dear."
+	<br><br>
+
+	<<gwylanOptions>>
+<</if>>
+
+
+:: Gwylan Gifts Food Pet Normal
+<<effects>><<run statusCheck("Gwylan")>>
+You eat from the bowl with utensils, like a normal person.
+<br><br>
+
+<<if $gwylanSeen.includes("romance") or _gwylanStatus.includes("lust")>>
+	Gwylan stares at you, elbows on the table and head in <<his>> hands, as if you were the most interesting thing in the world.
+	<<if _gwylanTF.known>>
+		<<His>> tail flits back and forth behind <<him>>.
+	<</if>>
+	<br><br>
+
+	When you've finished, <<he>> walks around the table and pets your head.
+	<<if $phase is "plum">>
+		"You're so thoughtful, <<pcpetname "Gwylan">>."
+		<<if $gwylanSeen.includes("partners") or _gwylanStatus.includes("lust")>>
+			<<He>> wraps <<his>> arms around you and kisses you on the cheek.
+		<</if>>
+	<<else>>
+		"<<pcPetname "Gwylan" "good">>."
+	<</if>>
+<<else>>
+	Gwylan keeps looking up at you.
+	<<if $phase is "plum">>
+		"This was very thoughtful of you, dear. Thank you."
+	<<elseif $phase is "spicy">>
+		"Even if I can't taste it, I can enjoy eating it with you," <<he>> says. "It adds just the slightest hint of sweetness."
+	<<else>>
+		"Thank you for the meal, dear."
+	<</if>>
+<</if>>
+<br><br>
+
+Gwylan takes care of the dishes, before returning to the counter.
+<br><br>
+
+<<set $phase to 0>>
+<<gwylanOptions>>
+
+:: Gwylan Gifts Food Petplay
+<<effects>><<run statusCheck("Gwylan")>>
+<<set $gwylanSeen.pushUnique("petplay")>>
+You lean your head down, eating and licking your food
+<<if $hypnosis_traits.devotion gte 3>>
+	like a good little pet. <<hypnosisText "You're such a good pet for <<gwylanHypnoName>>. The thought fills you with joy and bliss. <<trauma -2>><<ltrauma>>">>
+<<else>>
+	as if you were Gwylan's pet.
+<</if>>
+<<deviancy2>>
+
+<<He>> giggles, and walks around the table. <<He>> pets the back of your head, and you lean into it.
+<<if $phase is "plum">>
+	"You're so thoughtful, <<pcpetname "Gwylan">>."
+	<<if $gwylanSeen.includes("partners") or _gwylanStatus.includes("lust")>>
+		<<He>> wraps <<his>> arms around you and kisses you on the cheek.
+	<</if>>
+<<else>>
+	"<<pcPetname "Gwylan" "good">>."
+<</if>>
+<br><br>
+
+You lick your bowl clean. Gwylan takes care of the dishes, before returning to the counter.
+<br><br>
+
+<<set $phase to 0>>
+<<gwylanOptions>>
+
+
+:: Gwylan Gifts Drink End
+<<effects>>
+
+<<He>> lets out a refreshed sigh. "That was delicious. Thank you, dear. May I keep the container? I could fill it with small seashells, or some such." You nod, which prompts <<him>> to smile.
+<br><br>
+
+<<gwylanOptions>>

@@ -1,0 +1,33 @@
+{
+  "name": "GenesisCompat",
+  "nickName": "Genesis 兼容层 - 图片路由",
+  "version": "0.1.0",
+  "styleFileList": [],
+  "scriptFileList_inject_early": [
+    "dist/registry.js",
+    "dist/retro-model.js",
+    "dist/patch-redirect.js",
+    "dist/global-shims.js",
+    "dist/retro-apply.js",
+    "dist/migrate.js"
+  ],
+  "scriptFileList_earlyload": [],
+  "scriptFileList_preload": [],
+  "scriptFileList": [],
+  "tweeFileList": [],
+  "imgFileList": [],
+  "imgFileReplaceList": [],
+  "additionFile": [
+    "README.md"
+  ],
+  "dependenceInfo": [
+    {
+      "modName": "ModLoader",
+      "version": "^2.31.0"
+    },
+    {
+      "modName": "ModLoader DoL ImageLoaderHook",
+      "version": "^2.7.0"
+    }
+  ]
+}

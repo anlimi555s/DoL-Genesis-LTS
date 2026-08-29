@@ -1,0 +1,368 @@
+:: Widgets Time Date [widget]
+<<widget "sidebarBadEndTimeLabel">>
+	<<set _currentBadEnd to $badEndStats.last()>>
+	<<if Time.date.hasLostTrackOfTime(_currentBadEnd)>>
+		<<if _args[0] is "mobile">>
+			<mouse class="tooltip-centertop"><span class="red">?</span><span class="red">You've lost track of the time</span></mouse>
+		<<else>>
+			<<sidebarDayStateTime>>
+		<</if>>
+	<<elseif Time.date.hasLostTrackOfMinutes(_currentBadEnd)>>
+		<<sidebarHourUnknownMinutes _args[0]>>
+	<<else>>
+		<<sidebarDefaultTime _args[0]>>
+	<</if>>
+<</widget>>
+
+<<widget "sidebarDefaultTime">>
+	<<switch _args[0]>>
+		<<case "desktop">>
+			<<ampm>>
+		<<case "stats">>
+			<<clock>>
+			<<ampm>>
+		<<case "mobile">>
+			<<set _hour to $options.timestyle === "ampm" ? ((Time.hour + 11) % 12) + 1 : Time.hour>>
+			<<print _hour.toString().padStart(2, "0")>>
+			<br>
+			<span class="vertical">:</span>
+			<br>
+			<<print Time.minute.toString().padStart(2, "0")>>
+			<<if $options.timestyle === "ampm">>
+				<br>
+				<<print Time.hour >= 12 ? "pm" : "am">>
+			<</if>>
+		<<default>>
+			<<ampm>>
+	<</switch>>
+<</widget>>
+
+<<widget "sidebarHourUnknownMinutes">>
+	<<switch _args[0]>>
+		<<case "mobile">>
+			<<set _hour to $options.timestyle === "ampm" ? ((Time.hour + 11) % 12) + 1 : Time.hour>>
+			<mouse class="tooltip-centertop">
+				<span class="red">
+					<<print _hour.toString().padStart(2, "0")>>
+					<br>
+					<span class="vertical">:</span>
+					<br>
+					??
+				</span>
+				<span class="red">You've lost track of the time</span>
+			</mouse>
+		<<case "stats">>
+			<span class="obfuscatedTimeClock"><<clock>></span>
+			<<set _hour to $options.timestyle === "ampm" ? ((Time.hour + 11) % 12) + 1 : Time.hour>>
+			<mouse class="tooltip-centertop"><span class="red"><<print _hour.toString()>>?</span><span class="red">You've lost track of the time</span></mouse>
+		<<default>>
+			<<set _hour to $options.timestyle === "ampm" ? ((Time.hour + 11) % 12) + 1 : Time.hour>>
+			<mouse class="tooltip-centertop"><span class="red"><<print _hour.toString()>>?</span><span class="red">You've lost track of the time</span></mouse>
+	<</switch>>
+<</widget>>
+
+<<widget "sidebarDayStateTime">>
+	<mouse class="tooltip-centertop"><span class="red"><<print Time.dayState.toUpperFirst()>>?</span><span class="red">You've lost track of the time</span></mouse>
+<</widget>>
+
+<<widget "sidebarTime">>
+	<<set _currentBadEnd to $badEndStats.last()>>
+	<<if _currentBadEnd?.trackedStart and _currentBadEnd.trackedEnd is undefined>>
+		<<sidebarBadEndTimeLabel _args[0]>>
+	<<else>>
+		<<sidebarDefaultTime _args[0]>>
+	<</if>>
+<</widget>>
+
+<<widget "ampm_text">><<silently>>
+	<<if Time.hour is 0>>
+		<<if Time.minute lte 7>>
+			<<set _text_output to "midnight">>
+		<<elseif Time.minute lte 22>>
+			<<set _text_output to "quarter past twelve in the morning">>
+		<<elseif Time.minute lte 37>>
+			<<set _text_output to "half past twelve in the morning">>
+		<<elseif Time.minute lte 52>>
+			<<set _text_output to "quarter to one in the morning">>
+		<<else>>
+			<<set _text_output to "one in the morning">>
+		<</if>>
+	<<elseif Time.hour is 1>>
+		<<if Time.minute lte 7>>
+			<<set _text_output to "one in the morning">>
+		<<elseif Time.minute lte 22>>
+			<<set _text_output to "quarter past one in the morning">>
+		<<elseif Time.minute lte 37>>
+			<<set _text_output to "half past one in the morning">>
+		<<elseif Time.minute lte 52>>
+			<<set _text_output to "quarter to two in the morning">>
+		<<else>>
+			<<set _text_output to "two in the morning">>
+		<</if>>
+	<<elseif Time.hour is 2>>
+		<<if Time.minute lte 7>>
+			<<set _text_output to "two in the morning">>
+		<<elseif Time.minute lte 22>>
+			<<set _text_output to "quarter past two in the morning">>
+		<<elseif Time.minute lte 37>>
+			<<set _text_output to "half past two in the morning">>
+		<<elseif Time.minute lte 52>>
+			<<set _text_output to "quarter to three in the morning">>
+		<<else>>
+			<<set _text_output to "three in the morning">>
+		<</if>>
+	<<elseif Time.hour is 3>>
+		<<if Time.minute lte 7>>
+			<<set _text_output to "three in the morning">>
+		<<elseif Time.minute lte 22>>
+			<<set _text_output to "quarter past three in the morning">>
+		<<elseif Time.minute lte 37>>
+			<<set _text_output to "half past three in the morning">>
+		<<elseif Time.minute lte 52>>
+			<<set _text_output to "quarter to four in the morning">>
+		<<else>>
+			<<set _text_output to "four in the morning">>
+		<</if>>
+	<<elseif Time.hour is 4>>
+		<<if Time.minute lte 7>>
+			<<set _text_output to "four in the morning">>
+		<<elseif Time.minute lte 22>>
+			<<set _text_output to "quarter past four in the morning">>
+		<<elseif Time.minute lte 37>>
+			<<set _text_output to "half past four in the morning">>
+		<<elseif Time.minute lte 52>>
+			<<set _text_output to "quarter to five in the morning">>
+		<<else>>
+			<<set _text_output to "five in the morning">>
+		<</if>>
+	<<elseif Time.hour is 5>>
+		<<if Time.minute lte 7>>
+			<<set _text_output to "five in the morning">>
+		<<elseif Time.minute lte 22>>
+			<<set _text_output to "quarter past five in the morning">>
+		<<elseif Time.minute lte 37>>
+			<<set _text_output to "half past five in the morning">>
+		<<elseif Time.minute lte 52>>
+			<<set _text_output to "quarter to six in the morning">>
+		<<else>>
+			<<set _text_output to "six in the morning">>
+		<</if>>
+	<<elseif Time.hour is 6>>
+		<<if Time.minute lte 7>>
+			<<set _text_output to "six in the morning">>
+		<<elseif Time.minute lte 22>>
+			<<set _text_output to "quarter past six in the morning">>
+		<<elseif Time.minute lte 37>>
+			<<set _text_output to "half past six in the morning">>
+		<<elseif Time.minute lte 52>>
+			<<set _text_output to "quarter to seven in the morning">>
+		<<else>>
+			<<set _text_output to "seven in the morning">>
+		<</if>>
+	<<elseif Time.hour is 7>>
+		<<if Time.minute lte 7>>
+			<<set _text_output to "seven in the morning">>
+		<<elseif Time.minute lte 22>>
+			<<set _text_output to "quarter past seven in the morning">>
+		<<elseif Time.minute lte 37>>
+			<<set _text_output to "half past seven in the morning">>
+		<<elseif Time.minute lte 52>>
+			<<set _text_output to "quarter to eight in the morning">>
+		<<else>>
+			<<set _text_output to "eight in the morning">>
+		<</if>>
+	<<elseif Time.hour is 8>>
+		<<if Time.minute lte 7>>
+			<<set _text_output to "eight in the morning">>
+		<<elseif Time.minute lte 22>>
+			<<set _text_output to "quarter past eight in the morning">>
+		<<elseif Time.minute lte 37>>
+			<<set _text_output to "half past eight in the morning">>
+		<<elseif Time.minute lte 52>>
+			<<set _text_output to "quarter to nine in the morning">>
+		<<else>>
+			<<set _text_output to "nine in the morning">>
+		<</if>>
+	<<elseif Time.hour is 9>>
+		<<if Time.minute lte 7>>
+			<<set _text_output to "nine in the morning">>
+		<<elseif Time.minute lte 22>>
+			<<set _text_output to "quarter past nine in the morning">>
+		<<elseif Time.minute lte 37>>
+			<<set _text_output to "half past nine in the morning">>
+		<<elseif Time.minute lte 52>>
+			<<set _text_output to "quarter to ten in the morning">>
+		<<else>>
+			<<set _text_output to "ten in the morning">>
+		<</if>>
+	<<elseif Time.hour is 10>>
+		<<if Time.minute lte 7>>
+			<<set _text_output to "ten in the morning">>
+		<<elseif Time.minute lte 22>>
+			<<set _text_output to "quarter past ten in the morning">>
+		<<elseif Time.minute lte 37>>
+			<<set _text_output to "half past ten in the morning">>
+		<<elseif Time.minute lte 52>>
+			<<set _text_output to "quarter to eleven in the morning">>
+		<<else>>
+			<<set _text_output to "eleven in the morning">>
+		<</if>>
+	<<elseif Time.hour is 11>>
+		<<if Time.minute lte 7>>
+			<<set _text_output to "eleven in the morning">>
+		<<elseif Time.minute lte 22>>
+			<<set _text_output to "quarter past eleven in the morning">>
+		<<elseif Time.minute lte 37>>
+			<<set _text_output to "half past eleven in the morning">>
+		<<elseif Time.minute lte 52>>
+			<<set _text_output to "quarter to twelve in the morning">>
+		<<else>>
+			<<set _text_output to "noon">>
+		<</if>>
+	<<elseif Time.hour is 12>>
+		<<if Time.minute lte 7>>
+			<<set _text_output to "noon">>
+		<<elseif Time.minute lte 22>>
+			<<set _text_output to "quarter past twelve in the afternoon">>
+		<<elseif Time.minute lte 37>>
+			<<set _text_output to "half past twelve in the afternoon">>
+		<<elseif Time.minute lte 52>>
+			<<set _text_output to "quarter to one in the afternoon">>
+		<<else>>
+			<<set _text_output to "one in the afternoon">>
+		<</if>>
+	<<elseif Time.hour is 13>>
+		<<if Time.minute lte 7>>
+			<<set _text_output to "one in the afternoon">>
+		<<elseif Time.minute lte 22>>
+			<<set _text_output to "quarter past one in the afternoon">>
+		<<elseif Time.minute lte 37>>
+			<<set _text_output to "half past one in the afternoon">>
+		<<elseif Time.minute lte 52>>
+			<<set _text_output to "quarter to two in the afternoon">>
+		<<else>>
+			<<set _text_output to "two in the afternoon">>
+		<</if>>
+	<<elseif Time.hour is 14>>
+		<<if Time.minute lte 7>>
+			<<set _text_output to "two in the afternoon">>
+		<<elseif Time.minute lte 22>>
+			<<set _text_output to "quarter past two in the afternoon">>
+		<<elseif Time.minute lte 37>>
+			<<set _text_output to "half past two in the afternoon">>
+		<<elseif Time.minute lte 52>>
+			<<set _text_output to "quarter to three in the afternoon">>
+		<<else>>
+			<<set _text_output to "three in the afternoon">>
+		<</if>>
+	<<elseif Time.hour is 15>>
+		<<if Time.minute lte 7>>
+			<<set _text_output to "three in the afternoon">>
+		<<elseif Time.minute lte 22>>
+			<<set _text_output to "quarter past three in the afternoon">>
+		<<elseif Time.minute lte 37>>
+			<<set _text_output to "half past three in the afternoon">>
+		<<elseif Time.minute lte 52>>
+			<<set _text_output to "quarter to four in the afternoon">>
+		<<else>>
+			<<set _text_output to "four in the afternoon">>
+		<</if>>
+	<<elseif Time.hour is 16>>
+		<<if Time.minute lte 7>>
+			<<set _text_output to "four in the afternoon">>
+		<<elseif Time.minute lte 22>>
+			<<set _text_output to "quarter past four in the afternoon">>
+		<<elseif Time.minute lte 37>>
+			<<set _text_output to "half past four in the afternoon">>
+		<<elseif Time.minute lte 52>>
+			<<set _text_output to "quarter to five in the afternoon">>
+		<<else>>
+			<<set _text_output to "five in the afternoon">>
+		<</if>>
+	<<elseif Time.hour is 17>>
+		<<if Time.minute lte 7>>
+			<<set _text_output to "five in the afternoon">>
+		<<elseif Time.minute lte 22>>
+			<<set _text_output to "quarter past five in the afternoon">>
+		<<elseif Time.minute lte 37>>
+			<<set _text_output to "half past five in the afternoon">>
+		<<elseif Time.minute lte 52>>
+			<<set _text_output to "quarter to six in the afternoon">>
+		<<else>>
+			<<set _text_output to "six in the afternoon">>
+		<</if>>
+	<<elseif Time.hour is 18>>
+		<<if Time.minute lte 7>>
+			<<set _text_output to "six in the evening">>
+		<<elseif Time.minute lte 22>>
+			<<set _text_output to "quarter past six in the evening">>
+		<<elseif Time.minute lte 37>>
+			<<set _text_output to "half past six in the evening">>
+		<<elseif Time.minute lte 52>>
+			<<set _text_output to "quarter to seven in the evening">>
+		<<else>>
+			<<set _text_output to "seven in the evening">>
+		<</if>>
+	<<elseif Time.hour is 19>>
+		<<if Time.minute lte 7>>
+			<<set _text_output to "seven in the evening">>
+		<<elseif Time.minute lte 22>>
+			<<set _text_output to "quarter past seven in the evening">>
+		<<elseif Time.minute lte 37>>
+			<<set _text_output to "half past seven in the evening">>
+		<<elseif Time.minute lte 52>>
+			<<set _text_output to "quarter to eight in the evening">>
+		<<else>>
+			<<set _text_output to "eight in the evening">>
+		<</if>>
+	<<elseif Time.hour is 20>>
+		<<if Time.minute lte 7>>
+			<<set _text_output to "eight in the evening">>
+		<<elseif Time.minute lte 22>>
+			<<set _text_output to "quarter past eight in the evening">>
+		<<elseif Time.minute lte 37>>
+			<<set _text_output to "half past eight in the evening">>
+		<<elseif Time.minute lte 52>>
+			<<set _text_output to "quarter to nine in the evening">>
+		<<else>>
+			<<set _text_output to "nine in the evening">>
+		<</if>>
+	<<elseif Time.hour is 21>>
+		<<if Time.minute lte 7>>
+			<<set _text_output to "nine in the evening">>
+		<<elseif Time.minute lte 22>>
+			<<set _text_output to "quarter past nine in the evening">>
+		<<elseif Time.minute lte 37>>
+			<<set _text_output to "half past nine in the evening">>
+		<<elseif Time.minute lte 52>>
+			<<set _text_output to "quarter to ten in the evening">>
+		<<else>>
+			<<set _text_output to "ten in the evening">>
+		<</if>>
+	<<elseif Time.hour is 22>>
+		<<if Time.minute lte 7>>
+			<<set _text_output to "ten in the evening">>
+		<<elseif Time.minute lte 22>>
+			<<set _text_output to "quarter past ten in the evening">>
+		<<elseif Time.minute lte 37>>
+			<<set _text_output to "half past ten in the evening">>
+		<<elseif Time.minute lte 52>>
+			<<set _text_output to "quarter to eleven in the evening">>
+		<<else>>
+			<<set _text_output to "eleven in the evening">>
+		<</if>>
+	<<elseif Time.hour is 23>>
+		<<if Time.minute lte 7>>
+			<<set _text_output to "eleven in the evening">>
+		<<elseif Time.minute lte 22>>
+			<<set _text_output to "quarter past eleven in the evening">>
+		<<elseif Time.minute lte 37>>
+			<<set _text_output to "half past eleven in the evening">>
+		<<elseif Time.minute lte 52>>
+			<<set _text_output to "quarter to twelve in the evening">>
+		<<else>>
+			<<set _text_output to "midnight">>
+		<</if>>
+	<</if>>
+<</silently>><<print _text_output>><</widget>>
+

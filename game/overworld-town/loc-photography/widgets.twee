@@ -1,0 +1,805 @@
+:: Widgets Photo [widget]
+<<widget "street_niki">>
+	<<npc Niki>><<person1>>
+	A car pulls up alongside you. A young <<personsimple>> leans out, a white stick in <<his>> mouth.
+
+	<<if $nikiSeen.includes("farm")>>
+		It's Niki. The photographer from Remy's farm. You hasten your pace.
+		<br><br>
+		"Hold up," <<he>> says, speeding up to keep pace. "I'll be quick. You didn't... see me at my best. <span class="gold">I run a photography studio on Nightingale Street.</span> All above board. Drop by sometime if you need work."
+		<br><br>
+
+		You dart into an alley, leaving <<him>> to drive away.
+		<br><br>
+
+		<<endevent>>
+		<<destinationeventend>>
+	<<else>>
+		"Hey," <<he>> says. "You got a moment?"
+		<br><br>
+
+		<<link [[Stop|Photo Street Stop]]>><<npcincr Niki love 1>><</link>><<glove>>
+		<br>
+		<<link [[Hasten|Photo Street Hasten]]>><</link>>
+		<br>
+	<</if>>
+<</widget>>
+
+<<widget "photo_evidence_upload">>
+	<<He>> taps the phone in an exaggerated fashion, <span class="pink">and uploads the footage to the internet.</span>
+	<<if $photo.blackmail is 1>>
+		<<fameexhibitionism 20 "vid">>
+		<<if playerBellyVisible()>><<famepregnancy `Math.ceil(playerBellySize() / 10)`>><</if>>
+		Your bare body is exposed for all to see.
+		<<if !$worn.face.type.includes("mask")>>
+			<<set $photo.nude_footage to 1>>
+		<</if>>
+	<<elseif $photo.blackmail is 2>>
+		<<famerape 20 "vid">>
+		<<fameexhibitionism 20 "vid">>
+		<<if playerBellyVisible()>><<famepregnancy `Math.ceil(playerBellySize() / 10)`>><</if>>
+		The footage of your sexual assault is there for all to see.
+		<<set $photo.assault_footage to 1>>
+	<</if>>
+<</widget>>
+
+<<widget "photo_end">>
+	<<pass $photo.time>>
+	<<timeTrackingManual "photoStudio" $photo.time "minute">>
+	<<tiredness 18>>
+	<<set $photo.time to 0>>
+	<<set $photo.blackmail to 0>>
+	<<set $photo.money to 0>>
+	<<unset $photo_upper_index>>
+	<<unset $photo_lower_index>>
+	<<unset $photo_under_index>>
+	<<unset $photo_upper_f_index>>
+	<<unset $photo_lower_f_index>>
+	<<unset $photo_under_f_index>>
+	<<unset $photo_upper_m_index>>
+	<<unset $photo_lower_m_index>>
+	<<unset $photo_under_m_index>>
+	<<set $eventskip to 1>>
+	<<endevent>>
+<</widget>>
+
+<<widget "photo_high_money_calc">>
+	<<set _photo_money to ($photo_flyers + ($photo_interest * 10))>>
+<</widget>>
+
+<<widget "photo_high_calc">>
+	<<photo_high_money_calc>>
+	<<set _photo_fame to Math.trunc($photo_interest / 10)>>
+	<<if $photo_flyers gte 100>>
+		<<earnFeat "Stomping Down The Street">>
+	<</if>>
+	<<if $photo_flyers gte 250>>
+		<<earnFeat "Hear Me Roar">>
+	<</if>>
+<</widget>>
+
+<<widget "photo_high_abduction_options">>
+	<<if !$photo_high_abduction_options.includes("camera")>>
+		<<link [[Say the camera isn't working|Photo High Exhibitionism Abduction Camera]]>><<set $photo_high_abduction_options.pushUnique("camera")>><</link>><<skill_difficulty currentSkillValue('science') "Science" 1 1000>>
+		<br>
+	<</if>>
+	<<if !$worn.face.type.includes("mask") and !$photo_high_abduction_options.includes("mask")>>
+		<<link [[Say you need a mask to cover your face|Photo High Exhibitionism Abduction Mask]]>><<set $photo_high_abduction_options.pushUnique("mask")>><</link>><<englishdifficulty 1 1000>>
+		<br>
+	<</if>>
+	<<if !$photo_high_abduction_options.includes("tell")>>
+		<<link [[Tell them people are looking for you|Photo High Exhibitionism Abduction Tell]]>><<set $photo_high_abduction_options.pushUnique("tell")>><</link>><<englishdifficulty 1 600>>
+		<br>
+	<</if>>
+	<<if !$photo_high_abduction_options.includes("flirt")>>
+		<<link [[Distract them by flirting|Photo High Exhibitionism Abduction Flirt]]>><<set $photo_high_abduction_options.pushUnique("flirt")>><</link>>
+		<br>
+	<</if>>
+	<<if !$photo_high_abduction_options.includes("hair")>>
+		<<link [[Say you need to fix your hair|Photo High Exhibitionism Abduction Hair]]>><<set $photo_high_abduction_options.pushUnique("hair")>><</link>>
+		<br>
+	<</if>>
+	<<link [[Just do what they want|Photo High Exhibitionism Abduction 2]]>><</link>>
+	<br>
+<</widget>>
+
+
+<<widget "photo_high_events">>
+<<photo_high_check_location>>
+<<cleareventpool>>
+<<addinlineevent "photo_high_1" 1>>
+	You stop to pose for admirers, then use the opportunity to hand out extra flyers.<<ginterest>><<photo_interest 1>>
+	<<wearProp "flyers">>
+	<br><br>
+	<<set $photo_flyers += 3>>
+	<<photo_high_options>>
+<</addinlineevent>>
+
+<<addinlineevent "photo_high_2" 1>>
+	<<generate1>><<person1>>
+	A <<person>> shouts at you from across the road.
+	<br>
+	<<rng 4>>
+	<<switch $rng>>
+		<<case 5>>
+			"I bet you've got a fine arse beneath that costume."
+		<<case 4>>
+			"I bet you're not wearing anything under that."
+		<<case 3>>
+			"How'd you fancy a snack?" <<He>> points at <<his>> crotch.
+		<<case 2>>
+			"Whores dress strange nowadays."
+	<</switch>>
+	<<gstress>><<stress 6>>
+	<br><br>
+	People look over to see what the fuss is about.<<gattention>><<photo_attention 1>>
+	<br><br>
+
+	<<endevent>>
+	<<photo_high_options>>
+<</addinlineevent>>
+
+<<addinlineevent "photo_high_3" 1>>
+	<<beastNEWinit 1 dog>>
+	Your costume frightens a <<beasttype>>. <<bHe>> runs away, pulling <<bhis>> master with <<bhim>>.<<gattention>><<photo_attention 1>>
+	<br><br>
+
+	<<endevent>>
+	<<photo_high_options>>
+<</addinlineevent>>
+
+<<addinlineevent "photo_high_4" 1>>
+	<<generate1>><<person1>>
+	A <<person1>><<person>> walks by,
+
+	<<if currentSkillValue("dancing") gte random(1, 1000)>>
+		and tries to slap the flyers from your hands. With a deft skip belying the weight of your costume, you step aside. <span class="green"><<He>> misses you.</span> The momentum carries <<him>> to the ground.<<ginterest>><<photo_interest 1>>
+		<<wearProp "flyers">>
+		<br><br>
+
+		<<He>> rises to <<his>> feet, and walks away without looking at you.
+		<br><br>
+
+		<<endevent>>
+		<<photo_high_options>>
+	<<else>>
+		<span class="red">and slaps the flyers from your hands.</span> It takes a minute to gather them all.<<photo_pass 1>><<photo_heat 1>>
+		<br><br>
+
+		<<endevent>>
+		<<photo_high_options>>
+	<</if>>
+<</addinlineevent>>
+
+<<addinlineevent "photo_high_5" 1>>
+	A pair of tourists across the road point and snap a picture of you.<<famemodel 1 "pic">>
+	<br><br>
+	<<photo_high_options>>
+<</addinlineevent>>
+
+<<addinlineevent "photo_high_6" 1>>
+	<<beastNEWinit 1 dog>>
+	A dog bites your costume's tail, until <<bhis>> master calls <<bhim>> away.
+	<br><br>
+	<<endevent>>
+	<<photo_high_options>>
+<</addinlineevent>>
+
+<<addinlineevent "photo_high_7" 1>>
+	<<generate1>><<person1>>
+	People watch you through the windows of a restaurant. A <<person1>><<person>> snaps a picture.<<famemodel 1 "pic">>
+	<br><br>
+
+	<<endevent>>
+	<<photo_high_options>>
+<</addinlineevent>>
+
+<<addinlineevent "photo_high_8" 1>>
+	<<generatey1>><<generatey2>><<person1>>
+	You see a <<person>> and <<person2>><<person>> up ahead. You recognise them from school.
+
+	<<photo_high_options_check>>
+	<<if $rng gte 67>>
+		They're popular, and known to gossip.<<gstress>><<stress 6>>
+		<br><br>
+		<<if _photo_options>>
+			<<link [[Say hello|Photo High School Popular Hello]]>><</link>><<skill_difficulty $cool "School Status" 1 240>>
+			<br>
+		<</if>>
+	<<elseif $rng gte 33>>
+		They've been friendly towards you in the past.
+		<br><br>
+		<<if _photo_options>>
+			<<link [[Say hello|Photo High School Friendly Hello]]>><<photo_interest 1>><</link>><<ginterest>>
+			<br>
+		<</if>>
+	<<else>>
+		They're quite nerdy, and would probably appreciate your costume.
+		<br><br>
+		<<if _photo_options>>
+			<<link [[Say hello|Photo High School Nerdy Hello]]>><<photo_interest 1>><</link>><<ginterest>>
+			<br>
+		<</if>>
+	<</if>>
+	<br>
+	<<photo_high_options>>
+<</addinlineevent>>
+
+<<addinlineevent "photo_high_9" 1>>
+	A pigeon lands on your head. Onlookers find this amusing.<<ginterest>><<photo_interest 1>>
+	<br><br>
+
+	<<endevent>>
+	<<photo_high_options>>
+<</addinlineevent>>
+
+<<addinlineevent "photo_high_10" 1>>
+	<<generate1>><<person1>>
+	A <<person>> growls at you.
+	<br><br>
+
+	<<photo_high_options_check>>
+	<<if _photo_options>>
+		<<link [[Growl back|Photo High Growl]]>><<photo_attention 1>><<photo_interest 1>><</link>><<gattention>><<ginterest>>
+		<br>
+	<</if>>
+	<<photo_high_options>>
+<</addinlineevent>>
+
+<<if Weather.precipitation is "rain">>
+	<<addinlineevent "photo_rain_1" 1>>
+		<<generatey1>><<person1>>
+		You find a puddle in your path. You lift your tail, and step over it. A watching <<person>> finds this funny.<<ginterest>><<photo_interest 1>>
+		<br><br>
+
+		<<endevent>>
+		<<photo_high_options>>
+	<</addinlineevent>>
+<</if>>
+
+<<if Weather.precipitation is "snow">>
+	<<addinlineevent "photo_snow_2" 1>>
+		You slip on a patch of ice. Your thick costume breaks your fall, but it's still unpleasant.<<gattention>><<gstress>><<photo_attention 1>><<stress 6>>
+		<br><br>
+
+		<<photo_high_options>>
+	<</addinlineevent>>
+<</if>>
+
+<<if $photo_attention[_photo_location] gte 2>>
+	<<addinlineevent "photo_high_danger_1" 1.15>>
+		<<generate1>><<generate2>><<person1>>
+		A <<person>> and <<person2>><<person>> walk up to you. "Can we take a picture with you?" the <<person2>><<person>> asks.
+		<br><br>
+
+		<<link [[Agree|Photo High Agree]]>><</link>>
+		<br>
+		<<link [[Agree, and adopt an appropriate pose|Photo High Agree Pose]]>><<famemodel 1 "pic">><<photo_interest 1>><<photo_attention 1>><</link>><<gattention>><<ginterest>>
+		<br>
+		<<if $wolfgirl gte 6 or $cat gte 6 or $harpy gte 6>>
+			<<link [[Agree, and adopt a predatory pose|Photo High Agree Predatory]]>><<famemodel 1 "pic">><<photo_interest 2>><<photo_attention 1>><</link>>
+			<<defianttext>>
+			<<if $wolfgirl gte 6>>
+				<<wolfgirl>>
+			<</if>>
+			<<if $cat gte 6>>
+				<<cat>>
+			<</if>>
+			<<if $harpy gte 6>>
+				<<harpy>>
+			<</if>>
+			<<gattention>><<gginterest>>
+			<br>
+		<</if>>
+		<<link [[Decline|Photo High Decline]]>><</link>>
+		<br>
+	<</addinlineevent>>
+<</if>>
+
+<<if $photo_attention[_photo_location] gte 4>>
+	<<addinlineevent "photo_high_danger_2" 1.30>>
+		<<generate1>><<person1>>
+		A <<person>> walks up to you, and without hesitation or fanfare, reaches to grope your <<breasts>>.<<gstress>><<stress 6>><<garousal>><<arousal 600>>
+		<br><br>
+
+		<<if $worn.upper.type.includes("naked") and $worn.under_upper.type.includes("naked")>>
+			"As I thought," <<he>> says, turning as if to an audience. "<<pShe>>'s wearing nothing underneath." A few more heads turn.<<gstress>><<gattention>><<ginterest>><<stress 6>><<photo_attention 1>><<photo_interest 1>>
+			<br><br>
+		<</if>>
+
+		<<link [[Endure|Photo High Endure]]>><<trauma 6>><<stress 6>><<photo_interest 1>><</link>><<gtrauma>><<gstress>><<ginterest>>
+		<br>
+		<<link [[Smack|Photo High Smack]]>><<famescrap 1 "pic">><<photo_attention 1>><<stress -6>><</link>><<gattention>><<lstress>>
+		<br>
+		<<if $submissive lte 500>>
+			<<link [[Roar|Photo High Roar]]>><<famescrap 1 "pic">><<photo_attention 1>><<photo_interest 2>><<stress -6>><<famemodel 1 "pic">><</link>><<defianttext>><<gattention>><<gginterest>><<lstress>>
+			<br>
+		<</if>>
+	<</addinlineevent>>
+<</if>>
+
+
+<<if $photo_attention[_photo_location] gte 6>>
+	<<addinlineevent "photo_high_danger_3" 1.45>>
+		<<generatey1>><<generatey2>><<person1>>
+		You notice a <<person>> giving you a funny look from across the road. Then you hear footsteps behind you. A <<person2>><<person>> rushes up, and delivers a hard smack to your <<bottom>>. You attempt to turn to see the culprit, only to hear the <<person1>><<person>> to charge at you while your back is turned.
+		<br><br>
+
+		You're not able to turn in time in the bulky costume, and receive another smack.<<gattention>><<photo_attention 1>><<gpain>><<gstress>><<pain 4>><<stress 6>>
+		<br><br>
+
+		<<link [[Endure|Photo High Bottom Endure]]>><</link>>
+		<br>
+		<<link [[Try to catch them out and trip them with your tail|Photo High Bottom Trip]]>><</link>><<dancedifficulty 1 1000>>
+		<br>
+		<<if $submissive gte 1500 or $masochism gte 800>>
+			<<link [[Play along with it|Photo High Bottom Play]]>><<sub 1>><<photo_attention 1>><<photo_interest 2>><<arousal 600>><<pain 4>><</link>>
+			<<if $submissive gte 1500>>
+				<<submissivetext>>
+			<</if>>
+			<<if $masochism gte 800>>
+				| <span class="red">Masochist</span>
+			<</if>>
+			<<gattention>><<gginterest>><<gpain>><<garousal>>
+			<br>
+		<</if>>
+	<</addinlineevent>>
+<</if>>
+
+<<if $photo_attention[_photo_location] gte 8>>
+	<<addinlineevent "photo_high_danger_4" 1.60>>
+		<<generate1>><<generate2>><<person1>>
+		A <<person>> reaches for the front your costume, above your chest.
+		<br><br>
+
+		<<link [[Endure|Photo High Expose Endure]]>><<fameexhibitionism 3 "pic">><<photo_attention 1>><<trauma 6>><<stress 6>><</link>><<gattention>><<gtrauma>><<gstress>>
+		<br>
+		<<link [[Shove <<him>> away|Photo High Expose Shove]]>><</link>><<physiquedifficulty 1 16000>>
+		<br>
+	<</addinlineevent>>
+<</if>>
+
+<<set _photo_high_danger_chance to ($photo_attention[_photo_location] / 10)>>
+<<if $photo_attention[_photo_location] gte 12>>
+	<<addinlineevent "photo_high_danger_5" _photo_high_danger_chance>>
+		<<generate1>><<person1>><<generate2>><<generate3>><<generate4>><<generate5>><<generate6>>
+		The sound of running footsteps is your only warning. Someone barges into you from behind. You've barely hit the ground when several pairs of arms set upon you, <span class="red">trying to pull you from your costume.</span>
+		<br><br>
+
+		<<link [[Shout for Niki|Photo High Danger Niki]]>><</link>><<difficulty 50>>
+		<br>
+		<<link [[Defend yourself as best you can|Photo High Danger Defend]]>><</link>>
+		<br>
+	<</addinlineevent>>
+<</if>>
+
+<<if $photo_location is 1>>
+	<<addinlineevent "photo_high_forest" 1.2>>
+		A group of acolytes from the temple walk by, and giggle at your costume.
+		<br><br>
+
+		<<photo_high_options_check>>
+		<<if _photo_options>>
+			<<link [[Roar|Photo High Acolyte Roar]]>><<photo_attention 1>><<photo_interest 1>><</link>><<gattention>><<ginterest>>
+			<br>
+			<<if $fallenangel gte 2>>
+				<<link [[Scare|Photo High Acolyte Scare]]>><<photo_interest 1>><</link>><<fallenangel>><<ginterest>>
+				<br>
+			<</if>>
+		<</if>>
+		<br>
+		<<photo_high_options>>
+	<</addinlineevent>>
+<</if>>
+
+<<if $photo_location is 2>>
+	<<addinlineevent "photo_high_park" 1.2>>
+		A squirrel leaps from a nearby tree, and jumps into your costume.
+		<br><br>
+		<<link [[Stay calm|Photo High Squirrel Calm]]>><</link>><<willpowerdifficulty 1 1000>>
+		<br>
+		<<link [[Let yourself panic|Photo High Squirrel Panic]]>><</link>>
+		<br>
+	<</addinlineevent>>
+<</if>>
+
+<<if $photo_location is 3>>
+	<<addinlineevent "photo_high_shopping_centre" 1.2>>
+		A large crowd parts to avoid you, walking either side. They crowd close. It's hard to move.
+		<br><br>
+
+		<<photo_high_options_check>>
+		<<if _photo_options>>
+			<<link [[Hand out flyers to the passing crowd|Photo High Shopping Flyers]]>><</link>><<dancedifficulty 1 600>>
+			<br>
+		<</if>>
+		<br>
+		<<photo_high_options>>
+	<</addinlineevent>>
+<</if>>
+
+<<if $photo_location is 4>>
+	<<addinlineevent "photo_high_shop" 1.2>>
+		<<generate1>><<person1>>
+		You see a <<person>>, some distance away, looking your way while pointing up and behind you. There's a poster on the wall, portraying the same character as your costume.
+		<br><br>
+
+		<<photo_high_options_check>>
+		<<if _photo_options>>
+			<<link [[Copy the pose on the poster|Photo High Poster Copy]]>><<photo_attention 1>><<photo_interest 1>><</link>><<gattention>><<ginterest>>
+			<br>
+		<</if>>
+		<br>
+		<<photo_high_options>>
+	<</addinlineevent>>
+<</if>>
+
+<<if $photo_location is 5>>
+	<<addinlineevent "photo_high_bus_stop" 1.2>>
+		A bus pulls up, and a large group stampedes out. They're dressed like people from the countryside. They crowd around you.
+		<br><br>
+
+		"It's my favourite villain!"
+		<br>
+		"They really think of everything."
+		<br>
+		"Looks like the monster that scared my flock."
+		<br><br>
+
+		They're eager to take your flyers. Satisfied, the crowd disperses in search of new novelties.<<ginterest>><<photo_interest 1>>
+		<br><br>
+		<<set $photo_flyers += 12>>
+		<<endevent>>
+		<<photo_high_options>>
+	<</addinlineevent>>
+<</if>>
+
+<<if $photo_location is 6>>
+	<<addinlineevent "photo_high_statue" 1.2>>
+		A nearby pigeon takes flight at your approach, spooking others, and soon all the birds around the statue are flapping away.<<gattention>><<photo_attention 1>>
+		<br><br>
+		<<photo_high_options>>
+	<</addinlineevent>>
+<</if>>
+
+<<if $photo_location is 7>>
+	<<addinlineevent "photo_high_sea" 1.2>>
+		The wind picks up, blowing from the sea. It catches the hood of your costume, and throws it back with such force that you fall backward.
+		<br><br>
+		Someone giggles. You pick yourself up.<<gstress>><<gattention>><<stress 6>><<photo_attention 1>>
+		<br><br>
+		<<photo_high_options>>
+	<</addinlineevent>>
+<</if>>
+
+<<set _photo_model_chance to (1 + ($photo_attention[_photo_location] / 10))>>
+<<set Math.clamp(_photo_model_chance, 1, 2)>>
+
+<<if $fame.model gte 200>>
+	<<addinlineevent "photo_high_model_1" _photo_model_chance>>
+		<<generate1>><<person1>>
+		You see a <<person>> glancing between you and their phone. "I thought I recognised you," they say, turning the phone to reveal an image of yourself, dressed up for a photoshoot.
+		<br><br>
+
+		<<photo_high_options_check>>
+		<<if _photo_options>>
+			<<link [[Offer to take a selfie with them|Photo High Recognised Offer]]>><<famemodel 1 "pic">><</link>>
+			<br>
+			<<link [[Smile|Photo High Recognised Smile]]>><<famemodel 1 "pic">><</link>>
+			<br>
+		<</if>>
+		<br>
+		<<photo_high_options>>
+	<</addinlineevent>>
+<</if>>
+
+<<if $fame.model gte 400>>
+	<<addinlineevent "photo_high_model_2" _photo_model_chance>>
+		<<generate1>><<person1>>
+		You see a crowd of people looking your way. A <<person>> talks while pointing at you, but you're too far to hear.
+		<br><br>
+		They approach. "It is you," the <<person1>><<person>> says. "I have a poster of you!" <<His>> companions don't recognise you, but they look impressed regardless. They're eager to take your flyers.<<ginterest>><<photo_interest 1>>
+		<<wearProp "flyers">>
+		<br><br>
+		<<set $photo_flyers += 6>>
+		<<endevent>>
+		<<photo_high_options>>
+	<</addinlineevent>>
+<</if>>
+
+<<if $fame.model gte 600>>
+	<<addinlineevent "photo_high_model_3" _photo_model_chance>>
+		<<generate1>><<person1>>
+		A <<person>> approaches you. "Can I have your autograph?"
+		<br><br>
+
+		<<photo_high_options_check>>
+		<<if _photo_options>>
+			<<link [[Give autograph|Photo High Autograph Give]]>><</link>>
+			<br>
+		<</if>>
+		<br>
+		<<photo_high_options>>
+	<</addinlineevent>>
+<</if>>
+
+<<if $fame.model gte 800>>
+	<<addinlineevent "photo_high_model_4" _photo_model_chance>>
+		<<generate1>><<person1>>
+		A <<person>> appears, holding a professional camera. <<He>> starts snapping pictures, as if worried you'll vanish at any moment.<<famemodel 1 "pic">>
+		<br><br>
+		Niki will deal with <<him>>.
+		<br><br>
+
+		<<photo_high_options_check>>
+		<<if _photo_options>>
+			<<link [[Deal with <<him>> yourself|Photo High Photographer]]>><</link>>
+			<br>
+		<</if>>
+		<br>
+		<<photo_high_options>>
+	<</addinlineevent>>
+<</if>>
+
+<<if $fame.model gte 1000>>
+	<<addinlineevent "photo_high_model_5" _photo_model_chance>>
+		<<generate1>><<generate2>><<person1>>
+		A <<person>> and <<person2>><<person>> rush up to you, looking excited.
+		<br><br>
+		"I'm a huge fan," the <<person1>><<person>> says. "Can I ask you some questions on camera? I won't take long." The <<person2>><<person>> holds up <<his>> phone.
+		<br><br>
+		<<photo_high_options_check>>
+		<<if _photo_options>>
+			<<link [[Spare a minute|Photo High Interview One]]>><<photo_pass 1>><<photo_interest 1>><</link>><<ginterest>>
+			<br>
+			<<link [[Give them five minutes (0:05)|Photo High Interview Five]]>><<photo_pass 5>><<photo_interest 1>>
+			<<if $photo_heat gte 60>>
+				<<photo_heat -12>>
+			<<elseif $photo_heat gte 30>>
+				<<photo_heat -8>>
+			<<else>>
+				<<photo_heat -4>>
+			<</if>>
+			<</link>>
+			<<if $photo_heat gte 60>>
+				<<lllheat>>
+			<<elseif $photo_heat gte 30>>
+				<<llheat>>
+			<<else>>
+				<<lheat>>
+			<</if>>
+			<<ginterest>>
+			<br>
+		<</if>>
+		<br>
+		<<photo_high_options>>
+	<</addinlineevent>>
+<</if>>
+
+<<runeventpool>>
+<</widget>>
+
+<<widget "photo_high_options_check">>
+	<<if $stress gte $stressmax>>
+		<<unset _photo_options>>
+	<<elseif $photo_timer lte 0>>
+		<<unset _photo_options>>
+	<<else>>
+		<<set _photo_options to true>>
+	<</if>>
+<</widget>>
+
+<<widget "photo_high_options">>
+	<<if $stress gte $stressmax>>
+		<<endevent>>
+		<<passout>>
+		<<photo_pass 60>>
+		You've pushed yourself too much. You pass out.
+		<br><br>
+		<<link [[Next|Photo High Passout]]>><<overruined>><</link>>
+		<br>
+	<<elseif $photo_timer lte 0>>
+
+		<<photo_high_description>>
+		<<endevent>>
+		<<npc Niki>><<person1>>
+		<span class="teal">Niki appears beside you.</span> "Job done," <<he>> says, examining the back of the camera. "Get dressed, and we'll discuss money."
+		<br><br>
+
+		<<link [[Next|Photo High End]]>>
+			<<endevent>>
+			<<pass 2>>
+			<<overruined>>
+			<<storeon "photo_high_suit">>
+		<</link>>
+		<br>
+	<<else>>
+		<<photo_high_description>>
+
+		<<if $arousal gte $arousal_max>>
+			A heat builds, until it overcomes you. <<orgasm>>
+
+			Arms point at you, and heads turn to whisper. You've attracted the wrong sort of attention.<<gstress>><<stress 6>><<gggattention>><<photo_attention 3>>
+			<br><br>
+		<</if>>
+
+		<<link [[Hand out flyers (0:01)|Photo High Flyer]]>><<endevent>><<photo_heat 1>><<photo_attention 1>><<photo_interest 1>><<photo_pass 1>><</link>><<gheat>><<gattention>><<ginterest>>
+		<br>
+		<<if $photo_location lte 6>>
+			<<link [[Walk seaward (0:01)|Photo High Walk]]>><<endevent>><<photo_heat 1>><<set $photo_location += 1>><<photo_pass 1>><</link>><<gheat>>
+			<br>
+		<</if>>
+		<<if $photo_location gte 2>>
+			<<link [[Walk forestward (0:01)|Photo High Walk]]>><<endevent>><<photo_heat 1>><<photo_pass 1>><<set $photo_location -= 1>><</link>><<gheat>>
+			<br>
+		<</if>>
+		<<link [[Rest in the shade (0:05)|Photo High Rest]]>>
+			<<endevent>>
+			<<photo_attention 1>>
+			<<if $photo_heat gte 60>>
+				<<photo_heat -12>>
+			<<elseif $photo_heat gte 30>>
+				<<photo_heat -8>>
+			<<else>>
+				<<photo_heat -4>>
+			<</if>>
+		<<photo_pass 5>>
+		<</link>>
+		<<gattention>>
+		<<if $photo_heat gte 60>>
+			<<lllheat>>
+		<<elseif $photo_heat gte 30>>
+			<<llheat>>
+		<<else>>
+			<<lheat>>
+		<</if>>
+		<br>
+		<<link [[Find Niki (0:01)|Photo High Niki]]>><<photo_pass 1>><</link>>
+		<br>
+		<br>
+	<</if>>
+<</widget>>
+
+<<widget "photo_high_check_location">>
+	<<switch $photo_location>>
+		<<case 7>>
+			<<set _photo_location to "sea">>
+		<<case 6>>
+			<<set _photo_location to "statue">>
+		<<case 5>>
+			<<set _photo_location to "bus_stop">>
+		<<case 4>>
+			<<set _photo_location to "shop">>
+		<<case 3>>
+			<<set _photo_location to "shopping_centre">>
+		<<case 2>>
+			<<set _photo_location to "park">>
+		<<default>>
+			<<set _photo_location to "forest">>
+	<</switch>>
+<</widget>>
+
+<<widget "photo_high_description">>
+	<hr>
+	Location:
+	<<switch $photo_location>>
+		<<case 7>>Near the coast
+		<<case 6>>Square
+		<<case 5>>Bus stop
+		<<case 4>>Games shop
+		<<case 3>>Shopping centre
+		<<case 2>>Park
+		<<case 1>>Near the forest
+		<<default>><span class="red">Somewhere on the High Street (This is a bug)</span>
+	<</switch>>
+	|
+	Time remaining: <<print Math.max(0, $photo_timer)>> minutes
+	|
+	<<set Math.clamp($photo_location, 1, 7)>>
+	Flyers given: <<print $photo_flyers>>
+	|
+	<<photo_high_check_location>>
+	<<if $photo_attention[_photo_location] gte 9>>
+		<span class="red">You should move somewhere safer</span>
+	<<elseif $photo_attention[_photo_location] gte 5>>
+		<span class="purple">You attract unwholesome leers</span>
+	<<elseif $photo_attention[_photo_location] gte 1>>
+		<span class="blue">Heads turn your way</span>
+	<<else>>
+		<span class="lblue">People ignore you, aside from a few glances at your costume</span>
+	<</if>>
+	|
+	<<if $photo_heat gte 60>>
+		<span class="red">You are sweltering</span><<ggstress>><<stress 12>>
+	<<elseif $photo_heat gte 30>>
+		<span class="purple">You are uncomfortably warm</span><<gstress>><<stress 6>>
+	<<elseif $photo_heat gte 10>>
+		<span class="blue">You are heating up</span>
+	<<else>>
+		<span class="green">You are not too warm</span>
+	<</if>>
+	<br><br>
+<</widget>>
+
+<<widget "photo_heat">>
+	<<set _photo_heat to _args[0]>>
+	<<if _photo_heat gt 0>>
+		<<set _photo_heat *= ((Weather.temperature + 90) / 100)>>
+		<<if $worn.upper.name isnot "naked">>
+			<<set _photo_heat *= 1.2>>
+		<</if>>
+		<<if $worn.under_lower.name isnot "naked">>
+			<<set _photo_heat *= 1.2>>
+		<</if>>
+	<</if>>
+	<<set $photo_heat += _photo_heat>>
+	<<set Math.clamp($photo_heat, 0, 100)>>
+<</widget>>
+
+<<widget "photo_attention">>
+	<<photo_high_check_location>>
+	<<if _args[0]>>
+		<<set $photo_attention[_photo_location] += _args[0]>>
+	<</if>>
+<</widget>>
+
+<<widget "photo_interest">>
+	<<if _args[0]>>
+		<<set $photo_interest += _args[0]>>
+	<</if>>
+<</widget>>
+
+<<widget "photo_pass">>
+	<<pass _args[0]>>
+	<<set $photo_timer -= _args[0]>>
+<</widget>>
+
+<<widget "photo_init">>
+	<<set $photo_heat to 0>>
+	<<set $photo_timer to 120>>
+	<<set $photo_interest to 0>>
+	<<set $photo_attention to {
+		sea: 0,
+		statue: 0,
+		bus_stop: 0,
+		shop: 0,
+		shopping_centre: 0,
+		park: 0,
+		forest: 0,
+	}>>
+	<<set $photo_location to 4>>
+	<<set $photo_flyers to 0>>
+<</widget>>
+
+<<widget "photo_unset">>
+	<<unset $photo_heat>>
+	<<unset $photo_timer>>
+	<<unset $photo_interest>>
+	<<unset $photo_attention>>
+	<<unset $photo_abduction_timer>>
+	<<unset $photo_location>>
+	<<unset $photo_flyers>>
+<</widget>>
+
+<<widget "photo_high_gang_load">>
+	<<if $per_npc.photo_high_gang_1>>
+		<<loadNPC 0 "photo_high_gang_1">>
+		<<loadNPC 0 "photo_high_gang_2">>
+		<<loadNPC 0 "photo_high_gang_3">>
+		<<loadNPC 0 "photo_high_gang_4">>
+	<<else>>
+		<<generate1>>
+		<<generate2>>
+		<<generate3>>
+		<<generate4>>
+		<<person1>>
+	<</if>>
+<</widget>>
+
+<<widget "photo_high_gang_clear">>
+	<<clearNPC "photo_high_gang_1">>
+	<<clearNPC "photo_high_gang_2">>
+	<<clearNPC "photo_high_gang_3">>
+	<<clearNPC "photo_high_gang_4">>
+	<<unset $photo_high_abduction_options>>
+<</widget>>

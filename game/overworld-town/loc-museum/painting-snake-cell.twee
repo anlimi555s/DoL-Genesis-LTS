@@ -1,0 +1,3731 @@
+/* Witch's Cell */
+:: Hopeless Cycle Cell
+<<set _thermoDisable to true>><<effects>><<set $bus to "cell">>
+<<hopelessCycleEffects>>
+You are in <<print $prisoner.name>>'s cell.
+<<if $hcChallenge.torchDarker>>
+	It's dark, as the barred opening at the ceiling is sealed. Not a sliver of light comes through.
+<<elseif Time.dayState is "dawn">>
+	The morning sun's light is strangled through the tiny barred opening near the ceiling.
+<<elseif Time.dayState is "day">>
+	A minuscule amount of natural light flows in from the barred window.
+<<elseif Time.dayState is "dusk">>
+	It's dark, as the sun's light no longer reaches this side of the temple.
+<<else>>
+	It's dark, only a shred of <<if Time.isBloodMoon()>>red <</if>>moonlight peeking through the bars.
+<</if>>
+<<set _cellTorch to $hcItems.find(item => item.type is "torch" and item.location is $bus and item.inSconce)>>
+<<set _heldTorch to $hcItems.find(item => item.type is "torch" and item.location is "held")>>
+
+<<if (["dusk","night"].includes(Time.dayState) or $hcChallenge.torchDarker) and !hcItemLitTorch() and _heldTorch?.state isnot "lit" and _cellTorch?.state isnot "lit">>
+	<br>
+	<<if (_heldTorch and _heldTorch?.state isnot "lit" or _cellTorch and _cellTorch?.state isnot "lit")>>
+		<span class="red">With your torch snuffed, you can't see much.</span>
+	<<elseif $hcChallenge.torchDarker>>
+		<span class="red">With the sealed window, it's too dark for you to see her clearly.</span> You'll need a torch.
+	<<else>>
+		<span class="red">After dusk, it's too dark for you to see her clearly.</span> You'll need a torch.
+	<</if>>
+	<br><br>
+<<else>>
+	<br>
+	<<if _heldTorch?.state is "lit" or hcItemLitTorch()>>
+		<span class="orange">Your torch lights up the gloom.</span>
+	<<elseif _cellTorch?.state is "lit">>
+		<span class="orange">A torch sits in the cell's sconce, lighting up the gloom.</span>
+		<<if ["dusk","night"].includes(Time.dayState)>>
+			You should remove or snuff it before you leave for the night.
+		<</if>>
+	<<else>>
+		A rusty, neglected torch sconce sits unused on the far wall.
+	<</if>>
+	<br>
+
+	<<set _canSee to true>>
+	<<hopelessCycleStatus>>
+	<br>
+<</if>>
+<<unset $hcAction>>
+
+<<if $hcIncoming>>
+	<<set _hcEvent to $hcIncoming>>
+	<<unset $hcIncoming>>
+<<elseif $hc.daysPassed gt 0 and !$hc.daily.dailyPunishment and (Time.hour gte 12 and $rng gte 51 or Time.hour gte 13) and $hc.handLocation is "guardhouse" and Time.hour lte 19>>
+	<<set $hcIncoming to "dailyPunishment">>
+	<span class="red">You hear heavy footsteps approaching.</span>
+	<br>
+<<elseif $hc.handLocation is "guardhouse">>
+	<<if !$hc.daily.handWarning>>
+		<<set $hc.daily.handWarning to true>>
+		<span class="red">You hear the heavy dirge of boots coming down to the dungeon.</span>
+	<<else>>
+		The Bishop's Hand is somewhere in the dungeon.
+	<</if>>
+	<br>
+<<elseif (Time.hour gte 23 or Time.hour lte 4) and ($hc.nightBreakIn is "tonight" or $hc.nightBreakIn is "heard" or !$hc.daily.patrol and ($rng gte 96 or $rng gte 71 and $hc.dungeonTorchState is "lit"))>>
+	<<set $hcIncoming to "night">><<set $hc.daily.patrol to true>>
+	<span class="red">
+		You hear footsteps approaching.
+		<<if $hc.nightBreakIn is "heard">>
+			You know why they're here.
+		<<elseif $hc.dungeonTorchState is "lit">>
+			Someone came to investigate why the torches are still lit!
+		<</if>>
+	</span>
+	<br>
+<</if>>
+
+<<if _hcEvent is "blood">>
+	The heavy dirge of footsteps comes down the dungeon stairs. A moment later, the cell door opens. "<span class="red">It's time, brother.</span> Bring the witch to the garden at once."
+	<br><br>
+
+	<<link [[Next|Hopeless Cycle Blood Cell]]>><<endevent>><<set $phase to 1>><</link>>
+	<br>
+<<elseif $stress gte $stressmax>>
+	<<hopelessCyclePassout>>
+<<elseif _hcEvent>>
+	<<hopelessCycleItemEffects>>
+	<<if _hcEvent is "dailyPunishment">>
+		The door to the cell creaks open. The Bishop's Hand enters, along with a confessor.
+
+		<<if $worn.upper.name isnot "chain tunic">>
+			"Good, you're already... where is your armour, brother? No matter. It is time for her penance."
+			<<hcSuspicion 10>><<hopelessCycleSus 2>>
+		<<else>>
+			"Good, you're already here, brother. It is time for her penance."
+		<</if>>
+		<br><br>
+
+		<<link [[Next|Hopeless Cycle Prisoner Inspection]]>><<endevent>><</link>>
+		<br>
+	<<else>>
+		<span class="red">The door of the cell creaks open.</span>
+		<<if $hc.nightBreakIn is "tonight" or $hc.nightBreakIn is "heard">>
+			<<loadNPC 0 "hc_abuser">>
+		<<else>>
+			<<generateConfessor 1>>
+		<</if>>
+		<<person1>>
+		<<if $hc.dungeonTorchState is "lit">>
+			A <<personsimple>> in black robes enters the cell. <<He>> freezes upon seeing you.
+			"Brother Fayne? Did the time run away from you? Come, I'll help you snuff the torches for the night." <<hcSuspicion 5>><<hopelessCycleSus 1>>
+			<br><br>
+
+			<<set $hc.dungeonTorchState to "snuffed">>
+			You don't have much of a choice. You appreciate the help, at least. You snuff the torches in short order, and leave the dungeon with <<him>>.
+			<br><br>
+
+			<<if $hc.nightBreakIn is "tonight" or $hc.nightBreakIn is "heard">>
+				Once you reach the top of the stairs, <<he>> shifts side to side uncomfortably. "I will finish up in the dungeon for you. Let us say nothing of skipping the sanctification." <<He>> heads back down the stairs without waiting for you to answer.
+				<<set $hc.neverLeftDungeon to false>><<set $hc.snuckInDungeon to false>>
+				<br><br>
+
+				<<link [[Next|Hopeless Cycle Cloister]]>><<endevent>><</link>>
+				<br>
+			<<else>>
+				"I will awaken a <<priest>> to sanctify us. Wait here." <<He>> disappears into a side passage. <<set $hc.neverLeftDungeon to false>><<set $hc.snuckInDungeon to false>>
+				<br><br>
+
+				<<link [[Wait <<hcTimeDungeonDisplay 35>>|Hopeless Cycle Cloister]]>><<endevent>><<hcTimeDungeonPass 35>><</link>>
+				<br>
+				<<link [[Leave (0:05)|Hopeless Cycle Cloister]]>><<endevent>><<pass 5>><<hcSuspicion 10>><</link>><<hopelessCycleSus 2>>
+				<br>
+			<</if>>
+		<<elseif _heldTorch?.state is "lit" or _cellTorch?.state is "lit">>
+			A <<personsimple>> in black robes enters the cell. <span class="red">Because of the lit torch, <<he>> sees you immediately.</span>
+			<br><br>
+
+			"Brother Fayne," <<he>> hisses. "Sneaking around with the witch. She has seduced you!" <<He>> brandishes a baton. "You must be purified."
+			<br><br>
+
+			<<link [[Fight|Hopeless Cycle Cell Caught Fight]]>><<set $phase to 1>><<set $skillChallenge to random(700, 1000)>><</link>>
+			<br>
+			<<link [[Don't resist|Hopeless Cycle Cell Caught Fight]]>><<set $phase to 2>><</link>>
+			<br>
+		<<else>>
+			<<if $hc.nightBreakIn is "tonight" or $hc.nightBreakIn is "heard">>
+				A <<personsimple>> in black robes enters the cell. <<He>> looks around, <<his>> eyes only stopping on where <<print $prisoner.name>> sits. You cling to the shadows. <<He>> must not be able to see you.
+				<br><br>
+
+				"Wretched seductress," <<he>> spits. "Why should Brother Fayne have you to himself?" She glares back at <<him>> as <<he>> approaches. "My vows are already broken. There will be no harm. Not for me, that is."
+				<<if $hcChallenge.faithBlooms>>
+					<<His>> fingers twitch. "Do you remember these hands? <span @class="$prisonerEvents.includes('washHair') ? 'red' : ''">They took your hair so easily.</span> I'll be <i>taking</i> more than just a lock of hair this time."
+				<</if>>
+				<br><br>
+
+				<<link [[Stay perfectly still|Hopeless Cycle Cell Caught Still]]>><<pass 1 hour>><<set $prisoner.love -= 15>><</link>><<hopelessCycleLove -3>>
+				<br>
+				<<link [[Intervene|Hopeless Cycle Cell Caught Intervene]]>><<set $prisoner.love += 5>><</link>><<hopelessCycleLove 2>>
+				<br>
+			<<else>>
+				A <<personsimple>> in black robes enters the cell. <<He>> looks around, <<his>> eyes only stopping on where <<print $prisoner.name>> sits. You cling to the shadows. <<He>> must not be able to see you.
+				<br><br>
+
+				<<He>> huffs and leaves the cell, slamming the barred door shut. You wait a few minutes to make sure <<hes>> out of the dungeon entirely. <<hcSuspicion 5>><<hopelessCycleSus 1>>
+				<br><br>
+
+				<<link [[Next (0:05)|Hopeless Cycle Cell]]>><<endevent>><</link>>
+				<br>
+			<</if>>
+		<</if>>
+	<</if>>
+<<elseif Time.dayState is "day" and $hc.dogs?.includes("loud") and !$hc.daily.prisonerDogs>>
+	<<set $hc.daily.prisonerDogs to true>>
+	<<if $prisoner.state isnot "dogs">>
+		You start to hear the barking of dogs outside. <span class="red">She freezes up, before trying to cover her ears.</span>
+		She can't reach them with her manacles on. She starts spasming on the ground, lashing out as you try to approach.
+	<<else>>
+		<span class="red">She lashes out whenever she hears the barking of the dogs. You can't even approach her like this.</span>
+	<</if>>
+	You'll have to do something about the noise, or wait until the dogs are off temple grounds for the day.
+	<<set $prisoner.state to "dogs">>
+	<br><br>
+
+	<<link [[Next|Hopeless Cycle Cell]]>><</link>>
+	<br>
+<<elseif $prisoner.state is "dogs" and (!$hc.dogs?.includes("loud") or Time.dayState isnot "day")>>
+	<<set $prisoner.state to "lucid">>
+	She breathes heavily. You shake her by the shoulder.
+	<br><br>
+
+	She stiffens up, but then seems to relax. She looks around. <span class="green">With the dogs now quiet, she seems alright again.</span>
+	<br><br>
+
+	<<link [[Next|Hopeless Cycle Cell]]>><</link>>
+	<br>
+<<else>>
+	/* Actions that don't require sight */
+	<<set _clothesCurrent to $hcItems.find(clothes => clothes.type is "clothes" and clothes.location is "prisoner")>>
+	<<set _sheetsHere to hcItemCanReach("sheets")>>
+	<<set _sheetsCurrent to $hcItems.find(sheet => sheet.type is "sheets" and sheet.location is "prisoner")>>
+
+	<<if $hc.nightBreakIn is "heard" and Time.dayState is "night" and (!(_heldtorch?.state is "lit" || _celltorch?.state is "lit") || hcItemCanReach("snuffer"))>>
+		<<crimeicon "mark">><<link [[Wait for the intruder|Hopeless Cycle Cell Spend Night]]>><<endevent>><<set $phase to 2>><<pass 30>><</link>>
+		<br>
+	<<elseif Time.dayState is "night" and (Time.hour gte 22 or Time.hour lte 3) and ($prisonerEvents.includes("spendNight") or ($prisoner.love gte 60 and $prisonerEvents.includesAll("talkMagic", "talkHair", "talkName"))) and !$hc.daily.cellSleep and !$hcIncoming and !(Time.lastDayOfMonth is $hc.day)>>
+		<<hcicon "prisoner">><<link [[`Sleep in the cell with $prisoner.name tonight (6:00)`|Hopeless Cycle Cell Spend Night]]>>
+			<<endevent>><<set $phase to 3>><<pass 1 hour>>
+			<<hcPrisonerHealth 1>><<set $prisoner.love += 3>>
+			<<purity -30>><<stress -60>><<trauma 50>><<tiredness -12>>
+		<</link>>
+		<<lllpurity>><<lllstress>><<gggtrauma>><<lltiredness>><<hopelessCycleLove 3>>
+		<br>
+	<</if>>
+	<<if $prisoner.state is "asleep">>
+		<<if !_canSee>>
+			<span class="blue">You hear gentle snoring.</span>
+			<br>
+		<</if>>
+		<<if _sheetsHere and !$hcItems.some(sheet => sheet.type is "sheets" and sheet.location is "prisoner")>>
+			<<capture _sheetsHere>>
+				<<hcicon "sheets">><<link [[Gently put a bedsheet over her|Hopeless Cycle Cell Sheet]]>><<set _sheetsHere.location to "prisoner">><</link>><<if !$hc.daily.cellSheet>><<hopelessCycleLove 1>><</if>>
+				<br>
+			<</capture>>
+		<</if>>
+		<<bedicon "zzz">><<link [[Awaken her|Hopeless Cycle Cell Awaken]]>><</link>>
+		<br>
+	<<elseif $prisoner.state is "awake" and $prisonerEvents.includes("fed")>>
+		<<if $prisoner.love gte 60 or $prisonerEvents.includes("comfort")>>
+			<<loveicon>><<link [[Talk to her (0:20)|Hopeless Cycle Cell Talk]]>>
+				<<pass 20>><<set $prisoner.love++>><<if $hc.handLocation is "guardhouse">><<hcSuspicion 10>><</if>><<stress -6>>
+				<<if !_clothesCurrent and !_sheetsCurrent and _canSee>><<trauma 12>><<arousal 300>><<else>><<trauma 6>><</if>>
+			<</link>>
+			<<hopelessCycleLove 1>><<if $hc.handLocation is "guardhouse">><<hopelessCycleSus 2>><</if>><<lstress>>
+		<<else>>
+			<<if $prisonerEvents.includes("speech")>><<set _talkLinkText to "Talk to her (0:20)">><<else>><<set _talkLinkText to "Try to talk to her (0:20)">><</if>>
+			<<socialiseicon>><<link [[`_talkLinkText`|Hopeless Cycle Cell Talk]]>>
+				<<pass 20>><<set $prisoner.love++>><<if $hc.handLocation is "guardhouse">><<hcSuspicion 10>><</if>><<stress 12>>
+				<<if !_clothesCurrent and !_sheetsCurrent and _canSee>><<trauma 24>><<arousal 300>><<else>><<trauma 12>><</if>>
+			<</link>>
+			<<hopelessCycleLove 1>><<if $hc.handLocation is "guardhouse">><<hopelessCycleSus 2>><</if>><<gstress>>
+		<</if>>
+		<<if !_clothesCurrent and !_sheetsCurrent and _canSee>>
+			<<ggtrauma>><<garousal>>
+		<<else>>
+			<<gtrauma>>
+		<</if>>
+		<br>
+	<</if>>
+
+	<<if _sheetsCurrent and $prisoner.state isnot "asleep">>
+		<<capture _sheetsCurrent>>
+			<<hcicon "sheets">><<link [[Take the bedsheet|Hopeless Cycle Cell]]>><<set _sheetsCurrent.location to hcItemHasFreeHand() ? "held" : "cell">><</link>>
+			<br>
+		<</capture>>
+	<</if>>
+
+	/* Actions that require sight */
+	<<if _canSee and $prisoner.state isnot "dogs">>
+		<<if !$prisonerEvents.includes("health")>>
+			<<investigateicon>><<link [[Inspect her (0:30)|Hopeless Cycle Cell Intro]]>><<pass 30>><<set $prisonerEvents.pushUnique("health")>><</link>>
+			<br>
+		<<else>>
+			<<set _food to hcItemsOnScreen(f => f.type is "food" and !f.used and !f.dirty)>>
+			<<set _water to hcItemCanReach("water", (water => water.dirty lt 2))>>
+			<<set _bandagesFresh to hcItemCanReach("bandages", (bandage => bandage.dirty is 0 and !bandage.used))>>
+			<<set _bandagesUsed to hcItemCanReach("bandages", (bandage => bandage.dirty is 0 and bandage.used))>>
+			<<set _herbs to hcItemCanReach("herbs")>>
+
+			<<if _clothesCurrent>>
+				<<if !$prisonerEvents.includes("undress")>>
+					<<skinicon "strip">><<link [[Undress her|Hopeless Cycle Cell Undress Intro]]>><</link>>
+				<<else>>
+					<<capture _clothesCurrent>>
+						<<skinicon "strip">><<link [[Undress her (0:02)|Hopeless Cycle Cell]]>>
+							<<set _clothesCurrent.location to "cell">><<trauma 3>><<arousal 300>><<pass 2>>
+							<<if $prisoner.state is "asleep">>
+								<<set $prisoner.state to "awake">><<set $itemAction to "undressPrisonerAsleep">>
+							<<else>>
+								<<set $itemAction to "undressPrisoner">>
+							<</if>>
+						<</link>><<gtrauma>><<garousal>>
+					<</capture>>
+				<</if>>
+				<br>
+			<<elseif $prisoner.bandagesOn>>
+				<<if !$prisonerEvents.includes("bandages")>>
+					<<hcicon "bandages">><<link [[Remove her bandages|Hopeless Cycle Cell Bandages Intro]]>><</link>>
+				<<else>>
+					<<hcicon "bandages">><<link [[Remove her bandages (0:05)|Hopeless Cycle Cell]]>>
+						<<set $itemAction to "bandagesRemove">><<set $prisoner.bandagesOn to false>>
+						<<pass 5>><<trauma 6>><<arousal 500>>
+						<<if $prisoner.cleanBandages gte 3>>
+							<<set _dirt to 0>>
+						<<elseif $prisoner.cleanBandages lte 1>>
+							<<set _dirt to 2>>
+						<<else>>
+							<<set _dirt to 1>>
+						<</if>>
+						<<set _bandagesLoc to hcItemHasFreeHand() ? "held" : "cell">>
+						<<run hcItemAdd({ type: "bandages", name: "bandages", location: _bandagesLoc, origin: "prisoner", dirty: _dirt, dirtyOnDrop: true, used: true })>>
+					<</link>><<gtrauma>><<garousal>>
+				<</if>>
+				<br>
+			<<else>>
+				<<if _water and (!$hc.daily.washed or $hcChallenge.prisonerClean and $prisoner.cleanBody lt 4)>>
+					<<capture _water>>
+						<<if !$prisonerEvents.includes("wash")>>
+							<<skinicon "wash">><<link [[Wash her|Hopeless Cycle Cell Wash Intro]]>><<set $hc.daily.washed to true>><<hcWash _water>><<set $prisoner.love += 1>><</link>>
+						<<else>>
+							<<skinicon "wash">><<link [[Wash her|Hopeless Cycle Cell Wash]]>><<set $hc.daily.washed to true>><<hcWash _water>><<if !$hc.daily.washed>><<set $prisoner.love += 1>><</if>><</link>><<gtrauma>><<ggarousal>><<lpurity>><<if !$hc.daily.washed>><<hopelessCycleLove 1>><</if>>
+						<</if>>
+						<br>
+					<</capture>>
+				<</if>>
+				<<if _herbs and $prisonerEvents.includes("brand")>>
+					<<set _waterCleanOnly to hcItemCanReach("water", water => water.dirty is 0)>>
+					<<if _waterCleanOnly>>
+						<<capture _herbs>>
+							<<if !$hc.daily.treated>>
+								<<hcicon "herbs">><<link [[Treat her burns|Hopeless Cycle Cell Burns]]>><<set $hc.daily.treated to true>><<hcPrisonerHealth 3>><<set $prisoner.harmed-->><<set $prisoner.love += 2>><<run hcItemRemove(_herbs)>><<stress 12>><<trauma 24>><</link>><<gstress>><<ggtrauma>><<hopelessCycleLove 1>>
+								<br>
+							<</if>>
+						<</capture>>
+					<</if>>
+				<</if>>
+				<<if _bandagesFresh>>
+					<<capture _bandagesFresh>>
+						<<hcicon "bandages">><<link [[Apply fresh bandages (0:05)|Hopeless Cycle Cell]]>>
+							<<pass 5>><<stress 3>><<trauma 3>>
+							<<set $itemAction to "bandagesApply">><<set $itemActionObject to _bandagesFresh>>
+							<<set $prisoner.bandagesOn to true>><<run hcItemRemove(_bandagesFresh)>>
+							<<set $prisoner.cleanBandages to 4>>
+						<</link>>
+						<<gstress>><<gtrauma>>
+					<</capture>>
+					<br>
+				<</if>>
+				<<if _bandagesUsed>>
+					<<capture _bandagesUsed>>
+						<<hcicon "bandages">><<link [[Apply used bandages (0:05)|Hopeless Cycle Cell]]>>
+							<<pass 5>><<stress 3>><<trauma 3>>
+							<<set $itemAction to "bandagesApply">><<set $itemActionObject to _bandagesUsed>>
+							<<set $prisoner.bandagesOn to true>><<run hcItemRemove(_bandagesUsed)>>
+							<<set $prisoner.cleanBandages to 3>>
+						<</link>>
+						<<gstress>><<gtrauma>>
+					<</capture>>
+					<br>
+				<</if>>
+			<</if>>
+			<<if _herbs and $prisonerEvents.includes("brand") and $hc.daily.treated and $prisonerEvents.includes("talkHerbsMouth") and !$prisonerEvents.includes("herbsMouth")>>
+				<<capture _herbs>>
+					<<hcicon "herbs">><<link [[Give her a herb to chew on|Hopeless Cycle Cell Burns Mouth]]>><<run hcItemRemove(_herbs)>><</link>><<hopelessCycleLove 1>>
+					<br>
+				<</capture>>
+			<</if>>
+			<<if _food.length>>
+				<<for _labelFood, _valueFood range _food>>
+					<<capture _valueFood>>
+						<<if !$prisonerEvents.includes("fed")>>
+							<<hcicon _valueFood>><<link [[`Give her _valueFood.name (0:10)`|Hopeless Cycle Cell Food Intro]]>>
+								<<pass 10>><<set $hcFood to _valueFood.name>>
+								<<if _valueFood.name is "stolen fruit">>
+									<<hcPrisonerHealth 1>>
+									<<run hcItemRemove(_valueFood)>>
+								<<else>>
+									<<if _valueFood.name isnot "prison gruel">><<hcPrisonerHealth 3>><</if>>
+									<<set _valueFood.used to true>><<set _valueFood.dirty to 1>>
+								<</if>>
+							<</link>>
+							<br>
+						<<elseif $prisoner.harmed gte Math.floor($prisoner.love / 8) and $prisoner.state isnot "catatonic">>
+							<<hcicon _valueFood>><<link [[`Give her _valueFood.name (0:10)`|Hopeless Cycle Cell Food Refused]]>><</link>>
+							<br>
+						<<elseif $hcChallenge.prisonerFood and $hc.daily.fed>>
+							<<hcicon _valueFood>><<link [[`Give her _valueFood.name (0:10)`|Hopeless Cycle Cell Food Restricted]]>><<set $hcFood to _valueFood.name>><</link>>
+							<br>
+						<<else>>
+							<<hcicon _valueFood>><<link [[`Give her _valueFood.name (0:10)`|Hopeless Cycle Cell Food]]>>
+								<<pass 10>><<set $prisoner.love++>><<set $hcFood to _valueFood.name>>
+								<<if _valueFood.name is "stolen fruit">>
+									<<hcPrisonerHealth 1>>
+									<<run hcItemRemove(_valueFood)>>
+								<<else>>
+									<<if _valueFood.name isnot "prison gruel">><<hcPrisonerHealth 3>><</if>>
+									<<set _valueFood.used to true>><<set _valueFood.dirty to 1>>
+								<</if>>
+							<</link>>
+							<<hopelessCycleLove 1>>
+							<br>
+						<</if>>
+					<</capture>>
+				<</for>>
+				<<if _food.length gte 2 and !$hcIncoming and $prisoner.love gte 30 and !($hc.daily.fed and $hcChallenge.prisonerFood)>>
+					<<hcicon "prisoner">><<link [[Sit and eat with her (0:20)|Hopeless Cycle Cell Food Together]]>><<pass 20>><<set $prisoner.love += 3>><<stress -12>><<trauma -24>><<tiredness -6>><</link>><<ltiredness>><<if $prisonerEvents.includes("eatTogether")>><<lstress>><<lltrauma>><</if>><<hopelessCycleLove 2>>
+					<br>
+				<</if>>
+			<</if>>
+			<<if $prisonerEvents.includes("talkHair") and !$prisonerEvents.includes("talkHairBlooms")>>
+				<<set _witchblooms to hcItemCanReach("clutter", w => w.name === "purified witchblooms")>>
+				<<if _witchblooms>>
+					<<capture _witchblooms>>
+						<<hcicon _witchblooms>><<link [[Braid the purified witchblooms into her hair (0:10)|Hopeless Cycle Cell Witchblooms]]>><<pass 10>><<set _witchblooms.location to "prisoner">><<set $prisoner.love += 5>><</link>><<gglove>>
+						<br>
+					<</capture>>
+				<</if>>
+			<</if>>
+			<<if _water and (!$hc.daily.washed or $hcChallenge.prisonerClean and $prisoner.cleanBody gt 0)>>
+				<<capture _water, _clothesCurrent>>
+					<<hcicon "bucket">><<link [[Dump the bucket of water over her (0:01)|Hopeless Cycle Cell Dump Water]]>>
+						<<set $prisoner.harmed += 1>><<set $prisoner.love -= 3>><<sadism 5>>
+						<<set $prisoner.cleanBody += 1>>
+						<<if $prisoner.bandagesOn>>
+							<<set $prisoner.cleanBandages++>>
+						<</if>>
+						<<if _clothesCurrent?.dirty gte 2>>
+							<<set _clothesCurrent.dirty-->>
+						<</if>>
+						<<set $hc.daily.washed to true>>
+						<<run hcItemRemove(_water)>>
+					<</link>>
+					<<hopelessCycleLove -2>>
+					<br>
+				<</capture>>
+			<</if>>
+			<<if $prisonerEvents.includes("punishmentIntro")>>
+				<<if $prisoner.love gte 45>>
+					<<templeicon $temple_weapon>><<link [[Whip her (0:02)|Hopeless Cycle Cell Whip]]>>
+						<<pass 2>><<if $sadism_level gte 2>><<arousal 800>><</if>>
+						<<set $prisoner.harmed += 1>><<hcPrisonerHealth -1>>
+						<<stress 6>><<control 25>><<sadism 30>>
+						<<if $hc.handLocation is "guardhouse">><<hcSuspicion -3>><</if>>
+					<</link>><<gstress>><<gcontrol>><<if $hc.handLocation is "guardhouse">><<hopelessCycleSus -1>><</if>>
+				<<else>>
+					<<templeicon $temple_weapon>><<link [[Whip her (0:02)|Hopeless Cycle Cell Whip]]>>
+						<<pass 2>><<if $sadism_level gte 2>><<arousal 800>><</if>>
+						<<set $prisoner.harmed += 1>><<hcPrisonerHealth -1>>
+						<<stress -24>><<trauma -12>><<control 25>><<sadism 30>>
+						<<if $hc.handLocation is "guardhouse">><<hcSuspicion -3>><</if>>
+					<</link>><<llstress>><<ltrauma>><<gcontrol>><<if $hc.handLocation is "guardhouse">><<hopelessCycleSus -1>><</if>>
+				<</if>>
+				<<if $sadism_level gte 2>><<garousal>><</if>>
+				<br>
+			<</if>>
+		<</if>>
+	<</if>>
+	<br>
+	<div id="hcItems" class="no-numberify"><<hopelessCycleItemLinks>></div>
+	<br>
+
+	<<if $hcIncoming is "dailyPunishment" or $hcIncoming is "night" or (["dawn","day"].includes(Time.dayState) and ($hc.neverLeftDungeon or $hc.snuckInDungeon) and $hc.daysPassed gte 1)>>
+		<<getouticon>><<link [[Exit the cell (0:01)|Hopeless Cycle Cell Leave]]>><<pass 1>><</link>>
+		<br>
+	<<else>>
+		<<getouticon>><<link [[Exit the cell (0:01)|Hopeless Cycle Dungeon]]>><<pass 1>><</link>>
+		<br>
+	<</if>>
+
+<</if>>
+
+:: Hopeless Cycle Cell Intro
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+<<if $hcItems.some(torch => torch.type is "torch" and torch.location is "held")>>
+	<span class="narration">The gaoler gripped his torch tightly, and beheld who he'd be guarding for the foreseeable future.</span>
+<<else>>
+	<span class="narration">The gaoler cautiously approached, and beheld who he'd be guarding for the foreseeable future in the flickering torchlight.</span>
+<</if>>
+<br><br>
+
+You kneel down. She wears a dirty, bloodstained sack over most of her body. There are crude holes cut for her head and arms, with the legs going through what would be the top.
+<br><br>
+
+You shiver. Did she always exist in such filth? She huddles into herself as you approach. You flinch. It's the first time she's moved.
+<br><br>
+
+After a moment, you advance again. Her head slowly turns towards you. <span class="red">A single grey eye snaps to look at you as it catches the light of your torch. It burns with fear and hatred.</span> <<stress 40>><<gggstress>>
+<br><br>
+
+The other eye and her mouth are obscured behind dirty bandages. You stand perfectly still. She curls back in on herself. Once more, you approach, as quiet as you can now. She doesn't move, and her eye glazes back over. You examine her more closely. She's sickly, and what little skin you can see is very pale.
+<br><br>
+
+You were ordered to keep her alive. You'll need to change her bandages, or she probably won't even survive the night. <span class="blue">You can find bandages in the cloister's training area.</span>
+<br><br>
+
+It might help to wash her as well.
+<<if $hcChallenge.waterEarly>>
+	<span class="red">The water from the garden's well is foul,</span> but <span class="blue">you can still fill a wash bucket with water from the lake in the forest.</span> It's a bit of a walk, but needs must.
+<<else>>
+	<span class="blue">You can fill a wash bucket with water in the garden.</span>
+<</if>>
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Undress Intro
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<set $prisonerEvents.pushUnique("undress")>>
+<span class="narration">Modesty was a luxury, one not granted to the unholy.</span>
+<br><br>
+
+She's still mostly unresponsive. You won't get a better chance to get that dirty sack off of her.
+<br><br>
+
+Her silver manacles bind her hands in front of her, and the chain between them is attached to another chain, which itself is loosely bound to the wall.
+They will make this difficult, but freeing her for even a moment could be dangerous.
+<br><br>
+
+<<link [[Just cut her 'clothes' away (0:01)|Hopeless Cycle Cell Undress Intro 2]]>><<pass 1>><<set $phase to 1>><</link>>
+<br>
+<<link [[Unlock her shackles and pull it off over her head (0:04)|Hopeless Cycle Cell Undress Intro 2]]>><<pass 4>><<set $prisoner.love++>><<set $phase to 2>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Undress Intro 2
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+<span class="narration">Everything she touched was treated as though it would come alive and taint any who beheld it.</span>
+<br><br>
+
+<<if $phase is 1>>
+	<<wearProp "antique silver dagger">>
+	<<run Object.assign($hcItems.find(clothes => clothes.name is "bloodstained sack" && clothes.location is "prisoner"), { type: "clutter", name: "ruined fabric scraps", location: "cell", dirty: 2})>>
+	You unsheathe your ceremonial dagger, and with a quick motion, stick it under the rough fabric. She barely has time to react. You pull up, and it falls away.
+	<br><br>
+
+	She shudders, as if afraid of what you'll do next. She tries to cover her exposure, but her manacles only allow her to cover her upper body.
+<<else>>
+	<<run $hcItems.find(clothes => clothes.name is "bloodstained sack" && clothes.location is "prisoner").location to "cell">>
+	You work fast, unlocking each manacle. Her arms fall limply at her sides.
+	<br><br>
+
+	You grab the bottom of the sack and start to pull up. Her arms provide no resistance, but her breathing becomes heavy.
+	She tries to push you away. She's not very strong, but you back away regardless, not wanting to be tainted by her touch.
+	You move around her, re-securing her manacles to the wall's inlet.
+<</if>>
+<br><br>
+
+All that covers her now are the soiled bandages.
+<<if $phase is 1>>
+	You toss the remains of the sack aside. <span class="blue">It would be best to burn them during this evening's pyre.</span>
+<<else>>
+	You toss the sack aside. <span class="blue">It would be best to burn it during this evening's pyre.</span>
+<</if>>
+<br>
+<span class="red">Leaving tainted items in the cell will degrade her health.</span>
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Bandages Intro
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+<span class="narration">
+	The gaoler found himself hesitating. Touching someone so tainted was no doubt dangerous.
+	However, he had a duty to uphold, and his brothers and sisters were counting on him. If not him, someone else would be made to do it.
+</span>
+<br><br>
+
+She stirs and lets out a ragged breath.
+<br><br>
+
+Your heart begins racing as that vacant, yet hateful, grey eye pierces right through you.
+You reach towards her body. She tries to push herself backwards away from you, but barely manages anything.
+<br><br>
+
+Your hand clenches. If she's as dangerous as the Bishop's Hand believes, her corruption could spread to you very quickly.
+<br><br>
+
+<<link [[Remove the bandages quickly (0:03)|Hopeless Cycle Cell Bandages Intro 2]]>><<pass 3>><<set $phase to 1>><<set $prisoner.love -= 1>><</link>>
+<br>
+<<link [[Remove the bandages gently (0:10)|Hopeless Cycle Cell Bandages Intro 2]]>><<pass 10>><<set $phase to 2>><<trauma 12>><</link>><<ggtrauma>>
+<br>
+<<link [[Tighten her shackles to keep her still (0:02)|Hopeless Cycle Cell Bandages Intro Shackles]]>><<pass 2>><<set $phase2 to 1>><<set $prisoner.love -= 2>><<trauma -6>><<control 25>><<sadism 5>><</link>><<ltrauma>><<gcontrol>>
+<br>
+<<link [[Tell her you're trying to help her|Hopeless Cycle Cell Bandages Intro Talk]]>><<stress 24>><<set $phase2 to 2>><<set $prisoner.love += 1>><<set $prisoner.talked += 1>><</link>><<ggstress>><<if $hc.handLocation is "guardhouse">><<hopelessCycleSus 2>><</if>>
+<br>
+<<link [[Leave for now|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Bandages Intro Talk
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+<<if $hc.handLocation is "guardhouse">><<hcSuspicion 5>><</if>>
+<span class="narration">The gaoler wanted to minimise contact, and getting the witch to keep still would be the best way. How did he do it? Well...</span>
+<br><br>
+
+You take a deep breath. Speaking with prisoners is usually forbidden. What's more, she's a witch, she could snatch your voice right from your throat!
+<br><br>
+
+You decide that it's still your best chance to get her to cooperate. You tell her that you're trying to help her, and that you need to remove her bandages to do so.
+<br><br>
+
+She stops squirming, her head moving to look at you again. "Hhh...hh..." She seems to try and say something, but she only lets out a whimper.
+She doesn't seem to understand you, merely reacting to the tone of your voice. Like a hound.
+<br><br>
+
+Tricks to make her seem more vulnerable, no doubt. Still, it did get her to stop cowering so much.
+<br><br>
+
+<<link [[Remove the bandages quickly (0:03)|Hopeless Cycle Cell Bandages Intro 2]]>><<pass 3>><<set $phase to 1>><<set $prisoner.love -= 1>><</link>>
+<br>
+<<link [[Remove the bandages gently (0:10)|Hopeless Cycle Cell Bandages Intro 2]]>><<pass 10>><<set $phase to 2>><<trauma 6>><</link>><<gtrauma>>
+<br>
+
+:: Hopeless Cycle Cell Bandages Intro Shackles
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+<span class="narration">The gaoler wanted to minimise contact, and getting the witch to keep still would be the best way. How did he do it? Well...</span>
+<br><br>
+
+You march up to the wall, grabbing the chain attached to her manacles. You pull, slowly lifting her against the wall. She lets out a nervous breath.
+You secure the chain to its counterweight, holding her in place.
+<br><br>
+
+She can't writhe around now. You'll be able to take your time without much direct contact.
+<br><br>
+
+<<link [[Remove the bandages quickly (0:03)|Hopeless Cycle Cell Bandages Intro 2]]>><<pass 3>><<set $phase to 1>><<set $prisoner.love -= 1>><</link>>
+<br>
+<<link [[Remove the bandages gently (0:10)|Hopeless Cycle Cell Bandages Intro 2]]>><<pass 10>><<set $phase to 2>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Bandages Intro 2
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<set $prisonerEvents.pushUnique("bandages")>><<set $prisoner.bandagesOn to false>>
+
+<<if $phase is 1>>
+	<<run hcItemAdd({ type: "clutter", name: "torn bandages", nameText: "torn bandages", location: "cell", origin: "prisoner", dirty: 2, used: true})>>
+	You grab the edge of her bandages and pull hard. You tear them away, making no effort to keep them intact.
+	You continue with her other limbs as quickly as you can.
+<<else>>
+	<<run hcItemAdd({ type: "bandages", name: "bandages", location: "cell", origin: "prisoner", dirty: 2, dirtyOnDrop: true, used: true}, $hcItems)>>
+	You find the end of her bandages, and lift. You start to gently pull them away, unwrapping them from her arms and legs. Her nervous breathing seems to calm very slightly.
+<</if>>
+<br><br>
+
+Her left arm and hand look uninjured, and likely don't need to be re-bandaged. You wonder why they were to begin with.
+As you think, <span class="lewd">you realise that every bit of soft, pale skin you lay your eyes on sends compulsions throughout your body</span>. <<arousal 600>><<garousal>>
+<br><br>
+
+You shake your head and focus. She's trying to bewitch you! The Bishop's Hand was right, she's dangerous.
+Merely seeing her skin is enough to make one's mind vulnerable to her allures.
+<br><br>
+
+Her right arm is covered in deep bite marks. Human and beast alike.
+Her legs, and especially her thighs, are the worst so far. They're covered in cuts and bruises, some very fresh.
+You notice that, unlike with her arms, her legs were very easy to move.
+The whore likely thought you meant to debase yourself and give in to her tricks.
+<br><br>
+
+Her midriff and ample breasts are lacerated and burned, but the area around her stomach is largely unharmed.
+Her neck is covered in even more bite marks. All that's left are the bandages around her head.
+As you reach for them, she starts to shake her head violently.
+<br><br>
+
+<<link [[Remove them|Hopeless Cycle Cell Bandages Intro 3]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Leave them|Hopeless Cycle Cell Bandages Intro 3]]>><<set $phase to 2>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Bandages Intro 3
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+
+Tufts of hair poke out from the bandages. You're not sure if it's naturally brown and red, or if it's simply caked in dirt and blood.
+<br><br>
+
+You look closer. There are small, faint symbols etched all over the bandages. You recognise some of them, but not all. They're freshly soaked in something, likely holy water from what you know.
+<br><br>
+
+<<if $phase is 1>>
+	<<set $prisonerEvents.pushUnique("faceAttempt")>>
+	<<if $phase2 is 1>>
+		With her hands bound tightly against the wall, she can't stop you.
+	<<elseif $phase2 is 2>>
+		You push her arms aside easily.
+	<<else>>
+		Bound as she is, she can't stop you.
+	<</if>>
+	You grip the bandages on her head and pull. She lets out a grunt of pain and tries to move away, to no avail.
+	<br><br>
+
+	As soon as you manage to pull the bandages away, they simply snap back into place. You try again. They pull back tightly to her head, especially on the left side of her forehead above her covered eye.
+	<br><br>
+
+	You try once more. <span class="red">Your hand suddenly feels cold.</span> More witchcraft? A few tears leak from her eye. It's no use. The bandages cling to her tightly. Are her facial wounds truly so terrible?
+	You shiver thinking of how horrific her face must look. Maybe it's better this way.
+<<else>>
+	You lower your hand, thinking of how horrific her face must look. Her breathing steadies again.
+<</if>>
+<br><br>
+
+This will have to be good enough.
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Wash Intro
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<set $prisonerEvents.pushUnique("wash")>>
+<span class="narration">The gaoler told himself that he was washing the witch's sins away. It made the prolonged contact easier to bear.</span>
+<br><br>
+
+You place down the wash bucket, its contents sloshing about. The noise makes her stir again.
+<br><br>
+
+You check to make sure the door to the cell is locked behind you, and release her manacles from the wall. Her eye follows you.
+<br><br>
+
+<<link [[Pull her away from the wall|Hopeless Cycle Cell Wash Intro 2]]>><<trauma 12>><<set $phase to 1>><</link>><<ggtrauma>>
+<br>
+<<link [[Tell her to move away from the wall|Hopeless Cycle Cell Wash Intro 2]]>><<set $prisoner.love++>><<stress 12>><<set $phase to 2>><</link>><<ggstress>>
+<br>
+
+:: Hopeless Cycle Cell Wash Intro 2
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+<span class="narration">The witch should be grateful for this, the gaoler thought to himself. One thing could not become clean without another becoming dirty.</span>
+<br><br>
+
+<<if $phase is 1>>
+	You put your hands under her arms and pull her towards the middle of the cell. She only resists for a moment.
+<<else>>
+	You point towards the middle of the cell. She looks to it, then back to you, blinking a single time. After a moment, she begins to lazily drag herself towards it.
+<</if>>
+<br><br>
+
+She sits up straight, and you begin the long process of washing her. She tenses up whenever you touch a wound.
+<br><br>
+
+Touching her at all is unpleasant. You can feel her corruption seeping into you. Yet, the same touch seems to be revitalising to her. <<gtrauma>><<lpurity>>
+<br><br>
+
+<<link [[Wash her quickly (0:10)|Hopeless Cycle Cell Wash Intro 3]]>><<pass 10>><<trauma 12>><<arousal 600>><<purity -10>><<set $phase2 to 1>><</link>><<gtrauma>><<garousal>><<lpurity>>
+<br>
+<<link [[Wash her thoroughly (0:30)|Hopeless Cycle Cell Wash Intro 3]]>><<set $prisoner.love++>><<pass 30>><<trauma 24>><<arousal 1200>><<purity -20>><<set $phase2 to 2>><</link>><<ggtrauma>><<ggarousal>><<llpurity>>
+<br>
+
+:: Hopeless Cycle Cell Wash Intro 3
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+<<if $phase2 is 1>>
+	<<set $prisoner.cleanBody += 1>>
+	<span class="narration">The gaoler worked quickly, and the process was as painful for her as it was unpleasant for him.</span>
+	<br><br>
+
+	You show no regard for her pain, washing over her wounds quickly. She doesn't struggle, though. She merely grunts in pain.
+	<br><br>
+
+	When you're done, she lets out a quiet sigh of relief.
+<<else>>
+	<<set $prisoner.cleanBody += 2>><<hcPrisonerHealth 3>>
+	<span class="narration">The gaoler, despite his discomfort, did his job thoroughly.</span>
+	<br><br>
+
+	You make sure to be careful around her wounds. It's not pain you're worried about, but contamination. You need to be sure you don't catch her filth, while also making sure she doesn't become blighted.
+	<br><br>
+
+	The tension in her body fades. She even seems to be enjoying it. You try not to think about it.
+<</if>>
+<br><br>
+
+You avoid her head entirely. You've heard tales of the hair of witches being the most potent source of their heretical power, and think about cutting it all off. You'd have to take the bandages off first, though.
+<br><br>
+
+<<if $phase is 1>>
+	When you're done at last, you pull her back to the wall and re-secure her shackles.
+<<else>>
+	When you move the bucket away, she starts to crawl back to the wall by herself.
+<</if>>
+<br><br>
+
+She looks at you, and you shiver once again.
+<<if $prisoner.health gte 8>>
+	There's a light in her eye now, and the slightest hint of colour returning.
+<<else>>
+	There's a light in her eye now, and the slightest hint of colour returning. It doesn't last, though, and it soon glazes over again.
+<</if>>
+<br><br>
+
+You look down at the water bucket, its contents no longer clean. <span class="blue">You can dump it out in the disposal channel under the guardhouse.</span>
+<br><br>
+
+<<if $hcChallenge.prisonerClean>>
+	Despite washing her, she still looks unclean. <span class="pink">With how tainted her wounds are, washing her more than once per day may be required.</span>
+	<br><br>
+<</if>>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Wash
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+
+You prepare to wash <<print $prisoner.name>>, releasing her shackles from the wall.
+<<if $prisoner.state is "asleep">>
+	<<set $prisoner.state to "awake">><<set $prisoner.awakeTimer to 3>>
+	The motion makes her stir awake.
+<</if>>
+<br><br>
+
+<<if $prisonerEvents.includes("legs") and $prisoner.love gte 30 or $prisoner.state is "catatonic">>
+	You carry her to the middle of the cell.
+<<else>>
+	She crawls to the middle of the cell.
+<</if>>
+You prop her up in a kneeling position.
+<br><br>
+
+<<link [[Wash her quickly (0:10)|Hopeless Cycle Cell Wash 2]]>><<pass 10>><<trauma 12>><<arousal 600>><<purity -10>><<set $phase to 1>><</link>><<gtrauma>><<garousal>><<lpurity>>
+<br>
+<<link [[Wash her thoroughly (0:30)|Hopeless Cycle Cell Wash 2]]>><<pass 30>><<if !$hc.daily.washed>><<set $prisoner.love++>><</if>><<trauma 24>><<arousal 1200>><<purity -20>><<set $phase to 2>><</link>><<ggtrauma>><<ggarousal>><<llpurity>><<if !$hc.daily.washed>><<hopelessCycleLove 1>><</if>>
+<br>
+<<if $prisonerEvents.includes("face") and !$prisonerEvents.includes("washHair")>>
+	<<link [[Wash her hair (1:00)|Hopeless Cycle Cell Wash Hair]]>><<pass 60>><<set $prisoner.cleanBody += 3>><<hcPrisonerHealth 4>><<set $prisoner.harmed -= 1>><<set $prisoner.love += 3>><<trauma 24>><<arousal 1200>><<purity -30>><</link>><<ggtrauma>><<ggarousal>><<llpurity>><<hopelessCycleLove 2>>
+	<br>
+<</if>>
+
+:: Hopeless Cycle Cell Wash 2
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+
+<<if $phase is 1>>
+	<<set $prisoner.cleanBody += 1>><<hcPrisonerHealth 1>>
+	You show no regard for her pain, washing over her wounds<<if $prisonerBrands>> and brandings<</if>> quickly.
+	<br><br>
+
+	<<if $prisoner.state is "catatonic">>
+		Her grunts of pain are brief and shallow. She slips back into a catatonic state as soon as you're done.
+	<<else>>
+		When you're done, she lets out a quiet sigh of relief.
+	<</if>>
+<<else>>
+	<<set $prisoner.cleanBody += 2>><<hcPrisonerHealth 3>>
+	<<if $prisonerEvents.includes("brand") and $prisonerBrands>>
+		<<set _brands to $prisonerBrands.filter(brand => brand isnot "right cheek")>>
+		You make sure to be careful around her wounds, and to clean each branding thoroughly.
+		<br><br>
+
+		<<if $prisonerBrands.includes("right cheek")>>
+			You gently scrub the one on her face. She winces in pain, and her gaze is intense as your faces come close.
+			<br><br>
+		<</if>>
+
+		You diligently clean away dead, burnt skin from her <<if _brands.length>><<print formatList(_brands, "and", true)>><<else>>brand<</if>>.
+		<<if !$hc.daily.treated>>
+			They seem to be causing a lot of pain. <span class="blue">You should treat them with medicinal herbs from the garden.</span>
+		<<else>>
+			They seem to be causing her a lot of pain, <span class="green">but less so now that you've treated them.</span>
+		<</if>>
+	<<else>>
+		You make sure to be careful around her wounds.
+	<</if>>
+	<br><br>
+
+	<<if $prisoner.state is "catatonic">>
+		<<if $prisoner.health gte 8>>
+			<span class="gold">She starts to show signs of brief lucidity. Her hands clench and unclench.</span>
+			<<set $prisoner.state to "lucid">>
+		<<else>>
+			<span class="red">She barely reacts to your touch.</span>
+		<</if>>
+	<<else>>
+		<<if $prisoner.love gte 45>>
+			She's clearly enjoying it. Her muscles all relax as you scrub the filth away.
+		<<else>>
+			The tension in her body fades. She even seems to be enjoying it.
+		<</if>>
+	<</if>>
+<</if>>
+<br><br>
+
+<<if !$prisonerEvents.includes("hunger") and $hc.daysPassed gt 0>>
+	<<set $prisonerEvents.pushUnique("hunger")>>
+	As you wash her, you hear a low rumble. She covers her abdomen.
+	<br><br>
+
+	Of course. No one's fed her. That's your job now. She must be starving. <span class="blue">You can get food for her in the cloister's dining hall.</span>
+	<br><br>
+<</if>>
+
+You finish up.
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Wash Hair
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<set $prisonerEvents.push("washHair")>>
+<span class="narration">The gaoler heard tales of the hair of witches. Perhaps restoring its beauty would grant her strength.</span>
+<br><br>
+
+With her head bandages no longer obstructing it, you start to scrub her scalp. She tenses up for a moment, but relaxes into it. Much of it is clumped together by dried blood. You carefully scrub it away, but can't avoid breaking a few strands.
+<br><br>
+
+Her hair is absolutely full of knots, too. You gently run your fingers down, doing your best to untangle it while pulling out as few hairs as possible.
+<<if $prisonerBrands and $prisonerBrands.includes("right cheek")>>
+	She winces whenever water runs down her face and touches her face branding, but sighs in contentment.
+<<else>>
+	She sighs in contentment.
+<</if>>
+<br><br>
+
+<<if $hcChallenge.faithBlooms>>
+	With her hair less matted and bloodied, you can see <span class="red">a bald spot on the back of her head, where a chunk of her hair had been ripped out</span>. She squeezes her eyes shut and looks away when your finger brushes it. You feel uneasy. This was not penance. This was cruelty, for cruelty's sake.
+	<br><br>
+<</if>>
+
+After thirty minutes of untangling the knots while trying to avoid any contact with the antler, you give up and unsheathe your dagger. You show it to her, and ask for her permission to continue. She nods.
+<br><br>
+
+Very carefully, you cut out the most tangled bits. You additionally cut away some frayed ends. Finally, you cup water in your hands and rinse her hair down.
+<br><br>
+
+You turn her around. Now soaked, her hair hangs straight down. It reaches her shoulders, and you can see that its natural shade is a deep brown. There are still streaks of grey within, it's hard to tell if they're faded from damage or ash.
+It frames her face, which looks almost vibrant and youthful now that you've cleaned her up.
+<br><br>
+
+You become lost in her beauty. Her skin looks radiant, the gentle curve of her shoulders guiding your eyes down to her breasts. Her wounds and bruises simply highlight an underlying perfection.
+<<if $hcChallenge.faithBlooms>>
+	The only flaws are the glass-like empty antler erupting from her head, and the thin spot on the back of her head, only partly covered by the rest of her hair.
+<<else>>
+	The only flaw is the glass-like empty antler erupting from her head.
+<</if>>
+You feel urges creeping in. <<arousal 2000>><<garousal>>
+<br><br>
+
+She starts to blush as you continue to stare. You shake your head and snap out of it. You know those thoughts aren't your own. Is she still trying to bewitch you?
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Dump Water
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+<<if !$prisonerEvents.includes("bandages")>>
+	You decide that touching her is too great a risk. You simply dump the bucket of water over her head.
+<<else>>
+	You dump the bucket of water over her head.
+<</if>>
+<br><br>
+
+<<if $prisoner.state is "catatonic">>
+	<span class="red">She barely even stirs, still mostly catatonic.</span>
+<<elseif $prisoner.state is "asleep">>
+	<<set $prisoner.state to "awake">><<set $prisoner.awakeTimer to 3>>
+	She immediately wakes up and squirms against the brief torrent. When it's over, she glares at you angrily.
+<<elseif $prisoner.harmed gte Math.floor($prisoner.love / 10)>>
+	She winces, but seems to have expected it. She barely moves, simply sitting there, wet and miserable.
+<<else>>
+	She squeals and thrashes around. She's fortunate you even bothered to do this much.
+<</if>>
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Clean Clothes
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+<<set $prisonerEvents.pushUnique("newClothes")>>
+<span class="narration">He was wary of charity. Giving a gift to a witch could let her steal your heart.</span>
+<br><br>
+
+<<set _clothesCurrent to $hcItems.find(clothes => clothes.type is "clothes" and clothes.location is "prisoner")>>
+
+You toss the _clothesCurrent.name on her naked lap.
+<<if $prisoner.state is "asleep">>
+	<<set $prisoner.state to "awake">>
+	She wakes up with a start, before looking down at it, confused.
+<<else>>
+	She looks down at it, confused.
+<</if>>
+You briefly unlock her shackles so she can slip it on.
+<br><br>
+
+You're unsure if this was a good idea. Having fresh clothes will look suspicious. It should help her stay healthy, though.
+<br><br>
+
+<<if $prisoner.loveRevealed>>
+	Her gaze softens. <<gglove>>
+<<else>>
+	She glares at you, her eye full of uncertainty.
+	<<if _clothesCurrent.name is "torn vegetable sack">>
+		You went out of your way to clean a useless, bloodstained sack for her. She doesn't seem to mind that it's still damp.
+	<<else>>
+		You were likely the last person she was expecting kindness from.
+	<</if>>
+<</if>>
+<<set $prisoner.love += 5>>
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Food Intro
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+<span class="narration">Even witches needed to eat.</span>
+<br><br>
+
+<<set $prisonerEvents.pushUnique("fed")>><<set $prisonerEvents.pushUnique("hunger")>>
+<<if $prisoner.state is "catatonic">>
+	<<set $prisoner.love += 2>>
+	You place the food down, but she doesn't move. She's not lucid.
+	<br><br>
+
+	You sigh, and pull the bandages away from her mouth. You begin to feed her by hand. She cooperates. <<trauma 12>><<gtrauma>>
+<<else>>
+	<<if $hcFood is "prison gruel">>
+		You place the bowl of gruel in front of her, then unlock her manacles.
+		<br><br>
+
+		Very slowly, she picks it up and inspects it. She pulls down the bandages around her mouth.
+	<<elseif $hcFood is "stolen fruit">>
+		<<set $prisoner.love += 1>>
+		You place the fruit in her hands, then unlock her manacles.
+		<br><br>
+
+		She holds it up to her nose to smell it. She pulls down the bandages around her mouth.
+	<<else>>
+		<<set $prisoner.love += 3>>
+		You place the $hcFood in front of her, then unlock her manacles.
+		<br><br>
+
+		Very slowly, she picks it up and inspects it. She pulls down the bandages around her mouth.
+	<</if>>
+	<br><br>
+
+	There's a bad burn from the corner of her mouth down to the right of her chin. Eating seems painful for her, but she continues regardless. She keeps direct eye contact with you the whole time.
+<</if>>
+<br><br>
+
+<<set $prisoner.hasEaten to []>>
+<<if $hcFood is "prison gruel">>
+	<span class="blue">The gruel given to prisoners is plain. It'll keep her nourished, but won't do much to improve her health.</span>
+<<elseif $hcFood is "stolen fruit">>
+	<span class="teal">The fruit from the garden is known to be revitalising. It'll be better for her than the gruel normally saved for prisoners.</span>
+<<else>>
+	<span class="green">The food normally saved for the temple's warriors, such as yourself, is quite nourishing. Feeding it to her will surely improve her health.</span>
+<</if>>
+<<if $hcFood is "stolen food">>
+	<span class="pink">You should clean and return the stolen dish to avoid raising suspicion.</span>
+<</if>>
+<<set $prisoner.hasEaten.pushUnique($hcFood)>>
+<br><br>
+
+<<if $prisoner.state is "catatonic">>
+	When you're done, you try to pull her bandages back up. They won't stay anymore. They hang loosely by her neck.
+	<br><br>
+
+	You thought she would have been gagged under the bandages. You wonder if she'll try speaking to you once she returns to lucidity.
+	<br><br>
+
+	Despite the burn, you can't deny that she's quite beautiful, from what you can see of her freckled face. Only the bandages around the top of her head and left eye remain, now.
+	<br><br>
+
+	Her eye focuses on you, and she catches you staring. You quickly look away. <<stress 3>><<arousal 300>><<gstress>><<garousal>>
+<<else>>
+	When she's done, she looks down and tries to pull the bandages back up, but they won't stay anymore. They hang loosely by her neck.
+	<br><br>
+
+	You thought she would have been gagged under the bandages. You wonder why she hasn't tried to talk at all yet. Was she afraid, or does she know her place?
+	<br><br>
+
+	Despite the burn, you can't deny that she's quite beautiful, from what you can see of her freckled face. Only the bandages around the top of her head and left eye remain, now.
+	<br><br>
+
+	She catches you staring. You quickly look away. <<stress 3>><<arousal 300>><<gstress>><<garousal>>
+<</if>>
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<unset $hcFood>><<set $hc.daily.fed to true>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Food
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+
+<<if $prisoner.state is "catatonic">>
+	<<set $prisoner.love += 2>>
+	You place the food down, but she doesn't move. She's not lucid.
+	<br><br>
+
+	You sigh, and begin to feed her by hand. She cooperates. <<trauma 12>><<gtrauma>>
+<<else>>
+	<<if $prisoner.state is "asleep">>
+		<<set $prisoner.state to "awake">><<set $prisoner.awakeTimer to 3>>
+		You gently shake <<= $prisoner.name>> awake. She rubs her eye as she sits up.
+		<br><br>
+	<</if>>
+
+	<<if $prisoner.love gte 30>>
+		You place the $hcFood in her hands.
+	<<else>>
+		You place the $hcFood down in front of her.
+	<</if>>
+	<<if $hc.daily.fed and $hcFood isnot "stolen fruit">>
+		She looks surprised at getting another portion, but graciously accepts.
+	<</if>>
+	<<if $hcFood is "prison gruel">>
+		<<if $prisonerEvents.includes("tongue")>>
+			She doesn't complain. You suppose she can't taste it anyways.
+		<<else>>
+			She doesn't complain, which you find admirable. You'd never eat that.
+		<</if>>
+	<<elseif $hcFood is "stolen fruit">>
+		<<set $prisoner.love += 1>>
+		<<set $hc.daily.fruit ||= 0>>
+		<<switch $hc.daily.fruit>>
+			<<case 0>>
+				She bites into the fruit, and looks pleased.
+				<<if $prisonerEvents.includes("tongue")>>
+					You wonder if she can taste it despite her missing tongue.
+				<</if>>
+			<<case 1>>
+				She quickly bites into it and wipes her mouth. She seems to really like these.
+			<<case 2>>
+				She devours the fruit quickly. Juice has started to run down her chin from all the fruits you've given her today.
+				<<if $prisoner.love gte 45>>
+					You can't help but laugh. You help her clean up, which prompts her to pout at you.
+				<</if>>
+			<<case 3>>
+				She messily devours yet another fruit. You hope no one notices the missing harvest.
+			<<case 4>>
+				She keeps eye contact with you while eating yet another fruit. She looks at you expectantly.
+			<<case 5>>
+				This is getting a bit ridiculous. How can she even eat this many? She takes a deep breath, and shoots a fruit seed at you from her mouth. It sticks to your face.
+				She giggles and picks it off for you. <<stress -12>><<lstress>>
+			<<default>>
+				She eats it quietly.
+		<</switch>>
+		<<set $hc.daily.fruit++>>
+	<<elseif $hcFood is "stolen food">>
+		<<set $prisoner.love += 3>>
+		You can tell she's trying to hide her happiness at being given a real meal.
+		<<if $prisoner.love gte 45>>
+			She pulls you into a hug, and eats quietly. <<stress -24>><<purity -1>><<llstress>><<lpurity>>
+		<<else>>
+			She nods her gratitude, and eats quietly.
+		<</if>>
+	<</if>>
+<</if>>
+<br><br>
+
+<<if $hcFood is "prison gruel" and !$prisoner.hasEaten.includes("prison gruel")>>
+	<span class="blue">The gruel given to prisoners is plain. It'll keep her nourished, but won't do much to improve her health.</span>
+	<br><br>
+<<elseif $hcFood is "stolen fruit" and !$prisoner.hasEaten.includes("stolen fruit")>>
+	<span class="teal">The fruit from the garden is known to be revitalising. It'll be better for her than the gruel normally saved for prisoners.</span>
+	<br><br>
+<<elseif $hcFood is "stolen food" and !$prisoner.hasEaten.includes("stolen food")>>
+	<span class="green">The food normally saved for the temple's warriors, such as yourself, is quite nourishing. Feeding it to her will surely improve her health.</span>
+	<br><br>
+<</if>>
+<<set $prisoner.hasEaten.pushUnique($hcFood)>>
+<<if $hcFood is "stolen food">>
+	<span class="pink">You should clean and return the stolen dish to avoid raising suspicion.</span>
+	<br><br>
+<</if>>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<unset $hcFood>><<set $hc.daily.fed to true>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Food Refused
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+
+You place the food before her. <span class="red">She pushes it away, glaring at you with spite.</span>
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Food Restricted
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+
+<<if $prisoner.state is "catatonic">>
+	You place the food down, but she doesn't move. She's not lucid.
+	<br><br>
+
+	You sigh, and attempt to feed her by hand. <span class="red">Her lips remain closed.</span> You take it back.
+<<else>>
+	<<if $prisoner.state is "asleep">>
+		<<set $prisoner.state to "awake">><<set $prisoner.awakeTimer to 3>>
+		You gently shake <<= $prisoner.name>> awake. She rubs her eye as she sits up.
+		<br><br>
+	<</if>>
+
+	<<if $prisoner.love gte 30>>
+		You place the $hcFood in her hands.
+	<<else>>
+		You place the $hcFood down in front of her.
+	<</if>>
+	She looks at it reluctantly, <span class="red">shaking her head.</span> You take it back.
+<</if>>
+<br><br>
+
+<span class="narration">Remember, in this version of the tale, the witch's stomach was feeble. She could barely keep one meal down, let alone another.</span>
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<unset $hcFood>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Food Together
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+<<set _food to hcItemsOnScreen(f => f.type is "food" and !f.used)>>
+
+You give her the...
+<br>
+<<for _labelFood, _valueFood range _food>>
+	<<capture _valueFood>>
+		<<link [[`_valueFood.name`|Hopeless Cycle Cell Food Together 2]]>>
+			<<set $hcFood to _valueFood.name>>
+			<<if _valueFood.name is "stolen fruit">>
+				<<run hcItemRemove(_valueFood)>>
+				<<hcPrisonerHealth 1>>
+			<<else>>
+				<<if _valueFood.name isnot "prison gruel">><<hcPrisonerHealth 3>><</if>>
+				<<set _valueFood.used to true>><<set _valueFood.dirty to 1>>
+			<</if>>
+		<</link>>
+		<br>
+	<</capture>>
+<</for>>
+
+:: Hopeless Cycle Cell Food Together 2
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+<<set _food to hcItemsOnScreen(f => f.type is "food" and !f.used)>>
+
+You eat the...
+<br>
+<<for _labelFood, _valueFood range _food>>
+	<<capture _valueFood>>
+		<<link [[`_valueFood.name`|Hopeless Cycle Cell Food Together 3]]>>
+			<<if _valueFood.name is "stolen fruit">>
+				<<run hcItemRemove(_valueFood)>>
+				<<stress -6>>
+			<<else>>
+				<<if _valueFood.name isnot "prison gruel">>
+					<<tiredness -6>><<stress -24>>
+				<<else>>
+					<<stress 3>>
+				<</if>>
+				<<set _valueFood.used to true>><<set _valueFood.dirty to 1>>
+			<</if>>
+		<</link>>
+		<<if _valueFood.name is "stolen fruit">>
+			<<lstress>>
+		<<elseif _valueFood.name isnot "prison gruel">>
+			<<llstress>><<ltiredness>>
+		<<else>>
+			<<gstress>>
+		<</if>>
+		<br>
+	<</capture>>
+<</for>>
+
+
+:: Hopeless Cycle Cell Food Together 3
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+<<if !$prisonerEvents.includes("eatTogether")>>
+	<span class="narration">Never underestimate how humanising it is to simply share a meal with someone.</span>
+	<br><br>
+
+	<<if $prisoner.state is "asleep">>
+		<<set $prisoner.state to "awake">><<set $prisoner.awakeTimer to 3>>
+		You gently shake <<= $prisoner.name>> awake. She rubs her eye as she sits up.
+		<br><br>
+	<</if>>
+
+	You place down the $hcFood in front of her, and sit down across from her.
+	<br><br>
+
+	She blinks at you.
+	<br><br>
+
+	You motion for her to start.
+
+	<<if $hc.daily.fed and $hcFood isnot "stolen fruit">>
+		She looks surprised at getting another portion, but graciously accepts.
+	<</if>>
+
+	She hesitantly takes the first bite. This is clearly a level of mutual respect she isn't used to.
+	<br><br>
+
+	<<if $hcFood is "prison gruel">>
+		<<set $prisoner.love += 1>>
+		<<if $prisonerEvents.includes("tongue")>>
+			She doesn't complain. You suppose she can't taste it anyways.
+		<<else>>
+			She doesn't complain, which you find admirable. You'd never eat that.
+		<</if>>
+	<<elseif $hcFood is "stolen fruit">>
+		<<set $prisoner.love += 2>>
+		<<set $hc.daily.fruit ||= 0>>
+		<<switch $hc.daily.fruit>>
+			<<case 0>>
+				She bites into the fruit, and looks pleased.
+				<<if $prisonerEvents.includes("tongue")>>
+					You wonder if she can taste it despite her missing tongue.
+				<</if>>
+			<<case 1>>
+				She quickly bites into it and wipes her mouth. She seems to really like these.
+			<<case 2>>
+				She devours the fruit quickly. Juice has started to run down her chin from all the fruits you've given her today.
+				<<if $prisoner.love gte 45>>
+					You can't help but laugh. You help her clean up, which prompts her to pout at you.
+				<</if>>
+			<<case 3>>
+				She messily devours yet another fruit. You hope no one notices the missing harvest.
+			<<case 4>>
+				She keeps eye contact with you while eating yet another fruit. She looks at you expectantly.
+			<<case 5>>
+				This is getting a bit ridiculous. How can she even eat this many? She takes a deep breath, and shoots a fruit seed at you from her mouth. It sticks to your face.
+				She giggles and picks it off for you. <<stress -12>><<lstress>>
+			<<default>>
+				She eats it quietly.
+		<</switch>>
+		<<set $hc.daily.fruit++>>
+	<<elseif $hcFood is "stolen food">>
+		<<set $prisoner.love += 3>>
+		You can tell she's trying to hide her happiness at being given a real meal.
+		<<if $prisoner.love gte 45>>
+			She pulls you into a hug, and eats quietly. <<stress -24>><<purity -1>><<llstress>><<lpurity>>
+		<<else>>
+			She nods her gratitude, and eats quietly.
+		<</if>>
+	<</if>>
+	<br><br>
+
+	<<if $hcFood is "prison gruel" and !$prisoner.hasEaten.includes("prison gruel")>>
+		<span class="blue">The gruel given to prisoners is plain. It'll keep her nourished, but won't do much to improve her health.</span>
+		<br><br>
+	<<elseif $hcFood is "stolen fruit" and !$prisoner.hasEaten.includes("stolen fruit")>>
+		<span class="teal">The fruit from the garden is known to be revitalising. It'll be better for her than the gruel normally saved for prisoners.</span>
+		<br><br>
+	<<elseif $hcFood is "stolen food" and !$prisoner.hasEaten.includes("stolen food")>>
+		<span class="green">The food normally saved for the temple's warriors, such as yourself, is quite nourishing. Feeding it to her will surely improve her health.</span>
+		<br><br>
+	<</if>>
+	<<set $prisoner.hasEaten.pushUnique($hcFood)>>
+	<<if $hcFood is "stolen food">>
+		<span class="pink">You should clean and return the stolen dish to avoid raising suspicion.</span>
+		<br><br>
+	<</if>>
+
+	It's... enjoyable. Even without words, you feel like you understand her a little more. You should do this again. <<lltrauma>>
+	<br><br>
+
+	<<set $prisonerEvents.pushUnique("eatTogether")>>
+	<<link [[Next|Hopeless Cycle Cell]]>><<set $hc.daily.fed to true>><<unset $hcFood>><<endevent>><</link>>
+	<br>
+<<else>>
+	<<if $prisoner.state is "asleep">>
+		<<set $prisoner.state to "awake">><<set $prisoner.awakeTimer to 3>>
+		You gently shake <<= $prisoner.name>> awake. She rubs her eye as she sits up.
+		<br><br>
+	<</if>>
+
+	<<if $prisoner.love gte 30>>
+		You place the $hcFood in her hands.
+	<<else>>
+		You place the $hcFood down in front of her.
+	<</if>>
+	<<if $hc.daily.fed and $hcFood isnot "stolen fruit">>
+		She looks surprised at getting another portion, but graciously accepts.
+	<</if>>
+	<<if $hcFood is "prison gruel">>
+		<<set $prisoner.love += 1>>
+		<<if $prisonerEvents.includes("tongue")>>
+			She doesn't complain. You suppose she can't taste it anyways.
+		<<else>>
+			She doesn't complain, which you find admirable. You'd never eat that.
+		<</if>>
+	<<elseif $hcFood is "stolen fruit">>
+		<<set $prisoner.love += 2>>
+		<<set $hc.daily.fruit ||= 0>>
+		<<switch $hc.daily.fruit>>
+			<<case 0>>
+				She bites into the fruit, and looks pleased.
+				<<if $prisonerEvents.includes("tongue")>>
+					You wonder if she can taste it despite her missing tongue.
+				<</if>>
+			<<case 1>>
+				She quickly bites into it and wipes her mouth. She seems to really like these.
+			<<case 2>>
+				She devours the fruit quickly. Juice has started to run down her chin from all the fruits you've given her today.
+				<<if $prisoner.love gte 45>>
+					You can't help but laugh. You help her clean up, which prompts her to pout at you.
+				<</if>>
+			<<case 3>>
+				She messily devours yet another fruit. You hope no one notices the missing harvest.
+			<<case 4>>
+				She keeps eye contact with you while eating yet another fruit. She looks at you expectantly.
+			<<case 5>>
+				This is getting a bit ridiculous. How can she even eat this many? She takes a deep breath, and shoots a fruit seed at you from her mouth. It sticks to your face.
+				She giggles and picks it off for you. <<stress -12>><<lstress>>
+			<<default>>
+				She eats it quietly.
+		<</switch>>
+		<<set $hc.daily.fruit++>>
+	<<elseif $hcFood is "stolen food">>
+		<<set $prisoner.love += 3>>
+		You can tell she's trying to hide her happiness at being given a real meal.
+		<<if $prisoner.love gte 45>>
+			She pulls you into a hug, and eats quietly. <<stress -24>><<purity -1>><<llstress>><<lpurity>>
+		<<else>>
+			She nods her gratitude, and eats quietly.
+		<</if>>
+	<</if>>
+	<br><br>
+
+	<<set $hc.daily.fed to true>>
+
+	<<if $prisoner.love gte 30 and (Time.hour gte 18 or Time.hour lte 3)>>
+		You sit next to her and share the meal with her. She smiles at you warmly.
+		<br><br>
+
+		Once you're done, you just sit there, enjoying each other's presence.
+		<br><br>
+
+		Until you feel a sharp jolt from her direction, followed by a familiar weakness. You flinch, and look over. She's resting her head on your shoulder, and seems to be dozing off. <<lpurity>><<gtrauma>><<arousal 200>><<garousal>>
+		<br><br>
+
+		<<link [[Shake her off|Hopeless Cycle Cell Food Together Shake Off]]>><</link>>
+		<br>
+		<<link [[Let her stay there (0:30)|Hopeless Cycle Cell Food Together Let]]>><<pass 30>><<set $prisoner.love += 3>><<purity -10>><<stress -24>><<trauma 24>><<tiredness -12>><</link>><<lpurity>><<llstress>><<gtrauma>><<hopelessCycleLove 1>>
+		<br>
+		<<if $prisoner.love gte 45 and !(Time.lastDayOfMonth is $hc.day)>>
+			<<link [[Sleep here tonight (6:00)|Hopeless Cycle Cell Spend Night]]>>
+				<<endevent>><<set $phase to 1>><<pass 1 hour>>
+				<<hcPrisonerHealth 1>><<set $prisoner.love += 3>>
+				<<purity -30>><<stress -60>><<trauma 50>><<tiredness -12>>
+			<</link>>
+			<<lllpurity>><<lllstress>><<gggtrauma>><<lltiredness>><<hopelessCycleLove 3>>
+			<br>
+		<</if>>
+	<<else>>
+		You sit across from her and share the meal with her. She smiles at you warmly.
+		<br><br>
+
+		<<set $prisonerEvents.pushUnique("eatTogether")>>
+		<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+		<br>
+	<</if>>
+<</if>>
+
+:: Hopeless Cycle Cell Food Together Shake Off
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+You shake her off. She looks a little upset.
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Food Together Let
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+
+You let her stay there as she dozes off. Her gentle breathing evens out, and she's soon asleep.
+<br><br>
+
+You remain there for a short time, before gently laying her down. <<set $prisoner.state to "asleep">>
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Spend Night
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+<<set _cellTorch to $hcItems.find(item => item.type is "torch" and item.location is $bus and item.inSconce)>>
+<<set _heldTorch to $hcItems.find(item => item.type is "torch" and item.location is "held")>>
+
+<<if ($phase is 2 or hcItemCanReach("snuffer")) and (_heldTorch?.state is "lit" or _cellTorch?.state is "lit")>>
+	<<if _heldTorch>><<set _heldTorch.state to "snuffed">><</if>>
+	<<if _cellTorch>><<set _cellTorch.state to "snuffed">><</if>>
+	You snuff the torch.
+<</if>>
+
+<<if $phase is 1>>
+	<<set $prisonerEvents.pushUnique("spendNight")>>
+	You rest your head on hers in turn. Her shallow breathing becomes more rhythmic, and she's quickly asleep.
+	<br><br>
+
+	Her draining touch becomes easier to bear the longer you sit here. It's not long before you're asleep too.
+<<elseif $hc.nightBreakIn is "heard" and $phase is 2>>
+	You remember what you heard in the dining hall. Someone intends to harm your prisoner. You decide to wait here for them.
+	<br><br>
+
+	You make yourself comfortable in a shadowed corner.
+	<<if $prisoner.state is "catatonic">>
+		<<= $prisoner.name.toUpperFirst()>> stares at you vacantly from across the cell. She'd have no chance at defending herself.
+	<<elseif $prisoner.state is "asleep">>
+		<<= $prisoner.name.toUpperFirst()>> is already asleep, so you decide not to disturb her.
+	<<else>>
+		<<= $prisoner.name.toUpperFirst()>> glares at you curiously.
+	<</if>>
+	You don't have to wait long.
+<<else>>
+	You sit down next to <<= $prisoner.name>>.
+	<<if !$prisonerEvents.includes("spendNight")>>
+		<<set $prisonerEvents.pushUnique("spendNight")>>
+		She doesn't seem to know what you're doing, until you put an arm around her and pull her towards the rough straw bed.
+		You feel a familiar weakness wash over you as you make contact. <<lpurity>><<gtrauma>><<arousal 200>><<garousal>>
+		<br><br>
+
+		She looks up to you, her eye trembling and her face reddening. Cautiously, she returns your embrace.
+	<<else>>
+		She smiles at you, and embraces you. You feel a familiar weakness wash over you as you make contact. <<lpurity>><<gtrauma>><<arousal 200>><<garousal>>
+	<</if>>
+	<br><br>
+
+	<<if $hcItems.some(sheet => sheet.type is "sheets" and sheet.location is "prisoner")>>
+		You adjust her sheet so it's covering both of you.
+	<<elseif hcItemCanReach("sheets")>>
+		You reach for the bedsheet in the cell, and pull it over the two of you.
+	<</if>>
+
+	Her breathing becomes gentle and rhythmic, and her draining touch becomes easier to bear as time passes.
+	Despite the clash of the purity within you and the corruption within her, you feel whole.
+	<br><br>
+
+	You say your nightly prayers and fall asleep shortly after.
+<</if>>
+<br><br>
+
+...
+<br><br>
+
+<<if ($hc.nightBreakIn is "tonight" or $hc.nightBreakIn is "heard" or $phase is 2) or !$hc.daily.patrol and ($rng gte 96 or $rng gte 71 and $hc.dungeonTorchState is "lit")>>
+	<<set $hc.daily.patrol to true>>
+	<span class="red">
+		You hear footsteps approaching.
+		<<if $hc.nightBreakIn is "heard">>
+			You know why they're here.
+		<<elseif $hc.dungeonTorchState is "lit">>
+			Someone came to investigate why the torches are still lit!
+		<</if>>
+	</span>
+	You shoot up, stirring <<= $prisoner.name>> awake too. <<set $prisoner.state to "awake">><<set $prisoner.awakeTimer to 3>>
+	<br><br>
+
+	<<if $hc.nightBreakIn is "tonight" or $hc.nightBreakIn is "heard" or $phase is 2>>
+		<<loadNPC 0 "hc_abuser">>
+	<<else>>
+		<<generateConfessor 1>>
+	<</if>>
+	<<person1>>
+	The door to the cell creeps open. A <<personsimple>> in a black robe enters.
+	<<if _heldTorch?.state is "lit" or _cellTorch?.state is "lit">>
+		<span class="red">Because of the lit torch, <<he>> sees you immediately.</span>
+		<br><br>
+
+		"Brother Fayne," <<he>> hisses. "Sneaking around with the witch. She has seduced you!" <<He>> brandishes a baton. "You must be purified."
+		<br><br>
+
+		<<link [[Fight|Hopeless Cycle Cell Caught Fight]]>><<set $phase to 1>><<set $skillChallenge to random(700, 1000)>><</link>>
+		<br>
+		<<link [[Don't resist|Hopeless Cycle Cell Caught Fight]]>><<set $phase to 2>><</link>>
+		<br>
+	<<elseif $hc.nightBreakIn is "tonight" or $hc.nightBreakIn is "heard">>
+		<<He>> looks around, <<his>> eyes only stopping on where <<print $prisoner.name>> sits. You cling to the shadows. <<He>> must not be able to see you.
+		<br><br>
+
+		"Wretched seductress," <<he>> spits. "Why should Brother Fayne have you to himself?" She glares back at <<him>> as <<he>> approaches. "My vows are already broken. There will be no harm. Not for me, that is."
+		<<if $hcChallenge.faithBlooms>>
+			<<His>> fingers twitch. "Do you remember these hands? <span @class="$prisonerEvents.includes('washHair') ? 'red' : ''">They took your hair so easily.</span> I'll be <i>taking</i> more than just a lock of hair this time."
+		<</if>>
+		<br><br>
+
+		<<link [[Stay perfectly still|Hopeless Cycle Cell Caught Still]]>><<pass 1 hour>><<set $prisoner.love -= 10>><</link>><<hopelessCycleLove -3>>
+		<br>
+		<<link [[Intervene|Hopeless Cycle Cell Caught Intervene]]>><<set $prisoner.love += 5>><</link>><<hopelessCycleLove 2>>
+		<br>
+	<<else>>
+		<<He>> looks around, <<his>> eyes only stopping on where <<print $prisoner.name>> sits. You cling to the shadows. <<He>> must not be able to see you.
+		<br><br>
+
+		<<He>> huffs and leaves the cell, slamming the barred door shut. You wait a few minutes to make sure <<hes>> out of the dungeon entirely. <<hcSuspicion 5>><<hopelessCycleSus 1>>
+		<br><br>
+
+		That was close. <<stress 24>><<ggstress>>
+		<br><br>
+
+		<<link [[Go back to sleep|Hopeless Cycle Cell Spend Night 2]]>><<set $hc.daily.cellSleep to true>><<hcPrisonerHealth 3>><<endevent>><<pass 5 hours>><<tiredness -60>><</link>>
+		<br>
+		<<link [[Get up|Hopeless Cycle Cell]]>><<set $hc.daily.cellSleep to true>><<endevent>><</link>>
+		<br>
+	<</if>>
+<<else>>
+	<<link [[Sleep|Hopeless Cycle Cell Spend Night 2]]>><<set $hc.daily.cellSleep to true>><<hcPrisonerHealth 3>><<endevent>><<pass 5 hours>><<tiredness -60>><</link>>
+	<br>
+<</if>>
+
+:: Hopeless Cycle Cell Spend Night 2
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<set $prisoner.harmed -= 2>>
+You sleep soundly.
+<br><br>
+
+You awaken in the straw bed. <<= $prisoner.name.toUpperFirst()>> is on top of you, clinging to you tightly.
+<br><br>
+
+She stirs, pushing her head into the crook of your neck.
+<br><br>
+
+A few minutes later, she awakens and stretches. <span class="green">She looks much healthier.</span>
+<br><br>
+
+<<if $prisoner.love gte 65 and !$prisonerEvents.includes("kissAttempt") and $prisonerEvents.includesAll("legs", "face", "talkMagic", "talkName", "washHair", "newClothes") and $prisonerEvents.includesAny("spendNight", "talkHairBlooms")>>
+	<<set $prisonerEvents.pushUnique("kissAttempt")>>
+	Her face is bright red, and she seems to be thinking about something. Suddenly, she places her hands on your chest.
+	<br><br>
+
+	Her face comes close to yours.
+	<br><br>
+
+	<<link [[Kiss her|Hopeless Cycle Cell Kiss]]>><<set $phase to 1>><<purity -20>><<trauma 24>><<set $prisoner.love += 10>><</link>><<llpurity>><<ggtrauma>><<hopelessCycleLove 3>><<kissvirginitywarning>>
+	<br>
+	<<link [[Push away|Hopeless Cycle Cell Kiss]]>><<set $phase to 2>><<set $prisoner.love -= 25>><<set $prisoner.harmed += 10>><</link>><<hopelessCycleLove -3>>
+	<br>
+<<else>>
+	<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Hopeless Cycle Cell Burns
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+
+<<set _brands to $prisonerBrands.filter(brand => !["left leg", "right leg", "left thigh", "right thigh", "left foot", "right foot", "right cheek"].includes(brand))>>
+<<set _brandsLegs to $prisonerBrands.filter(brand => ["left leg", "right leg", "left thigh", "right thigh", "left foot", "right foot"].includes(brand))>>
+You carefully pluck the dried leaves from the herb, and dip each in the clean water. They quickly become sticky and fragrant.
+<br><br>
+
+<<if $prisonerBrands.includes("right cheek")>>
+	<<set _moveOn to true>>
+	You slowly apply one over her face branding. She winces, but sighs in relief as it settles in the burn.
+	<<if $prisoner.love gte 60 and $prisoner.state isnot "catatonic">>
+		Your faces remain close for a moment, before she suddenly kisses you on the forehead and smiles.
+	<</if>>
+	<br><br>
+<</if>>
+
+<<if _brandsLegs.length>>
+	<<if _moveOn>>
+		<<set _finally to true>>
+		You move on
+	<<else>>
+		<<set _moveOn to true>>
+		You apply leaves
+	<</if>>
+	to the burns on her <<print formatList(_brandsLegs, "and")>>. She may not be able to feel them, but it's still important to do.
+<</if>>
+
+<<if _brands.length>>
+	<<if _finally>>
+		You finish by applying the remainder of the leaves
+	<<elseif _moveOn>>
+		You continue, applying the remainder of the leaves
+	<<else>>
+		You apply the leaves
+	<</if>>
+	to her <<print formatList(_brands, "and")>>. With each one, she sighs in relief.
+<</if>>
+<<if $prisoner.health gte 8 and $prisoner.state is "catatonic">>
+	<<set $prisoner.state to "awake">>
+	<span class="green">With the pain starting to fade, she returns to lucidity.</span> Her eyes focus.
+	You're the first thing she sees. She seems to finally relax. <<set $prisoner.harmed-->><<set $prisoner.love++>><<hopelessCycleLove 1>>
+<</if>>
+<br><br>
+
+<<if $prisoner.harmed gte Math.floor($prisoner.love / 6)>>
+	She pushes you away as soon as you're done.
+	<br><br>
+
+	<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+	<br>
+<<elseif !$prisonerEvents.includes("talkHerbs") and $prisoner.state isnot "catatonic">>
+	<<set $prisonerEvents.pushUnique("talkHerbs")>>
+	You distract her from the pain by telling her all about the herbs themselves.
+	The cloister calls it 'Saint's Crown,' and it was discovered on a nearby island. They're now grown in a raised section of the garden, covered in sloped wood.
+	It's open on the east side and overshoots the garden itself, allowing it to catch the morning sun while shielding it from the rain.
+	<br><br>
+
+	Throughout their whole lifecycle, water must never touch the leaves. They must be watered directly to the roots in the dirt.
+	Once 'ripe,' they're hung to dry for a month. When finally soaked in water, the leaves secrete their life's effort:
+	a sticky, colourless ooze with an incredible ability to soothe burns. In the wild, this ooze is naturally and constantly secreted in thin, imperceptible amounts as the rains pass.
+	<br><br>
+
+	<<= $prisoner.name.toUpperFirst()>> nods along, appearing genuinely interested. <span class="pink">She can't keep her eye off you, in fact.</span> You feel a bit proud that you were able to teach a witch something new about plants.
+	You suppose it's a closely guarded secret, one you may have just revealed. You don't think about it too much. She can't exactly tell anyone.
+	You finish by telling her its side effects, often observed in animals. Sources of water that mix with the ooze are known to act as a potent...
+	<br><br>
+
+	<span class="pink">She's breathing heavily. Her face has become a deep red, and she starts to crawl towards you.</span>
+	<br><br>
+
+	...aphrodisiac. One you just introduced directly to multiple open wounds on her body.
+	<br><br>
+
+	<<if $prisoner.love gte 60>>
+		She looks at you pleadingly as she puts her hands on your chest.
+		<br><br>
+
+		<<link [[Purge her|Hopeless Cycle Cell Burns Purge]]>><</link>><<ggtrauma>><<gggarousal>><<llpurity>><<hopelessCycleLove 1>>
+		<br>
+		<<link [[Hold her down until it subsides (0:30)|Hopeless Cycle Cell Burns Hold]]>><<pass 30>><<arousal 500>><<purity -10>><</link>><<garousal>><<lpurity>>
+		<br>
+	<<else>>
+		She shakes her head to snap out of it, curling in on herself and trying to ignore you before she does something foolish.
+		<br><br>
+
+		<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+		<br>
+	<</if>>
+<<elseif !$prisonerEvents.includes("talkHerbsMouth") and $prisoner.state isnot "catatonic">>
+	<<set $prisonerEvents.pushUnique("talkHerbsMouth")>>
+	She seems to think about something, before crawling a little closer to you. She opens her mouth at you, showing her inner burns.
+	<br><br>
+
+	You promise to bring an extra one next time for her mouth. She smiles at you.
+	<<if Time.lastDayOfMonth is $hc.day>>
+		It only lasts a moment, though, before turning to a worried frown. You realise it too, remembering what day it is. There may not be a next time.
+	<</if>>
+	<br><br>
+
+	She begins breathing heavily as the side effects kick in.
+	<<if $prisoner.love gte 60 and Time.lastDayOfMonth is $hc.day and !$prisonerEvents.includesAny("sex", "elkspawnEmbrace")>>
+		She looks at you pleadingly.
+		<br><br>
+
+		<<link [[Purge her|Hopeless Cycle Cell Burns Purge]]>><</link>><<ggtrauma>><<gggarousal>><<llpurity>><<hopelessCycleLove 1>>
+		<br>
+		<<link [[Hold her down until it subsides (0:30)|Hopeless Cycle Cell Burns Hold]]>><<pass 30>><<arousal 500>><<purity -10>><</link>><<garousal>><<lpurity>>
+		<br>
+	<<else>>
+		She curls in on herself, trying to ignore you before she does something foolish again.
+		<br><br>
+
+		<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+		<br>
+	<</if>>
+<<else>>
+	<<if $prisoner.state is "catatonic">>
+		She stirs and writhes, but seems to have calmed down somewhat.
+		<br><br>
+
+		<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+		<br>
+	<<else>>
+		You distract her from the pain with chatter. She nods along, appreciating it greatly.
+		As promised, you made sure to save one for her mouth. She opens wide, and you gently place it inside.
+		<br><br>
+
+		Her whole body relaxes.
+		<<if !$prisonerEvents.includes("herbsMouth")>>
+			<<set $prisonerEvents.pushUnique("herbsMouth")>>
+			A long-suffered pain is, at last, suppressed. Her face contorts after a moment. You forgot to warn her about the taste.
+			You didn't think she'd be able to taste it at all considering her condition.
+			<<set $prisoner.love += 5>><<hcPrisonerHealth 5>><<set $prisoner.harmed -= 3>><<hopelessCycleLove 2>>
+		<</if>>
+		<br><br>
+
+		She begins breathing heavily as the side effects kick in.
+		<<if $prisoner.love gte 60 and !$prisonerEvents.includesAny("sex", "elkspawnEmbrace")>>
+			She looks at you pleadingly.
+			<br><br>
+
+			<<link [[Purge her|Hopeless Cycle Cell Burns Purge]]>><</link>><<ggtrauma>><<gggarousal>><<llpurity>><<hopelessCycleLove 1>>
+			<br>
+			<<link [[Hold her down until it subsides (0:30)|Hopeless Cycle Cell Burns Hold]]>><<pass 30>><<arousal 500>><<purity -10>><</link>><<garousal>><<lpurity>>
+			<br>
+		<<else>>
+			She curls in on herself and tries to ignore you before she does something foolish again.
+			<br><br>
+
+			<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+			<br>
+		<</if>>
+	<</if>>
+<</if>>
+
+:: Hopeless Cycle Cell Burns Mouth
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+
+You dip a herb in the water and motion for her to open her mouth. She opens wide, and you gently place it inside.
+<br><br>
+
+A long-suffered pain is, at last, suppressed. Her face contorts after a moment. You forgot to warn her about the taste.
+You didn't think she'd be able to taste it at all considering her condition.
+<<set $prisoner.love += 5>><<hcPrisonerHealth 5>><<set $prisoner.harmed -= 3>><<hopelessCycleLove 2>>
+<<set $prisonerEvents.pushUnique("herbsMouth")>>
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+
+:: Hopeless Cycle Cell Burns Purge
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+
+<<if Time.lastDayOfMonth is $hc.day>>
+	You start to move behind her. She motions for you to wait. She lowers her hands to her pelvis, and through great effort, spreads her legs with them.
+	<br><br>
+
+	She looks back up to you. She doesn't need to speak for you to understand. There's a fear and uncertainty in her eyes.
+	She wishes for one last mortal comfort, in the event that this is her final night.
+	<br><br>
+
+	As a servant of the Elk, you suppose that this is a fitting final comfort for her. But there's something else in her eyes, too.
+	Something beyond lust.
+	<br><br>
+
+	<<link [[Lie As One (0:30)|Hopeless Cycle Cell Burns Sex]]>>
+		<<pass 30>><<set $prisoner.love += 5>><<trauma 50>><<purity -100>>
+		<<if $hc.handLocation is "guardhouse">><<hcSuspicion 20>><</if>>
+	<</link>>
+	<<gggtrauma>><<gggarousal>><<lllpurity>><<hopelessCycleLove 2>><<penilevirginitywarning>>
+	<<if $hc.handLocation is "guardhouse">><<hopelessCycleSus 3>><</if>>
+	<br>
+	<<link [[Refuse|Hopeless Cycle Cell Burns Refuse]]>><<set $prisoner.love -= 5>><</link>><<hopelessCycleLove -2>>
+	<br>
+<<else>>
+	You try to move, but she bears her whole weight down on you. She starts grabbing for your <<penis>>.
+	<br><br>
+
+	<<link [[Allow it (0:30)|Hopeless Cycle Cell Burns Sex]]>>
+		<<pass 30>><<set $prisoner.love += 5>><<trauma 50>><<purity -100>>
+		<<if $hc.handLocation is "guardhouse">><<hcSuspicion 20>><</if>>
+	<</link>>
+	<<gggtrauma>><<gggarousal>><<lllpurity>><<hopelessCycleLove 2>><<penilevirginitywarning>>
+	<<if $hc.handLocation is "guardhouse">><<hopelessCycleSus 3>><</if>>
+	<br>
+	<<link [[Maintain control (0:10)|Hopeless Cycle Cell Burns Purge 2]]>><<pass 10>><<set $prisoner.love++>><<trauma 24>><<arousal 3000>><<purity -30>><</link>><<ggtrauma>><<ggarousal>><<llpurity>><<hopelessCycleLove 1>>
+	<br>
+<</if>>
+
+:: Hopeless Cycle Cell Burns Purge 2
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<hcPrisonerHealth 2>><<set $prisoner.harmed-->>
+You easily hold her back, and push her down. She lets out a grunt of pain, but continues looking up at you with a great hunger in her eyes.
+<br><br>
+
+Despite everything, your mind is pushing for you to defile her. You resist and hold fast to your vows. But you can't ignore your desires entirely.
+<br><br>
+
+You move between her legs, and bring your mouth down to her waiting pussy. Her hands grab your head as she moans from even the slightest contact.
+You briefly wonder how it can possibly be this sensitive if she can't feel anything below her waist.
+<br><br>
+
+She certainly isn't faking it, though. <span class="pink">She shudders in climax. Her juices cover your mouth.</span> You quickly wipe it away, knowing any ingestion could ruin you.
+<br><br>
+
+She tightens her grip, now pulling your hair, and forces you back down. You may be here for a while...
+<br><br>
+
+<<link [[Next (0:30)|Hopeless Cycle Cell Burns Purge 3]]>><<pass 30>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Burns Purge 3
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+She pants for breath, her arms finally depleted of strength. She pushes herself up to look down to you.
+<br><br>
+
+You lay there, barely able to move yourself as her corruption takes root in you. The whole room is spinning, but you can make out her apologetic smile.
+<br><br>
+
+She crawls down to you. With great effort, she lifts your limp arm and snuggles into an embrace. The floor is not comfortable, but she's warm, at least. Her touch isn't so unpleasant now, having been freshly purged.
+<br><br>
+
+She kisses you on the cheek, and the two of you rest for some time.
+<br><br>
+
+<<link [[Next (0:30)|Hopeless Cycle Cell]]>><<pass 30>><<tiredness -16>><</link>><<ltiredness>>
+<br>
+
+:: Hopeless Cycle Cell Burns Refuse
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+You shake your head.
+<<if $player.virginity.penile is true>>
+	You have a vow to keep.
+<<else>>
+	Your vow may be broken, but you still follow the spirit of it by principle.
+<</if>>
+<br><br>
+
+She pauses, before smiling sadly. She pushes away from you.
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Burns Sex
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<set $prisonerEvents.pushUnique("sex")>><<hcPrisonerHealth 6>>
+
+You pull her towards the straw bed. Her breathing gets even heavier as you lay her down.
+<<if $worn.upper.name is "chain tunic">>
+	Getting your armour out of the way is a right pain, but you manage it after some struggling. It's specifically designed to prevent this.
+<<else>>
+	You displace your robe.
+<</if>>
+<br><br>
+
+Her arms wrap around you. She's already very wet.
+Your tip presses against her.
+<<if $player.virginity.penile is true>>
+	You hesitate. Through a lifetime of devotion, you were told to keep your body pure, and to never be coerced by love.
+	Yet here you lay, as two, as one, a mere thrust away from being forever unclean.
+	<br><br>
+
+	Her smile warms away your cold doubts. You decide that she's worth it.
+<<else>>
+	You suppose that there's little harm in this, with your vow already being broken.
+<</if>>
+You close the final bit of distance between you, and press into her.
+<<if $player.virginity.penile is true>>
+	<span class="red">You feel your foreskin separate from your glans, <<virginitylosttext $prisoner.name>></span>
+	<<takeVirginity $prisoner.name "penile">><<set $prisonerEvents.pushUnique("virginity")>>
+<</if>>
+<br><br>
+
+Her hands grasp you tightly as she moans. Her embrace is loving. You didn't expect such tenderness from a worshipper of the Elk.
+It makes her draining touch easier to withstand.
+You carefully make love to her, being sure to not disturb her wounds.
+<br><br>
+
+<span class="pink">She shudders in climax.</span> Visions of the forest and the sea fill your mind as you take in her corruption.
+There's so much of it. It flows into you, filling you with emptiness. She seems invigorated. <<lllpurity>>
+<br><br>
+
+<span class="red">She bites your shoulder.</span> You flinch in pain, but continue thrusting. <<gpain>><<pain 3>>
+<br><br>
+
+<span class="pink">She shudders in climax again, driving you closer to your own peak.</span> The connection is already formed.
+The corruption can't leak back in the same way it entered.
+The sensation is unlike anything you've ever felt before. You're burning up inside. With a final thrust, you reach climax. <<orgasm>>
+
+You hold each other tightly. As you pull away, she looks genuinely happy.
+<br><br>
+
+You both pant for breath. You roll off of her, and lay next to her. She kisses you on the cheek, and snuggles into your chest.
+The two of you rest for some time.
+<br><br>
+
+<<link [[Next (0:30)|Hopeless Cycle Cell]]>><<pass 30>><<tiredness -16>><</link>><<ltiredness>>
+<br>
+
+:: Hopeless Cycle Cell Burns Hold
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+
+You move behind her and hold her tightly. Exertion would be a poor decision now, the herbs must be allowed to work. She likely realises this too. She grips your arms, trying to steady her breathing.
+<br><br>
+
+She leans back into you. If nothing else, she seems comfortable in your embrace.
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+
+:: Hopeless Cycle Cell Talk
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+
+<<if $prisoner.harmed gte Math.floor($prisoner.love / 6)>>
+	You try to talk to <<= $prisoner.name>>. <span class="red">She glares at you scornfully.</span> <<stress 6>><<gstress>>
+<<else>>
+	<<if $prisoner.talked lte 4 or !$prisonerEvents.includes("speech")>>
+		<<switch $prisoner.talked>>
+			<<case 0>>You try to greet <<= $prisoner.name>>. Her head tilts. "Hhh...hh..." She seems to try and say something, but she only lets out a low shudder.
+			<<case 1>>You ask her what her name is. She just stares at you. You had thought the bandages around her mouth were the reason for her silence. They're gone, yet she's still silent.
+			<<case 2>>You ask if she regrets consorting with the Dark Elk. She blinks, saying nothing.
+			<<case 3>>You ask if she will repent. She stares at you.
+			<<case 4>>You ask why she won't speak to you. She says nothing. <<set _noOptions to true>>
+			<<default>>You try to talk to her. She just stares at you. <<set _noOptions to true>>
+		<</switch>>
+		<<set $prisoner.talked++>>
+		<<if _noOptions>>
+			<br><br>
+
+			<<link [[Threaten her|Hopeless Cycle Cell Talk Intro Threaten]]>><<set $prisoner.love -= 5>><<set $prisoner.harmed++>><</link>>
+			<br>
+			<<link [[Try speaking to her in a different language|Hopeless Cycle Cell Talk Intro]]>><<set $prisoner.love += 2>><</link>>
+			<br>
+		<</if>>
+	<<elseif !$prisonerEvents.includes("tongue")>>
+		<<set _noOptions to true>>
+		You try to talk to her again. She's listening, but she doesn't respond to any of your questions.
+		<br><br>
+
+		You ask her why she refuses to speak to you. She looks surprised, as if she thought you knew something you didn't.
+		<br><br>
+
+		She motions for you to get closer. You hesitantly do so.
+		<br><br>
+
+		<<link [[Next|Hopeless Cycle Cell Tongue]]>><</link>>
+		<br>
+	<<elseif !$prisonerEvents.includes("tongueAfter")>>
+		<<set $prisonerEvents.pushUnique("tongueAfter")>>
+		You try to think of what to say to her. You stick with a few simple questions.
+		<br><br>
+
+		You ask her if she's really a witch.<br>
+		She hesitates, <span class="red">but nods.</span><br><br>
+
+		You ask her if she seduced the townsfolk.<br>
+		She shakes her head.<br><br>
+
+		You ask if your brothers and sisters are responsible for her current condition.<br>
+		She tilts her head, before swivelling it side to side. 'Yes and no,' you suppose.<br><br>
+
+		You ask if she would repent for her sins.<br>
+		She just stares at you.<br><br>
+
+		You think that's enough.
+	<<elseif $prisonerEvents.includes("brand") and !$prisonerEvents.includes("talkBrand")>>
+		<<set $prisonerEvents.pushUnique("talkBrand")>>
+		You sit down and show off your own cross brandings to <<= $prisoner.name>>, trailing all the way up your arm.
+		<<if $prisonerBrands.includesAny("upper back", "lower back") and $prisonerBrands.includesAll("left arm", "right arm")>>
+			You even have them in matching places, mentioning the one on your back.
+		<</if>>
+
+		You tell her that you both have a story to tell, now.
+		<br><br>
+
+		She smiles weakly at you. <<set $prisoner.love++>><<hopelessCycleLove 1>>
+		<br><br>
+
+		You think about the weight of what you just said. It implies that she'd be free some day, and that you two would be on amicable terms.
+		<br><br>
+
+		Your mind races. Is there a future for her?
+		<br><br>
+
+		Is there a future for both of you?
+	<<elseif $prisoner.love gte 80 and !$prisonerEvents.includes("kissAttempt") and $prisonerEvents.includesAll("legs", "face", "talkMagic", "talkName", "washHair", "newClothes") and $prisonerEvents.includesAny("spendNight", "talkHairBlooms")>>
+		<<set _noOptions to true>><<set $prisonerEvents.pushUnique("kissAttempt")>>
+		You sit down in front of <<= $prisoner.name>>, and try to ask her more questions.
+		<br><br>
+
+		She leans forward and crawls the short distance between you. You instinctively lean back a bit.
+		<br><br>
+
+		She places her hands on your chest.
+		<br><br>
+
+		Her face comes close to yours.
+		<br><br>
+
+		<<link [[Kiss her|Hopeless Cycle Cell Kiss]]>><<set $phase to 1>><<purity -10>><<trauma 24>><<set $prisoner.love += 10>><</link>><<llpurity>><<ggtrauma>><<hopelessCycleLove 3>><<kissvirginitywarning>>
+		<br>
+		<<link [[Push away|Hopeless Cycle Cell Kiss]]>><<set $phase to 2>><<set $prisoner.love -= 25>><<set $prisoner.harmed += 10>><</link>><<hopelessCycleLove -3>>
+		<br>
+	<<else>>
+		<<set _noOptions to true>>
+		You sit down in front of <<= $prisoner.name>>.
+		<br><br>
+		<<if Time.lastDayOfMonth is $hc.day and Time.hour gte 12 and $prisoner.love gte 60>>
+			There's an air of fear between you. You both know what's coming. It'll be hours at most, now.
+			<br>
+			<<link [[Hold her (1:00)|Hopeless Cycle Cell Hold]]>><<pass 1 hour>><<set $prisoner.love++>><<stress -6>><<purity -2>><</link>><<lstress>><<lpurity>><<hopelessCycleLove 1>>
+			<br><br>
+		<</if>>
+		<<if !$prisonerEvents.includes("talkName") and $prisoner.love gte 45>>
+			<<link [[Ask for her name|Hopeless Cycle Cell Name]]>><</link>>
+			<br>
+		<</if>>
+		<<if !$prisonerEvents.includes("talkMagic")>>
+			<<link [[Ask if she knows any magic|Hopeless Cycle Cell Trick]]>><<set $prisoner.love += 1>><</link>><<hopelessCycleLove 1>>
+			<br>
+		<</if>>
+		<<if $prisonerEvents.includes("face")>>
+			<<if $prisonerEvents.includes("washHair") and !$prisonerEvents.includes("talkHair")>>
+				<<link [[Do something about her hair (0:10)|Hopeless Cycle Cell Hair]]>><<pass 10>><<set $prisoner.love += 3>><</link>><<hopelessCycleLove 2>>
+				<br>
+			<</if>>
+		<</if>>
+		<<link [[Talk about yourself|Hopeless Cycle Cell Yap]]>><</link>>
+		<br>
+	<</if>>
+<</if>>
+<br><br>
+
+<<if !_noOptions>>
+	<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Hopeless Cycle Cell Talk Intro
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<set $prisonerEvents.pushUnique("speech")>>
+<span class="narration">The gaoler learned that familiarity could hide in the darkest places.</span>
+<br><br>
+
+You greet her in your homeland's tongue.
+<br><br>
+
+<span class="green">Her eye widens.</span>
+<br><br>
+
+After a moment of hesitation, <span class="green">she raises her arm in a gesture of greeting</span>.
+<br><br>
+
+<<if $prisoner.love gte 25>>
+	You never guessed she'd be from your homeland. You're not sure how to feel.
+<<else>>
+	You feel dirty and ashamed to share a homeland with someone like this, but hide it. This is merely to get her to cooperate, after all.
+<</if>>
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Talk Intro Threaten
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<wearProp "whip" "khaki">>
+With a practised elegance, you grab your whip and lash in her direction. It strikes the wall right next to her ear.
+<br><br>
+
+<span class="red">She doesn't even flinch.</span> She continues staring you down, now even more coldly.
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Tongue
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<set $prisonerEvents.pushUnique("tongue")>>
+<span class="narration">If the books are to be believed, the temple's punishments today are significantly more... 'elegant' than they were back in this time.</span>
+<br><br>
+
+Once you're close, she slowly opens her mouth.
+<br><br>
+
+<span class="red">Her tongue is gone.</span>
+<br><br>
+
+There's a pattern of burns on her inner cheek that line up with the outer burn. Her throat is burned, too. <<gggtrauma>><<trauma 50>>
+<br><br>
+
+You step back as she closes her mouth. You feel cold.
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Name
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+<span class="narration">In a place such as this, a name was one of the most intimate things you could share. They both knew this well.</span>
+<br><br>
+
+You ask for her name.
+<br><br>
+
+She blinks at you.
+<br><br>
+
+You correct yourself, asking instead if you may know her name.
+<br><br>
+
+She thinks about it for a moment, before pointing at you. She then lifts her wrist, the finger pointing up. 'You first.'
+<br><br>
+
+<<link [[Share your name|Hopeless Cycle Cell Name 2]]>><</link>>
+<br>
+<<link [[Refuse|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Name 2
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<set $prisonerEvents.pushUnique("talkName")>>
+<span class="narration">While only the gaoler's family name is known, we know for certain what the witch was called. The townsfolk all referred to her as...</span>
+<br><br>
+
+You tell her your name. She smiles and holds her hands out in front of her in a cupped shape, motioning for you to do the same.
+<br><br>
+
+You copy her. She gently takes your hands, and with a single finger, traces the letters of your name. It takes her a few tries to spell it right. <<purity -1>><<lpurity>>
+<br><br>
+
+She smiles at you brightly, seeming happy that you trusted her. She squeezes your hands, before tracing new letters in your palms.
+<br><br>
+
+An arch, a loop, another arch...
+<br><br>
+
+<span class="green">'Nona.'</span>
+<br><br>
+
+<<set $prisoner.name to "Nona">>
+<<if $player.virginity.penile is "the witch">>
+	<<set $player.virginity.penile to "Nona">>
+<</if>>
+<<if $player.virginity.handholding is "the witch">>
+	<<set $player.virginity.handholding to "Nona">>
+<</if>>
+<<if $player.virginity.kiss is "the witch">>
+	<<set $player.virginity.kiss to "Nona">>
+<</if>>
+
+You smile back, and greet her by name for the first time. She squeezes your hands again. <<set $prisoner.loveRevealed to true>><<set $prisoner.love += 3>><<hopelessCycleLove 2>>
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Trick
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<set $prisonerEvents.pushUnique("talkMagic")>>
+
+You ask <<= $prisoner.name>> if she knows any magic. She blinks at you, before cupping her hands in front of her. She motions for you to take them.
+<br><br>
+
+You do so. Your hands tingle. <<purity -3>><<lpurity>>
+<br><br>
+
+She holds them for a moment. You can't help but notice how ladylike they are. You thought a witch would have long, rough fingers with claw-like nails.
+<br><br>
+
+She slowly pulls your hands up, until they cover her mouth. Your whole body tingles for a moment. Suddenly, she coughs, and the tingling stops.
+<br><br>
+
+She looks at you apologetically before trying again. The feeling returns. She slowly pulls your hands away. Her mouth is open. <span class="green">A pair of flowers emerge from within.</span>
+<br><br>
+
+<<run hcItemAdd({ type: "clutter", name: "witchblooms", nameText: "witchblooms", location: "cell", origin: "prisoner", dirty: 2})>>
+They're a faint pinkish purple. You don't recognise the species. They look a little burnt and withered. She gives you a sad smile.
+<br><br>
+
+This couldn't possibly be why they labelled her a witch. She must be able to do more. You quickly suppose that anything more must require speech, but you're left wondering why she needed to take your hands.
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Hair
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<set $prisonerEvents.pushUnique("talkHair")>>
+
+Her hair is finally clean, but it seems to be causing her some discomfort around the antler.
+<br><br>
+
+The nuns helped you with your hair when you were an initiate, and taught you how to manage it. Now, you frequently help your sisters with their own hair. You turn her around and get to work. Her hair is no less unpleasant to touch than the rest of her body. <<purity -5>><<trauma 6>><<llpurity>><<gtrauma>>
+<br><br>
+
+You direct her hair away from the antler, and work it into a braid to keep it away. She relaxes in your touch.
+<br><br>
+
+When you're done, she turns to you and puts her hands on your head. She then makes a rotating motion with her wrist. 'Turn around.'
+<br><br>
+
+You understand. She wants to help you with your hair, too.
+<br><br>
+
+<<link [[Let her (0:15)|Hopeless Cycle Cell Hair 2]]>><<pass 15>><<purity -5>><<set $prisoner.love += 3>><</link>><<lpurity>><<hopelessCycleLove 2>>
+<br>
+<<link [[Refuse|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Hair 2
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<set $prisonerEvents.pushUnique("talkHairLet")>><<set $hairtype to "braid right">><<set $hairposition to "front">>
+
+You prop her up against the wall and turn around.
+<br><br>
+
+You feel your head tingle as she starts to touch your hair. She runs her fingers through it, seeming to enjoy the texture and feel. Despite the effects of her touch, you find yourself relaxing at it.
+<br><br>
+
+She gently pulls it back and starts to give you a side braid of your own, although in a different style. She must be experienced, as she works fast.
+<br><br>
+
+She taps your shoulder when she's finished. You turn back around and she smiles brightly at you.
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Witchblooms
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<set $prisonerEvents.pushUnique("talkHairBlooms")>><<hcPrisonerHealth 1>>
+
+You show <<= $prisoner.name>> the revitalised flowers. Her eye widens.
+<br><br>
+
+You sit behind her, and undo the bottom of her braid. She can't ask, but you know she's wondering how you managed to purify them.
+You tell her that you let them feed on your purity in your sleep.
+<br><br>
+
+You gently braid her hair around the twin blooms. She runs her hand against them, smiling.
+<<if $hcChallenge.faithBlooms>>
+	Her fingers brush against her bald spot on the back of her head. For the first time, <span class="green">being reminded of it doesn't upset her</span>. Not anymore.
+<</if>>
+<br><br>
+
+Despite everything, you've made her look and feel pretty. She nearly topples you with a hug.
+<br><br>
+
+You look down at the blooms again. They shine radiantly, even with so little light. <span class="gold">If they can absorb your purity, perhaps they can absorb and ease her corruption, as well.</span>
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Kiss
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+
+<<if $phase is 1>>
+	<<set $prisonerEvents.pushUnique("kiss")>><<set $prisoner.harmed -= 5>>
+	Her hands hold your shoulders. You lean forward.
+	<br><br>
+
+	Her lips meet yours. <<takeKissVirginity $prisoner.name "romantic">>
+	<br><br>
+
+	You both tense up. It seems physically painful for her, likely because of her burns. Meanwhile, the brief moment of bliss is cut by an inexplicable feeling of loss.
+	<br><br>
+
+	Her eyes open, seductive and content. There's so much within them. Pain, but relief. Hatred, but love. She pushes closer, keeping your lips together. <<stress -24>><<purity -10>><<llstress>><<llpurity>>
+	<br><br>
+
+	<span class="red">The world suddenly changes.</span> Your vision flashes in and out of some other location, but she remains before you. She's different too.
+	<br><br>
+
+	It flashes, over and over, to you on top of her. You're on a stone altar, defiling her. Her face, now crowned by a pair of elegant antlers, is overcome with ecstasy. You look up.
+	You're in a small clearing in the forest. It's night time, but you can see perfectly in the red moonlight.
+	Your brothers and sisters lay unresponsive and entranced all around you. <<trauma 500>><<gggtrauma>>
+	<br><br>
+
+	You're back in the cell. You feel a cold absence. She's looking at you with an innocent, loving smile. It brings back your warmth.
+<<else>>
+	You hold her shoulders and prevent her from getting any closer. She pushes against you, but you hold her firm.
+	<br><br>
+
+	Her eye quivers as an expression of betrayal comes over her face.
+	<br><br>
+
+	She pushes away from you, back to her spot near the wall. You reach for her, but she hits your arm away.
+	<br><br>
+
+	She wipes the tears from her eye, and looks back up at you with <span class="red">hatred</span>.
+<</if>>
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Yap
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+
+<<print either(
+	"You tell <<= $prisoner.name>> about your time serving the cloister.",
+	"You tell <<= $prisoner.name>> about some of the monstrosities you've helped hunt down and exorcise.",
+	"You tell <<= $prisoner.name>> some embarrassing stories from when you were an initiate.",
+	"You tell <<= $prisoner.name>> about your life before the temple.",
+	"You teach <<= $prisoner.name>> about some of the temple's scriptures.",
+)>>
+<<print either(
+	"She listens intently.",
+	"She softly giggles.",
+	"She's a good listener.",
+	"She nods along."
+)>>
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Hold
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+
+<<if !$prisonerEvents.includes("holdMe")>>
+	<<set $prisonerEvents.pushUnique("holdMe")>>
+	You hold her close. She returns your embrace.
+	<br><br>
+
+	You don't know what else to do.
+<<elseif !$prisonerEvents.includes("holdMeAgain")>>
+	<<set $prisonerEvents.pushUnique("holdMeAgain")>>
+	You hold her again. She sobs into your shoulder.
+	<br><br>
+
+	Perhaps this comfort is all you can give her, now.
+<<elseif !$prisonerEvents.includes("untilDeath")>>
+	<<set $prisonerEvents.pushUnique("untilDeath")>>
+	You keep holding each other. She's scared. How could she not be?
+	<br><br>
+
+	Perhaps you'll hold her until her final hour.
+<<else>>
+	You continue holding each other, awaiting the fateful hour.
+<</if>>
+<br><br>
+
+<<if _hcEvent is "blood">>
+	The heavy dirge of footsteps comes down the dungeon stairs. A moment later, the cell door opens. "<span class="red">It's time, brother.</span> Bring the witch to the garden at once."
+	<br><br>
+
+	<<link [[Next|Hopeless Cycle Blood Cell]]>><<endevent>><<set $phase to 2>><</link>>
+	<br>
+<<else>>
+	<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Hopeless Cycle Cell Awaken
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<set $prisoner.state to "awake">><<set $prisoner.awakeTimer to 3>>
+<<if $prisoner.love gte 30>>
+	You gently shake <<= $prisoner.name>> awake.
+	<<if $prisoner.love gte 60>>
+		She rubs her eyes, before smiling and embracing you.
+	<<else>>
+		She rubs her eyes, before looking at you curiously.
+	<</if>>
+<<else>>
+	You lightly kick <<= $prisoner.name>>. She wakes with a start.
+<</if>>
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Sheet
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+<<if !$hc.daily.cellSheet>><<set $prisoner.love += 1>><</if>>
+<<set $hc.daily.cellSheet to true>>
+
+You gently lay the sheet over her. She stirs for a moment, before pulling it closer over herself. <<hopelessCycleLove 1>>
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+
+:: Hopeless Cycle Cell Caught Fight
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+
+<<if $phase is 1>>
+	<span class="narration">He would not go quietly.</span>
+	<br><br>
+	<<if $temple_weapon is "whip">>
+		<<wearProp "whip" "khaki">>
+		<<if $prof.whip gte $skillChallenge>>
+			<<set _success to true>>
+			<span class="green">You see <<him>> coming easily.</span> With a master's momentum, you brandish your whip and strike <<him>> twice across the chest.
+			<br><br>
+
+			A third strike disarms <<him>>, and a fourth wraps around <<his>> neck. <<He>> struggles, but you pull <<him>> in and put <<him>> in a chokehold.
+			<br><br>
+
+			<<He>> writhes in your grasp, trying to pull away your arms. <<He>> scratches at your face. You don't let go. Eventually, <<his>> movement stops, and you release <<him>>.
+		<<else>>
+			<<Hes>> too fast for you. You brandish your whip and get in a few good strikes, <span class="red">but it's not enough</span>.
+			<br><br>
+
+			<<His>> baton crashes into the side of your head. Everything fades to black.
+		<</if>>
+	<<else>>
+		<<wearProp "baton">>
+		<<if $prof.baton gte $skillChallenge>>
+			<<set _success to true>>
+			The baton isn't your preferred weapon. But that doesn't matter. <span class="green">You brandish your own baton, and deflect <<his>> first blow.</span>
+			<br><br>
+
+			<<He>> yells in anger, trying to overpower you. It's sloppy. You shift your weight to the side and trip <<him>>, before bringing your baton down on <<his>> back, then <<his>> head.
+			<br><br>
+
+			You kick <<him>> in the side. <<Hes>> definitely unconscious. You're glad you didn't swing harder.
+		<<else>>
+			The baton isn't your preferred weapon, and it shows. <span class="red"><<He>> easily knocks you out before you can even get a single strike in.</span>
+		<</if>>
+	<</if>>
+	<br><br>
+
+	<<if _success>>
+		<<if $hc.nightBreakIn is "heard" or $hc.nightBreakIn is "tonight">>
+			<<set $prisoner.love += 5>>
+			<<if $hc.nightBreakIn is "tonight">>
+				You check <<him>> over. After a moment, you back away in shock and revulsion. <<Hes>> entirely naked under <<his>> robe. Was <<he>> planning on violating your prisoner?
+				<br><br>
+			<</if>>
+		<</if>>
+
+		<<print $prisoner.name.toUpperFirst()>> looks at you with an emotion that you can't place. It makes you feel... warm? <<set $prisoner.loveRevealed to true>><<gglove>>
+		<br><br>
+
+		You think about what to do with the intruder. <<He>> can't directly report you to the Hand, as <<he>> was violating the direct order that only you were to lay hands upon this prisoner.
+		You crouch down and sling <<him>> over your shoulder, carrying <<him>> back to the barracks.
+		<<set $hc.neverLeftDungeon to false>><<set $hc.snuckInDungeon to false>><<set $hc.enteredDungeon to false>>
+		<<run $hcItems.filter(item => item.location is "held").forEach(item => {item.location = "cell"})>>
+		<br><br>
+
+		<<link [[Next|Hopeless Cycle Quarters]]>><<pass 30>><<endevent>><<set $hc.nightBreakIn to "passed">><<hcSuspicion 10>><</link>><<hopelessCycleSus 2>>
+		<br>
+	<<else>>
+		<<if $prisoner.love gte 40 and !$hc.secondChance>>
+			<<link [[Next|Hopeless Cycle Caught Second Chance]]>><<set $hc.nightBreakIn to "end">><<pass 2 hours>><<endevent>><</link>>
+		<<else>>
+			<<link [[Next|Hopeless Cycle Ending E]]>><<pass 4 hours>><<endevent>><</link>>
+		<</if>>
+		<br>
+	<</if>>
+<<else>>
+	<span class="narration">He accepted his failure, and allowed himself to face punishment.</span>
+	<br><br>
+
+	<<His>> baton crashes into the side of your head. Everything fades to black.
+	<br><br>
+
+	<<link [[Next|Hopeless Cycle Ending E]]>><<pass 4 hours>><<endevent>><</link>>
+	<br>
+<</if>>
+<<unset $skillChallenge>>
+
+:: Hopeless Cycle Caught Second Chance
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<set $hc.secondChance to true>>
+
+<<set $pain to 40>><<set $prisoner.cleanBody to 0>><<set $prisoner.cleanBandages to 0>>
+You clutch your head as you try to sit up.
+<br><br>
+
+You can't. There's something heavy on top of you, and it constricts around you as you press against it. Your vision slowly comes into focus. There's a single trembling grey eye staring at you. <<stress 6>><<gstress>>
+<br><br>
+
+<span class="red"><<print $prisoner.name.toUpperFirst()>>'s hands are soaked in blood, and around your neck.</span> There's a pained smile on her face. She's barely applying any pressure.
+<br><br>
+
+"Brother!" you hear a <<generate1>><<person1>><<personsimple>> yell. A mass of robed figures storm into the cell, pulling her off of you and dragging you out.
+<br><br>
+
+You understand what she was doing now. She gives you one more smile before she's struck across the face by a baton. "Are you okay, brother?" A <<monk>> crouches down to your eye level, inspecting you. You weakly nod in affirmation.
+<br><br>
+
+There are surely eyes on you now. But she's given you a second chance. <span class="red">You likely won't get another.</span>
+<<set $hc.suspicion to 80>><<hopelessCycleSus 3>><<set $prisoner.health to 8>><<set $hc.daily.secondChance to true>>
+<br><br>
+
+Your siblings lead you back to the barracks.
+<br><br>
+
+<<link [[Next|Hopeless Cycle Quarters]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Caught Still
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+<span class="narration">It was not the gaoler's place to intervene in his siblings' vision of justice for the unholy. He simply needed to be sure that he would not be the one facing the consequences. That's what he told himself, at least.</span>
+<br><br>
+
+<<hcPrisonerHealth -10>>
+<<set $prisoner.harmed += 2>>
+<<set $prisoner.cleanBody -= 2>>
+<<set $prisoner.cleanBandages -= 2>>
+<<set $prisoner.harmedRecently to 24>>
+
+You sit as still as you can. You can't see what's happening to her.
+<br><br>
+
+But you can hear all of it. <<His>> laughter and grunts of satisfaction. <<print $prisoner.name.toUpperFirst()>>'s cries of anguish. It lasts for a painfully long time. <<trauma 24>><<ggtrauma>><<arousal 1000>><<garousal>>
+<br><br>
+
+"I... needed a good purge. At least you're good for something," <<he>> finally says. <<He>> adjusts <<his>> robe and exits the cell.
+<br><br>
+
+You can hear <<print $prisoner.name>> breathing heavily. Through the darkness, you see her one terrible eye locked on you.
+<br><br>
+
+Its hatred digs into your very soul. Yet, you feel it isn't aimed at you. There's a shred of understanding.
+<br><br>
+
+Her look says everything. She wants revenge. <span class="red">With a broken vow, you have evidence against whoever that was. You could tell the Bishop's Hand, when he isn't busy tormenting someone.</span>
+<br><br>
+
+<<set $prisonerEvents.pushUnique("raped")>>
+<<endevent>><<set $hc.nightBreakIn to "end">>
+
+<<link [[Leave|Hopeless Cycle Cell]]>><</link>>
+<br>
+<<link [[Try to comfort her (0:10)|Hopeless Cycle Comfort]]>><<pass 10>><<set $prisoner.love += 3>><</link>><<hopelessCycleLove 2>><<lpurity>><<gtrauma>>
+<br>
+
+:: Hopeless Cycle Cell Caught Sneak
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+<span class="narration">It was not the gaoler's place to intervene in his siblings' vision of justice for the unholy. He simply needed to be sure that he would not be the one facing the consequences.</span>
+<br><br>
+<<set $hc.nightBreakIn to "failed">>
+<<hcPrisonerHealth -10>>
+<<set $prisoner.harmed += 2>>
+<<set $prisoner.cleanBody -= 2>>
+<<set $prisoner.cleanBandages -= 2>>
+<<set $prisoner.harmedRecently to 24>>
+<<endevent>>
+
+You leave the dungeon as quietly as you can.
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cloister]]>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Caught Intervene
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+<span class="narration">He was given clear instructions. Only he was to lay hands on this prisoner.</span>
+<br><br>
+
+You silently creep up to <<him>>, and place your hand on <<his>> shoulder.
+<br><br>
+
+<<He>> freezes, and slowly turns around.
+<br><br>
+
+"A-ah! Brother Fayne! Just in time, this witch was trying to work her vile magic on me, and I was—"
+<br><br>
+
+You calmly inform <<him>> that <<he>> is directly defying the word of the Bishop.
+<br><br>
+
+"I-I did no such thing, I—"
+<br><br>
+
+You also inform <<him>> that you heard <<him>> mention <<his>> broken vow. You offer to ring the Bell of Contrition for <<him>>.
+<br><br>
+
+"No, brother, please—"
+<br><br>
+
+You advise <<him>> to face purification before you decide to take punishment into your own hands. <<He>> rapidly nods and flees the cell.
+<br><br>
+
+<<print $prisoner.name.toUpperFirst()>> looks at you with an emotion that you can't place. It makes you feel... warm? <<if $prisoner.loveRevealed>><<gglove>><</if>>
+<br><br>
+
+<<set $hc.nightBreakIn to "passed">>
+
+<<link [[Continue|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+<<link [[Try to comfort her (0:10)|Hopeless Cycle Comfort]]>><<set $prisoner.love += 3>><<pass 10>><</link>><<gglove>><<lpurity>><<gtrauma>>
+<br>
+
+:: Hopeless Cycle Night Break In Aftermath
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+<span class="narration">It seemed as though no one could help themselves. Something about the witch made her uniquely despised amidst the faithful, almost supernaturally so.</span>
+<br><br>
+
+<<set $hc.nightBreakIn to "end">>
+You enter the cell. Something's very wrong. The door wasn't locked.
+<br><br>
+
+You sigh in relief, seeing <<print $prisoner.name>> still there. Your relief is very short-lived.
+<br><br>
+
+<span class="red">She's hurt. Badly. Someone got into the cell. She's covered in new bruises and cuts, and her breathing is ragged and strained.
+You look closer. It's obvious she was violated, too.</span>
+<br><br>
+
+Your fist clenches. It was your job to stop things like this from happening. You feel a deep guilt. You tell yourself it's for failing your duty.
+For letting one of your siblings fall to such lows.
+<br><br>
+
+You feel like you failed her, too. Tainted as she is, no one is beyond forgiveness. Why else would there be punishment, if not to seek redemption?
+Why else would you be a gaoler?
+<br><br>
+
+<span class="red">Someone is responsible. Which means someone has broken their vow. You should tell the Bishop's Hand, when he isn't busy tormenting someone.</span>
+<br><br>
+
+<<set $prisonerEvents.pushUnique("raped")>><<set $hc.nightBreakIn to "end">>
+
+<<link [[Leave|Hopeless Cycle Cell]]>><</link>>
+<br>
+<<link [[Try to comfort her (0:10)|Hopeless Cycle Comfort]]>><<pass 10>><<set $prisoner.love += 5>><</link>><<hopelessCycleLove 2>><<lpurity>><<gtrauma>>
+<br>
+
+:: Hopeless Cycle Comfort
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+<<set $prisonerEvents.push("comfort")>>
+<span class="narration">The gaoler came to realise that he wasn't just protecting the world from her. He was protecting her from the world.</span>
+<br><br>
+
+You sit in front of <<print $prisoner.name>>.
+<<if $prisoner.state is "catatonic">>
+	<<hcPrisonerHealth 4>><<set $prisoner.state to "lucid">>
+	Her eye is empty and lightless.
+	<br><br>
+
+	Your hand trembles, but you slowly bring it up to her face. You cup her cheek. Your fingers feel cold, and numbness spreads up your arm as you hold it there. <<purity -5>><<lpurity>><<trauma 6>><<gtrauma>>
+	<br><br>
+
+	Light slowly returns to her eye as it focuses on you.
+<<elseif $prisoner.state is "asleep">>
+	Her eye is closed.
+	<br><br>
+
+	Your hand trembles, but you slowly bring it up to her face. You cup her cheek. Your fingers feel cold, and numbness spreads up your arm as you hold it there. <<purity -5>><<lpurity>><<trauma 6>><<gtrauma>>
+	<br><br>
+
+	Her eye slowly opens and focuses on you.
+<<else>>
+	Her breathing is strained and heavy.
+	<br><br>
+
+	Your hand trembles, but you slowly bring it up to her face. She flinches. You cup her cheek. Your fingers feel cold, and numbness spreads up your arm as you hold it there. <<purity -5>><<lpurity>><<trauma 6>><<gtrauma>>
+	<br><br>
+
+	Her breathing gradually slows down.
+<</if>>
+One of her hands wraps around your arm.
+For just a moment, all the fear and hatred in her gaze is gone.
+<br><br>
+
+You pull her closer. She eagerly returns the embrace. The corruption inside of her spreads into you from the contact, but you don't care. <<purity -5>><<lpurity>><<trauma 12>><<gtrauma>>
+<br><br>
+
+You hold her. She's trembling. You wonder just how long it's been since someone has shown her real affection. Black ichor leaks from her eye onto your <<if $worn.upper.name is "chain tunic">>tunic<<else>>robe<</if>>. <<set $prisoner.loveRevealed to true>><<glove>>
+<br><br>
+
+She is your prisoner. That means keeping her safe is part of your charge, too.
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Leave
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+You leave the cell, locking the door behind you.
+<br><br>
+
+<<if $hcIncoming is "dailyPunishment">>
+	<<unset $hcIncoming>>
+	As you turn around, you walk right into a wall of a man. The Bishop's hand looks down at you and grins, pointing back in the cell.
+	<br><br>
+
+	<<if $worn.upper.name isnot "chain tunic">>
+		"Where is your armour, brother? No matter. It is time for her penance. Inside." You obey. The Hand follows you in, along with a confessor.
+		<<hcSuspicion 10>><<hopelessCycleSus 2>>
+	<<else>>
+		"It is time for her penance. Inside." You obey. The Hand follows you in, along with a confessor.
+	<</if>>
+	<br><br>
+
+	<<link [[Next|Hopeless Cycle Prisoner Inspection]]>><<endevent>><</link>>
+	<br>
+<<elseif $hcIncoming is "night">>
+	<<unset $hcIncoming>>
+	<<if $hc.suspicion gte 80>>
+		<<generateConfessor 1>><<person1>>
+		You come face to face with a <<personsimple>> in a black robe, holding up a baton as if to strike you.
+		After a moment of hesitation, <<he>> brings it crashing into the side of your head.
+		<br><br>
+
+		<<link [[Next|Hopeless Cycle Ending E]]>><<pass 4 hours>><<endevent>><</link>>
+		<br>
+	<<elseif $hc.nightBreakIn is "tonight" or $hc.nightBreakIn is "heard">>
+		<<loadNPC 0 "hc_abuser">><<person1>>
+		You come face to face with a <<personsimple>> in a black robe, holding up a baton as if to strike you.
+		<<He>> stops <<himself>>. "B-brother Fayne. What are you still doing here?" <<He>> seems on edge.
+		<br><br>
+
+		"Let us... both leave, and act as though we did not see each other, yes?"
+		<br><br>
+
+		You don't want to look too suspicious. You go along with <<him>> back to the cloister.
+		<br><br>
+
+		Once you reach the top of the stairs, <<he>> shifts side to side uncomfortably. "I will finish up in the dungeon for you. Let us say nothing of skipping the sanctification." <<He>> heads back down the stairs without waiting for you to answer.
+		<<set $hc.neverLeftDungeon to false>><<set $hc.snuckInDungeon to false>>
+		<br><br>
+
+		<<link [[Next|Hopeless Cycle Cloister]]>><<endevent>><</link>>
+		<br>
+	<<elseif $hc.dungeonTorchState is "lit">>
+		<<generateConfessor 1>><<person1>>
+		You come face to face with a <<personsimple>> in a black robe, holding up a baton as if to strike you.
+		<<He>> stops <<himself>> upon realising who you are.
+		<br><br>
+
+		"Brother Fayne? Did the time run away from you? Come, I'll help you snuff the torches for the night." <<hcSuspicion 5>><<hopelessCycleSus 1>>
+		<br><br>
+
+		<<set $hc.dungeonTorchState to "snuffed">>
+		You don't have much of a choice. You appreciate the help, at least. You snuff the torches in short order, and leave the dungeon with <<him>>.
+		<br><br>
+
+		"I will awaken a <<priest>> to sanctify us. Wait here." <<He>> disappears into a side passage. <<set $hc.neverLeftDungeon to false>><<set $hc.snuckInDungeon to false>>
+		<br><br>
+
+		<<link [[Wait <<hcTimeDungeonDisplay 35>>|Hopeless Cycle Cloister]]>><<endevent>><<hcTimeDungeonPass 35>><</link>>
+		<br>
+		<<link [[Leave (0:05)|Hopeless Cycle Cloister]]>><<endevent>><<pass 5>><<hcSuspicion 10>><</link>><<hopelessCycleSus 2>>
+		<br>
+	<<else>>
+		<<generateConfessor 1>><<person1>>
+		You come face to face with a <<personsimple>> in a black robe, holding up a baton as if to strike you.
+		<<He>> stops <<himself>> upon realising who you are.
+		<br><br>
+
+		"Brother Fayne? What are you doing in the gaol at this hour?" <<He>> eyes you with concern, seeing the cell you just emerged from. "This will not do. Come, you need rest." <<He>> forcibly guides you out of the dungeon. <<hcSuspicion 10>><<hopelessCycleSus 2>>
+		<br><br>
+
+		"I will awaken a <<priest>> to sanctify us. Wait here." <<He>> disappears into a side passage. <<set $hc.neverLeftDungeon to false>><<set $hc.snuckInDungeon to false>>
+		<br><br>
+
+		<<link [[Wait (0:30)|Hopeless Cycle Cloister]]>><<endevent>><<pass 30>><</link>>
+		<br>
+		<<link [[Leave|Hopeless Cycle Cloister]]>><<endevent>><<hcSuspicion 10>><</link>><<hopelessCycleSus 2>>
+		<br>
+	<</if>>
+<<elseif ["dawn","day"].includes(Time.dayState) and ($hc.neverLeftDungeon or $hc.snuckInDungeon) and $hc.daysPassed gte 1>>
+	<<generateConfessor 1>><<person1>>
+	You turn, and jump when you see a black-robed <<personsimple>> standing right in front of you. A confessor. "Trouble sleeping, brother Fayne?
+	<<if $hc.snuckInDungeon>>
+		Your siblings were all shocked to see you missing from your bed. Even more so when there was no record of you being sanctified on your way back in."
+	<<else>>
+		No one saw you leave the dungeon last night. Your siblings were worried."
+	<</if>>
+	<<set $hc.daily.enteredDungeon to true>><<set $hc.neverLeftDungeon to false>><<set $hc.snuckInDungeon to false>>
+	<br><br>
+
+	<<His>> arms cross.
+	<<if $hc.suspicionRevealed>>
+		"I will have to report this to the Bishop. We must take precautions in the event you fail your charge." <<hcSuspicion 15>><<hopelessCycleSus 3>>
+		<br><br>
+
+		<<He>> leaves without another word.
+	<<else>>
+		<<set $hc.suspicionRevealed to true>>
+		"You are either very dedicated to your charge, or the Elk's servant has wormed her way into your head. I pray it is not the latter. Do not fail us." <<hcSuspicion 10>>
+		<br><br>
+
+		<<He>> leaves without another word.
+		<br><br>
+
+		<span class="narration">The Bishop's Hand and his confessors had been watching the gaoler. Now that he knew this, he would be more aware of what actions would make them suspicious.</span>
+	<</if>>
+	<br><br>
+
+	<<link [[Next|Hopeless Cycle Dungeon]]>><<endevent>><</link>>
+	<br>
+<<else>>
+	<<link [[Next|Hopeless Cycle Dungeon]]>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Hopeless Cycle Prisoner Inspection
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<set $hc.daily.dailyPunishment to true>>
+<<set $hc.daily.handWarning to true>><<set $hc.handLocation to "guardhouse">><<unset $hcIncoming>>
+
+The Hand looks <<= $prisoner.name>> over.
+<<if $prisoner.state is "asleep">>
+	He kicks her awake.
+<</if>>
+<br>
+<<if $hcItems.some(clothing => clothing.type is "clothes" and clothing.dirty is 0 and clothing.location is "prisoner") and $prisonerEvents.includes("newClothes") and (!$prisonerEvents.includes("newClothesSeen") or $hcChallenge.handStrict)>>
+	<<set _somethingToSay to true>>
+	<<set $prisonerEvents.pushUnique("newClothesSeen")>>
+	<span class="red">He seems to notice that you've given her new clothes, but says nothing.</span> <<hcSuspicion 10>><<hopelessCycleSus 2>>
+	<br>
+<<elseif !$hcItems.some(clothing => clothing.type is "clothes" and clothing.location is "prisoner")>>
+	He ogles her naked body for a moment, before shaking his head.
+	<br>
+<</if>>
+<<if $prisoner.health gte 26>>
+	<<set _somethingToSay to true>>
+	"You've been treating her well," he says before a low, growling chuckle. "Been feeding her extra?" <<hcSuspicion 20>><<hopelessCycleSus 3>>
+	<br>
+<</if>>
+<<if $hcItems.some(sheet => sheet.type is "sheets" and sheet.location is "prisoner")>>
+	<<set _somethingToSay to true>>
+	"They said a sheet was stolen from the barracks," he says, eyeing her bedsheet. <<hcSuspicion 5>><<hopelessCycleSus 1>>
+	<br>
+<</if>>
+<<if $prisoner.harmedRecently lte 0 and $prisonerEvents.includes("punishmentIntro")>>
+	<<set _somethingToSay to true>>
+	"No fresh wounds. You've been showing mercy, brother." <<hcSuspicion 10>><<hopelessCycleSus 2>>
+	<br>
+<</if>>
+<<if $prisonerEvents.includes("talkHair") and (!$prisonerEvents.includes("talkHairSeen") or $hcChallenge.handStrict)>>
+	<<set _somethingToSay to true>>
+	<<set $prisonerEvents.pushUnique("talkHairSeen")>>
+	He notices her braided hair. "Must be good with her hands, to do that with shackles on." <<hcSuspicion 5>><<hopelessCycleSus 1>>
+	<br>
+<</if>>
+<<if $prisonerEvents.includes("talkHairBlooms") and !$prisonerEvents.includes("talkHairBloomsSeen")>>
+	<<set $prisonerEvents.pushUnique("talkHairBloomsSeen")>>
+	He notices the flowers in her braids, and his eyebrows raise. "Only a pure hand can raise those blooms. Well done, brother. They should help keep her filth contained." <<hcSuspicion -5>><<hopelessCycleSus -2>>
+	<br>
+<</if>>
+<<if !_somethingToSay>>
+	<span class="green">He slowly nods in approval, finding nothing amiss.</span> <<hcSuspicion -5>><<hopelessCycleSus -2>>
+	<br>
+<</if>>
+<br>
+
+<<if _somethingToSay and $hc.suspicion gte 100>>
+	The Hand slowly turns to you. "There can be no further doubt. She has you bewitched." His hand rests on your shoulder, and a wide grin forms on his face. "We will fix you, brother."
+	<br><br>
+
+	He raises a hand, and your vision goes dark.
+	<br><br>
+
+	<<link [[Next|Hopeless Cycle Ending E]]>><<pass 4 hours>><<endevent>><</link>>
+	<br>
+<<elseif !$prisonerEvents.includes("punishmentIntro")>>
+	<<set $prisonerEvents.pushUnique("punishmentIntro")>>
+	He unlocks her shackles. She looks up at him, staring with pure hatred.
+	<br><br>
+
+	He sneers and slaps her across the face before turning to you. "Whip her." The confessor cautiously approaches and lifts her, forcing her to turn around so her back is facing you. She looks down and braces herself.
+	<br><br>
+
+	<<link [[Whip her hard|Hopeless Cycle Punishment Intro]]>><<set $phase to 1>><<hcSuspicion -5>><<stress -6>><<trauma -6>><<control 25>><<sadism 40>><</link>><<lstress>><<ltrauma>><<gcontrol>><<hopelessCycleSus -2>>
+	<br>
+	<<link [[Whip her, but hold back|Hopeless Cycle Punishment Intro]]>><<set $phase to 2>><<hcSuspicion 5>><<sadism 20>><</link>><<hopelessCycleSus 1>>
+	<br>
+	<<link [[Refuse|Hopeless Cycle Punishment Intro]]>><<set $phase to 3>><<hcSuspicion 10>><<set $prisoner.love += 3>><<trauma 12>><</link>><<gtrauma>><<hopelessCycleSus 2>><<hopelessCycleLove 1>>
+	<br>
+<<elseif !$prisonerEvents.includes("face") and $hc.daysPassed gte 3>>
+	/* Redundant day check is to make sure this always happens on day 3 if the player tried to delay a lower priority punishment */
+	<<set $prisonerEvents.pushUnique("face")>>
+	<<run hcItemAdd({ type: "clutter", name: "warded bandages", nameText: "warded bandages", location: "cell", origin: "prisoner", dirty: 2})>>
+	The Hand nods to the confessor, who is clutching a small silver bowl. He cautiously walks up to <<= $prisoner.name>>. He inspects her for a moment, his face turning pale as he lays hands on her.
+	<br><br>
+
+	"Your grace, her inner vessel..." The Hand motions for him to keep talking. "It's... cracked. Nearing rupture."
+	<br><br>
+
+	The Hand growls. "She should have started cleansing by now." He angrily marches up to her. "You aren't holy. What seals it within you? Are you so vile that the taint simply nests in your body?"
+	<br><br>
+
+	The confessor speaks again. "Your grace, her head bandages are tainted and making it worse. If something isn't done, a hole will—"
+	<br><br>
+
+	"Silence! That will not happen under my gaze," the Hand yells. He grabs her by the neck and lifts her with one hand, unsheathing a silver dagger with the other. She struggles against him impotently as he brings it up to her face.
+	<br><br>
+
+	<<link [[Just watch|Hopeless Cycle Cell Face]]>><<set $phase to 1>><<stress 24>><</link>><<ggstress>>
+	<br>
+	<<link [[Stop him|Hopeless Cycle Cell Face]]>><<set $phase to 2>><<set $prisoner.love += 2>><<hcSuspicion 10>><</link>><<hopelessCycleSus 2>><<hopelessCycleLove 2>>
+	<br>
+<<elseif !$prisonerEvents.includes("brand") and $hc.daysPassed gte 4>>
+	<<set $prisonerEvents.pushUnique("brand")>>
+	<<run hcItemAdd({ type: "container", name: "bucket", location: "cell", origin: "garden", persists: true, containerID: "brandingBucket", capacity: 3 })>>
+	<<run hcItemAdd({ type: "water", name: "water", location: "brandingBucket", origin: "garden", dirty: 1 })>>
+	You hear the rumbling of wheels. <span class="red">Another confessor pushes in a small cart full of hot coals, with a metal rod sticking out.</span> A third enters with a bucket of water.
+	<br><br>
+
+	Her eye goes wide with worry, but she tries to remain stoic.
+	<br><br>
+
+	The Hand laughs. "You can keep your mouth closed this time." That seems to somehow reassure her. <<stress 6>><<gstress>>
+	<br><br>
+
+	He nods at the metal rod. You pull it out of the cart. The tip is shaped into a cross, and is red-hot. The confessors pull <<= $prisoner.name>> forward, and expose her back to you.
+	<<if $prisoner.bandagesOn>>
+		<span class="pink">They rip away her bandages, ensuring her skin is exposed.</span>
+		<<set $prisoner.bandagesOn to false>>
+		<<if $prisoner.cleanBandages gte 4>>
+			<<set _dirt to 0>>
+		<<elseif $prisoner.cleanBandages lte 1>>
+			<<set _dirt to 2>>
+		<<else>>
+			<<set _dirt to 1>>
+		<</if>>
+		<<run hcItemAdd({ type: "clutter", name: "torn bandages", nameText: "torn bandages", location: "cell", origin: "prisoner", dirty: _dirt, used: true})>>
+	<</if>>
+	<br><br>
+
+	You were branded this same way. Your right arm itches. Now you're the one doing the branding.
+	<br><br>
+
+	She looks back to you,
+	<<if $prisoner.harmed gte Math.floor($prisoner.love / 8)>>
+		glaring at you with spite.
+	<<elseif $prisoner.love gte 45>>
+		and takes a deep breath. <span class="green">She nods at you.</span>
+	<<else>>
+		breathing heavily. She looks terrified.
+	<</if>>
+	<<set $prisonerBrands to []>>
+	<<set $prisonerBrandSpots to [
+		"left arm",
+		"right arm",
+		"left shoulder",
+		"right shoulder",
+		"upper back",
+		"lower back",
+		"chest",
+		"left thigh",
+		"right thigh",
+		"left leg",
+		"right leg",
+		"left foot",
+		"right foot"
+	]>>
+	<br><br>
+
+	<<for _labelBrand, _valueBrand range $prisonerBrandSpots>>
+		<<capture _valueBrand>>
+			<<if $prisonerBrands.includes(_valueBrand)>>
+				/* Already branded */
+			<<elseif ["left leg", "right leg", "left thigh", "right thigh", "left foot", "right foot"].includes(_valueBrand) and $prisonerEvents.includes("legs")>>
+				<<link [[`Brand her _valueBrand`|Hopeless Cycle Cell Brand]]>><<pass 2>><<set $prisoner.love += 2>><<set $hcBrand to _valueBrand>><<hcPrisonerHealth -1 "penance">><</link>><<hopelessCycleLove 1>>
+				<br>
+			<<else>>
+				<<link [[`Brand her _valueBrand`|Hopeless Cycle Cell Brand]]>><<pass 2>><<set $hcBrand to _valueBrand>><<hcPrisonerHealth -3 "penance">><<set $prisoner.harmed++>><<hcSuspicion -3>><<sadism 40>><</link>><<hopelessCycleSus -1>>
+				<br>
+			<</if>>
+		<</capture>>
+	<</for>>
+	<<link [[Refuse|Hopeless Cycle Cell Brand]]>><<set $hcBrand to "refuse">><<hcSuspicion 25>><<set $prisoner.love += 5>><</link>><<hopelessCycleSus 2>><<hopelessCycleLove 2>>
+	<br>
+
+<<elseif !$prisonerEvents.includes("silver")>>
+	<<set $prisonerEvents.pushUnique("silver")>><<hcPrisonerHealth -2 "penance">>
+	<<run hcItemAdd({ type: "clutter", name: "leather gloves", nameText: "leather gloves", location: "cell", origin: "hand", dirty: 2})>>
+	He puts on a pair of very large and thick leather gloves. "Hold her still," he says to you. "You're one of the cleanest of us. You can withstand and recover from her touch better than most."
+	<br><br>
+
+	You obey, unlocking her shackles and getting behind her to hold her arms back, and her body still. This much contact makes you feel sick. <<llpurity>><<purity -10>><<ggtrauma>><<trauma 24>>
+	<br><br>
+
+	He grabs <<= $prisoner.name>> by the cheeks, forcing her mouth open. He holds his hand out to the confessor expectantly. After a moment of hesitation, the confessor hands him a silver needle.
+	<br><br>
+
+	He brings the needle to her mouth. You wince, prompting the Hand to pause and look at you. "Just cleaning."
+	<br><br>
+
+	He looks around inside her mouth for a moment. "It healed nicely." He gets to work. You can't bear to watch. You can look away, but you can't cover your ears.
+	<br><br>
+
+	She lets out a few cries of pain during the process, each one prompting a sadistic chuckle from the Hand. "You should be thanking me. I'm making sure the monstrosities don't come crawling out." <<stress 6>><<gstress>>
+	<br><br>
+
+	She starts to push her body back against you. The contact becomes less sickening, and more alluring. You push the thoughts away, knowing they aren't yours. <<arousal 1000>><<garousal>>
+	<br><br>
+
+	Finally, he pulls the needle away. The tip is covered in something black. He grins at <<= $prisoner.name>>. "Now, thank me." In response, <span class="red">she spits blood right in his face</span>. He staggers backwards, hastily wiping it away.
+	<br><br>
+
+	He looks angry, but panicked. "I... I'm dirty. I need to..." He removes and throws his gloves aside. "Burn those," he says as he quickly leaves the cell. The confessor looks to you, before following the Hand.
+	<br><br>
+
+	You hear a few low, repeating breaths from <<= $prisoner.name>>. She's laughing. She doesn't resist as you re-secure her manacles. <<stress 12>><<ggstress>>
+	<br><br>
+
+	<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+	<br>
+<<else>>
+	<<if $hc.suspicion lte 30 and !$hcChallenge.handCruel>>
+		<span class="green">The Hand sees no need for a physical punishment.</span> You're made to lead a prayer for <<= $prisoner.name>>'s soul. <<stress -12>><<trauma -12>><<purity 5>><<lstress>><<ltrauma>><<gpurity>>
+		<br><br>
+
+		<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+		<br>
+	<<elseif $prisoner.state is "catatonic">>
+		He kicks her on the side. She doesn't react at all. "No purpose in penance. She won't even feel it." He turns to you. "Take better care of her." <<hcSuspicion 10>><<hopelessCycleSus 2>>
+		<br><br>
+
+		<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+		<br>
+	<<else>>
+		<<wearProp "whip" "khaki">>
+		<<set $prisoner.harmed++>><<hcPrisonerHealth -1 "penance">><<sadism 10>>
+		You're made to whip her again.
+		<<if $prisoner.love gte 45>>
+			It's a simple punishment, which relieves you both. She subtly nods at you, prepared for each strike. It doesn't make her cries of pain any easier to hear.
+		<<else>>
+			You do it as expected of you.
+		<</if>>
+		<br><br>
+
+		<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+		<br>
+	<</if>>
+<</if>>
+
+:: Hopeless Cycle Punishment Intro
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<wearProp "whip" "khaki">>
+<span class="narration">The line between punishment and sadistic pleasure is most often crossed without realisation. The witch had much more pain to look forward to.</span>
+<br><br>
+
+<<if $phase is 1>>
+	<<set $prisoner.harmed += 2>><<hcPrisonerHealth -3 "penance">><<set $prisoner.harmedRecently to 16>>
+	<<set $prisoner.cleanBody -= 1>><<set $prisoner.cleanBandages -= 1>>
+	You don't hold back, letting your lash rip through air, then skin. She cries out in pain as you open a new wound on her back.
+	<br><br>
+
+	You do it again. The Hand grins. "Good." He pats you on the shoulder. "I knew you were the one for this."
+<<elseif $phase is 2>>
+	<<set $prisoner.harmed += 1>><<hcPrisonerHealth -1 "penance">><<set $prisoner.harmedRecently to 16>>
+	You know how to make it hurt, but you also know how to hold back. You give her three lashes on the back, but none are hard enough to break skin. They're each still hard enough to make her cry out in pain, though.
+	<br><br>
+
+	The expression on the Hand's face is hard to read, but eventually he nods. "Enough."
+<<else>>
+	<<hcPrisonerHealth 4 "penance">><<set $prisoner.harmedRecently to 16>>
+	<<set $prisoner.cleanBody -= 1>><<set $prisoner.cleanBandages -= 1>>
+	The Hand raises an eyebrow as you stand there with your whip, but make no strike.
+	<br><br>
+
+	He growls and yanks your whip away. With frightening speed and accuracy, he gives her two lashes of his own. She cries out in pain as <span class="red">he opens two gashes on her back, in the shape of a cross.</span>
+	<br><br>
+
+	He thrusts the whip back into your hands with enough force to make you step back to keep balance.
+<</if>>
+<br><br>
+
+He looks down with contempt. <span class="red">"I want to see fresh wounds each inspection, brother."</span> He leaves the cell along with the confessor.
+<br><br>
+
+<<if $phase is 2>>
+	<<= $prisoner.name.toUpperFirst()>> slumps against the wall, staring at you cautiously. Can she tell you held back?
+<<else>>
+	<<= $prisoner.name.toUpperFirst()>> breathes heavily. She slumps against the wall, letting out a grunt of pain as her fresh wounds come into contact with it.
+<</if>>
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Whip
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<wearProp "whip" "khaki">>
+
+You brandish your whip.
+<br><br>
+
+<<if $prisoner.harmedRecently gte 4 and $prisoner.harmed gte Math.floor($prisoner.love / 4) or $prisoner.state is "catatonic">>
+	<<if $prisoner.state is "asleep">>
+		<<set $prisoner.state to "awake">><<set $prisoner.awakeTimer to 3>>
+		The first strike wakes her up immediately.
+	<</if>>
+	You mercilessly whip her again and again. She barely even manages grunts of pain anymore.
+<<elseif $prisoner.harmedRecently gte 4 and $prisoner.harmed gte Math.floor($prisoner.love / 8)>>
+	<<if $prisoner.state is "asleep">>
+		<<set $prisoner.state to "awake">><<set $prisoner.awakeTimer to 3>>
+		The first strike wakes her up immediately.
+	<</if>>
+	You mercilessly whip her. Her cries of pain become resigned as she tries to avoid giving you the satisfaction of hearing them.
+<<else>>
+	<<if $prisoner.state is "asleep">>
+		<<set $prisoner.state to "awake">><<set $prisoner.awakeTimer to 3>>
+	<</if>>
+	<<if !$prisonerEvents.includes("legs")>>
+		<<set _otherOptions to true>>
+		<<set $prisonerEvents.pushUnique("legs")>>
+		Her body is already largely covered in wounds. You aim somewhere with fewer of them. You go for her legs.
+		<br><br>
+
+		You bring your whip down, carving a cut into her right leg. She flinches, but doesn't make a sound.
+		<br><br>
+
+		You tilt your head, and do it again. Once more, she doesn't make a sound.
+		<br><br>
+
+		<<link [[Whip her somewhere else|Hopeless Cycle Cell Legs]]>><<set $prisoner.harmed++>><<set $phase to 1>><<sadism 20>><</link>>
+		<br>
+		<<link [[Inspect her legs|Hopeless Cycle Cell Legs]]>><<set $prisoner.love += 2>><<set $phase to 2>><<trauma 12>><<purity -2>><<arousal 600>><</link>><<gtrauma>><<lpurity>><<garousal>>
+		<br>
+	<<elseif $prisoner.harmedRecently lte 4 and $prisoner.love gte 45>>
+		You look to her, making sure she's prepared. She braces herself and nods.
+		<br><br>
+
+		You only whip hard enough to leave a mark. She grunts in pain, but lets out a sigh of relief as it's not nearly as hard as she was expecting.
+	<<else>>
+		You open new wounds across her skin. She tries to hold back her grunts of pain, and glares at you angrily when it's over.
+	<</if>>
+<</if>>
+<br><br>
+
+<<set $prisoner.harmedRecently to 16>>
+
+<<if !_otherOptions>>
+	<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Hopeless Cycle Cell Legs
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<wearProp "whip" "khaki">>
+<span class="narration">For the first time in his life, the gaoler questioned his faith.</span>
+<br><br>
+
+<<if $phase is 1>>
+	You whip her across the chest instead. She cries out in pain as you expected.
+	<br><br>
+<</if>>
+
+You return your whip to its clasp on your belt, before approaching her and crouching down to inspect her legs.
+<br><br>
+
+Slowly and carefully, you try to lift one. It provides no resistance. You let it go. It drops, coming to rest in a position that can't possibly be comfortable for her. Yet, she doesn't move it.
+<br><br>
+
+<span class="red">Terrible realisation overtakes you. You feel sick to your stomach.</span>
+<br><br>
+
+You back away, putting your hand against the wall for balance. She must have been born this way, or it was from some other misfortune. Your siblings couldn't have possibly done this. This isn't how the flock punishes. Despite that, a gnawing doubt grows. <<trauma 36>><<gggtrauma>>
+<br><br>
+
+Shame and guilt fill your chest. You shake it off. This changes nothing. Crippled or not, she remains a witch and a sinner who consorted with pure evil. Surely that's how she became this way, by her own misdeeds.
+<br><br>
+
+<<= $prisoner.name.toUpperFirst()>>'s grey eye glares at you, burning with anger and disgust. She doesn't seem to want your pity, either.
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Face
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+<span class="narration">Some versions of this tale hold disturbing similarities with occult mythos that are still around to this day.</span>
+<br><br>
+
+<<if $phase is 1>>
+	You watch intently.
+<<else>>
+	You run up to the Bishop's Hand and try to grab his arm. He looks down at you with contempt and <span class="red">easily tosses you aside.</span>
+<</if>>
+<br><br>
+
+He slips the dagger under the bandages on her face. She goes still. With a swift motion, the bandages around her head all fall to the ground.
+<br><br>
+
+The Hand immediately drops her, backing away. "By Holy Virgo," he mutters under his breath. "She's no witch. She's a demon." You move to look at her face as she slowly pushes herself up off the ground.
+<br><br>
+
+You feel your stomach drop as your head starts to spin. You've read the scriptures, and heard the tales told in hushed whispers by older cloister members who lived through midnight. You never expected to see it yourself.
+<br><br>
+
+On the left side of her forehead is a black, splintering mark, as if the skin was made of cracked porcelain. It angles down, covering where her left eye would be, but doesn't stop. It escapes her skin entirely, ripping into the air and leaving a three-pronged crack, a <span class="tentacle">hole</span>, in the world itself next to her head. It moves with her as she recovers, no longer contained by the bandages. <<trauma 50>><<gggtrauma>><<awareness 50>><<ggawareness>>
+<br><br>
+
+<span class="purple">An empty antler. The mark of the Elkspawn.</span>
+<br><br>
+
+The nothingness inside shimmers and boils, demanding your undivided attention and <span class="tentacle">worship</span>. A large pair of hands grab your shoulders, snapping you out of it.
+The Hand towers over you. "Do not lose yourself. We must seal the room for confession and purging." He looks back to the confessor. "Purge her, before she ruptures."
+<br><br>
+
+<<= $prisoner.name.toUpperFirst()>> lays writhing on the ground, clutching her head. The confessor freezes, dropping the silver bowl.
+It noisily clatters on the floor. "Y-your grace, she holds too much, I can't—"
+<br><br>
+
+The Hand looks back to you, squeezing your shoulders. "Brother Fayne. You are pure. You are strong. We leave this to you." He grabs the confessor and pushes past you, <span class="red">slamming the cell door shut</span>.
+<br><br>
+
+She stirs in the gloom behind you. You feel her gaze on your back. She <span class="tentacle">yearns</span>.
+<br><br>
+
+<<link [[Turn around|Hopeless Cycle Cell Elkspawn]]>><<endevent>><</link>><<willpowerdifficulty 500 800>>
+<br>
+
+:: Hopeless Cycle Cell Elkspawn
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+
+You turn to look at <<= $prisoner.name>> as you hear sickening cracks, followed by a thud and a scrape.
+<br><br>
+
+She's already crawling towards you. <span class="red">The chain on her manacles has broken. Her left arm has become black and elongated, each finger ending in a sharp point.</span> It bites into the stone as it drags her forwards. Smoke hisses from where blackened skin meets the silver manacle.
+<br><br>
+
+<<if $willpowerSuccess>>
+	The temple's bell chimes. The antler pulses, attracting your gaze. <span class="green">You shake off its influence, for now.</span>
+	<br><br>
+
+	You try to focus on her face. Black ooze trickles down her cheek. There's a hunger behind her eye, along with something else.
+	<<if $prisoner.harmed gte Math.floor($prisoner.love / 8)>>
+		Sadistic eagerness to give back all the pain she's been given.
+		You had been expecting the face of an old crone, or one disfigured by dark magic. Instead, you see the face of a frightened girl, wounded and burned by those that should have been helping her, tainted by something no human was ever meant to touch.
+		<br><br>
+
+		She's laughing.
+	<<else>>
+		Despite her approach, she seems to be trying to stop herself. Her expression is that of desperation. Remorse. Like she's asking you to forgive her.
+		You had been expecting the face of an old crone, or one disfigured by dark magic. Instead, you see the face of a frightened girl, wounded and burned by those that should have been helping her, tainted by something no human was ever meant to touch.
+		<br><br>
+
+		She's begging you for help.
+	<</if>>
+<<else>>
+	The temple's bell chimes. The antler pulses, attracting your gaze. <span class="red">You become lost in the vast nothing within. You feel empty. Cold. Hot. All at once.</span>
+	<br><br>
+
+	You can't focus. Black ooze trickles down her cheek. There's a hunger behind her eye.
+	A hunger that's spreading to you. Everything in your body screams out for you to defile her further, to rip the hole open.
+<</if>>
+<br><br>
+<<set $skillChallenge to random(700, 840)>>
+
+<<link [[Purge|Hopeless Cycle Cell Elkspawn Purge]]>><</link>><<note "Whip skill" "green">><<if $angelBanish>><<angelBanishNote>><</if>><<lllpurity>>
+<br>
+<<link [[Defile|Hopeless Cycle Cell Elkspawn Embrace]]>><<set $phase to 1>><<unset $skillChallenge>><</link>><<gggtrauma>><<lllpurity>><<penilevirginitywarning>>
+<br>
+
+:: Hopeless Cycle Cell Elkspawn Purge
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<wearProp "whip" "khaki">>
+
+You grab your whip, and lash at her arm right as she tries to strike you with it.
+<<if $prof.whip gte $skillChallenge and $angelBanish gte 1>>
+	<<angelBanishUse>>
+	<span class="green">You manage to bind it.</span> You quickly move around her, attempting to restrain the corrupted appendage.
+	<br><br>
+
+	She struggles, but with her only strong limb immobilised, she's helpless. You pull her back to the chains and further restrain her with them.
+	<br><br>
+
+	<<if $prisoner.harmed gte Math.floor($prisoner.love / 6)>>
+		She looks back at you with abject hatred.
+	<<elseif $prisoner.love gte 30>>
+		She stops squirming, and looks back to you pleadingly.
+	<<else>>
+		She looks back and glares at you, her squirming slowing down.
+	<</if>>
+	The antler pulses again, growing ever so slightly. It sounds like glass cracking. Time is short. You reach for the silver bowl and pull it closer.
+	<br><br>
+
+	You've performed confessions before, but this feels more like an exorcism. Your siblings are all counting on you. <<= $prisoner.name.toUpperFirst()>> is, too. The Bishop's Hand lowers a sheet over the door of the cell from outside. The smell of incense fills the room, followed by his heavy footsteps running out of hearing range. <<hallucinogen 120>><<ghallucinogens>>
+	<br><br>
+
+	<<if $prisonerEvents.includes("tongue")>>
+		She can't speak,
+	<<else>>
+		You don't think she'll cooperate and speak,
+	<</if>>
+	so you'll have to improvise. You sit down behind her and tear off a scrap of cloth from your tunic. You wrap your arms around her. The purity within you and the corruption within her clash as skin meets skin. <<purity -5>><<lpurity>>
+	<<set $worn.lower.integrity to 250>>
+	<br><br>
+
+	You bid her welcome, and cover her eye with the ripped cloth as a makeshift blindfold. You demand she lay her sins bare, so they may be forgiven. <span class="gold">Your cross brandings flare to life, as hot as the day they were seared into your flesh.</span> She cries out, feeling them too. The antler's influence dims. <<pain 6>><<ggpain>>
+	<br><br>
+
+	The seal of confession is made. Her sins lie before you as she struggles against your grasp. You name her <span class="red">corrupted</span>. You will take her corruption into yourself, and she will be forgiven.
+	<br><br>
+
+	It burns.
+	<br><br>
+
+	<<link [[Purge|Hopeless Cycle Cell Elkspawn Purge 2]]>><</link>><<lllpurity>>
+	<br>
+<<else>>
+	<span class="red">She simply grabs it mid-swing, and uses it to pull you to the ground.</span>
+	<br><br>
+
+	She wasn't this strong before. The taint must be invigorating her body.
+	<br><br>
+
+	<<link [[Next|Hopeless Cycle Cell Elkspawn Embrace]]>><</link>><<gggtrauma>><<lllpurity>>
+	<br>
+<</if>>
+<<unset $skillChallenge>>
+
+:: Hopeless Cycle Cell Elkspawn Purge 2
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<set $prisonerEvents.pushUnique("elkspawnPurge")>><<set $prisoner.harmed -= 1>>
+
+Where your skin meets hers, the boundary of touch becomes unclear. You start to feel everything she does. Emptiness in your head, a desire to spread, to become <span class="tentacle">One</span>. <<lpurity>>
+<br><br>
+
+<span class="lewd">Your hand lowers to her groin. You begin to rub her entrance.</span> Her back arches as she pushes back against you. You hold her steady, trying to make it as easy as possible for her. She struggles against the chains, yet her arms don't move. <span class="red">Undulating, tendril-like limbs press against the chains.</span>
+<br><br>
+
+You pray as you slip a finger inside. She lets out something between a moan and a cry. A tendril escapes the chains, wrapping around your waist, trying to pull you closer. The antler pulses in rhythm with your heartbeats, which have become synchronised. Her walls clamp against your fingers, eager for release. <<lpurity>>
+<br><br>
+
+You feel the taint slipping into you more and more. Your purity burns against it, but <span class="tentacle">One</span> cannot make something clean without another becoming filthy.
+<<if $prisoner.harmed gte Math.floor($prisoner.love / 8)>>
+	She finally stops struggling, and starts to work with your motion.
+<<elseif $prisoner.love gte 30>>
+	She leans back into you. You embrace her tightly.
+<<else>>
+	She stops struggling and leans back into you, working with your motion.
+<</if>>
+Her whole body trembles. <span class="pink">She shudders in climax.</span> The silver bowl begins to fill with a glowing pink fluid. <<lpurity>>
+<br><br>
+
+For a brief moment, you see from her eye. You feel trapped inside a dying shell of a body, screaming for freedom, for release, before <span class="tentacle">Auriga</span> consumes the last shred of what you are.
+<br><br>
+
+As you purge her, you finally understand. She's a victim. <<set $prisoner.loveRevealed to true>><<set $prisoner.love += 3>><<glove>>
+<br><br>
+
+Her spasms continue, and you don't stop. The bowl fills further. There's so much. It threatens to snuff out every last ember of purity within you. Never before have you felt someone so utterly defiled. Her arm comes loose from the chain, but she doesn't struggle.
+<span class="green">She holds your arm closer to her body.</span> <span class="pink">She shudders in bliss again,</span> the pressure on her inner vessel finally relieved.
+<br><br>
+
+She gasps for breath, her body going limp. You gently lay her on her side. The bowl is nearly full. You brace yourself, and lift it to your lips. You grant her forgiveness, and finish your prayer. <<purity -100>><<lllpurity>>
+<br><br>
+
+The world spins in a chariot's wheel, and everything fades to black.
+<br><br>
+
+<<link [[Purge...|Hopeless Cycle Cell Elkspawn End]]>><<endevent>><<set $phase to 1>><<pass 2 hours>><<tiredness -36>><<hcSuspicion -30>><</link>><<hopelessCycleSus -3>>
+<br>
+
+:: Hopeless Cycle Cell Elkspawn Embrace
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<set $prisonerEvents.pushUnique("elkspawnEmbrace")>><<lowerruined>>
+
+<<if $phase is 1>>
+	You open your arms in a welcoming embrace. She lunges to meet it, knocking you over.
+<</if>>
+<br><br>
+
+<<if $worn.upper.name is "chain tunic">>
+	Her warped hand digs into the lower part of your tunic, ripping a few of the chain links out of place. She strikes again and again, until she exposes your <<penis>>.
+<<else>>
+	Her warped hand rips right through the lower part of your robe, exposing your <<penis>>.
+<</if>>
+<br><br>
+
+<<if $player.virginity.penile is true>><<set $prisonerEvents.pushUnique("virginity")>><</if>>
+She crawls on top of you,
+<<if $prisoner.harmed gte Math.floor($prisoner.love / 8)>>
+	her hand clasping around your neck. Her clawed fingers dig their way in. <<pain 6>><<gpain>>
+	<br><br>
+
+	She smiles at you, eager to give back the violation that's been given to her. <span class="lewd">She lifts herself up, and takes you in.</span>
+	<<if $player.virginity.penile is true>>
+		<span class="red">You feel your foreskin separate from your glans, <<virginitylosttext $prisoner.name>></span>
+		<<takeVirginity $prisoner.name "penile">><<set $prisonerEvents.pushUnique("virginity")>>
+	<</if>>
+	It sets your whole body aflame. Where your skin meets hers, the boundary of touch becomes blurred. Emptiness pours into you.
+	<br><br>
+
+	Her claws dig in deeper. She starts riding you roughly and without mercy. Tendrils erupt from her back, and start to whip and lash at you, ensuring you get no real pleasure from this. <<pain 10>><<arousal 4000>><<gggarousal>><<ggpain>>
+	<br><br>
+
+<<elseif $prisoner.love gte 30>>
+	her arms wrapping around you. Even the blackened arm holds you with a surprising gentleness. Her gaze is disarming.
+	<br><br>
+
+	She smiles at you sadly. <span class="lewd">She lifts herself up, and takes you in.</span>
+	<<if $player.virginity.penile is true>>
+		<span class="red">You feel your foreskin separate from your glans, <<virginitylosttext $prisoner.name>></span>
+		<<takeVirginity $prisoner.name "penile">><<set $prisonerEvents.pushUnique("virginity")>>
+	<</if>>
+	It sets your whole body aflame. Where your skin meets hers, the boundary of touch becomes blurred. Emptiness pours into you.
+	<br><br>
+
+	She holds you tightly, and you can't help but return the embrace. She must be holding back greatly. Tendrils wind around her legs, granting her support and keeping her on-balance. <<arousal 4000>><<gggarousal>>
+	<br><br>
+<<else>>
+	her black arm holding you down. Her gaze is blank, almost expressionless.
+	<br><br>
+
+	<span class="lewd">She lifts herself up, and takes you in.</span>
+	<<if $player.virginity.penile is true>>
+		<span class="red">You feel your foreskin separate from your glans, <<virginitylosttext $prisoner.name>></span>
+		<<takeVirginity $prisoner.name "penile">><<set $prisonerEvents.pushUnique("virginity")>>
+	<</if>>
+	It sets your whole body aflame. Where your skin meets hers, the boundary of touch becomes blurred. Emptiness pours into you.
+	<br><br>
+
+	She continues to hold you down, using your body. Tendrils wind around her legs, granting her support and keeping her on-balance. <<arousal 4000>><<gggarousal>>
+	<br><br>
+<</if>>
+<span class="pink">She shudders in climax.</span>
+The antler pulses in rhythm with your heartbeats, which have become synchronised. Her walls clamp against your <<penis>>, eager for release.
+You start to feel everything she does. Emptiness in your head, a desire to spread, to become <span class="tentacle">One</span>.
+<<orgasm>>
+
+As your semen fills her womb, you see a pattern of light trace itself along her abdomen, slowly working its way up in intricate patterns.
+<span class="pink">She shudders in climax again as soon as it reaches her womb.</span>
+You feel the taint slipping into you more and more. Your purity burns against it, but <span class="tentacle">One</span> cannot become clean without another becoming filthy.
+<<if $prisoner.harmed gte Math.floor($prisoner.love / 6)>>
+	She laughs, revelling in your pain.
+<<elseif $prisoner.love gte 30>>
+	She holds you even tighter, her head resting on your shoulder.
+<<else>>
+	She still just holds you down, her expression showing almost no emotion.
+<</if>>
+Her whole body trembles. <span class="pink">She shudders in climax again.</span> You become <span class="tentacle">As One</span>. <<llpurity>>
+<br><br>
+
+Her spasms continue, but she doesn't stop. There's so much. It threatens to snuff out every last ember of purity within you. Never before have you felt someone so utterly defiled.
+<br><br>
+
+The world spins in a chariot's wheel, and everything fades to black. <<purity -200>><<lllpurity>>
+<br><br>
+
+<<link [[Defiled...|Hopeless Cycle Cell Elkspawn End]]>><<endevent>><<set $phase to 2>><<pass 2 hours>><<tiredness -36>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Elkspawn End
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<hcPrisonerHealth 8>><<set $prisoner.harmed -= 1>><<stress -100>>
+
+You wake up to water being poured on your face. You shoot up. You're still in the cell.
+<br><br>
+
+<<if $phase is 1>>
+	You're surrounded by confessors, and the Bishop's Hand sighs. "Well done, brother." He looks genuinely proud.
+<<else>>
+	<<hopelessCycleOutfit "robes">>
+	You're surrounded by confessors, and the Bishop's Hand sighs in relief. "Well done, brother." A fresh pair of robes is thrown into your lap. "Your broken vow will be addressed at a later time."
+<</if>>
+<br><br>
+
+You look for <<= $prisoner.name>>. She lays against the far wall, her manacles hastily repaired with a new chain. Her left arm is back to normal, and the antler is smaller. It no longer undulates and crackles, now looking solid, almost like thick black glass.
+<span class="green">She looks healthier.</span>
+<br><br>
+
+"You saved her soul, for now. She avoided rupture, but is still filthy." He shakes his head. "She will be dealt with in-perpetuity come the red moon. Stay strong until then, brother."
+<br><br>
+
+One by one, the confessors leave, followed by the Hand. <<= $prisoner.name.toUpperFirst()>>'s grey eye stares at you from across the cell.
+<<if $prisoner.love gte 30>>
+	Her gaze is warm.
+<<else>>
+	Her gaze is cautious, but thankful.
+<</if>>
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<endevent>><</link>>
+<br>
+
+:: Hopeless Cycle Cell Brand
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>>
+
+<<if !["stop", "refuse", "resume"].includes($hcBrand)>>
+	<<set $prisonerBrands.pushUnique($hcBrand)>>
+<</if>>
+<<set _brandCount to $prisonerBrands.length>>
+<<set _brandHurtCount to $prisonerBrands.filter(brand => !["left leg", "right leg", "left thigh", "right thigh", "left foot", "right foot"].includes(brand)).length>>
+
+<<if ["stop", "refuse"].includes($hcBrand)>>
+	You clench the handle of the branding iron tightly, but don't move.
+	<br><br>
+
+	The confessors all look between each other nervously as the Hand stares you down.
+	<br><br>
+
+	"Hold her head," he barks as he rips the iron from your hands. They do so, giving him access to her right cheek.
+	<br><br>
+
+	<span class="red">He holds the branding iron up to her face.</span>
+	<br><br>
+
+	Her eye locks on you, panicked. She whimpers as the iron gets closer.
+	<br><br>
+
+	<<link [[Take the iron back|Hopeless Cycle Cell Brand]]>><<set $hcBrand to "resume">><<set $hcBrandStop to true>><<set $prisoner.love += 2>><</link>><<hopelessCycleLove 1>>
+	<br>
+	<<link [[Do nothing|Hopeless Cycle Cell Brand Cheek]]>><<set $prisoner.love -= 5>><<set $prisoner.harmed += 3>><</link>><<hopelessCycleLove -1>>
+	<br>
+<<else>>
+	<<if $hcBrand is "resume">>
+		You wrench the iron back from him. He nearly strikes you, but stops himself upon seeing that you're now willing to cooperate.
+	<<elseif ["left leg", "right leg", "left thigh", "right thigh", "left foot", "right foot"].includes($hcBrand)>>
+		You press the branding iron into her $hcBrand. She flinches, breathing heavily, <span class="green">but doesn't scream</span>.
+		<<if !$prisonerEvents.includes("legs")>>
+			<<set $prisonerEvents.pushUnique("legs")>>
+			<br><br>
+
+			<span class="red">She can't feel them.</span> That's why she always crawls. She looks back to you slowly, her face full of anger. She doesn't seem to want your pity.
+		<</if>>
+	<<else>>
+		<<if ["left arm"].includes($hcBrand)>>
+			You point to her $hcBrand. A confessor holds it up, and you press the branding iron into her flesh.
+			<span class="red">It was the last part of her body without injury, which you have now corrected.</span>
+		<<elseif ["right arm"].includes($hcBrand)>>
+			You point to her $hcBrand. A confessor holds it up, and you press the branding iron into her flesh.
+		<<elseif ["chest"].includes($hcBrand)>>
+			You motion for the confessors to turn her around. She looks up at you, tears streaming down her face. You press the branding iron into her chest.
+		<<else>>
+			You press the branding iron into her $hcBrand.
+		<</if>>
+		<<switch _brandHurtCount>>
+			<<case 1>><span class="red">She barely manages to muffle a scream.</span> She squirms against the confessors' grip. <<stress 6>><<gstress>>
+			<<case 2>><span class="red">She can't suppress the next scream.</span> She struggles against their grip. <<stress 12>><<ggstress>>
+			<<case 3>><span class="red">She screams and cries out, tears running down her face.</span> They mercilessly hold her down. <<stress 24>><<ggstress>>
+			<<default>><span class="red">She screams and cries, but suddenly stops. She's passed out from the pain.</span> <<stress 36>><<gggstress>>
+		<</switch>>
+	<</if>>
+	<br><br>
+	<<unset $hcBrand>>
+
+	<<if _brandHurtCount gte 4>>
+		<<set $prisoner.state to "catatonic">><<set $prisoner.health to 5>>
+		<<set _prisonerClothes to $hcItems.find(clothes => clothes.type is "clothes" and clothes.location is "prisoner")>>
+		<<if _prisonerClothes>>
+			<<set _prisonerClothes.dirty++>>
+		<</if>>
+		The confessors drop her. She lays sprawled out on the ground. One of them takes the iron from you, dousing it in the bucket.
+		<br><br>
+
+		The Hand pats you on the shoulder. "Treat the burns," he says before leaving the cell. The confessors follow with the cart, <span class="green">but they leave the bucket behind.</span>
+		<br><br>
+
+		You sit her back up by the wall. She sobs through a haze of pain, and doesn't seem to be lucid anymore. She's in terrible shape. You need to treat her, and fast.
+		<br><br>
+
+		<span class="blue">The garden has medicinal herbs that can be used to treat burns. You'll need <span class="teal">clean water</span> to apply them.</span>
+		<br><br>
+
+		<<link [[Next|Hopeless Cycle Cell]]>><<unset $hcBrandLegs>><<unset $hcBrandStop>><<unset $prisonerBrandSpots>><<endevent>><</link>>
+		<br>
+	<<elseif _brandCount gte 5>>
+		<span class="green">"Enough,"</span> the Hand finally says. The confessors drop her, and she falls forward, barely staying up on her shaking arms. One of the confessors takes the branding iron from you, dousing it in the bucket.
+		<br><br>
+
+		The Hand pats you on the shoulder. "Treat the burns," he says before leaving the cell. The confessors follow with the cart, <span class="green">but they leave the bucket behind.</span>
+		<br><br>
+
+		You sit her back up by the wall.
+		<<if $prisoner.harmed gte Math.floor($prisoner.love / 6)>>
+			She keeps trying to push you away the whole time.
+		<<elseif $prisoner.love gte 45>>
+			She clings on to you tightly. You hold her for a while as she sobs into your shoulder.
+		<<else>>
+			Her sobs continue.
+		<</if>>
+		You know how much pain she must be in.
+		<br><br>
+
+		<span class="blue">The garden has medicinal herbs that can be used to treat burns. You'll need <span class="teal">clean water</span> to apply them.</span>
+		<br><br>
+
+		<<link [[Next|Hopeless Cycle Cell]]>><<unset $hcBrandLegs>><<unset $hcBrandStop>><<unset $prisonerBrandSpots>><<endevent>><</link>>
+		<br>
+	<<else>>
+		<<if !$hcBrandLegs and $prisonerBrands.filter(brand => ["left leg", "right leg", "left thigh", "right thigh", "left foot", "right foot"].includes(brand)).length gte 3>>
+			The Hand grumbles. "She's not even feeling that. <span class="red">Brand somewhere else.</span>"
+			<<set $hcBrandLegs to true>>
+			<br><br>
+		<<elseif _brandCount gte 1>>
+			<span class="red">"<<print either("Again.", "Another.", "More.")>>"</span>
+			<br><br>
+		<</if>>
+
+		You stick the branding iron back into the cart of hot coals, heating it once more.
+		<br><br>
+
+		/*  Note for "A Cruel Hand" challenge: "penance" argument deliberately not applied to following hcPrisonerHealth calls.
+			Adding up to five extra damage to the branding would be unfair for anyone not getting S-rank.
+			And S-rank requires branding her face, which sets her health to 5, so it doesn't really matter anyway. */
+		<<for _labelBrand, _valueBrand range $prisonerBrandSpots>>
+			<<capture _valueBrand>>
+				<<if $prisonerBrands.includes(_valueBrand)>>
+					/* Already branded */
+				<<elseif ["left leg", "right leg", "left thigh", "right thigh", "left foot", "right foot"].includes(_valueBrand)>>
+					<<if $hcBrandLegs>>
+						/* Can't brand these parts anymore */
+					<<else>>
+						<<link [[`Brand her _valueBrand`|Hopeless Cycle Cell Brand]]>><<pass 2>><<set $prisoner.love += 2>><<set $hcBrand to _valueBrand>><<hcPrisonerHealth -1>><</link>><<hopelessCycleLove 1>>
+						<br>
+					<</if>>
+				<<else>>
+					<<link [[`Brand her _valueBrand`|Hopeless Cycle Cell Brand]]>><<pass 2>><<set $hcBrand to _valueBrand>><<hcPrisonerHealth -3>><<set $prisoner.harmed++>><<hcSuspicion -5>><<sadism 40>><</link>><<hopelessCycleSus -2>>
+					<br>
+				<</if>>
+			<</capture>>
+		<</for>>
+		<br>
+		<<if !$hcBrandStop>>
+			<<link [[Stop|Hopeless Cycle Cell Brand]]>><<set $hcBrand to "stop">><<hcSuspicion 25>><<set $prisoner.love += 5>><</link>><<hopelessCycleSus 2>><<hopelessCycleLove 2>>
+			<br>
+		<</if>>
+	<</if>>
+<</if>>
+
+:: Hopeless Cycle Cell Brand Cheek
+<<set _thermoDisable to true>><<effects>>
+<<hopelessCycleEffects>><<set $prisonerBrands.pushUnique("right cheek")>>
+
+<span class="red">Her blood-curdling screams fill the dungeon. Her tears boil as they run down her face and meet the cross.</span>
+<br><br>
+
+The Hand holds it there for an agonising minute before pulling it away.
+<<= $prisoner.name.toUpperFirst()>>'s once beautiful face is forever marked. She goes limp in the grip of the confessors.
+<br><br>
+
+<<set $prisoner.state to "catatonic">><<set $prisoner.health to 5>>
+<<set _prisonerClothes to $hcItems.find(clothes => clothes.type is "clothes" and clothes.location is "prisoner")>>
+<<if _prisonerClothes>>
+	<<set _prisonerClothes.dirty++>>
+<</if>>
+They drop her. One of them takes the iron from the Hand, dousing it in the bucket.
+<br><br>
+
+The Hand spits on her. "Treat the burns," he says before leaving the cell. The confessors follow with the cart, <span class="green">but they leave the bucket behind.</span>
+<br><br>
+
+You sit her back up by the wall. She sobs through a haze of pain, and doesn't seem to be lucid anymore. She's in terrible shape. You need to treat her, and fast.
+<br><br>
+
+<span class="blue">The garden has medicinal herbs that can be used to treat burns. You'll need <span class="teal">clean water</span> to apply them.</span>
+<br><br>
+
+<<link [[Next|Hopeless Cycle Cell]]>><<unset $hcBrandLegs>><<unset $hcBrandStop>><<unset $prisonerBrandSpots>><<endevent>><</link>>
+<br>

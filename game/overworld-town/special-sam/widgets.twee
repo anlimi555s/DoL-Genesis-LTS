@@ -1,0 +1,51 @@
+:: Widgets Sam [widget]
+<<widget "SamOptions">>
+	<<if !_no_options>>
+		<<if (Time.hour is 6 and Time.minute gte 55) or (Time.dayState is "dawn" and Time.hour gt 6)>>
+			/* (Time.weekDay gte 2 and Time.weekDay lte 6 and (Time.hour is 15 and Time.minute gte 55) or Time.hour gt 15) */ /*Addition block of condition if Sam ever take a break from the cafe at 3pm to 4pm */
+			<<if $chef_rework gt 0 or $chef_state is 7 or $chef_state is 8>>
+				"I better head off," Sam says. "Still a lot of work to do <<if $chef_state is 8>>for the Cafe reopening.<<else>>even with the Cafe under construction.<</if>> I'll see you later!"
+				<br><br>
+
+				<<link [[Say goodbye|Park]]>><<endevent>><<set $eventskip to 1>><</link>>
+			<<else>>
+				"I better head off," Sam says. "I don't want to be late for work."
+				<br><br>
+
+				<<link [[Say goodbye|Park]]>><<endevent>><<set $eventskip to 1>><</link>>
+				<br>
+				<<link [[Ask to walk with <<him>>|Sam Walk Cafe]]>><</link>>
+			<</if>>
+		<<else>>
+			<<nnpc_He "Sam">> gives you a friendly smile.
+			<br><br>
+
+			<<socialiseicon>><<link [[Talk with Sam (0:15)|Sam Park Talk]]>><<npcincr Sam love 1>><<pass 15>><<endevent>><</link>><<glove>>
+			<br>
+			<<walkicon>><<link [[Ask to go for a walk (0:15)|Sam Park Walk]]>><<pass 15>><<set $daily.sam_walk to true>><<npcincr Sam love 1>><<endevent>><<stress -3>><</link>><<lstress>><<glove>>
+			<br>
+			<<animalicon "duck">><<link [[Feed the ducks (0:10)|Sam Park Duck]]>><<pass 10>><<set $daily.sam_duck to true>><<npcincr Sam love 1>><<tending 2>><<endevent>><</link>><<glove>><<gtending>>
+			<br>
+			<<getouticon>><<link [[Leave|Park]]>><<endevent>><</link>>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "sam_loft">>
+	<<set _no_options to true>>
+	<<set $samSeen.pushUnique("gift")>>
+	You're in the middle of a conversation when you notice Sam looking at you curiously.
+		<br><br>
+		<<if $speech_attitude is "meek">>
+			"What's wrong Sam?" You ask <<him>>.
+		<<elseif $speech_attitude is "bratty">>
+			"Hey speak up, why are you staring at me?" you ask.
+		<<else>>
+			"What's up?" you ask. "Do I have something on my face?"
+		<</if>>
+		<br><br>
+		"You caught me!" <<he>> smiles at you. "I was just thinking how you've come over to spend time with an old crony like me. I can't help but feel a bit touched! I'm sure the little duckies here feel the same way."
+		<br><br>
+
+		<<link [[Next|Sam Loft]]>><</link>>
+<</widget>>

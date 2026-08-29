@@ -1,0 +1,153 @@
+:: Forest Shop [exitCheckBypass]
+<div id="clothingShop-div" class="main-shop-div">
+	<<forestShop-main>>
+</div>
+
+:: Forest Shop Widgets [widget]
+
+<<widget "forestShopLeave">>
+	<<shopClothingFilterReset>><<unset $clothes_choice>><<ShowUnderEquip "normal">><<ShowUnderEquip "over">>
+	<<set $tryOn.autoReset to true>><<set $eventskip to 1>><<unset $tempDisable>><<shopCommandoCheck>>
+	<<unset $enteringForestShop>>
+<</widget>>
+
+<<widget "forestShop-main">>
+	<<set $outside to 0>><<set $location to "forest_shop">><<effects>>
+	<<set $shopName = "forest">>
+	<<if $tryOn.autoReset isnot false>><<tryOnReset>><</if>>
+
+	<div id="tryonstats-div"><<tryOnStats>></div>
+	<<unset $shopListStartCount>>
+	<<unset $clothes_choice>>
+	<<set $shopPage = 0>>
+
+	<span>Warmth:</span>
+	<<warmthscale>>
+	<div id="warmth-description">
+		<<warmth_description>>
+	</div>
+	<br><br>
+
+	<<clothingcategoryicon "all-alt">>
+	<<link "View All">><<replace "#clothingShop-div">><<AllShop>><</replace>><</link>>
+	<br><br>
+	<!-- Purposefully does not use the actual shop location icons used in the shopHunt sequence.
+	Clarity of clothing type is more important, given the links themselves don't specify. -->
+	/*
+	<<clothingcategoryicon "over-outfit">>
+	<<link "Look in the overspilling chest">><<replace "#clothingShop-div">><<OverOutfitShop>><</replace>><</link>>
+	<br>
+	<<clothingcategoryicon "over-head">>
+	<<link "Look in the hanging basket">><<replace "#clothingShop-div">><<OverHeadShop>><</replace>><</link>>
+	<br>
+	<<clothingcategoryicon "over-upper">>
+	<<link "Look in the rotting closet">><<replace "#clothingShop-div">><<OverTopShop>><</replace>><</link>>
+	<br>
+	<<clothingcategoryicon "over-lower">>
+	<<link "Look on the squeaky rotating rack">><<replace "#clothingShop-div">><<OverBottomShop>><</replace>><</link>>
+	<br>
+	*/
+	<<clothingcategoryicon "outfit">>
+	<<link "Look behind the dark screen">><<replace "#clothingShop-div">><<OutfitShop>><</replace>><</link>>
+	<br>
+	<<clothingcategoryicon "upper">>
+	<<link "Look in the antique wardrobe">><<replace "#clothingShop-div">><<TopShop>><</replace>><</link>>
+	<br>
+	<<clothingcategoryicon "lower">>
+	<<link "Look on the strange ironing board">><<replace "#clothingShop-div">><<BottomShop>><</replace>><</link>>
+	<br>
+	<<clothingcategoryicon "under-outfit">>
+	<<link "Look in the mouldering hutch">><<replace "#clothingShop-div">><<UnderOutfitShop>><</replace>><</link>>
+	<br>
+	<<clothingcategoryicon "under-upper">>
+	<<link "Look on the rusted hangers">><<replace "#clothingShop-div">><<UnderTopShop>><</replace>><</link>>
+	<br>
+	<<clothingcategoryicon "under-lower">>
+	<<link "Look in the dusky drawer">><<replace "#clothingShop-div">><<UnderBottomShop>><</replace>><</link>>
+	<br>
+	<<clothingcategoryicon "head">>
+	<<link "Look on the spindly hat stand">><<replace "#clothingShop-div">><<HeadShop>><</replace>><</link>>
+	<br>
+	<<clothingcategoryicon "face">>
+	<<link "Look on the gnarled wall">><<replace "#clothingShop-div">><<FaceShop>><</replace>><</link>>
+	<br>
+	<<clothingcategoryicon "neck">>
+	<<link "Look in the glowing box">><<replace "#clothingShop-div">><<NeckShop>><</replace>><</link>>
+	<br>
+	<<clothingcategoryicon "handheld">>
+	<<link "Look in the bent umbrella stand">><<replace "#clothingShop-div">><<HandheldShop>><</replace>><</link>>
+	<br>
+	<<clothingcategoryicon "hand">>
+	<<link "Look in the tilted vanity">><<replace "#clothingShop-div">><<HandsShop>><</replace>><</link>>
+	<br>
+	<<clothingcategoryicon "legs">>
+	<<link "Look in the worn stocking">><<replace "#clothingShop-div">><<LegsShop>><</replace>><</link>>
+	<br>
+	<<clothingcategoryicon "feet">>
+	<<link "Look beneath the decaying shelf">><<replace "#clothingShop-div">><<FeetShop>><</replace>><</link>>
+	<br>
+
+	<<run statusCheck("Gwylan")>>
+	<<if ["shop", "garden"].includes(gwylanSchedule()) and (_gwylanStatus?.includesAny("aroused", "lust") or $gwylanSeen.includes("strapOnGifted")) and !$gwylanSeen.includes("sexToys")>>
+		<br>
+		An unfamiliar cabinet door swings gently on its hinges.
+		<br>
+		<<mysteryicon>><<link [[Look in the creaky cabinet|Forest Shop Sex Toys Intro]]>><</link>>
+		<br>
+	<<elseif $gwylanSeen.includes("sexToys")>>
+		<<clothingcategoryicon "strapon">><<link [[Look in the creaky cabinet|Forest Shop Sex Toys]]>><</link>>
+		<br>
+	<</if>>
+	<br>
+	<<run linkifyDivs('.button-back-to-shop')>>
+
+	<<if $tryOn.value isnot 0>>
+		<<icon "hanger.png">><<link "Return clothes">><<clothingReset>>
+			<<updatesidebarimg>>
+			<<updatesidebardescription>>
+			<<updateallure>>
+			<<updatewarmthscale>>
+			<<updatewarmthdescription>>
+			<<updateclothingshop>>
+			<<run updateMoment()>>
+		<</link>>
+		<br>
+		<<if $tryOn.value gt 0 and $tryOn.value lte $money>>
+			<<sendItemsToDropdown>>
+			<<shopicon "forest">><<link "Buy clothes">><<buyTryOnClothes "wear">><<updatesidebarmoney>><<updateclothingshop>><</link>>
+			<br>
+			<<wardrobeicon>><<link "Buy clothes and send to wardrobe">>
+				<<buyTryOnClothes "wardrobe">>
+				<<updatesidebarmoney>>
+				<<updatesidebarimg>>
+				<<updatesidebardescription>>
+				<<updateallure>>
+				<<updatewarmthscale>>
+				<<updatewarmthdescription>>
+				<<updateclothingshop>>
+			<</link>>
+			<br>
+		<</if>>
+	<<elseif $tryOn.value is 0>>
+		<<getouticon>><<link [[Stop browsing clothes|Forest Shop Entrance]]>><<forestShopLeave>><</link>>
+		<br>
+	<</if>>
+	<<if $tryOn.value gt 0 and !$robin_in_forest_shop>>
+		<<if Object.values(V.tryOn.tryingOn).some(slot => slot?.type.includes("heavy"))>>
+			<span class="red">The clothes you're trying on are too heavy to steal!</span>
+		<<else>>
+			<<getouticon>><<link [[Leave with stolen clothes|Forest Shop Stolen]]>>
+				<<shopClothingFilterReset>>
+				<<ShowUnderEquip "normal">>
+				<<ShowUnderEquip "over">>
+				<<buyTryOnClothes "wear" "steal">>
+				<<set $tryOn.autoReset to true>>
+				<<crimeUp `$tryOn.value / 100` "thievery">>
+				<<shopHoodCheck>>
+				<<shopCommandoCheck>>
+			<</link>><<crime "thievery">>
+		<</if>>
+		<br>
+	<</if>>
+
+<</widget>>

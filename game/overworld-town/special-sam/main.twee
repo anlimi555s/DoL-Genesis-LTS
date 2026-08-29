@@ -1,0 +1,1333 @@
+:: Sam Park Intro
+<<effects>>
+
+<<if $phase is "greet">>
+	<<if $speech_attitude is "meek">>
+		"Oh, Sam," you greet <<him>> politely. "I'm happy to see you this morning."
+	<<elseif $speech_attitude is "bratty">>
+		"Hey, Sam," you say. "Whatcha doing up so early?"
+	<<else>>
+		"Hi Sam!" you say. "Nice to see you, on a walk?"
+	<</if>>
+	<br><br>
+
+	"It's a nice morning," <<he>> says, feeding a few pieces of corn to the duck. "I like to feed the little duckies here in the morning. You should give it a try too, here!"
+	<br><br>
+
+	You take the corn from <<him>> and offer it to the duck.<<npcincr Sam love 1>><<glove>>
+<<else>>
+	You take the corn from <<him>> and offer it to the duck.
+	<br><br>
+
+	It eats a few pieces of corn, it seems happy to get your attention. The duck quacks happily when it finishes eating.<<stress -2>><<tending 1>><<gtending>><<lstress>>
+<</if>>
+<br><br>
+A few more ducks waddle over to you. You and Sam both begin to feed the waterfowl. A chorus of quacks echoes while they eat. Seeing them so happy makes you feel a bit lighter.<<trauma -1>><<ltrauma>>
+<br><br>
+<<link [[Next (0:10)|Sam Park Intro 2]]>><<pass 10>><</link>>
+
+:: Sam Park Intro 2
+<<effects>>
+
+You run out of feed, and the ducks soon waddle off. Sam turns to you soon after, giving you a pat on the back.
+<br><br>
+"They're always happy to get a little treat," <<he>> says. "I can't stop myself from feeding them during the week <<= $chef_rework gt 0 ? "especially right now with the cafe being closed!" : "right before I head off to the cafe.">> If you ever feel like feeding them I always have enough for a whole flock of 'em!"
+<br><br>
+Sam laughs, patting your back a few more times. <<He>> then walks off, going elsewhere in the park.
+<br><br>
+<<link [[Next|Park]]>><<endevent>><</link>>
+
+:: Sam Park
+<<effects>>
+<<npc Sam>><<person1>>
+
+You approach Sam while <<he>> is feeding some ducks.
+<br><br>
+<<SamOptions>>
+
+:: Sam Walk Cafe
+<<effects>>
+
+"Sure! Let's head over there together."
+<br><br>
+You walk to the cafe together, it makes the journey a bit safer. You make small talk as you head over.
+<br><br>
+<<link [[Cafe|Sam Walk Cafe 2]]>><<pass 10>><</link>>
+
+:: Sam Walk Cafe 2
+<<set $outside to 0>><<set $location to "cafe">><<effects>>
+
+Sam opens and unlocks the cafe door.
+<br><br>
+"Feel free to take a seat while I get things set up."
+<br><br>
+You wait around the cafe while Sam gets things ready. Soon the cafe is in working condition, and <<he>> opens the store for business.
+<br><br>
+<<link [[Next|Ocean Breeze]]>><<endevent>><</link>>
+
+:: Sam Park Talk
+<<effects>>
+<<npc Sam>><<person1>>
+You spark up a conversation with <<him>>.
+<br><br>
+
+<<link [[Talk about yourself|Sam Park Talk 2]]>><<set $phase to "you">><</link>>
+<br>
+<<link [[Ask about Sam|Sam Park Talk 2]]>><<set $phase to "sam">><</link>>
+<br>
+<<link [[Ask about work|Sam Park Talk 2]]>><<set $phase to "work">><</link>>
+<br>
+<<if $loft_known is 1 and $loft_sam isnot 1 and C.npc.Sam.love gte 45 and $chef_state and $samSeen?.includes("gift")>>
+	<<link [[Tell Sam about the orphanage loft|Sam Loft 2]]>><</link>>
+<</if>>
+
+
+:: Sam Park Talk 2
+<<effects>>
+<<set _loftConditions to $loft_sam isnot 1 and C.npc.Sam.love gte 45 and $chef_state and !$samSeen.includes("gift")>>
+
+<<cleareventpool>>
+<<if $phase is "work">>
+	You decide to talk about work.
+	<br><br>
+
+	<<if _loftConditions>>
+		<<addevent "sam_loft" 4>>
+	<</if>>
+
+	<<addinlineevent "sam_chat_cafe_popularity" 1>>
+		<<if $speech_attitude is "meek">>
+			"Sam," you say. "How is the cafe doing? I mean, popularity-wise."
+		<<elseif $speech_attitude is "bratty">>
+			"So, how's the cafe doing right now, Sam?" you ask. "You must be super grateful to have me at your side now. I can only imagine how popular I must've made it."
+		<<else>>
+			"Hey, how is the cafe doing?" you ask. "We aren't the only cafe in town, so I've always wondered how popular we are."
+		<</if>>
+		<br><br>
+
+		<<if $chef_state gte 9>>
+			"Thanks to your help the cafe has become world-class," Sam says. "I always had big dreams for the cafe. But, in a small town like this, it is no easy feat to build up a business."
+			<br><br>
+
+			<<He>> gives you a pat on the back, you can tell <<he>> is grateful to have you around.<<npcincr Sam love 2>><<gglove>>
+		<<elseif $chef_state gte 7 and $chef_rework gt 0>>
+			Sam gives you a thoughtful look.
+			<br><br>
+
+			"While the cafe's been closed down, I've been doing as much advertising as I can for our grand reopening," <<he>> looks up to the sky. "I never imagined we'd come so far. I couldn't have done it without you."
+			<br><br>
+
+			<<He>> smiles at you.
+			<br><br>
+
+			"Thanks for the help."<<npcincr Sam love 1>><<glove>>
+		<<elseif $chef_state gte 5>>
+			"We've been getting a larger volume of customers ever since you did that photoshoot," Sam says. "Actually, we're so popular our building just can't handle the volume."
+			<br><br>
+
+			<<He>> trails off, seemingly lost in thought.
+		<<elseif $chef_state gte 2>>
+			"As of right now, raising the prices of the buns was the right call," Sam comments. "If we had left them how they were, we would have been overwhelmed. While now fewer people can afford to buy the cream buns, it means we can afford more staff."
+			<br><br>
+
+			"Although our space is a bit too small to handle all the new customers," Sam says. "People still want your buns even with the increase."
+		<<elseif $chef_state is 1>>
+			"Steady," Sam says. "I'd say it has to do with your cream buns. Your recipe has been a big hit."
+			<br><br>
+
+			<<He>> seems lost in thought.
+			<br><br>
+
+			"The only issue is, of course, the quantity of buns you can make. I keep getting requests for more of them, but the ones I make just don't taste the same. You have a special touch."
+		<<else>>
+			"We have busy times and slow times," Sam says. "There are other cafes in town we have to contend with."
+			<br><br>
+
+			<<He>> looks down at the nearby ducks.
+			<br><br>
+
+			"I have been thinking of ways to spice up the cafe and attract new customers. I'll have to map out potential avenues I can take. A special concept or a specific food dish might be a good idea."
+			<br><br>
+
+			Sam trails off, lost in <<his>> own thoughts.
+		<</if>>
+	<</addinlineevent>>
+
+	<<if !$samSeen?.includes("origin")>>
+		<<addinlineevent "sam_chat_origin" .7>>
+			<<set _no_options to true>>
+
+			<<if $speech_attitude is "meek">>
+				"I've been meaning to ask you Sam," you mumble. "How did the cafe start?"
+			<<elseif $speech_attitude is "bratty">>
+				"Been wondering," you say. "How'd the cafe even start up?"
+			<<else>>
+				"So, Sam," you begin. "What's the story of the cafe? I mean, how did you start off?"
+			<</if>>
+			<br><br>
+
+			"Well, it's a long story."
+			<br><br>
+
+			<<link [[Say you want to hear about it anyway|Sam Park Talk Cafe Origin]]>><<set $phase to "listen">><</link>>
+			<br>
+			<<link [[Say you don't want to hear about it right now|Sam Park Talk Cafe Origin]]>><<set $phase to "later">><</link>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $gwylan_cafe_intro>>
+		<<addinlineevent "sam_chat_seagull" .5>>
+			<<if isGwylanAbsent() is "nobody">>
+				Sam asks if you know nobody.
+				<br><br>
+
+				You look at <<him>> in confusion, only to find <<him>> equally dumbfounded.
+			<<else>>
+				"Speaking of the cafe," Sam says. "You know Gwylan? <<nnpc_Hes "Gwylan">> been around from the very start, even before I opened up. Having <<nnpc_him "Gwylan">> 'round made work a bit easier!"
+				<br><br>
+
+				<<if $gwylanSeen.includes("partners")>>
+					"I'm glad the pair of you are a couple. Hey, don't act all shocked now! I've noticed how you act near each other. If you two do end up tying the knot, be sure to hire me to cater!" Sam winks at you.
+					<br><br>
+
+				<</if>>
+				<<He>> laughs.
+			<</if>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $chef_state gte 2>>
+		<<addinlineevent "sam_chat_chef" 1>>
+			<<if $speech_attitude is "meek">>
+				"Um, Sam," you speak up. "How do I compare to your other chefs? I know I started out by replacing one of them."
+			<<elseif $speech_attitude is "bratty">>
+				"So, I'm your star chef, right?" you ask.
+			<<else>>
+				"You know, ever since you accepted my help as one of your chefs, I've always wondered how I compare to them," you say.
+			<</if>>
+			<br><br>
+
+			"I've worked alongside a lot of chefs, some who have worked in 5-star establishments," Sam says, throwing a piece of corn with a bit too much force. "But, your cream buns make you stand out. I've never tasted food as addictive as yours. If you plan to move on someday to open your own cafe, it'll be hard to find someone to replace you, that's for sure."
+			<br><br>
+
+			Sam gives you a grateful smile.<<npcincr Sam love 1>><<glove>>
+		<</addinlineevent>>
+
+		<<addinlineevent "sam_chat_sus" 1>>
+			While talking about the cafe, the topic of your cream bun recipe comes up.
+			<br><br>
+
+			"You know there are always customers asking for your secret recipe."
+			<br><br>
+
+			<<if $chef_sus gte 80>>
+				"A group of them even came to me and insisted that you use," <<he>> hesitates. "Unmentionable fluids in the cream buns. Of course, I told them it was an unfounded lie."
+				<br><br>
+
+				Sam sighs, <<he>> looks at you with <<his>> forehead wrinkled. It's clear the rumours have unsettled <<him>>.<<npcincr Sam love -7>><<lllove>>
+				<br><br>
+
+				<span class="red">"You should be careful working at the cafe until these rumours die down."</span>
+			<<elseif $chef_sus gte 60>>
+				"A few of them even came to me and insisted that you use your own 'milk' or 'cream' for the buns."
+				<br><br>
+
+				Sam sighs, rubbing <<his>> forehead. It's clear the rumours have unsettled <<him>>.<<npcincr Sam love -4>><<llove>>
+				<br><br>
+
+				<span class="pink">"You should be careful working at the cafe until these rumours die down."</span>
+			<<elseif $chef_sus gte 40>>
+				"A couple of strange people even mentioned that you are using a 'special' type of cream to make the buns. I'm sure they're mixing us up with another place, but I do wonder where those ideas came from."
+				<br><br>
+
+				Sam seems a bit disturbed by the statement, but clearly doesn't believe it's true.
+				<br><br>
+
+				<span class="purple">"You should be careful with the type of rumours that circulate when you're working."</span>
+			<<elseif $chef_sus gte 20>>
+				"One weirdo even insisted you were filling the cream buns with..." Sam trails off, and shakes <<his>> head.
+				<br><br>
+
+				<span class="blue">"It's just one person making things up, feel free to stop by the cafe as normal."</span>
+			<<else>>
+				"They are curious about it, aren't they?" Sam laughs. "You really made our customers addicted to your buns, didn't you?"
+				<br><br>
+
+				<span class="teal">"I hope you come back to the cafe to make more soon!"</span>
+			<</if>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if ($chef_state gte 7 and $chef_rework lte 0) or $chef_rework gt 0>>
+		<<addinlineevent "sam_chat_rework" 1>>
+			In particular, you bring up the cafe's renovations.
+			<br><br>
+
+			<<if $chef_rework gt 0>>
+				"It is nerve-racking, isn't it?" Sam says. "The cafe should open up in <<nDays $chef_rework>>. Renovations can often be a death sentence for restaurants if you don't have a strong backing, that is. I have been busy advertising ourselves wherever I can."
+			<<else>>
+				"It was hard having the cafe closed for so long," Sam comments. "However, the renovations have been a big hit with our customers. We have space for more people than ever."
+				<br><br>
+
+				"I've had customers ask to hold weddings in our venue, too. It's something I never thought would be possible with the previous building."
+			<</if>>
+			<br><br>
+
+			Sam continues to talk about particulars with the construction, and how <<he>> planned out the cafe's new design. While some parts go over your head, you feel as though you've learned a bit.<<gmaths>><<mathsskill 1>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $chef_state gte 5>>
+		<<addinlineevent "sam_chat_photo" 1>>
+			The topic of the advertisements you did with Niki came up.
+			<br><br>
+
+			"Those photos you took were fantastic! You really did a great job at advertising the cafe. People always talk about wanting to see you in person or buy some of your pictures. One of these days, we may need to do a 'part two' to our advertisements!"
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $chef_state gte 9>>
+		<<addinlineevent "sam_chat_grand" 1>>
+			The topic of the grand opening of the Ocean Breeze Cafe comes up. Sam's eyes light up at the mention.
+			<br><br>
+
+			"That was a day I'll always remember," Sam says. "It has always been my dream to build a restaurant from nothing into something world-class. Even the mayor came! It's something I never could've imagined happening. It's all thanks to you."
+			<br><br>
+
+			<<He>> wipes away <<his>> tears.
+			<br><br>
+
+			"I don't plan to stop improving the cafe anytime soon. I hope you continue to help the cafe out whenever you can."<<npcincr Sam love 1>><<glove>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<addinlineevent "sam_chat_competitors" 1>>
+		"Speaking of cafes," Sam says. "I was researching some of our competitors the other day. There's this other cafe that has their staff all dressed in <<print either("maid outfits", "bunny suits", "naked aprons", "swimsuits", "butler outfits")>>. They seemed pretty busy when I went inside, but the food was nothing special."
+		<br><br>
+
+		Sam sighs.
+		<br><br>
+
+		"Those sorts of places always come and go around here."
+	<</addinlineevent>>
+
+<<elseif $phase is "sam">>
+	<<if _loftConditions>>
+		<<addevent "sam_loft" 4>>
+	<</if>>
+
+	<<addinlineevent "sam_chat_sports" 1>>
+		You ask about Sam's favourite sport.
+		<br><br>
+
+		"My favourite is football, for sure!" Sam says. "You know, at times I thought about running a sports bar. Imagine being able to work and watch the game at the same time! Maybe one day I'll get a big TV for the place, and show a few games on it. You think it'd scare off the people who just want to relax in the morning?"
+		<br><br>
+
+		Sam gives a boisterous laugh.
+	<</addinlineevent>>
+
+	<<addinlineevent "sam_chat_favourite_food" 1>>
+		You ask about Sam's favourite food.
+		<br><br>
+
+		"My favourite food? That should be obvious with the type of place I've been running! I love pastries. Nothing beats a Bakewell tart."
+		<br><br>
+
+		Sam licks <<his>> lips.
+		<br><br>
+
+		"I just can't contain myself around them! We should share one sometime, I'm sure you'd love them just as much as I do."
+	<</addinlineevent>>
+
+	<<addinlineevent "sam_chat_family" 1>>
+		You ask about Sam's family.
+		<br><br>
+
+		"My family, well," <<he>> shows off <<his>> ring finger. "As you can see, I haven't tied the knot with anyone. No little rascals running around with my blood either. The only thing I'm married to is my job!"
+	<</addinlineevent>>
+
+	<<addinlineevent "sam_chat_future" 1>>
+		You ask about what Sam's goals for the future are.
+		<br><br>
+
+		<<if $chef_state is 9>>
+			"My dream was to make the cafe as big as it is today," <<he>> smiles. "I feel like I've achieved that now. I still want to make it the best place in town, where everyone can enjoy the food. I guess now that I've come so far, maybe getting a nice house would be good too?"
+			<br><br>
+
+			Sam disappears in thoughts about what <<his>> next dream will be.
+		<<else>>
+			"My only real dream is to build up the cafe as best as I can," <<he>> says. "You've seen how often I work. It's my livelihood. I want to make it a nice place for everyone else in town."
+		<</if>>
+	<</addinlineevent>>
+
+	<<if $gwylan_cafe_intro>>
+		<<addinlineevent "sam_chat_friend" .7>>
+			<<if isGwylanAbsent() is "nobody">>
+				You ask if Sam knows nobody. <<He>> looks at you in confusion, you are equally dumbfounded.
+			<<else>>
+				The topic of Sam's relationship with Gwylan comes up.
+				<br><br>
+
+				"Gwylan is my favourite regular, that's for certain. Every single day, <<nnpc_he "Gwylan">> comes into the cafe and sits right by the oceanside. You know, maybe calling Gwylan just a regular isn't enough, we're great friends! <<nnpc_Hes Gwylan>> been around since the start, and we've gotten along great."
+				<br><br>
+
+				<<if $gwylanSeen.includes("partners")>>
+					"And I see you've been getting along with <<nnpc_him "Gwylan">>, too." Sam laughs. "Be sure <<nnpc_he "Gwylan">> doesn't baby you too much, I know that Gwylan can lean into being a 'parent' more often than not!"
+				<<else>>
+					"If you ever drop by <<nnpc_his "Gwylan">> shop, tell 'em I said hi!"
+				<</if>>
+			<</if>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<addinlineevent "sam_chat_favourite_drink" 1>>
+		You ask what Sam's go-to drink is.
+		<br><br>
+
+		"I love my coffee and tea! It's hard to decide which I enjoy more, and since I'm in the business, I've tried so many different beans and tea leaves! Well, for tea you can't go wrong with breakfast tea, with a smidge of milk and sugar."
+		<br><br>
+
+		Sam pauses.
+		<br><br>
+
+		"For coffee, it's a bit more complicated. I like Ethiopian beans, and I usually go for a coffee with some sugar and milk, or a cappuccino with sugar. One of these days, I should brew you my favourite blend. I've got some more expensive beans back at home."
+	<</addinlineevent>>
+
+	<<addinlineevent "sam_chat_spa" .7>>
+		You ask what Sam does to relax, other than coming to the park.
+		<br><br>
+
+		"Ah. You know, I love going to the spa," <<He>> says. "It's one of my favourite ways to unwind, I always get so stiff after work."
+		<br><br>
+
+		<<if $samSeen?.includes("spa")>>
+			"You already know that, though. Last time you did such a good job on me. I might just hire you as my private masseuse!"
+			<br><br>
+
+			Sam reaches over to you and gives your shoulders a light massage. You can tell <<he>> has never done this before.
+			<br><br>
+			"I really don't know how you do it. The only thing I know how to massage is a piece of dough!"
+		<<elseif $spa_job gte 1>>
+			<<if $speech_attitude is "meek">>
+				"I actually work at the spa," you say. "N-Not that I'm avoiding you or anything there."
+			<<elseif $speech_attitude is "bratty">>
+				"What, really? I'm like the best masseuse there! Why haven't I seen you?"
+			<<else>>
+				"Oh, really?" You say. "I work there. Maybe I should offer you a discount."
+			<</if>>
+			<br><br>
+
+			"It's so impressive that you can work there," <<he>> beams. "I'm only used to handling food, people are another story. Hope that one of these days you'll end up as my masseuse!"
+		<<else>>
+			You ask if <<he>> has gone recently.
+			<br><br>
+
+			"I wish! You know me, I'm always running out of time. I always end up pushing it aside because of work. Someone's gotta force me to go."
+		<</if>>
+	<</addinlineevent>>
+
+<<else>>
+	<<set _recipes_known to (Object.values(V.foodstuff).filter(food => food.knows_recipe).length)>>
+	You decide to talk about yourself.
+	<br><br>
+
+	<<if _loftConditions>>
+		<<addevent "sam_loft" 4>>
+	<</if>>
+
+	<<addinlineevent "sam_chat_home" 1>>
+		"I know you live at the orphanage," Sam says. "How's it there?"
+		<br><br>
+
+		You are about to speak up, but quickly close your mouth. Instead, you decide it would be better to avoid talking too much about your life at the orphanage, not to worry <<him>>.<<stress 3>><<gstress>>
+		<br><br>
+
+		Sam seems a bit concerned about your evasiveness, but does not pry too deep.
+	<</addinlineevent>>
+
+	<<if _recipes_known gt 1 and $housekeeping gte 400>>
+		<<addinlineevent "sam_chat_recipe" 1>>
+			You tell Sam about how you enjoy cooking, and you mention you know _recipes_known recipes.
+			<br><br>
+
+			<<if _recipes_known gte 60>>
+				"That many?" Sam's eyes widen. "That's amazing! I can already imagine all the different things you can make. Maybe you should be opening your own place sometime. Don't forget me, though!"<<npcincr Sam love 4>><<gglove>>
+			<<elseif _recipes_known gte 40>>
+				"Really?" Sam says. "That's amazing! Maybe one of these days you can add one of them to our menu? We should share recipes sometimes. I know how to make more than just pastries."<<npcincr Sam love 1>><<glove>>
+			<<elseif _recipes_known gte 20>>
+				"No wonder you've decided to work at the cafe," Sam smiles. "You'll only learn more working alongside me there. Maybe one of these days you can show me something you've made?"
+			<<else>>
+				"How cute!" Sam says. "I should teach you some more recipes sometime. It's a good learning experience!"
+			<</if>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $museumAntiques.museumCount gte 10>>
+		<<addinlineevent "sam_chat_museum" 1>>
+			You mention how you have a hobby of collecting relics for the museum.
+			<br><br>
+
+			"Oh! That means you're working with Winter, right?" Sam says. "<<nnpc_He "Winter">> has been at it a long time, even when I was back in school, <<nnpc_he "Winter">> was there. I imagine Winter's just as strict as <<nnpc_he "Winter">> was when I was in school all those years ago!"
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $gwylan_cafe_intro and !$weekly.sam_talk_gwy>>
+		<<addinlineevent "sam_chat_shopkeeper" .7>>
+			<<set $weekly.sam_talk_gwy to true>>
+			<<if isGwylanAbsent() is "nobody">>
+				Sam asks how you feel about nobody. You look at <<him>> confused, and <<he>> looks at you just as perplexed.
+			<<else>>
+				<<set _no_options to true>>
+				"So, how exactly do you feel about Gwylan?" Sam asks, leaning in closer to you.
+				<<if $gwylanSeen.includes("partners")>>
+					"I know you two are close. <<nnpc_Hes "Gwylan">> talked about you a bunch y'know? Lemme guess. You two are dating?"
+				<</if>>
+				<br><br>
+
+				<<link [[Say you love Gwylan|Sam Park Talk Gwylan]]>><<set $phase to "love">><</link>>
+				<br>
+				<<link [[Say you hate Gwylan|Sam Park Talk Gwylan]]>><<set $phase to "hate">><</link>>
+				<br>
+				<<link [[Say you like Gwylan|Sam Park Talk Gwylan]]>><<set $phase to "like">><</link>>
+				<br>
+				<<link [[Say you dislike Gwylan|Sam Park Talk Gwylan]]>><<set $phase to "dislike">><</link>>
+				<br>
+				<<link [[Stay quiet|Sam Park Talk Gwylan]]>><<set $phase to "quiet">><</link>>
+			<</if>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $tending gte 400>>
+		<<addinlineevent "sam_chat_tending" 1>>
+			You mention you enjoy gardening.
+			<br><br>
+
+			"Really?" Sam says. "I don't have a garden or anything, but it's impressive you can manage that. I couldn't ever handle outdoor plants, maybe if it was something easy but farmable stuff? No way!"
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $athletics gte 400>>
+		<<addinlineevent "sam_chat_athletics" 1>>
+			You mention you enjoy being active.
+			<br><br>
+
+			"That's not shocking at all, especially with how fit you look. You have a lot of early morning jogs? I don't really go on runs or anything, I'm already running around enough in the cafe!"
+		<</addinlineevent>>
+	<</if>>
+
+	<<addinlineevent "sam_chat_school" 1>>
+		You talk a bit about school, and the topic of your grades comes up.
+		<br><br>
+
+		<<if $school gte 2800>>
+			Sam seems impressed that you're doing so well at school, <<he>> reaches over and gives you a pat on the back.
+			<br><br>
+
+			"Aren't you a smart one? I can't say I was the best in school myself, at least outside of things like math. You're doing a great job!"<<npcincr Sam love 1>><<glove>>
+		<<elseif $school gte 1600>>
+			"That's great!" Sam smiles. "You're doing pretty good, aren't you? I was worried since you started working with me. I know it can get in the way of school sometimes, and I can't judge you for that. If you need a break, feel free to take one."
+		<<elseif $school gte 800>>
+			Sam nods as you talk, laughing after hearing your grades.
+			<br><br>
+
+			"Well, it's tough, right? I hope working and doing school isn't all that tough for you. I wouldn't be the best tutor, but I do know a few of your teachers. Maybe I can convince them to give you a better grade?"
+			<br><br>
+
+			Sam laughs again, poking a little fun.
+		<<else>>
+			Sam nods as you talk, <<he>> winces as <<he>> hears your current marks.
+			<br><br>
+
+			"Tough, isn't it?" <<he>> sighs. "I hope work isn't keeping you from school. I know school isn't for everyone, though. I just hope it's not my fault."<<stress 3>><<gstress>>
+		<</if>>
+	<</addinlineevent>>
+
+	<<addinlineevent "sam_chat_orphan_english" .7>>
+		You're talking about some of the teachers from school when Sam interrupts you.
+		<br><br>
+
+		"That Doren <<= C.npc.Doren.pronoun is "m" ? "guy" : "lady">> is one of your teachers, right?"
+		<br><br>
+
+		You nod.
+		<br><br>
+
+		"<<nnpc_Hes "Doren">> a bit scary, isn't <<nnpc_he "Doren">>?" Sam continues. "Not in a bad way! Doren once helped me out when a customer was—" <<he>> pauses. "Well, I don't want to frighten you or anything, but they were a wee bit angry at me."
+		<br><br>
+
+		Sam laughs, "Doren ended up saving my hide, but I do feel a bit bad for the fellow who <<nnpc_he "Doren">> had a brawl with."
+	<</addinlineevent>>
+
+	<<if $soup_kitchen_known is 1 and C.npc.River.love gte 20>>
+		<<addinlineevent "sam_chat_soup_kitchen" .7>>
+			You talk about how you volunteer at the soup kitchen.
+			<br><br>
+
+			Sam whistles. It seems that impressed <<him>>.<<npcincr Sam love 1>><<glove>>
+			<br><br>
+
+			"That's fantastic! I donate there a lot. It's normal for a restaurant owner to want everyone to have a full stomach, isn't it? Next time you go there, tell River I said hi, you must know 'em, <<nnpc_he "River">> runs the whole kitchen!"
+		<</addinlineevent>>
+	<</if>>
+
+	<<if !$weekly.sam_talk_rob>>
+		<<addinlineevent "sam_chat_orphan_friend" .5>>
+			<<set _no_options to true>>
+			<<set $weekly.sam_talk_rob to true>>
+			"Robin, is it?" Sam says suddenly. "I've seen <<nnpc_him "Robin">> a few times at the cafe. What a sweet kid! Are you two close?"
+			<br><br>
+
+			<<link [[Say Robin's your lover|Sam Park Talk Robin]]>><<set $phase to "lover">><</link>>
+			<br>
+			<<link [[Say Robin's a friend|Sam Park Talk Robin]]>><<set $phase to "friend">><</link>>
+			<br>
+			<<link [[Say Robin is like a sibling to you|Sam Park Talk Robin]]>><<set $phase to "sibling">><</link>>
+			<br>
+			<<link [[Say you don't like Robin|Sam Park Talk Robin]]>><<set $phase to "dislike">><</link>>
+			<br>
+			<<link [[Stay quiet|Sam Park Talk Robin]]>><<set $phase to "quiet">><</link>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $loveInterest.primary isnot "None" and !$weekly.sam_talk_love and $oceanbreezejob is 1>>
+		<<addinlineevent "sam_chat_love" .5>>
+			<<set _no_options to true>>
+			<<set $weekly.sam_talk_love to true>>
+			"I notice you've been in a daze while at work, and I know exactly what's up! You gotta have a crush on someone," <<he>> says with a grin. "Tell me all about it!"
+			<br><br>
+
+
+			<<link [[Agree|Sam Park Talk Love Interest]]>><<set $phase to "tell">><</link>>
+			<br>
+			<<link [[Refuse|Sam Park Talk Love Interest]]>><<set $phase to "refuse">><</link>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $swimmingskill gte 400>>
+		<<addinlineevent "sam_chat_swim" .5>>
+			You mention how you enjoy swimming.
+			<br><br>
+
+			"That's cool!" Sam says. "Speaking of, your swimming teacher is Mason, right? I've spoken with <<nnpc_him "Mason">> a few times. I'm always so shocked to hear <<nnpc_hes "Mason">> an actual teacher. <<nnpc_Hes "Mason">> so young!"
+		<</addinlineevent>>
+	<</if>>
+<</if>>
+<<runeventpool>>
+<br><br>
+
+<<SamOptions>>
+
+:: Sam Park Talk Cafe Origin
+<<effects>>
+
+<<if $phase is "listen">>
+	<<if C.npc.Sam.love gte 30>>
+		<<set $samSeen.pushUnique("origin")>>
+		Sam pauses for a long while before speaking up.
+		<br><br>
+
+		"You see, I've always wanted to open a cafe. It was always a dream of mine for a very long time, longer than you've been around for. I always knew that I needed a lot of money to make it happen. I was working as a <<= $pronoun is "m" ? "waiter" : "waitress">>. Trying my hardest to get tips, working extra shifts as much as I could. I tried to save enough to open my own place. Of course, it was never enough. I guess I was never as venturesome as other people when it came to making money. You know, using 'other' methods, like dressing up to catch eyes and whatnot."
+		<br><br>
+
+		Sam lets out a wry smile before continuing.
+		<br><br>
+
+		<<link [[Next|Sam Park Talk Cafe Origin 2]]>><<pass 2>><</link>>
+	<<else>>
+		"Maybe, I'll tell you another time," Sam says, giving an awkward smile.
+		<br><br>
+
+		<<SamOptions>>
+	<</if>>
+<<else>>
+	"Maybe, I'll tell you another time," Sam says, giving an awkward smile.
+	<br><br>
+
+	<<SamOptions>>
+<</if>>
+
+:: Sam Park Talk Cafe Origin 2
+<<effects>><<run statusCheck("Gwylan")>>
+
+Sam continues. "One day, a distant relative passed away. I barely knew them, but I got some inheritance money. I thought to myself, 'I just have to do it! I won't get another chance like this!' It took every penny, but I bought the cafe. It was perfect, a seaside venue with a beautiful view. You'd think it'd be smooth sailing from then, but, well."
+<br><br>
+"The place was a ruin. The only reason I had been able to afford it was due to its condition. The walls were covered in mould, there were no appliances, and I won't even comment on the horrors the previous owners left behind. I thought I had walked straight into hell, but at the same time, I knew I couldn't give up now. I rolled up my sleeves and got to work."
+<br><br>
+"That's when I met a good friend of mine,
+<<if _gwylanStatus?.includes("met") and isGwylanAbsent() isnot "nobody">>
+	you know Gwylan, right?
+<<else>>
+	you might see <<nnpc_him Gwylan>> at the cafe at times sitting out by the water.
+<</if>>
+With <<nnpc_his "Gwylan">> help, I got a lot more work done than I would've while alone. Obviously I didn't rely on <<nnpc_him "Gwylan">> completely, but just having someone to talk to made things easier."
+<br><br>
+
+<<link [[Next|Sam Park Talk Cafe Origin 3]]>><<pass 2>><</link>>
+
+:: Sam Park Talk Cafe Origin 3
+<<effects>>
+
+"I fixed the place up, and was finally able to open. It took a lot of hard work, and countless days. I didn't have a job or savings, as I put my everything into fixing the place up."
+<br><br>
+<<He>> lets out a deep breath, then smiles.
+<br><br>
+"That's where we are today. It took a lot of hard work. I don't want to keep you all day, but I'm glad to have you on board now. If I had your help from the start, things would've gone even better."
+<br><br>
+You feel as though you've learned a bit more about Sam, something you would have never learned without bonding with <<him>>.<<npcincr Sam love 7>><<ggglove>>
+<br><br>
+
+<<SamOptions>>
+
+:: Sam Park Talk Gwylan
+<<effects>>
+
+<<if $phase is "love">>
+	You tell <<him>> that you, in fact, are in love with Gwylan.
+	<br><br>
+
+	Sam's eyes widen,
+
+	<<if $samSeen?.includes("love_rob")>>
+		and <<he>> seems speechless. "Really...? I thought—"
+		<br><br>
+
+		<<He>> shakes <<his>> head. "No. Never mind."
+
+	<<elseif $samSeen?.includes("love_gwy")>>
+		and <<he>> gives you a big smile. "Glad to know your feelings haven't changed."
+		<br><br>
+
+		Sam jokes around with you, <<he>> pokes your side a few times.
+	<<else>>
+		and <<he>> gives you a big smile. "<<= $gwylanSeen.includes("romance") ? "I knew it. I had a feeling there was something going on between you two." : "If you aren't just pulling my leg then... that's adorable!">> <<nnpc_Hes "Gwylan">> really sweet. You make a good couple."
+		<br><br>
+
+		Sam jokes around with you, <<he>> pokes your side a few times.
+		<<set $samSeen.pushUnique("love_gwy")>>
+	<</if>>
+<<elseif $phase is "hate">>
+	You tell <<him>> that you hate Gwylan.
+	<br><br>
+
+	Sam's eyes widen.
+	<br><br>
+
+	"Ah, you aren't just pulling my leg, are you?" <<he>> says quietly. "Sorry. I guess I shouldn't have brought <<nnpc_him "Gwylan">> up. I think Gwylan's a sweetie, but I have no idea what kind of relationship you both have."
+	<br><br>
+
+	Sam closes <<his>> mouth, shifting the conversation to a different topic.
+<<elseif $phase is "like">>
+	You say you like Gwylan.
+	<br><br>
+
+	Sam smiles, nodding a few times as you talk.
+	<br><br>
+
+	"I can see why, Gwylan is a big sweetie," <<he>> says. "<<nnpc_He "Gwylan">> always drops by the cafe in the morning, you should say hi sometime!"
+<<elseif $phase is "dislike">>
+	You admit you don't like Gwylan very much.
+	<br><br>
+
+	Sam nods a few times listening to you, <<he>> then laughs.
+	<br><br>
+
+	"I can see why, Gwylan is a bit of an eccentric," <<he>> says, before shifting the conversation to another topic.
+<<else>>
+	Sam looks at you for a few moments.
+	<br><br>
+
+	"A cat got your tongue?" <<he>> laughs. "Well, I find Gwylan to be a sweetie, <<nnpc_he "Gwylan">> kind of reminds me of one of my parents in a way."
+	<br><br>
+
+	Sam falls quiet, as if reminiscing on something.
+<</if>>
+<br><br>
+
+<<SamOptions>>
+
+:: Sam Park Talk Robin
+<<effects>>
+
+<<if $phase is "lover">>
+	You tell <<him>> that you and Robin are lovers.
+	<br><br>
+
+	<<if $samSeen?.includes("love_gwy")>>
+		<<He>> seems speechless. "Really...? I thought—"
+		<br><br>
+
+		<<He>> shakes <<his>> head. "No. Never mind."
+	<<elseif $samSeen?.includes("love_rob")>>
+		<<He>> gives you a big smile. "Glad to know your feelings haven't changed."
+		<br><br>
+
+		Sam jokes around with you, <<he>> pokes your side a few times.
+	<<else>>
+		<<set $samSeen.pushUnique("love_rob")>>
+		"Really?" Sam pats your back. "That's adorable! You're both such sweet kids, you really are meant for each other. I can see the wedding now, be sure to invite me to cater!"
+		<br><br>
+
+		Sam jokes around with you, and pokes your side a few times.
+	<</if>>
+<<elseif $phase is "friend">>
+	You tell <<him>> that you and Robin are friends.
+	<br><br>
+
+	"Oh, that's cute! The orphanage folk are really sweet. I'm always happy to have them around in the cafe. I'm glad you got good friends like that around!"
+	<br><br>
+
+	Sam talks a bit more about some of <<his>> own friendships, and how they helped out <<his>> career.
+<<elseif $phase is "sibling">>
+	You say you see Robin as a sibling of yours.
+	<br>
+	Sam nods a few times as you speak.
+	<br><br>
+
+	"You're both from the orphanage, right? I can see why you'd see 'em like that. You know, I never had any siblings myself. I think if I did, I would want one like Robin! I guess Robin's a bit too young to be my sibling. I wouldn't mind being an <<uncle>> to the two of you, though."
+	<br><br>
+
+	You wonder what life would be like if Sam were a relative.
+<<elseif $phase is "dislike">>
+	You admit you don't like Robin.
+	<br><br>
+
+	<<He>> awkwardly laughs.
+	<br><br>
+
+	"O-Oh, I see! Sorry, I shouldn't have pried. I don't know what kind of relationship you both have. I know that it's not easy living in an orphanage as you do."
+	<br><br>
+
+	Sam shifts the conversation to something else.
+<<else>>
+	Sam looks at you for a few moments.
+	<br><br>
+
+	"A cat got your tongue?" <<he>> laughs. "Robin is quite a sweetie, I like <<nnpc_him "Robin">>."
+	<br><br>
+
+	Sam talks a bit about some of the times that <<he>> served Robin in the cafe.
+<</if>>
+<br><br>
+
+<<SamOptions>>
+
+:: Sam Park Talk Love Interest
+<<effects>>
+
+<<if $loveInterest.primary is "Black Wolf" or $loveInterest.primary is "Great Hawk">>
+	<<set _LI to "the $loveInterest.primary">>
+<<else>>
+	<<set _LI to $loveInterest.primary>>
+<</if>>
+
+<<if $phase is "tell">>
+	<<if isGwylanAbsent() is "nobody" and _LI is "Gwylan">>
+		You say you are, in fact, in love with nobody. Sam urges you to tell <<him>> more.
+		<br><br>
+
+		You both pause. Who were you talking about? <<trauma 12>><<ggtrauma>>
+	<<else>>
+		<<if $speech_attitude is "meek">>
+			"Um," you blush. "It's embarrassing to say it out loud but the one I love the most is _LI."
+		<<elseif $speech_attitude is "bratty">>
+			"Why are you so nosy?" you say. "Well, it's _LI, I've always had that one on my mind..."
+		<<else>>
+			"You're pretty nosy," you laugh, feeling a bit embarrassed. "Well, the one I keep thinking about is _LI,
+			<<if _LI is "Avery" and $chef_state gte 9>>
+				you probably saw <<nnpc_him "Avery">> at the cafe's opening ceremony."
+			<<else>>
+				<<= _LI is "Gwylan" ? "your 'favourite customer'." : _LI is "Robin" ? "you might've met <<nnpc_him Robin>> a few times before." : "you may not know that one.">>"
+			<</if>>
+		<</if>>
+		<br><br>
+
+		Sam urges you to continue, and you begrudgingly talk about _LI. You feel a bit warm talking about your beloved. Sam seems happy just listening to you, which puts you at ease.<<stress -3>><<npcincr Sam love 1>><<lstress>><<glove>>
+	<</if>>
+
+<<else>>
+	You avoid Sam's question, <<he>> laughs a few times before shifting to another topic.
+<</if>>
+<br><br>
+
+<<SamOptions>>
+
+:: Sam Park Walk
+<<effects>>
+<<npc Sam>><<person1>>
+You decide to go on a walk together.
+<br><br>
+<<cleareventpool>>
+
+<<addinlineevent "sam_walk_1" 1>>
+	You walk away from the bridge with Sam.
+	<<switch random(1,4)>>
+		<<case 1>>You walk past the fountain, past the toilets, and around the various other parts of the park. It's calming.<<stress -3>><<lstress>>
+		<<case 2>>You end up walking by the toilets, <span class="lewd">you hear a few lewd noises inside.</span> You wonder what's going on inside, but Sam keeps walking before you can check.<<arousal 5>><<garousal>>
+		<<case 3>>You walk nearby the river, you watch a few ducks wade in the water, as you walk along.
+		<<default>>Sam takes a few pictures of the local scenery as you walk around.
+	<</switch>>
+	<br><br>
+
+	It doesn't take long for you to end up back where you started.
+<</addinlineevent>>
+
+<<addinlineevent "sam_walk_2" 1>>
+	<<switch Time.season>>
+		<<case "winter">><<= Weather.precipitation is "snow" ? "The pair of you walk around the snowy park." : "It is fairly cold outside, but the walk keeps you warm.">>
+		<<case "autumn">>You notice the tree's leaves are becoming orange.
+		<<case "spring">>Your eyes wander to the flowers beginning to bloom.
+		<<default>>It feels a bit hot outside, but not too unbearable just yet.
+	<</switch>>
+	<br><br>
+
+	It doesn't take long for you to walk around the park.
+<</addinlineevent>>
+
+<<if $athletics gte 400>>
+	<<addinlineevent "sam_walk_3" 1>>
+		You and Sam walk around the park. You notice that <<he>> has trouble keeping up with you, but doesn't say anything. Eventually, you end up back where you started, with Sam puffing a bit behind you.<<gathletics>><<athletics 1>>
+		<br><br>
+
+		"That sure was fast! You're quite a speed walker, aren't you?"
+	<</addinlineevent>>
+<</if>>
+
+<<addinlineevent "sam_walk_4" 1>>
+	While on your walk, Sam pauses by the toilets.
+	<br><br>
+
+	"I'll be right back," <<he>> says, heading into the washroom.
+	<br><br>
+
+	It's fairly quiet at this time of morning, and it doesn't take Sam long to come back out.
+	<br><br>
+
+	"Let's keep going!"
+	<br><br>
+
+	You continue your walk, ending up back where you started.
+<</addinlineevent>>
+
+<<addinlineevent "sam_walk_5" 1>>
+	<<generate2>><<person2>>
+	While on your walk with Sam,
+	<<switch random(1,4)>>
+		<<case 1>>a <<person>> whistles in your direction.
+		<<case 2>>you feel someone's gaze on your bottom.
+		<<case 3>>you notice the lingering gaze.
+		<<case 4>>a <<person>> stops you to ask for your number. You tell <<him>> you don't have a phone.
+		<<case 5>>a <<person>> interrupts to flirt with you.
+	<</switch>>
+	<br><br>
+
+	Sam avoids the other person's gaze, pretending not to see anything. You walk back to the bridge without any further incident.
+<</addinlineevent>>
+
+<<addinlineevent "sam_walk_6" .5>>
+	<<set _no_options to true>>
+	<<generate2>>
+	While on your walk, Sam pauses by the toilets.
+	<br><br>
+
+	"I'll be right back," <<person1>><<he>> says, heading into the washroom.
+	<br><br>
+
+	While waiting for Sam, a <<person2>><<person>> walks up to you.
+	<br><br>
+
+	"Hey, <<girl>>. What are you doing here all by yourself? I heard there's a little slut hiding around the toilets. You wouldn't happen to be <<phim>>, would you?"
+	<br><br>
+
+	<<He>> reaches over to grab your shoulder, clearly up to no good.<<stress 5>><<gstress>>
+	<br><br>
+
+	<<link [[Next|Sam Park Harassment]]>><</link>>
+<</addinlineevent>>
+
+<<if $chef_state gte 2>>
+	<<addinlineevent "sam_walk_7" 1>>
+		<<generate2>>
+		While on your walk, a <<person2>><<person>> stops you.
+		<br><br>
+
+		"Aren't you the one behind those delicious cream buns at the Ocean Breeze Cafe?"
+		<br><br>
+
+		"Why yes!" Sam gloats. "The star chef is right here!"
+		<br><br>
+
+		Sam pats you on the back, you feel appreciated.
+		<br><br>
+
+		<<if $chef_sus gte 50>>
+			"I heard that they're made with real human 'milk' is that true?" the <<person>> asks. "I'd love to try it from the source!"<<stress 3>><<arousal 5>><<gstress>><<garousal>>
+			<br><br>
+
+			Sam's eyes narrow.
+			<br><br>
+
+			"Those are utterly ludicrous rumours. I would never allow such a thing in my establishment. I'll have you know our cream buns are made with real milk, not whatever you're imagining."
+			<br><br>
+
+			The person looks a bit disappointed, but seems to believe Sam.
+			<br><br>
+
+		<</if>>
+		You both walk away from the <<person>>, you can at least tell Sam appreciates your efforts. Even if <<person1>><<he>> is unaware of how you actually make the cream buns.<<npcincr Sam love 1>><<glove>>
+	<</addinlineevent>>
+
+	<<addinlineevent "sam_walk_8" .7>>
+		While on your walk, a few customers from the cafe pop up. They eagerly greet you and Sam, raving about your cream buns and praising Sam's service.
+		<br><br>
+
+		Sam sheepishly accepts their compliments, and so do you.<<stress -4>><<lstress>>
+		<br><br>
+
+		You walk around the park after saying goodbye to your admirers.
+	<</addinlineevent>>
+<</if>>
+
+<<addinlineevent "sam_walk_9" .4>>
+	You are walking alongside Sam when you hear a noise. A creature comes out of the bushes.
+	<br><br>
+
+	It's a badger.
+	<br><br>
+
+	"Aw! Look at what we have here!"
+	<br><br>
+
+	Sam crouches down, staying a short distance away from the animal. <<He>> takes out <<his>> phone and happily takes a bunch of pictures of the badger. It stares at Sam curiously for a few moments before scurrying off.
+	<br><br>
+
+	"Badgers are really cute, aren't they?"
+	<br><br>
+
+	Sam shows you the photos <<he>> took. <<He>> seems pretty proud of them. It does look pretty cute in the photos.<<stress -3>><<lstress>>
+	<br><br>
+
+	You end up walking back the way you came after a few moments.
+<</addinlineevent>>
+
+<<runeventpool>>
+<br><br>
+<<SamOptions>>
+
+:: Sam Park Harassment
+<<effects>>
+
+"Um, excuse me..."
+<br><br>
+Sam appears behind the <<person>>, sheepishly pushing <<his>> hand away.
+<br><br>
+"That's my... <<pniece>> you're touching," <<person1>><<he>> says, rubbing <<his>> head.
+<br><br>
+The <<person2>><<person>> gives Sam an annoyed glare before pushing past <<person1>><<him>>.
+<br><br>
+Sam doesn't say anything else as you walk back to the bridge.
+<br><br>
+
+<<SamOptions>>
+
+:: Sam Park Duck
+<<effects>>
+<<npc Sam>><<person1>>
+<<set _duck to ["horde of ducks", "pair of ducks", "group of ducklings and their parents", "bunch of ducks", "flock of ducks"]>>
+<<cleareventpool>>
+
+<<addinlineevent "sam_duck_feed_1" 1>>
+	You go to feed the ducks with Sam. There is a <<print _duck.pluck()>>.
+	<br><br>
+
+	They
+	<<switch random(1,4)>>
+		<<case 1>>happily eat up the corn, they seem to be pleased by your presence.<<stress -3>><<tending 2>><<lstress>><<gtending>>
+		<<case 2>>greedily eat up the corn, it seems like they will never be satisfied at this rate.<<stress 3>><<gstress>>
+		<<case 3>>quickly eat up the food. You can tell they enjoyed the meal.<<stress -3>><<lstress>>
+		<<default>>hurriedly eat up the corn, it looks like they haven't eaten in a while.
+	<</switch>>
+	<br><br>
+
+	The ducks waddle away soon after.
+<</addinlineevent>>
+
+
+<<addinlineevent "sam_duck_feed_2" 1>>
+	"Here you go," Sam says, tossing some corn to the ducks. The <<print _duck.pluck()>> perk up and begin nibbling on the food.
+	<br><br>
+
+	They
+	<<switch random(1,4)>>
+		<<case 1>>happily eat up the corn, they seem to be pleased by Sam's affection.<<stress -3>><<lstress>>
+		<<case 2>>quickly eat up the food. You can tell they enjoyed the meal.<<stress -2>><<lstress>>
+		<<case 3>>greedily eat up the corn which makes Sam laugh.
+		<<default>>hurriedly eat up the corn, it looks like they haven't eaten in a while. Sam lets out a nervous laugh.
+	<</switch>>
+	<br><br>
+
+	The ducks waddle away soon after.
+<</addinlineevent>>
+
+<<addinlineevent "sam_duck_feed_3" 1>>
+	You go to feed the ducks with Sam, and you decide to hand-feed them this time.
+	<br><br>
+
+	<<if currentSkillValue("tending") gte random (1, 200)>>
+		A <<print _duck.pluck()>> eat up all the corn in your hand, you feel their little bills brush up against your hands a few times. It's pleasant.<<stress -10>><<tending 2>><<llstress>><<gtending>>
+	<<else>>
+		A <<print _duck.pluck()>> simply look at you and
+		<<switch random(1,3)>>
+			<<case 1>>bite you. You step back, Sam gives a little laugh at your expense.<<stress 3>><<pain 2>><<gstress>><<gpain>>
+			<<case 2>>slobber all over your hand, you flinch and drop some of the corn on the floor. It's a bit embarrassing.<<stress 2>><<gstress>>
+			<<default>>ignore your hand.
+		<</switch>>
+	<</if>>
+<</addinlineevent>>
+
+<<addinlineevent "sam_duck_feed_4" 1>>
+	You go to feed the ducks, but notice there aren't any around this time. You wait around but don't even hear a quack. Sam looks a bit disappointed, but instead passes the time talking to you.
+<</addinlineevent>>
+
+<<if $worn.upper.name isnot "naked" or $worn.lower.name isnot "naked">>
+	<<addinlineevent "sam_duck_feed_5" .5>>
+		<<set _no_options to true>>
+		While you're feeding the ducks, one of them watches you with a strange gleam in its eyes. You have a feeling this duck isn't interested in the food alone. It eyes your <<if $worn.upper.name is "naked">><<bottoms>><<else>><<top>><</if>>, ready to pounce.
+		<br><br>
+
+		<<link [[Calm the creature|Sam Park Duck Attack]]>><<set $phase to "calm">><</link>><<tendingdifficulty 400 1200>>
+		<br>
+		<<link [[Do nothing|Sam Park Duck Attack]]>><<set $phase to "nothing">><</link>>
+	<</addinlineevent>>
+<</if>>
+
+<<addinlineevent "sam_duck_feed_6" .7>>
+	<<set _no_options to true>>
+	You're feeding the ducks when you notice something.
+	<br><br>
+
+	In front of you are two ducks... and a goose.
+	<br><br>
+
+	The creature eyes you, as if waiting for your next move.
+	<br><br>
+
+	What will you do?
+	<br><br>
+
+	<<link [[Feed|Sam Park Goose]]>><<set $phase to "feed">><</link>><<tendingdifficulty 600 1200>>
+	<br>
+	<<link [[Ignore|Sam Park Goose]]>><<set $phase to "ignore">><</link>>
+<</addinlineevent>>
+
+<<runeventpool>>
+<br><br>
+
+<<SamOptions>>
+
+:: Sam Park Goose
+<<effects>>
+
+<<if $phase is "feed">>
+	You decide to just feed the goose, it's just another animal, right?
+	<br><br>
+
+	<<if $tendingSuccess>>
+		The goose pauses <span class="green">and then accepts your offering.</span> It lets out a pleased noise after it finishes.<<tending 9>><<ggtending>>
+	<<else>>
+		<span class="red">The goose ignores your offerings and waddles away.</span>
+		<br><br>
+
+		You feel a bit insulted.<<stress 3>><<gstress>>
+	<</if>>
+<<else>>
+	You ignore the goose. It doesn't seem that happy with that. It seems ready to rip the food right out of your hands.<<stress 10>><<ggstress>>
+	<br><br>
+
+	"Get away!" Sam shouts at the creature. "What a greedy thing... You okay? Geese can be a bit unruly at times."
+<</if>>
+<br><br>
+After it leaves you go back to feeding the other two ducks.
+<br><br>
+
+<<SamOptions>>
+
+:: Sam Park Duck Attack
+<<effects>>
+
+<<if $phase is "calm" and $tendingSuccess>>
+	<span class="green">You manage to avoid the duck's bill as it jumps at you by tossing some food towards it.</span> It seems preoccupied with the corn and focuses on eating.
+<<else>>
+	<span class="red">The duck jumps right at your <<if $worn.upper.name is "naked">><<bottoms>><<else>><<top>><</if>>.</span> You manage to push the creature off before it can rip it right off, but it leaves your clothes worse for wear.
+	<<set $stripintegrity to 10>><<set $stripobject to "a duck">><<stripobject>>
+<</if>>
+<br><br>
+Sam looks apologetic after the fact.
+<br><br>
+"Some of them can be a bit devious, so be careful!"
+<br><br>
+
+<<SamOptions>>
+
+:: Sam Loft
+<<effects>>
+"So, I was wondering..." Sam continues. "There's a little something I wanted to give you, well, for you and the other orphans over at the orphanage... want to get a little kitchen upgrade?"
+<br><br>
+You start to wonder what exactly Sam is planning to give you, but before you can, <<he>> speaks up again.
+<br><br>
+"Oh, wait, I should ask your guardian about that right?"
+<br><br>
+<<if $speech_attitude is "meek">>
+	"Ah," you whimper. "Bailey hates us touching anything in the kitchen..."
+<<elseif $speech_attitude is "bratty">>
+	"Ah fuck," you bite your lip. "Bailey would for sure blow a fuse if you touched anything in the kitchen."
+<<else>>
+	"Ugh," you grumble. "If it's the kitchen, that's a big 'no-no', my 'guardian' would throw a hissy fit if we touched anything there."
+<</if>>
+<br><br>
+Sam pouts, looking visibly defeated.
+<br><br>
+"Is there nowhere else you have access to that your guardian wouldn't mind us touching?"
+<br><br>
+
+<<if $loft_known is 1>>
+	<<lofticon>><<link [[Tell Sam about the orphanage loft|Sam Loft 2]]>><</link>>
+	<br>
+<</if>>
+<<icon "cross.png">><<link [[Say No|Sam Loft Refuse]]>><<set $loft_sam_refuse to 1>><</link>>
+
+:: Sam Loft Refuse
+<<effects>>
+
+You shake your head.
+<br><br>
+Sam sighs, and gives you a light pat on the shoulder.
+<br><br>
+"Well, if you do end up getting a private space for you and the other orphans, let me know, alright? The offer still stands, and I really want you to have it."
+<br><br>
+<<SamOptions>>
+
+:: Sam Loft 2
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Wait... Sam," you say. "There is a place where Bailey wouldn't care if anything was touched, it's a big loft."
+<<elseif $speech_attitude is "bratty">>
+	"Hey, we do have a place for your little gift," you say. "It's this big loft up in the orphanage."
+<<else>>
+	"Actually, Sam," you say. "We have this loft in the orphanage. That gift of yours could go up there."
+<</if>>
+<br><br>
+Sam's eyes light up at your words.
+<br><br>
+"Really? That's great! You know it's really not a big thing or anything," Sam laughs bashfully. "Now I feel all tense. I hope you end up liking it. I have it over at my home, why don't we head over there and I can give it to you?"
+<br><br>
+
+<<link [[Walk to <<nnpc_his "Sam">> house (0:15)|Sam Loft 3]]>><<pass 15>><</link>>
+
+:: Sam Loft 3
+<<set $outside to 0>><<set $location to "flats">><<effects>>
+
+You leave the park with Sam. You notice that <<he>> looks fairly nervous. You eventually arrive at Barb Street, and the pair of you head over to the flats. You stop as Sam does, with <<his>> eyes on one of the doors.
+<br><br>
+"Sorry, it's a bit of a mess inside," Sam laughs awkwardly.
+<br><br>
+<<He>> then opens the door and shows you inside. It is as <<he>> said, quite cluttered. You notice a bunch of boxes scattered around, and other things. A few look to be related to the cafe, such as boxes of coffee or advertisements. There's a bit of dust here and there as well, clearly from lack of use.
+<br><br>
+Sam leads you over to the kitchen. You take a seat. <<He>> fumbles around the space for a few moments.
+<br><br>
+"Ah, sorry, I haven't really used this kitchen in a long while," <<he>> laughs. "It's got to be around here somewhere... Ah!"
+<br><br>
+
+<<link [[Next|Sam Loft 4]]>><</link>>
+
+:: Sam Loft 4
+<<effects>>
+
+Your eyes land on a coffee pot. It looks well-kept and shiny.
+<br><br>
+"I wanted to give you this. First, though, why don't I show you how it works?"
+<br><br>
+<<He>> doesn't wait for your reply, and instead gets to work.
+<br><br>
+"It's pretty easy, you just put the water in the back compartment. This part here? You lift it up, put a coffee filter and put the coffee grinds there. Ah, don't worry about where to get the coffee itself from, I can supply that all for you!"
+<br><br>
+Sam continues to explain how the coffee pot works, setting it up to brew quietly. After a few moments of silence <<he>> speaks up.
+<br><br>
+"Have you ever had a time where you just had to keep going to do something?"
+<br><br>
+
+<<link [[Nod|Sam Loft 5]]>><</link>>
+<br>
+<<link [[Shake head|Sam Loft 5]]>><</link>>
+
+:: Sam Loft 5
+<<effects>>
+
+"I have, or I guess I still have that dream," Sam says.
+<br><br>
+"You see, when I had just opened the cafe up... I'd brew myself something every morning with this. This is what would keep me going each morning, a quick cup of coffee. It would give me just enough juice to get through the day... I really just couldn't think about anything else but making the cafe into something. Even when I had four hours of sleep and was just barely keeping it together."
+<br><br>
+<<He>> laughs boisterously as you hear the sound of <<him>> pouring the coffee into two mugs. Sam takes a seat across from you, drinking <<his>> coffee as <<he>> talks.
+<br><br>
+"Whenever I needed a little extra energy, I'd rely on this. I haven't used it in a long time, since I can just make my coffee at the cafe, but... I thought you'd like it. Have a try! I put a bit of milk and sugar in it, that's how I usually take it."
+<br><br>
+
+<<link [[Take a sip|Sam Loft 6]]>><<set $phase to "sip">><</link>>
+<br>
+<<link [[Chug the whole cup|Sam Loft 6]]>><<set $phase to "chug">><</link>>
+<br>
+<<link [[Politely refuse|Sam Loft 6]]>><<set $phase to "refuse">><</link>>
+
+:: Sam Loft 6
+<<effects>>
+<<wearProp "coffee">>
+
+<<if $phase is "refuse">>
+	"No worries, not everyone is a coffee person!" Sam laughs. "I'll just have myself another cup."
+<<elseif $phase is "chug">>
+	You chug the whole cup. It burns your tongue.<<pain 3>><<gpain>>
+	<br><br>
+
+	Sam bursts out laughing. "Be careful there! I know I just can't live without it. I just hope you don't gain a caffeine addiction!"<<npcincr Sam love 1>><<glove>>
+<<else>>
+	You take a sip. Sam smiles at you, <<he>> seems happy that you had a taste.<<npcincr Sam love 1>><<glove>>
+	<br><br>
+
+	"I know everyone has different tastes when it comes to coffee. I hope the cup I made is to your taste."
+<</if>>
+<br><br>
+You and Sam make some small talk over the cups of coffee. While you don't talk about anything specific, it's pleasant to be around someone who cares about you.<<stress -2>><<lstress>>
+<br><br>
+
+<<link [[Next (0:15)|Sam Loft 7]]>><<pass 15>><</link>>
+
+:: Sam Loft 7
+<<effects>>
+
+The coffee cups are emptied, and you watch as Sam cleans up the coffee pot. After washing it, <<he>> puts it into a box.
+<br><br>
+"I put some different coffee blends inside, so you can pick whichever type catches your fancy," Sam says, handing you the box.
+<br><br>
+You thank Sam for the gift.
+<br><br>
+"No problem! I hope that you and the other orphans enjoy it! I won't keep you any longer. You better get that all set up, just be sure to not go crazy on your caffeine intake once it's running!"
+<br><br>
+Sam leads you out of <<his>> apartment.
+<br><br>
+"I should head back to work, I don't want to be late," Sam says, looking at the time. "If you ever need anything, don't be a stranger! You know where I'm at!"
+<br><br>
+You both go your separate ways, with you heading towards the orphanage and Sam heading to work.
+<br><br>
+
+<<link [[Next (0:05)|Sam Loft 8]]>><<pass 5>><</link>>
+
+:: Sam Loft 8
+<<set $location to "home">><<effects>>
+<<set $loft_sam to 1>><<set $loft_upgrade += 1>>
+
+You head to the loft with the gift in hand. It takes a few moments and you set the machine up. It is as easy as Sam said it would be.
+<br><br>
+<span class="gold">You can now brew coffee in the loft!</span>
+<br><br>
+
+<<link [[Next|Orphanage Loft]]>><<endevent>><</link>>

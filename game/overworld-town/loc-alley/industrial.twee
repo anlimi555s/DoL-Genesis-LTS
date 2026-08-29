@@ -1,0 +1,104 @@
+:: Industrial Alleyways
+
+<<set $outside to 1>><<set $location to "alley">><<effects>><<set $bus to "industrial">><<getTarget true>>
+You are in an alleyway in the industrial district.
+<<if Time.dayState is "day">>
+	You hear machines operating in the buildings around you.
+<<elseif Time.dayState is "night">>
+<<else>>
+	You hear the engines of heavy vehicles.
+<</if>>
+There's a ladder to your right; you think it will take you to the rooftops. The rear of the school protrudes into this area, separated by a spiked fence.
+<<streeteffects>>
+<br><br>
+<<if $brothelintro is 1 and isPubfameTaskAccepted("briar") and !$pubfame.briar.escape and $cat lte 5>>
+	<<set $pubfame.briar.escape to 1>>
+	You notice the brothel on Harvest Street nearby. There's a window leading to Briar's office.
+	<br><br>
+
+	<span class="blue">An idea strikes you.</span> If you can get a ladder to face Briar's office, you could leave that way.
+	<br><br>
+<</if>>
+<<if $exposed gte 1>>
+	<<exhibitionism "alley">>
+<</if>>
+<<if $arousal gte $arousalmax>>
+	<<orgasmstreet>>
+<</if>>
+<<if $stress gte $stressmax and !$possessed>>
+	<<passoutalley>>
+<<elseif $weekly.schoolNightPoolParty is "intro" and Time.hour gte 21>>
+	<<set $weekly.schoolNightPoolParty to "discover">>
+
+	Upon entering the alley, you notice some movement near the school's back fence.
+	<br><br>
+	Aided by the darkness, you draw closer. You recognise a couple of delinquents from your classes. They're jumping the fence into the school grounds.
+	<br><br>
+	They all carry pretty heavy backpacks, and quickly disappear inside the school building.
+	<br><br>
+
+	<<link [[Follow them|School Night Pool Party Follow]]>><</link>>
+	<br>
+	<<link [[Ignore|Industrial Alleyways]]>><<endevent>><<set $eventskip to 1>><</link>>
+	<br>
+<<else>>
+
+	<<if (dangerEvent() or $eventforced) and $eventskip is 0>>
+		<<eventsstreet>>
+	<<else>>
+		<<if isPubfameTaskAccepted("briar") and $pubfame.briar.escape is 1>>
+			<<investigateicon>><<link [[Search for something to climb|Industrial Ladder]]>><</link>>
+			<br><br>
+		<</if>>
+		<<if $options.mapTop is true>>
+			<<map "industrial">>
+			<br>
+		<</if>>
+		Points of interest
+		<br>
+		<<laddericon>><<link [[Climb the ladder (0:02)|Industrial rooftops]]>><<pass 2>><</link>>
+		<br>
+		<<busstationicon>><<link [[Back door to bus station (0:02)|Bus Station Back Entrance]]>><<pass 2>><</link>>
+		<br>
+		<<if $schoolBlocked>>
+			<span class="blue">The school guard is on high alert. You won't be able to sneak in tonight.</span>
+			<br>
+		<<else>>
+			<<fenceicon>><<link [[Climb over the fence into the school grounds (0:05)|School Rear Fence]]>><<pass 5>><</link>>
+			<br>
+		<</if>>
+		<<if $drains_rescue_location is "industrial">>
+			<<link [[Rescue the screaming person you heard from the storm drains (0:05)|Alleyways Rescue]]>><<pass 5>><</link>>
+			<br>
+		<</if>>
+		<br>
+		<<if $exposed gte 1 and Time.dayState isnot "night">>
+			<<if $exposed gte 2 and hasSexStat("exhibitionism", 5)>>
+				<<roadicon>><<link [[Cross the road to the town outskirts (0:05)|Lorries Ex Naked]]>><</link>><<if $daily.ex.lorries is undefined>><<exhibitionist5>><</if>>
+				<br>
+			<<elseif $exposed is 1 and hasSexStat("exhibitionism", 3)>>
+				<<roadicon>><<link [[Cross the road to town outskirts (0:05)|Lorries Ex Undies]]>><</link>><<if $daily.ex.lorries is undefined>><<exhibitionist3>><</if>>
+				<br>
+			<</if>>
+		<<else>>
+			<<add_link "Travel<br>">><<hideDisplay>>
+			<<oxford>>
+			<<mer>>
+			<<elk>>
+			<<harvest>>
+			<<loiter>>
+		<</if>>
+		<<add_link "<br>Alternate routes<br>">><<hideDisplay>>
+		<<if $exposed gte 1 and Time.dayState isnot "night">>
+		<<else>>
+			<<park>>
+		<</if>>
+		<<stormdrain>>
+		<<displayLinks>>
+		<<if $options.mapTop isnot true>>
+			<br>
+			<<map "industrial">>
+		<</if>>
+	<</if>>
+<</if>>
+<<set $eventskip to 0>>

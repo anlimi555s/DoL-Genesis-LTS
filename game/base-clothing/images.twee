@@ -1,0 +1,29 @@
+:: Widgets Img [widget]
+<<widget "img">>
+	<<if !_thermoDisable>>
+		<<thermometer>>
+	<</if>>
+
+	<div id="imgInv">
+		<<if $condoms>>
+			<div><<condomsSidebar>></div>
+		<<else>>
+			<div></div>
+		<</if>>
+		<<if $spraymax>>
+			<div><<peppersprays>></div>
+		<</if>>
+	</div>
+	<div id="img">
+		<<canvasimg "mainCanvas">>
+	</div>
+	<div id="characterTooltip"></div>
+<</widget>>
+
+:: Widgets Clothes Img [widget]
+
+<<widget "player-base-body">>
+	<div id="img">
+		<<canvas-player-base-body>>
+	</div>
+<</widget>>

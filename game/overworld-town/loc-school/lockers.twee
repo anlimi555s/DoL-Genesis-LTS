@@ -1,0 +1,463 @@
+:: School Lockers
+<<set $outside to 0>><<schooleffects>><<effects>><<set $lock to 100>>
+
+
+The school lockers are notoriously easy to break into, though thankfully, you've yet to have anything stolen from yours.
+<<if ["early", "late", "earlynoschool", "latenoschool", "daynoschool"].includes($schoolstate)>>
+	During school there may be valuables left inside the other students' lockers.
+<<else>>
+	<span class="green">The locks look easy to pick.</span>
+<</if>>
+<br><br>
+
+<<if clothingInStorage("locker").length lt 1>>
+	<span class="blue">You can keep your bookbag or another handheld item inside your locker.</span>
+	<br>
+	<<lockerclothes>>
+	<<lockerclothes2>>
+	/*kind of a hacky solution to allow players to swap out their current handheld item for the stored handheld item instead of sending it back to the wardrobe but hey, it's effective and doesn't fuck w how the other storage locations work.*/
+	<<lockerClothesAutoOption>>
+<</if>>
+
+<<if !["early", "late", "earlynoschool", "latenoschool", "daynoschool"].includes($schoolstate)>>
+	<<if pcAreArmsBound("both")>>
+		You think you'd be able to pick the lock, <span class="blue">if your arms weren't bound.</span>
+		<br><br>
+	<<else>>
+		<<set $skulduggerydifficulty to 100>>
+		<<lockicon "pick">><<link [[Break into a locker (0:15)|School Lockers Sneak]]>><<handheldon>><<pass 15>><<crimeUp 30 "petty">><<skulduggerycheck "silent">><</link>><<skulduggerydifficulty>><<crime "petty">>
+		<br>
+	<</if>>
+<</if>>
+<<getouticon>><<link [[Leave (0:01)|Hallways]]>><<pass 1>><</link>>
+<br>
+
+:: School Lockers Sneak
+<<set $outside to 0>><<set $location to "school">><<schooleffects>><<effects>>
+<<wearProp "lockpick">>
+<<if $skulduggerysuccess>>
+	You step forward and begin working on the lock. It doesn't take long before <span class="green">it clicks open.</span>
+	<br><br>
+
+	<<skulduggeryuse 100 "locks" 5>>
+
+	<<cleareventpool>>
+	<<if $settings.condomLevel gt 1>>
+		<<addinlineevent "Condom...will you poke" 0.25>>
+			You find a condom tucked away behind a few books.
+			<br><br>
+
+			<<link [[Take it|School Lockers Condom Steal]]>><<handheldon>><<crimeUp 2 "petty">><</link>><<crime "petty">>
+			<br>
+			<<if hasSexStat("promiscuity", 5)>>
+				<<link [[Sabotage it|School Lockers Condom Sabotage]]>><<handheldon>><</link>><<garousal>><<promiscuous5>>
+				<br>
+			<</if>>
+			<<link [[Leave|School Lockers]]>><<handheldon>><</link>>
+			<br>
+		<</addinlineevent>>
+
+		<<if $studentCondomPrank and !$studentCondomPrank.test.seen and Time.date.timeStamp gte $studentCondomPrank.test.start and Time.date.timeStamp lt $studentCondomPrank.test.end>>
+			<<addinlineevent "condom prank result" 15>>
+				<<set $studentCondomPrank.test.seen to true>>
+				You rummage through the belongings, uncovering a positive pregnancy test beneath strewn aside books. A passing thought sends a shiver down your spine. <span class="lewd">With the condom pranks you've pulled, this could be evidence of your work backfiring.</span>
+				<br><br>
+
+				<<link [[Next|School Lockers]]>><<handheldon>><</link>>
+				<br>
+			<</addinlineevent>>
+		<</if>>
+	<</if>>
+	<<addinlineevent "Bus Fare" 0.3>>
+		<<wearProp "antique silver coin">>
+		You find <<moneyGainDisplay 6 true true>> worth of coins scattered around. Probably meant for bus fare.
+		<br><br>
+
+		<<link [[Take it|School Lockers]]>><<handheldon>><<crimeUp 1 "petty">><<money _money_gain>><</link>><<crime "petty">>
+		<br>
+		<<link [[Leave|School Lockers]]>><<handheldon>><</link>>
+		<br>
+	<</addinlineevent>>
+	<<addinlineevent "PensPencils" 0.2>>
+		There's nothing of interest inside the lockers. Just some pens and pencils strewn around.
+		<br><br>
+
+		<<link [[Leave|School Lockers]]>><<handheldon>><</link>>
+		<br>
+	<</addinlineevent>>
+	<<addinlineevent "SmolMonies" 0.2>>
+		<<wearProp "wallet">>
+		A bit of rummaging uncovers <<moneyGainDisplay 30 true true>>.
+		<br><br>
+
+		<<link [[Take it|School Lockers]]>><<handheldon>><<crimeUp 5 "petty">><<money _money_gain>><</link>><<crime "petty">>
+		<br>
+		<<link [[Leave|School Lockers]]>><<handheldon>><</link>>
+		<br>
+	<</addinlineevent>>
+	<<addinlineevent "Worthless" 0.4>>
+		You rummage through the belongings, but find nothing of value.
+		<br><br>
+
+		<<link [[Leave|School Lockers]]>><<handheldon>><</link>>
+		<br>
+	<</addinlineevent>>
+	<<addinlineevent "Caught" 0.3>>
+		<<generatey1>>You are rummaging through some belongings when you hear a voice behind you. "Hey, that's my locker!" The voice belongs to a <<person1>><<person>>, who looks angry at your intrusion.
+		<br><br>
+		<<link [[Apologise|School Lockers Apology]]>><<status -10>><<handheldon>><</link>><<llcool>>
+		<br>
+		<<link [[Lie|School Lockers Lie]]>><<detention 3>><<handheldon>><</link>><<gdelinquency>>
+		<br>
+		<<link [[Fight|School Lockers Fight]]>><<set $fightstart to 1>><<handheldon>><</link>>
+		<br>
+	<</addinlineevent>>
+	<<if C.npc.Kylar.init is 1>>
+		<<addinlineevent "KylarLocker" 0.015>>
+			<<if C.npc.Kylar.state is "prison">>
+				You open the locker. The inside is nearly completely bare and a thin layer of dust coats the bottom. Checking the adjacent locker numbers, you realise this is probably Kylar's locker. It seems the police cleaned it out for evidence.
+				<br><br>
+			<<else>>
+				The first thing you see is your own face, staring back up at you from a piece of paper. The sight makes you jump back in surprise. <<gstress>><<stress 10>>
+				<br><br>
+				Calming yourself, you step closer to examine the locker and realise it's Kylar's shrine, consisting of a lewd statuette with a pencil portrait of your face taped to its head. Flowers circle the base and several portraits dot the sides of the locker, each depicting you in excruciating detail. You're not sure when they were drawn.
+				<<if isLoveInterest("Kylar")>>
+					<br><br>
+					You gently close <<nnpc_his "Kylar">> locker and step away, unwilling to steal from your <<nnpc_girlfriend "Kylar">>.
+					<br><br>
+				<</if>>
+			<</if>>
+			You close the locker.
+			<br><br>
+			<<link [[Next|School Lockers]]>><<handheldon>><</link>>
+		<</addinlineevent>>
+	<</if>>
+	<<if C.npc.Whitney.init is 1>>
+		<<addinlineevent "WhitneyLocker" 0.015>>
+			<<if C.npc.Whitney.state is "dungeon">>
+				You open the locker. Dust motes puff out from the inside and you barely stop yourself from sneezing at the onslaught. Once the urge to sneeze abates, you begin picking through the dusty mess of discarded exam papers and cigarette cartons only to find a lost persons poster. Whitney's face is stamped on it; this was Whitney's locker.
+				<br><br>
+				With nothing to steal, you close the locker.
+			<<else>>
+				Opening the door, a wave of stale air hits you, making you wince. Inside the locker is a mess of wrappers, crumpled up paper, and stray cigarettes. Tucked against the back is a discarded homework assignment covered in doodles and chicken scratch. Even with the smudged lead, you can clearly make out the name "Whitney" at the top.
+				<br><br>
+				<<if isLoveInterest("Whitney")>>
+					You cast a quick glance around and close the locker hurriedly. No sense in provoking Whitney's temper.
+				<<else>>
+					You close the locker.
+				<</if>>
+			<</if>>
+			<br><br>
+			<<link [[Next|School Lockers]]>><<handheldon>><</link>>
+		<</addinlineevent>>
+	<</if>>
+	<<if C.npc.Robin.init is 1>>
+		<<addinlineevent "RobinLocker" 0.015>>
+			The interior of the locker is surprisingly bare. There's little in the way of decoration and the only items inside are a few short pencils and a binder you instantly recognise as Robin's. The sheer bareness of the locker heavily reminds you of Robin's own room back at the orphanage.
+			<br><br>
+			<<if isLoveInterest ("Robin")>>
+				With a small smile at the reminder of your <<nnpc_girlfriend "Robin">>, you close the locker.
+			<<else>>
+				You close the locker.
+			<</if>>
+			<br><br>
+			<<link [[Leave|School Lockers]]>><<handheldon>><</link>>
+		<</addinlineevent>>
+	<</if>>
+	<<if C.npc.Sydney.init is 1>>
+		<<addinlineevent "SydneyLocker" 0.015>>
+			<<wearProp "pen">>
+			As soon as you open the door, something clatters to the floor. You crouch down to pick it up; it's a red pen with the cap still firmly attached. A quick scan of the locker reveals dozens more neatly stacked into boxes against the walls of the lockers, alongside textbooks and a small umbrella. A cross hangs at the back and you realise the locker likely belongs to Sydney.
+			<br><br>
+			<<if isLoveInterest ("Sydney")>>
+				You quietly marvel at Sydney's collection of pens before closing the locker.
+			<<else>>
+				You close the locker.
+			<</if>>
+			<br><br>
+			<<link [[Leave|School Lockers]]>><<handheldon>><</link>>
+		<</addinlineevent>>
+	<</if>>
+	<<runeventpool>>
+<<else>>
+	You spend several minutes picking at the lock, but to no avail. <span class="red">You cannot unlock it.</span>
+	<br><br>
+
+	<<skulduggeryuse 100 "locks" 2>>
+	<<link [[Leave|School Lockers]]>><<handheldon>><</link>>
+<</if>>
+
+:: School Lockers Apology
+<<set $outside to 0>><<set $location to "school">><<schooleffects>><<effects>>
+
+You look down at your feet in shame. "S-sorry. I just wanted a look."
+<br><br>
+
+The <<person>> is not impressed, but doesn't seem as angry. "Just piss off," <<he>> says, looking through <<his>> belongings. Probably checking if anything is missing.
+<br><br>
+
+<<link [[Next|School Lockers]]>><<endevent>><</link>>
+<br>
+
+:: School Lockers Lie
+<<set $outside to 0>><<set $location to "school">><<schooleffects>><<effects>>
+
+You feign confusion. "Your locker? I thought this was mine. Silly me."
+<br><br>
+
+"Your locker is nowhere near here, I'm not stupid," <<he>> says, looking through <<his>> belongings. Probably checking if anything is missing.
+<br><br>
+
+<<link [[Next|School Lockers]]>><<endevent>><</link>>
+<br>
+
+:: School Lockers Fight
+<<if $fightstart is 1>>
+	<<set $fightstart to 0>>
+	<<neutral 1>>
+	<<maninit>>
+	<<enableSchoolRescue "Whitney">>
+	<<set $enemytrust -= 100>>
+	<<set $enemyhealthmax -= 100>>
+	<<set $enemyhealth -= 100>>
+	<<set $enemyanger += 100>>
+	<<npcidlegenitals>>
+	"Oh yeah," you say. "What are you gonna do about it?" <<He>> runs and collides with you, sending you both tumbling to the ground.
+	<br><br>
+	<<set $timer to 10>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if $alarm is 1 and $rescue gte 1>>
+	<span id="next"><<link [[Next|Whitney Rescue]]>><<set $whitneyRescueExit to "hallways">><</link>></span><<nexttext>>
+<<elseif _combatend or $timer lte 0>>
+	<span id="next"><<link [[Next|School Lockers Fight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|School Lockers Fight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: School Lockers Fight Finish
+<<set $outside to 0>><<set $location to "school">><<schooleffects>><<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+
+	The climax seems to have robbed <<him>> of <<his>> remaining anger. "Just don't do it again," <<he>> says, looking sheepish. <<He>> closes <<his>> locker and walks away. <<tearful>> you rise to your feet.
+<<elseif $enemyhealth lte 0>>
+	"N-no more! You win," <<he>> says tearfully as <<he>> flees the scene. <<tearful>> you stand tall and triumphant.
+	<<ltrauma>><<lstress>><<gcool>><<trauma -6>><<stress -12>><<status 1>>
+<<elseif $timer lte 0>>
+	<<if $pillory.tenant.special.name isnot "Leighton">>
+		Leighton storms onto the scene, and physically separates the two of you.
+		<<endevent>><<npc Leighton>><<person1>>
+		"This is completely unacceptable," <<he>> says, looking at you. "I'll see you in my office after school, perhaps I can teach you how to act civil."
+	<<else>>
+		Winter storms onto the scene. The <<person1>><<person>> flees at <<nnpc_his "Winter">> arrival.
+		<<endevent>><<npc Winter>><<person1>>
+		"How barbaric," <<he>> tuts, looking at you. "I've half a mind to take your punishment into my own hands, but I'll let the <<nnpc_title "Leighton">> sort you out once <<nnpc_hes "Leighton">> back."
+	<</if>>
+	<<gdelinquency>><<detention 4>>
+<</if>>
+<br><br>
+
+<<clotheson>>
+<<endcombat>>
+
+<<link [[Next|School Lockers]]>><</link>>
+<br>
+
+:: School Lockers Condom Steal
+<<set $outside to 0>><<set $location to "school">><<schooleffects>><<effects>>
+<<wearProp "condom">>
+You quickly pocket the condom. You need it more than they do. <<gcondoms 1>>
+<br><br>
+
+<<link [[Next|School Lockers]]>><<handheldon>><</link>>
+<br>
+
+:: School Lockers Condom Sabotage
+<<set $outside to 0>><<set $location to "school">><<schooleffects>><<effects>>
+<<wearProp "condom">>
+You find a small pin in the locker, and use the tip to poke a tiny hole in the condom. <<promiscuity5>>
+
+<<script>>
+	if (V.studentCondomPrank && Time.date.timeStamp > V.studentCondomPrank.npc.end) {
+		delete V.studentCondomPrank;
+	}
+
+	if (100 / (20 -V.settings.baseNpcPregnancyChance) >= random(1, 2) && !V.studentCondomPrank) {
+		const date = new DateTime(Time.date);
+		const days = random(7, 7 + V.settings.humanPregnancyMonths*3);
+		const start = date.addDays(days).timeStamp;
+		const end = date.addDays(7).timeStamp;
+		const pregnancyStartDate = new DateTime(Time.date);
+		const pregnancyStart = pregnancyStartDate.addDays(V.settings.humanPregnancyMonths*18).timeStamp;
+		const pregnancyEndDate = new DateTime(Time.date);
+		const pregnancyEnd = pregnancyEndDate.addMonths(V.settings.humanPregnancyMonths).timeStamp;
+		V.studentCondomPrank = {
+			test: {
+				start: start,
+				end: end,
+				seen: false
+			},
+			npc: {
+				start: pregnancyStart,
+				end: pregnancyEnd,
+				seen: false
+			}
+		}
+	}
+<</script>>
+
+<<link [[Next|School Lockers]]>><<handheldon>><</link>>
+<br>
+
+:: Widgets Locker [widget]
+
+<<widget "lockerclothes">>
+	<<if !$possessed>>
+		<<storeactions "lockers">>
+		<<wardrobeSelection true>>
+		<<set _store_location to "lockers">>
+		<<storeon _store_location "check">>
+		<<if _store_check is 1>>
+			<<set _clothes to clothingInStorage(_store_location)>>
+			<<if _clothes.length gt 0>>
+				Your _clothes[0].name is safely tucked inside your locker.
+				<br><br>
+				<<if $worn.handheld.name is "naked">>
+					<<lockericon>>
+					<<link [[`Take out your ${_clothes[0].name}`|$passage]]>><<set $lockerSwapLock to true>><<set $eventskip to 1>><<storeload "lockers">><</link>>
+				<<else>>
+					<<lockericon>>
+					<<link [[`Swap out your ${$worn.handheld.name}`|$passage]]>><<set $eventskip to 1>><<handheldundress "lockers2">><<storeload "lockers">><</link>>
+				<</if>>
+				<br>
+			<</if>>
+		<</if>>
+		<<unset $wearoutfittext>>
+	<</if>>
+<</widget>>
+
+<<widget "lockerclothes2">>
+	<<if !$possessed>>
+		<<storeactions "lockers2">>
+		<<wardrobeSelection true>>
+		<<set _store_location to "lockers2">>
+		<<storeon _store_location "check">>
+		<<if _store_check is 1>>
+			<<set _clothes to clothingInStorage(_store_location)>>
+			<<if _clothes.length gt 0>>
+				<br>
+				Your _clothes[0].name is safely tucked inside your locker.
+				<br><br>
+				<<if $worn.handheld.name is "naked">>
+					<<lockericon>>
+					<<link [[`Take out your ${_clothes[0].name}`|$passage]]>><<set $lockerSwapLock to true>><<set $eventskip to 1>><<storeload "lockers2">><</link>>
+				<<else>>
+					<<lockericon>>
+					<<link [[`Swap out your ${$worn.handheld.name}`|$passage]]>><<set $eventskip to 1>><<handheldundress "lockers">><<storeload "lockers2">><</link>>
+				<</if>>
+				<br>
+			<</if>>
+		<</if>>
+		<<unset $wearoutfittext>>
+	<</if>>
+<</widget>>
+
+<<widget "lockerClothesAutoOption">>
+	<<lockericon>>
+	<<if $autoLockerEnabled>>
+		<<link [[Stop automatically storing your handheld item|$passage]]>><<set $eventskip to 1>><<set $autoLockerEnabled to false>><<set $lockerSwapLock to false>><</link>>
+	<<else>>
+		<<link [[Automatically store your handheld item|$passage]]>><<set $eventskip to 1>><<set $autoLockerEnabled to true>><<set $lockerSwapLock to true>><</link>>
+	<</if>>
+	/* The lockerSwapLock variable prevents swapping the player's handheld item multiple times during the schoolday */
+	/* The variable is unset when going to one of the exits (currently front/back courtyards and bathroom) */
+	<br>
+<</widget>>
+
+<<widget "lockerClothesAutoEquip">>
+	<<if $autoLockerEnabled and !$possessed>>
+		<<wardrobeSelection true>>
+		<<set _store_location to "lockers">>
+		<<storeon _store_location "check">>
+		<<if _store_check is 1>>
+			<<set _clothes to clothingInStorage(_store_location)>>
+			<<if _clothes.length gt 0>>
+				<<if $worn.handheld.name is "naked">>
+					You take your _clothes[0].name out of your locker before entering class.<<storeload "lockers">>
+					<br><br>
+				<<elseif $lockerSwapLock is false>>
+					You swap out your $worn.handheld.name with your _clothes[0].name before entering class.<<handheldundress "lockers2">><<storeload "lockers">>
+					<br><br>
+				<</if>>
+				<<set $lockerSwapLock to true>>
+			<</if>>
+		<</if>>
+		<<unset $wearoutfittext>>
+
+		<<wardrobeSelection true>>
+		<<set _store_location to "lockers2">>
+		<<storeon _store_location "check">>
+		<<if _store_check is 1>>
+			<<set _clothes to clothingInStorage(_store_location)>>
+			<<if _clothes.length gt 0>>
+				<<if $worn.handheld.name is "naked">>
+					You take your _clothes[0].name out of your locker before entering class.<<storeload "lockers2">>
+					<br><br>
+				<<elseif $lockerSwapLock is false>>
+					You swap out your $worn.handheld.name with your _clothes[0].name before entering class.<<handheldundress "lockers">><<storeload "lockers2">>
+					<br><br>
+				<</if>>
+				<<set $lockerSwapLock to true>>
+			<</if>>
+		<</if>>
+		<<unset $wearoutfittext>>
+	<</if>>
+<</widget>>
+
+<<widget "lockerClothesAutoStore">>
+	<<if $autoLockerEnabled and $lockerSwapLock and $worn.handheld.name isnot "naked" and $passagePrev is "Hallways" and !$possessed>>
+		<<wardrobeSelection true>>
+		<<set _store_location to "lockers">>
+		<<storeon _store_location "check">>
+		<<set _clothes to clothingInStorage(_store_location)>>
+		<<if _clothes.length gt 0>>
+			You swap out your $worn.handheld.name with your _clothes[0].name before leaving the main halls.<<set $lockerSwapLock to false>><<handheldundress "lockers2">><<storeload "lockers">>
+			<br><br>
+		<<else>>
+			<<storeon "lockers2" "check">>
+			<<if _store_check isnot 1>>
+				You store your $worn.handheld.name in your locker before leaving the main halls.<<set $lockerSwapLock to false>><<handheldundress "lockers">>
+				<br><br>
+			<</if>>
+		<</if>>
+		<<unset $wearoutfittext>>
+
+		<<wardrobeSelection true>>
+		<<set _store_location to "lockers2">>
+		<<storeon _store_location "check">>
+		<<set _clothes to clothingInStorage(_store_location)>>
+		<<if $lockerSwapLock>>
+			<<if _clothes.length gt 0>>
+				You swap out your $worn.handheld.name with your _clothes[0].name before leaving the main halls.<<set $lockerSwapLock to false>><<handheldundress "lockers">><<storeload "lockers2">>
+				<br><br>
+			<<else>>
+				<<storeon "lockers" "check">>
+				<<if _store_check isnot 1>>
+					You store your $worn.handheld.name in your locker before leaving the main halls.<<set $lockerSwapLock to false>><<handheldundress "lockers">>
+					<br><br>
+				<</if>>
+			<</if>>
+		<</if>>
+		<<unset $wearoutfittext>>
+	<</if>>
+<</widget>>

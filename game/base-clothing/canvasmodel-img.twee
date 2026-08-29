@@ -1,0 +1,141 @@
+:: Widgets Canvas Model Main [widget]
+
+<!--
+<<canvasimg [CSSCLASSES]>>
+Render full player image.
+-->
+<<widget "canvasimg">>
+	<<selectmodel "lighting" "sidebar">>
+	<<rendermodel "lighting">>
+	<<selectmodel "main" "sidebar">>
+	<<modelprepare-player-body>>
+	<<modelprepare-player-clothes>>
+	<<if $options.sidebarAnimations isnot false>>
+		<<animatemodel _args[0]>>
+	<<else>>
+		<<rendermodel _args[0]>>
+	<</if>>
+	<<if playerHasStrapon()>>
+		<<set _modeloptions.crotch_visible to false>>
+		<<set _modeloptions.crotch_exposed to false>>
+		<<if $worn.lower.exposed lte 1 and $lowerwetstage lte 0>>
+			<<set _modeloptions.worn.under_lower.index to 0>>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<!--
+Set model options & filters from player body
+Requires prior <<selectmodel "main">>
+-->
+
+
+<!--
+ -     ██████ ██       ██████  ████████ ██   ██ ███████ ███████
+ -    ██      ██      ██    ██    ██    ██   ██ ██      ██
+ -    ██      ██      ██    ██    ██    ███████ █████   ███████
+ -    ██      ██      ██    ██    ██    ██   ██ ██           ██
+ -     ██████ ███████  ██████     ██    ██   ██ ███████ ███████
+ -->
+<!--
+Set model options & filters for player clothes
+-->
+
+<<widget "canvas-player-base-body">>
+	<<selectmodel "lighting">>
+	<<set _modeloptions.lights.gradient.enabled = false>>
+	<<set _modeloptions.lights.flat.enabled = false>>
+	<<rendermodel "lighting">>
+	<<selectmodel "main">>
+	<<set _chestVisible to !$options.neverNudeMenus>>
+	<<modelprepare-player-body>>
+
+	<!-- Reset covering -->
+	<<set _modeloptions.arm_left to "idle">>
+	<<set _modeloptions.arm_right to "idle">>
+	<<set _modeloptions.angel_wing_left to "idle">>
+	<<set _modeloptions.angel_wing_right to "idle">>
+	<<set _modeloptions.fallen_wing_left to "idle">>
+	<<set _modeloptions.fallen_wing_right to "idle">>
+	<<set _modeloptions.demon_wing_left to "idle">>
+	<<set _modeloptions.demon_wing_right to "idle">>
+	<<set _modeloptions.bird_wing_left to "idle">>
+	<<set _modeloptions.bird_wing_right to "idle">>
+	<!-- Reset face -->
+	<<set _modeloptions.blink to false>>
+	<<set _modeloptions.eyes_half to false>>
+	<<set _modeloptions.brows to "top">>
+	<<set _modeloptions.mouth to "neutral">>
+	<<set _modeloptions.tears to 0>>
+	<<set _modeloptions.blush to 0>>
+	<!-- Reset effects -->
+	<<set _modeloptions.drip_vaginal to "">>
+	<<set _modeloptions.drip_anal to "">>
+	<<set _modeloptions.drip_mouth to "">>
+	<<set _modeloptions.follower to false>>
+	<<set _modeloptions.precipitation to false>>
+	<<set _modeloptions.temperature to false>>
+	<<set _modeloptions.prop to false>>
+	<<set _modeloptions.wraithFlash to false>>
+
+	<<if $options.neverNudeMenus>>
+		<<set _modeloptions.crotch_visible to false>>
+		<<set _modeloptions.penis to "">>
+		<<if $player.gender_appearance neq "m" or $player.perceived_breastsize gte 3>>
+			<<set _modeloptions.worn.under_upper.index to 12>>
+			<<set _modeloptions.worn.under_upper.colour to "pale white">>
+		<</if>>
+		<<set _modeloptions.worn.under_lower.colour to "pale white">>
+		<<if $player.gender_appearance is "m">>
+			<<set _modeloptions.worn.under_lower.index to 4>>
+		<<else>>
+			<<set _modeloptions.worn.under_lower.index to 1>>
+		<</if>>
+	<</if>>
+	<<if playerHasStrapon()>>
+		<<set _modeloptions.worn.under_lower.index to $worn.under_lower.index>>
+		<<set _modeloptions.worn.under_lower.colour to ($worn.under_lower.colourCustom ? $worn.under_lower.colourCustom : $worn.under_lower.colour)>>
+	<</if>>
+	<<rendermodel>>
+<</widget>>
+
+<<widget "canvas-model-override">>
+	<<if _args[0] is "clear">>
+		<<set $modeloptionsOverride to {}>>
+	<<else>>
+		<<set $modeloptionsOverride[_args[0]] to _args[1]>>
+	<</if>>
+<</widget>>
+
+<<widget "canvas-model-temporary-effect">>
+	<<set _tempEffects ||= {}>>
+	<<set _tempEffects[_args[0]] to _args[1] or true>>
+<</widget>>
+
+<<widget "canvas-model-freeze">>
+	<<if !_canvasFrozen>>
+		<<set _canvasFrozen to []>>
+	<</if>>
+
+	<<if _args.includes(true)>>
+		<<run _args.filter(x => typeof(x) is "string").forEach(x => _canvasFrozen.pushUnique(x))>>
+	<<else>>
+		<<if _args.includesAny("precipitation")>>
+			<<set _canvasFrozen.pushUnique("rain","snowFront","snowBack","precipitation")>>
+		<</if>>
+		<<if _args.includesAny("blink","player")>>
+			<<set _canvasFrozen.pushUnique("blink","blink-trauma")>>
+		<</if>>
+		<<if _args.includesAny("bodyliquid","player")>>
+			<<set _canvasFrozen.pushUnique("AnalCumDripStart","AnalCumDripVerySlow","AnalCumDripSlow","AnalCumDripFast","AnalCumDripVeryFast",
+			"MouthCumDripStart","MouthCumDripVerySlow","MouthCumDripSlow","MouthCumDripFast","MouthCumDripVeryFast",
+			"VaginalCumDripStart","VaginalCumDripVerySlow","VaginalCumDripSlow","VaginalCumDripFast","VaginalCumDripVeryFast")>>
+		<</if>>
+		<<if _args.includesAny("playerBreath","player")>>
+			<<set _canvasFrozen.pushUnique("playerBreath","playerBreathFast")>>
+		<</if>>
+		<<if _args.includes("all")>>
+			<<set _canvasFrozen.pushUnique("all")>>
+		<</if>>
+	<</if>>
+<</widget>>

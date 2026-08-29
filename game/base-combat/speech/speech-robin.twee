@@ -1,0 +1,56 @@
+:: Widgets speech-Robin [widget]
+<<widget "speech-robin">>
+	<<set _npc_speech to true>>
+	<<if $robinmist>>
+		<br><br>
+		<<print [
+			`Robin is crying.`,
+			`Robin frantically tries to look away from you, but <<he>> doesn't stop.`,
+			`"I d-don't..." Robin whispers under <<his>> breath.`,
+			`"I love you!" Robin says, though <<hes>> not smiling.`,
+			`"I just need—" Robin gasps. <<He>> doesn't try to finish <<his>> sentence.`,
+			`Robin closes <<his>> eyes, unable to meet your gaze.`,
+			`Robin cries out. Tears are running down <<his>> face.`,
+			`Robin shakes <<his>> head and closes <<his>> eyes.`,
+			`"S-stop it!" Robin yells, but not at you.`,
+			`"I need you..." Robin says with teary eyes.`
+		][random(0,9)]>>
+		<<grtrauma>>
+	<<elseif $robinMetal>>
+		<<print [
+			`Robin can't maintain eye contact.`,
+			`"Hurry," Robin whispers. "So they'll leave you alone."`,
+			`Robin struggles against <<his>> bindings.`,
+			`Robin struggles against the metal tentacles holding <<him>>. They don't budge.`,
+			`"Please," Robin whimpers.`,
+			`Robin stifles a sob.`,
+			`"I'm sorry," Robin hiccups.`,
+			`"They did something to me," Robin says shamefully. "I feel... numb."`,
+			`"I'm sorry it's taking so long," Robin mutters.`,
+			`"They're using me against you," Robin sobs.`
+		][random(0,9)]>>
+	<<elseif ($speechpenisvirgin is 1 and $player.virginity.penile is "Robin") or ($speechvaginavirgin is 1 and $player.virginity.vaginal is "Robin")>>
+		<<He>> gasps. "You saved yourself for me. I don't deserve something so special. Thank you." Tears roll down <<his>> cheeks.
+	<<elseif $speechanusvirgin is 1 and $player.virginity.anal is "Robin">>
+		<<He>> gasps. "This is so naughty!"
+	<<elseif $speechmouthvirgin is 1 and $player.virginity.oral is "Robin">>
+		<<He>> gasps. "You're making me feel funny down there."
+	<<elseif $speechnamedrop is 1>>
+		<<set $speechnamedrop to 0>>
+		<<He>> speaks. "So you're a cheater in more ways than one. (This line is a placeholder and should be unobtainable.)"
+	<<elseif $speechsextoy is 1>>
+		<<set $speechsextoy to 0>>
+		<<set $_sexToy to ($rightarm is "heldSexToy" and $leftarm is "heldSexToy" ? "sex toys" : "sex toy")>>
+		<<if C.npc.Robin.dom gte 70>>
+			<<print `<<He>> looks at your $_sexToy and giggles. "` + [`I've wanted to do this with you for a while.`, `This is so dirty... keep going.`][random(0,1)] + `"`>>
+		<<elseif C.npc.Robin.dom lte 30>>
+			<<print `<<He>> looks at your $_sexToy and blushes. "` + [`Woah! Don't you feel embarrassed?`, `Just take it slow, okay?`][random(0,1)] + `"`>>
+		<<else>>
+			<<print `<<He>> looks at your $_sexToy and giggles. "` + [`I can't believe you're touching that.`, `This is so dirty... keep going.`][random(0,1)] + `"`>>
+		<</if>>
+	<<elseif $speechaskrough is 1>>
+		<<He>> speaks. "You want me to be more rough? I'm sorry, I'm already being as rough as I can."
+	<<else>>
+		<<set _noNameComment to true>>
+	<</if>>
+<</widget>>

@@ -1,0 +1,485 @@
+:: Widgets Difficulty [widget]
+<<widget "sexactiondifficulty">>
+	<<if $settings.skillCheckStyle is "skillname" or $settings.blindStatsEnabled>>
+	<<elseif (990 - ($enemytrust * 10) - currentSkillValue(_args[0]) + $enemyanger) lte (($enemyarousalmax / ($enemyarousal + 1)) * 100)>>
+		<span class="green">(Very Easy)</span>
+	<<elseif (800 - ($enemytrust * 10) - currentSkillValue(_args[0]) + $enemyanger) lte (($enemyarousalmax / ($enemyarousal + 1)) * 100)>>
+		<span class="teal">(Easy)</span>
+	<<elseif (600 - ($enemytrust * 10) - currentSkillValue(_args[0]) + $enemyanger) lte (($enemyarousalmax / ($enemyarousal + 1)) * 100)>>
+		<span class="lblue">(Medium)</span>
+	<<elseif (400 - ($enemytrust * 10) - currentSkillValue(_args[0]) + $enemyanger) lte (($enemyarousalmax / ($enemyarousal + 1)) * 100)>>
+		<span class="blue">(Challenging)</span>
+	<<elseif (200 - ($enemytrust * 10) - currentSkillValue(_args[0]) + $enemyanger) lte (($enemyarousalmax / ($enemyarousal + 1)) * 100)>>
+		<span class="purple">(Hard)</span>
+	<<elseif (1 - ($enemytrust * 10) - currentSkillValue(_args[0]) + $enemyanger) lte (($enemyarousalmax / ($enemyarousal + 1)) * 100)>>
+		<span class="pink">(Very Hard)</span>
+	<<else>>
+		<span class="red">(Impossible)</span>
+	<</if>>
+<</widget>>
+
+<<widget "chestdifficulty">>
+	<<sexactiondifficulty "chestskill">>
+<</widget>>
+
+<<widget "seductiondifficulty">><<silently>>
+	<<if $settings.blindStatsEnabled>>
+		<<set _text_output to "">>
+	<<elseif $combat is 1>>
+		<<if $settings.skillCheckStyle is "skillname">>
+			<<set _text_output to "">>
+		<<elseif _args[0] is true>>
+			<<if (990 - ($enemytrust * 10) - currentSkillValue("seductionskill") + $enemyanger) lte (($enemyarousalmax / ($enemyarousal + 1)) * 100)>>
+				<<set _text_output to '(Very Easy)'>>
+			<<elseif (800 - ($enemytrust * 10) - currentSkillValue("seductionskill") + $enemyanger) lte (($enemyarousalmax / ($enemyarousal + 1)) * 100)>>
+				<<set _text_output to '(Easy)'>>
+			<<elseif (600 - ($enemytrust * 10) - currentSkillValue("seductionskill") + $enemyanger) lte (($enemyarousalmax / ($enemyarousal + 1)) * 100)>>
+				<<set _text_output to '(Medium)'>>
+			<<elseif (400 - ($enemytrust * 10) - currentSkillValue("seductionskill") + $enemyanger) lte (($enemyarousalmax / ($enemyarousal + 1)) * 100)>>
+				<<set _text_output to '(Challenging)'>>
+			<<elseif (200 - ($enemytrust * 10) - currentSkillValue("seductionskill") + $enemyanger) lte (($enemyarousalmax / ($enemyarousal + 1)) * 100)>>
+				<<set _text_output to '(Hard)'>>
+			<<elseif (1 - ($enemytrust * 10) - currentSkillValue("seductionskill") + $enemyanger) lte (($enemyarousalmax / ($enemyarousal + 1)) * 100)>>
+				<<set _text_output to '(Very Hard)'>>
+			<<else>>
+				<<set _text_output to '(Impossible)'>>
+			<</if>>
+		<<else>>
+			<<if (990 - ($enemytrust * 10) - currentSkillValue("seductionskill") + $enemyanger) lte (($enemyarousalmax / ($enemyarousal + 1)) * 100)>>
+				<<set _text_output to '<span class="green">(Very Easy)</span>'>>
+			<<elseif (800 - ($enemytrust * 10) - currentSkillValue("seductionskill") + $enemyanger) lte (($enemyarousalmax / ($enemyarousal + 1)) * 100)>>
+				<<set _text_output to '<span class="teal">(Easy)</span>'>>
+			<<elseif (600 - ($enemytrust * 10) - currentSkillValue("seductionskill") + $enemyanger) lte (($enemyarousalmax / ($enemyarousal + 1)) * 100)>>
+				<<set _text_output to '<span class="lblue">(Medium)</span>'>>
+			<<elseif (400 - ($enemytrust * 10) - currentSkillValue("seductionskill") + $enemyanger) lte (($enemyarousalmax / ($enemyarousal + 1)) * 100)>>
+				<<set _text_output to '<span class="blue">(Challenging)</span>'>>
+			<<elseif (200 - ($enemytrust * 10) - currentSkillValue("seductionskill") + $enemyanger) lte (($enemyarousalmax / ($enemyarousal + 1)) * 100)>>
+				<<set _text_output to '<span class="purple">(Hard)</span>'>>
+			<<elseif (1 - ($enemytrust * 10) - currentSkillValue("seductionskill") + $enemyanger) lte (($enemyarousalmax / ($enemyarousal + 1)) * 100)>>
+				<<set _text_output to '<span class="pink">(Very Hard)</span>'>>
+			<<else>>
+				<<set _text_output to '<span class="red">(Impossible)</span>'>>
+			<</if>>
+		<</if>>
+	<<else>>
+		<<if $settings.skillCheckStyle is "skillname">>
+			<<set _text_output to ` | <span class="lewd">Seduction</span>`>>
+		<<else>>
+			<<set _text_output to ` | <span class="lewd">Seduction</span>: `>>
+			<<if 990 - currentSkillValue("seductionskill") - ($attractiveness / 10) lte -100>>
+				<<set _text_output += '<span class="green">(Very Easy)</span>'>>
+			<<elseif 800 - currentSkillValue("seductionskill") - ($attractiveness / 10) lte -100>>
+				<<set _text_output += '<span class="teal">(Easy)</span>'>>
+			<<elseif 600 - currentSkillValue("seductionskill") - ($attractiveness / 10) lte -100>>
+				<<set _text_output += '<span class="lblue">(Medium)</span>'>>
+			<<elseif 400 - currentSkillValue("seductionskill") - ($attractiveness / 10) lte -100>>
+				<<set _text_output += '<span class="blue">(Challenging)</span>'>>
+			<<elseif 200 - currentSkillValue("seductionskill") - ($attractiveness / 10) lte -100>>
+				<<set _text_output += '<span class="purple">(Hard)</span>'>>
+			<<elseif 1 - currentSkillValue("seductionskill") - ($attractiveness / 10) lte -100>>
+				<<set _text_output += '<span class="pink">(Very Hard)</span>'>>
+			<<else>>
+				<<set _text_output += '<span class="red">(Impossible)</span>'>>
+			<</if>>
+		<</if>>
+	<</if>>
+	<</silently>><<if _text_output and _args[0] isnot true>><<print _text_output>><</if>>
+<</widget>>
+
+<<widget "oraldifficulty">>
+	<<sexactiondifficulty "oralskill">>
+<</widget>>
+
+<<widget "vaginaldifficulty">>
+	<<sexactiondifficulty "vaginalskill">>
+<</widget>>
+
+<<widget "analdifficulty">>
+	<<sexactiondifficulty "analskill">>
+<</widget>>
+
+<<widget "handdifficulty">>
+	<<sexactiondifficulty "handskill">>
+<</widget>>
+
+<<widget "feetdifficulty">>
+	<<sexactiondifficulty "feetskill">>
+<</widget>>
+
+<<widget "bottomdifficulty">>
+	<<sexactiondifficulty "bottomskill">>
+<</widget>>
+
+<<widget "thighdifficulty">>
+	<<sexactiondifficulty "thighskill">>
+<</widget>>
+
+<<widget "peniledifficulty">>
+	<<sexactiondifficulty "penileskill">>
+<</widget>>
+
+<<widget "skulduggerycheck">>
+	<!--
+	we use random(101, 1100) in lieu of random(1, 1000)+100 -- that way,
+	a 'perfect' roll is 1/10 instead of 1/1000, and all outcomes are basically quantized
+
+	odds:
+	1/10 (101-199): succeeds if difficulty is at or below current grade
+	2/10 (200-399): succeeds if difficulty is at or below current grade + 1
+	2/10 (400-599): succeeds if difficulty is at or below current grade + 2
+	2/10 (600-799): succeeds if difficulty is at or below current grade + 3
+	2/10 (800-999): succeeds if difficulty is at or below current grade + 4
+	1/10 (1000-1100): succeeds if difficulty is at or below current grade + 5
+
+	101-199 is slightly less than 1/10, and 1000-1100 is slightly more -- idk why man i'm
+	just documenting here, i'm sure nobody's gonna complain about slightly better odds
+
+	note: the ternary coerces the outcome to 1 or 0, because many checks check if it's exactly 1 (rather than just truthy)
+	-->
+
+	<<set $skulduggerysuccess to (random(101, 1100) >= 200 * Math.floor(($skulduggerydifficulty - currentSkillValue('skulduggery')) / 100)) ? 1 : 0>>
+
+	<<if $temple_burden gte random(1, 100)>>
+		<<set $skulduggerysuccess to 0>>
+	<</if>>
+
+	<<if _args[0] isnot "silent">>
+		<<if $skulduggerysuccess is 1>>
+			<span class="green">You succeed in your skulduggery.</span>
+		<<else>>
+			<span class="red">You fail in your skulduggery.</span>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "skulduggerydifficulty">>
+	<<if !$settings.blindStatsEnabled>>
+		| <span class="orange">Skulduggery</span><<if $settings.skillCheckStyle isnot "skillname">>:
+			 <!-- only display colon if it's followed by the difficulty level -->
+			<<set _skulduggery to currentSkillValue('skulduggery')>>
+			<<if _skulduggery gte $skulduggerydifficulty>>
+				<span class="green">Very Easy</span>
+			<<elseif (_skulduggery + 100) gte $skulduggerydifficulty>>
+				<span class="teal">Easy</span>
+			<<elseif (_skulduggery + 200) gte $skulduggerydifficulty>>
+				<span class="lblue">Medium</span>
+			<<elseif (_skulduggery + 300) gte $skulduggerydifficulty>>
+				<span class="blue">Challenging</span>
+			<<elseif (_skulduggery + 400) gte $skulduggerydifficulty>>
+				<span class="purple">Hard</span>
+			<<elseif (_skulduggery + 500) gte $skulduggerydifficulty>>
+				<span class="pink">Very Hard</span>
+			<<else>>
+				<span class="red">Impossible</span>
+			<</if>>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "skilllettergrade">>
+	<<if _args[0] lt 0>>
+		<span class="red">None</span>
+	<<elseif _args[0] is 0>>
+		<span class="pink">F</span>
+	<<elseif _args[0] lte 100>>
+		<span class="pink">F+</span>
+	<<elseif _args[0] lte 200>>
+		<span class="purple">D</span>
+	<<elseif _args[0] lte 300>>
+		<span class="purple">D+</span>
+	<<elseif _args[0] lte 400>>
+		<span class="blue">C</span>
+	<<elseif _args[0] lte 500>>
+		<span class="blue">C+</span>
+	<<elseif _args[0] lte 600>>
+		<span class="lblue">B</span>
+	<<elseif _args[0] lte 700>>
+		<span class="lblue">B+</span>
+	<<elseif _args[0] lte 800>>
+		<span class="teal">A</span>
+	<<elseif _args[0] lte 900>>
+		<span class="teal">A+</span>
+	<<else>>
+		<span class="green">S</span>
+	<</if>>
+<</widget>>
+
+<<widget "skulduggeryrequired">>
+	/* this widget is only called after a failed attempt at picking a lock. if a player has their skulduggery at 198 (F+) and the lock level is 199 (also F+), it would be weird to show a requirement of skulduggery level that pc clearly already achieved according to stats. to combat that, the levels here are purposefully shown higher than they actually are */
+	<<if !$settings.blindStatsEnabled>>
+		Skulduggery required: <<skilllettergrade $lock>>
+	<</if>>
+<</widget>>
+
+<<widget "seductioncheck">>
+	<<if !$settings.blindStatsEnabled>>
+		Attractiveness rating:
+		<<if $attractiveness gte 5000>>
+			<span class="green">S</span>
+		<<elseif $attractiveness gte 4000>>
+			<span class="teal">A</span>
+		<<elseif $attractiveness gte 3000>>
+			<span class="lblue">B</span>
+		<<elseif $attractiveness gte 2000>>
+			<span class="blue">C</span>
+		<<elseif $attractiveness gte 1000>>
+			<span class="purple">D</span>
+		<<else>>
+			<span class="pink">F</span>
+		<</if>>
+		<br>
+		Seduction Skill:
+		<<if currentSkillValue("seductionskill") lte 0>>
+			<span class="red">None</span>
+		<<elseif currentSkillValue("seductionskill") gte 1 and currentSkillValue("seductionskill") lt 200>>
+			<span class="pink">F</span>
+		<<elseif currentSkillValue("seductionskill") gte 200 and currentSkillValue("seductionskill") lt 400>>
+			<span class="purple">D</span>
+		<<elseif currentSkillValue("seductionskill") gte 400 and currentSkillValue("seductionskill") lt 600>>
+			<span class="blue">C</span>
+		<<elseif currentSkillValue("seductionskill") gte 600 and currentSkillValue("seductionskill") lt 800>>
+			<span class="lblue">B</span>
+		<<elseif currentSkillValue("seductionskill") gte 800 and currentSkillValue("seductionskill") lt 1000>>
+			<span class="teal">A</span>
+		<<elseif currentSkillValue("seductionskill") gte 1000>>
+			<span class="green">S</span>
+		<</if>>
+		<br>
+		Overall rating:
+		<<if $attractiveness + (currentSkillValue("seductionskill") * 5) gte 10000>>
+			<span class="green">S</span>
+			<<set $seductionrating to 6>>
+		<<elseif $attractiveness + (currentSkillValue("seductionskill") * 5) gte 8000>>
+			<span class="teal">A</span>
+			<<set $seductionrating to 5>>
+		<<elseif $attractiveness + (currentSkillValue("seductionskill") * 5) gte 6000>>
+			<span class="lblue">B</span>
+			<<set $seductionrating to 4>>
+		<<elseif $attractiveness + (currentSkillValue("seductionskill") * 5) gte 4000>>
+			<span class="blue">C</span>
+			<<set $seductionrating to 3>>
+		<<elseif $attractiveness + (currentSkillValue("seductionskill") * 5) gte 2000>>
+			<span class="purple">D</span>
+			<<set $seductionrating to 2>>
+		<<else>>
+			<span class="pink">F</span>
+			<<set $seductionrating to 1>>
+		<</if>>
+		<br>
+		Required rating:
+		<<if $seductiondifficulty gte 10000>>
+			<span class="green">S</span>
+			<<set $seductionrequired to 6>>
+		<<elseif $seductiondifficulty gte 8000>>
+			<span class="teal">A</span>
+			<<set $seductionrequired to 5>>
+		<<elseif $seductiondifficulty gte 6000>>
+			<span class="lblue">B</span>
+			<<set $seductionrequired to 4>>
+		<<elseif $seductiondifficulty gte 4000>>
+			<span class="blue">C</span>
+			<<set $seductionrequired to 3>>
+		<<elseif $seductiondifficulty gte 2000>>
+			<span class="purple">D</span>
+			<<set $seductionrequired to 2>>
+		<<else>>
+			<span class="pink">F</span>
+			<<set $seductionrequired to 1>>
+		<</if>>
+		<br><br>
+	<<else>> <!-- Hidden stat checks -->
+		<<if $attractiveness + (currentSkillValue("seductionskill") * 5) gte 10000>>
+			<<set $seductionrating to 6>>
+		<<elseif $attractiveness + (currentSkillValue("seductionskill") * 5) gte 8000>>
+			<<set $seductionrating to 5>>
+		<<elseif $attractiveness + (currentSkillValue("seductionskill") * 5) gte 6000>>
+			<<set $seductionrating to 4>>
+		<<elseif $attractiveness + (currentSkillValue("seductionskill") * 5) gte 4000>>
+			<<set $seductionrating to 3>>
+		<<elseif $attractiveness + (currentSkillValue("seductionskill") * 5) gte 2000>>
+			<<set $seductionrating to 2>>
+		<<else>>
+			<<set $seductionrating to 1>>
+		<</if>>
+		<<if $seductiondifficulty gte 10000>>
+			<<set $seductionrequired to 6>>
+		<<elseif $seductiondifficulty gte 8000>>
+			<<set $seductionrequired to 5>>
+		<<elseif $seductiondifficulty gte 6000>>
+			<<set $seductionrequired to 4>>
+		<<elseif $seductiondifficulty gte 4000>>
+			<<set $seductionrequired to 3>>
+		<<elseif $seductiondifficulty gte 2000>>
+			<<set $seductionrequired to 2>>
+		<<else>>
+			<<set $seductionrequired to 1>>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "physiquedifficulty">>
+	<<skill_difficulty currentSkillValue('physique') "Physique" `(_args[0] ?? 1)` `(_args[1] ?? $physiquemax)` _args[2]>>
+<</widget>>
+
+<<widget "dancedifficulty">>
+	<<skill_difficulty currentSkillValue('danceskill') "Dance" _args[0] _args[1] _args[2]>>
+<</widget>>
+
+<<widget "swimmingdifficulty">>
+	<<skill_difficulty currentSkillValue('swimmingskill') "Swimming" _args[0] _args[1] _args[2]>>
+<</widget>>
+
+<<widget "athleticsdifficulty">>
+	<<skill_difficulty currentSkillValue('athletics') "Athletics" _args[0] _args[1] _args[2]>>
+<</widget>>
+
+<<widget "willpowerdifficulty">>
+	<<skill_difficulty currentSkillValue('willpower') "Willpower" `(_args[0] ?? 1)` `(_args[1] ?? $willpowermax)` _args[2]>>
+<</widget>>
+
+<<widget "tendingdifficulty">>
+	<<skill_difficulty currentSkillValue('tending') "Tending" _args[0] _args[1] _args[2]>>
+<</widget>>
+
+<<widget "housekeepingdifficulty">>
+	<<skill_difficulty currentSkillValue('housekeeping') "Housekeeping" _args[0] _args[1] _args[2]>>
+<</widget>>
+
+<<widget "difficulty">>
+	<<if _args[0] and !$settings.blindStatsEnabled>>
+	| Success Chance:
+		<<if _args[0] gte 100>>
+			<span class="green"><<print _args[0]>>%</span>
+		<<elseif _args[0] gte 80>>
+			<span class="teal"><<print _args[0]>>%</span>
+		<<elseif _args[0] gte 60>>
+			<span class="lblue"><<print _args[0]>>%</span>
+		<<elseif _args[0] gte 40>>
+			<span class="blue"><<print _args[0]>>%</span>
+		<<elseif _args[0] gte 20>>
+			<span class="purple"><<print _args[0]>>%</span>
+		<<elseif _args[0] gte 1>>
+			<span class="pink"><<print _args[0]>>%</span>
+		<<else>>
+			<span class="red"><<print _args[0]>>%</span>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "englishdifficulty">>
+	<<skill_difficulty currentSkillValue('english') "English" _args[0] _args[1] _args[2]>>
+<</widget>>
+
+<!--
+	args[0]: skill to be checked.
+	args[1]: skill name to display.
+	args[2]: skill required to have a chance.
+	args[3]: skill required for 100% success rate
+	args[4]: hide the skill text.
+-->
+<<widget "skill_difficulty">>
+	<<set $_skill to _args[0]>>
+	<<if typeof $_skill is "number">>
+		<!-- Now we know $_skill is a valid number, we can perform our calculations safely. -->
+		<<set _skilldifficultymin to (_args[2] ?? 1)>>
+		<<set _skilldifficultymax to (_args[3] ?? 1000)>>
+		<<if _skilldifficultymin gte _skilldifficultymax>>
+			<<set _skilldifficultymax to _skilldifficultymin + 1>>
+		<</if>>
+		<<if !$settings.blindStatsEnabled>>
+			<<set _difficulty to Math.round(Math.clamp($_skill - _skilldifficultymin, 0, _skilldifficultymax) / (_skilldifficultymax - _skilldifficultymin) * 100)>>
+			<<if _difficulty gt 100>>
+				<<set _difficulty to 100>>
+			<</if>>
+			<<if _args[4] is undefined>>
+				| <span class="orange"><<print _args[1]>></span><<if $settings.skillCheckStyle isnot "skillname">>: 
+					<!-- only display colon if it's followed by the difficulty level -->
+					<<skillDifficultyText _difficulty>>
+				<</if>>
+			<<elseif _args[4] is "combat" and $settings.skillCheckStyle isnot "skillname">>
+				<<if _difficulty gte 100>>
+					<span class="green">(Very Easy)</span>
+				<<elseif _difficulty gte 80>>
+					<span class="teal">(Easy)</span>
+				<<elseif _difficulty gte 60>>
+					<span class="lblue">(Medium)</span>
+				<<elseif _difficulty gte 40>>
+					<span class="blue">(Challenging)</span>
+				<<elseif _difficulty gte 20>>
+					<span class="purple">(Hard)</span>
+				<<elseif _difficulty gte 1>>
+					<span class="pink">(Very Hard)</span>
+				<<else>>
+					<span class="red">(Impossible)</span>
+				<</if>>
+			<</if>>
+		<</if>>
+		<<if $temple_burden gte random(1, 100)>>
+			<<set $_skill to 0>>
+		<</if>>
+		<!--
+			skills that have their own dedicated widget have some persistent external variable that tracks success
+			here, we check if the skill that this widget is called for is one of those skills, and if so, set that variable accordingly
+
+			n.b. $skulduggerysuccess is handled separately, and so is not included here, and <<skulduggerydifficulty>> has
+			different standards for how to display skill difficulty text (and so it does not call <<skillDifficultyText>>)
+		 -->
+		<<set _successVars to {
+			"Physique": "physiqueSuccess",
+			"Willpower": "willpowerSuccess",
+			"Dance": "danceSuccess",
+			"Swimming": "swimmingSuccess",
+			"Athletics": "athleticsSuccess",
+			"Tending": "tendingSuccess",
+			"Housekeeping": "housekeepingSuccess",
+			"English": "englishSuccess"
+		}>>
+		<<if _successVars[_args[1]] isnot undefined>>
+			<<set V[_successVars[_args[1]]] to (($_skill gte random(_skilldifficultymin, _skilldifficultymax)) ? 1 : 0)>>
+		<</if>>
+
+	<<else>>
+		<<error {
+			message: '<<skill_difficulty>> widget was given an invalid skill name: Not a number.',
+			source: `Skill value: ${_args[0]}, skill display: ${_args[1]}, minimum: ${_args[2]}, max: ${_args[3]}, hide: ${_args[4]}`
+		}>>
+	<</if>>
+<</widget>>
+
+<<widget "historyrequired">>
+	/* args[0] = historyTrait required
+	*/
+	<<if !$settings.blindStatsEnabled>>
+		History Grade required:
+		<<if _args[0] gte 1 and _args[0] lt 2>>
+			<span class="blue">C</span>
+		<<elseif _args[0] gte 2 and _args[0] lt 3>>
+			<span class="lblue">B</span>
+		<<elseif _args[0] gte 3 and _args[0] lt 4>>
+			<span class="teal">A</span>
+		<<elseif _args[0] gte 4>>
+			<span class="green">A*</span>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "skillDifficultyText">>
+	<<set $_difficulty to _args[0]>>
+	<<if !$settings.blindStatsEnabled>>
+		<<if $_difficulty gte 100>>
+			<span class="green">Simple <<if $settings.skillCheckStyle is "percentage">>$_difficulty%<</if>></span>
+		<<elseif $_difficulty gte 80>>
+			<span class="teal">Easy <<if $settings.skillCheckStyle is "percentage">>$_difficulty%<</if>></span>
+		<<elseif $_difficulty gte 60>>
+			<span class="lblue">Reasonable <<if $settings.skillCheckStyle is "percentage">>$_difficulty%<</if>></span>
+		<<elseif $_difficulty gte 40>>
+			<span class="blue">Challenging <<if $settings.skillCheckStyle is "percentage">>$_difficulty%<</if>></span>
+		<<elseif $_difficulty gte 20>>
+			<span class="purple">Hard <<if $settings.skillCheckStyle is "percentage">>$_difficulty%<</if>></span>
+		<<elseif $_difficulty gte 1>>
+			<span class="pink">Very Hard <<if $settings.skillCheckStyle is "percentage">>$_difficulty%<</if>></span>
+		<<else>>
+			<span class="red">Impossible <<if $settings.skillCheckStyle is "percentage">>$_difficulty%<</if>></span>
+		<</if>>
+	<</if>>
+<</widget>>

@@ -1,0 +1,1172 @@
+:: Maze Intro Explain
+<<effects>>
+
+"It's the Serpent's Maze," you say. "No one knows who built it, but it was used as a hideout by thieves centuries ago. They left lots of traps. It's said to be dangerous, and no one's made it to the centre in living memory."
+<br><br>
+The <<person>> frowns as you speak, and takes a step back. "Didn't expect someone as young as you to know, but aye, you've got the gist of it."
+<br><br>
+<<He>> lifts <<his>> shovel. "Those aren't just stories. It's dangerous"—<<he>> pauses—"and I've seen things. Crawling in and out at night. Laugh if you like, but I'd never felt such fear."
+<br><br>
+
+<<He>> walks down the hill, ignoring the path, into the surrounding trees.
+<br><br>
+
+<span class="gold">You can now access the maze in the farmlands.</span>
+<br><br>
+
+<<link [[Next|Farmland]]>><<set $eventskip to 1>><<endevent>><</link>>
+<br>
+
+:: Maze Intro Guess
+<<effects>>
+
+"It's an old castle?" you say. "Like the famous one in the moor."
+<br><br>
+
+The <<person>> shakes <<his>> head. "They don't teach you nothing at school nowadays. It's the Serpent's Maze. Thieves used it as a hideout, centuries ago, and left their traps here. And loot, if the stories are to believed. No one's made it to the centre to check."
+<br><br>
+
+<<He>> lifts <<his>> shovel, then frowns. "That wasn't a challenge. It's dangerous"—<<he>> pauses—"and I've seen things. Crawling in and out at night. Laugh if you like, but I'd never felt such fear."
+<br><br>
+
+<<He>> walks down the hill, ignoring the path, into the surrounding trees.
+<br><br>
+
+<span class="gold">You can now access the maze in the farmlands.</span>
+<br><br>
+
+<<link [[Next|Farmland]]>><<set $eventskip to 1>><<endevent>><</link>>
+<br>
+
+:: Maze Intro Shake
+<<effects>>
+
+You shake your head.
+<br><br>
+
+The <<person>> laughs. "They don't teach you nothing at school nowadays. It's the Serpent's Maze. Thieves used it as a hideout, centuries ago, and left their traps here. And loot, if the stories are to believed. No one's made it to the centre to check."
+<br><br>
+
+<<He>> lifts <<his>> shovel, then frowns. "That wasn't a challenge. It's dangerous," <<he>> pauses. "And I've seen things. Crawling in and out at night. Laugh if you like, but I'd never felt such fear."
+<br><br>
+
+<<He>> walks down the hill, ignoring the path, into the surrounding trees.
+<br><br>
+
+<span class="gold">You can now access the maze in the farmlands.</span>
+<br><br>
+
+<<link [[Next|Farmland]]>><<set $eventskip to 1>><<endevent>><</link>>
+<br>
+
+
+
+:: Maze Intro Key
+<<effects>>
+
+<<if $farmland_maze_found is true>>
+	You find the gate tied to the key you found in the pervert's loft. It leads to the Serpent's Maze. Someone of your skill doesn't need a key, but it is convenient.<<lstress>><<stress -6>>
+	<br><br>
+	Perhaps you can use the key somewhere within the maze.
+	<br><br>
+
+	<<link [[Next|Farmland]]>><</link>>
+	<br>
+<<else>>
+	<<set $farmland_maze_found to true>>
+	You follow the directions the pervert gave you, and find a gate set into a tall stone wall, with a snake engraved in the stone above it. There's a ceiling beyond it, high above and full of holes. Shattered tiles cover the floor. The key fits.
+	<br><br>
+	<<generate1>><<person1>>
+	"Not many people find this place," says a <<personssimple>> voice. You turn, and find the culprit leaning on a shovel. "Know what this is?"
+	<br><br>
+
+	<<if $historytrait gte 4>>
+		<span class="green">You think you remember Winter droning about it.</span>
+		<br><br>
+		<<link [[Say what you know|Maze Intro Explain]]>><</link>>
+		<br>
+	<<else>>
+		<<link [[Guess|Maze Intro Guess]]>><</link>>
+		<br>
+	<</if>>
+	<<link [[Shake your head|Maze Intro Shake]]>><</link>>
+	<br>
+<</if>>
+
+:: Maze Turn
+<<effects>>
+
+<<if $willpowerSuccess>>
+	<span class="green">You resist the urge to turn.</span>
+	<<if $monster is 1>>
+		You hear a hiss of laughter, then the presence vanishes.
+		<br><br>
+	<<else>>
+		You hear a hiss, like laughter, then the presence vanishes.
+		<br><br>
+	<</if>>
+
+	<<link [[Next|$maze_passage]]>><<set $eventskip to 1>><</link>>
+	<br>
+<<else>>
+	Your heart pounds faster. There's something behind you, and it's getting closer. Terror seizes you. <span class="red">You turn to face the threat.</span>
+	<br><br>
+	<<if $monster is 1>>
+		A pair of piercing yellow eyes greet you, snaring your attention. <span class="red">You can't move!</span> Not even your eyes, but in your periphery you see a <<if $NPCList[0].gender is "m">>man<<else>>woman<</if>>'s naked chest, <<bhis>> skin giving way to scales at <<bhis>> waist, and a snake's tail instead of legs.
+		<br><br>
+		"I warned you," <<bhe>> says. A forked tongue protrudes from <<bhis>> mouth, tasting the air in front of you. "Now what shall I do with you?" <<bHe>> slithers around you, main body disappearing from view. You still can't move. <<bHe>> reappears on your other side, examines your body, then slithers around you once again. And again. <<bHe>> coils around you, tightening each time.
+		<br><br>
+
+	<<else>>
+		A pair of yellow eyes greet you, snaring your attention. <span class="red">You can't move!</span> Not even your eyes. A giant snake glares at you, its long body trailing out of sight.
+		<br><br>
+		<<bHe>> slithers around you, main body disappearing from view. You still can't move. <<bHe>> reappears on your other side, examines your body, then slithers around you once again. And again. <<bHe>> coils around you, tightening each time.
+		<br><br>
+	<</if>>
+	<<link [[Next|Maze Petrified]]>><</link>>
+	<br>
+<</if>>
+
+:: Maze Petrified
+<<effects>>
+
+<<if $maze_protection is true>>
+	<<bHis>> scales jostle the vial you found under the bucket. The liquid within bubbles with such intensity that the vessel trembles. The cork flies into the air, and a blue vapour flows out.
+	<br><br>
+	<<if $monster is 1>>
+		With a hiss, the creature's coils loosen. "Where did you find that?" <<bhe>> asks. You can't respond, but <<bhe>> looks ready to wait, until the vapour reaches <<bhis>> face. <<bHe>> covers <<bhis>> mouth and slithers away in a panic.
+		<br><br>
+
+		You lose your balance and fall, but a patch of moss catches you.
+		<br><br>
+	<<else>>
+		With a hiss, the snake's coils loosen, and it slithers away in a panic. You lose your balance and fall, but a patch of moss catches you.
+		<br><br>
+	<</if>>
+
+	The vapour hovers above the ground. It smells like blueberries. Your muscles twitch as mobility is restored, and you climb to your feet.
+	<br><br>
+
+	<<link [[Next|$maze_passage]]>><<endevent>><<set $eventskip to 1>><</link>>
+	<br>
+<<else>>
+	<<pass 10>>
+	<<if $monster is 1>>
+		The creature takes a proud look at you, then slithers through the maze, carrying you wrapped in its tail. You bounce along, seeing glimpses of other statues, then the open sky.
+		<br><br>
+		<<bHe>> speeds up. "How tempted I am to keep you," <<bhe>> says. "But you have a dangerous smell." <<bHe>> continues into the nearby trees, and emerges by a road a few minutes later.
+		<<pass 3>>
+		<br><br>
+		<<bHe>> props you by the side of the road, then slithers back to observe you. <<bHe>> spins you, then observes, then spins you again, as if posing you.
+		<br><br>
+		"The humans will give you a good home." <<bHis>> head whips in the direction of a car engine. <<bHe>> gives you one last look, then slithers back into the trees.
+		<br><br>
+
+	<<else>>
+		The snake slithers through the maze, carrying you wrapped in its tail. You bounce along, seeing glimpses of other statues, then the open sky.
+		<br><br>
+
+		<<bHe>> speeds up, continues into the nearby trees, and emerges by a road a few minutes later.
+		<<pass 3>>
+		<br><br>
+		<<bHe>> props you by the side of the road, then slithers back to observe you. <<bHe>> spins you, then observes, then spins you again, as if posing you.
+		<br><br>
+		<<bHis>> head whips in the direction of a car engine. <<bHe>> gives you one last look, then slithers back into the trees.
+		<br><br>
+	<</if>>
+<</if>>
+
+<<link [[Next|Petrified]]>><<endevent>><<maze_end>><</link>>
+<br>
+
+
+:: Maze Entrance
+<<set $outside to 0>><<effects>>
+
+You enter the Serpent's maze. Tall, ivy-covered walls surround you, and shattered tiles litter the ground. Anything of value here was taken long ago, but perhaps something remains further in.
+<br><br>
+You come to a fork in the corridor, turning left and right. There's also a gate in front of you, sealed by a strange lock. On the wall beside it is a small message, written in red.
+<br><br>
+<span class="red">Don't turn around.</span>
+<br><br>
+<<if $weekly.maze.bucket is undefined>>
+	<<if $farmland_maze_key gte 2>>
+		<<icon "maze-key.png">>
+	<<else>>
+		<<icon "maze-lock.png">>
+	<</if>>
+	<<link [[Open the gate|Maze Lock]]>><</link>>
+	<br>
+<</if>>
+<<icon "maze-left.png">><<link [[Go left (0:01)|Maze 0]]>><<pass 1>><</link>>
+<br>
+<<icon "maze-right.png">><<link [[Go right (0:01)|Maze 1]]>><<pass 1>><</link>>
+<br>
+
+:: Maze Lock
+<<effects>>
+
+<<if $farmland_maze_key gte 2 and currentSkillValue('skulduggery') gte 600>>
+	You insert the key you found in the Domus Street loft. It fits, but only turns halfway. You peer within the mechanism. Time has deformed the interior.
+	<br><br>
+	You peel some ivy off the walls, and wind it around the key, compensating for the deformation. You try again. <span class="green">It clicks open.</span>
+	<br><br>
+
+	<<link [[Next|Maze Bucket]]>><</link>>
+	<br>
+<<elseif $farmland_maze_key gte 2>>
+	You insert the key you found in the Domus Street loft. It fits, but only turns halfway. You peer within the mechanism, but can't work out the problem. You'll need more skulduggery experience to open this.
+	<br><br>
+	<<icon "maze-left.png">><<link [[Go left (0:01)|Maze 0]]>><<pass 1>><</link>>
+	<br>
+	<<icon "maze-right.png">><<link [[Go right (0:01)|Maze 1]]>><<pass 1>><</link>>
+	<br>
+<<elseif currentSkillValue('skulduggery') gte 600>>
+	You fiddle with the lock. It's in an advanced state of decay. You give it a shunt, but the material is too sturdy. You're sure you could have picked this when it was new. You'll need a key, but it could be far away from here by now.
+	<br><br>
+	<<icon "maze-left.png">><<link [[Go left (0:01)|Maze 0]]>><<pass 1>><</link>>
+	<br>
+	<<icon "maze-right.png">><<link [[Go right (0:01)|Maze 1]]>><<pass 1>><</link>>
+	<br>
+<<else>>
+	You shake the gate, hoping to break the lock, but it's no use. You'll need some skulduggery experience to open it, and perhaps more.
+	<br><br>
+	<<icon "maze-left.png">><<link [[Go left (0:01)|Maze 0]]>><<pass 1>><</link>>
+	<br>
+	<<icon "maze-right.png">><<link [[Go right (0:01)|Maze 1]]>><<pass 1>><</link>>
+	<br>
+<</if>>
+
+:: Maze Bucket
+<<effects>>
+
+Beyond the gate lies a small courtyard. There's no sign that there was ever a roof, at least. In the corner, at the base of an ancient oak, sits an upside-down bucket.
+<br><br>
+
+<<antiqueicon "bucket">><<link [[Take the bucket|Maze Bucket 2]]>><<set $antiquemoney += 200>><<museumAntiqueStatus "antiquebucket" "found">><<set $weekly.maze.bucket to 1>><</link>>
+<br>
+<<icon "maze-leave-left.png">><<link [[Leave and go left from entrance (0:01)|Maze 0]]>><<pass 1>><</link>>
+<br>
+<<icon "maze-leave-right.png">><<link [[Leave and go right from the entrance (0:01)|Maze 1]]>><<pass 1>><</link>>
+<br>
+
+:: Maze Bucket 2
+<<effects>>
+
+<<if $hallucinations gte 2 and $settings.tentaclesEnabled>>
+	You lift the bucket. <span class="pink">A writhing mass of tentacles emerges.</span> They wrap around you.
+	<br><br>
+
+	<<link [[Next|Maze Bucket Tentacles]]>><<set $molestationstart to 1>><</link>>
+	<br>
+<<else>>
+	You lift the bucket. A small, dark shape darts out from underneath, disappearing into the grass.<<gstress>><<stress 6>>
+	<br><br>
+	You examine the bucket. It looks ancient. The handle and interior are marked by heavy use. It's a wonder it's survived this long. Perhaps a museum would be interested.
+	<br><br>
+
+	You return to the entrance.
+	<br><br>
+
+	<<icon "maze-left.png">><<link [[Go left (0:01)|Maze 0]]>><<pass 1>><</link>>
+	<br>
+	<<icon "maze-right.png">><<link [[Go right (0:01)|Maze 1]]>><<pass 1>><</link>>
+	<br>
+<</if>>
+
+
+:: Maze Bucket Tentacles
+<<effects>>
+
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<set $combat to 1>>
+	<<set $enemytype to "tentacles">>
+	<<molested>>
+	<<controlloss>>
+
+	<<tentaclestart 5 15>>
+
+<</if>>
+
+<<statetentacles>>
+
+
+<<effects>>
+<<effectstentacles>>
+<<tentacles>>
+<<actionstentacles>>
+
+<<if $tentacles.active lte ($tentacles.max / 2)>>
+	<span id="next"><<link [[Next|Maze Bucket Tentacles Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Maze Bucket Tentacles]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Maze Bucket Tentacles Finish
+<<effects>>
+
+The tentacles withdraw into the bucket, then a small creature emerges, and darts into the tall grass.
+<br><br>
+
+<<tearful>> you examine the bucket. It looks ancient. The handle and interior are marked by heavy use. It's a wonder it's survived this long. There's no sign of any other creatures. Perhaps a museum would be interested.
+<br><br>
+
+<<clotheson>>
+<<endcombat>>
+<<loadNPC 0 "basilisk">>
+
+You return to the entrance.
+<br><br>
+
+<<icon "maze-left.png">><<link [[Go left (0:01)|Maze 0]]>><<pass 1>><</link>>
+<br>
+<<icon "maze-right.png">><<link [[Go right (0:01)|Maze 1]]>><<pass 1>><</link>>
+<br>
+<br>
+
+:: Maze 0
+<<effects>>
+
+You turn left, and continue through the maze of corridors.
+<br><br>
+
+There are alcoves on either side, containing nude statues, their <<if $hallucinations gte 2>>realistic <</if>>faces twisted in fear.
+<br><br>
+
+The floor becomes slippery. The walls are coated with a thin slick of mucus. You come to another fork.
+<br><br>
+
+<<icon "maze-left.png">><<link [[Go left (0:01)|Maze 0 0]]>><<pass 1>><</link>>
+<br>
+<<icon "maze-right.png">><<link [[Go right (0:01)|Maze 0 1]]>><<pass 1>><</link>>
+<br>
+
+
+:: Maze 1
+<<effects>>
+
+You turn right, and continue through the maze of corridors. Holes appear in the walls, as if bricks have been dislocated. If they have, they're no where to be seen.
+<br><br>
+You peer into the one of the holes. Several pairs of yellow eyes stare back. You hear a hiss.<<gstress>><<stress 6>>
+<br><br>
+
+The corridor forks up ahead.
+<br><br>
+
+<<icon "maze-left.png">><<link [[Go left (0:01)|Maze 1 0]]>><<pass 1>><</link>>
+<br>
+<<icon "maze-right.png">><<link [[Go right (0:01)|Maze 1 1]]>><<pass 1>><</link>>
+<br>
+
+:: Maze 0 0
+<<effects>>
+
+You turn left, your feet slow and steady on the thickening mucus.
+<br><br>
+
+<<if $eventskip isnot 1>>
+	<<maze_basilisk>>
+<<else>>
+	There are gaps in the ceiling. Slime oozes through them, dripping down and soaking the floor.
+	<br><br>
+	<<if $hallucinations gte 2 and $settings.slimesEnabled>>
+		<<if $rng gte 51>>
+			A dribble of mucus lands on your shoulder. You look up, and see a slime fall from the ceiling.
+
+			<<dancedifficulty 1 1000 true>>
+			<<if $danceSuccess>>
+				<span class="green">You spring to the side,</span> avoiding it as it falls. Two more drop after it, and squirm closer.
+				<br><br>
+			<<else>>
+				<span class="red">It lands on your chest before you can move away,</span> knocking you on your back. Two more drop after it, and squirm closer.
+				<br><br>
+			<</if>>
+		<<else>>
+			A dribble of slime lands on the ground in front of you. Three slimes drop from the ceiling, and advance towards you.
+			<br><br>
+		<</if>>
+		<<link [[Next|Maze 0 0 Slime]]>><<set $struggle_start to 1>><</link>>
+		<br>
+	<<else>>
+		<<if $rng gte 51>>
+			A dribble of slime lands on your shoulder. You look up, and see a large dollop of mucus falling from the ceiling.
+			<<dancedifficulty 1 1000 true>>
+			<<if $danceSuccess>>
+				<span class="green">You spring to the side,</span> avoiding it as it splats onto the ground. You continue through the corridors.<<outergoo>>
+				<br><br>
+			<<else>>
+				<span class="red">It lands on top of you before you can move away,</span> knocking you on your back and covering you with slimy fluid.
+				<br><br>
+				You manage to pry yourself off the floor, and continue.
+				<br><br>
+			<</if>>
+		<<else>>
+			A dribble of slime falls on the floor ahead of you. You look up, and see a large dollop fall after it. You step around it, and continue through the corridors.
+			<br><br>
+		<</if>>
+		<<icon "maze-left.png">><<link [[Go left (0:01)|Maze 0 0 0]]>><<pass 1>><</link>>
+		<br>
+		<<icon "maze-right.png">><<link [[Go right (0:01)|Maze 0 0 1]]>><<pass 1>><</link>>
+		<br>
+	<</if>>
+<</if>>
+<<set $eventskip to 0>>
+
+:: Maze 0 0 Slime
+<<effects>>
+
+<<if $struggle_start is 1>>
+	<<struggle_init>>
+	<<set $struggle.creature to "slime">>
+	<<struggle_creatures 3 2>>/*How many creatures will be involved, and their health.*/
+	<<set $combat to 1>>
+	<<controlloss>>
+	<<violence 1>>
+	<<molested>>
+	<<set $struggle.chest.creature to "slime">><<set $chestuse to "struggle">><<set $cheststate to "struggle">><<set $struggle.enemy[0].location to "chest">>
+	<<unset $struggle_start>>
+<</if>>
+
+<<struggle>>
+
+
+
+<<if $struggle.done gte $struggle.number>>
+	<span id="next"><<link [[Next|Maze 0 0 Slime End]]>><</link>></span>
+	<br>
+<<else>>
+	<span id="next"><<link [[Next|Maze 0 0 Slime]]>><</link>></span>
+	<br>
+<</if>>
+
+
+:: Maze 0 0 Slime End
+<<effects>>
+
+The slimes squirm away, through cracks in the ground. <<tearful>> you rise to your feet.
+<br><br>
+
+<<clotheson>>
+<<endcombat>>
+<<loadNPC 0 "basilisk">>
+
+<<icon "maze-left.png">><<link [[Go left (0:01)|Maze 0 0 0]]>><<pass 1>><</link>>
+<br>
+<<icon "maze-right.png">><<link [[Go right (0:01)|Maze 0 0 1]]>><<pass 1>><</link>>
+<br>
+
+
+:: Maze 0 1
+<<effects>>
+
+You turn right, careful to keep your footing on the thickening mucus.
+<br><br>
+<<if $eventskip isnot 1>>
+	<<maze_basilisk>>
+<<else>>
+	Darkness fills the corridor up ahead. The ceiling might be in a better condition here than elsewhere, forbidding any light, but you can't see well enough to tell.
+	<br><br>
+
+	<<link [[Continue with care (0:30)|Maze 0 1 Care]]>><<pass 30>><</link>>
+	<br>
+	<<link [[Rush through (0:01)|Maze 0 1 Rush]]>><<pass 1>><</link>>
+	<br>
+
+<</if>>
+<<set $eventskip to 0>>
+
+:: Maze 0 1 Care
+<<effects>>
+
+You peer into the dark for a few moments, letting your eyes adjust. The corridor seems to continue as normal, if a bit slick, but you spot a darker patch on the ground up ahead.
+<br><br>
+
+You touch it with your foot. It's a hole, a gap in broken floorboards. You step over, and continue on your way, slow and steady.
+<br><br>
+
+You see light up ahead, revealing another fork.
+<br><br>
+
+<<icon "maze-left.png">><<link [[Go left (0:01)|Maze 0 1 0]]>><<pass 1>><</link>>
+<br>
+<<icon "maze-right.png">><<link [[Go right (0:01)|Maze 0 1 1]]>><<pass 1>><</link>>
+<br>
+
+
+:: Maze 0 1 Rush
+<<effects>>
+
+You push ahead across the slick floor. Your eyes will soon adjust to the dark.
+<br><br>
+
+<<if $rng gte 51>>
+	You slide along without issue, until you see a light up ahead, revealing another fork.
+	<br><br>
+
+	<<icon "maze-left.png">><<link [[Go left (0:01)|Maze 0 1 0]]>><<pass 1>><</link>>
+	<br>
+	<<icon "maze-right.png">><<link [[Go right (0:01)|Maze 0 1 1]]>><<pass 1>><</link>>
+	<br>
+<<else>>
+	Several steps later, <span class="red">your foot fails to find the floor.</span> Your stomach lurches as you fall, and your arms reach out. Your fingertips clutch at the broken, creaking floorboards, while your body dangles into an abyss.
+	<br><br>
+
+	<<link [[Climb!|Maze 0 1 Climb]]>><</link>><<athleticsdifficulty 1 1000>>
+	<br>
+	<<link [[Fall|Maze 0 1 Fall]]>><</link>>
+	<br>
+
+<</if>>
+
+
+:: Maze 0 1 Climb
+<<effects>>
+
+<<if $athleticsSuccess>>
+	<span class="green">You haul yourself to safety before the boards snap,</span> and continue through the dark. You turn a corner, and see light in the distance, followed by another fork.
+	<br><br>
+	<<icon "maze-left.png">><<link [[Go left (0:01)|Maze 0 1 0]]>><<pass 1>><</link>>
+	<br>
+	<<icon "maze-right.png">><<link [[Go right (0:01)|Maze 0 1 1]]>><<pass 1>><</link>>
+	<br>
+<<else>>
+	You try to lift yourself, <span class="red">but the floorboards snap.</span> You plunge into darkness.
+	<br><br>
+
+	<<link [[Next|Farmland Dungeon Wake]]>><<maze_end>><</link>>
+	<br>
+<</if>>
+
+:: Maze 0 1 Fall
+<<effects>>
+
+You let go, and plunge into darkness.
+<br><br>
+
+<<link [[Next|Farmland Dungeon Wake]]>><<maze_end>><</link>>
+<br>
+
+:: Maze 1 0
+<<effects>>
+
+You turn left, and continue through the corridors.
+<br><br>
+
+<<if $eventskip isnot 1>>
+	<<maze_basilisk>>
+<<else>>
+	<<if $settings.bestialityEnabled>>
+		The walls angle inwards, shrinking the corridor so much that you must turn sideways to squeeze through. You're halfway along when snakes emerge from either side of you. They wrap around your chest, squeezing your <<breasts>>.<<garousal>><<arousal 600>><<gstress>><<stress 6>>
+		<br><br>
+
+		<<link [[Move fast|Maze 1 0 Speed]]>><</link>>
+		<br>
+		<<link [[Whack the snakes away|Maze 1 0 Whack]]>><</link>>
+		<br>
+	<<else>>
+		The walls angle inwards, shrinking the corridor so much that you must turn sideways to squeeze through. You're halfway along when hands emerge from either side of you. They grope and squeeze your <<breasts>>.<<garousal>><<arousal 600>><<gstress>><<stress 6>>
+		<br><br>
+
+		<<link [[Move fast|Maze 1 0 Speed]]>><</link>>
+		<br>
+		<<link [[Whack the hands away|Maze 1 0 Whack]]>><</link>>
+		<br>
+	<</if>>
+<</if>>
+<<set $eventskip to 0>>
+
+:: Maze 1 0 Speed
+<<effects>>
+
+<<if $settings.bestialityEnabled>>
+	You move as fast as you can as the snakes continue to grope at you.
+	<<if $exposed lte 1>>
+		They grasp your clothes and try to restrain your limbs, but you're able to shake them free.
+	<<else>>
+		They wrap around your limbs, trying to restrain you, but you're able to shake them free.
+	<</if>>
+	You make it to the other side.<<ggarousal>><<arousal 1200>>
+<<else>>
+	You move as fast as you can as the hands continue to grope at you.
+	<<if $exposed lte 1>>
+		They grasp your clothes and try to restrain your limbs, but you're able to shake them free.
+	<<else>>
+		They grasp your limbs, trying to restrain you, but you're able to shake them free.
+	<</if>>
+	You make it to the other side.<<ggarousal>><<arousal 1200>>
+<</if>>
+<<set $worn.lower.integrity -= 10>>
+<<set $worn.upper.integrity -= 10>>
+<<set $worn.under_lower.integrity -= 10>>
+<<set $worn.under_upper.integrity -= 10>>
+<br><br>
+
+
+<<icon "maze-left.png">><<link [[Go left (0:01)|Maze 1 0 0]]>><<pass 1>><</link>>
+<br>
+<<icon "maze-right.png">><<link [[Go right (0:01)|Maze 1 0 1]]>><<pass 1>><</link>>
+<br>
+
+:: Maze 1 0 Whack
+<<effects>>
+
+<<if $settings.bestialityEnabled>>
+	It's hard to move with such limited space, but you whack the snakes away as they emerge from the hatches. There are enough that a few slip through, twirling around you before you manage to smack them away, but you make it to the other side.<<garousal>><<arousal 600>><<gpain>><<pain 4>>
+	<br><br>
+<<else>>
+	It's hard to move with such limited space, but you whack the hands away as they emerge from the hatches. There are enough that a few slip through, groping and pinching before you manage to smack them away, but you make it to the other side.<<garousal>><<arousal 600>><<gpain>><<pain 4>>
+	<br><br>
+<</if>>
+
+<<icon "maze-left.png">><<link [[Go left (0:01)|Maze 1 0 0]]>><<pass 1>><</link>>
+<br>
+<<icon "maze-right.png">><<link [[Go right (0:01)|Maze 1 0 1]]>><<pass 1>><</link>>
+<br>
+
+:: Maze 1 1
+<<effects>>
+You turn right, and continue through the maze of corridors.
+<br><br>
+<<if $eventskip isnot 1>>
+	<<maze_basilisk>>
+<<else>>
+	The corridor ahead is flooded, and slopes as if weighed down by the water. You'll need to swim across.
+	<br><br>
+	<<if $worn.upper.name isnot "naked" or $worn.lower.name isnot "naked" or $worn.under_upper.name isnot "naked" or $worn.under_lower.name isnot "naked">>
+		<<link [[Strip and carry your clothes overhead|Maze 1 1 Strip]]>><<clothesstrip>><</link>><<swimmingdifficulty 1 1000>>
+		<br>
+	<</if>>
+	<<link [[Swim across|Maze 1 1 Swim]]>><</link>>
+	<br>
+<</if>>
+<<set $eventskip to 0>>
+
+:: Maze 1 1 Swim
+You wade out into the cool water, push yourself out, and swim.
+<br><br>
+
+<<water>><<waterbr 2>><<effects>>
+
+<<if $settings.bestialityEnabled>>
+	Snakes emerge from holes in the stonework, but you're able to outmanoeuvre them.
+	<br><br>
+<<else>>
+	Hatches open beneath the water, and hands reach out to grope you, but you're able to manoeuvre beyond their grasp.
+	<br><br>
+<</if>>
+
+<<if $wolfgirl gte 6>>
+	You emerge from the water, and shake some of the excess from your body.
+<<else>>
+	You emerge from the water.
+<</if>>
+There's another fork ahead of you.
+<br><br>
+
+<<icon "maze-left.png">><<link [[Go left (0:01)|Maze 1 1 0]]>><<pass 1>><</link>>
+<br>
+<<icon "maze-right.png">><<link [[Go right (0:01)|Maze 1 1 1]]>><<pass 1>><</link>>
+<br>
+
+:: Maze 1 1 Strip
+You remove your clothing, and hold it above your head as you wade out into the cool water. You swim with your feet and one arm, keeping your clothes dry with the other.
+<br><br>
+
+<<waterbr 2>><<effects>>
+
+<<if $settings.bestialityEnabled>>
+	Snakes emerge from holes within the stonework.
+	<<if $swimmingSuccess>>
+		Even with one arm occupied, <span class="green">you're able to manoeuvre beyond their reach.</span>
+		<br><br>
+		<<if $wolfgirl gte 6>>
+			You emerge from the water, and shake some of the excess from your body.
+		<<else>>
+			You emerge from the water.
+		<</if>>
+		There's another fork ahead of you.
+
+		<br><br>
+		<<icon "maze-left.png">><<link [[Go left (0:01)|Maze 1 1 0]]>><<clotheson>><<pass 1>><</link>>
+		<br>
+		<<icon "maze-right.png">><<link [[Go right (0:01)|Maze 1 1 1]]>><<clotheson>><<pass 1>><</link>>
+		<br>
+	<<else>>
+		You try to manoeuvre beyond their reach, <span class="red">but they're too quick.</span> You try to push and kick the snakes away, but there are too many. They twist around your exposed body, squeezing and molesting, dragging your clothes into the water.<<ggarousal>><<arousal 1200>><<gstress>><<stress 6>>
+		<br><br>
+		You gather them up, and escape from the pool. There's another fork ahead of you.
+		<br><br>
+		<<icon "maze-left.png">><<link [[Go left (0:01)|Maze 1 1 0]]>><<clotheson>><<water>><<pass 1>><</link>>
+		<br>
+		<<icon "maze-right.png">><<link [[Go right (0:01)|Maze 1 1 1]]>><<clotheson>><<water>><<pass 1>><</link>>
+		<br>
+	<</if>>
+<<else>>
+	Hatches open along the sides of the corridor, and hands reach out.
+	<<if $swimmingSuccess>>
+		Even with one arm occupied, <span class="green">you're able to manoeuvre beyond their reach.</span>
+		<br><br>
+		<<if $wolfgirl gte 6>>
+			You emerge from the water, and shake some of the excess from your body.
+		<<else>>
+			You emerge from the water.
+		<</if>>
+		There's another fork ahead of you.
+
+		<br><br>
+		<<icon "maze-left.png">><<link [[Go left (0:01)|Maze 1 1 0]]>><<clotheson>><<pass 1>><</link>>
+		<br>
+		<<icon "maze-right.png">><<link [[Go right (0:01)|Maze 1 1 1]]>><<clotheson>><<pass 1>><</link>>
+		<br>
+	<<else>>
+		You try to manoeuvre beyond their reach, but there's a subtle flow to the water. You push away from the hands on side of the corridor, <span class="red">and end up in the hands on the other side.</span>
+		<br><br>
+		You try to push and kick them away, but there are too many. They grope and molest your exposed body, making you drop your clothes into the water.<<ggarousal>><<arousal 1200>><<gstress>><<stress 6>>
+		<br><br>
+		You gather them up, and emerge from the water. There's another fork ahead of you.
+		<br><br>
+		<<icon "maze-left.png">><<link [[Go left (0:01)|Maze 1 1 0]]>><<clotheson>><<water>><<pass 1>><</link>>
+		<br>
+		<<icon "maze-right.png">><<link [[Go right (0:01)|Maze 1 1 1]]>><<clotheson>><<water>><<pass 1>><</link>>
+		<br>
+	<</if>>
+<</if>>
+
+
+
+:: Maze 0 0 0
+<<effects>>
+
+You turn left, and continue through the maze.
+<br><br>
+
+<<if $eventskip isnot 1>>
+	<<maze_basilisk>>
+<<else>>
+	A membrane of mucus blocks your path. It's thin enough to see through. You put your hand through it, and tear it away. Some of it remains stuck to your hand, but you press on.<<bodyliquid "rightarm" "goo">>
+	<br><br>
+	<<link [[Next|Maze Snuffer]]>><</link>>
+	<br>
+<</if>>
+<<set $eventskip to 0>>
+
+:: Maze 0 0 1
+<<effects>>
+You turn right, and continue through the maze.
+<br><br>
+
+<<if $eventskip isnot 1>>
+	<<maze_basilisk>>
+<<else>>
+	The mucus on the floor thickens, no longer just making the path slick. Your feet squelch with each step. It's more comfortable to slide each foot forward, rather than walk in a normal way.<<gstress>><<stress 6>>
+	<br><br>
+
+	<<link [[Next|Maze Snuffer]]>><</link>>
+	<br>
+<</if>>
+<<set $eventskip to 0>>
+
+
+:: Maze 0 1 0
+<<effects>>
+You turn left, and continue through the maze.
+<br><br>
+<<if $eventskip isnot 1>>
+	<<maze_basilisk>>
+<<else>>
+	The corridor is bathed in darkness. You hear a squelching movement far above, as if something were alive up there, obstructing the light.<<gstress>><<stress 6>>
+	<br><br>
+
+	<<link [[Next|Maze Horn]]>><</link>>
+	<br>
+<</if>>
+<<set $eventskip to 0>>
+
+:: Maze 0 1 1
+<<effects>>
+You turn right, and continue through the maze.
+<br><br>
+<<if $eventskip isnot 1>>
+	<<maze_basilisk>>
+<<else>>
+	You feel a draft. There are cracks along the wall up ahead, wide enough to peer through. It's pitch black beyond. You try to ignore the feeling of being watched.<<gstress>><<stress 6>>
+	<br><br>
+
+	<<link [[Next|Maze Horn]]>><</link>>
+	<br>
+<</if>>
+<<set $eventskip to 0>>
+
+:: Maze 1 0 0
+<<effects>>
+
+You turn left, and continue through the maze.
+<br><br>
+
+<<if $eventskip isnot 1>>
+	<<maze_basilisk>>
+<<else>>
+	Snakes emerge from the holes in the stonework, their heads moving in unison. They remain facing your direction as you move between them.<<gstress>><<stress 6>>
+	<br><br>
+
+	<<link [[Next|Maze Manacle]]>><</link>>
+	<br>
+<</if>>
+<<set $eventskip to 0>>
+
+:: Maze 1 0 1
+<<effects>>
+
+You turn right, and continue through the maze.
+<br><br>
+<<if $eventskip isnot 1>>
+	<<maze_basilisk>>
+<<else>>
+	A huge, broken mirror leans against the wall. The reflection is obscured by grime. What you do see appears wrong. You tear your gaze away.<<gstress>><<stress 6>>
+	<br><br>
+
+	<<link [[Next|Maze Manacle]]>><</link>>
+	<br>
+<</if>>
+<<set $eventskip to 0>>
+
+:: Maze 1 1 0
+<<effects>>
+You turn left, and continue through the maze.
+<br><br>
+<<if $eventskip isnot 1>>
+	<<maze_basilisk>>
+<<else>>
+	The walls are lined by tall stacks of wooden boxes. Something smashed them open from the inside.<<gstress>><<stress 6>>
+	<br><br>
+
+	<<link [[Next|Maze Whip]]>><</link>>
+	<br>
+<</if>>
+<<set $eventskip to 0>>
+
+:: Maze 1 1 1
+<<effects>>
+You turn right, and continue through the maze.
+<br><br>
+<<if $eventskip isnot 1>>
+	<<maze_basilisk>>
+<<else>>
+	The ceiling slopes downwards, coming low to the ground and forcing you to crawl beneath it. You hear it creak and groan above you, as if a great weight were about to bring it crashing down.<<gstress>><<stress 6>>
+	<br><br>
+
+	You make it to the other side without issue.
+	<br><br>
+
+	<<link [[Next|Maze Whip]]>><</link>>
+	<br>
+<</if>>
+<<set $eventskip to 0>>
+
+
+
+
+:: Maze Smash
+<<effects>>
+
+You grasp a weak-looking board, and try to pull it free.
+<<if $physiqueSuccess>>
+	<span class="green">It comes loose.</span> You move on to the next, then the next. You kick the final few aside, creating a gap large enough to fit through.
+	<br><br>
+
+	There's another corridor on the other side. It looks much like this one, but you've sped your journey up, at least.
+	<br><br>
+	<<rng 8>>
+
+	<<if $rng gte 8>>
+		<<link [[Next|Maze 0 0 1]]>><</link>>
+		<br>
+	<<elseif $rng gte 7>>
+		<<link [[Next|Maze 0 1 0]]>><</link>>
+		<br>
+	<<elseif $rng gte 6>>
+		<<link [[Next|Maze 1 0 0]]>><</link>>
+		<br>
+	<<elseif $rng gte 5>>
+		<<link [[Next|Maze 0 1 1]]>><</link>>
+		<br>
+	<<elseif $rng gte 4>>
+		<<link [[Next|Maze 0 1 0]]>><</link>>
+		<br>
+	<<elseif $rng gte 3>>
+		<<link [[Next|Maze 1 1 1]]>><</link>>
+		<br>
+	<<elseif $rng gte 2>>
+		<<link [[Next|Maze 1 1 0]]>><</link>>
+		<br>
+	<<else>>
+		<<link [[Next|Maze 1 0 1]]>><</link>>
+		<br>
+	<</if>>
+<<else>>
+	You pull and tug, <span class="red">but are unable to loosen it at all.</span> Your muscles ache a little.<<gpain>><<pain 4>>
+	<br><br>
+
+	<<icon "maze-left.png">><<link [[Go left (0:01)|Maze 0]]>><<pass 1>><</link>>
+	<br>
+	<<icon "maze-right.png">><<link [[Go right (0:01)|Maze 1]]>><<pass 1>><</link>>
+	<br>
+<</if>>
+
+
+:: Maze Horn
+<<effects>>
+
+The corridor opens into a large room. A statue of a minotaur lies face-down in the centre, broken stumps instead of horns, beside a plinth with marble ankles still attached.
+<br><br>
+<<if $weekly.maze.horn is undefined>>
+	<<wearProp "antique horn">>
+	You peer beneath the statue, and find one of the broken horns. Ivory criss-crossed with intricate silver, and studded with small gems. The other horn is missing, but one alone should be worth a pretty penny. A museum would be interested.
+	<br><br>
+
+	<<antiqueicon "horn-2">><<link [[Take the horn and continue|Maze 0 End]]>><<set $antiquemoney += 400>><<museumAntiqueStatus "antiquehorn2" "found">><<set $weekly.maze.horn to 1>><</link>>
+	<br>
+	<<getouticon>><<link [[Leave it|Maze 0 End]]>><</link>>
+	<br>
+<<else>>
+	<<link [[Continue|Maze 0 End]]>><</link>>
+	<br>
+<</if>>
+
+:: Maze Snuffer
+<<effects>>
+
+The walls darken, charred by a flame that faded long ago. Ashes cover the floor. You hear a patter within the walls, like a small mouse running to and fro.
+<br><br>
+
+<<if $weekly.maze.snuffer is undefined>>
+	<<wearProp "antique snuffer">>
+	Your foot kicks a hard object beneath the ash. A bell-shaped metal cup on a small, bent rod. An old torch snuffer, too small to have put out the fire that caused this damage. A tool this old belongs in a museum.
+	<br><br>
+	<<antiqueicon "snuffer">><<link [[Take the snuffer and continue|Maze 0 End]]>><<set $antiquemoney += 200>><<museumAntiqueStatus "antiquesnuffer" "found">><<set $weekly.maze.snuffer to 1>><</link>>
+	<br>
+	<<getouticon>><<link [[Leave it|Maze 0 End]]>><</link>>
+	<br>
+<<else>>
+	<<link [[Continue|Maze 0 End]]>><</link>>
+	<br>
+<</if>>
+
+
+:: Maze Manacle
+<<effects>>
+
+The path descends, spiralling into the earth, and emerges in a wide room. Rusted chains hang from the low ceiling, and broken wooden furniture litters the floor.
+<br><br>
+
+<<if $weekly.maze.silver_manacle is undefined>>
+	You see a glint of metal, less tarnished than the rest, amidst the detritus. It's a silver manacle. It's damaged, but should be worth something to a museum.
+	<br><br>
+	<<antiqueicon "silver-manacle">><<link [[Take the silver manacle and continue|Maze 0 End]]>><<set $antiquemoney += 400>><<museumAntiqueStatus "antiquesilvermanacle" "found">><<set $weekly.maze.silver_manacle to 1>><</link>>
+	<br>
+	<<getouticon>><<link [[Leave it|Maze 0 End]]>><</link>>
+	<br>
+<<else>>
+	<<link [[Continue|Maze 0 End]]>><</link>>
+	<br>
+<</if>>
+
+:: Maze Whip
+<<effects>>
+
+You feel a breeze. The corridor emerges at the edge of the maze, and a large gap in the wall reveals the outside world. You're high up. Several stories. You can see beyond the trees surrounding the maze, the many farms dotting the hills, and a moving car in the distance.
+<br><br>
+
+<<if $weekly.maze.whip is undefined>>
+	<<wearProp "whip" "khaki">>
+	You see something dancing in the breeze up ahead. It's a whip, clamped to the wall, length unfurled and buffeted by the wind. You avoid getting whipped by it, and manage to pry it free. It looks ancient. It belongs in a museum.
+	<br><br>
+	<<antiqueicon "whip">><<link [[Take the whip and continue|Maze 0 End]]>><<set $antiquemoney += 200>><<museumAntiqueStatus "antiquewhip" "found">><<set $weekly.maze.whip to 1>><</link>>
+	<br>
+	<<getouticon>><<link [[Leave it|Maze 0 End]]>><</link>>
+	<br>
+<<else>>
+	<<link [[Continue|Maze 0 End]]>><</link>>
+	<br>
+<</if>>
+
+
+:: Maze 0 End
+<<effects>>
+
+<<if $eventskip isnot 1>>
+	<<maze_basilisk>>
+<<else>>
+	You emerge outside. You're still within the maze, on a walkway connecting one section of the complex to another. A dilapidated waist-high wall lines each side of the walkway. Beyond it is a sheer, dangerous drop.
+	<br><br>
+
+	You walk across, careful not to slip and staying away from the many gaps in the broken masonry.
+	<br><br>
+
+	<<link [[Next|Maze Painting]]>><</link>>
+	<br>
+<</if>>
+<<set $eventskip to 0>>
+
+:: Maze 1 End
+<<effects>>
+
+<<if $eventskip isnot 1>>
+	<<maze_basilisk>>
+<<else>>
+	You emerge outside. You're still within the maze, in an overgrown garden. A few hardy, thorny plants have overcome all the others. Red flowers bloom among them, like splotches of blood.
+	<br><br>
+	You pass through, ducking beneath branches and clambering over others, and manage to avoid getting snagged.
+	<br><br>
+
+	<<link [[Next|Maze Painting]]>><</link>>
+	<br>
+<</if>>
+<<set $eventskip to 0>>
+
+:: Maze Painting
+<<effects>>
+
+<<if $museumAntiques.paintings.paintingsnake is "notFound">>
+	You arrive beneath a roof supported by two massive pillars. Between them, a set of steps leads up to a painting, lit by a beam of light from a high window.
+	<br><br>
+
+	The painting is old. It depicts a beautiful woman crawling out of the shed skin of a snake, as if it were her own skin just moments ago. She's holding a clutch of eggs to her chest, crying. The frame is intricately carved, shaped like a snake eating its own tail.
+	<br><br>
+	Part of the frame has burn marks and a small amount of water damage. There's a large cut on the main canvas.
+	<br><br>
+
+	Despite this, it's remarkably well preserved. A museum would be interested.
+	<br><br>
+
+	<<museumPaintingGet "paintingsnake">>
+
+	<<link [[Next|Maze Painting 2]]>><</link>>
+	<br>
+<<else>>
+	You arrive at the end of the maze. There's a gap in the grime on the wall between the two pillars, in the shape of the painting you removed.
+	<br><br>
+	You continue, and slide down the ruined masonry, landing on a soft patch of grass outside the maze.
+	<br><br>
+
+	<<link [[Next|Farmland]]>><<maze_end>><<set $eventskip to 1>><</link>>
+	<br>
+<</if>>
+
+:: Maze Painting 2
+<<effects>>
+
+There's a hole in the wall in the corner of the room, leading outside. You're high up. You manage to navigate your way down the ruined masonry. It's a one-way exit. You hear a hiss above, like laughter, but it could be the wind.
+<br><br>
+
+<<link [[Next|Farmland]]>><<maze_end>><<set $eventskip to 1>><</link>>
+<br>
+
+:: Maze Leave
+<<effects>>
+
+You retrace your steps through the maze, and make it outside. The journey felt much shorter.
+<br><br>
+
+<<link [[Next|Farmland Manors]]>><</link>>
+<br>
+
+:: Maze Slime Escape
+<<effects>>
+
+You rush around one bend after another, <span class="green">leaving the slime's squelching far behind you.</span>
+<br><br>
+
+<<link [[Next|Maze Final]]>><</link>>
+<br>
+
+:: Maze Slime Deadend
+<<effects>>
+
+You rush around a corner, then another, <span class="red">and find a dead end.</span> You rush back the way you came, but the slime has already caught up with you. You're trapped.
+<br><br>
+
+The slime squelches closer, still filling the corridor with its mass.
+<br><br>
+
+<<link [[Next|Maze Vore]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Maze Vore
+<<set $outside to 1>><<effects>>
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<set $combat to 1>>
+	<<molested>>
+	<<controlloss>>
+
+	<<if $settings.tentaclesEnabled>>
+		<<set $enemytype to "tentacles">>
+		<<tentaclestart 2 15>>
+		<<set $voretentacles to 1>>
+	<<else>>
+		<<set $enemytype to "vore">>
+		<<set $voretentacles to 0>>
+	<</if>>
+
+	<<set $vorestage to 1>>
+	<<set $vorecreature to "giant slime">>
+	<<set $vorestrength to 1>><<set $position to "doggy">>
+	<<resetLastOptions>>
+	<<getCombatDefaultsType>>
+<</if>>
+
+<<if $settings.tentaclesEnabled and $enemytype is "tentacles">>
+	<<voreeffects>><<effectstentacles>>
+	<<vore>><<tentacles>>
+	<<statetentacles>>
+	<br><br>
+	<<actionsvorentacles>>
+<<else>>
+	<<voreeffects>>
+	<<vore>>
+	<<voreactions>>
+<</if>>
+
+<<if $stress gte $stressmax>>
+	<span id="next"><<link [[Next|Maze Vore Finish]]>><</link>></span><<nexttext>>
+<<elseif $vorestage lte 0>>
+	<span id="next"><<link [[Next|Maze Vore Finish]]>><</link>></span><<nexttext>>
+<<elseif $vorestomach gte 5>>
+	<span id="next"><<link [[Next|Maze Vore Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Maze Vore]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Maze Vore Finish
+
+<<effects>>
+<<if $stress gte $stressmax or $vorestomach gte 5>>
+	It's all just too much for you. You pass out.
+	<br><br>
+	<<if $upperoff isnot 0>>
+		<<upperruined>>
+	<</if>>
+	<<if $loweroff isnot 0>>
+		<<lowerruined>>
+	<</if>>
+	<<if $underloweroff isnot 0>>
+		<<underlowerruined>>
+	<</if>>
+	<<if $underupperoff isnot 0>>
+		<<underupperruined>>
+	<</if>>
+	<<endcombat>>
+	<<link [[Next|Farmland Dungeon Wake]]>><<maze_end>><</link>>
+	<br>
+<<else>>
+	<<tearful>> you pull yourself away from the creature. It turned during the struggle, leaving you free to escape down the corridor.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<loadNPC 0 "basilisk">>
+	<<link [[Next|Maze Final]]>><</link>>
+	<br>
+<</if>>

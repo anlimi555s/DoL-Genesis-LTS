@@ -1,0 +1,290 @@
+:: Widgets Brothel [widget]
+
+<<widget "brothelshowintro">>
+	<<set $showExplanations to $showExplanations || []>>
+	<<if $passage is "Briar's Office Show Ask">>
+		"Need a refresher?" Briar sets down <<his>> wine glass. "We have several options." <<He>> holds up one finger.
+	<<elseif $showExplanations.length lte 0>>
+		<<He>> rises to <<his>> feet and walks behind <<his>> desk. "We have several options." <<He>> ticks them off on <<his>> fingers.
+	<<else>>
+		<<He>> swirls the wine in <<his>> glass. "You know the drill. The usual options apply."
+	<</if>>
+	<br><br>
+
+	<<if $passage is "Briar's Office Show Ask" or !$showExplanations.includes("Default")>>
+		<<set _askShow to 1>> /*so "Ask for more information about each show" doesn't show up immediately after the shows are introduced for the first time*/
+		<<if !$showExplanations.includes("Default")>><<run $showExplanations.push("Default")>><</if>>
+		"The first is a simple performance. You flirt with the audience a bit, then invite an audience member, actually an actor, up on stage to fuck you. I'll pay you <<printmoney 60000 "green">>."
+		<br><br>
+		<<print $passage isnot "Briar's Office Show Ask" ? '<<He>> sits down.' : '<<He>> puts up another finger as <<he>> ticks off the options.'>> "You could also play an uptight school <<girl>> lost in a bad part of town. Gangbang ensues. <<printmoney 100000 "green">> for that one. <span class="blue">You'll need a school <<girl>> outfit,</span> of course. But I suspect you already have one." <<He>> smirks. "Too close to home?"
+		<br><br>
+	<<else>>
+		<<set _askShow to 0>>
+	<</if>>
+
+	<<if $settings.bestialityEnabled and ($passage is "Briar's Office Show Ask" or !$showExplanations.includes("Pig"))>>
+		<<if !$showExplanations.includes("Pig")>><<run $showExplanations.push("Pig")>><</if>>
+		"Or," <<he>> continues, "we could get a pig in from one of the local farms. Then you do nasty things with it for the audience's amusement. I don't know how many would be into it, but it would get tongues flapping, which is what we want. You'll get <<printmoney 150000 "green">> for that."
+		<br><br>
+	<<elseif $settings.monsterChance gte 1 and ($passage is "Briar's Office Show Ask" or !$showExplanations.includes("Pig")) and ($hallucinations gte 1 or !$settings.monsterHallucinationsOnly)>>
+		<<if !$showExplanations.includes("Pig")>><<run $showExplanations.push("Pig")>><</if>>
+		"Or," <<he>> continues, "we could get a pig person in from one of the local farms. Then you do nasty things with it for the audience's amusement. I don't know how many would be into it, but it would get tongues flapping. Which is what we want. You'll get <<printmoney 150000 "green">> for that."
+		<br><br>
+	<</if>>
+
+	<<if $settings.swarmsEnabled and ($passage is "Briar's Office Show Ask" or !$showExplanations.includes("Swarm"))>>
+		<<if !$showExplanations.includes("Swarm")>><<run $showExplanations.push("Swarm")>><</if>>
+		<<He>> pauses. "And I recently saw a video of a <<girl>> like you," <<he>> says. "Submerged in a terrarium of small creatures. Worms, I think they were. I'd like to see it in person. You'll get <<printmoney 150000 "green">> for that as well."
+		<br><br>
+	<</if>>
+
+	<<if $brothel_machine_repair gte 4 and ($passage is "Briar's Office Show Ask" or !$showExplanations.includes("Machine"))>>
+		<<if !$showExplanations.includes("Machine")>><<run $showExplanations.push("Machine")>><</if>>
+		<<if ($player.vaginaExist or $settings.analEnabled)>>
+			"There's the repaired sex machine as well," <<he>> adds, almost as an afterthought. "It'll have to be a private show. No loose tongues allowed. The audience will appreciate the novelty, but <span class="lewd">they'll want to see penetration.</span> <<printmoney 150000 "green">> if you go through with it."
+			<br><br>
+			<<if $settings.tentaclesEnabled>>
+				<<He>> taps <<his>> chin. "I think it has a tentacle mode, if that suits you better. Same pay, and you'll still need penetration."
+				<br><br>
+			<</if>>
+		<<elseif $settings.tentaclesEnabled>>
+			"There's the repaired sex machine as well," <<he>> adds, almost as an afterthought. "It has a tentacle mode. It'll have to be a private show. No loose tongues allowed. The audience will appreciate the novelty, but <span class="lewd">they'll want to see penetration.</span> <<printmoney 150000 "green">> if you go through with it."
+			<br><br>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "brothelshowoptions">>
+	<<if $brothelVirginityIntro is true and $brothelVirginityState isnot "lie" and ($player.virginity.penile is true and $player.virginity.vaginal is true) and !unableTakeVirginity()>>
+		<<if $brothelVirginityState is "refuse">>
+			"Assuming you haven't lost your virginity, that special offer is still on the table." <<He>> glances over at you. "Of course, you'll have to pass a virginity test first. Specifics would depend on how much people are willing to pay, but you'll certainly get a lot."
+			<br><br>
+		<<elseif $brothelVirginityState is "virginity">>
+			"Fans have been asking for another shot at your cherry, seeing as how you didn't let anyone have it last time," <<he>> says. "It did bring in a good crowd though. Not sure how much you'll get this time, but you will have to let someone take your virginity."
+			<br><br>
+		<<elseif $brothelVirginityState is "chastity">>
+			"People weren't happy with you last time, nor was I," <<he>> says, glancing over at you. "However, since you're still a virgin, people would still be willing to take your cherry. You'll still get plenty, assuming you don't do something stupid, like show up in another of those damn contraptions."
+			<br><br>
+		<</if>>
+		<<unset $brothelVirginityState>>
+		Special show:
+		<br>
+		<<if hasSexStat("promiscuity", 2)>>
+			<<templeicon "virginity">><<link [[Sell your virginity|Briar's Office Virginity Show]]>><<acceptbrothelshow "virginity">><<set $phase to 0>><</link>><<promiscuous2>>
+			<br>
+		<<else>>
+			<<insufficientStat "promiscuity" "to sell your virginity">>
+			<br>
+		<</if>>
+		<br>
+	<</if>>
+
+	Standard shows:
+	<br>
+	<<if !hasSexStat("promiscuity", 4) and !hasSexStat("deviancy", 5)>>
+		<<brothelicon>><<insufficientStat "custom" "to take up any of the offers" "blue" "promiscuous or deviant">>
+		<br><br>
+	<<else>>
+		<<if hasSexStat("promiscuity", 4)>>
+			<<brothelicon>><<link [[Flirt and fuck|Briar's Office Show 2]]>><<acceptbrothelshow "flirt">><</link>> | <span class="green">+</span><<printmoney 60000 "green">><<promiscuous4>> <!-- Appears even with blind stats enabled. All are intentional -->
+			<br>
+		<<else>>
+			<<brothelicon>><<insufficientStat "promiscuity" "to take up the flirt and fuck show">>
+			<br>
+		<</if>>
+
+		<<if hasSexStat("promiscuity", 5)>>
+			<<schoolicon>><<link [[Roleplay gangbang|Briar's Office Show 2]]>><<acceptbrothelshow "gangbang">><</link>> | <span class="green">+</span><<printmoney 100000 "green">><<promiscuous5>>
+			<br>
+		<<else>>
+			<<schoolicon>><<insufficientStat "promiscuity" "to take up the gangbang show">>
+			<br>
+		<</if>>
+
+		<<if hasSexStat("deviancy", 5) and ($settings.bestialityEnabled or ($settings.monsterChance gte 1 and ($hallucinations gte 1 or !$settings.monsterHallucinationsOnly)))>>
+			<<animalicon "pig">><<link [[Pig|Briar's Office Show 2]]>><<acceptbrothelshow "pig">><</link>> | <span class="green">+</span><<printmoney 150000 "green">><<deviant5>>
+			<br>
+		<<else>>
+			<<animalicon "pig">><<insufficientStat "deviancy" "to take up the pig show">>
+			<br>
+		<</if>>
+
+		<<if $settings.swarmsEnabled>>
+			<<if hasSexStat("deviancy", 5)>>
+				<<petshopicon "tanks">><<link [[Creatures|Briar's Office Show 2]]>><<acceptbrothelshow "swarm">><</link>> | <span class="green">+</span><<printmoney 150000 "green">><<deviant5>>
+				<br>
+			<<else>>
+				<<petshopicon "tanks">><<insufficientStat "deviancy" "to take up the swarm show">>
+				<br>
+			<</if>>
+		<</if>>
+		<br>
+	<</if>>
+
+	<<if $brothel_machine_repair is 1>>
+		The sex machine is <span class="red">broken.</span>
+		<br><br>
+	<<elseif $brothel_machine_repair is 2>>
+		The sex machine is <span class="lewd">out of fuel.</span>
+		<br><br>
+	<<elseif $brothel_machine_repair gte 4 and hasSexStat("promiscuity", 5) and ($settings.tentaclesEnabled or ($player.vaginaExist or $settings.analEnabled))>>
+		Sex machine shows:
+		<br>
+		<<if ($player.vaginaExist or $settings.analEnabled)>>
+			<<sextoysicon>><<link [[Sex machine|Briar's Office Show 2]]>><<acceptbrothelshow "machine">><</link>> | <span class="green">+</span><<printmoney 150000 "green">><<promiscuous5>>
+			<br>
+		<</if>>
+		<<if $settings.tentaclesEnabled>>
+			<<sextoysicon>><<link [[Sex machine, tentacle mode|Briar's Office Show 2]]>><<acceptbrothelshow "tentacles">><</link>> | <span class="green">+</span><<printmoney 150000 "green">><<promiscuous5>>
+			<br>
+		<</if>>
+		<br>
+	<</if>>
+
+	<<if $demon gte 6 or (hasSexStat("deviancy", 5) and $farm_stage gte 7 and $farm.steed and ($settings.bestialityEnabled or $per_npc.saddled_steed.monster is "monster"))>>
+		Suggest a show:
+		<br>
+		<<if hasSexStat("deviancy", 5) and $farm_stage gte 7 and $farm.steed and ($settings.bestialityEnabled or $per_npc.saddled_steed.monster is "monster")>>
+			<<animalicon "horse">><<link [[Horse|Briar's Office Show 2]]>><<acceptbrothelshow "horse">><</link>> | <span class="green">+</span><<printmoney 200000 "green">><<deviant5>>
+			<br>
+		<</if>>
+		<<if $demon gte 6>>
+			<<sextoysicon "dildo">><<link [[Bukkake game|Briar's Office Show 2]]>><<acceptbrothelshow "bukkake">><</link>> | <span class="green">+<<printmoney 5000 "green">> per audience orgasm</span><<demon>>
+			<br>
+		<</if>>
+		<br>
+	<</if>>
+<</widget>>
+
+<<widget "startbrothelshow">>
+	<<set _show to _args[0]>>
+	<<if not $brothelshowdata.counts[_show]>>
+		<<set $brothelshowdata.counts[_show] to 0>>
+	<</if>>
+	<<run $brothelshowdata.counts[_show]++>>
+	<<run $brothelshowdata.counts.done++>>
+	<<set $brothelshowdata.type to "none">>
+	<<set $brothelshowdata.done to true>>
+<</widget>>
+
+<<widget "acceptbrothelshow">>
+	<<set _show to _args[0]>>
+	<<set $brothelshowdata.type to _show>>
+	<<run $brothelshowdata.counts.agreed++>>
+	<<if Time.weekDay is 6>>
+		<<set $brothelshowdata.done to true>>
+	<</if>>
+<</widget>>
+
+<<widget "abortbrothelshow">>
+	<<set $brothelshowdata.type to "none">>
+	<<run $brothelshowdata.counts.agreed-->>
+	<<if Time.weekDay is 6>>
+		<<set $brothelshowdata.done to false>>
+	<</if>>
+<</widget>>
+
+<<widget "brothel_bukkake_init">>
+	<<set $brothel_show_bukkake to 0>>
+	<<set $brothel_show_security to 0>>
+	<<set $brothel_show_flirt to 0>>
+	<<set $brothel_show_crazed to 0>>
+<</widget>>
+
+<<widget "brothel_bukkake_end">>
+	<<unset $brothel_show_bukkake>>
+	<<unset $brothel_show_security>>
+	<<unset $brothel_show_flirt>>
+	<<unset $brothel_show_crazed>>
+<</widget>>
+
+<<widget "brothel_bukkake_links">>
+	<<if $brothel_show_flirt isnot 1>>
+		<<link [[Flirt|Brothel Show Bukkake Flirt]]>><<set $brothel_show_flirt to 1>><</link>>
+		<br>
+	<</if>>
+	<<link [[Gentle seduction|Brothel Show Bukkake Gentle]]>><</link>>
+	<br>
+	<<link [[Aggressive seduction|Brothel Show Bukkake Aggressive]]>><</link>>
+	<br>
+	<<link [[End the show|Brothel Show Bukkake End]]>><</link>>
+	<br>
+<</widget>>
+
+<<widget "brothel_show_security">>
+	<<switch $brothel_show_security>>
+		<<case 0>>
+			<span class="green">Security have everything under control.</span>
+		<<case 1>>
+			<span class="teal">Security throw out a miscreant.</span>
+		<<case 2>>
+			<span class="lblue">Security punch someone out.</span>
+		<<case 3>>
+			<span class="blue">Security are struggling to keep order.</span>
+		<<case 4>>
+			<span class="purple">Security are pressed against the stage, barely keeping the audience at bay.</span>
+		<<case 5>>
+			<span class="pink">Security are being overrun.</span>
+		<<default>>
+			<span class="red">Security have lost control! The audience surges onto the stage.</span>
+	<</switch>>
+<</widget>>
+
+<<widget "brothel_bukkake">>
+	<<for _i to 0; _i lt $NPCList.length; _i++>>
+		<<switch _i>>
+			<<case 0>>
+				<<person1>>
+			<<case 1>>
+				<<person2>>
+			<<case 2>>
+				<<person3>>
+			<<case 3>>
+				<<person4>>
+			<<case 4>>
+				<<person5>>
+			<<case 5>>
+				<<person6>>
+		<</switch>>
+		<<if $NPCList[_i].penis isnot "none" and !$NPCList[_i].penisdesc.includes("strap-on")>>
+			The <<persons>> <<print $NPCList[_i].penisdesc>> erupts.
+			<<random_semen>>
+		<<else>>
+			Fluid gushes from the <<persons>> pussy.
+			<<random_goo>>
+		<</if>>
+		<<set $brothel_show_bukkake += 1>>
+	<</for>>
+<</widget>>
+
+<<widget "timeTrackingEndBrothel">>
+	<<timeTrackingEnd "brothel">><<timeTrackingEnd "brothelDanceTips">><<timeTrackingEnd "brothelShow">>
+<</widget>>
+
+<<widget "brothelvirginitybidders">>
+	<<if $numberBidder isnot undefined and $virginitytip gt $tip_add>>
+		<<set $tip_add += ($virginitytip - $tip) * 0.5>><<tipset>>
+	<</if>>
+
+	<<if $numberBidder is undefined>>
+		<<set $numberBidder to 1>>
+	<</if>>
+
+	<<if $numberBidder lte 6 and ($numberBidder lte 2 or _args[0] is undefined)>>
+		<<generatetakevirginity $numberBidder>><<personselect $numberBidder-1>><<set $lastBidder to $numberBidder-1>><<set $numberBidder += 1>>
+	<<else>>
+		<<set _bidder to $numberBidder-2>> /* $numberBidder is 2~7, $lastBidder requires 0~5, so -2 */
+		<<set _r to random(0, _bidder)>>
+
+		<<if _r is $lastBidder>>
+			<<set _r to _r % _bidder + 1>>
+		<</if>>
+
+		<<if _r is _highestBidder>>
+			<<set _r to _r % _bidder + 1>>
+		<</if>>
+
+		<<set $lastBidder to _r>>
+		<<personselect $lastBidder>>
+	<</if>>
+<</widget>>

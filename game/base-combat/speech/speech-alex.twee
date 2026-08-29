@@ -1,0 +1,44 @@
+:: Widgets speech-Alex [widget]
+<<widget "speech-alex">>
+	<<set _npc_speech to true>>
+	<<if ($speechpenisvirgin is 1 and $player.virginity.penile is "Alex") or ($speechvaginavirgin is 1 and $player.virginity.vaginal is "Alex")>>
+		<<He>> smiles. "Your first time? I'll work extra hard to make it memorable."
+	<<elseif $speechanusvirgin is 1 and $player.virginity.anal is "Alex">>
+		<<He>> smiles. "It's tight. I won't tell anyone you let me fuck your bottom."
+	<<elseif $speechmouthvirgin is 1 and $player.virginity.oral is "Alex">>
+		<<He>> smiles. "You haven't used your mouth like this before, have you? Just keep your chompers away."
+	<<elseif $speechkissvirgin is 1 and $player.virginity.kiss is "Alex">>
+		<<He>> smiles. "Town <<girls>> are so cute."
+	<<elseif $speechnamedrop is 1>>
+		<<set $speechnamedrop to 0>>
+		<<if $alex_countdown is undefined and $farm_stage gte 7>>
+			<<switch _loveInterest>>
+				<<case "Black Wolf">>
+					<<He>> deflates. "You're two-timing me with an animal? I need another drink..."
+				<<case "Great Hawk">>
+					<<He>> glares. "Did your brain get pecked in the moor? Stay out of there."
+				<<default>>
+					<<He>> glares. "You're two-timing me?"
+			<</switch>>
+		<<else>>
+			<<switch _loveInterest>>
+				<<case "Black Wolf" "Great Hawk">>
+					"I think I had one too many," <<he>> says. "You're speaking nonsense."
+				<<default>>
+					"I think I had one too many," <<he>> says, holding <<his>> forehead.
+			<</switch>>
+		<</if>>
+	<<elseif $speechsextoy is 1>>
+		<<set $speechsextoy to 0>>
+		<<set $_sexToy to ($rightarm is "heldSexToy" and $leftarm is "heldSexToy" ? "sex toys" : "sex toy")>>
+		<<if C.npc.Alex.dom gte 30>>
+			<<print `<<He>> looks at your $_sexToy and grins. "` + [`Now we're getting somewhere.`, `Cute toy. You better know how to use it.`, `Is that the best thing town has to offer?`][random(0,2)] + `"`>>
+		<<elseif C.npc.Alex.dom lte -30>>
+			<<print `<<He>> looks at your $_sexToy and hesitates. "` + [`All right. I trust your judgement.`, `Hope you know how to use that thing.`, `You always know just how to have a good time.`][random(0,2)] + `"`>>
+		<<else>>
+			<<print `<<He>> looks at your $_sexToy and smiles. "` + [`I like where your head's at.`, `Looks like we're in for a wild ride.`, `So this is what sells in town.`][random(0,2)] + `"`>>
+		<</if>>
+	<<else>>
+		<<set _noNameComment to true>>
+	<</if>>
+<</widget>>

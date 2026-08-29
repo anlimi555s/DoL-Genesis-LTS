@@ -1,0 +1,2440 @@
+:: Photo High Start
+<<effects>>
+
+<<photo_init>>
+Niki collects <<his>> equipment, and leads you to <<his>> car. It's parked across the road. You climb inside.
+<br><br>
+
+<<link [[Next|Photo High Suit]]>><<pass 5>><</link>>
+<br>
+
+:: Photo High Suit
+<<set $location to "town">><<set $bus to "high">><<effects>>
+
+Niki drives you to High Street, and stops outside the intended shop. You see board games, card games, and computer games on display through the windows. They boast an impressive variety.
+<br><br>
+
+You enter the shop with Niki. Staff seem to be expecting <<him>>, and spare only a glance as you follow <<him>> into the back rooms.
+<br><br>
+
+<<He>> approaches a rack of clothes, and pulls out one item in particular. A huge, bulky costume that resembles a monstrous villain from a popular franchise.
+<br><br>
+
+"I'll wait outside," <<he>> says. <<He>> hands you the costume, then leaves the room.
+<br><br>
+
+The costume is heavier than it looks, thicker, and stretchy enough that you can wear it by climbing into its mouth.
+
+<<if Weather.temperature gte 25>>
+	You suspect it will be horribly warm, especially in this heat.
+<<elseif Weather.temperature lte 0>>
+	You suspect it will be uncomfortably warm, even with how cold it is outside.
+<<else>>
+	You suspect it will be uncomfortably warm.
+<</if>>
+<br><br>
+
+<<link [[Wear the costume over your clothes|Photo High Suit 2]]>><<set $phase to 0>><</link>><<ggheat>>
+<br>
+<<link [[Wear the costume over underwear|Photo High Suit 2]]>><<set $phase to 1>><</link>><<exhibitionist1>><<gheat>>
+<br>
+<<if hasSexStat("exhibitionism", 3)>>
+	<<link [[Wear the costume over nothing at all|Photo High Suit 2]]>><<set $phase to 2>><</link>><<exhibitionist3>>
+	<br>
+<</if>>
+
+
+:: Photo High Suit 2
+<<effects>>
+
+<<if $phase is 0>>
+	You step into the costume, and pull it over your shoulders until just your face is visible. It feels stuffy already.
+	<br><br>
+<<elseif $phase is 1>>
+	<<undressmid "photo_high_suit">>
+	<<if $worn.under_lower.type.includes("naked")>>
+		<<if $player.gender_appearance is "f">>
+			<<underlowerwear 1>>
+		<<else>>
+			<<underlowerwear 4>>
+		<</if>>
+		<<if $worn.under_upper.type.includes("naked") and $player.gender_appearance is "f">>
+			<<underupperwear 12>>
+		<</if>>
+		You undress, grab some underwear from the rack, and step into the costume.
+	<<else>>
+		<<if $worn.under_upper.type.includes("naked") and $player.gender_appearance is "f">>
+			<<underupperwear 12>>
+			You undress, grab some underwear from the rack, and step into the costume.
+		<</if>>
+	<</if>>
+
+	You pull it over your shoulders, until just your face is visible. It's stuffy even with just underwear beneath.
+	<<exhibitionism1>>
+<<else>>
+	<<undressclothes "photo_high_suit">>
+	You remove your clothing, and step into the suit. You pull it over your shoulders, until just your face is visible.
+	<<exhibitionism3>>
+<</if>>
+<<handheldundress "photo_high_suit">>
+<<wearProp "flyers">>
+<<overupperwear 4>>
+Suitably attired, you leave the shop.
+<br><br>
+
+<<link [[Next|Photo High Suit 3]]>><</link>>
+<br>
+
+
+:: Photo High Suit 3
+<<effects>>
+
+You find Niki waiting for you. <<He>> nods, then gestures at a stack of flyers. "Just hand those out, and direct people to the shop. I'll follow along and snap pictures. If I do my job properly you'll forget I'm here."
+<br><br>
+
+<<link [[Ask for tips|Photo High Suit Tips]]>><</link>>
+<br>
+<<link [[Nod|Photo High Suit Start]]>><</link>>
+<br>
+
+:: Photo High Suit Tips
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"What should I do?" you ask.
+<<elseif $speech_attitude is "bratty">>
+	"I assume you've done something like this before," you say. "Any tips?"
+<<else>>
+	"Do you have any tips for me?" you ask.
+<</if>>
+<br><br>
+
+"You want to get people's <span class="green">interest</span>," Niki says. "But unless you know how to handle yourself, too much <span class="red">attention</span> will be trouble. Move to another part of the street before it gets dangerous."
+<br><br>
+
+<<He>> looks at the sky. "Take a rest when you need to. It'll be tempting to push yourself, get more done, but don't overdo it. That's a stuffy suit at the coolest of times."
+<br><br>
+
+<<link [[Next|Photo High Suit Start]]>><</link>>
+<br>
+
+
+:: Photo High Suit Start
+<<effects>>
+
+You reach for some of the flyers. They're awkward to carry in your gloved hands. You hear the click of Niki's camera.
+<<wearProp "flyers">>
+<br><br>
+<<endevent>>
+
+<<photo_high_options>>
+
+
+
+
+:: Photo High Flyer
+<<effects>>
+
+You hold out flyers to people who pass, and announce the location of the games shop.
+<<set $photo_flyers += 3>>
+<<wearProp "flyers">>
+<br><br>
+
+<<if $arousal gte $arousalmax>>
+	The arousal within you builds, until it's too much. <<orgasm>>
+	<br><br>
+
+	You fall to your knees, and shudder until the pleasurable waves subside. You look up, and find several people stood still, staring at you. Expressions range from amusement, to unrestrained leers.<<gggattention>><<photo_attention 3>>
+	<br><br>
+
+	You push yourself to your feet and hurry along.
+	<br><br>
+<</if>>
+
+<<photo_high_events>>
+
+:: Photo High Walk
+<<effects>>
+
+<<if $photo_location is 7>>
+	You arrive at the top of a hill. Several people take photos of themselves or others, catching the good view of the coast in the background. Others pass through, to or from the popular tourist spots nearer the sea.
+<<elseif $photo_location is 6>>
+	You arrive at a statue, towering above a public square. People walk through, or stop to sit on the benches.
+<<elseif $photo_location is 5>>
+	You arrive at the main bus stop on the High Street. Buses arrive often, disgorging their cargo.
+<<elseif $photo_location is 4>>
+	You arrive outside the games shop you're working for. It's a good location, right in the middle of the High Street.
+<<elseif $photo_location is 3>>
+	You arrive outside the shopping centre. A constant flow of people enter and exit the wide doors.
+<<elseif $photo_location is 2>>
+	You arrive at a popular entrance to the park. Two trees guard the path, one on each side, their branches creating an arch above.
+<<else>>
+	You arrive at the end of the High Street. Across the road, the forest bleeds into town. The shops here have a clear theme, selling equipment or souvenirs to those interested in the forest's unique ecosystem.
+<</if>>
+<br><br>
+
+<<if $arousal gte $arousalmax>>
+	The arousal within you builds, until it's too much. <<orgasm>>
+	<br><br>
+
+	You fall to your knees, and shudder until the pleasurable waves subside. You look up, and find several people stood still, staring at you. Expressions range from amusement, to unrestrained leers.<<gggattention>><<photo_attention 3>>
+	<br><br>
+
+	You push yourself to your feet and hurry along.
+	<br><br>
+<</if>>
+
+<<photo_high_events>>
+
+:: Photo High Rest
+<<effects>>
+
+<<if $photo_location is 1>>
+	You sit at the base of a tree, and watch people walk by. Few enter the forest.
+<<elseif $photo_location is 2>>
+	You sit on a bench just outside the park. The wind sends leaves dancing across your feet, but you can't feel it beneath the costume.
+<<elseif $photo_location is 3>>
+	You sit just inside the shopping centre, avoiding the hustle and bustle.
+<<elseif $photo_location is 4>>
+	You sit outside the games shop, beside a poster of the same character that your costume depicts.
+<<elseif $photo_location is 5>>
+	You sit at the bus stop, beneath the shelter. Heads turn your way as the bus arrives.
+<<elseif $photo_location is 6>>
+	You sit on one of the benches around the statue, your costume taking up more space that most. The pigeons watch you.
+<<else>>
+	You sit at the top of the hill. There are more tourists here than elsewhere, and they're happy to gawk at your costume.
+<</if>>
+<br><br>
+
+<<if $arousal gte $arousalmax>>
+	The arousal within you builds, until it's too much. <<orgasm>>
+	<br><br>
+
+	You fall to your knees, and shudder until the pleasurable waves subside. You look up, and find several people stood still, staring at you. Expressions range from amusement, to unrestrained leers.<<gggattention>><<photo_attention 3>>
+	<br><br>
+
+	You push yourself to your feet and hurry along.
+	<br><br>
+<</if>>
+
+<<photo_high_events>>
+
+:: Photo High End
+<<effects>>
+
+<<overruined>>
+<<storeon "photo_high_suit">>
+<<if $phase is 1>>
+	You get dressed, then leave the shop. Niki waits for you outside.
+<<else>>
+	You return to the games shop, head to the backroom, and remove your costume. Niki waits for you outside the shop.
+<</if>>
+<br><br>
+
+<<npc Niki>><<person1>>
+<<photo_high_calc>>
+
+<<if _photo_money gte 1200>>
+	<span class="green">"You got people talking about this place," Niki says. "Here's your cut, well-earned."</span>
+<<elseif _photo_money gte 900>>
+	<span class="teal">"You've a knack for this," Niki says. "Here's your cut."</span>
+<<elseif _photo_money gte 600>>
+	<span class="lblue">"Like clockwork," Niki says. "Here you go."</span>
+<<elseif _photo_money gte 300>>
+	<span class="blue">"Nice work," Niki says. "They'll want us back for sure.</span>
+<<elseif _photo_money gte 100>>
+	<span class="purple">"Not bad," Niki says. "Here's your cut."</span>
+<<elseif _photo_money gte 1>>
+	<span class="pink">"Could've been better," Niki says. "Made some money anyway. Here's yours."</span>
+<<else>>
+	<span class="red">"Didn't go too well," Niki says. "But it can always be worse."</span>
+<</if>>
+<br><br>
+
+Niki hands you <<moneyGain _photo_money>>.
+<<famemodel _photo_fame "pic">>
+<br><br>
+
+"I'm heading back to the studio if you'd like a lift."
+<br><br>
+
+<<link [[Go to the photo studio|Photo High End Studio]]>><</link>>
+<br>
+<<link [[Stay here|Photo High End Street]]>><</link>>
+<br>
+
+:: Photo High End Studio
+<<effects>>
+
+You follow Niki to <<his>> car, and climb inside while <<he>> loads <<his>> equipment into the back. <<He>> climbs in beside you, and starts the engine.
+<br><br>
+
+<<link [[Make small talk|Photo High End Studio Smalltalk]]>><</link>>
+<br>
+<<link [[Thank Niki for the opportunity|Photo High End Studio Thank]]>><</link>>
+<br>
+<<link [[Remain silent|Photo High End Studio Silent]]>><</link>>
+<br>
+
+:: Photo High End Studio Smalltalk
+<<effects>>
+
+You try to make small talk with Niki. <<He>> nods along in a polite enough fashion.
+<br><br>
+
+You soon arrive back at the studio. You climb from the car, and enter with Niki.
+<br><br>
+
+<<link [[Next|Photo]]>><<photo_unset>><<endevent>><</link>>
+<br>
+
+
+:: Photo High End Studio Thank
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Thank you for the opportunity," you say.
+<<elseif $speech_attitude is "bratty">>
+	"Thanks for the work," you say.
+<<else>>
+	"Thanks for the opportunity," you say.
+<</if>>
+<br><br>
+
+<<if C.npc.Niki.love gte 80>>
+	Niki nods. "Thanks for being available."
+<<elseif C.npc.Niki.love gte 40>>
+	Niki nods. "Don't mention it."
+<<else>>
+	Niki nods, but doesn't reply.
+<</if>>
+<br><br>
+
+You arrive back at the studio, climb from the car, and enter with Niki.
+<br><br>
+
+<<link [[Next|Photo]]>><<photo_unset>><<endevent>><</link>>
+<br>
+
+:: Photo High End Studio Silent
+<<effects>>
+
+You both remain silent throughout the short journey. You arrive back at the studio, climb from the car, and enter with Niki.
+<br><br>
+
+<<link [[Next|Photo]]>><<photo_unset>><<endevent>><</link>>
+<br>
+
+:: Photo High End Street
+<<effects>>
+
+Niki loads <<his>> equipment into the back of <<his>> car, climbs in, and drives away.
+<br><br>
+
+<<link [[Next|High Street]]>><<photo_unset>><<endevent>><<set $eventskip to 1>><</link>>
+<br>
+
+:: Photo High Passout
+<<effects>>
+
+<<photo_high_calc>>
+<<famemodel _photo_fame "pic">>
+<<set $photo_high_money to _photo_money>>
+
+You awaken in an alley, just off the high street.
+
+<<if $exposed gte 1>>
+	<span class="red">Your costume is gone.</span> <<covered>>
+	<<storeon "photo_high_suit">>
+	<<overruined>><<middleruined>>
+	<<if $exposed isnot 1>>
+		<<underruined>>
+	<</if>>
+	<br><br>
+<<else>>
+	Your costume is gone.
+<</if>>
+Some time has passed, and Niki is nowhere to be seen.
+<br><br>
+You'll need to make your own way back to the photo studio.
+<<if $exposed gte 1>>
+	But first, you need to find some clothes.
+<</if>>
+<br><br>
+
+<<link [[Next|High Street]]>><<photo_unset>><<set $eventskip to 1>><</link>>
+<br>
+
+
+:: Photo High Endure
+<<effects>>
+
+You endure the <<persons>> groping until <<he>> tires, and walks away.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+
+:: Photo High Smack
+<<effects>>
+
+You smack the <<person>> in the side of the head with a gloved fist. The costume cushions the blow, but the force catches <<him>> off guard, and <<he>> almost loses <<his>> balance.
+<br><br>
+
+<<He>> retains a shocked expression as <<he>> walks away.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+:: Photo High Roar
+<<effects>>
+
+You roar at the <<person>>, making <<him>> jump back in shock. <<He>> trips, and lands on <<his>> back, drawing attention. You hear laughter from several directions. The <<person>> rises to <<his>> feet, and shuffles away.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+
+
+
+:: Photo High Agree
+<<effects>>
+
+The pair stand either side of you. The <<person2>><<person>> holds a camera up, and smiles.
+<br><br>
+
+<<if random(1, 2) is 2>>
+	You feel a hand on your <<bottom>>.<<gstress>><<stress 6>>
+	<br><br>
+
+	<<link [[Endure|Photo High Agree Endure]]>><</link>>
+	<br>
+	<<link [[Shake off|Photo High Agree Shake]]>><<stress -6>><<photo_attention 1>><</link>><<gattention>><<lstress>>
+	<br>
+<<else>>
+	The camera clicks as a photo is taken.
+	<br><br>
+
+	"Thanks so much," the <<person1>><<person>> says with a smile. They walk away, examining the back of the camera.
+	<br><br>
+
+	<<photo_high_options>>
+<</if>>
+
+:: Photo High Agree Endure
+<<effects>>
+
+You endure the groping. Your costume is thick, and you suspect they don't feel much.
+<br><br>
+
+The camera clicks as a photo is taken.
+<br><br>
+
+"Thanks so much," the <<person1>><<person>> says with a smile. They walk away, examining the back of the camera.
+<br><br>
+
+<<photo_high_options>>
+
+:: Photo High Agree Shake
+<<effects>>
+
+You shake off the hand as the camera clicks.
+
+"Thanks so much," the <<person1>><<person>> says with a smile. The <<person2>><<person>> looks less amused. They walk away, examining the back of the camera.
+<br><br>
+
+<<photo_high_options>>
+
+
+:: Photo High Agree Pose
+<<effects>>
+
+You jump into a combat pose, your clawed gloves raised aloft. The <<person1>><<person>> and <<person2>><<person>> crouch, and pretend to cower. The <<person2>><<person>> holds the camera up. It clicks as <<he>> takes a photo.
+<br><br>
+
+"Thanks so much," <<he>> says with a smile. They walk away, examining the back of the camera.
+<br><br>
+
+<<photo_high_options>>
+
+:: Photo High Agree Predatory
+<<effects>>
+
+You nod, then lunge for the pair. They cower for real, the <<person1>><<person>> holding <<his>> hands aloft in surrender. The <<person2>><<person>> remains frozen a moment, then raises the camera. <<He>> hesitates before snapping a picture.
+<br><br>
+
+"Th-thanks," the <<person1>><<person>> says. They scurry away, casting wary glances over their shoulders.
+<br><br>
+
+<<photo_high_options>>
+
+:: Photo High Decline
+<<effects>>
+
+"Alright, sorry for bothering you." The pair walk away.
+<br><br>
+
+<<photo_high_options>>
+
+
+:: Photo High Bottom Endure
+<<effects>>
+
+You do your best to ignore them. There's a whole gang of them, taking turns, but your lack of reaction soon leaves them bored, and they find someone else to bother.
+<br><br>
+
+<<photo_high_options>>
+
+:: Photo High Bottom Trip
+<<effects>>
+
+You listen for the <<person2>><<person>>, until you hear <<his>> footsteps. Rather than turn, you lower your <<bottom>> and swing your tail in an arc.
+<br><br>
+<<if $danceSuccess>>
+	<span class="green">You catch <<him>> out.</span> Your tail upsets <<his>> balance, and <<his>> momentum carries <<him>> skidding, then rolling, across the ground.
+	<br><br>
+
+	There was a whole gang of them planning to take turns. Now, the <<person2>><<person>> is the object of their amusement. You continue before that changes.<<ginterest>><<lstress>><<photo_interest 1>><<stress -6>>
+	<br><br>
+
+	<<photo_high_options>>
+<<else>>
+	<span class="red">The <<person>> leaps over your tail,</span> and delivers another smack. More of <<his>> friends arrive, approaching you from every direction, wherever your back is turned.<<gattention>><<gpain>><<gstress>><<photo_attention 1>><<pain 4>><<stress 6>>
+	<br><br>
+
+	Your <<bottom>> throbs by the time the gang grows bored.
+	<br><br>
+
+	<<photo_high_options>>
+<</if>>
+
+:: Photo High Bottom Play
+<<effects>>
+
+With a defeated roar, you drop to your hands, and raise your <<bottom>> into the air. The <<person1>><<person>> and <<person2>><<person>> are joined by others. Each runs by, delivering a smack to your rear. You release a theatric cry each time.
+<br><br>
+
+They soon stop bothering with the tactics, and line up behind you to take turns. A few onlookers whip out phones to take pictures of the scene.
+<br><br>
+
+<<if $photo_attention[_photo_location] gte 6>>
+	The <<person1>><<person>> steps around you, <span class="pink">and grasps the costume above your chest.</span>
+	<br><br>
+
+	<<if $worn.upper.type.includes("naked") and $player.gender_appearance is "f">>
+		<<if $worn.upper.type.includes("naked")>>
+			<<if hasSexStat("exhibitionism", 5)>>
+				<<link [[Allow|Photo High Bottom Allow Naked]]>><<photo_attention 1>><<photo_interest 1>><</link>><<exhibitionist5>><<gattention>><<ginterest>>
+				<br>
+			<<else>>
+				<span class="pink">You're not wearing anything beneath!</span>
+				<br>
+			<</if>>
+		<<else>>
+			<<if hasSexStat("exhibitionism", 3)>>
+				<<link [[Allow|Photo High Bottom Allow Undies]]>><</link>><<exhibitionist3>>
+				<br>
+			<<else>>
+				<span class="pink">You're wearing just your <<print $worn.under_upper.name>> beneath!</span>
+				<br>
+			<</if>>
+		<</if>>
+	<<else>>
+		<<link [[Allow|Photo High Bottom Allow Clothed]]>><</link>>
+		<br>
+	<</if>>
+	<<link [[Brush <<his>> hand away|Photo High Bottom Brush]]>><</link>>
+	<br>
+<<else>>
+	They tire of the assault, and walk away, leaving you to your task.
+	<br><br>
+
+	<<endevent>>
+	<<photo_high_options>>
+<</if>>
+
+
+:: Photo High Bottom Brush
+<<effects>>
+
+You brush the <<persons>> hand away, and <<he>> relents. Your assailants soon tire of the assault and walk away, leaving you to pick yourself up.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+
+:: Photo High Bottom Allow
+<<effects>>
+
+You allow the <<person>> to pull down the front of your suit, exposing your <<print $worn.upper.name>>. "Was hoping <<pshe>> wasn't wearing anything beneath," the <<person>> says.
+<br><br>
+
+Your assailants soon tire of the assault and walk away, leaving you to cover yourself back up.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+:: Photo High Bottom Allow Undies
+<<effects>>
+
+You allow the <<person>> to pull down the front of your suit, exposing your <<print $worn.under_upper.name>>. "Nice," the <<person>> says. <<exhibitionism3>>
+
+A few more step forward to ogle. They reach forward to grope.
+<br><br>
+
+<<if hasSexStat("promiscuity", 3)>>
+	<<link [[Allow|Photo High Bottom Allow Undies Grope]]>><<photo_attention 1>><<photo_interest 1>><</link>><<promiscuous3>><<gattention>><<ginterest>>
+<</if>>
+<<link [[Brush their hands away|Photo High Bottom Allow Undies Brush]]>><</link>>
+<br>
+
+:: Photo High Bottom Allow Undies Brush
+<<effects>>
+
+You brush their hands away with a clawed swipe, and they back away.
+<br><br>
+
+Your assailants soon tire of the assault and walk away, leaving you to cover yourself back up.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+
+:: Photo High Bottom Allow Undies Grope
+<<effects>>
+
+You allow them to grope and fondle your <<breasts>>, in full view of the growing crowd.<<promiscuity3>>
+
+Your assailants back off after a short while, as if afraid of drawing too much attention. They walk away, leaving you to cover yourself back up.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+
+:: Photo High Bottom Allow Naked
+<<effects>>
+
+You allow the <<person>> to pull down the front of your suit,
+<<if $player.breastsize gte 4>>
+	letting your <<breasts>> flop out.
+<<else>>
+	exposing your <<breasts>>.
+<</if>>
+A murmur of appreciation spreads through your assailants, and a good chunk of the growing crowd.
+<<exhibitionism5>>
+
+They stop smacking your <<bottom>>, and crowd in front of you to ogle. A few reach to grope.
+<br><br>
+
+<<if hasSexStat("promiscuity", 3)>>
+	<<link [[Allow|Photo High Bottom Allow Naked Grope]]>><<photo_attention 1>><<photo_interest 1>><</link>><<promiscuous3>><<gattention>><<ginterest>>
+<</if>>
+<<link [[Brush their hands away|Photo High Bottom Allow Naked Brush]]>><</link>>
+<br>
+
+
+:: Photo High Bottom Allow Naked Brush
+<<effects>>
+
+You brush their hands away with a clawed swipe, and they back away.
+<br><br>
+
+A few more try their luck, but others warn them off. "Let's not attract too much attention," the <<person>> says.
+<br><br>
+
+They walk away, leaving you to cover yourself back up.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+:: Photo High Bottom Allow Naked Grope
+<<effects>>
+
+You allow them to grope and fondle your <<breasts>>. More people stop to watch, the crowd growing so that the size alone attracts yet more attention. <<promiscuity3>>
+
+Your assailants back off after a short while, while casting anxious looks at the growing crowd. They depart, leaving you to cover yourself back up.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+:: Photo High Acolyte Roar
+<<effects>>
+<<generatey1>><<person1>>
+You roar at the acolytes, and they cower in mock fright. Except a <<person>>, who cowers for real, then tries to pretend it was an act.
+<br><br>
+
+The acolytes continue on their way.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+:: Photo High Acolyte Scare
+<<effects>>
+
+For a painful moment, you allow your anguish to bubble over. The world becomes darker, devoid of colour. You don't know what they see, but the laughter is cut short. They avert their eyes and hurry back to the temple.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+:: Photo High Recognised Offer
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"You can take a picture with me if you like," you say.
+<<elseif $speech_attitude is "bratty">>
+	"What are you waiting for?" you ask. "Let's take a picture."
+<<else>>
+	"We can take a picture if you like," you say.
+<</if>>
+<br><br>
+
+The <<person>> nods three times. "Thank you." <<He>> steps next to you, and angles the camera to capture both of you at once.
+<br><br>
+
+Satisfied, <<he>> thanks you again, and walks away.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+:: Photo High Recognised Smile
+<<effects>>
+
+You smile at the <<person>>. <<He>> smiles back, looking a little nervous, then takes a picture of you before scurrying away.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+
+
+:: Photo High Autograph Give
+<<effects>>
+
+You nod. Excited, the <<person>> produces a photo of you, and a pen. Looks like Niki's handiwork.
+<br><br>
+
+You try to grip the pen in your gloved hand, but it's tricky. You'd need to pull down the front of your suit to free your arm.
+<br><br>
+
+<<link [[Do your best|Photo High Autograph Best]]>><</link>><<skill_difficulty currentSkillValue("handskill") "Hand Skill" 1 1000>>
+<br>
+<<if $worn.upper.type.includes("naked") and $player.gender_appearance is "f">>
+	<<if $worn.under_upper.type.includes("naked")>>
+		<<if hasSexStat("exhibitionism", 5)>>
+			<<link [[Pull down the top of your costume|Photo High Autograph Expose Naked]]>><<photo_attention 1>><<photo_interest 1>><</link>><<exhibitionist5>><<gattention>><<ginterest>>
+			<br>
+		<<else>>
+			<span class="pink">You can't pull down your costume, you're not wearing anything beneath!</span>
+			<br>
+		<</if>>
+	<<else>>
+		<<if hasSexStat("exhibitionism", 3)>>
+			<<link [[Pull down the top of your costume|Photo High Autograph Expose Undies]]>><</link>><<exhibitionist3>>
+		<<else>>
+			<span class="pink">You can't pull down your costume, you're not wearing anything beneath!</span>
+			<br>
+		<</if>>
+	<</if>>
+<<else>>
+	<<link [[Pull down the top of your costume|Photo High Autograph Expose Clothed]]>><</link>>
+	<br>
+<</if>>
+
+
+:: Photo High Autograph Best
+<<effects>>
+
+<<if currentSkillValue("handskill") gte random(1, 1000)>>
+	With deft movements, you manage to autograph the photo <span class="green">without dropping the pen.</span>
+	<<ginterest>><<photo_interest 1>>
+	<br><br>
+
+	"Thank you," the <<person>> says. <<He>> scurries away, autographed photo in hand.
+	<br><br>
+<<else>>
+	You scrawl your autograph on the photo <span class="red">dropping your pen as you do.</span> A few onlookers find the sight funny.<<gattention>><<photo_attention 1>>
+	<br><br>
+
+	"Thank you," the <<person>> says. <<He>> scurries away, autographed photo in hand.
+	<br><br>
+<</if>>
+
+<<endevent>>
+<<photo_high_options>>
+
+
+
+:: Photo High Autograph Expose Clothed
+<<effects>>
+
+You pull down the front of your costume, and wiggle your arm out before signing your autograph on the photo.
+<br><br>
+
+"Thank you," the <<person>> says. "My friends are going to be so jealous." <<He>> departs with a spring in <<his>> step.
+<br><br>
+
+<<if $fame.model gte 800>>
+	A <<generate2>><<person2>><<person>> takes <<his>> place, holding out another photo of you. A queue is forming behind <<him>>.
+	<br><br>
+
+	<<link [[Continue signing autographs (0:05)|Photo High Autograph Expose Clothed Continue]]>><<photo_pass 5>><<photo_interest 1>><</link>><<ginterest>>
+	<br>
+	<<link [[Wave them away|Photo High Autograph Expose Clothed Wave]]>><</link>>
+	<br>
+<<else>>
+	<<endevent>>
+	<<photo_high_options>>
+<</if>>
+
+:: Photo High Autograph Expose Undies
+<<effects>>
+
+You pull down the front of your costume, exposing your <<print $worn.under_upper.name>>. The <<person>> averts <<his>> eyes, and a blush creeps onto <<his>> face.
+<<exhibitionism3>>
+
+You free your arm, and sign the autograph before covering up. "Th-thank you," the <<person>> says. "My friends are going to be so jealous." <<He>> departs with a spring in <<his>> step.
+<br><br>
+
+<<if $fame.model gte 800>>
+	<<link [[Continue signing autographs (0:05)|Photo High Autograph Expose Undies Continue]]>><<photo_pass 5>><<photo_attention 1>><<photo_interest 2>><</link>><<gattention>><<gginterest>>
+	<br>
+	<<link [[Wave them away|Photo High Autograph Expose Undies Wave]]>><</link>>
+	<br>
+<<else>>
+	<<endevent>>
+	<<photo_high_options>>
+<</if>>
+
+:: Photo High Autograph Expose Naked
+<<effects>>
+
+You pull down the front of your costume,
+<<if $player.breastsize gte 4>>
+	letting your <<breasts>> flop out.
+<<else>>
+	exposing your <<breasts>>.
+<</if>>
+The <<persons>> jaw drops, and <<he>> averts <<his>> eyes as a blush creeps onto <<his>> face.
+<<exhibitionism5>>
+
+You free your arm, and sign the autograph before covering up. The <<persons>> voice catches in <<his>> throat, but you think <<hes>> trying to thank you. <<He>> turns and scurries away instead.
+<br><br>
+
+<<if $fame.model gte 800>>
+	<<link [[Continue signing autographs (0:05)|Photo High Autograph Expose Naked Continue]]>><<photo_pass 5>><<photo_attention 2>><<photo_interest 3>><</link>><<ggattention>><<ggginterest>>
+	<br>
+	<<link [[Wave them away|Photo High Autograph Expose Naked Wave]]>><</link>>
+	<br>
+<<else>>
+	<<endevent>>
+	<<photo_high_options>>
+<</if>>
+
+:: Photo High Autograph Expose Clothed Continue
+<<effects>>
+
+You sign your name on each photograph in turn. Some try to start a conversation with you, but those behind hurry them along, eager for their turn.
+<br><br>
+
+A handful hover around after, but Niki appears to shoo them away.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+:: Photo High Autograph Expose Clothed Wave
+<<effects>>
+
+You wave away the crowd. Some look disappointed, but they depart without issue.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+:: Photo High Autograph Expose Undies Continue
+<<effects>>
+
+You sign your name on each photograph in turn. Some stare at your <<print $worn.under_upper.name>> as you sign, others avert their eyes. Others seem unbothered, and try to start a conversation with you, until those awaiting their turn hurry them along.
+<br><br>
+
+More than a handful hover around after, but Niki appears to shoo them away.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+:: Photo High Autograph Expose Undies Wave
+<<effects>>
+
+You wave away the crowd. Some look disappointed, others leer at your exposed <<print $worn.under_upper.name>>, but they depart without issue.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+:: Photo High Autograph Expose Naked Continue
+<<effects>>
+
+You sign your name on each photograph in turn. Some stare at your <<breasts>> as you sign, weighing something in their minds. Others avert their eyes, and yet others seem unbothered, and try to start a conversation with you. Those awaiting behind hurry them along.
+<br><br>
+
+A great many hover around after, but Niki appears to shoo them away.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+:: Photo High Autograph Expose Naked Wave
+<<effects>>
+
+You wave away the crowd. Some look disappointed, others leer at your <<breasts>>, but they depart without issue.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+
+:: Photo High Poster Copy
+<<effects>>
+
+You copy the pose depicted on the poster, much to your onlooker's delight. A few more people stop to look. You use the opportunity to hand out flyers.
+<<set $photo_flyers += 3>>
+<<wearProp "flyers">>
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+:: Photo High Expose Endure
+<<effects>>
+
+You let the <<person>> pull down your costume, exposing your <<breasts>>. A <<person2>><<person>> approaches from behind, and grasps both your arms. <<He>> presses <<his>> foot into your back and shoves you forward, forcing your chest forward.
+<br><br>
+
+Some onlookers stop to gawk, while others hurry their footsteps. Satisfied, the pair release you. You cover yourself back up.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+:: Photo High Expose Shove
+<<effects>>
+
+<<if $physiqueSuccess>>
+	You shove the <<person1>><<person>> away from you. A pair of <<person2>><<personsimple>>'s hands grab you from behind, but you thrust your elbow into <<his>> face, <span class="green">and <<he>> staggers away.</span><<lstress>><<stress -6>><<famescrap 3>>
+	<br><br>
+
+	<<endevent>>
+	<<photo_high_options>>
+<<else>>
+	You shove the <<person1>><<person>> away from you, but a pair of <<person2>><<personsimple>>'s hands grab your from behind. You try to wrest your arms free, <span class="red">but <<he>> holds them firm.</span>
+	<br><br>
+
+	With a casual grin, the <<person1>><<person>> pulls down your costume, exposing your <<breasts>>. <<He>> grabs both sides and forces them wider, while the <<person2>><<person>> pushes <<his>> foot into your back, forcing your chest forward.<<ggattention>><<gtrauma>><<gstress>><<photo_attention 2>><<trauma 6>><<stress 6>>
+	<br><br>
+
+	Some onlookers stop to gawk, while others hurry their footsteps. Satisfied, the pair release you. You cover yourself back up.
+	<br><br>
+
+	<<endevent>>
+	<<photo_high_options>>
+<</if>>
+
+
+:: Photo High Squirrel Calm
+<<effects>>
+
+<<if $willpowerSuccess>>
+	You take a deep breath, <span class="green">and manage to keep your cool.</span> You think a moment about what to do, but then the squirrel finds its own way up and out of your costume. It climbs up a tree, and disappears in the branches.
+	<br><br>
+
+	<<photo_high_options>>
+<<else>>
+	You try to keep your cool, <span class="red">but then you imagine the squirrel biting you.</span> You pat up and down your body, chasing the squirrel as it climbs around the interior of your costume, but it's no use.<<gwillpower>><<willpower 1>>
+	<br><br>
+	<<if $worn.upper.name is "naked" and $worn.under_upper.name is "naked">>
+		You jerk down the front of your costume, exposing your <<breasts>>, then climb out as fast as you can.
+	<<elseif $worn.upper.name is "naked">>
+		You jerk down the front of your costume, exposing your <<print $worn.under_upper.name>>, then climb out as fast as you can.
+	<<else>>
+		You jerk down the front of your costume, and climb out as fast as you can.
+	<</if>>
+	<br><br>
+	<<overupperstrip>>
+
+	<<link [[Next|Photo High Squirrel Panic]]>><<set $phase to 1>><</link>>
+	<br>
+<</if>>
+
+
+:: Photo High Squirrel Panic
+<<effects>>
+
+You step away from the costume, and a moment later the squirrel darts out.
+<br><br>
+
+<<if $worn.lower.type.includes("naked")>>
+	<<if $worn.under_lower.type.includes("naked")>>
+		You attract leers. <<covered>> <<photo_attention 2>><<trauma 6>><<stress 6>><<gattention>><<ggtrauma>><<ggstress>>
+		<br><br>
+	<<else>>
+		You attract leers. <<covered>> <<photo_attention 1>><<trauma 6>><<stress 6>><<gattention>><<gtrauma>><<gstress>>
+		<br><br>
+	<</if>>
+	<<photo_high_check_location>>
+	<<if $photo_attention[_photo_location] gte 6>>
+		<<generate1>><<person1>>
+
+		A <<person>> rushes forward and steps on your costume before you can reclaim it.
+		<br><br>
+		"You're in a bit of a predicament," <<he>> says. "What will you give me for your clothes?"
+		<br><br>
+
+		<<if $money gte 10000>>
+			<<link [[Offer £100|Photo High Squirrel Money]]>><</link>>
+			<br>
+		<<else>>
+			<span class="blue">You don't have enough money to satisfy.</span>
+			<br>
+		<</if>>
+		<<link [[Attack|Photo High Squirrel Attack]]>><<photo_attention 1>><</link>><<physiquedifficulty 1 16000>><<gattention>>
+		<br>
+		<<if $worn.lower.type.includes("naked") and $worn.under_lower.type.includes("naked") and hasSexStat("exhibitionism", 5)>>
+			<<link [[Mock|Photo High Squirrel Mock Naked]]>><<photo_attention 1>><</link>><<exhibitionist5>><<gattention>>
+			<br>
+		<</if>>
+		<<if $worn.lower.type.includes("naked") and !$worn.under_lower.type.includes("naked") and hasSexStat("exhibitionism", 3)>>
+			<<link [[Mock|Photo High Squirrel Mock Undies]]>><<photo_attention 1>><</link>><<exhibitionist3>><<gattention>>
+			<br>
+		<</if>>
+		<<if $submissive lte 500>>
+			<<link [[Threaten|Photo High Squirrel Threaten]]>><<def 1>><</link>><<defianttext>>
+			<br>
+		<</if>>
+		<<if $submissive gte 1500>>
+			<<link [[Beg|Photo High Squirrel Beg]]>><<sub 1>><<photo_attention 2>><<photo_interest 2>><</link>><<submissivetext>><<ggattention>><<gginterest>>
+			<br>
+		<</if>>
+		<<if $worn.lower.type.includes("naked")>>
+			<<link [[Try to escape back to the shop (0:02)|Photo High Exhibitionism]]>><<endevent>><<photo_pass 2>><<photo_attention 3>><<overruined>><</link>><<gggattention>>
+		<<else>>
+			<<link [[Return to the games shop (0:05)|Photo High Return]]>><<endevent>><<overruined>><<photo_pass 5>><</link>>
+			<br>
+		<</if>>
+		<br>
+	<<else>>
+		You hurry into your costume.
+		<<silently>><<clotheson>><</silently>>
+		<br><br>
+		<<photo_high_options>>
+	<</if>>
+<<else>>
+	You attract some amused looks. Sheepish, you climb back into your costume.<<gattention>><<photo_attention 1>><<silently>><<clotheson>><</silently>>
+	<br><br>
+	<<silently>><<clotheson>><</silently>>
+	<<endevent>>
+	<<photo_high_options>>
+<</if>>
+
+:: Photo High Return
+<<effects>>
+
+You return to the games shop, and enter the backroom, where you find a spare kaiju costume. You slip it on, pick up another stack of flyers, and step outside.
+<br><br>
+
+
+<<link [[Next|Photo High Walk]]>><<endevent>><<overupperwear 4>><<wearProp "flyers">><<set $photo_location to 4>><</link>>
+
+:: Photo High Squirrel Money
+<<effects>>
+
+<<if $allure gte 6000 * $settings.allureModifier>>
+	<<set $phase to 2>>
+	The <<person1>><<person>>'s gaze travels up and down your body. "Don't sell yourself short," <<he>> says. "A fine piece like you is worth <span class="red">at least £1000.</span>
+	<br><br>
+<<elseif $allure gte 4000 * $settings.allureModifier>>
+	<<set $phase to 1>>
+	The <<person1>><<person>>'s gaze travels up and down your body. "Don't sell yourself short," <<he>> says. "A fine piece like you is worth <span class="pink">at least £500.</span>
+	<br><br>
+<<else>>
+	<<set $phase to 0>>
+	The <<person1>><<person>> takes the money, but there's a reluctance in <<his>> movements as <<he>> steps away from your costume.
+	<br><br>
+	You dress before you attract much more attention.
+	<br><br>
+	<<money -10000>>
+	<<endevent>>
+	<<photo_high_options>>
+<</if>>
+
+<<if $phase gte 2>>
+	<<if $money gte 100000>>
+		<<link [[Pay up|Photo High Squirrel Pay]]>><<money -100000>><</link>>
+		<br>
+	<<else>>
+		<span class="blue">You can't afford that.</span>
+		<br>
+	<</if>>
+<</if>>
+<<if $phase is 1>>
+	<<if $money gte 50000>>
+		<<link [[Pay up|Photo High Squirrel Pay]]>><<money -50000>><</link>>
+		<br>
+	<<else>>
+		<span class="blue">You can't afford that.</span>
+		<br>
+	<</if>>
+<</if>>
+
+<<if $phase gte 1>>
+	<<link [[Attack|Photo High Squirrel Attack]]>><<photo_attention 1>><</link>><<physiquedifficulty 1 16000>><<gattention>>
+	<br>
+	<<if $worn.lower.type.includes("naked") and $worn.under_lower.type.includes("naked") and hasSexStat("exhibitionism", 5)>>
+		<<link [[Mock|Photo High Squirrel Mock Naked]]>><<photo_attention 1>><</link>><<exhibitionist5>><<gattention>>
+		<br>
+	<</if>>
+	<<if $worn.lower.type.includes("naked") and !$worn.under_lower.type.includes("naked") and hasSexStat("exhibitionism", 3)>>
+		<<link [[Mock|Photo High Squirrel Mock Undies]]>><<photo_attention 1>><</link>><<exhibitionist3>><<gattention>>
+		<br>
+	<</if>>
+	<<if $submissive lte 500>>
+		<<link [[Threaten|Photo High Squirrel Threaten]]>><<def 1>><</link>><<defianttext>>
+		<br>
+	<</if>>
+	<<if $submissive gte 1500>>
+		<<link [[Beg|Photo High Squirrel Beg]]>><<sub 1>><<photo_attention 2>><<photo_interest 2>><</link>><<submissivetext>><<ggattention>><<gginterest>>
+		<br>
+	<</if>>
+	<<if $worn.lower.type.includes("naked")>>
+		<<link [[Try to escape back to the shop (0:02)|Photo High Exhibitionism]]>><<endevent>><<photo_pass 2>><<photo_attention 3>><<overruined>><</link>><<gggattention>>
+	<<else>>
+		<<link [[Return to the games shop (0:05)|Photo High Return]]>><<endevent>><<overruined>><<photo_pass 5>><</link>>
+		<br>
+	<</if>>
+	<br>
+<</if>>
+
+:: Photo High Squirrel Pay
+<<effects>>
+
+The <<person1>><<person>> takes the money, but looks reluctant as <<he>> steps away from your costume.
+<br><br>
+
+You put it back on before you attract more attention.
+<br><br>
+<<silently>>
+	<<clotheson>>
+<</silently>>
+<<endevent>>
+<<photo_high_options>>
+
+
+:: Photo High Squirrel Attack
+<<effects>>
+
+<<if $physiqueSuccess>>
+	You launch yourself at the <<person>>. <<He>> steps back in shock, and trips backwards as you deliver a blow to <<his>> chest. <span class="green"><<He>> falls, and scrambles away.</span>
+	<br><br>
+
+	You put on the costume before you attract more attention.
+	<br><br>
+	<<silently>>
+		<<clotheson>>
+	<</silently>>
+	<<endevent>>
+	<<photo_high_options>>
+<<else>>
+	You launch yourself at the <<person>>, <span class="red">but <<he>> kicks your foot out from under you,</span> making you fall to the ground.<<gattention>><<gpain>><<gstress>><<pain 4>><<stress 6>><<photo_attention 1>>
+	<br><br>
+	<<overruined>>
+	<<if $worn.lower.type.includes("naked")>>
+		<<He>> picks up your costume, and runs before you can recover, leaving you exposed on the street.
+		<br><br>
+
+		<<link [[Next|Photo High Exhibitionism]]>><<endevent>><</link>>
+		<br>
+	<<else>>
+		<<He>> picks up your costume, and runs before you can recover.
+		<br><br>
+
+		<<link [[Next|Photo High Return]]>><<endevent>><</link>>
+		<br>
+	<</if>>
+<</if>>
+
+:: Photo High Squirrel Mock Undies
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I'm sorry you've been driven to such," you say. "I hope you become a better person."
+<<elseif $speech_attitude is "bratty">>
+	"You're a sad little <<personsimple>>," you say.
+<<else>>
+	"You're not as scary as you think you are," you say.
+<</if>>
+With that, you turn and walk away, leaving <<him>> dumbstruck.<<exhibitionism3>>
+<<overruined>>
+<<link [[Next|Photo High Exhibitionism]]>><<endevent>><</link>>
+<br>
+
+:: Photo High Squirrel Mock Naked
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I'm sorry you've been driven to such," you say. "I hope you become a better person."
+<<elseif $speech_attitude is "bratty">>
+	"You're a sad little <<personsimple>>," you say.
+<<else>>
+	"You're not as scary as you think you are," you say.
+<</if>>
+With that, you turn and walk away, leaving <<him>> dumbstruck.<<exhibitionism5>>
+<<overruined>>
+<<link [[Next|Photo High Exhibitionism]]>><<endevent>><</link>>
+<br>
+
+
+:: Photo High Squirrel Threaten
+<<effects>>
+
+"Bold of you," you say, letting your words hang for a moment while staring at <<him>>. "I won't forget your face. The gang and I will pay you a visit later."
+<br><br>
+
+The <<person>> hesitates, then looks away. "I dunno what you mean. I almost tripped over your costume. You should be more careful." <<He>> walks away.
+<br><br>
+
+You put on the costume before you attract more attention.
+<br><br>
+<<silently>>
+	<<clotheson>>
+<</silently>>
+<<endevent>>
+<<photo_high_options>>
+
+:: Photo High Squirrel Beg
+<<effects>>
+
+You drop to your knees. "Please give me back my costume," you say. You press your forehead against the ground.
+<br><br>
+
+The <<person>> looks around, as if self-conscious. "Fine," <<he>> says. "No need to be weird about it." <<He>> walks away.
+<br><br>
+
+You put on the costume before you attract more attention.
+<br><br>
+<<silently>>
+	<<clotheson>>
+<</silently>>
+<<endevent>>
+<<photo_high_options>>
+
+
+:: Photo High School Popular Hello
+<<effects>>
+
+You approach the pair.
+<<if $speech_attitude is "meek">>
+	"Hello," you say. "I hope you find my costume amusing."
+<<elseif $speech_attitude is "bratty">>
+	"Hey," you say. "What do you think of my costume?"
+<<else>>
+	"Hello," you say. "Like my costume?"
+<</if>>
+<br><br>
+
+<<if $cool gte random(1, 240)>>
+	The <<person1>><<person>> and <<person2>><<person>> share a glance.
+	<br><br>
+	"We didn't recognise you," the <<person1>><<person>> says. <<He>> examines your costume. "That looks like professional work."
+	<br>
+	<<if $fame.model gte 200>>
+		"It is," the <<person2>><<person>> replies. "Didn't you hear?" <<He>> looks at you, <span class="green">and smiles.</span> "<<pShe>> works for a modeling agency."<<gcool>><<status 1>>
+		<br>
+		"That's so cool," the <<person1>><<person>> says, looking at you with a new light in their eyes.
+		<br><br>
+	<<else>>
+		"I think I recognise the maker," the <<person2>><<person>> says. "They make stuff for a modeling agency."
+		<br>
+		"You're working for one?" the <<person1>><<person>> asks you. <span class="green"><<He>> smiles,</span> a new light in <<his>> eyes. "That's so cool."
+		<br><br>
+	<</if>>
+	The <<person>> has all sorts of questions, but the <<person2>><<person>> convinces <<person1>><<him>> that you're working, and drags <<person1>><<him>> away.
+	<br><br>
+
+	<<endevent>>
+	<<photo_high_options>>
+
+<<else>>
+	The <<person1>><<person>> and <<person2>><<person>> share a look, <span class="red">then burst into laughter.</span>
+	<br><br>
+	"You look stupid," the <<person1>><<person>> says. "Go away. We don't want to be seen with you.<<lcool>><<gtrauma>><<gstress>><<status -1>><<trauma 6>><<stress 6>>
+	<br><br>
+	<<if $submissive lte 500>>
+		<<link [[Scare them|Photo High School Popular Scare]]>><<photo_attention 1>><<photo_interest 1>><<stress -6>><</link>><<defianttext>><<gattention>><<ginterest>><<lstress>>
+		<br>
+		<<link [[Just walk away|Photo High School Popular Walk]]>><</link>>
+		<br>
+	<<else>>
+		<<endevent>>
+		<<photo_high_options>>
+	<</if>>
+<</if>>
+
+
+:: Photo High School Popular Scare
+<<effects>>
+
+You release a guttural howl, and charge the <<person1>><<person>> and <<person2>><<person>>. The suddenness and release fury startle them. With a scream, they almost trip over each other as they escape.
+<br><br>
+
+Several onlookers find this amusing.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+:: Photo High School Popular Walk
+<<effects>>
+
+You walk away. They're not worth it.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+:: Photo High School Friendly Hello
+<<effects>>
+
+You approach the pair.
+<<if $speech_attitude is "meek">>
+	"Hello," you say. "I hope you find my costume amusing."
+<<elseif $speech_attitude is "bratty">>
+	"Hey," you say. "What do you think of my costume?"
+<<else>>
+	"Hello," you say. "Like my costume?"
+<</if>>
+<br><br>
+
+"I didn't recognise you," the <<person1>><<person>> says with a smile. They both look up and down your costume. "That looks amazing. Where did you get it?"
+<br>
+"I think <<pshe>>'s working," the <<person2>><<person>> says, gesturing at the flyers.
+<<wearProp "flyers">>
+<br>
+"We'll take a couple."
+<br><br>
+
+You give them a couple of flyers before they leave.
+<br><br>
+<<set $photo_flyers += 2>>
+<<endevent>>
+<<photo_high_options>>
+
+:: Photo High School Nerdy Hello
+<<effects>>
+
+You approach the pair.
+<<if $speech_attitude is "meek">>
+	"Hello," you say. "I hope you find my costume amusing."
+<<elseif $speech_attitude is "bratty">>
+	"Hey," you say. "What do you think of my costume?"
+<<else>>
+	"Hello," you say. "Like my costume?"
+<</if>>
+<br><br>
+
+The <<person1>><<person>> and <<person2>><<person>> jump with excitement. "You're Godazaur," the <<person1>><<person>> says. "From Defenders of Lunaverse!"
+<br>
+"I want a costume like that," the <<person2>><<person>> says. "I already have three figurines."
+<br>
+"No, you have figurines of Gadazaur, not Godazaur."
+<br>
+"They're the same."
+<br><br>
+They argue about character minutiae. You hand them two flyers.
+<<wearProp "flyers">>
+<br><br>
+<<set $photo_flyers += 2>>
+<<endevent>>
+<<photo_high_options>>
+
+:: Photo High Growl
+<<effects>>
+
+You growl back at the <<person>>, and <<he>> laughs. You hand <<him>> a flyer, and others to a few bystanders.
+<<wearProp "flyers">>
+<br><br>
+<<set $photo_flyers += 4>>
+<<endevent>>
+<<photo_high_options>>
+
+
+:: Photo High Exhibitionism
+<<effects>>
+
+You are hiding on the High Street, making your way back to the games shop. <<covered>>
+<br><br>
+<<if $photo_location is 7>>
+	There's little cover here. You hide in one of the adjoining alleys.
+<<elseif $photo_location is 6>>
+	You hide under a low bench at the edge of the square, waiting for a break in the passing footsteps.
+<<elseif $photo_location is 5>>
+	You hide behind the bus stop.
+<<elseif $photo_location is 4>>
+	You hide in an alley. The crowds are thick here, but the games shop is close.
+<<elseif $photo_location is 3>>
+	You hide among a collection of parked lorries, avoiding the crowds of shoppers.
+<<elseif $photo_location is 2>>
+	You hide behind a hedge at the edge of the park.
+<<elseif $photo_location is 1>>
+	You hide within a small copse of trees at the side of the road.
+<</if>>
+<br><br>
+
+
+<<set $skulduggerydifficulty to 800>>
+<<link [[Sneak quickly towards the shop (0:01)|Photo High Exhibitionism Sneak]]>><<set $skulduggerydifficulty to 800>><<photo_pass 1>><</link>><<skulduggerydifficulty>>
+<br>
+<<set $skulduggerydifficulty to 300>>
+<<link [[Sneak towards the shop (0:05)|Photo High Exhibitionism Sneak]]>><<set $skulduggerydifficulty to 300>><<photo_pass 5>><</link>><<skulduggerydifficulty>>
+<br>
+
+<<if $exposed gte 2 and hasSexStat("exhibitionism", 5)>>
+	<<link [[Cover your body and run back to the shop|Photo High Exhibitionism Run Body]]>><<set $phase to 2>><</link>><<exhibitionist5>>
+	<br>
+	<<link [[Cover your face and run back to the shop|Photo High Exhibitionism Run Face]]>><<set $phase to 2>><</link>><<exhibitionist5>>
+	<br>
+<<elseif $exposed is 1 and hasSexStat("exhibitionism", 3)>>
+	<<link [[Cover your body and run back to the shop|Photo High Exhibitionism Run Body]]>><<set $phase to 1>><</link>><<exhibitionist3>>
+	<br>
+	<<link [[Cover your face and run back to the shop|Photo High Exhibitionism Run Face]]>><<set $phase to 1>><</link>><<exhibitionist3>>
+	<br>
+<</if>>
+
+:: Photo High Exhibitionism Sneak
+<<effects>>
+
+<<switch $photo_location>>
+	<<case 6>>
+		A slow-moving lorry drives by, bearing the logo of a fishing company on its side. It hugs the wall, leaving enough space for you to sidle along with it, and stay out of prying eyes.
+	<<case 5>>
+		You crawl beneath the low benches along the side of the square.
+	<<case 4>>
+		You sneak through the alleys, peeking around each corner before exposing yourself to new angles.
+	<<case 3>>
+		Parked cars are packed together here. You crawl beneath them, waiting for any pedestrians to pass before darting from one vehicle to the next.
+	<<case 2>>
+		A small, green lane runs by the street. You hurry along it. It would be pleasant, if not for the circumstances, and the fear of someone else appearing behind or ahead.
+	<<default>>
+		You traverse the thin alleys adjacent to the street, avoiding the hustle and bustle.
+<</switch>>
+<br><br>
+
+<<skulduggerycheck>>
+<<if $skulduggerysuccess is 1>>
+	<<switch $photo_location>>
+		<<case 6>>
+			The lorry pulls away from the road. You crawl beneath a bench before anyone sees you.
+		<<case 5>>
+			You reach the other side of the square, and dive down an alley without missing a beat.
+		<<case 4>>
+			You arrive at the games shop, near the back entrance.
+		<<case 3>>
+			The row of parked cars ends next to an alley, leading behind several shops. You wait for an opportune moment before emerging, and rush out of view before being seen.
+		<<case 2>>
+			You reach the end of the lane, and dive beneath a parked car before anyone on the High Street glances your way.
+		<<default>>
+			You hide behind a dumpster, waiting for a crowd of shoppers to pass.
+	<</switch>>
+	<br><br>
+
+	<<skulduggeryuse>>
+	<<if $photo_location is 4>>
+		<<link [[Next|Photo High Exhibitionism Run Shop]]>><</link>>
+		<br>
+	<<else>>
+		<<if $photo_location gte 5>>
+			<<set $photo_location -= 1>>
+		<<else>>
+			<<set $photo_location += 1>>
+		<</if>>
+		<<link [[Next|Photo High Exhibitionism]]>><</link>>
+		<br>
+	<</if>>
+
+<<else>>
+	<<photo_high_check_location>>
+	<<if $photo_attention[_photo_location] gte 10>>
+		<<photo_high_gang_load>>
+		A <<person>> lurches up from nowhere, blocking your path. A tattoo on <<his>> face marks <<him>> as a member of a local gang. A <<person2>><<person>> appears to your side, and you sense another presence behind you, penning you in.
+		<br><br>
+		The <<person>> shoves you towards an alley, into the arms of a <<person4>><<person>>.<<gtrauma>><<gstress>><<trauma 6>><<stress 6>>
+		<br><br>
+		<<skulduggeryuse>>
+
+		<<link [[Scream|Photo High Exhibitionism Abduction Scream]]>><</link>>
+		<br>
+		<<link [[Fight|Photo High Exhibitionism Abduction Fight]]>><<set $fightstart to 1>><</link>>
+		<br>
+		<<link [[Go quietly|Photo High Exhibitionism Abduction]]>><</link>>
+		<br>
+	<<else>>
+		<<switch $photo_location>>
+			<<case 6>>
+				The lorry accelerates, and pulls away from the road, <span class="red">leaving you exposed in the middle of the street.</span>
+				<br><br>
+
+				You crawl beneath a bench before you attract too much attention, but you can feel eyes on you.<<gggattention>><<gtrauma>><<gstress>><<photo_attention 3>><<trauma 6>><<stress 6>>
+				<br><br>
+			<<case 5>>
+				<<beastNEWinit 1 dog>>
+				A <<beasttype>> sticks its head beneath the bench, <span class="red">and barks at you.</span>
+				<br><br>
+
+				<<endevent>><<generate1>><<person1>>
+				"What you got there?" a <<personsimple>> says. <<He>> crouches to investigate. You crawl away, but you can hear <<his>> laughter, and the click of <<his>> camera, as you make your escape.
+				<br><br>
+
+				<<fameexhibitionism 5 "pic">><<gggattention>><<gtrauma>><<gstress>><<photo_attention 3>><<trauma 6>><<stress 6>>
+				<br><br>
+			<<case 4>>
+				A group of shoppers appears up ahead, chatting and carrying bags full of merchandise. You duck for cover, but hear voices behind you as well. <span class="red">You're trapped.</span>
+				<br><br>
+				With no other way out, you haul yourself up and over a wall, landing in another empty. It's empty, but you must have given those behind you quite the view of your <<bottom>>.<<gggattention>><<gtrauma>><<gstress>><<photo_attention 3>><<trauma 6>><<stress 6>>
+				<br><br>
+			<<case 3>>
+				<span class="red">The car above you stirs into life!</span> You lay flat, letting it drive over and away from you, leaving you exposed in the middle of the street.
+				<br><br>
+
+				You jump to your feet and dash down a nearby alley, leaving bewildered pedestrians behind you.
+				<<gggattention>><<gpain>><<gtrauma>><<gstress>><<photo_attention 3>><<pain 4>><<trauma 6>><<stress 6>>
+				<br><br>
+			<<case 2>>
+				You hear voices behind you. <span class="red">A group of <<people>> enter the lane,</span> and stop in awe when they see you.
+				<br><br>
+				You rush ahead, scratching yourself on thorns in your haste to escape. You emerge from the lane, and dive beneath a parked car.<<gggattention>><<gtrauma>><<gstress>><<photo_attention 3>><<trauma 6>><<stress 6>>
+				<br><br>
+			<<default>>
+				<<generate1>><<person1>>
+				A <<person>> whips <<his>> head around, <span class="red">and looks right at you.</span> <<He>> acts fast, and fumbles for <<his>> phone before telling <<his>> companions.
+				<br><br>
+				You seize the opportunity and run, escaping around a corner before too much damage is done.
+				<<gggattention>><<gtrauma>><<gstress>><<photo_attention 3>><<trauma 6>><<stress 6>>
+				<br><br>
+		<</switch>>
+		<<skulduggeryuse>>
+		<<if $photo_location is 4>>
+			<<link [[Next|Photo High Exhibitionism Run Shop]]>><<endevent>><</link>>
+			<br>
+		<<else>>
+			<<if $photo_location gte 5>>
+				<<set $photo_location -= 1>>
+			<<else>>
+				<<set $photo_location += 1>>
+			<</if>>
+			<<link [[Next|Photo High Exhibitionism]]>><<endevent>><</link>>
+			<br>
+		<</if>>
+	<</if>>
+<</if>>
+
+
+:: Photo High Exhibitionism Run Body
+<<effects>>
+
+You cover your body as best you can, and run out onto the street. Heads turn your way as soon as you're out in the open.
+<<if $phase is 2>>
+	<<exhibitionism2>>
+<<elseif $phase is 1>>
+	<<exhibitionism1>>
+<</if>>
+
+<<if $fame.model gte random(400, 1000)>>
+	<<set $photo_high_caught to 1>>
+	<<if random(1, 2) is 2>>
+		"Hey," shouts a voice. "I know <<phim>>. It's <<overworld_nickname>>."
+	<<else>>
+		"Isn't that <<overworld_nickname>>?"
+	<</if>>
+	<br>
+	<<if random(1, 2) is 2>>
+		"You can tell <<pshe>>'s a slut from the photos."
+	<<else>>
+		"Always suspected <<pshe>> was a slut."
+	<</if>>
+	<br>
+	<<if random(1, 2) is 2>>
+		"Is this a publicity stunt?"
+	<<else>>
+		"Is <<pshe>> doing this for attention?"
+	<</if>>
+	<br><br>
+
+	<<gtrauma>><<ggstress>><<trauma 6>><<stress 12>><<fameexhibitionism 10 "pic">>
+	<br><br>
+
+	<<link [[Next|Photo High Exhibitionism Run Shop]]>><</link>>
+	<br>
+<<elseif random(1, 3) is 3>>
+	<<photo_high_gang_load>>
+	A <<person>> lurches up from nowhere, blocking your path. A tattoo on <<his>> face marks <<him>> as a member of a local gang. A <<person2>><<person>> appears to your side, and you sense another presence behind you, penning you in.
+	<br><br>
+	The <<person>> shoves you towards an alley, into the arms of a <<person4>><<person>>.<<gtrauma>><<gstress>><<trauma 6>><<stress 6>>
+	<br><br>
+	<<link [[Scream|Photo High Exhibitionism Abduction Scream]]>><</link>>
+	<br>
+	<<link [[Fight|Photo High Exhibitionism Abduction Fight]]>><<set $fightstart to 1>><</link>>
+	<br>
+	<<link [[Go quietly|Photo High Exhibitionism Abduction]]>><</link>>
+	<br>
+	<br><br>
+<<else>>
+	You keep moving, not giving anyone time to reach for their phone, or anything more aggressive.
+	<br><br>
+	<<link [[Next|Photo High Exhibitionism Run Shop]]>><</link>>
+	<br>
+<</if>>
+
+:: Photo High Exhibitionism Run Face
+<<effects>>
+
+You cover your face with your hands, keeping your fingers open in front of your eyes, and run out into the open. Heads turn your way. More follow, drawn by the commotion.
+<<if $phase is 2>>
+	<<exhibitionism5>>
+<<elseif $phase is 1>>
+	<<exhibitionism3>>
+<</if>>
+
+<<if random(1, 3) is 3>>
+	<<photo_high_gang_load>>
+	A <<person>> lurches up from nowhere, blocking your path. A tattoo on <<his>> face marks <<him>> as a member of a local gang. A <<person2>><<person>> appears to your side, and you sense another presence behind you, penning you in.
+	<br><br>
+	The <<person>> shoves you towards an alley, into the arms of a <<person4>><<person>>.<<gtrauma>><<gstress>><<trauma 6>><<stress 6>>
+	<br><br>
+	<<link [[Scream|Photo High Exhibitionism Abduction Scream]]>><</link>>
+	<br>
+	<<link [[Fight|Photo High Exhibitionism Abduction Fight]]>><<set $fightstart to 1>><</link>>
+	<br>
+	<<link [[Go quietly|Photo High Exhibitionism Abduction]]>><</link>>
+	<br>
+<<else>>
+	You keep moving, not giving anyone time to reach for their phone, or anything more aggressive.
+	<br><br>
+	<<link [[Next|Photo High Exhibitionism Run Shop]]>><</link>>
+	<br>
+<</if>>
+
+
+:: Photo High Exhibitionism Run Shop
+<<effects>>
+<<if $phase is 1>>
+	You sneak around the games shop, to an unguarded back door. It leads into the shop proper, but you're able to sneak between the shelves, and find the back room with your clothes.<<lstress>><<stress -6>>
+	<br><br>
+<<else>>
+	<<generate1>><<person1>>
+	You arrive back at the games shop, and tear through the doors. You startle a <<person>>, making <<him>> drop a box of merchandise.
+	<<endevent>>
+	<br><br>
+<</if>>
+<<npc Niki>><<person1>>
+You enter the safety of the backroom, and stop to catch your breath. You hear a knock a few moments later.
+<br><br>
+
+"It's me," says Niki's voice. "You okay? I saw you rushing down the street."
+<br><br>
+
+<<link [[Say you're fine|Photo High Exhibitionism Run Shop Fine]]>><<npcincr Niki love 1>><</link>><<glove>>
+<br>
+<<link [[Say you need five minutes (0:05)|Photo High Exhibitionism Run Shop Break]]>><<photo_pass 5>>
+	<<if $photo_heat gte 60>>
+		<<photo_heat -12>>
+	<<elseif $photo_heat gte 30>>
+		<<photo_heat -8>>
+	<<else>>
+		<<photo_heat -4>>
+	<</if>>
+<</link>>
+<<if $photo_heat gte 60>>
+	<<lllheat -12>>
+<<elseif $photo_heat gte 30>>
+	<<llheat -8>>
+<<else>>
+	<<lheat -4>>
+<</if>>
+<br>
+<<link [[Say you want to stop for the day|Photo High Exhibitionism Run Shop Stop]]>><</link>>
+<br>
+
+:: Photo High Exhibitionism Run Shop Fine
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I'm okay," you say. "I don't want to obstruct your work. We can continue."
+<<elseif $speech_attitude is "bratty">>
+	"I'm fine," you say. "Let's roll with the punches, and keep going."
+<<else>>
+	"I'm okay," you say. "I can continue."
+<</if>>
+<br><br>
+
+<<if $photo_timer lte 0>>
+	"We're actually done for the day," Niki says. "But I appreciate the attitude. I'll leave you to get dressed, then we can discuss money."
+	<br><br>
+	<<endevent>>
+	<<link [[Next|Photo High End]]>><<set $phase to 1>><</link>>
+	<br>
+<<else>>
+	Niki opens the door a little, and pushes the kaiju costume through the gap. <<He>> closes the door for you to dress.
+	<br><br>
+
+	You put on the costume, and leave the shop.
+	<br><br>
+
+
+	<<link [[Next|Photo High Walk]]>><<endevent>><<overupperwear 4>><<wearProp "flyers">><<set $photo_location to 4>><</link>>
+<</if>>
+
+:: Photo High Exhibitionism Run Shop Break
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I'm sorry," you say. "Can I have five minutes to recover?"
+<<elseif $speech_attitude is "bratty">>
+	"Give me five," you say.
+<<else>>
+	"Can I have five minutes to recover?" you ask.
+<</if>>
+<br><br>
+
+"Sure." Niki's footsteps are light. <<tearful>> you take a seat.
+
+<<if $photo_timer lte 0>>
+	Several minutes pass, then Niki's voice appears at the door again.
+	<br><br>
+
+	"We're done for the day actually," <<he>> says. "I'll wait for you outside."
+	<br><br>
+
+	<<endevent>>
+	<<link [[Next|Photo High End]]>><<set $phase to 1>><</link>>
+	<br>
+<<else>>
+	Several minutes pass, then Niki's voice appears at the door again.
+	<br><br>
+	"It's me," <<he>> says, opening the door a little, and pushing the kaiju costume through. "Ready when you are."
+	<br><br>
+	
+	<<He>> closes the door. You put on the costume, and leave the shop.
+	<br><br>
+
+	<<link [[Next|Photo High Walk]]>><<endevent>><<overupperwear 4>><<wearProp "flyers">><<set $photo_location to 4>><</link>>
+<</if>>
+
+:: Photo High Exhibitionism Run Shop Stop
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I'm sorry," you say. "But I can't go back out there. Not today."
+<<elseif $speech_attitude is "bratty">>
+	"I'm done for the day," you say. "People out there are crazy."
+<<else>>
+	"I'd like to stop for today," you say.
+<</if>>
+<br><br>
+
+<<if $photo_timer lte 0>>
+	"We're just about done for the day anyway," Niki says. "I'll wait for you outside."
+	<br><br>
+<<else>>
+	"I understand," Niki says. "I'll wait for you outside."
+	<br><br>
+<</if>>
+
+<<endevent>>
+<<link [[Next|Photo High End]]>><<set $phase to 1>><</link>>
+<br>
+
+
+:: Photo High Exhibitionism Abduction Scream
+<<effects>>
+
+You scream. The <<person4>><<person>> covers your mouth with <<his>> hand. A few people on the street look over, but the <<person1>><<person>> stands guard, and cows them with a look.
+<br><br>
+
+<<link [[Fight|Photo High Exhibitionism Abduction Fight]]>><<set $fightstart to 1>><</link>>
+<br>
+<<link [[Go quietly|Photo High Exhibitionism Abduction]]>><</link>>
+<br>
+
+
+:: Photo High Exhibitionism Abduction Fight
+<<if $fightstart is 1>>
+	<<set $fightstart to 0>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust -= 100>>
+	<<set $enemyanger += 200>>
+	<<npcidlegenitals>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend or ($pain gte 100 and $willpowerpain is 0)>>
+	<span id="next"><<link [[Next|Photo High Exhibitionism Abduction Fight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Photo High Exhibitionism Abduction Fight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Photo High Exhibitionism Abduction Fight Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	The gang's strength falters, and you tear yourself free. <<tearful>> you escape onto the street.
+	<br><br>
+	You continue running down the road, past bewildered crowds, until you make it back to the games shop.
+	<br><br>
+	<<endcombat>>
+	<<link [[Next|Photo High Exhibitionism Run Shop]]>><<clotheson>><<photo_high_gang_clear>><</link>>
+<<elseif $enemyhealth lte 0>>
+	"Fuck," the <<person1>><<person>> says, nursing an injury. "Someone grab <<phim>>!" No one does. <<tearful>> you escape onto the street.
+	<br><br>
+	You continue running down the road, past bewildered crowds, until you make it back to the games shop.
+	<br><br>
+	<<endcombat>>
+	<<link [[Next|Photo High Exhibitionism Run Shop]]>><<clotheson>><<photo_high_gang_clear>><</link>>
+<<else>>
+	You fall, too hurt to continue fighting. The <<person1>><<person>> grasps you, and drags you deeper into the alley.
+	<br><br>
+	<<tearful>> you recover.
+	<br><br>
+	<<endcombat>>
+	<<link [[Next|Photo High Exhibitionism Abduction]]>><<clotheson>><<photo_high_gang_load>><</link>>
+<</if>>
+
+
+:: Photo High Exhibitionism Abduction
+<<set $outside to 0>><<effects>>
+<<set $photo_abduction_timer to 5>>
+<<set $photo_high_abduction_options to []>>
+The gang drag you down the alley, kick open a metal door, and shove you inside.
+<br><br>
+
+Your eyes adjust to the dim interior. There's a mattress on the floor, with a tripod camera pointed at it.
+<br><br>
+
+"Here's what's going to happen," the <<person1>><<person>> says, shutting the door behind <<him>>. "You're going to give us a little performance. Play along, and we won't have to hurt you. So what will it be?"
+<br><br>
+
+<span class="lblue">Niki must be looking for you.</span> Perhaps bringing the cavalry. You need to buy time.
+<br><br>
+
+<<photo_high_abduction_options>>
+
+
+:: Photo High Exhibitionism Abduction Camera
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I hope this doesn't sound rude," you say. "But I don't think you've set up your camera properly."
+<<elseif $speech_attitude is "bratty">>
+	"You're not filming anything with the camera set up like that," you say.
+<<else>>
+	"Your camera isn't working," you say. "The settings must be wrong."
+<</if>>
+
+<<if currentSkillValue('science') gte random(1, 1000)>>
+	<<set $photo_abduction_timer -= 1>><<photo_pass 1>>
+	You give a brief, technical description of the camera. <span class="green">It's clear no one in the gang can follow.</span>
+	<br><br>
+	The <<person1>><<person>> frowns at the camera, then taps on it.
+	<br>
+	"You said you had everything ready."
+	<br>
+	"Fuck off. I'll just be a moment."
+	<br><br>
+	The light on the camera flickers. "That should do it. I think."
+	<br><br>
+
+	<<photo_high_abduction_options>>
+<<else>>
+	<br><br>
+	<span class="red">"The camera's fine,"</span> the <<person1>><<person>> says. "I made sure it was ready so we wouldn't waste time."
+	<br><br>
+
+	<<photo_high_abduction_options>>
+<</if>>
+
+:: Photo High Exhibitionism Abduction Mask
+<<effects>>
+
+<<if $englishSuccess>>
+	<<set $photo_abduction_timer -= 1>><<photo_pass 1>>
+	<<if $speech_attitude is "meek">>
+		"Please give me a mask to wear," you say. "I don't want to be seen doing this."
+	<<elseif $speech_attitude is "bratty">>
+		"Give me a mask then," you say. "Or do you want to make it easier for the police to find you?"
+	<<else>>
+		"Can I have a mask?" you ask. "I don't want to be seen doing this."
+	<</if>>
+	<br><br>
+
+	"I don't want to be seen either," the <<person2>><<person>> says. "Grab us one too."
+	<br><br>
+
+	<<photo_pass 1>>
+	<<facewear 40>>
+	The <<person3>><<person>> departs, and returns a minute later with five bandanas. <span class="green"><<He>> throws one your way.</span>
+	<br><br>
+
+<<else>>
+	<<if $speech_attitude is "meek">>
+		"Please give me a mask," you say. "I'm too embarrassed otherwise."
+	<<elseif $speech_attitude is "bratty">>
+		"Give me a mask then," you say. "More my style."
+	<<else>>
+		"Can I have a mask?" you ask. "This is too embarrassing for me otherwise."
+	<</if>>
+	<br><br>
+	<span class="red">"Nah. I want you to smile for the camera."</span>
+	<br><br>
+
+<</if>>
+
+<<photo_high_abduction_options>>
+
+
+:: Photo High Exhibitionism Abduction Tell
+<<effects>>
+
+<<if $englishSuccess>>
+	<<if $speech_attitude is "meek">>
+		"My friend saw you take me," you say. "They'll be here soon."
+	<<elseif $speech_attitude is "bratty">>
+		"My people saw you take me," you say. "Better run while you can."
+	<<else>>
+		"I wasn't alone outside," you say. "People will be looking for me."
+	<</if>>
+	<<set $photo_abduction_timer -= 1>><<photo_pass 1>>
+	<br><br>
+	The gang share an uneasy look. "Check the door," the <<person1>><<person>> says. "Make sure it's locked."
+	<br><br>
+	The <<person2>><<person>> and <<person3>><<person>> spend a minute fiddling with the door.
+	<br><br>
+<<else>>
+	<<if $speech_attitude is "meek">>
+		"Lots of people saw you take me off the street," you say. "I hope people aren't too harsh with you when you're caught."
+	<<elseif $speech_attitude is "bratty">>
+		"You were probably caught on camera dragging me off the street," you say. "What do you idiots intend to do when they find you?"
+	<<else>>
+		"A lot of people saw you take me off the street," you say. "I was quite conspicuous."
+	<</if>>
+	<br><br>
+	<span class="red">"No one gives a shit about you,"</span> the <<person1>><<person>> says. "Now get on the mattress."
+	<br><br>
+<</if>>
+
+<<photo_high_abduction_options>>
+
+:: Photo High Exhibitionism Abduction Flirt
+<<effects>>
+
+<<set $seductiondifficulty to 8000>>
+<<seductioncheck>>
+<<seductionskilluptext>>
+<<seductionskilluse>>
+
+<<if $speech_attitude is "meek">>
+	"You could make me do whatever you like," you say. "What is it you want me to do?"
+<<elseif $speech_attitude is "bratty">>
+	"Maybe one of you should lie on the mattress," you say. "I'll get on top."
+<<else>>
+	"I'm too shy to get in front of a camera alone," you say. "Can one of you join me?"
+<</if>>
+<br><br>
+
+<<if $seductionrating gte $seductionrequired>>
+	<<set $photo_abduction_timer -= 1>><<photo_pass 1>>
+	You make eye contact with the <<person3>><<person>> as you speak. <<He>> steps forward, and opens <<his>> mouth, but the <<person4>><<person>> interrupts <<person3>><<him>>.
+	<br><br>
+	"Don't you start," <<he>> says. "We've already agreed on how this will go."
+	<br><br>
+	<span class="green">They argue for a minute,</span> before the <<person1>><<person>> silences them both.
+	<br><br>
+<<else>>
+	"We've already agreed on how this will go," the <<person3>><<person>> says. <span class="red">"Just shut up and do as you're told."</span>
+	<br><br>
+<</if>>
+
+<<photo_high_abduction_options>>
+
+:: Photo High Exhibitionism Abduction Hair
+<<effects>>
+<<set $photo_abduction_timer -= 1>><<photo_pass 1>>
+<<if $speech_attitude is "meek">>
+	"I'd be too embarrassed to appear on camera with my hair like this," you say. "Can I have a moment to fix it?"
+<<elseif $speech_attitude is "bratty">>
+	"You want me to appear on camera like this?" you say. "My hair's a mess. I need a mirror and a comb at once."
+<<else>>
+	"My hair's a mess," you say. "Give me a moment to fix it."
+<</if>>
+<br><br>
+
+"Alright," the <<person1>><<person>> says. "You're about to become a real star, after all. Fetch <<phim>> a mirror."
+<br><br>
+The mirror turns out to be a dinner plate-sized shard of glass. You hold it with care as you do superficial things to your hair.
+<br><br>
+"That's enough," the <<person>> says after a minute. "We don't have all day, princess."
+<br><br>
+
+<<photo_high_abduction_options>>
+
+
+:: Photo High Exhibitionism Abduction 2
+<<effects>>
+
+The <<person2>><<person>> grabs you by the waist, and throws you down onto the mattress. Meanwhile, the <<person1>><<person>> fiddles with the camera. A baleful light flares into life.
+<br><br>
+
+"Go on," the <<person>> says. "Introduce yourself."
+<br><br>
+
+<<if $photo_abduction_timer lte 0>>
+	You hear a thud outside the door. The gang hears it too. They each cast a wary look its way.
+	<br><br>
+
+	<<link [[Next|Photo High Exhibitionism Abduction Rescue]]>><</link>>
+	<br>
+<<else>>
+	<<link [[Next|Photo High Exhibitionism Abduction Masturbation]]>><<endevent>><<set $masturbationstart to 1>><</link>>
+	<br>
+<</if>>
+
+
+:: Photo High Exhibitionism Abduction Masturbation
+<<effects>>
+<<if $masturbationstart is 1>>
+	<<set $masturbationstart to 0>>
+	<<set $masturbationstat += 1>>
+	<<masturbationstart>>
+	<<set $timer to 15>>
+	<<fameexhibitionism 10>>
+<</if>>
+The gang watches you from behind the camera.
+<br><br>
+<<masturbationeffects>>
+<<masturbationactions>>
+<<masturbationControls "timer">>
+
+:: Photo High Exhibitionism Abduction Masturbation Finish
+<<effects>>
+<<set $photo_abduction_timer -= 1>>
+
+<<endmasturbation>>
+<<endcombat>>
+<<photo_high_gang_load>>
+
+"I'm done waiting," the <<person1>><<person>> says. <<He>> steps out from behind the camera, and the others follow. <<tearful>> you brace yourself.
+<br><br>
+
+<<if $photo_abduction_timer lte 0>>
+	<<link [[Next|Photo High Exhibitionism Abduction Rescue]]>><<clotheson>><</link>>
+	<br>
+<<else>>
+	<<link [[Next|Photo High Exhibitionism Abduction Rape]]>><<set $molestationstart to 1>><</link>>
+	<br>
+<</if>>
+
+:: Photo High Exhibitionism Abduction Rescue
+<<effects>>
+<<generate5>><<generate6>><<person5>>
+The metal door swings open, and a <<person>> enters, foot first. <<Hes>> wearing a police uniform. There are others behind <<him>>.
+<br><br>
+
+The <<person1>><<person>> runs for the other exit, shoving the <<person2>><<person>> to the ground as <<person1>><<he>> makes <<his>> escape. The <<person3>><<person>> and <<person4>><<person>> put their hands in the air, and stand back against the wall.
+<br><br>
+<<towelup>>
+<<link [[Next|Photo High Exhibitionism Abduction Rescue 2]]>><</link>>
+<br>
+
+:: Photo High Exhibitionism Abduction Rescue 2
+<<set $outside to 1>><<effects>>
+
+<<endevent>>
+<<photo_high_gang_clear>>
+<<npc Niki>><<person1>>
+
+Niki enters. <<He>> wraps a towel around you, exchanges a few words with one of the officers, and guides you outside. The kaiju costume leans against a wall.
+<br><br>
+
+<<if $photo_timer lte 0>>
+	"I brought the cavalry as fast as I could," Niki says. <<He>> taps <<his>> watch. "We're done for the day. You should wear the costume back to the shop. Will be safer."
+	<br><br>
+	<<link [[Next|Photo High Exhibitionism Abduction Stop]]>><</link>>
+	<br>
+<<else>>
+	"I brought the cavalry as fast as I could," Niki says, looking around with a frown. "We can continue the job if you like, but I understand if you want to stop."
+	<br><br>
+	<<link [[Continue|Photo High Exhibitionism Abduction Continue]]>><<npcincr Niki love 1>><</link>><<glove Niki>>
+	<br>
+	<<link [[Stop|Photo High Exhibitionism Abduction Stop]]>><</link>>
+	<br>
+<</if>>
+
+
+:: Photo High Exhibitionism Abduction Continue
+<<effects>>
+
+Niki nods. "A friend of mine rents a room near here. They won't be in, and they won't mind us using it. You can change in there."
+<br><br>
+
+<<He>> leads you through the alleys, and down a thin flight of steps. <<He>> unlocks the door, and hands you the costume as you enter.
+<br><br>
+
+It's a small room, piled high with cardboard boxes. You put on the costume, and return to the High Street proper.
+<br><br>
+
+
+<<link [[Next|Photo High Walk]]>><<endevent>><<overupperwear 4>><<wearProp "flyers">><</link>>
+
+:: Photo High Exhibitionism Abduction Stop
+<<effects>>
+
+"You should wear the costume back to the shop," Niki says. "You'll attract a more benign sort of attention. A friend of mine rents a room near here. They won't be in, and they won't mind us using it. You can change in there."
+<br><br>
+
+<<He>> leads you through the alleys, and down a thin flight of steps. <<He>> unlocks the door, and hands you the costume as you enter.
+<br><br>
+
+It's a small room, piled high with cardboard boxes. You put on the costume, and return to the High Street proper.
+<br><br>
+
+<<endevent>>
+<<link [[Next|Photo High End]]>><<overupperwear 4>><</link>>
+<br>
+
+:: Photo High Exhibitionism Abduction Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+	<<set $timer to $photo_abduction_timer * 10>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Photo High Exhibitionism Abduction Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Photo High Exhibitionism Abduction Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Photo High Exhibitionism Abduction Rape Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	<<famerape 15>>
+	"You get all that?" the <<person1>><<person>> asks no one in particular.
+	<br>
+	"I thought you were gonna stay behind the camera."
+	<br>
+	"Fuck. I'm sure it's fine."
+	<br><br>
+	<<tearful>> you brace yourself for more abuse.
+	<br><br>
+<<elseif $enemyhealth lte 0>>
+	You shove the <<person1>><<person>> away from you. <<He>> collides with the camera. It falls, and smashes against the ground.
+	<br><br>
+	"You clumsy fuck."
+	<br>
+	"It was the <<girl>>'s fault."
+	<br><br>
+	They advance on you once more, rage contorting their features. <<tearful>> you prepare to defend yourself.
+	<br><br>
+<<else>>
+	You hear a thud right outside the entrance. The gang hears it too. Each freezes in places, and casts a wary look its way.
+	<br><br>
+<</if>>
+
+<<endcombat>>
+<<photo_high_gang_load>>
+<<link [[Next|Photo High Exhibitionism Abduction Rescue]]>><<clotheson>><</link>>
+<br>
+
+:: Photo High Shopping Flyers
+<<effects>>
+
+<<if $danceSuccess>>
+	<span class="green">You remain balanced</span> as you stand sideways against the oncoming crowd, hold the flyers away from your body, and slide the topmost with your thumb.
+	<br><br>
+	Many people in the crowd grab a flyer as they pass. The stack is much smaller when you're done.<<ginterest>><<photo_interest 1>>
+	<<wearProp "flyers">>
+	<<set $photo_flyers += 12>>
+	<br><br>
+<<else>>
+	You stand sideways against the oncoming crowd, and try to hold the flyers away from your body. Someone shoves you as they pass. You teeter in the bulky costume, then fall a moment later.
+	<br><br>
+	Many in the crowd step on you. The costume cushions their feet, but you have to wait for the crowd to pass before you can stand.<<gattention>><<gstress>><<photo_attention 1>><<stress 6>>
+	<br><br>
+<</if>>
+
+<<photo_high_options>>
+
+:: Photo High Photographer
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Please stop interfering," you say. "Or I'll have to make a fuss."
+<<elseif $speech_attitude is "bratty">>
+	"Get that camera out of my face before I break it," you say.
+<<else>>
+	"Are you going to pay for those photos?" you ask.
+<</if>>
+<br><br>
+
+The <<person>> snaps one more cheeky photo, then disappears as quick as <<he>> came.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+:: Photo High Interview One
+<<effects>>
+
+You allow them a brief interview. The <<person1>><<person>> asks quick questions about your lifestyle, and why you're dressed up as a villain from a popular franchise. Satisfied with your responses, they depart with an excited skip in their step.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+:: Photo High Interview Five
+<<effects>>
+
+You lead the pair to a shaded space. The <<person1>><<person>> asks questions about your lifestyle, and why you're dressed up as a villain from a popular franchise. Satisfied with your responses, they depart with an excited skip in their step.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+:: Photo High Danger Niki
+<<effects>>
+
+
+You call Niki's name. The <<people>> surrounding you hesitate.
+<<if random(1, 2) is 2>>
+	<span class="green">Then they take off the way they came.</span>
+	<br><br>
+
+	<<endevent>><<npc Niki>><<person1>>
+	Niki rushes to your side, and helps you to your feet. "I got their faces," <<he>> says. "You alright?"
+	<br><br>
+	<<link [[Nod|Photo High Danger Nod]]>><</link>>
+	<br>
+	<<link [[Remain silent|Photo High Danger Silent]]>><</link>>
+	<br>
+	<<link [[Say you want to stop|Photo High Danger Early]]>><</link>>
+	<br>
+<<else>>
+	<span class="red">Then laugh.</span> "No one's coming for you."<<gstress>><<stress 6>>
+	<br><br>
+
+	<<link [[Next|Photo High Danger Defend]]>><</link>>
+	<br>
+<</if>>
+
+
+
+:: Photo High Danger Defend
+<<effects>>
+
+You try to beat and kick the hands away, but there are too many, and you're in too awkward a position.
+<<overruined>>
+<<if $worn.upper.name is "naked" and $worn.under_upper.name is "naked">>
+	They pull the costume down your body, exposing your <<breasts>>, and continue until they have you naked on the ground.
+	<br><br>
+	They step away from you, and run off before you can stand, taking your costume with them. <<covered>><<gggattention>><<photo_attention 3>><<gtrauma>><<trauma 6>><<gstress>><<stress 6>>
+	<br><br>
+<<elseif $worn.upper.name is "naked">>
+	They pull your costume down your body, exposing your <<print $worn.under_upper.name>>, and continue until they free your legs.
+	<br><br>
+	They step away from you, and run off before you can stand, taking your costume with them. <<covered>><<gattention>><<photo_attention 1>><<gtrauma>><<trauma 6>><<gstress>><<stress 6>>
+	<br><br>
+<<else>>
+	They pull your costume down your body, and continue until they free your legs.
+	<br><br>
+	They step away from you, and run off before you can stand, taking your costume with them.
+	<br><br>
+<</if>>
+
+<<if $worn.lower.type.includes("naked")>>
+	<<link [[Next|Photo High Exhibitionism]]>><<endevent>><<photo_pass 2>><</link>>
+<<else>>
+	<<link [[Next|Photo High Return]]>><<endevent>><<photo_pass 5>><</link>>
+	<br>
+<</if>>
+<br>
+
+:: Photo High Danger Nod
+<<effects>>
+
+You nod. "I'll get back to work," Niki says. "Be careful."
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+
+:: Photo High Danger Silent
+<<effects>>
+
+You remain silent. Niki nods, as if taking it as affirmation. "I'll get back to work. Be careful."
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>
+
+:: Photo High Danger Early
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I'm sorry," you say. "But I can't go back out there. Not today."
+<<elseif $speech_attitude is "bratty">>
+	"I'm done for the day," you say. "People out there are crazy."
+<<else>>
+	"I'd like to stop for today," you say.
+<</if>>
+<br><br>
+
+<<if $photo_timer lte 0>>
+	"We're just about done for the day anyway," Niki says. "I'll wait for you outside."
+	<br><br>
+<<else>>
+	"I understand," Niki says. "I'll wait for you outside."
+	<br><br>
+<</if>>
+
+<<endevent>>
+<<link [[Next|Photo High End]]>><<set $phase to 1>><</link>>
+<br>
+
+:: Photo High Niki
+<<effects>>
+
+<<npc Niki>><<person1>>
+You look around for Niki. It takes a moment.
+
+<<if $photo_location is 1>>
+	You find <<him>> leaning against a tree.
+<<elseif $photo_location is 2>>
+	You find <<him>> sitting on a bench.
+<<elseif $photo_location is 3>>
+	You find <<him>> stood apart from the crowd, watching you through <<his>> camera.
+<<elseif $photo_location is 4>>
+	You notice <<him>> circling you, snapping pictures from different angles.
+<<elseif $photo_location is 5>>
+	You find <<him>> stood in the street, in plain sight.
+<<elseif $photo_location is 6>>
+	You find <<him>> examining the shadow cast by a statue.
+<<else>>
+	You find <<him>> stood further down the hill.
+<</if>>
+You approach.
+<br><br>
+
+"What's up?" <<he>> asks.
+<br><br>
+
+<<link [[Return to work|Photo High Niki Return]]>><</link>>
+<br>
+<<link [[Ask how things are going|Photo High Niki Assess]]>><</link>>
+<br>
+<<link [[Ask how <<he>> remains hidden in plain sight|Photo High Niki Hidden]]>><</link>>
+<br>
+<<link [[Stop early|Photo High Niki Stop]]>><</link>>
+<br>
+
+:: Photo High Niki Assess
+<<effects>>
+
+<<photo_high_money_calc>>
+<<if _photo_money gte 1200>>
+	<span class="green">"You're on everybody's lips,"</span> Niki says, gesturing up and down the street. "We'll make good money."
+<<elseif _photo_money gte 900>>
+	<span class="teal">"You've given many people a memorable experience,"</span> Niki says. "The games shop should be appreciative."
+<<elseif _photo_money gte 600>>
+	<span class="lblue">"You're doing well,"</span> Niki says. "The games shop couldn't reasonably hope for better."
+<<elseif _photo_money gte 300>>
+	<span class="blue">"Not bad,"</span> Niki says. "You're sure to have driven up sales."
+<<elseif _photo_money gte 100>>
+	<span class="purple">"Could be better,"</span> Niki says. "You've got some talking, at least."
+<<elseif _photo_money gte 1>>
+	<span class="pink">"We might have sent one or two to the games shop,"</span> Niki says. "Not enough, yet."
+<<else>>
+	<span class="red">"We've yet to make a splash,"</span> Niki says.
+<</if>>
+<br><br>
+
+<<link [[Return to work|Photo High Niki Return]]>><</link>>
+<br>
+<<link [[Ask how <<he>> remains hidden in plain sight|Photo High Niki Hidden]]>><</link>>
+<br>
+<<link [[Stop early|Photo High Niki Stop]]>><</link>>
+<br>
+
+:: Photo High Niki Hidden
+<<effects>>
+
+Niki smiles. "Trade secret."
+<br><br>
+
+<<link [[Return to work|Photo High Niki Return]]>><</link>>
+<br>
+<<link [[Ask how things are going|Photo High Niki Assess]]>><</link>>
+<br>
+<<link [[Stop early|Photo High Niki Stop]]>><</link>>
+<br>
+
+
+:: Photo High Niki Stop
+<<effects>>
+
+Niki looks at <<his>> watch. "Alright," <<he>> says.
+<br><br>
+
+You walk back to the games shop with Niki. <<He>> slows <<his>> pace so you can keep up in the bulky costume.
+<br><br>
+
+<<link [[Next|Photo High End]]>><<endevent>><<set $phase to 1>><</link>>
+<br>
+
+:: Photo High Niki Return
+<<effects>>
+
+You step away from Niki, and prepare to hand out more flyers.
+<br><br>
+
+<<endevent>>
+<<photo_high_options>>

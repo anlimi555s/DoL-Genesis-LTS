@@ -1,0 +1,1971 @@
+:: Passout Asylum
+
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+You wake up strapped to a chair. The room is bare, except a window covering the length of one side.
+<<if $player.penisExist>>
+	You feel something odd on your penis.
+<<else>>
+	You feel something odd on your pussy.
+<</if>>
+It buzzes to life, teasing your <<genitals>> directly.
+<<garousal>>
+<br><br>
+On the verge of orgasm it ceases, but only for a moment.
+<br><br>
+<<set $arousal to 10000>><<orgasm>>
+<br><br>
+You strain against the binds holding you, but they're firm. You can't stop it.
+<br><br>
+<<set $arousal to 10000>><<orgasm>>
+<br>
+<<set $arousal to 10000>><<orgasm>>
+<br>
+<<set $arousal to 10000>><<orgasm>>
+<br><br>
+The buzzing ceases and the bindings snap loose, leaving you gasping for breath. <<tearful>> you struggle to your feet and make your way through the exit.
+<br><br>
+<<link [[Next|Asylum]]>><</link>>
+<br>
+
+:: Asylum Button Press
+
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+<<if $phase is 0>>
+	<<set $phase to 1>>
+	You press the button. The <<person2>><<person>> squirms. You notice <<his>> arms are bound to the side of the chair. "Thank you," Doctor Harper says.
+	<<if $NPCList[1].penis isnot "none">>
+		"We have a device attached to <<his>> penis.
+	<<else>>
+		"We have a device inserted in <<his>> vagina.
+	<</if>>
+	To aid in <<his>> treatment." You spot wires trailing across the floor and disappearing into the <<persons>> clothes.
+	<br><br>
+	"Press it again," the doctor says.
+	<br><br>
+	<<person1>>
+	<<link [[Press|Asylum Button Press]]>><<suspicion -1>><<awareness -1>><<stress 3>><<arousal 600>><</link>><<lsuspicion>><<lawareness>><<gstress>><<garousal>>
+	<br>
+	<<link [[Refuse|Asylum Button Refuse]]>><<suspicion 1>><<def 1>><</link>><<gsuspicion>>
+	<br>
+<<elseif $phase is 1>>
+	<<set $phase to 2>>
+	<<person2>>
+	You press the button. The <<person>> squirms more this time. <<He>> strains against the bonds. You hear buzzing through the glass. "Very good," the doctor says. "Any moment now."
+	<br><br>
+	Almost on cue, the <<person>> spasms, before slumping back in the chair. The buzzing ceases. "<<He>> will learn to enjoy it," the doctor says. "Press it again."
+	<br><br>
+	<<person1>>
+	<<link [[Press|Asylum Button Press]]>><<suspicion -1>><<awareness -10>><<stress 3>><<arousal 600>><</link>><<lsuspicion>><<llawareness>><<gstress>><<garousal>>
+	<br>
+	<<link [[Refuse|Asylum Button Refuse]]>><<suspicion 1>><<def 1>><</link>><<gsuspicion>>
+	<br>
+<<else>>
+	<<person2>>
+	The <<persons>> eyes widen as the buzzing starts up again. Louder this time. <<He>> shakes <<his>> head and rocks back and forth, as if trying to knock the chair over. It's not long before <<he>> spasms again. And again. Even the counter in front of you vibrates.
+	<br><br>
+	<<person1>>Doctor Harper writes on <<his>> clipboard, a small smile on <<his>> face. "Thank you," <<he>> says. "You've been very helpful." <<person2>>The <<person>> falls limp as Harper finishes speaking, and the buzzing stops.
+	<br><br>
+
+	"That's all for now. Be well," <<he>> says before you exit.
+	<br><br>
+
+	<<asylumRebind>>
+
+	<<link [[Next|Asylum]]>><<asylumClothesOn>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Asylum Button Refuse
+
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+You refuse to press the button. "This is for <<person2>><<his>> benefit,<<person1>> and yours," <<he>> says. "Press the button."
+<br><br>
+
+<<if $phase is 0>>
+	<<link [[Press|Asylum Button Press]]>><</link>>
+	<br>
+<<else>>
+	<<link [[Press|Asylum Button Press]]>><<suspicion -1>><<awareness -1>><<stress 3>><<arousal 600>><</link>><<lsuspicion>><<lawareness>><<gstress>><<garousal>>
+	<br>
+<</if>>
+<<link [[Refuse|Asylum Button Refuse 2]]>><<def 1>><<suspicion 5>><</link>><<ggsuspicion>>
+<br>
+
+:: Asylum Button Refuse 2
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+
+Harper shakes <<his>> head. "I'm disappointed. You can go."
+<br><br>
+
+<<asylumRebind>>
+
+<<link [[Next|Asylum]]>><<asylumClothesOn>><<endevent>><</link>>
+
+:: Asylum Button Long Hair Press
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+
+<<if $phase is 0>>
+	<<set $phase to 1>>
+	You press the button. The long-haired <<person2>><<personsimple>> squirms. Laid on <<his>> back, you notice <<his>> ankles and wrists are bound. <<His>> wrists are somehow tied to the floor on either side of <<his>> face while <<his>> ankles are tied together to a metal post. <<He>> is wearing a two-piece swimsuit.
+	<br><br>
+
+	"That's right," Doctor Harper says. "Thank you. This is good for <<him>>.
+	<<if $NPCList[1].vagina isnot "none">>
+		We have a device placed inside <<his>> vagina, another on <<his>> clitoris, and two more on <<his>> nipples.
+	<<else>>
+		"We have two devices attached to <<his>> penis, and two more on <<his>> nipples.
+	<</if>>
+	These all aid in <<his>> treatment."
+	<br><br>
+
+	You spot wires trailing across the floor and disappearing into <<his>> swimwear.
+	<br><br>
+
+	"Press the button anytime I point at you," the doctor instructs.
+	<br><br>
+
+	Harper points at you.
+	<br><br>
+
+	<<link [[Press|Asylum Button Long Hair Press]]>><<awareness -1>><<stress 3>><<arousal 600>><<suspicion -1>><</link>><<lsuspicion>><<lawareness>><<gstress>><<garousal>>
+	<br>
+	<<link [[Refuse|Asylum Button Long Hair Refuse]]>><<suspicion 1>><<def 1>><</link>><<gsuspicion>>
+	<br>
+<<elseif $phase is 1>>
+	<<set $phase to 2>>
+
+	You press the button. The <<person>> squirms more this time; a noise escapes <<his>> lips. <<He>> pulls against the bonds.
+	<br><br>
+
+	The doctor nods. "Good."
+	<br><br>
+
+	Harper's voice becomes lower, almost hypnotic as <<person1>><<he>> addresses the long-haired <<person2>><<personsimple>>.
+	<br><br>
+
+	"You were dancing for them on the beach," <<he>> says. "In swimwear. You enjoyed them watching you, you liked their attention, but it wasn't enough. You wanted more."
+	<br><br>
+
+	Harper cuts away <<person2>><<his>> swimwear, exposing first <<his>> breasts, then <<his>> pussy.
+	<br><br>
+
+	"They didn't remove your swimwear. You did. You stripped for them. It was thrilling to feel their eyes on your most private parts. Just like it is now."
+	<br><br>
+
+	Harper points at you.
+	<br><br>
+
+	<<link [[Press|Asylum Button Long Hair Press]]>><<awareness -2>><<stress 3>><<arousal 600>><<suspicion -1>><</link>><<lsuspicion>><<lawareness>><<gstress>><<garousal>>
+	<br>
+	<<link [[Refuse|Asylum Button Long Hair Refuse]]>><<suspicion 1>><<def 1>><</link>><<gsuspicion>>
+	<br>
+<<elseif $phase is 2>>
+	<<set $phase to 3>>
+
+	You press the button. The <<person>> squeals and twists. <<His>> struggles weaken.
+	<br><br>
+
+	"You liked the hunger in their eyes," Harper says. "You wanted them to touch you. You needed it. In fact, you just kept on dancing UNTIL they touched you."
+	<br><br>
+
+	The <<personsimple>> weakly struggles. Harper slowly brushes <<person1>><<his>> fingertips down <<person2>><<his>> stomach, over <<his>> pubic hairs.
+	<br><br>
+
+	"You started it. You escalated it. You made them do it, because deep down you wanted it."
+	<br><br>
+
+	Harper points at you.
+	<br><br>
+
+	<<link [[Press|Asylum Button Long Hair Press]]>><<awareness -2>><<stress 3>><<arousal 600>><<suspicion -1>><</link>><<lsuspicion>><<lawareness>><<gstress>><<garousal>>
+	<br>
+	<<link [[Refuse|Asylum Button Long Hair Refuse]]>><<suspicion 1>><<def 1>><</link>><<gsuspicion>>
+	<br>
+<<elseif $phase is 3>>
+	<<set $phase to 4>>
+
+	You press the button. The <<person>> writhes and groans, close to orgasm.
+	<br><br>
+
+	"You like this," Harper says. "You wanted them inside you. All of them. Making you feel like this. It wasn't rape, you wanted it. It was your awakening. It was you finding yourself. And what upsets you is how much enjoyed it."
+	<br><br>
+
+	The <<personsimple>> has stopped moving completely. Harper looks momentarily confused, shrugs, then points at you.
+	<br><br>
+
+	<<link [[Press|Asylum Button Long Hair Press]]>><<awareness -2>><<stress 3>><<arousal 600>><<suspicion -1>><</link>><<lsuspicion>><<lawareness>><<gstress>><<garousal>>
+	<br>
+	<<link [[Refuse|Asylum Button Long Hair Refuse]]>><<suspicion 1>><<def 1>><</link>><<gsuspicion>>
+	<br>
+<<elseif $phase is 4>>
+	<<set $phase to 5>>
+
+	You press the button. The <<person>> starts to howl and fights furiously against <<his>> bindings.
+	<br><br>
+
+	"It's..." Harper says. "It's okay that you led them on. It's okay that you liked it. It doesn't make you a bad person. It's natural. Forgiving yourself is the only way to get better."
+	<br><br>
+
+	Harper points at you again. "Hold it down."
+	<br><br>
+
+	<<link [[Hold the button|Asylum Button Long Hair Press]]>><<awareness -2>><<stress 3>><<arousal 600>><<suspicion -1>><</link>><<lsuspicion>><<lawareness>><<gstress>><<garousal>>
+	<br>
+	<<link [[Refuse|Asylum Button Long Hair Refuse]]>><<suspicion 1>><<def 1>><</link>><<gsuspicion>>
+	<br>
+<<else>>
+	You hold the button down. The <<personsimple>> writhes and twists, but resists orgasm. Doctor Harper looks crestfallen.
+	<br><br>
+
+	"Okay, stop."
+	<br><br>
+
+	You let go of the button. The <<personssimple>> writhing subsides. Doctor Harper writes on <<person1>><<his>> clipboard, a small sad smile on <<his>> face.
+	<br><br>
+
+	"Thank you," <<he>> says. "You were helpful. Be well."
+	<br><br>
+
+	<<asylumRebind>>
+
+	<<link [[Next|Asylum]]>><<asylumClothesOn>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Asylum Button Long Hair Refuse
+
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+You refuse to press the button.
+<br><br>
+
+"This is for <<person2>><<his>> benefit, and yours," <<person1>><<he>> says. "Press the button."
+<br><br>
+
+<<if $phase is 0>>
+	<<link [[Press|Asylum Button Long Hair Press]]>><</link>>
+	<br>
+<<else>>
+	<<link [[Press|Asylum Button Long Hair Press]]>><<awareness -1>><<stress 3>><<arousal 600>><<suspicion -1>><</link>><<lsuspicion>><<lawareness>><<gstress>><<garousal>>
+	<br>
+<</if>>
+<<link [[Refuse|Asylum Button Long Hair Refuse 2]]>><<def 1>><<suspicion 5>><</link>><<ggsuspicion>>
+<br>
+
+:: Asylum Button Long Hair Refuse 2
+
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+Harper shakes <<his>> head. "I'm disappointed. You can go."
+<br><br>
+
+The long-haired <<person2>><<personssimple>> eyes seem to follow you as you leave.
+<br><br>
+
+<<asylumRebind>>
+
+<<link [[Next|Asylum]]>><<asylumClothesOn>><<endevent>><</link>>
+
+:: Asylum Inkblot Answer Honestly
+
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+<<if $awareness gte 400>>
+	You try to describe what you saw to Harper, but words fail you. After an awkward silence, you end up stammering something about a monster and a void.
+	<br><br>
+	Harper nods, and writes something down on <<his>> clipboard. "I appreciate your honesty. I can assure you, there is nothing frightening about this picture."
+<<elseif $awareness gte 200>>
+	<<if $speech_attitude is "meek">>
+		"It looks like a... you know," you say, your voice fading to a whisper. "Someone's privates?"
+	<<elseif $speech_attitude is "bratty">>
+		"Is it meant to be a fucking <<if $NPCList[0].penis isnot "none">>dick?<<else>>pussy?<</if>>" you ask, squinting at the paper.
+	<<else>>
+		"I think it kind of looks like a <<if $NPCList[0].penis isnot "none">>penis,<<else>>vagina,<</if>>" you hesitantly say.
+	<</if>>
+	<br><br>
+	Harper nods, and writes something down on <<his>> clipboard. "I appreciate your honesty. There's no reason to be uncomfortable. It's simply a sign that you have a healthy libido."
+<<else>>
+	You tell Harper that the picture looks like a <<if $NPCList[0].penis isnot "none">>rocket.<<else>>butterfly.<</if>>
+	<br><br>
+	Harper smiles, and writes something down on <<his>> clipboard. "I appreciate your honesty. What this tells me is that you are very imaginative."
+<</if>>
+<<He>> glances at the clock. "That's all for today. Be well."
+<br><br>
+<<link [[Next|Asylum]]>><<endevent>><</link>>
+
+:: Asylum Inkblot Answer Evasively
+
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+You shake your head and keep your mouth shut.
+<<if $awareness gte 400>>
+	You're not sure you're capable of describing what you saw, even if you wanted to.
+<<elseif $awareness gte 200>>
+	There's no way you're going to tell the doctor you think it looks like something so dirty.
+<<else>>
+	You don't want to play this game right now.
+<</if>>
+<br><br>
+Harper sighs, and writes something down on <<his>> clipboard. "You're only making it harder for me to help you by refusing to open up,"
+<<he>> says. "But there's always another time." <<He>> glances at the clock. "That's all for today. Be well."
+<br><br>
+<<link [[Next|Asylum]]>><<endevent>><</link>>
+
+:: Asylum Sit Desk
+
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+You sit on the desk. Harper frowns at you. "It's rude to sit like that," <<he>> says. "There's a chair here. We can share."
+<br><br>
+<<link [[Sit on lap|Asylum Sit Lap]]>><<suspicion -1>><<awareness -1>><</link>><<promiscuous1>><<lsuspicion>><<lawareness>>
+<br>
+<<link [[Refuse|Asylum Sit Stand]]>><<suspicion 1>><</link>><<gsuspicion>>
+<br>
+
+:: Asylum Sit Lap
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+
+You sit on the doctor's lap. <<He>> wraps an arm around your waist.
+<<promiscuity1>>
+"Today I want to talk about kissing," <<he>> says. "It's a normal and healthy activity. You should be happy kissing anyone at any time." <<He>> leans close. "Kiss me."
+<br><br>
+<<link [[Kiss cheek|Asylum Sit Kiss]]>><<suspicion -1>><<awareness -1>><</link>><<promiscuous1>><<lsuspicion>><<lawareness>>
+<br>
+<<if hasSexStat("promiscuity", 2)>>
+	<<link [[Kiss mouth|Asylum Sit Kiss Mouth]]>><<suspicion -5>><<awareness -10>><<npcincr Harper love 1>><</link>><<promiscuous2>><<llsuspicion>><<llawareness>><<kissvirginitywarning>>
+	<br>
+	<<set $skulduggerydifficulty to (700 + ($suspicion * 6))>>
+	<<if !pcAreArmsBound("both") and $asylumkeycard isnot 1>>
+		<<link [[Steal keycard|Asylum Sit Steal]]>><</link>><<promiscuous2>><<skulduggerydifficulty>> <<note "This will be easier with low suspicion" "italic">>
+		<br>
+	<</if>>
+<</if>>
+<<link [[Refuse|Asylum Sit Refuse]]>><<suspicion 1>><<stress 3>><</link>><<gsuspicion>><<gstress>>
+
+:: Asylum Sit Stand
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+
+Refusing to play along, you stand in the middle of the office. The doctor shakes <<his>> head. "We can't help you if you won't let us," <<he>> says. "You can go."
+<br><br>
+
+<<link [[Next|Asylum]]>><<endevent>><</link>>
+<br>
+
+:: Asylum Sit Refuse
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+
+The doctor shakes <<his>> head. "Disappointing, but there's always tomorrow. You may go."
+<br><br>
+
+<<link [[Next|Asylum]]>><<endevent>><</link>>
+
+:: Asylum Sit Kiss Mouth
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+
+You kiss <<him>>, making good use of your tongue. <<His>> eyes widen at first, but then close. <<He>> kisses back.<<promiscuity2>><<takeKissVirginity "Harper" "consensual">>
+<<if _pcKissVirginityTaken>>
+	<br><br>
+<</if>>
+
+<<if $arousal gte ($arousalmax / 5) * 4 and !pcAreArmsBound()>>
+	Your hands wander across <<his>> body, spurred by the heat coursing through your veins. <<He>> gasps into your mouth, grabbing your wrists and holding them away. Hesitation flashes across <<his>> face, but it's replaced by <<his>> usual tranquil smile.
+	<br><br>
+
+	"E-eager, are we?" <<He>> clears <<his>> throat and steadies <<his>> voice. "All I asked you to do was kiss me. I suppose this means you're ready for the next step."
+	<br><br>
+
+	You try to focus, but your thoughts struggle against <<his>> hand worming its way under your clothing. It settles at your chest. <<His>> fingers deftly pinch and tease your nipple, making you squirm. Squeaks and whines manage to pass your lips. You feel embarrassed, making such noises in front of the doctor.<<stress 2>><<gstress>>
+	<br><br>
+
+	<<He>> withdraws <<his>> hand. "As you can see, it's perfectly natural to touch other people. Doing so makes both parties feel good. Now, try to practise with me."
+	<br><br>
+
+	<<if hasSexStat("promiscuity", 2)>>
+		<<link [[Comply enthusiastically|Asylum Sit Kiss Aroused]]>><<set $phase to 2>><<suspicion -1>><</link>><<promiscuous2>><<lsuspicion>>
+		<br>
+	<</if>>
+	<<link [[Comply passively|Asylum Sit Kiss Aroused]]>><<set $phase to 1>><<suspicion -1>><</link>><<promiscuous1>><<lsuspicion>>
+	<br>
+	<<link [[Refuse|Asylum Sit Kiss Aroused]]>><<set $phase to 0>><<suspicion 1>><</link>><<gsuspicion>>
+	<br>
+<<else>>
+	"V-very good," <<he>> says, pulling away from you. "You've done well today. Be well."
+	<br><br>
+	You climb off <<his>> lap and walk to the door.
+	<<lsuspicion>><<suspicion -5>>
+	<br><br>
+	<<endevent>>
+	<<link [[Next|Asylum]]>><</link>>
+	<br>
+<</if>>
+
+:: Asylum Sit Kiss Aroused
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+
+<<if $phase gte 1>>
+	You nod and return your hands to <<his>> body.
+	<<promiscuity2>>
+
+	<<if currentSkillValue("handskill") gte 400>>
+		This isn't your first time using your hands in such a way. You get to work at stroking <<his>> stomach first, then slowly moving up toward <<his>> chest. <<His>> breath catches in <<his>> throat as you <<if $NPCList[0].breastsize gt 1>>caress <<his>> $NPCList[0].breastdesc<<else>>circle <<his>> nipples<</if>>.
+	<<else>>
+		Though you aren't experienced, you try your best to satisfy <<him>>. You brush your hands along <<his>> sides and stomach with nervous, delicate touches. It seems to have an effect on <<him>>. Your touch leaves <<him>> shuddering ever so slightly.
+	<</if>>
+	<<handskilluse>>
+	<br><br>
+
+	<<if $phase is 2>>
+		You trail your hand lower as you work, until it brushes the doctor's crotch. <<He>> inhales sharply and rests a hand on yours. "My, my. I didn't think you'd be ready for this. You're exceeding expectations." <<He>> stares at you intently, eyes glimmering with barely-restrained lust. "Sh-shall we move on to the next phase?"
+		<br><br>
+
+		<<if hasSexStat("promiscuity", 3)>>
+			<<link [[Go further|Asylum Sit Kiss Further]]>><<set $phase to 2>><<suspicion -5>><</link>><<promiscuous3>><<llsuspicion>>
+		<<else>>
+			<<insufficientStat "promiscuity" "to take things any further">>
+		<</if>>
+		<br>
+		<<link [[Pull away|Asylum Sit Kiss Further]]>><<set $phase to 0>><<suspicion 5>><</link>><<ggsuspicion>>
+		<br>
+	<<else>>
+		"T-that's enough. You did well." <<He>> reaches into <<his>> coat and retrieves a pair of rubber gloves. <<He>> slides them on with the practised speed of a professional. "Now, I believe you have a little problem." <<He>> rests one of <<his>> gloved hands on your thigh. "May I?"
+		<br><br>
+
+		<<if hasSexStat("promiscuity", 2)>>
+			<<link [[Allow|Asylum Sit Kiss Further]]>><<set $phase to 1>><<suspicion -1>><</link>><<promiscuous2>><<lsuspicion>>
+		<<else>>
+			<<insufficientStat "promiscuity" "to take things any further">>
+		<</if>>
+		<br>
+		<<link [[Refuse|Asylum Sit Kiss Further]]>><<set $phase to 0>><<suspicion 1>><</link>><<gsuspicion>>
+		<br>
+	<</if>>
+<<else>>
+	Though your body trembles with arousal, you shake your head. Doctor Harper frowns. "I suppose we can work on this later."
+	<br><br>
+
+	You fix your clothes and climb off the desk, and Harper's lap. "Be well," <<he>> calls after you. You hear <<him>> sigh as the door closes.
+	<br><br>
+
+	<<link [[Next|Asylum]]>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Asylum Sit Kiss Further
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+
+<<if $phase is 2>>
+	You rub with more pressure. It's all the confirmation Harper needs.
+	<<promiscuity3>>
+
+	"Very good." <<His>> lips curl into a subdued grin. "Now, get up."
+	<br><br>
+
+	You do as instructed and climb off <<his>> lap. <<He>> takes advantage of your new position by pushing you over <<his>> desk, onto your back.
+	<br><br>
+
+	The doctor bears down on you, tracing <<his>> fingers along your arm. "I think it's time I observe your progress first-hand."
+	<br><br>
+
+	<<link [[Take <<his>> hands|Asylum Sit Kiss Sex]]>><<set $phase to 1>><<set $sexstart to 1>><</link>><<handholdingvirginitywarning>>
+	<br>
+	<<link [[Stay still|Asylum Sit Kiss Sex]]>><<set $phase to 0>><<set $sexstart to 1>><</link>>
+	<br>
+<<elseif $phase is 1>>
+	You nod, desperate for release.
+
+	<<switch $player.sex>>
+		<<case "f">>
+			<<His>> hand dips beneath your clothes. <span class="lewd">You feel a finger stroke your lower lips,</span> causing you to shudder with pleasure. Your juices quickly begin to coat <<his>> questing fingers as one enters you. It's obvious that <<he>> knows exactly what to do to pleasure you as much as possible. <<He>> pushes in a second finger and starts to move them in and out, <<his>> thumb pressing against and rubbing your clit.
+			<<arousal 10000 "genitals">>
+			<<orgasm>>
+
+			<<He>> steadies you with a hand on your hip you as your spasms subside. "Did you have fun?" <<he>> asks, panting. "You enjoy being touched like that, don't you?"
+			<br><br>
+
+			You shiver as <<he>> pulls <<his>> fingers out of you. "You've shown great improvement today." <<He>> leads you out of the office with a smile. "Be well."
+		<<case "m">>
+			<<He>> displaces your clothes, <span class="lewd">exposing your <<penis>></span>. The cool air provides mild relief from the heat in your body. <<He>> smiles and rubs <<his>> thumb against the very tip, causing you to shudder. <<He>> coats <<his>> glove in the leaking precum, then wraps <<his>> fingers around your shaft, stroking it in a steady up-and-down motion.
+			<<arousal 10000 "genitals">>
+			<<orgasm>>
+
+			<<He>> tightens <<his>> grip and slows <<his>> pace, coaxing out the last few drops of cum. "Did you have fun?" <<he>> asks, panting. "You enjoy being touched like that, don't you?"
+			<br><br>
+
+			You shiver as <<he>> pulls <<his>> fingers out of you. "You've shown great improvement today." <<He>> leads you out of the office with a smile. "Be well."
+		<<case "h">>
+			<<He>> displaces your clothes, <span class="lewd">exposing your <<genitals>></span>. <<His>> eyebrows raise at the sight. "Your body is fascinating. I rarely see people like you."
+			<br><br>
+
+			<<He>> puts both hands to work. <<He>> holds your penis in <<his>> left hand, rubbing the tip with <<his>> thumb and using the precum as lubricant to stroke your shaft. With <<his>> right hand, <<he>> strokes your labia with clinical precision. <<He>> presses two fingers inside and rubs your inner walls. The dual sensation soon overwhelms you.
+			<<arousal 10000 "genitals">>
+			<<orgasm>>
+
+			<<He>> pulls <<his>> hands away, then tosses <<his>> gloves into a nearby trash can. "I wonder, do you experience twice as much pleasure when both parts are stimulated?" <<He>> narrows <<his>> eyes in thought. "A test for later, I suppose." <<He>> leads you out of the office with a smile. "You've shown great improvement today. Be well."
+		<<default>>
+			<<His>> hand dips beneath your clothes, but <<he>> frowns when <<he>> reaches your genitals. Or lack thereof.
+			<br><br>
+
+			"That's... unusual." <<He>> withdraws <<his>> hand and makes a note on a clipboard. "I need to make some calls. We're done, for now." <<He>> hurriedly ushers you out the door. "Be well."
+	<</switch>>
+	<br><br>
+
+	<<link [[Next|Asylum]]>><<endevent>><</link>>
+	<br>
+<<else>>
+	You shake yourself from the haze of lust and pull your hand away. Doctor Harper grimaces and clears <<his>> throat. "I suppose I misjudged your progress."
+	<br><br>
+
+	<<He>> climbs off the desk with a sigh. "You're only hurting yourself by resisting treatment," <<he>> says as <<he>> leads you out of the office. "Be well."
+	<br><br>
+
+	<<link [[Next|Asylum]]>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Asylum Sit Kiss Sex
+
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<if $phase is 1>>
+		You reach up and intertwine your fingers with <<hers>>.
+		<<takeHandholdingVirginity "Harper" "consensual" null true>>
+	<</if>>
+<</if>>
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Asylum Sit Kiss Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Asylum Sit Kiss Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Asylum Sit Kiss Sex Finish
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+
+	Harper sighs in contentment and steps away from you. "Excellent. I'm proud of how quickly you're taking to the treatment."<<suspicion -10>><<lllsuspicion>>
+	<br><br>
+
+	<<He>> stands up and straightens <<his>> clothes. "You may go now," <<he>> says. "Be well."
+<<elseif $enemyhealth lte 0>>
+	You shove Harper against the desk and scurry to a corner of the room. <<He>> reaches for a button on <<his>> desk, but thinks better of it.<<suspicion 5>><<ggsuspicion>>
+	<br><br>
+
+	"The only person you're hurting by resisting treatment is yourself." <<He>> takes a seat at <<his>> desk. "You may go now," <<he>> sighs. "Be well."
+<<elseif $finish is 1>>
+	Harper shakes <<his>> head and pushes <<himself>> off the desk. "The treatment is for your own good. The sooner you understand, the sooner we can help you."<<suspicion 1>><<gsuspicion>>
+	<br><br>
+
+	<<He>> takes a seat at <<his>> desk. "You may go now," <<he>> sighs. "Be well."
+<<else>>
+	You hear a voice outside. It's an orderly, investigating the commotion. Harper shoots off the desk and hastens to straighten <<his>> clothes. "W-we're fine in here," <<he>> calls out. "Nothing I can't handle."
+	<br><br>
+
+	Satisfied with the doctor's response, the orderly leaves you alone. Harper looks to you warily.<<suspicion 5>><<ggsuspicion>>
+	<br><br>
+
+	"The only person you're hurting by resisting treatment is yourself." <<He>> takes a seat at <<his>> desk. "You may go now," <<he>> sighs. "Be well."
+<</if>>
+<<tearful>> you leave the room.
+<br><br>
+
+<<clotheson>>
+<<endcombat>>
+
+<<link [[Next|Asylum]]>><<endevent>><</link>>
+<br>
+
+:: Asylum Sit Kiss
+
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+You plant a light kiss on the doctor's cheek. <<He>> scribbles on <<his>> clipboard. "That's satisfactory," <<he>> says. "You may go. Be well."
+<br><br>
+<<endevent>>
+<<link [[Next|Asylum]]>><</link>>
+<br>
+
+:: Asylum Sit Steal
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+
+You kiss <<him>>, making good use of your tongue. <<His>> eyes widen at first, but then close. <<He>> kisses back.<<promiscuity2>><<takeKissVirginity "Harper" "consensual">>
+<<if _pcKissVirginityTaken>>
+	<br><br>
+<</if>>
+
+You run your hand against <<his>> chest, and dip into <<his>> pocket.
+<br><br>
+<<skulduggerycheck>>
+<<if $skulduggerysuccess is 1>>
+	<<wearProp "keycard" "silver">>
+	<span class="green">You pull out a keycard and hide it away.</span>
+	<<set $asylumkeycard to 1>>
+	<br><br>
+	<<skulduggeryuse>>
+	"V-very good," <<he>> says, pulling away from you. "You've done well today. Be well."
+	<br><br>
+	You climb off <<his>> lap and walk to the door. You can't help but smirk.
+	<<lsuspicion>><<suspicion -5>><<npcincr Harper love 1>>
+	<br><br>
+	<<pubfameComplete "hospital" "asylum">>
+	<<link [[Next|Asylum]]>><<endevent>><</link>>
+	<br>
+<<else>>
+	<span class="red"><<He>> grabs your wrist.</span>
+	<<gggsuspicion>><<suspicion 20>>
+	<br><br>
+	<<skulduggeryuse>>
+	"I'm very disappointed in you," <<he>> says. <<He>> reaches beneath the desk, and the doors swing open. Several orderlies march in.
+	<br><br>
+	<<asylumpunish>>
+<</if>>
+
+:: Asylum Room
+
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+<<if $hallucinations gte 1 and $settings.tentaclesEnabled>>
+	You notice a faint purple light. You reach toward it, and feel the door. It's ajar.
+	<br><br>
+	<<link [[Open it|Tentacle World Intro]]>><<endevent>><<arousal 600>><</link>><<garousal>>
+	<br>
+	<<link [[Stay away|Asylum Room 2]]>><<stress 3>><<awareness -10>><</link>><<llawareness>><<gstress>>
+	<br>
+<<else>>
+	<<pass 180>>
+	Hours pass, with nothing to distract you but your own thoughts. You're relieved when the door is opened by Doctor Harper.
+	<br><br>
+	<<He>> smiles at you. "I'm sorry," <<he>> says. "It was for your own good.
+	<<if $asylumstate is "sleep">>
+		Let's bring you to your bed. You need your sleep."
+		<br><br>
+		Flanked by orderlies, Doctor Harper leads you back to your room. The door locks with a click.
+		<br><br>
+		<<endevent>>
+		<<link [[Next|Asylum Cell]]>><</link>>
+		<br>
+	<<else>>
+		Let's bring you back to your fellow patients. They've missed you."
+		<br><br>
+		Flanked by orderlies, Doctor Harper leads you back to the occupied part of the asylum.
+		<br><br>
+		<<endevent>>
+		<<link [[Next|Asylum]]>><</link>>
+		<br>
+	<</if>>
+<</if>>
+
+:: Asylum Room 2
+<<set $outside to 0>><<set $location to "asylum">><<pass 180>><<asylumeffects>><<effects>>
+Hours pass, with nothing to distract you but your own thoughts. You feel relieved when the door is opened by Doctor Harper.
+<<llawareness>><<gstress>><<stress 3>><<awareness -10>>
+<br><br>
+<<He>> smiles at you. "I'm sorry," <<he>> says. "It was for your own good.
+<<if $asylumstate is "sleep">>
+	Let's bring you back to your bed. You need your sleep."
+	<br><br>
+	Flanked by orderlies, Doctor Harper leads you back to your room. The door locks with a click.
+	<br><br>
+	<<endevent>>
+	<<link [[Next|Asylum Cell]]>><</link>>
+	<br>
+<<else>>
+	Let's bring you back to your fellow patients. They've missed you."
+	<br><br>
+	Flanked by orderlies, Doctor Harper leads you back to the occupied part of the asylum.
+	<br><br>
+	<<endevent>>
+	<<link [[Next|Asylum]]>><</link>>
+	<br>
+<</if>>
+
+:: Asylum You Flaunt
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+<<strip>>
+
+"I'll strip," you say. The orderlies step forward to help, but there's no need. You <<nervously>> remove your clothes and walk up to the window. You knock on it, and keep knocking until everyone is looking. You hear whistling through the glass. <<covered>> <<flaunting>> you twirl to give everyone a good look.
+<<exhibitionism5>>
+"Very good," Doctor Harper says with a smile. The <<person2>><<person>> gapes. "You can get dressed. I think you already understand this lesson."
+<br><br>
+
+Harper has the <<person2>><<person>> remain for further instruction. You fix your clothes.
+<br><br>
+
+<<asylumRebind>>
+
+<<link [[Next|Asylum]]>><<asylumClothesOn>><<endevent>><</link>>
+<br>
+
+:: Asylum You Strip
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+<<strip>>
+
+"I'll strip," you say. You <<nervously>> undress, though not fast enough for the orderlies, who step forward to help. They almost tear your clothing off in their eagerness. The <<person>> averts <<his>> gaze. <<covered>> "Very good," Harper says. "Now, the window. Let everyone see."
+<br><br>
+
+You walk up to the window. One of the orderlies knocks on it, until everyone outside is watching you. <<covered>> You hear whistling through the glass.
+<br><br>
+
+"Isn't it exciting?" the doctor says. "All those people can't keep their eyes off you. That will do. Get dressed."
+<br><br>
+
+Harper has the <<person2>><<person>> remain for further instruction. You fix your clothes.
+<br><br>
+
+<<asylumRebind>>
+
+<<link [[Next|Asylum]]>><<asylumClothesOn>><<endevent>><</link>>
+<br>
+
+:: Asylum They Strip
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+
+"Please," the <<person>> sobs. The orderlies pay no heed as they tear <<his>> clothing off <<his>> body and shove <<him>> to the window. One of them knocks on it, until everyone outside is watching. You hear whistling through the glass.
+<br><br>
+
+"<<He>> doesn't have to suffer so," the doctor whispers to you. "<<He>> chooses to. <<Hes>> in no danger. But you've done your part. You can go."
+<br><br>
+
+<<asylumRebind>>
+
+<<link [[Next|Asylum]]>><<asylumClothesOn>><<endevent>><</link>>
+<br>
+
+:: Asylum Hypnosis Oral
+<<if $sexstart is 1>>
+	<<saveNPC 1 "harper_asylum_oral">>
+	<<clearsinglenpc 0>>
+	<<clearsinglenpc 1>>
+	<<loadNPC 0 "harper_asylum_oral">>
+	<<set $npcrow.splice(0)>>
+	<<person1>>
+	<<set $sexstart to 0>>
+
+	<<if _resistedEscalation>>
+		<span class="red">You crouch in front of the <<person>>. <<npcexposetext>></span>
+		<<controlloss>>
+		<<violence 1>>
+		<<neutral 1>>
+		<<molested>>
+	<<else>>
+		You crouch in front of the <<person>>. <<npcexposetext>>
+		<<neutral 1>>
+		<<consensual>>
+		<<set $consensual to 1>>
+	<</if>>
+
+	Doctor Harper leans forward for a closer look.
+	<br><br>
+
+	<<maninit>><<npcoral>>
+	<<set $enemytrust += 100>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Asylum Hypnosis Oral Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Asylum Hypnosis Oral]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Asylum Hypnosis Oral Finish
+<<asylumeffects>><<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	"Very good," the doctor says. "Both of you. When I drop this pen, you will awaken." <<nnpc_He "Harper">> drops the pen.
+	<br><br>
+	The <<person>> blinks, then blushes and covers <<his>> genitals. "You can go," the doctor says. "Be well."
+	<br><br>
+	<<tearful>> you leave the office.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+<<elseif $enemyhealth lte 0>>
+	The <<person>> snaps out of <<his>> trance. <<He>> blushes and covers <<his>> genitals. "You have a long way to go," the doctor says. "You can go. Be well."
+	<br><br>
+	<<tearful>> you leave the office.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+<<elseif $finish is 1>>
+	The <<person>> snaps out of <<his>> trance. <<He>> blushes and covers <<his>> genitals. "You have a long way to go," the doctor says. "You can go. Be well."
+	<br><br>
+	<<tearful>> you leave the office.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+<</if>>
+<<link [[Next|Asylum]]>><</link>>
+
+:: Asylum Hypnosis Trance Resist
+<<asylumeffects>><<effects>>
+<<set _resisted to true>>
+
+<<if $willpowerSuccess>>
+	<<npcincr Harper dom -5>>
+
+	<span class="green">You shake yourself free of the effect.</span> The effort leaves you a bit strained. <<stress 6>><<ggstress>>
+	<br><br>
+
+	<<endevent>><<npc Harper>><<person1>> The doctor shakes <<his>> head. "That's enough for today. Remember, don't be afraid to relax. Be well." <<suspicion 5>><<ggsuspicion>>
+	<br><br>
+
+	<<asylumRebind>>
+
+	<<link [[Next|Asylum]]>><<asylumClothesOn>><<endevent>><</link>>
+<<else>>
+	<<include "Asylum Hypnosis Trance">>
+<</if>>
+
+:: Asylum Hypnosis Trance
+<<asylumeffects>><<effects>>
+<<pass 10>>
+<<hypnotised 1>>
+
+<<if _resisted>>
+	<span class="red">You slip deeper into the trance.</span>
+<<else>>
+	You slip deeper into the trance.
+	<span class="green">
+		<<if $harper_appointments.hypnosis is 0 and $harper_appointments.dog is 0>>
+			You don't remember ever feeling so tranquil.
+		<<else>>
+			You return to the familiar state of tranquillity.
+		<</if>>
+	</span>
+<</if>>
+
+You hear Harper's voice drifting toward you.
+<<if $hypnosis_traits.devotion gte 5>>
+	"That's very good. Now, the next time you feel overwhelmed by it all..." <span class="purple"><<his>> voice fades away, along with the rest of the room. Someone is standing where Harper just was.</span>
+	<br><br>
+
+	<span class="forest-green">It's Gwylan. <<nnpc_He "Gwylan">> takes a step towards you, smiling, and cups your cheeks. No words leave <<nnpc_his "Gwylan">> lips, but they move regardless.</span>
+	<br><br>
+
+	<<if $phase is "Dog">>
+		A line of green light extends from <<nnpc_his "Gwylan">> hand, gently wrapping around your neck with a click.
+	<</if>>
+	<<nnpc_He "Gwylan">> brings <<nnpc_his "Gwylan">> face closer to yours. Finally, you can hear <<nnpc_his "Gwylan">> voice.
+	<br><br>
+
+	<<if $phase is "Dog">>
+		"<span class="witch">You act like a pet for me, and me alone.</span>"
+	<<else>>
+		"<span class="witch"><<He>> can't have you.</span>"
+	<</if>>
+	<br><br>
+
+	You're brought back to the room as you hear something drop to the ground. Harper's hand is on <<his>> head.
+	"I'm sorry, I seem to be getting a migraine. That's enough for today. Remember, don't be afraid to relax. Be well."
+	<br><br>
+
+	<<asylumRebind>>
+
+	<<link [[Next|Asylum]]>><<asylumClothesOn>><<endevent>><</link>>
+<<else>>
+	"That's very good. Now, the next time you feel overwhelmed by it all, I want you to remember this feeling, and..." <<He>> gives you instructions. "...you won't remember this."
+	<br><br>
+
+	<<if $phase is "Oral">>
+		<<set _trait to "suggestion">>
+		<<set _traitText to "suggestion">>
+		<<set _TraitText to "Suggestion">>
+	<<elseif $phase is "Exhibitionism">>
+		<<set _trait to "cover">>
+		<<set _traitText to "flaunting">>
+		<<set _TraitText to "Flaunting">>
+	<<elseif $phase is "Dog">>
+		<<set _trait to "deviancy">>
+		<<set _traitText to "deviancy">>
+		<<set _TraitText to "Deviancy">>
+	<</if>>
+
+	<span class="pink">You feel something shift in your consciousness.</span>
+	<<if $hypnosis_traits.devotion gte 4 and random(0, 1)>>
+		Only to be put back into place a moment later. <span class="forest-green">The sting of a rose's thorn keeps you just focused enough to subtly shake it off.</span>
+		Your thoughts remain clear, for the moment.
+	<<elseif !$hypnosis_traits[_trait]>>
+		<<set $hypnosis_traits[_trait] to 1>>
+		You've gained the <span class="pink">Hypnotic _TraitText</span> trait.
+	<<elseif $hypnosis_traits[_trait] lt 5>>
+		<<set $hypnosis_traits[_trait] += 1>>
+		Your hypnotic _trait has strengthened.
+	<</if>>
+
+	<<set _traitValue to $hypnosis_traits[_trait]>>
+	<br><br>
+
+	"Good," the doctor says.
+	<<if $phase is "Oral">>
+		<<person2>>"I want you to get on your knees and use your mouth on <<his>> genitals. <<He>> will enjoy it. Is that clear?"
+		<br><br>
+
+		"Yes," the <<person>> says. "I will enjoy it."
+	<<elseif $phase is "Exhibitionism">>
+		"I want you to take off your clothes. We're going for a walk."
+	<<elseif $phase is "Dog">>
+		<<generateBEAST 2 "dog">>
+
+		<<person2>>
+
+		<<if $NPCList[1].monster is 1>>
+			"Good," the doctor says. "Bring <<bhim>> in." A group of orderlies enter. One holds a <<beasttype 1>> on a leash, who appears to be panting heavily. <<bHis>> nude body is on full display. <<bHe>> strains to reach you. Harper turns to you. "We found <<bhim>> up near those farms," <<nnpc_he "Harper">> says. "<<bHes>> been misbehaving, and could use some "personal" attention. From a <<bitch>> in heat, more specifically. You can't wait to be <<bred>>." You feel an urge to bark.
+		<<else>>
+			"Good," the doctor says. "Bring it in." A group of orderlies enter. One holds a <<beasttype 1>> on a leash. It strains to reach you. Harper turns to you. "You're a bitch in heat. You can't wait to be <<bred>>." You feel an urge to bark.
+		<</if>>
+	<</if>>
+	<br><br>
+
+	<<link "Obey" `"Asylum Hypnosis "+$phase`>><<set $sexstart to 1>><<control 25>><<trauma -6>><<stress -12>><<awareness -10>><<suspicion -5>><</link>><<ggcontrol>><<llsuspicion>><<llawareness>><<ltrauma>><<lstress>>
+	<br>
+	<<link [[Resist|Asylum Hypnosis Escalation Resist]]>><</link>><<willpowerdifficulty 1 `((_traitValue || 3)**0.9)*300`>>
+<</if>>
+
+:: Asylum Hypnosis Escalation Resist
+<<asylumeffects>><<effects>>
+<<set _resistedEscalation to true>>
+
+<<if $willpowerSuccess>>
+	<<npcincr Harper dom -5>>
+	<<suspicion 5>>
+
+	<span class="green">You shake yourself free of the effect.</span> The effort leaves you a bit strained. <<stress 6>><<ggstress>>
+	<br><br>
+
+	<<endevent>><<npc Harper>><<person1>> The doctor shakes <<his>> head. "That's enough for today. Remember, don't be afraid to relax. Be well." <<ggsuspicion>>
+	<br><br>
+
+	<<asylumRebind>>
+
+	<<link [[Next|Asylum]]>><<asylumClothesOn>><<endevent>><</link>>
+<<else>>
+	<<hypnotised 1>><<npcincr Harper dom 5>>
+	<<if $phase is "Oral" or $phase is "Dog">>
+		<<set $sexstart to 1>>
+	<</if>>
+
+	<<include `"Asylum Hypnosis " + $phase`>>
+<</if>>
+
+:: Asylum Hypnosis Exhibitionism
+<<asylumeffects>><<effects>>
+<<strip>>
+<<fameexhibitionism 10>>
+<<wearProp "feather duster">>
+
+<<if _resistedEscalation>>
+	<span class="red">You remove your clothing with robotic movements.</span>
+<<else>>
+	You remove your clothing with robotic movements.
+<</if>>
+
+The doctor smiles. "Good," <<he>> says as <<he>> stands. "Let's go for a walk."
+<br><br>
+
+You leave the office, into the corridor outside. A passing nurse ogles you, and gives Harper a knowing look. "You feel excited to be exposed in a public space," the doctor says. <<Hes>> right. "You want to show everyone your body." You nod. Together you walk to the recreation room.
+<br><br>
+
+All heads turn when you arrive, a naked <<girl>> with Doctor Harper close behind. "Here." <<He>> hands you a feather duster. "This room is very dusty. Clean it."
+<br><br>
+
+You get to work. The room is very dusty. You dust the tables. You bend over to dust the chairs. You kneel to dust the floor. The doctor stays near you, and intervenes whenever someone gropes. "That's not what this is about," <<he>> says. "Look, don't touch."
+<br><br>
+
+<<pass 30>>
+You continue cleaning the room, unbothered by all the eyes on your <<lewdness>>. "That's enough," Harper announces after some time. "The room is clean." <<He>> takes the feather duster from you. The patients beg Harper to let you continue, but <<he>> doesn't relent.
+<br><br>
+
+"You've done very well today," the doctor says once back in <<his>> office. "Get dressed."
+<br><br>
+
+You fix your clothes.
+<br><br>
+
+"When I drop this pen, you will awaken." <<He>> drops it, and you blink free of the haze. "We've made good progress. You should be proud. Be well." You leave <<his>> office.
+<br><br>
+
+<<asylumRebind>>
+
+<<link [[Next|Asylum]]>><<asylumClothesOn>><<endevent>><</link>>
+
+:: Asylum Machine
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>><<rngWraith 2>>
+
+The compartment clangs shut. A dim light fills the interior, though you can't see the source. "Are you comfortable in there?" asks Harper's muffled voice. "I'm turning it on." The light becomes more intense. Small holes open on the top and sides of the chamber. A pink mist flows out. It smells sweet. You feel warm.
+<br><br>
+<<drugs 180>>
+Several dozen tendrils emerge next. They snake over your body, writhing against your skin,
+<<if $worn.upper.name isnot "naked">>
+	beneath your $worn.upper.name,
+<</if>>
+and against your <<breasts>>.
+<<if $worn.under_lower.name isnot "naked">>
+	Even your $worn.under_lower.name <<underlowerplural>> no protection.
+<</if>>
+They tease your <<genitals>> without mercy.
+<br><br>
+<<pass 5>>
+This continues for a few minutes. Puffs of pink mist continue to emerge, along with more tendrils. Your breathing becomes deeper and your pulse quickens.
+<br><br>
+<<if $wraith.state is "haunt" and _wraithEvent>>
+	<<arousal 5000>>
+	<<endevent>>
+	<<generateWraith 1 true>><<rainWraith>>
+	Suddenly, the lights go out with a snapping sound, leaving you in pitch black darkness. You hear murmurs from outside the machine, followed by frantic footsteps. It feels like something is pushing down on you. The sound becomes more and more intense, until it almost sounds like rain hitting the machine.
+	<br><br>
+	A faint red light begins to shine around you, <span class="red">revealing a<<if $wraith.seen gte 3>> familiar<</if>> pale face right above yours.</span> You try to scream, but something is already blocking your mouth.
+	<<if $wraith.seen gte 1>>
+		The <<person>> smiles. "<span class="wraith">We meet again, <<pcpetname "Wraith">>.</span>"
+	<<else>>
+		"<span class="wraith">Thief. Give it back.</span>"
+	<</if>>
+	<br><br>
+	<<initWraith "abomination">>
+	<<if $wraith.gen is "abomination">>
+		Pale tendrils swarm around you, holding you down.
+	<<else>>
+		Several disembodied arms emerge from the walls, holding you down.
+	<</if>>
+	Harper's voice is just barely audible. "Something's wrong with the machine! Get <<phim>> out of there!"
+	<br><br>
+	<<link [[Next|Asylum Machine Wraith]]>><<set $molestationstart to 1>><</link>>
+	<br>
+<<else>>
+	<<arousal 10000>>
+	<<orgasm>>
+	You hear applause from outside the machine. Did you make that much noise? "Very good," Harper says.
+	"That should do it. This should be the right button." The tendrils withdraw and the holes close. The compartment opens and several pairs of arms help you to your feet. "You've done well today," the doctor says. "I hope you found it relaxing. Be well."
+	<br><br>
+	You leave the room, still shaking.
+	<br><br>
+	<<endevent>>
+	<<link [[Next|Asylum]]>><</link>>
+	<br>
+<</if>>
+
+:: Asylum Machine Refuse
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+
+Harper looks above your shoulder, and nods.
+<<if currentSkillValue('athletics') gte random(1, 1000)>>
+	<span class="green">You succeed in dodging</span> the orderlies who try to grab you from behind. Harper shakes <<his>> head. "We can't help if you won't let us," <<he>> says. "You can go."
+	<br><br>
+	<<endevent>>
+	<<link [[Next|Asylum]]>><</link>>
+	<br>
+<<else>>
+	<span class="red">You fail to dodge</span> the orderlies who attack from behind. They lift you off your feet and force you into the machine.
+	<<stress 6>><<gstress>>
+	<br><br>
+	<<link [[Next|Asylum Machine]]>><</link>>
+	<br>
+<</if>>
+
+:: Asylum Hypnosis Dog
+<<if $sexstart is 1>>
+	<<saveNPC 1 "harper_asylum_dog">>
+	<<clearsinglenpc 0>>
+	<<clearsinglenpc 1>>
+	<<loadNPC 0 "harper_asylum_dog">>
+	<<set $npcrow.splice(0)>>
+
+	<<set $sexstart to 0>>
+	<<set $NPCList[0].stance to "top">>
+	<<set $position to "doggy">>
+
+	<<if _resistedEscalation>>
+		<span class="red">You drop to the ground and adopt a mating posture.</span>
+		<<controlloss>>
+		<<violence 1>>
+		<<neutral 1>>
+		<<molested>>
+	<<else>>
+		You drop to the ground and adopt a mating posture.
+		<<neutral 1>>
+		<<consensual>>
+		<<set $consensual to 1>>
+	<</if>>
+
+	Doctor Harper takes notes.
+	<br><br>
+
+	<<beastCombatInit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<beast $enemyno>>
+<br>
+<<audience>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Asylum Hypnosis Dog Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Asylum Hypnosis Dog]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Asylum Hypnosis Dog Finish
+
+<<set $outside to 1>><<set $location to "asylum">><<asylumeffects>><<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<beastejaculation>>
+	The orderly pulls the <<beasttype>> off you.
+<<else>>
+	The <<beasttype>> whimpers and hides behind the orderlies.
+<</if>>
+
+<br><br>
+<<endcombat>>
+
+<<npc Harper>><<person1>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	"You've done very well today," says Harper.
+<<else>>
+	Harper sighs.
+<</if>>
+
+<<if !pcAreArmsBound("both")>>
+	"Get dressed."
+	<br><br>
+	<<clotheson>>
+<<else>>
+	<<if $worn.upper.name is "straightjacket" and $worn.lower.name is "naked">>
+		<<He>> ignores the state of your ruined $worn.upper.name.
+	<</if>>
+	<br><br>
+<</if>>
+
+"When I drop this pen, you will awaken." <<He>> drops it, and you blink free of the haze.
+<<if $enemyarousal gte $enemyarousalmax>>
+	"We've made good progress. You should be proud. Be well." The orderlies are smiling at their phones.
+<<else>>
+	"That's it for today. Be well."
+<</if>>
+<br><br>
+
+<<asylumRebind>>
+
+<<link [[Next|Asylum]]>><<asylumClothesOn>><<endevent>><</link>>
+
+:: Asylum Hypnosis Dog Resist
+<<asylumeffects>><<effects>>
+
+<<if $willpowerSuccess>>
+	<<npcincr Harper dom -5>>
+	<<suspicion 5>>
+
+	<span class="green">You shake yourself free of the effect.</span> The effort leaves you a bit strained. <<stress 6>><<gstress>>
+	<br><br>
+
+	<<endevent>><<npc Harper>><<person1>> The doctor shakes <<his>> head. "That's enough for today. Remember, don't be afraid to relax. Be well." <<ggsuspicion>>
+	<br><br>
+
+	<<if !pcAreArmsBound("both")>>
+		You pet the <<beasttype>> on the way out.<<lstress>><<stress -12>>
+		<br><br>
+	<</if>>
+
+	<<asylumRebind>>
+
+	<<link [[Next|Asylum]]>><<asylumClothesOn>><<endevent>><</link>>
+<<else>>
+	<<set $sexstart to 1>><<hypnotised 1>><<npcincr Harper dom 5>>
+	<<include "Asylum Hypnosis Dog">>
+<</if>>
+
+:: Asylum Pill Sit
+
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+<<if $phase is 1>>
+	The <<person>> pushes you onto the chair and binds your limbs. "There," <<he>> says. "Administer the treatment."
+<<else>>
+	You sit down. Harper binds your arms and legs. "It's just a precaution," <<person1>><<he>> assures you.
+<</if>>
+<br><br>
+<<person1>>
+Harper affixes a mask around <<his>> head. The others follow <<his>> example while <<he>> opens a safe. <<He>> pulls out a canister, then holds it at arm's reach in front of you, and opens it. Purple fumes rise from within. It smells sweet.
+<br><br>
+<<pass 5>>
+<<if $wraith.state and $rng gte 51>>
+	You sit for a few minutes. The light above you flickers briefly, but no one else seems to notice.
+	<<if Weather.precipitation is "none">>
+		You think you hear raindrops hitting the window, but when you look, the windows are all dry.
+	<<else>>
+		You hear a faint rumble of thunder in the distance, and your eyes flit to the windows reflexively.
+	<</if>>
+	The doctors watch you, taking note of where your gaze lands.
+	<br><br>
+	<<if ["haunt", "despair"].includes($wraith.state)>>
+		When you look back, <<if $wraith.seen gte 1>>your blood runs cold. A familiar pale figure stares at you from the corner of the room, smiling at you behind glowing <<wraithEyes>> eyes. <<stress 24>><<gggstress>><<trauma 6>><<gtrauma>><<else>>your breath catches in your throat. You see a pale figure flickering in the corner of the room, staring directly at you with bright <<wraithEyes>> eyes. <<stress 12>><<ggstress>><</if>>
+	<<else>>
+		When you look back, another light flickers in the corner of the room, and something disappears. Your ears begin ringing. You definitely saw something... someone... there. It looked tall and pale, wearing an ivory necklace set with dark blue gemstones. You think it was waving at you, or maybe motioning for you to get closer. <<stress 12>><<ggstress>>
+	<</if>>
+	<br><br>
+	Harper notices your discomfort. "What's wrong? Did you see something strange?" Everything snaps back to normal as <<he>> speaks.
+	<br><br>
+	<<link [[Tell|Asylum Pill Tell]]>><<awareness -5>><<stress -3>><</link>><<lawareness>><<lstress>>
+	<br>
+	<<link [[Stay quiet|Asylum Pill Quiet]]>><<suspicion 1>><<awareness 5>><<stress 3>><</link>><<gsuspicion>><<gawareness>><<gstress>>
+	<br>
+<<else>>
+	You sit for a few minutes. The doctors watch you, as if expecting something to happen. "Well?" the <<person2>><<person>> says. "Do you see anything strange?" You shake your head.
+	<br><br>
+	"We'll keep an eye on <<phim>>," Harper says. "I'll send for the next patient." <<He>> undoes the straps on the chair. "Thank you for cooperating. Be well."
+	<br><br>
+	<<endevent>>
+	<<link [[Next|Asylum]]>><</link>>
+	<br>
+<</if>>
+
+:: Asylum Pill Tell
+You tell them about what you saw, but find yourself unable to recall the finer details already. <<He>> undoes the straps on the chair as the other doctors murmur something.
+<br><br>
+"Fascinating. Thank you for cooperating. You can go," <<he>> says. "Be well."
+<<endevent>>
+<br><br>
+<<link [[Next|Asylum]]>><</link>>
+<br>
+
+:: Asylum Pill Quiet
+You shake your head. They all look sceptical, but Harper gives you a patient smile.
+<br><br>
+"We'll keep an eye on <<phim>>," Harper says. "I'll send for the next patient." <<He>> undoes the straps on the chair. "Thank you for cooperating. Be well."
+<br><br>
+<<endevent>>
+<<link [[Next|Asylum]]>><</link>>
+<br>
+
+:: Asylum Pill Refuse
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+
+"That's disappointing," Harper sighs. "But alright. Be—"
+<br><br>
+
+"I don't see why the mad <<girl>> should have a choice," the <<person2>><<person>> interrupts. <<He>> rises to <<his>> feet and grabs your arm. <<He>> tries to pull you to the chair.
+<br><br>
+<<if !pcAreArmsBound("both")>>
+	<<link [[Slap|Asylum Pill Slap]]>><<suspicion 5>><<trauma -6>><<stress -6>><</link>><<ggsuspicion>><<ltrauma>><<lstress>>
+	<br>
+<</if>>
+<<link [[Let it happen|Asylum Pill Sit]]>><<awareness -10>><<suspicion -5>><<set $phase to 1>><<hallucinogen 180>><</link>><<llsuspicion>><<llawareness>>
+<br>
+
+
+:: Asylum Pill Slap
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+You slap the <<persons>> face. <<He>> recoils in shock. "The insolence," <<he>> says. Harper steps forward and grips <<his>> arm.
+<br><br>
+<<person1>>"That's enough," <<he>> says. "This is my patient. It's up to me." The <<person2>><<person>> sneers, but doesn't push it. The <<person3>><<person>> watches with an amused smile.
+<br><br>
+"You can go," Doctor Harper says. "Be well."
+<<endevent>>
+<br><br>
+<<link [[Next|Asylum]]>><</link>>
+<br>
+
+:: Asylum Fight
+
+<<if $fightstart is 1>>
+	<<set $fightstart to 0>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust -= 100>>
+	<<set $enemyanger += 200>>
+	<<npcidlegenitals>>
+	You leap across the desk at Harper. <<He>> presses the alarm, but no one comes. The distraction worked.
+	<<set $asylumdistracted to 0>><<set $enemyhealth *= 0.6>><<set $enemyhealthmax *= 0.6>>
+	<br><br>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend or ($pain gte 100 and $willpowerpain is 0)>>
+	<span id="next"><<link [[Next|Asylum Fight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Asylum Fight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Asylum Fight Finish
+
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	<<He>> slumps in <<his>> seat and shuts <<his>> eyes. It's easy to snatch the keycard from <<his>> pocket without being noticed. <<tearful>> you leave the office. Orderlies wait for you outside, unaware that you have the keycard tucked away.
+	<<set $asylumkeycard to 1>>
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<pubfameComplete "hospital" "asylum">>
+	<<asylumpunish>>
+<<elseif $enemyhealth lte 0>>
+	Harper winces and tries to flee the room, but you grasp <<his>> coat. <<He>> shakes free of it and escapes. There's a keycard in the pocket. <<tearful>> you leave the office. Orderlies wait for you outside.
+	<<set $asylumkeycard to 1>>
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<pubfameComplete "hospital" "asylum">>
+	<<asylumpunish>>
+<<else>>
+	<<tearful>> you fall to the ground. Harper pants. "This is why you're in here," <<he>> says. "You can't handle your emotions." The orderlies arrive.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<asylumpunish>>
+<</if>>
+
+:: Asylum Punish
+
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+You lunge over the desk and try to grab Harper. <<He>> stands back, knocking <<his>> chair over. Several orderlies burst into the room and tackle you to the ground.
+<br><br>
+<<asylumpunish>>
+
+:: Asylum Keycard
+
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+You reach across the desk and grab <<his>> coat with both hands. "You're wrong," you shout. You slip a hand into <<his>> pocket.
+<br><br>
+<<skulduggerycheck>>
+<<if $skulduggerysuccess is 1>>
+	<<wearProp "keycard" "silver">>
+	<span class="green">You pull out a keycard and hide it away.</span>
+	<<set $asylumkeycard to 1>>
+	<<skulduggeryuse>>
+	<<He>> pushes you back on your chair as several orderlies march in.
+	<br><br>
+	<<pubfameComplete "hospital" "asylum">>
+	<<asylumpunish>>
+<<else>>
+	<span class="red"><<He>> grabs your wrist.</span>
+	<<gggsuspicion>><<suspicion 20>>
+	<<skulduggeryuse>>
+	"I'm very disappointed in you," <<he>> says. <<He>> reaches beneath the desk, and the doors swing open. Several orderlies march in.
+	<br><br>
+	<<asylumpunish>>
+<</if>>
+
+:: Asylum Rape Meek
+
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+"You're wrong," you say. "People keep forcing themselves on me."
+<br><br>
+<<He>> shakes <<his>> head and writes something on <<his>> clipboard. "That's okay," <<he>> says. "I'll be here when you're ready to admit what you've been up to." <<He>> glances at the clock. "That's all for today. Be well."
+<br><br>
+<<endevent>>
+<<link [[Next|Asylum]]>><</link>>
+<br>
+
+:: Asylum Rape Sub
+
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+"I-It's all me?" you ask. "It's my fault?"
+<br><br>
+<<He>> shakes <<his>> head. "There's no fault," <<he>> says. "But you understand. People are responding to your provocation. The way you dress and carry yourself. Most people aren't as talented." <<He>> glances at the clock. "That's all for today. Be well."
+<br><br>
+<<endevent>>
+<<link [[Next|Asylum]]>><</link>>
+<br>
+
+:: Asylum Exhibit Meek
+
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+"That's not true," you say. "People have been exposing me with force."
+<br><br>
+<<He>> shakes <<his>> head and writes something on <<his>> clipboard. "That's okay," <<he>> says. "But one day you'll need to admit your lewdity." <<He>> glances at the clock. "That's all for today. Be well."
+<br><br>
+<<endevent>>
+<<link [[Next|Asylum]]>><</link>>
+<br>
+
+:: Asylum Exhibit Sub
+
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+"I-It is exciting," you say. "To be exposed in front of people."
+<br><br>
+<<He>> nods. "Very good," <<he>> says. "You should be happy so many want to look at you." <<He>> glances at the clock. "That's all for today. Be well."
+<br><br>
+<<endevent>>
+<<link [[Next|Asylum]]>><</link>>
+<br>
+
+:: Asylum Beast Meek
+
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+"I'm not like that," you say. "I wouldn't do such things."
+<br><br>
+<<He>> shakes <<his>> head and writes something on <<his>> clipboard. "It must be hard for you," <<he>> says. "Coming to terms with such deviancy. But you need to in order to heal." <<He>> glances at the clock. "That's all for today. Be well."
+<br><br>
+<<endevent>>
+<<link [[Next|Asylum]]>><</link>>
+<br>
+
+:: Asylum Beast Sub
+
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+"It's my fault?" you ask. "I'm the one making animals attack me?"
+<br><br>
+<<He>> shakes <<his>> head. "You're attacking them," <<he>> says. "But you're on the right track." <<He>> glances at the clock. "That's all for today. Be well."
+<br><br>
+<<endevent>>
+<<link [[Next|Asylum]]>><</link>>
+<br>
+
+:: Asylum Tentacles Meek
+
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+"The tentacles are real," you say. "I felt them all over me. They left marks and goo..."
+<br><br>
+"They don't exist," <<he>> interrupts. "You're inventing fantasies to justify your promiscuous behaviour. It's no mystery where the goo really comes from." <<He>> glances at the clock. "That's all for today. Be well."
+<br><br>
+<<endevent>>
+<<link [[Next|Asylum]]>><</link>>
+<br>
+
+:: Asylum Tentacles Sub
+
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+"They aren't real?" you ask. "But why did they feel good?"
+<br><br>
+"You were either sleeping with someone, or touching yourself," <<he>> says. "Likely the former." <<He>> glances at the clock. "That's all for today. Be well."
+<br><br>
+<<endevent>>
+<<link [[Next|Asylum]]>><</link>>
+<br>
+
+:: Asylum Hurt Meek
+
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+"No," you say. "I didn't do this to myself, other people did."
+<br><br>
+<<He>> shakes <<his>> head. "It's a cry for help," <<he>> says. "But you're in the right place. We won't let you hurt yourself any longer." <<He>> glances at the clock. "That's all for today. Be well."
+<br><br>
+<<endevent>>
+<<link [[Next|Asylum]]>><</link>>
+<br>
+
+:: Asylum Hurt Sub
+
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+"I did this to myself?" you ask. "But why?"
+<br><br>
+"Yes," <<he>> says. "You did this to yourself. Because you felt guilty." <<He>> glances at the clock. "That's all for today. Be well."
+<br><br>
+<<endevent>>
+<<link [[Next|Asylum]]>><</link>>
+<br>
+
+:: Asylum Mundane Slime Defy
+<<asylumeffects>><<effects>>
+
+<<if $earSlime.corruption gte (currentSkillValue('willpower') / 10)>>
+	<<set $earSlime.defyCooldown += 2>>
+	The slime tries to assert control. <span class="red">It overpowers your will,</span> forcing you to <<print $asylumEarSlimeEvent[0]>> as you are.
+	<<ggwillpower>><<willpower 1>>
+	<br><br>
+	<<set _nextPassage to $asylumEarSlimeEvent[1]>>
+	<<link [[Next|_nextPassage]]>>
+		<<if ($exposed is 1 and !hasSexStat("exhibitionism", 3)) or ($exposed is 2 and !hasSexStat("exhibitionism", 5))>>
+			<<set $desperateaction to "the ear slime commanded you to do it">>
+		<</if>>
+		<<switch $asylumEarSlimeEvent[1]>>
+			<<case "Asylum Breakfast">><<asylumstatus 1>><<awareness -10>><<trauma -3>><<stress -6>><<pass 60>>
+			<<case "Asylum Exercise">><<tiredness 3>><<stress -6>><<pass 30>>
+			<<case "Asylum Socialise">><<asylumstatus 1>><<trauma -3>><<stress -6>><<pass 30>>
+			<<case "Asylum Study">><<pass 50>><<schoolskill>>
+		<</switch>>
+		<<unset $asylumEarSlimeEvent>>
+	<</link>>
+<<else>>
+	You try to ignore the command from the slime and continue on. You feel it try, <span class="green">but fail,</span> to force you to <<print $asylumEarSlimeEvent[0]>>.
+	<br><br>
+	<<link [[Next|Asylum]]>><<unset $asylumEarSlimeEvent>><</link>>
+<</if>>
+
+:: Asylum Patient Slime Submit willingly
+<<asylumeffects>><<effects>>
+
+You act on the slime's urging and approach the <<person>>.
+<br>
+<<promiscuity4>>
+
+"Take me!" you say.
+<br><br>
+<<if ($worn.over_lower.name isnot "naked" or $worn.lower.name isnot "naked") and ($leftarm isnot "bound" or $rightarm isnot "bound")>>
+	<<if $worn.over_lower.name isnot "naked">>
+		<<set $worn.over_lower.vagina_exposed to 1>><<set $worn.over_lower.anus_exposed to 1>><<set $worn.over_lower.exposed to 2>>
+	<</if>>
+	<<if $worn.lower.name isnot "naked">>
+		<<set $worn.lower.vagina_exposed to 1>><<set $worn.lower.anus_exposed to 1>><<set $worn.lower.exposed to 2>>
+	<</if>>
+	<<if $worn.under_lower.name is "naked">>
+		<<if $worn.over_lower.name isnot "naked">>
+			<<if setup.clothes.over_lower[clothesIndex('over_lower', $worn.over_lower)].skirt is 1>><<set $worn.lower.skirt_down to 0>>
+				You lift up your $worn.over_lower.name, <span class="lewd">exposing your <<if $worn.lower.name isnot "naked">>$worn.lower.name<<else>><<undies>><</if>>.</span>
+			<<else>><<set $worn.lower.state to "thighs">>
+				You pull down your $worn.over_lower.name, <span class="lewd">exposing your <<if $worn.lower.name isnot "naked">>$worn.lower.name<<else>><<undies>><</if>>.</span>
+			<</if>>
+		<</if>>
+		<<if $worn.lower.name isnot "naked">>
+			<<if setup.clothes.lower[clothesIndex('lower', $worn.lower)].skirt is 1>><<set $worn.lower.skirt_down to 0>>
+				You lift up your $worn.lower.name, <span class="lewd">exposing your <<undies>>.</span>
+			<<else>><<set $worn.lower.state to "thighs">>
+				You pull down your $worn.lower.name, <span class="lewd">exposing your <<undies>>.</span>
+			<</if>>
+		<</if>>
+	<</if>>
+<</if>>
+<<if $worn.under_lower.name isnot "naked" and ($leftarm isnot "bound" or $rightarm isnot "bound")>>
+	<<set $worn.under_lower.anus_exposed to 1>><<set $worn.under_lower.vagina_exposed to 1>>
+	<<set $worn.under_lower.state to "thighs">><<set $worn.under_lower.exposed to 2>>
+	<<if $worn.lower.name is "naked">>
+		You pull down your $worn.under_lower.name, <span class="lewd">exposing your <<genitals>>.</span>
+	<<else>>
+		<<outfitChecks>>
+		<<if _skirtExposed>>
+			<<if $worn.over_lower.name isnot "naked">><<set $worn.over_lower.skirt_down to 0>><</if>>
+			<<if $worn.lower.name isnot "naked">><<set $worn.lower.skirt_down to 0>><</if>>
+			You lift up your <<allBottoms>> with one hand while lowering you $worn.under_lower.name with the other <span class="lewd">exposing your <<genitals>>.</span>
+		<<else>><<set $worn.lower.state to "thighs">>
+			You pull down your <<allBottomsUnderwear>>, <span class="lewd">exposing your <<genitals>>.</span>
+		<</if>>
+	<</if>>
+	<br><br>
+<</if>>
+
+The <<person>> is taken aback, but recovers quickly. <<He>> glances around, then grabs your arm. <<He>> pulls you somewhere where you have a little privacy.
+
+<br><br>
+<<link [[Next|Asylum Slime Rape]]>><<set $sexstart to 1>><</link>>
+<br>
+
+:: Asylum Patient Slime Obey
+<<asylumeffects>><<effects>>
+
+You follow the slime's urging and approach the <<person>>.
+<br><br>
+
+"T-take me!" you say.
+<br><br>
+
+The <<person>> is taken aback, but recovers quickly. <<He>> glances around, then grabs your arm. <<He>> pulls you somewhere where you have a little privacy.
+
+<br><br>
+<<link [[Next|Asylum Slime Rape]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Asylum Patient Slime Defy
+<<asylumeffects>><<effects>>
+
+<<if $earSlime.defyCooldown>>
+	<<if $earSlime.growth gte 100>>
+		<<set $earSlime.defyCooldown += 2>>
+		You turn away from the <<person>> and feel a jolt of pain as the slime punishes you for your defiance. However, <span class="red">it doesn't stop you, knowing that it can punish you in other ways.</span>
+	<<else>>
+		You turn away from the <<person>> and feel a jolt of pain as the slime punishes you for your defiance. However, <span class="teal">it's still worn out from overpowering you earlier.</span> You feel it try, <span class="green">but fail,</span> to force your steps in the opposite direction.
+	<</if>>
+	<br><br>
+	<<endevent>>
+
+	<<link [[Next|Asylum]]>><</link>>
+<<elseif $earSlime.corruption gte (currentSkillValue('willpower') / 10)>>
+	<<if hasSexStat("promiscuity", 4) and $earSlime.growth lt 100>>
+		<<set $earSlime.defyCooldown += 4>>
+	<<else>>
+		<<set $earSlime.defyCooldown += 8>>
+	<</if>>
+	You turn away from the <<person>> and feel a jolt of pain as the slime punishes you for your defiance. It tries to force you to stay still, <span class="red">and you fail</span> to resist its influence.
+	<<ggwillpower>><<willpower 3>>
+	<br><br>
+
+	Forced by the slime's urging, you approach the <<person>>.
+	<br><br>
+
+	"T-take me!" you say.
+	<br><br>
+
+	The <<person>> is taken aback, but recovers quickly. <<He>> glances around, then grabs your arm. <<He>> pulls you somewhere where you have a little privacy.
+	<br><br>
+
+	<<link [[Next|Asylum Slime Rape]]>><<set $molestationstart to 1>><</link>>
+	<br>
+<<else>>
+	You turn away from the <<person>> and feel a jolt of pain as the slime punishes you for your defiance. You feel it try, <span class="green">but fail,</span> to force your steps in the opposite direction.
+	<<gwillpower>><<willpower 1>>
+	<br><br>
+
+	<<endevent>>
+
+	<<link [[Next|Asylum]]>><</link>>
+<</if>>
+
+:: Asylum Slime Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<set $noFinish to 1>>
+	<<maninit>>
+<<elseif $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<set $noFinish to 1>>
+	<<maninit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Asylum Slime Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Asylum Slime Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Asylum Slime Rape Finish
+<<asylumeffects>><<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+
+	"Thanks, I needed that," the <<person>> says. "See you around."
+	<br><br>
+
+	<<tearful>> you return to where you were before the slime's demand.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Asylum]]>><</link>>
+
+<<else>>
+
+	You shove the <<person>> against a dumpster, where <<he>> falls to the ground.
+	<br><br>
+
+	<<tearful>> you wince as the slime punishes you for your defiance.
+	<<corruption -1>><<pain 8>><<stress 6>><<trauma 6>><<def 1>><<lcorruption>><<ggpain>><<ggtrauma>><<ggstress>>
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Asylum]]>><</link>>
+<</if>>
+
+:: Asylum Masturbation
+<<set $outside to 0>><<set $location to "asylum">><<asylumeffects>><<effects>>
+
+<<if $phase is "refuse">>
+	<<if $worn.face.type.includes("gag")>>
+		Unable to speak, you vehemently shake your head.
+	<<elseif $speech_attitude is "meek">>
+		"B-but that's not true!" you say. "I haven't hurt anyone."
+	<<elseif $speech_attitude is "bratty">>
+		"That's an outright lie!" you say. "They've attacked me."
+	<<else>>
+		"That's not true!" you say. "I've been attacked."
+	<</if>>
+	<br><br>
+
+	Harper shakes <<his>> head before writing something on <<his>> clipboard. "You'll need to admit your behaviour before I can help you," <<he>> says.
+
+	<<He>> walks to the door and opens it for you, "That's all for today. You may go."
+	<br><br>
+
+	<<asylumRebind>>
+
+	<<link [[Next|Asylum]]>><<asylumClothesOn>><<endevent>><</link>>
+<<elseif $phase is "flaunt">>
+	<<set _temptext to "smiles">>
+	<<exhibitionism4>>
+
+	You eagerly undress, drawing it out to allow the doctor's eyes to wander. Once naked, you carefully lie back down, thrilled at being so exposed. You only cover yourself to keep it interesting.
+	<br><br>
+<<elseif $phase is "strip">>
+	<<set _temptext to "remains professional">>
+
+	You avoid eye contact with the doctor as you slowly remove your clothes. Once naked<<if $uncomfortable.nude>>, you cover your <<if $player.gender_appearance is "f">><<chest>> and <</if>><<genitals>>, and<<else>> you<</if>> carefully lie back down. <<if !$worn.face.type.includes("gag")>>You are too embarrassed to say more.<</if>>
+	<br><br>
+<</if>>
+
+<<if playerChastity() and $phase isnot "refuse">>
+	<<strip>>
+
+	Doctor Harper frowns as <<he>> makes a note on <<his>> clipboard. "You can only run from your problems for so long with such a device," <<he>> says pointing to your $worn.genitals.name. "You'll have to own up to them eventually. There's nothing more we can do today. Put on your clothes, you can go."
+	<br><br>
+
+	You fix your clothes.
+	<br><br>
+
+	"Be well," <<he>> says before you exit.
+	<br><br>
+
+	<<asylumRebind>>
+
+	<<link [[Next|Asylum]]>><<asylumClothesOn>><<endevent>><</link>>
+<<elseif $phase isnot "refuse">>
+	<<strip>>
+
+	Doctor Harper _temptext as <<he>> makes a note on <<his>> clipboard.
+	"Now then, we'll have you start by masturbating. This is an exercise in control," <<he>> says, ignoring your reaction. "When I tell you to stop, you'll need to stop. You may begin."
+	<br><br>
+
+	<<if hasSexStat("exhibitionism", 5)>>
+		<<link [[Masturbate|Asylum Masturbation 2]]>><<suspicion -5>><<set $phase to "masturbate">><</link>><<exhibitionist5>><<llsuspicion>>
+		<br>
+	<</if>>
+		<<link [[Say you're too embarrassed|Asylum Masturbation 2]]>><<suspicion -5>><<stress 3>><<set $phase to "embarrassed">><</link>><<llsuspicion>><<gstress>>
+	<br>
+	<<link [[Refuse|Asylum Masturbation 2]]>><<suspicion 5>><<set $phase to "refuse">><</link>><<ggsuspicion>>
+<</if>>
+
+:: Asylum Masturbation 2
+<<asylumeffects>><<effects>>
+
+<<if $phase is "refuse">>
+	<<if $worn.face.type.includes("gag")>>
+		You don't need to say anything. Your scowl makes the message clear.
+	<<elseif $speech_attitude is "meek">>
+		"I-I can't do that. That's too much," you say.
+	<<elseif $speech_attitude is "bratty">>
+		"No way, I'm not doing that," you scoff.
+	<<else>>
+		"You can't possibly expect me to," you say.
+	<</if>>
+	<br><br>
+
+	Doctor Harper shakes <<his>> head. "That's disappointing. We were making such good progress too." <<He>> makes another note on <<his>> clipboard. "That is all for today. You may get dressed."
+	<br><br>
+
+	You fix your clothes.
+	<br><br>
+
+	"Be well," <<he>> says before you exit.
+	<br><br>
+
+	<<asylumRebind>>
+
+	<<link [[Next|Asylum]]>><<asylumClothesOn>><<endevent>><</link>>
+<<elseif $phase is "embarrassed">>
+	<<if $worn.face.type.includes("gag")>>
+		You squeeze your legs together nervously, blushing furiously.
+	<<elseif $speech_attitude is "meek">>
+		"B-but you'll see my..." you stammer. Your face flushes red.
+	<<elseif $speech_attitude is "bratty">>
+		"How am I supposed to do that with you watching," you say. Your cheeks feel hot.
+	<<else>>
+		"You're going to watch me touch myself?" you ask. Your face flushes red thinking about it.
+	<</if>>
+	<br><br>
+
+	"There's nothing to be embarrassed about," <<he>> says. "Masturbation is perfectly natural." <<He>> sets the clipboard down and stands up. "However, it's not uncommon for people to need a little assistance."
+<<elseif $phase is "masturbate">>
+	<<exhibitionism5>>
+
+	The thought of pleasuring yourself in front of an audience, even just one person, gives you a thrill. You eagerly <<if $player.penisExist>>stroke your <<penis>><<elseif $player.vaginaExist>><<if $player.penisExist>> and <</if>>rub your <<pussy>><</if>>.
+	<<arousal random(600,1800) "masturbationGenital">><<ggarousal>>
+	<br><br>
+
+	"I see you've already learned the first part of this lesson," Harper says with a smile. "Masturbation is perfectly natural." <<He>> sets the clipboard down and stands up. "However, I'll need to observe your technique."
+<</if>>
+
+<<if ["embarrassed", "masturbate"].includes($phase)>>
+	<br><br>
+	"Please spread your legs," <<he>> says, <<his>> voice remains clinical and professional.
+	<br><br>
+
+	<<link [[Next|Asylum Masturbation 3]]>><</link>>
+<</if>>
+
+:: Asylum Masturbation 3
+<<asylumeffects>><<effects>>
+
+<<if $phase is "embarrassed">>
+	You fidget, hesitating for a moment. Then, tentatively, you part your legs for the doctor. <<He>> takes a seat in front of you, between your legs, and retrieves a small bottle from a pocket inside <<his>> lab coat. <<He>> pours a measured amount of liquid onto your <<genitals>>. You flinch. It's cold.<<if $player.penisExist>><<bodyliquid "penis" "goo">><</if>><<if $player.vaginaExist>><<bodyliquid "vaginaoutside" "goo">><</if>><<ggarousal>>
+	<br><br>
+
+	Before you can react, <<he>> gently touches your <<genitals>>. <<His>> movements are systematic and precise. You let out a lewd moan. <<He>> methodically <<if $player.penisExist>>fondles your <<penis>><<elseif $player.vaginaExist>><<if $player.penisExist>> and <</if>>massages your <<pussy>><</if>> for a moment.<<arousal random(600,1800) "masturbationGenital">><<ggarousal>>
+	<br><br>
+
+	<<if $arousal lt $arousalmax>>
+		<<set $phase to "continue">>
+
+		Satisfied that you are sufficiently aroused, <<he>> takes your hand and gently guides it to your
+		<<if $player.sex is "h">>
+			<<set _genitalselection to random(0,1)>>
+			<<if _genitalselection is 1>>
+				<<penis>>.
+			<<else>>
+				<<pussy>>.
+			<</if>>
+		<<else>>
+			<<if $player.penisExist>>
+				<<set _genitalselection to 1>>
+			<<else>>
+				<<set _genitalselection to 0>>
+			<</if>>
+			<<genitals>>.
+		<</if>>
+
+		<<if _genitalselection is 1>>
+			Clasping your hand over your <<penis>>, <<he>> helps you stroke yourself
+		<<else>>
+			Cupping your hand over your <<pussy>>, <<he>> helps you rub your fingers along your slit
+		<</if>>
+		a few times before withdrawing, leaving you to continue on your own.
+		<br><br>
+
+		Still embarrassed but too aroused to stop, you continue where Harper left off. Your movements are tentative at first. Before long, you are moving your <<if _genitalselection is 1>>hand<<else>>fingers<</if>> faster and faster.<<arousal random(600,1800) "masturbationGenital">><<ggarousal>>
+		<br><br>
+	<</if>>
+<<elseif $phase is "masturbate">>
+	You don't hesitate before opening your legs for the doctor. <<He>> takes a seat in front of you, settling between your legs. There is an intensity to <<his>> gaze as <<he>> watches you pleasure yourself.<<ggarousal>>
+	<br><br>
+
+	<<if $handskill gte 600>>
+		Your hand moves with practiced confidence. Harper nods approvingly. <<arousal random(800,2400) "masturbationGenital">><<gggarousal>>
+	<<else>>
+		Your movements are erratic and irregular. Harper watches with an unchanging expression. <<arousal random(600,1800) "masturbationGenital">><<ggarousal>>
+	<</if>>
+	<br><br>
+<</if>>
+<<if ["continue", "masturbate", "embarrassed"].includes($phase)>>
+	<<if $arousal gte $arousalmax>>
+		<<if $phase is "embarrassed">>
+			<<His>> touch is more than you can take. Unable to help yourself, your back arches
+		<<else>>
+			It feels too good. You close your eyes, your back arching
+		<</if>>
+		as you reach your peak.
+		<<orgasm>>
+
+		<<if $phase is "embarrassed">>
+			<<His>> fingers linger on your <<genitals>> a moment longer before pulling away.
+			<<if _semen_released>>
+				Cum<<if _lube_released>> and juices<</if>>,
+			<<elseif _lube_released>>
+				Juices
+			<</if>>
+			<<if _semen_released or _lube_released>>drip from <<his>> hand.<</if>>
+			<<He>> clears <<his>> throat and resumes <<his>> professional demeanour.
+			<br><br>
+
+			"It is worse than I feared,"
+		<<else>>
+			"Just as I feared,"
+		<</if>>
+		Harper says as <<he>> returns to <<his>> own chair. <<He>> picks up <<his>> clipboard and makes a note.
+
+		<<if $phase is "embarrassed">>
+			"You are putting innocent people in danger because of your uncontrolled urges. We have done all we can for today."
+		<<else>>
+			"You will continue to target innocent people until you can control your urges."
+		<</if>>
+		<br><br>
+
+		"Put your clothes back on, you can go."
+		<br><br>
+
+		<<include "Asylum Masturbation End">>
+	<<else>>
+		Doctor Harper watches closely as you approach your peak. You're about ready to burst when <<he>> speaks.
+		<br><br>
+
+		"Stop. That's enough."
+		<br><br>
+
+		<<link [[Try to obey|Asylum Masturbation Obey]]>><</link>><<gstress>><<willpowerdifficulty `$arousal/$arousalmax*200+5` $willpowermax+25>>
+		<br>
+		<<link [[Ignore <<him>>|Asylum Masturbation Ignore]]>><</link>>
+	<</if>>
+<</if>>
+
+:: Asylum Masturbation Obey
+<<asylumeffects>><<effects>>
+
+<<if $willpowerSuccess>>
+	It takes all your mental effort to stop touching yourself and remove your hand from your twitching <<if _genitalselection is 0>><<pussy>><<elseif _genitalselection is 1>><<penis>><<else>><<genitals>><</if>>. You close your eyes tightly, your breathing laboured after forcing yourself not to climax.<<gstress>><<stress 5>>
+	<br><br>
+
+	"Very good,"
+
+	<<set $arousal to 9900>>
+<<else>>
+	The urge to continue is overwhelming. You close your eyes and keep going, your back arching as you reach your peak. <<arousal $arousalmax-$arousal>><<ggarousal>>
+
+	<br><br>
+	You don't stop.
+	<<orgasm>>
+
+	"Just as I suspected,"
+<</if>>
+Harper says as <<he>> returns to <<his>> own chair. <<He>> picks up <<his>> clipboard and makes a note.
+
+<<if $willpowerSuccess>>
+	"You've done well today. Remember, don't be ashamed of your urges, just keep them under control."
+<<else>>
+	"You lack self-control. You will be a risk to innocent people around you until you can control your urges."
+<</if>>
+<br><br>
+
+"Put your clothes back on, you can go."
+<br><br>
+
+<<include "Asylum Masturbation End">>
+
+:: Asylum Masturbation Ignore
+<<asylumeffects>><<effects>>
+
+You lock eyes with Harper and move your hand even faster. Your back arches as you reach your peak. <<arousal $arousalmax-$arousal>><<ggarousal>>
+
+<br><br>
+You don't stop.
+<<orgasm>>
+
+"Just as I suspected," says Harper as <<he>> returns to <<his>> own chair. <<He>> picks up <<his>> clipboard and makes a note. "You lack self-control. You will be a risk to innocent people around you until you can control your urges. Put your clothes back on, you can go."
+<br><br>
+
+<<include "Asylum Masturbation End">>
+
+:: Asylum Masturbation End
+You fix your clothes with shaking hands.
+<br><br>
+
+"Be well," <<he>> says before you exit.
+<br><br>
+
+<<asylumRebind>>
+
+<<link [[Next|Asylum]]>><<asylumClothesOn>><<endevent>><</link>>

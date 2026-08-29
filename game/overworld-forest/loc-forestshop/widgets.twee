@@ -1,0 +1,2340 @@
+:: Gwylan Widgets [widget]
+<<widget "gwylanGreeting">><<silently>>
+	<<set $_gwylanSpeech to "">>
+	<<if !$daily.gwylan.greeting>>
+		<<set $daily.gwylan.greeting to true>>
+		<<set $_gwylanSpeech to "<br><br>">>
+		<<if $location is "cafe" and $daily.robin_in_cafe is 1>>
+			<<set $_gwylanSpeech += "Gwylan ">>
+		<<else>>
+			<<set $_gwylanSpeech += "<<nnpc_He 'Gwylan'>> ">>
+		<</if>>
+		<<if $gwylan.wary gte 5>>
+			<<set $_gwylanSpeech += "looks through you.">>
+		<<elseif _gwylanLastSeenDays gte 21>>
+			<<set $_gwylanSpeech += "looks surprised, but happy, to see you.">>
+		<<elseif $gwylan.hunting is 3>>
+			<<set $_gwylanSpeech += "looks both happy and irritated to see you.">>
+		<<elseif $daily.gwylan.ritual>>
+			<<set $_gwylanSpeech += "gives you a warm smile across beetroot-red cheeks.">>
+		<<elseif _gwylanLovePercent gte 25>>
+			<<set $_gwylanSpeech += "perks up upon seeing you.">>
+		<<else>>
+			<<if $location is "cafe">>
+				<<set $_gwylanSpeech += "smiles softly, but continues staring out at the sea.">>
+			<<else>>
+				<<set $_gwylanSpeech += "waves you over.">>
+			<</if>>
+		<</if>>
+
+		<<set $_linePool to []>>
+		<<if $moorLuck gt 0>>
+			<<set $_linePool.push(`"There's an air of luck around you today.`)>>
+		<</if>>
+		<<if $gwylanSeen.includes("romance")>>
+			<<set $_linePool.push(`"Hello, dearest.`)>>
+		<<else>>
+			<<set $_linePool.push(`"Hello, dear.`)>>
+		<</if>>
+		<<if $gwylanSeen.includes("ritual_beast")>>
+			<<set $_linePool.push(`"Hello, <<pcpetname 'Gwylan' 'name'>>.`)>>
+		<</if>>
+		<<if $location is "forest_shop" and $gwylanTalked.length gte 10 and (!$gwylan.wary or $gwylan.wary lte 1)>>
+			<<set $_linePool.push(`"My favourite customer!`)>>
+		<</if>>
+		<<if $exposed gte 2 and $location is "forest_shop">>
+			<<set $_linePool.push(`<<He>> avoids looking down. "Must be chilly in here.`)>>
+		<</if>>
+		<<if $worn.head.name is "rose" and $worn.head.colour.includes("pink")>>
+			<<set $_linePool.push(`<<He>> frowns upon seeing the pink rose in your hair. "Hello.`)>>
+		<<elseif $worn.head.name is "sage witch hat">>
+			<<set $_linePool.push(`"Nice hat.`)>>
+		<</if>>
+		<<if $worn.upper.name === "chain tunic" && $worn.lower.name === "chain tunic skirt" ||
+			$worn.upper.name.includes("vintage") && $worn.lower.name.includes("vintage")>>
+			<<set $_linePool.push(`"That looks really good on you.`)>>
+		<<elseif $worn.upper.type.includes("costume") && $worn.lower.type.includes("costume") ||
+			(V.worn.upper.type.includes("naked") && V.worn.under_upper.type.includes("costume") &&
+			V.worn.lower.type.includes("naked") && V.worn.under_lower.type.includes("costume"))>>
+			<<set $_linePool.push(`"Nice outfit.`)>>
+		<</if>>
+		<<if $location is "forest_shop" and $worn.feet.name is "reindeer slippers">>
+			<<set $_linePool.push(`<<He>> notices your slippers. "Hello, deer.`)>>
+		<</if>>
+
+		<<if $_linePool.length>>
+			<<set $_gwylanSpeech += " " + $_linePool.pluck()>>
+			<<if _gwylanLastSeenDays gte 21>>
+				<<set $_gwylanSpeech += `" <<He>> rubs the back of <<his>> head. "I'm glad to see you again. I was starting to think you had forgotten about me.`>>
+			<</if>>
+			<<if $location is "cafe" and getRobinLocation() is "cafe">>
+				<<set $_gwylanSpeech += ` Come, join us." Robin smiles and waves at you.`>>
+			<<else>>
+				<<set $_gwylanSpeech += `"`>>
+			<</if>>
+		<</if>>
+	<</if>>
+<</silently>><<print $_gwylanSpeech>><</widget>>
+
+<<widget "gwylanOptions">>
+	<<if $gwylanPassTime>>
+		<<pass $gwylanPassTime>>
+		<<unset $gwylanPassTime>>
+	<</if>>
+	<<set _gwylanLocation to gwylanSchedule()>>
+	<<set $gwylan.timer.lastSeen to Time.date.timeStamp>>
+
+	<<if _gwylanLocation is "nowhere">>
+		/* Nothing */
+		<<gwylanOptionsLeave>>
+		<<exit>>
+	<</if>>
+
+	/* Story progress */
+	<<if !$gwylanSeen.includes("struggles") and $gwylan.progress gte 15 and _gwylanLovePercent gte 65 and $gwylanSeen.includes("ritual_beast") and $dateCount.GwylanBeast gte 2 and $gwylan.request.event isnot "meetAtCafe" and !gwylanRequestMet() and C.npc.Gwylan.dom gte 10 and C.npc.Gwylan.lust gte 25>>
+		<<set $_noLeave to true>>
+		<<if $location is "forest_shop">>
+			<<He>> looks unsure of <<himself>> for a moment. "I need to ask you something," <<he>> blurts out.
+			<br><br>
+
+			<<link [[Next|Gwylan Talk Struggles Intro]]>><</link>>
+			<br>
+		<<else>>
+			Gwylan's eyes have closed. <span class="blue">You try getting <<his>> attention, but <<he>> won't respond.</span>
+			<br><br>
+
+			<<if $location is "cafe" and !(between($chef_state, 7, 8) and $chef_rework lte 30)>>
+				<<getouticon>><<link [[Say goodbye and go back inside (0:01)|Gwylan Talk Struggles Intro]]>><<pass 1>><</link>>
+			<<elseif $location is "cafe">>
+				<<getouticon>><<link [[Say goodbye (0:01)|Gwylan Talk Struggles Intro]]>><<pass 1>><</link>>
+			<<else>>
+				<<getouticon>><<link [[Back to the shop|Gwylan Talk Struggles Intro]]>><</link>>
+			<</if>>
+			<br>
+		<</if>>
+		<<exit>>
+	<</if>>
+	<<if $location is "forest_shop" and _gwylanLovePercent gte 80 and C.npc.Gwylan.dom gte 75 and $dateCount.GwylanSex gte 5 and $gwylan.sea gte 5 and !$gwylanSeen.includes("partners") and _gwylanStatus.includes("lust") and !$weekly.gwylanLIChance and $exposed is 0 and !Time.isBloodMoon()>>
+		<<set $weekly.gwylanLIChance to true>>
+		You feel Gwylan's hand on yours.
+		<br><br>
+
+		"Would you like to join me for a walk?" <<he>> asks. "I'd like to talk about something." <<He>> pauses. "I won't get angry at you again. Promise."
+		<br><br>
+
+		<<link [[Yes (1:00)|Gwylan Promenade Walk]]>><<endevent>><<pass 20>><<trauma -1>><</link>><<ltrauma>><<gyearning true>>
+		<br>
+		<<link [[Not right now|Gwylan Promenade Walk No]]>><<npcincr Gwylan dom -5>><</link>><<llyearning>>
+		<br>
+		<<exit>>
+	<</if>>
+
+	/* Leaving the cafe for elsewhere */
+	<<if $location is "cafe" and !(between($chef_state, 7, 8) and $chef_rework lte 30) and $gwylan.robin gte 10 and $daily.robin_in_cafe and getRobinLocation() isnot "cafe" and false>> /* WARNING! Re-enable later for Gwybin cafe */
+		Gwylan stands up with <<his>> plate. <<He>> empties the crumbs into the air, just as a flock of seagulls pass by. They don't let a single crumb land on the beach.
+		<br><br>
+
+		<<He>> smiles at you. "We better get going. You don't want to be late for school." Robin nods and grabs <<person2>><<his>> backpack. <span class="red">TODO: Walking to school with Gwylan and Robin.</span>
+		<br><br>
+		<<schoolicon "building">><<link [[Walk to school (0:05)|Gwylan Walk School Robin]]>><<set $daily.gwylan.cafeSkip to true>><<pass 5>><<unset $cafe_study>><<storeon "cafe_balcony">><<set $phase to 1>><</link>>
+		<br>
+		<<getouticon>><<link [[Excuse yourself and go back inside (0:01)|Ocean Breeze]]>><<pass 1>><<unset $cafe_study>><<storeon "cafe_balcony">><<endevent>><</link>>
+		<br>
+		<<exit>>
+	<</if>>
+	<<if $location is "cafe" and Time.schoolDay and (Time.hour is 8 and Time.minute gte 40 or Time.hour is 9) and !$daily.gwylan_skip_school and ($gwylanSeen.includes("cafe_walk") or ($gwylan.sea + ($gwylanTalked.count("fox_mask") * 20) + ($gwylanTalked.count("dark_pendant") * 20) gte 40))>>
+		<<if _gwylanTF.known>>
+			Gwylan's ears twitch, and <<he>> seems to realise something.
+		<</if>>
+
+		<<He>> smiles at you.
+		<<if !$gwylanSeen.includes("cafe_walk")>>
+			<<set $gwylanSeen.pushUnique("cafe_walk")>>
+			<<if $worn.neck.name is "familiar collar" and $worn.neck.cursed is 1 or $gwylanSeen.includes("petplay") and $worn.neck.type.includes("leash")>>
+				<<set _magicLeash to true>>
+				"School starts for you soon, doesn't it?" <<He>> grabs your leash and pulls you closer, trailing two fingers up your chest. "Want me to walk you there?"
+			<<else>>
+				"School starts for you soon, doesn't it? Want me to walk you there?"
+			<</if>>
+		<<else>>
+			<<if $worn.neck.name is "familiar collar" and $worn.neck.cursed is 1 or $gwylanSeen.includes("petplay") and $worn.neck.type.includes("leash")>>
+				<<set _magicLeash to true>>
+				"We better get going, <<pcpetname "Gwylan" "my">>." <<He>> grabs your leash and pulls you closer, trailing two fingers up your chest. "You don't want to be late for school."
+			<<else>>
+				"We better get going, <<pcpetname "Gwylan" "simple">>. You don't want to be late for school."
+			<</if>>
+		<</if>>
+		<br><br>
+
+		<<schoolicon "building">><<link [[Walk to school (0:10)|Gwylan Walk School Solo]]>><<set $daily.gwylan.cafeSkip to true>><<pass 10>><<unset $cafe_study>><<storeon "cafe_balcony">><</link>>
+		<br>
+		<<refuseicon>><<link [[Decline the offer (0:01)|Gwylan Walk School Solo Decline]]>><<pass 1>><<set $daily.gwylan.cafeSkip to false>><<set $daily.gwylan_skip_school to 1>><</link>>
+		<br>
+		<<exit>>
+	<</if>>
+	<<if $location is "cafe" and !["cafe", "cliff", "walking_to_cafe"].includes(_gwylanLocation)>>
+		<<if !(between($chef_state, 7, 8) and $chef_rework lte 30)>>
+			Gwylan stands up with <<his>> plate. <<He>> empties the crumbs into the air, just as a flock of seagulls pass by. They don't let a single crumb land on the beach.
+			<br><br>
+		<</if>>
+
+		"I'm heading back to the shop," <<he>> says.
+		<<if $gwylan.request is "meetAtShop" and !$daily.gwylan.preventProgress>>
+			"Remember to meet me there later, please."
+		<<elseif $daily.gwylan.ritualRequestBlocked and $gwylanSeen.includes("ritual_beast")>>
+			"If you still wish to enact the ritual today, you know where to find me." <<He>> winks, and leaves the balcony.
+		<<else>>
+			"Thank you for the company." <<He>> bows, and leaves the balcony.
+		<</if>>
+		<br><br>
+
+		<<gwylanOptionsLeave>>
+		<<exit>>
+	<</if>>
+
+	/* Leaving the forest shop for elsewhere */
+	<<if $location is "forest_shop" and ["walking_to_cafe", "cafe", "cliff"].includes(_gwylanLocation) and !$daily.gwylan.cafeOfferDeclined>>
+		Gwylan's eyes are glued to a nearby cuckoo clock. <<He>> suddenly walks by you, grabbing <<his>> hat and an umbrella from a stand.
+		<<if ["walking_to_cafe", "cafe"].includes(_gwylanLocation)>>
+			<<if $gwylanSeen.includesAny("cafe_walk", "struggles") or $gwylan.sea gte 10>>
+				"Breakfast time," <<he>> says.
+				<<if Time.schoolDay and $gwylanSeen.includes("cafe_walk")>>
+					"Would you like to accompany me? I could walk you to school afterwards."
+				<<else>>
+					"Would you like to accompany me?"
+				<</if>>
+				<br><br>
+
+				<<cafeicon>><<link [[Walk with Gwylan (0:15)|Gwylan Walk Cafe Solo]]>><<pass 15>><<set $phase to 0>><</link>>
+				<br>
+				<<refuseicon>><<link [[Decline the offer (0:01)|Gwylan Walk Cafe Solo]]>><<pass 1>><<set $phase to 1>><<set $daily.gwylan.cafeOfferDeclined to true>><</link>>
+			<<else>>
+				"Breakfast time," <<he>> says. "Sorry. The <<if Time.season is "winter">>gingerbread waits<<else>>crepes wait<</if>> for nobody.<<if $gwylanSeen.includes("cafe")>> Meet me at the cafe later?<</if>>"
+				<br><br>
+
+				<<gwylanOptionsLeave>>
+			<</if>>
+		<<else>>
+			"I'm going to..." <<He>> looks unsure for a moment. "Apologies, with my routine disrupted by the renovation I don't really know what to do with myself. I'll be on Cliff street."
+			<br><br>
+
+			<<gwylanOptionsLeave>>
+		<</if>>
+		<<exit>>
+	<</if>>
+
+	/* Normal options */
+	<<if $location is "forest_shop" and _gwylanLocation is "sleep">>
+		<<He>> lets out an exaggerated yawn. "You sure know how to make the time run away from me. I'm off to sleep."
+		<br><br>
+	<<else>>
+		<<if $location is "forest_shop">>
+			<<set $daily.gwylan.clothesTalk ||= 0>>
+			<<if $daily.gwylan.clothesTalk gte 3 and !$daily.gwylan.enoughTalk>>
+				<<set $daily.gwylan.enoughTalk to true>>
+				<<if $daily.gwylan.traumaTalk>>
+					<<He>> dons a sad smile. "Thank you for confiding in me. Forgive me, but this is a lot to process. Can we continue another day?"
+					<br><br>
+					<span class="blue">Gwylan needs time to process what you've told <<him>>.</span>
+					<br><br>
+				<<else>>
+					<<He>> stretches. "Thank you for sharing your stories. I think that's all I can process for one day. Same time tomorrow?"
+					<br><br>
+					<span class="blue">Gwylan wants to hear more stories another day.</span>
+					<br><br>
+				<</if>>
+			<<elseif $daily.gwylan.enoughTalk>>
+				<span class="blue">Gwylan wants to hear more stories another day.</span>
+				<br><br>
+			<</if>>
+			<<gwylanOptionsSpecial>>
+			<<if $gwylanSeen.includes("cafe_walk") and $exposed is 0 and (Time.hour === 6 && Time.minute >= 45 || Time.hour is 7)>>
+				<<cafeicon>><<link [[Ask to walk to the cafe (0:15)|Gwylan Walk Cafe Ask]]>><<pass 15>><</link>>
+				<br>
+			<</if>>
+			<<gwylanOptionsRequest>>
+			<<gwylanOptionsService>>
+			<<gwylanOptionsClothing>>
+		<</if>>
+
+		<<if $forest_shop_intro and !$gwylanSeen.includes("clothes_intro")>>
+			<<set $_askbr to true>>
+			<<socialiseicon "ask">><<link [[Ask Gwylan about the shop (0:10)|Gwylan Talk Clothes Intro]]>><<pass 10>><</link>>
+			<br>
+		<</if>>
+
+		<<if $location is "cafe">>
+			<<gwylanOptionsCafe>>
+		<</if>>
+
+		<<if $gwylanSeen.includes("yearning")>>
+			<<gwylanOptionsGift>>
+		<</if>>
+	<</if>>
+	<<gwylanOptionsLeave>>
+<</widget>>
+
+<<widget "gwylanOptionsSpecial">>
+	<<if !_hideRitualOptions>>
+		<<if $gwylanSeen.includes("ritual_beast")>>
+			<<if $gwylan.timer.ritual and Time.date.dayDifference(new DateTime(V.gwylan.timer.ritual)) > 0>>
+				<<set _ritualDays to Time.date.dayDifference(new DateTime(V.gwylan.timer.ritual))>>
+				<<if _ritualDays gt 7>>
+					<<set $gwylan.timer.ritual to Time.date.timeStamp + (7 * 86400)>>
+					<<set _ritualDays to 7>>
+				<</if>>
+				<<set $_askbr to true>>
+				<<icon "clothes/witch-hat-sage.png">><span class="pink">Gwylan will be ready for another ritual in <<number _ritualDays>> <<pluralise _ritualDays "day">>.</span>
+			<<elseif $gwylanSeen.includes("ritual_sex_intro")>>
+				<<set $_askbr to true>>
+				<<icon "clothes/witch-hat-sage.png">><<link [[Help Gwylan with <<his>> ritual (?:??)|Gwylan Ritual Select]]>><</link>>
+			<<else>>
+				<<set $_askbr to true>>
+				<<icon "clothes/witch-hat-sage.png">><<link [[Help Gwylan with <<his>> ritual (?:??)|Gwylan Forest Journey Prep]]>><<endevent>><</link>>
+			<</if>>
+			<br>
+			<<if (!$gwylan.timer.sample or $gwylan.timer.sample lte Time.date.timeStamp) and !["meetAtCafe", "sample"].includes($gwylan.request.event)>>
+				<<set $_askbr to true>>
+				<<if $gwylanSeen.includes("sample")>>
+					<<ind>><<link [[Help Gwylan replace the measuring charms|Gwylan Request Sample]]>><</link>>
+				<<else>>
+					<<ind>><<link [[Ask Gwylan about the poison in the world|Gwylan Request Sample]]>><</link>>
+				<</if>>
+				<br>
+			<</if>>
+		<<elseif !$gwylanSeen.includes("ritual_beast") and $gwylan.request.event is "meetAtShop" and !$daily.gwylan.preventProgress>>
+			<<set $_askbr to true>>
+			<<socialiseicon "ask">><<link [[Help Gwylan (?:??)|Gwylan Forest Journey Prep]]>><<endevent>><</link>>
+			<br>
+		<</if>>
+	<</if>>
+
+	/* ToDo: Gwylan ToDo: Magic Tattoos */
+	<<if $gwylanSeen.includes("ritual_beast") and !$gwylanSeen.includes("tattoos_intro")>>
+		<<set $_askbr to true>>
+		<<ind>><<link [[Ask Gwylan about <<his>> tattoos|Gwylan Talk Tattoos Intro]]>><</link>>
+		<br>
+	<</if>>
+	<<if $gwylanSeen.includes("gwylan_ears") and !$gwylanSeen.includesAny("gwylan_ears_talk", "gwylan_tf_revealed") and $gwylanSeen.includes("hat_found")>>
+		<<set $_askbr to true>>
+		<<icon "clothes/witch-hat-sage.png">><<link [[Ask Gwylan about the ears on <<his>> hat (0:05)|Gwylan Talk TF Ears]]>><<pass 5>><</link>>
+		<br>
+	<</if>>
+	<<if $gwylanSeen.includes("gwylan_tail") and !$gwylanSeen.includesAny("gwylan_tail_talk", "gwylan_tf_revealed")>>
+		<<set $_askbr to true>>
+		<<ind>><<link [[Ask Gwylan about <<his>> fake tail (0:05)|Gwylan Talk TF Tail]]>><<pass 5>><</link>>
+		<br>
+	<</if>>
+	<<if $gwylanSeen.includes("gwylan_fangs") and !$gwylanSeen.includesAny("gwylan_fangs_talk", "gwylan_tf_revealed")>>
+		<<set $_askbr to true>>
+		<<ind>><<link [[Ask Gwylan about <<his>> sharp teeth (0:05)|Gwylan Talk TF Fangs]]>><<pass 5>><</link>>
+		<br>
+	<</if>>
+	<<if $gwylanSeen.includesAll("gwylan_ears_talk", "gwylan_tail_talk", "gwylan_fangs_talk") and $settings.transformAnimalEnabled and ($gwylanTalked.includes("transformation") or $gwylanSeen.includes("player_tf")) and !$gwylanSeen.includes("gwylan_tf_revealed")>>
+		<<set $_askbr to true>>
+		<<icon "transformation.png">><<link [[Confront Gwylan about <<his>> foxiness (0:05)|Gwylan Talk TF Revealed Confront]]>><<pass 5>><</link>>
+		<br>
+	<</if>>
+	<<if $avery_mansion>>
+		<<if $avery_mansion.fox.known and $avery_mansion.fox.end and !$brownFoxRevealed and $gwylanTalked.includes("fox_mask") and ($brownFoxWoundedHint or $gwylanSeen.includes("yearning"))>>
+			<<set $_askbr to true>>
+			<<icon "clothes/fox-mask.png">><<link [[Ask <<him>> to try on the fox mask (0:05)|Gwylan Talk Brown Fox]]>><<pass 5>><</link>>
+			<br>
+		<<elseif $brownFoxRevealed and !$brownFoxMaskTalk and $gwylanTalked.includes("fox_mask") and $avery_fate>>
+			<<set $_askbr to true>>
+			<<icon "clothes/fox-mask.png">><<link [[Ask about the brown fox mask (0:05)|Gwylan Talk Brown Fox Mask]]>><<pass 5>><</link>>
+			<br>
+		<</if>>
+	<</if>>
+	<<if $_askbr>><br><</if>>
+<</widget>>
+
+<<widget "gwylanOptionsRequest">>
+	<<if !$gwylan.request.event and $gwylanSeen.includes("hat_found")>>
+		<<set $_reqbr to true>>
+		<<socialiseicon "ask">><<link [[Ask <<him>> if <<he>> needs help with anything|Gwylan Request]]>><</link>>
+		<br>
+	<</if>>
+	<<if $harpy gte 6 and $birdFly gte 1 and $gwylan.request.event isnot "preen" and !$plucked and $gwylanSeen.includesAny("preen", "request_preen")>>
+		<<set $_reqbr to true>>
+		<<tficon "bird">><<link [[Ask <<him>> to preen your wings (0:40)|Gwylan Request Preen]]>><</link>><<lstress>><<garousal>>
+		<br>
+	<</if>>
+	<<if $gwylan.request.event and $location is "forest_shop">>
+		<<switch $gwylan.request.event>>
+			<<case "clothing">>
+				<<if gwylanRequestMet()>>
+					<<set $_reqbr to true>>
+					<<set $_iconItem to $gwylan.request.items.find(item => item.root)>><<set $_iconWorn to V.worn[$_iconItem.slot]>>
+					<<clothingicon $_iconWorn $_iconItem.slot>>
+					<<if $gwylan.request.special and $gwylan.request.special isnot "none">>
+						<<if $gwylan.request.special is "gold accessories">>
+							<<link [[`Show <<him>> the gold accessories`|Gwylan Request Clothes Complete]]>><</link>>
+						<<elseif $gwylan.request.details.outfit>>
+							<<link [[`Show <<him>> the $gwylan.request.special outfit`|Gwylan Request Clothes Complete]]>><</link>>
+						<<else>>
+							<<link [[`Show <<him>> the $gwylan.request.special`|Gwylan Request Clothes Complete]]>><</link>>
+						<</if>>
+					<<elseif $_iconWorn.name>>
+						<<link [[`Show <<him>> the $_iconWorn.name`|Gwylan Request Clothes Complete]]>><</link>>
+					<<else>>
+						<<link [[Show <<him>> the clothing <<he>> asked for|Gwylan Request Clothes Complete]]>><</link>>
+					<</if>>
+					<br>
+				<<elseif $earSlime.forcedDressing and $gwylan.request.items.some(item => ![V.earSlime.forcedDressing, "n"].includes(item.gender)) ||
+					$earSlime.forcedCommando gte 0 && $gwylan.request.items.some(item => item.slot === "under_lower") ||
+					$gwylan.request.items.some(item => item.reveal lt earSlimeCorruptionClothes() && setup.clothingLayer.torso.includes(item.slot))>>
+					<<set $_reqbr to true>>
+					<<set _earSlimeText to numberOfEarSlime() gt 1 ? "ear slimes" : "ear slime">>
+					<<socialiseicon "angry">><<link [[`Tell <<him>> your _earSlimeText won't let you complete <<his>> request`|Gwylan Talk Ear Slime Clothes]]>><</link>>
+					<br>
+				<</if>>
+			<<case "ingredients">>
+				<<if $gwylan.request.special is "tutorial" and $gwylanTutorialShrooms + $foodstuff.wolfshroom.amount gte 3>>
+					<<set $_reqbr to true>>
+					<<foodstufficon "wolfshroom">><<link [[Give <<him>> the wolfshrooms|Gwylan Request Tutorial Complete]]>><</link>>
+					<br>
+				<<elseif gwylanRequestMet()>>
+					<<set $_reqbr to true>>
+					<<set $_iconItem to $gwylan.request.items.find(item => item.root)>>
+					<<foodstufficon $_iconItem.name>><<link [[Give <<him>> the ingredients <<he>> asked for|Gwylan Request Ingredients Complete]]>><</link>>
+					<br>
+				<</if>>
+			<<case "sample">>
+				<<if gwylanRequestMet()>>
+					<<set $_reqbr to true>>
+					<<scienceicon>><<link [[Give <<him>> the samples|Gwylan Request Sample Complete]]>><</link>>
+					<br>
+				<</if>>
+			<<case "samplePlayer">>
+				/* ToDo: Gwylan */
+			<<case "cream">>
+				<<set $_reqbr to true>>
+				<<foodstufficon "cream">><<link [[Take up <<his>> lewd offer|Gwylan Request Cream]]>><</link>>
+				<br>
+			<<case "preen">>
+				<<if $harpy gte 6 and $gwylan.request.special is "harpy">>
+					<<set $_reqbr to true>>
+					<<tficon "bird">><<link [[Let <<him>> preen your wings (0:40)|Gwylan Request Preen]]>><</link>><<lstress>><<garousal>>
+					<br>
+					<<if $bird?.materials?.feathers gte 10>>
+						<<birdicon "feathers">><<link [[Give <<him>> 10 feathers instead|Gwylan Request Feathers]]>><<set $phase to 1>><</link>>
+						<br>
+					<</if>>
+				<<elseif $bird?.materials?.feathers gte $gwylan.request.items.find(feather => feather.name === "feathers").need or $harpy gte 6>>
+					<<set $_reqbr to true>>
+					<<if $bird?.materials?.feathers gte $gwylan.request.items.find(feather => feather.name === "feathers").need>>
+						<<birdicon "feathers">><<link [[Give <<him>> the requested feathers|Gwylan Request Feathers]]>><<set $phase to 2>><</link>>
+						<br>
+					<</if>>
+					<<if $harpy gte 6>>
+						<<tficon "bird">><<link [[Let <<him>> preen your wings instead (0:40)|Gwylan Request Preen]]>><</link>><<lstress>><<garousal>>
+						<br>
+					<</if>>
+				<</if>>
+			<<case "chastity">>
+				<<if !playerChastity()>>
+					<<lockicon "unlock">><<link [[Tell <<him>> you got your chastity device removed|Gwylan Chastity Removed]]>><</link>>
+					<br>
+				<<elseif playerChastity() and gwylanRequestMet()>>
+					<<lockicon "unlock">><<link [[Give <<him>> the items <<he>> asked for (1:00)|Gwylan Chastity Removal Gold]]>><<pass 20>><</link>>
+					<br>
+				<</if>>
+			<<default>>
+				/* Request not applicable to interaction here */
+		<</switch>>
+		/* Necessary to avoid an uncompletable request if the golden chastity belt is removed before the request is turned in */
+		<<if $gwylan.request.event is "recipe" and $gwylan.request.special is "chastity" and !playerChastity()>>
+			<<lockicon "unlock">><<link [[Tell <<him>> you got your chastity device removed|Gwylan Chastity Removed]]>><</link>>
+			<br>
+		<</if>>
+		<<if !gwylanRequestMet() and !$gwylan.request.command and $debug is 1>>
+			/* ToDo: Gwylan - rerolling requests */
+			<span class="red">DEV NOTE: Request rerolling not yet implemented. Clears current request. May entirely break story progression if used carelessly.</span>
+			<br>
+			<<set $_reqbr to true>>
+			<<icon "cross.png">><<link [[Ask Gwylan if you can do something else|Forest Shop Entrance]]>><<gwylanRequestEnd "skip">><<endevent>><</link>>
+			<br>
+		<</if>>
+	<</if>>
+	<<if $_reqbr>><br><</if>>
+<</widget>>
+
+<<widget "gwylanOptionsService">>
+	<<if playerChastity() and $gwylan.request.hold isnot "chastity" and ($gwylanSeen.includesAny("chastity", "partners") or $gwylanJordanChastity or $gwylan.request.event is "chastity" and !$gwylan.request.items?.length)>>
+		<<if $gwylan.requestLast?.hold is "chastity" and (!$gwylan.request.event or $gwylan.request.event is "chastity")>>
+			<<lockicon>><<link [[Ask for help removing your chastity device|Gwylan Chastity Removal]]>><<set $phase to "skip">><</link>>
+		<<else>>
+			<<lockicon>><<link [[Ask for help removing your chastity device|Gwylan Chastity Removal]]>><</link>>
+		<</if>>
+		<br>
+	<</if>>
+	<<if !$gwylan.taken and $worn.neck.name is "familiar collar" and $gwylanSeen.includes("familiar_collar") and $daily.gwylan.collar_lock isnot 2>>
+		<<if $worn.neck.cursed is 1>>
+			<<icon "clothes/familiar-collar.png">><<link [[Ask Gwylan to unlock your familiar collar|Gwylan Familiar Collar Unlock]]>><</link>>
+		<<else>>
+			<<icon "clothes/familiar-collar.png">><<link [[Ask Gwylan to lock your familiar collar|Gwylan Familiar Collar Lock]]>><</link>><<gwylanHypnoNote>>
+		<</if>>
+		<br>
+	<</if>>
+	<<if $gwylanSeen.includesAll("partners", "familiar_collar") and (!$gwylan.timer.petBed or $gwylan.timer.petBed and Time.date.dayDifference(new DateTime(V.gwylan.timer.petBed)) <= 1) and $gwylan.request.hold isnot "petBed" and ($tiredness gte 1000 or $gwylanSeen.includes("doggy_bed"))>>
+		<<if $gwylan.timer.petBed and Time.date.dayDifference(new DateTime(V.gwylan.timer.petBed)) <= 1>>
+			<<bedicon "gwylanpet">><<link [[Ask Gwylan to keep your pet bed out for another week|Gwylan Dog Bed Request]]>><</link>>
+		<<elseif $gwylanSeen.includes("doggy_bed")>>
+			<<bedicon "gwylanpet">><<link [[Ask Gwylan to drag your pet bed out again|Gwylan Dog Bed Request]]>><</link>>
+		<<else>>
+			<<bedicon "default">><<link [[Ask Gwylan if you can sleep here|Gwylan Dog Bed Request]]>><</link>>
+		<</if>>
+		<br>
+	<</if>>
+	<<if !_hideHypnosisOptions>>
+		<<if $gwylanSeen.includes("player_tf")>>
+			<<if $angel gte 4 or $fallenangel gte 2 or $demon gte 4 or $wolfgirl gte 4 or $cat gte 4 or $cow gte 4 or $harpy gte 4 or $fox gte 4>>
+				<<set $_hypnobr to true>>
+				<<icon "transformation.png">><<link [[Ask for help coming to terms with your inner self|Gwylan Hypnosis Start]]>><<set $phase to "peace">><</link>><<gwylanHypnoNote>>
+				<br>
+			<</if>>
+		<</if>>
+		<<if numberOfEarSlime(true)>>
+			<<if ($gwylanJordanSlime or $gwylanSeen.includes("ear_slime_intro")) and !$gwylanSeen.includes("ear_slime")>>
+				<<set $_hypnobr to true>>
+				<<socialiseicon "ask">><<link [[Ask about your ear <<pluralise numberOfEarSlime(true) "slime">>|Gwylan Talk Ear Slime]]>><</link>>
+				<br>
+			<<elseif $gwylanSeen.includes("ear_slime")>>
+				<<set $_hypnobr to true>>
+				<<hypnosisicon>><<link [[Ask for help silencing your ear <<pluralise numberOfEarSlime(true) "slime">>|Gwylan Hypnosis Start]]>><<set $phase to "silence">><</link>><<gwylanHypnoNote>>
+				<br>
+			<</if>>
+		<</if>>
+		<<if $gwylanSeen.includes("request_intro") and $sleeptrouble gte 1>>
+			<<set $_hypnobr to true>>
+			<<bedicon "zzz">><<link [[Tell Gwylan you're having trouble sleeping|Gwylan Hypnosis Start]]>><<set $phase to "slumber">><</link>><<gwylanHypnoNote>>
+			<br>
+		<</if>>
+		/* ToDo: Gwylan - make proper unlock condition */
+		<<if $gwylanSeen.includes("ritual_beast") and $hallucinations gte 2>>
+			<<set $_hypnobr to true>>
+			<<symbol "awareness">><<link [[Ask Gwylan for help with hallucinations|Gwylan Hypnosis Start]]>><<set $phase to "insight">><</link>><<gwylanHypnoNote>>
+			<br>
+		<</if>>
+		<<if $gwylanSeen.includes("request_intro") and Object.keys(V.hypnosis_traits).filter(trait => ["suggestion", "scream", "cover", "deviancy"].includes(trait) && V.hypnosis_traits[trait] >= 1).length>>
+			<<set $_hypnobr to true>>
+			<<hypnosisicon>><<link [[Ask for help forgetting hypnosis|Gwylan Hypnosis Start]]>><<set $phase to "removal">><</link>><<gwylanHypnoNote>>
+			<br>
+		<</if>>
+		<<if $_hypnobr>><br><</if>>
+	<</if>>
+
+	/* ToDo: Gwylan - Sneaking into the garden */
+
+	/* ToDo: Gwylan - Punishments for disobedience, including familiar collar */
+
+	/* ToDo: Gwylan - break down to Gwylan about your troubles? Leads to existing fruit trauma scene. */
+
+	/* ToDo: Gwylan - Telling Gwylan about misc troubles. Pool of possible scenes based on trauma, traits, etc. Could unlock hypnosis services.
+	'tell Gwylan you've been having trouble sleeping' etc.
+	V.gwylan.request.missed is 1 or V.gwylan.timer.lastSeen too high, say player feels bad about not seeing Gwylan
+	*/
+
+	/* ToDo: Gwylan - basic service unrelated to hypno that can be done without cooldown? */
+
+<</widget>>
+
+<<widget "gwylanOptionsClothing">>
+	<<if $gwylanSeen.includes("clothes_intro")>>
+		<<if $daily.gwylan.enoughTalk>>
+			/* Nothing */
+		<<else>>
+			/* Get sets that the player can talk about */
+			<<set $_setsAtForestShop to getSpecialSets(sets => sets.shop.includes("forest"))>>
+			/* Get unlocked sets */
+			<<set $_setsUnlocked to getUnlockedSpecialSets().filter(set => $_setsAtForestShop.includes(set) && !$gwylanTalked.includes(set))>>
+			<<if !$gwylanSeen.includesAny("clothes_talk_cheated", "clothes_talk_bypassed")>>
+				/* Count cheat sets for one-time event */
+				<<set $_setsCheated to getUnlockedSpecialSets(V.specialClothes.filter(c => c.unlocked === 1).map(c => c.name)).filter(set => $_setsAtForestShop.includes(set) && !$gwylanTalked.includes(set))>>
+				<<set $_setsUnlocked to $_setsUnlocked.concat($_setsCheated)>>
+			<</if>>
+			<<if !$gwylanSeen.includes("clothes_talk_bypassed")>>
+				/* Count feat sets for one-time event */
+				<<set $_setsBypassed to getUnlockedSpecialSets(V.specialClothes.filter(c => c.unlocked === 2).map(c => c.name)).filter(set => $_setsAtForestShop.includes(set) && !$gwylanTalked.includes(set))>>
+				<<set $_setsUnlocked to $_setsUnlocked.concat($_setsBypassed)>>
+			<</if>>
+			<div class="no-numberify">
+				/* Talk to Gwylan about further heists after catsuit conversation */
+				<<if $gwylanTalked.includes("catsuit") and
+				(($bird?.hunts?.estate is "complete" and !$gwylanTalked.includes("heist_silver")) or
+				($lakestealgold is 1 and !$gwylanTalked.includes("heist_gold")) or
+				($compound?.symbol.includes("docks") and !$gwylanTalked.includes("symbol")) or
+				(($wrenHeist or $wrenSeen?.includes("heist")) and !$gwylanTalked.includes("heist_wren")))>>
+					<<set $_catsuit to clone(setup.clothes.upper[75])>>
+					<<set $_catsuit.colour to "black">>
+					<<clothingicon $_catsuit "upper">><<link [[Tell <<him>> about your criminal adventures|Gwylan Talk Heists]]>><<set $phase to "silver">><</link>>
+					<br>
+				<</if>>
+				<<if !$gwylanSeen.includes("clothes_talk_savescum") and _saveLoaded>>
+					<<if localStorage.getItem("gwylanTalk") is "seen">>
+						<<set $gwylanSeen.pushUnique("clothes_talk_savescum")>>
+					<<elseif localStorage.getItem("gwylanTalk") is "nobody">>
+						<!-- Do nothing. Don't trigger savescum message if nobody happens -->
+					<<elseif !localStorage.getItem("gwylanTalk")>>
+						<<run localStorage.setItem("gwylanTalk", 0)>>
+					<<else>>
+						<<run localStorage.setItem("gwylanTalk", Number(localStorage.getItem("gwylanTalk")) + 1)>>
+					<</if>>
+				<</if>>
+				<<for $_label, _value range $_setsUnlocked>>
+					<<set $_subsetVals to Object.keys(setup.specialClothesSets).filter(set => setup.specialClothesSets[set].subsetOf?.includes(_value))>>
+					<<if $gwylanTalked.includesAll($_subsetVals)>>
+						<<set $_clothesbr to true>>
+						/* If value is a set that includes other sets, such as 'halloween', do not show the talk link unless all of its subsets have been talked about already. */
+						/* Empty arrays are valid to bypass this check, which is intended. */
+						/* Get icon provided by setup */
+						<<set _timeToPass to $_subsetVals.length ? 20 : 15>>
+						<<set $_clothingObject to clone(setup.specialClothesSets[_value])>>
+						<<if $_clothingObject.icon is "clothes">>
+							<<set $_cIcon to clone(setup.clothes[$_clothingObject.iconSlot][$_clothingObject.iconIndex])>>
+							<<set $_cIcon.colour to $_clothingObject.iconColor>><<set $_cIcon.accessory_colour to $_clothingObject.iconAccColor>>
+							<<clothingicon $_cIcon $_clothingObject.iconSlot>>
+						<<else>>
+							<<set $_cIcon to $_clothingObject.icon>>
+							<<icon $_cIcon>>
+						<</if>>
+						/* Passage names are "Gwylan Talk Clothes " + the set name from setup in title case with underscores removed */
+						<<set _incomingPassageText to toTitleCase(_value.replace(/_/g," "))>>
+						<<capture _value, _incomingPassageText, _timeToPass>>
+							<<if Number(localStorage.getItem("gwylanTalk")) gte 1>>
+								<<link [[`Show <<him>> the $_clothingObject.text`|Gwylan Talk Clothes Savescum]]>><<set $clothesBeingTalkedAbout to _value>><</link>>
+								<br>
+							<<elseif !$_setsAtForestShop.includes(_value) or !setup.specialClothesSets[_value]>>
+								<<link [[`Show <<him>> the $_clothingObject.text`|Gwylan Talk Clothes Error]]>><<set $clothesBeingTalkedAbout to _value>><</link>>
+								<br>
+							<<elseif $_setsCheated?.includes(_value)>>
+								<<link [[`Show <<him>> the $_clothingObject.text`|Gwylan Talk Clothes Cheated]]>><<set $clothesBeingTalkedAbout to _value>><</link>>
+								<br>
+							<<elseif $_setsBypassed?.includes(_value)>>
+								<<link [[`Show <<him>> the $_clothingObject.text`|Gwylan Talk Clothes Bypassed]]>><<set $clothesBeingTalkedAbout to _value>><</link>>
+								<br>
+							<<else>>
+								<<if $_subsetVals.length>>
+									<<link [[`Ask <<him>> about the $_clothingObject.text (0:_timeToPass)`|`Gwylan Talk Clothes `+ _incomingPassageText]]>><<set $gwylanPassTime to _timeToPass>><</link>><<glove>>
+								<<else>>
+									<<link [[`Show <<him>> the $_clothingObject.text (0:_timeToPass)`|`Gwylan Talk Clothes `+ _incomingPassageText]]>><<set $gwylanPassTime to _timeToPass>><</link>><<glove>>
+								<</if>>
+								<br>
+							<</if>>
+						<</capture>>
+					<</if>>
+				<</for>>
+			</div>
+		<</if>>
+		<<if $_clothesbr>><br><</if>>
+	<</if>>
+<</widget>>
+
+<<widget "gwylanOptionsGift">>
+	<<if $location is "forest_shop" and checkSextoysGift("Gwylan") and C.npc.Gwylan.penis is "none" and checkIfNPCHasCategorySextoy("Gwylan","strap-on").length <= 5>>
+		<<set $_giftbr to true>>
+		<<for _key range Object.keys(V.NPCName[7].sextoys).filter(t => V.NPCName[7].sextoys[t][0].gift_state === "held")>>
+			<<set _toy to V.NPCName[7].sextoys[_key][0]>>
+			<<set _icon to `sex-toys/${_toy.name.replace(/ /g, "-")}.png`>>
+			<span @class="`clothes-${_toy.colour}`"><<icon _icon>></span>
+			<<capture _toy>>
+				<<link [[Gift Gwylan the _toy.colour _toy.name|Gwylan Gift Strap-on]]>>
+					<<endevent>>
+					<<set $phase to _toy.name>>
+					<<set _toy.gift_state to "received">>
+					<<generateNewStrapon _toy.size _toy.colour _toy.shape>>
+					<<giveNNPCnewstrapon "Gwylan">>
+				<</link>>
+			<</capture>>
+			<br>
+		<</for>>
+		<br>
+	<</if>>
+	<<if canGiftFood("Gwylan") and $location isnot "cliff">>
+		<<set $_giftbr to true>>
+		<<skinicon "give">><<link [[Give Gwylan food|Gwylan Gifts List]]>><</link>>
+		<br>
+	<</if>>
+	<<if $_giftbr>><br><</if>>
+<</widget>>
+
+<<widget "gwylanOptionsCafe">>
+	<<set $_schoolWalkAvailable to ($gwylanSeen.includes("cafe_walk") or ($gwylan.sea + ($gwylanTalked.count("fox_mask") * 20) + ($gwylanTalked.count("dark_pendant") * 20) gte 40)) or ($gwylan.robin gte 10 and $daily.robin_in_cafe and false)>> /* WARNING! Re-enable later for Gwybin cafe */
+	<<if $_schoolWalkAvailable and Time.schoolDay and ((Time.hour is 7 and Time.minute gte 45) or (Time.hour is 8 and Time.minute lte 35)) and !$daily.gwylan_skip_school>>
+		<<set _passTime to "<<passTimeUntil 8 45>><<set $daily.gwylan.cafeSkip to true>>">><<set _passTimeDisplay to "0:" + ("0" + ((45 - Time.minute + 60) % 60)).slice(-2)>>
+		<<if _passTimeDisplay is "0:00">><<set _passTimeDisplay to "1:00">><</if>>
+	<<elseif $_schoolWalkAvailable and Time.schoolDay and Time.hour is 8 and Time.minute gt 35 and !$daily.gwylan_skip_school>>
+		<<set _passTime to "<<pass 10>><<set $daily.gwylan.cafeSkip to true>>">><<set _passTimeDisplay to "0:10">>
+	<<elseif Time.hour lte 7 or (Time.hour is 8 and Time.minute lt 10)>>
+		<<set _passTime to "<<pass 1 hour>>">><<set _passTimeDisplay to "1:00">>
+	<<elseif Time.hour is 8 and Time.minute lte 20>>
+		<<set _passTime to "<<passTimeUntil 9 20>><<set $daily.gwylan.cafeSkip to true>>">><<set _passTimeDisplay to "1:" + ("0" + (20 - Time.minute)).slice(-2)>> /* Because why stop socialising only minutes before you're going to leave anyway? */
+	<<elseif Time.hour is 9 and Time.minute gte 10>>
+		<<set _passTime to "<<pass 10>><<set $daily.gwylan.cafeSkip to true>>">><<set _passTimeDisplay to "0:10">> /* So that Gwylan stays a little while longer if the player just arrived. */
+	<<else>>
+		<<set _passTime to "<<passTimeUntil 9 20>><<set $daily.gwylan.cafeSkip to true>>">><<set _passTimeDisplay to "0:" + ("0" + ((20 - Time.minute + 60) % 60)).slice(-2)>>
+	<</if>>
+	<<beachicon>><<link [[Watch the sea with <<him>> (_passTimeDisplay)|Gwylan Ocean Breeze Watch]]>>_passTime<<stress -6>><<trauma -3>><<willpower 1>><</link>><<lstress>><<ltrauma>><<gwillpower>>
+	<br>
+	<<if $location is "cafe" and !(between($chef_state, 7, 8) and $chef_rework lte 30) and $daily.cafeEaten isnot 1>>
+		<<if $money gte 200>>
+			<<foodicon "coffee">><<link [[Buy coffee (_passTimeDisplay £2)|Gwylan Ocean Breeze Watch]]>>
+				<<set $phase to "coffee">><<set $phase2 to 1>><<set $daily.cafeEaten to 1>><<money -200 "cafe">>
+				<<stress -9>><<trauma -3>><<tiredness -4>><<willpower 1>>_passTime
+			<</link>><<lstress>><<ltrauma>><<ltiredness>><<gwillpower>>
+			<br>
+		<</if>>
+		<<if $money gte 700>>
+			<<if Time.season is "winter">>
+				<<foodicon "winterale">>
+				<<if playerIsPregnant() and playerAwareTheyArePregnant()>>
+					<span class="blue">You can't bring yourself to drink winter ale while you know you're with child.</span>
+				<<else>>
+					<<link [[Buy winter ale (_passTimeDisplay £7)|Gwylan Ocean Breeze Watch]]>>
+						<<set $phase to "winter ale">><<set $phase2 to 1>><<set $daily.cafeEaten to 1>><<money -700 "cafe">>
+						<<stress -12>><<alcohol 100>><<willpower 1>>_passTime
+					<</link>><<llstress>><<ggalcohol>><<gwillpower>>
+				<</if>>
+				<br>
+			<<elseif Time.season is "spring">>
+				<<foodicon "fruityale">>
+				<<if playerIsPregnant() and playerAwareTheyArePregnant()>>
+					<span class="blue">You can't bring yourself to drink fruity ale while you know you're with child.</span>
+				<<else>>
+					<<link [[Buy fruity ale (_passTimeDisplay £7)|Gwylan Ocean Breeze Watch]]>>
+						<<set $phase to "fruity ale">><<set $phase2 to 1>><<set $daily.cafeEaten to 1>><<money -700 "cafe">>
+						<<stress -12>><<alcohol 60>><<willpower 1>>_passTime
+					<</link>><<llstress>><<galcohol>><<gwillpower>>
+				<</if>>
+				<br>
+			<<elseif Time.season is "summer">>
+				<<foodicon "shandy">>
+				<<if playerIsPregnant() and playerAwareTheyArePregnant()>>
+					<span class="blue">You can't bring yourself to drink shandy while you know you're with child.</span>
+				<<else>>
+					<<link [[Buy shandy (_passTimeDisplay £7)|Gwylan Ocean Breeze Watch]]>>
+						<<set $phase to "shandy">><<set $phase2 to 1>><<set $daily.cafeEaten to 1>><<money -700 "cafe">>
+						<<stress -12>><<alcohol 40>><<willpower 1>>_passTime
+					<</link>><<llstress>><<galcohol>><<gwillpower>>
+				<</if>>
+				<br>
+			<<else>>
+				<<foodicon "autumnale">>
+				<<if playerIsPregnant() and playerAwareTheyArePregnant()>>
+					<span class="blue">You can't bring yourself to drink autumn ale while you know you're with child.</span>
+				<<else>>
+					<<link [[Buy autumn ale (_passTimeDisplay £7)|Gwylan Ocean Breeze Watch]]>>
+						<<set $phase to "autumn ale">><<set $phase2 to 1>><<set $daily.cafeEaten to 1>><<money -700 "cafe">>
+						<<stress -12>><<alcohol 80>><<willpower 1>>_passTime
+					<</link>><<llstress>><<galcohol>><<gwillpower>>
+				<</if>>
+				<br>
+			<</if>>
+		<</if>>
+		<<if $money gte 300>>
+			/* ToDo: Gwylan - bringing a milkshake to Gwylan at the forest shop */
+			<<if getRobinLocation() is "cafe">>
+				<<if $gwylanSeen.includes("yearning")>>
+					<<foodicon "milkshake">><<link [[Buy milkshake and share with Gwylan (_passTimeDisplay £3)|Gwylan Ocean Breeze Watch]]>>
+						<<set $phase to "milkshake">><<set $phase2 to 2>><<set $daily.cafeEaten to 1>><<money -300 "cafe">>
+						<<stress -12>><<willpower 1>>_passTime
+					<</link>><<llstress>><<gwillpower>>
+					<br>
+				<</if>>
+				<<if $robinromance is 1>>
+					<<foodicon "milkshake">><<link [[Buy milkshake and share with Robin (_passTimeDisplay £3)|Gwylan Ocean Breeze Watch]]>>
+						<<set $phase to "milkshake">><<set $phase2 to 3>><<set $daily.cafeEaten to 1>><<money -300 "cafe">>
+						<<stress -12>><<willpower 1>>_passTime
+					<</link>><<llstress>><<gwillpower>>
+					<br>
+				<</if>>
+				<<if $gwylanSeen.includes("yearning") and $robinromance is 1>>
+					<<foodicon "milkshake">><<link [[Buy milkshake and share with them both (_passTimeDisplay £3)|Gwylan Ocean Breeze Watch]]>>
+						<<set $phase to "milkshake">><<set $phase2 to 4>><<set $daily.cafeEaten to 1>><<money -300 "cafe">>
+						<<stress -12>><<willpower 1>>_passTime
+					<</link>><<llstress>><<gwillpower>>
+					<br>
+				<</if>>
+			<<else>>
+				<<if $gwylanSeen.includes("yearning")>>
+					<<foodicon "milkshake">><<link [[Buy milkshake and share (_passTimeDisplay £3)|Gwylan Ocean Breeze Watch]]>>
+						<<set $phase to "milkshake">><<set $phase2 to 1>><<set $daily.cafeEaten to 1>><<money -300 "cafe">>
+						<<stress -12>><<willpower 1>>_passTime
+					<</link>><<llstress>><<gwillpower>>
+					<br>
+				<</if>>
+			<</if>>
+		<</if>>
+		<<if $money gte 500>>
+			<<foodicon "fruitsalad">>
+			<<link [[Buy fruit salad (_passTimeDisplay £5)|Gwylan Ocean Breeze Watch]]>>
+				<<set $phase to "fruit salad">><<set $phase2 to 1>><<set $daily.cafeEaten to 1>><<money -500 "cafe">>
+				<<stress -12>><<trauma -3>><<willpower 1>>_passTime
+			<</link>><<lstress>><<ltrauma>><<gwillpower>>
+			<br>
+		<</if>>
+		<<if $money gte 600 and Time.season is "winter">>
+			<<foodicon "gingerbread">>
+			<<link [[Buy gingerbread (_passTimeDisplay £6)|Gwylan Ocean Breeze Watch]]>>
+				<<set $phase to "gingerbread">><<set $phase2 to 1>><<set $daily.cafeEaten to 1>><<money -600 "cafe">>
+				<<stress -14>><<willpower 1>>_passTime
+			<</link>><<llstress>><<gwillpower>>
+			<br>
+		<</if>>
+		<<if $money gte 1000>>
+			<<foodicon "pancakes">>
+			<<link [[Buy pancakes (_passTimeDisplay £10)|Gwylan Ocean Breeze Watch]]>>
+				<<set $phase to "pancakes">><<set $phase2 to 1>><<set $daily.cafeEaten to 1>><<money -1000 "cafe">>
+				<<stress -6>><<trauma -3>><<tiredness -6>><<willpower 1>>_passTime
+			<</link>><<lstress>><<ltrauma>><<ltiredness>><<gwillpower>>
+			<br>
+			<<foodicon "crepes">>
+			<<link [[Buy crepes (_passTimeDisplay £10)|Gwylan Ocean Breeze Watch]]>>
+				<<set $phase to "crepes">><<set $phase2 to 1>><<set $daily.cafeEaten to 1>><<money -1000 "cafe">>
+				<<stress -3>><<trauma -6>><<tiredness -6>><<willpower 1>>_passTime
+			<</link>><<lstress>><<ltrauma>><<ltiredness>><<gwillpower>>
+			<br>
+		<</if>>
+		<<if $money gte 5000>>
+			<<foodicon "creambun">>
+			<<link [[Buy Deluxe Cream Bun (_passTimeDisplay £50)|Gwylan Ocean Breeze Watch]]>>
+				<<set $phase to "deluxe cream bun">><<set $phase2 to 1>><<set $daily.cafeEaten to 1>><<money -5000 "cafe">>
+				<<transform cat 1>><<stress -24>><<trauma -3>><<willpower 1>>_passTime
+			<</link>><<lllstress>><<ltrauma>><<gwillpower>>
+			<br>
+		<</if>>
+	<</if>>
+	<<if !(between($chef_state, 7, 8) and $chef_rework lte 30) and $cafe_study and ($studyBooks.rented isnot "none" or $studyBooks.stolen isnot "none") and Time.schoolDay>>
+		<br>
+		<<switch $studyBooks.rented>>
+			<<case "science">><<scienceicon>><<link [[Study science (_passTimeDisplay)|Gwylan Ocean Breeze Watch]]>><<set $phase to "science">><<set $phase2 to 2>><<scienceskill>><<willpower 1>>_passTime<</link>><<gscience>><<gwillpower>><br>
+			<<case "maths">><<mathicon>><<link [[Study maths (_passTimeDisplay)|Gwylan Ocean Breeze Watch]]>><<set $phase to "maths">><<set $phase2 to 2>><<mathsskill>><<willpower 1>>_passTime<</link>><<gmaths>><<gwillpower>><br>
+			<<case "English">><<englishicon>><<link [[Study English (_passTimeDisplay)|Gwylan Ocean Breeze Watch]]>><<set $phase to "English">><<set $phase2 to 2>><<englishskill>><<willpower 1>>_passTime<</link>><<genglish>><<gwillpower>><br>
+			<<case "history">><<historyicon>><<link [[Study history (_passTimeDisplay)|Gwylan Ocean Breeze Watch]]>><<set $phase to "history">><<set $phase2 to 2>><<historyskill>><<willpower 1>>_passTime<</link>><<ghistory>><<gwillpower>><br>
+		<</switch>>
+		<<switch $studyBooks.stolen>>
+			<<case "science">><<scienceicon>><<link [[Study science (_passTimeDisplay)|Gwylan Ocean Breeze Watch]]>><<set $phase to "science">><<set $phase2 to 2>><<scienceskill>><<willpower 1>>_passTime<</link>><<gscience>><<gwillpower>><br>
+			<<case "maths">><<mathicon>><<link [[Study maths (_passTimeDisplay)|Gwylan Ocean Breeze Watch]]>><<set $phase to "maths">><<set $phase2 to 2>><<mathsskill>><<willpower 1>>_passTime<</link>><<gmaths>><<gwillpower>><br>
+			<<case "English">><<englishicon>><<link [[Study English (_passTimeDisplay)|Gwylan Ocean Breeze Watch]]>><<set $phase to "English">><<set $phase2 to 2>><<englishskill>><<willpower 1>>_passTime<</link>><<genglish>><<gwillpower>><br>
+			<<case "history">><<historyicon>><<link [[Study history (_passTimeDisplay)|Gwylan Ocean Breeze Watch]]>><<set $phase to "history">><<set $phase2 to 2>><<historyskill>><<willpower 1>>_passTime<</link>><<ghistory>><<gwillpower>><br>
+		<</switch>>
+	<</if>>
+	<br>
+<</widget>>
+
+<<widget "gwylanOptionsLeave">>
+	<<set $_schoolWalkAvailable to ($gwylanSeen.includes("cafe_walk") or ($gwylan.sea + ($gwylanTalked.count("fox_mask") * 20) + ($gwylanTalked.count("dark_pendant") * 20) gte 40)) or ($gwylan.robin gte 10 and $daily.robin_in_cafe and false)>> /* WARNING! Re-enable later for Gwybin cafe */
+	<<if $gwylan.request.event is "meetAtShop" and $location is "forest_shop" and gwylanCanForceRitual("beast") and !_ritualFailSafe and !$daily.gwylan.preventProgress>>
+		<<getouticon>><<link [[Back to the shop|Gwylan Forest Journey Cancel]]>><</link>><<if $daily.gwylan.eventCancelled>><<gwylanWillpowerDifficulty>><</if>>
+		/* ToDo: Gwylan - forcing player into ritual if it's been too long */
+	<<elseif $location is "cafe" and !(between($chef_state, 7, 8) and $chef_rework lte 30)>>
+		<<if $_schoolWalkAvailable and Time.schoolDay and !$daily.gwylan_skip_school>>
+			<<if $daily.robin_in_cafe>>
+				<<schoolicon "building">><<link [[Walk to school early (0:10)|Gwylan Walk School Robin]]>><<pass 10>><<set $daily.gwylan.cafeSkip to true>><<unset $cafe_study>><<storeon "cafe_balcony">><</link>>
+			<<else>>
+				<<schoolicon "building">><<link [[Walk to school early (0:10)|Gwylan Walk School Solo]]>><<pass 10>><<set $daily.gwylan.cafeSkip to true>><<unset $cafe_study>><<storeon "cafe_balcony">><</link>>
+			<</if>>
+			<br>
+		<</if>>
+		<<getouticon>><<link [[Say goodbye and go back inside (0:01)|Ocean Breeze]]>><<pass 1>><<unset $cafe_study>><<storeon "cafe_balcony">><<endevent>><</link>>
+	<<elseif $location is "cafe">>
+		<<getouticon>><<link [[Say goodbye (0:01)|Cliff Street]]>><<pass 1>><<endevent>><<set $eventskip to 1>><</link>>
+	<<else>>
+		<<getouticon>><<link [[Back to the shop|Forest Shop Entrance]]>><<endevent>><</link>>
+	<</if>>
+	<br>
+<</widget>>
+
+<<widget "seagullFood">><<silently>>
+	<<if npcIsPregnant("Gwylan")>>
+		<<set _seagullFood to "plum crepes">>
+	<<elseif Time.season is "winter">>
+		<<set _seagullFood to "gingerbread">>
+	<<elseif _gwylanStatus?.includes("lust")>>
+		<<set _seagullFood to "cherry crepes">>
+	<<else>>
+		<<set _seagullFood to "strawberry crepes">>
+	<</if>>
+<</silently>><<print _seagullFood>><</widget>>
+
+<<widget "gwylanHypnoName">><<silently>>
+	<<if $hypnosis_traits.devotion gte 4>>
+		<<if _args[0] is "cap">>
+			<<set $_text_output to `<span class="witch">Your <<nnpc_master "Gwylan">></span>`>>
+		<<else>>
+			<<set $_text_output to `<span class="witch">your <<nnpc_master "Gwylan">></span>`>>
+		<</if>>
+	<<else>>
+		<<set $_text_output to "Gwylan">>
+	<</if>>
+<</silently>><<print $_text_output>><</widget>>
+
+<<widget "gwylanNoChoice">>
+	<<if _args[0] is "speech">>
+		<<hypnosisText "The words are snatched from your mouth before you can speak them.">>
+	<<else>>
+		<<hypnosisText "Your body is not your own.">>
+	<</if>>
+	<br><br>
+	Gwylan giggles.
+	<<print either(
+		`"<<pcPetname 'Gwylan' 'simple'>>...?"`,
+		`"You look confused... shhh, it's okay."`,
+		`"You wouldn't say 'no' to me, would you, dear?"`,
+		)>>
+	<br>
+<</widget>>
+
+<<widget "gwylanChaseOptions">>
+	<<link [[Run (0:05)|Gwylan Forest Run]]>><<pass 5>><<tiredness 2>><<set $phase to "run">><</link>><<gtiredness>><<athleticsdifficulty $beastRitual.difficultyMin $beastRitual.difficultyMax true>>
+	<br>
+	<<if !$beastRitual.foxChase>>
+		<<link [[Walk (0:10)|Gwylan Forest Run]]>><<stress -1>><<pass 10>><<set $beastRitual.time++>><<set $phase to "walk">><</link>><<lstress>>
+		<br>
+	<</if>>
+	<<if $fox gte 4 and $beastRitual.distance lt 0 and !$beastRitual.foxChase>>
+		<<link [[Track and chase Gwylan (0:05)|Gwylan Forest Run Fox Chase]]>><<transform fox 1>><<tiredness 6>><<trauma -8>><</link>><<ggtiredness>><<lltrauma>><<fox>>
+		<br>
+	<</if>>
+	<<if $beastRitual.lewdOption and $beastRitual.distance gte 2 and !$beastRitual.ambush>>
+		<<link [[Wait and ambush Gwylan|Gwylan Forest Run Ambush]]>><<def 1>><<transform fox 1>><<set $phase to "ambush">><</link>><<skill_difficulty `currentSkillValue("skulduggery")` "Skulduggery" 400 1000>>
+		<br>
+	<</if>>
+	<<if $beastRitual.stalked is "wolf" and ($wolfgirl gte 6 or $wolfpackleader gte 1)>>
+		<<if $wolfgirl gte 6>>
+			<<link [[Howl|Gwylan Forest Run Howl]]>><</link>><<wolfgirl>>
+		<<elseif $wolfpackleader gte 1>>
+			<<link [[Howl|Gwylan Forest Run Howl]]>><</link>><<note "Pack Alpha" "red">>
+		<</if>>
+		<br>
+	<</if>>
+<</widget>>
+
+<<widget "gwylanPurgeEffect">><<silently>>
+	<<if $gwylanSeen.includes("ritual_beast") and $beastRitual or $gwylanSeen.includes("ritual_sex") and $sexRitual>>
+		<<set $_plus to _args[0]>>
+		<<switch $_plus>>
+			<<case 3>><<set $_text_output to " | <span class='teal'>+ + + Purging Effectiveness</span>">>
+			<<case 2>><<set $_text_output to " | <span class='teal'>+ + Purging Effectiveness</span>">>
+			<<case 1>><<set $_text_output to " | <span class='teal'>+ Purging Effectiveness</span>">>
+			<<case -1>><<set $_text_output to " | <span class='purple'>- Purging Effectiveness</span>">>
+			<<case -2>><<set $_text_output to " | <span class='purple'>- - Purging Effectiveness</span>">>
+			<<case -3>><<set $_text_output to " | <span class='purple'>- - - Purging Effectiveness</span>">>
+			<<default>><<set $_text_output to " | <span class='teal'>+ Purging Effectiveness</span>">>
+		<</switch>>
+	<</if>>
+<</silently>><<if $_text_output>><<print $_text_output>><</if>><</widget>>
+
+<<widget "gwylanWorshipEffects">>
+	<<set $_fluid to $worship.fluid>>
+	<<switch $worship.action>>
+		<<case "start">>
+			<<He>> looks at you expectantly.
+		<<case "none">>
+			<<set $worship.arousal -= 5>>
+			<<if $worship.actionLast is "none">>
+				You continue to stare up at Gwylan. <<His>> hand caresses your cheek, before moving to your head.
+				<span class="lewd"><<He>> pushes your head down to <<his>> <<npcGenitals 0>>.</span>
+				<<set $worship.control to "Gwylan">>
+			<<else>>
+				You simply stare up at Gwylan. <<He>> smiles at you.
+			<</if>>
+		<<case "body">>
+			<<set $worship.body-->><<set $worship.arousal += 3>><<arousal 100>>
+			<<if $worship.actionLast is "none">>
+				You start to lick Gwylan's skin, following the lines of $_fluid along <<his>> body. <<He>> exhales slowly.
+			<<elseif $worship.actionLast is "body">>
+				You continue licking Gwylan's body, savouring the taste of the sweet $_fluid.
+			<<else>>
+				You move to lick Gwylan's skin, savouring the taste of the sweet $_fluid on <<his>> body.
+			<</if>>
+			<<if $worship.body lte 0>>
+				Finally, there's no $_fluid left on <<his>> skin.
+				<<if $worship.breasts gte 3 and C.npc.Gwylan.breastsize gte 6>>
+					<<He>> cups <<his>> $_fluid-covered breasts, giving you a clear preference for your next target.
+				<<elseif $worship.genitals gte 2>>
+					<<He>> smiles and spreads <<his>> legs, giving you a clear preference for your next target.
+				<</if>>
+			<<else>>
+				<<if $_fluid is "nectar">><<nectarfed 3>><<elseif $_fluid is "cream">><<stress -1>><</if>>
+			<</if>>
+		<<case "tummy">>
+			<<set $worship.tummy-->><<set $worship.arousal += 5>><<arousal 100>>
+			<<if $worship.actionLast is "none">>
+				You start to lick Gwylan's <<bellyDescription "Gwylan">>. <<He>> shivers as you taste the $_fluid.
+			<<elseif $worship.actionLast is "body">>
+				You continue licking Gwylan's <<bellyDescription "Gwylan">>. <<His>> skin tastes sweet, too.
+			<<else>>
+				You move to lick Gwylan's <<bellyDescription "Gwylan">> instead. <<He>> shivers as you taste the $_fluid.
+			<</if>>
+			<<if $worship.body lte 0>>
+				Finally, there's no $_fluid left on <<his>> tummy. <<He>> giggles.
+			<<else>>
+				<<if $_fluid is "nectar">><<nectarfed 3>><<elseif $_fluid is "cream">><<stress -1>><</if>>
+			<</if>>
+		<<case "breasts">>
+			<<set $worship.breasts-->><<set $worship.arousal += 2 + Math.floor(C.npc.Gwylan.breastsize / 2)>><<arousal 500>>
+			<<if $worship.actionLast is "breasts">>
+				You continue licking <<if $worship.breasts gt 0>>the $_fluid off of <</if>>Gwylan's <<= C.npc.Gwylan.breastsdesc>>, flicking at <<his>> nipple with your tongue occasionally. <<set $worship.arousal += 5>>
+			<<else>>
+				You lick Gwylan's <<= C.npc.Gwylan.breastsdesc>>. <<He>> places <<his>> hand behind your head.
+			<</if>>
+			<<if $worship.breasts lte 0 and !$worship.breastsClean>>
+				<<set $worship.breastsClean to true>>
+				Your licking reveals the freckles on
+				<<if C.npc.Gwylan.breastsize lte 2>>
+					<<his>> chest.
+				<<else>>
+					the top of <<his>> breasts.
+				<</if>>
+			<<elseif C.npc.Gwylan.breastsize gte 6 and $worship.breasts gte 1>>
+				The contours of <<his>> breasts make you put a little more effort in to get all the $_fluid.
+			<</if>>
+			<<if $worship.breasts gt 0>>
+				<<if $_fluid is "nectar">><<nectarfed 3>><<elseif $_fluid is "cream">><<stress -1>><</if>>
+			<</if>>
+			<<if $worship.breasts lte -5>>
+				<<set $worship.noBreasts to true>>
+				"Alright, enough of that," <<he>> whispers, pulling your head away.
+			<</if>>
+			<<if !$worship.promBreasts>><<set $worship.promBreasts to true>><<set _noBR to true>><<promiscuity1>><</if>>
+		<<case "nipples">>
+			<<set $worship.breasts-->><<set $worship.arousal += 4 + Math.floor(currentSkillValue("oralskill") / 40)>><<arousal 500>>
+			<<if $worship.actionLast is "nipples">>
+				You continue sucking on Gwylan's nipples.
+			<<elseif $worship.actionLast is "nipplesBite">>
+				You stop nibbling, and go back to sucking. <<He>> strokes the back of your head and giggles. <<ltrauma>><<trauma -1>><br>
+			<<else>>
+				You suck on Gwylan's nipples. The taste of <<if $worship.lactation>>milk<<else>>$_fluid still<</if>> lingers. <<He>> strokes the back of your head. <<ltrauma>><<trauma -1>><br>
+			<</if>>
+			<<if $NPCList[0].lactation is 1>>
+				<<set $worship.arousal += 20>>
+				<<if !$worship.lactation>>
+					<<set $worship.lactation to true>>
+					After a moment, <span class="lewd">you taste fresh milk.</span> Your eyes briefly widen.
+					<<if npcIsPregnant("Gwylan")>>
+						Even Gwylan looks a little surprised, but <<he>> laughs and slowly cradles your head.
+					<<else>>
+						Even Gwylan looks a little surprised for a moment, but a look of realisation follows. "Some of the herbs I work with are known to... induce lactation. I guess I haven't been careful enough with exposure."
+						<<He>> giggles, and slowly cradles your head. "At least we have an easy solution."
+					<</if>>
+				<<else>>
+					<<if $_fluid is "cream">>
+						You drink more of Gwylan's milk, swallowing mouthful after mouthful of a different kind of cream. <<He>> hums softly to you. <<stress -3>><<lstress>><br>
+					<<else>>
+						You drink more of Gwylan's milk, swallowing mouthful after mouthful. <<He>> hums softly to you. <<stress -3>><<lstress>><br>
+					<</if>>
+				<</if>>
+				<<breastfed>>
+			<</if>>
+			<<if $worship.breasts lte -5>>
+				<<set $worship.noBreasts to true>>
+				"Alright, enough of that," <<he>> whispers, <span class="blue">pulling your head away</span>.
+				<<if $worship.lactation and npcIsPregnant("Gwylan")>>
+					"Save some for the baby."
+				<</if>>
+			<</if>>
+		<<case "nipplesBite">>
+			<<set $worship.breasts-->><<set $worship.arousal += 5 + Math.floor(currentSkillValue("oralskill") / 35)>><<arousal 500>>
+			You lightly nibble on Gwylan's nipples. <<He>> shudders.
+			<<if $worship.breasts lte -5>>
+				<<set $worship.noBreasts to true>>
+				"Alright, enough of that," <<he>> whispers, pulling your head away.
+			<</if>>
+		<<case "genitals">>
+			<<set $worship.genitals-->><<set $worship.arousal += 5 + Math.floor(currentSkillValue("oralskill") / 25)>><<arousal 800 "mouth">>
+			<<if $worship.actionLast isnot "genitals">>
+				You move your head to Gwylan's <<npcGenitals 0>> and
+				<<if $worship.genitals gte 1>>
+					start to lap up the $_fluid.
+				<<else>>
+					<<if C.npc.Gwylan.penis isnot "none">>
+						lick <<his>> shaft up and down. It still tastes like $_fluid.
+					<<else>>
+						slowly insert your tongue into <<his>> pussy.
+					<</if>>
+				<</if>>
+			<<else>>
+				<<if $worship.genitals gte 1>>
+					You continue lapping up the $_fluid around <<his>> <<npcGenitals 0>>.
+				<<else>>
+					<<if C.npc.Gwylan.penis isnot "none">>
+						You continue licking Gwylan's shaft, taking breaks to kiss the tip and work your tongue around it.
+					<<else>>
+						You continue thrusting your tongue into Gwylan's pussy, taking breaks to lick <<his>> clit.
+					<</if>>
+				<</if>>
+			<</if>>
+			<<if $worship.control is "Gwylan">>
+				<<He>> moans softly, gripping the back of your head and pulling.
+			<<else>>
+				<<He>> moans softly.
+			<</if>>
+			<<if !$worship.promGenitals and $worship.control is "player">><<set $worship.promGenitals to true>><<set _noBR to true>><<promiscuity2>><</if>>
+			<<if $worship.genitals gt 0>>
+				<<if $_fluid is "nectar">><<nectarfed 3>><<elseif $_fluid is "cream">><<stress -1>><</if>>
+			<</if>>
+		<<case "oral">>
+			<<set $worship.arousal += 5 + Math.floor(currentSkillValue("oralskill") / 15)>><<arousal 1000 "mouth">>
+			<<if $worship.actionLast is "oral">>
+			<<else>>
+				You slowly take Gwylan's <<npcPenis>> into your mouth. <<takeVirginity "Gwylan" "oral">>
+				<<if $worship.genitals gte 1>>
+					You clean it of any remaining $_fluid as you take it all the way. <<if $_fluid is "nectar">><<nectarfed 3>><<elseif $_fluid is "cream">><<stress -1>><</if>>
+				<<else>>
+					You bob your head up and down, savouring the lingering taste of $_fluid.
+				<</if>>
+				<<His>> hand grips the quilted blanket.
+			<</if>>
+			<<set $worship.genitals to 0>>
+		<<case "residue">>
+			<<set $worship.residue to 0>>
+			You crawl forward. Gwylan looks surprised, backing away slightly as your face comes close to <<hers>>.
+			You don't kiss <<him>>, though. Instead, you lick the side of <<his>> mouth. The small amount of purple fluid tastes sweet.
+			<br><br>
+
+			<<He>> smiles. "Brace yourself, that's a strong mixture. I'm used to it, but it might have a kick for you." You start to feel very warm. <<arousal 2000>><<drugs 120>><<ggarousal>><<ggdrugged>>
+		<<case "splurt">>
+			<<set $worship.arousal += 10>>
+			You pull away, and angle your penis towards Gwylan's body just in time. <<He>> tilts <<his>> head. You don't have to do any additional work. Whatever drug you licked off of <<him>> is driving you over the edge.
+			<<orgasm>>
+
+			<<if $femaleclimax>>
+				Gwylan blinks at you, seeming almost disappointed at the lack of semen for a moment.
+			<<else>>
+				<<set $worship.semen to true>>
+				<<if _gwylanStatus.includes("dom")>>
+					Gwylan grins. "Clean that up, silly <<pcpetname "Gwylan" "simple">>."
+				<<else>>
+					Gwylan blinks at you, your semen now mixed with some of the remaining $_fluid. "Do you... plan on cleaning that up, too?"
+				<</if>>
+			<</if>>
+		<<case "splurtLick">>
+			<<set $worship.arousal += 20>>
+			You lick your own cum off of <<him>>. <<He>> laughs and pats your head. "<<pcPetname "Gwylan" "good">>, cleaning up after <<pherself>>." <<stress -2>><<lstress>>
+	<</switch>>
+	<<set $worship.actionLast to $worship.action>>
+	<<set $worship.timer-->>
+	<<if !_noBR>><br><br><</if>>
+
+	<<if $worship.residue is 0 and $arousal gte $arousalmax>>
+		<<set _orgasmAlt to true>>
+		The heat within you reaches a boiling point. <span class="kill-br"><<orgasm>></span>
+		<<if $worship.actionLast is "genitals">>
+			<<set $worship.arousal += 30>>
+			You press your tongue up against Gwylan's <<npcGenitals 0>> harder. Your service is clumsy, but <<he>> seems further aroused by your climax regardless.
+		<<elseif $worship.actionLast is "oral">>
+			<<set $worship.arousal += 60>>
+			Your mouth tightens around <<his>> <<npcPenis>>. <<He>> shudders with you.
+		<<elseif ["breasts", "nipples", "nipplesBite"].includes($worship.actionLast)>>
+			You bury your face in Gwylan's chest as the waves of pleasure wash over you. <<He>> cradles your head and hums a soothing melody as you come down from the orgasm.
+		<<else>>
+			You cling onto Gwylan tightly as the waves of pleasure wash over you. <<He>> wraps an arm around you for comfort as you come down from the orgasm.
+		<</if>>
+		<br><br>
+	<</if>>
+
+	<<if $worship.arousal gte 200 and ["oral", "genitals", "breasts", "nipples", "nipplesBite", "tummy", "body"].includes($worship.actionLast)>>
+		<<if _orgasmAlt>>
+			<span class="lewd">The force of your orgasm pushes <<him>> over the edge, too.</span>
+		<</if>>
+		<<if $worship.actionLast is "genitals">>
+			<<if $worship.control is "Gwylan">>
+				<<He>> pulls your head even harder,
+			<<else>>
+				<<He>> pulls the back of your head,
+			<</if>>
+			<<if C.npc.Gwylan.penis isnot "none">>
+				pressing <<his>> penis right up against you. <span class="lewd">A spurt of warm semen streaks across your face.</span> You change your position to catch a second and third in your mouth.
+				<<bodyliquid "face" "semen">><<bodyliquid "mouth" "semen">><<cumswallow "human" 40>><<set $worship.end to "genitals">>
+				<br><br>
+
+				It's not over, though. <<His>> back arches, and <<he>> keeps cumming.
+				<<if $ejactrait gte 1 or $demon gte 6>>
+					<<if $_fluid is "cream">>
+						You excitedly place your mouth directly on <<his>> head and work <<his>> shaft, wanting to extract as much of <<his>> precious cream as you can.
+					<<else>>
+						You excitedly place your mouth directly on <<his>> head and work <<his>> shaft, eager to mix the taste of <<his>> semen with the $_fluid.
+					<</if>>
+				<<else>>
+					<<if $_fluid is "cream">>
+						You place your mouth directly on the head and hold the shaft steady as your mouth fills with a different kind of cream.
+					<<else>>
+						You place your mouth directly on the head and hold the shaft steady as your mouth fills with <<his>> cum.
+					<</if>>
+				<</if>>
+			<<else>>
+				<<bodyliquid "face" "goo">><<bodyliquid "mouth" "goo">><<set $worship.end to "genitals">>
+				forcing you to lick harder and deeper. <<His>> back arches as <<he>> cums. <<His>> fluids coat your tongue, mixing with the taste of the $_fluid.
+			<</if>>
+		<<elseif $worship.actionLast is "oral">>
+			<<bodyliquid "mouth" "semen" 3>><<cumswallow "human" 80>><<set $worship.end to "oral">>
+			<<if $worship.control is "Gwylan">>
+				<<He>> presses down on your head even harder,
+			<<else>>
+				<<He>> presses down on your head,
+			<</if>>
+			<span class="lewd">forcing you to take more of <<his>> length as <<he>> cums</span>. The first spurt of warm semen tickles the back of your throat. <<His>> back arches, and <<he>> keeps cumming.
+			<br><br>
+
+			<<if $ejactrait gte 1 or $demon gte 6>>
+				You brace yourself and excitedly work <<his>> shaft while continuing to circle your tongue on the head. You don't want to take <<his>> whole length; You want to savour the taste.
+				You close your eyes as load after load of <<his>> precious <<if $_fluid is "cream">>cream<<else>>cum<</if>> fills your mouth.
+			<<else>>
+				<<if $_fluid is "cream">>
+					You close your eyes and gently continue working <<his>> shaft as load after load of a different kind of cream fills your mouth.
+				<<else>>
+					You place your mouth directly on the head and hold the shaft steady as your mouth fills with <<his>> cum.
+				<</if>>
+			<</if>>
+		<<elseif ["breasts", "nipples", "nipplesBite"].includes($worship.actionLast)>>
+			<<His>> hums die down, and <<he>> holds you close.
+			<<if _orgasmAlt>>
+				You feel like you're being smothered.
+			<</if>>
+			<<if $worship.lactation>>
+				<<set $worship.end to "milk">>
+				<span class="lewd">More milk leaks from <<his>> nipples, filling your mouth again as <<he>> shudders in climax.</span>
+			<<else>>
+				<<set $worship.end to "breasts">>
+				<span class="lewd">You continue teasing <<his>> breasts as <<he>> shudders in climax.</span>
+			<</if>>
+		<<else>>
+			<<set $worship.end to "default">>
+			<<if _orgasmAlt>>
+				<span class="lewd"><<He>> holds you close in return. The two of you shudder in an orgasmic embrace.</span>
+			<<else>>
+				<span class="lewd"><<He>> holds you close as <<he>> shudders in climax.</span>
+			<</if>>
+		<</if>>
+		<br><br>
+
+		<<His>> tremors finally subside, and <<he>> breathes heavily. <<npcincr Gwylan lust -20>><<lllust>>
+		<br><br>
+	<<else>>
+		<<if $worship.arousal gte 200>>
+			<span class="pink"><<He>> tenses up sharply.</span>
+		<<elseif $worship.arousal gte 180>>
+			<span class="pink">You think <<hes>> approaching orgasm.</span>
+		<<elseif $worship.arousal gte 150>>
+			<span class="purple"><<He>> looks lustful.</span>
+		<<elseif $worship.arousal gte 100>>
+			<span class="blue"><<He>> looks horny.</span>
+		<<elseif $worship.arousal gte 50>>
+			<span class="lblue"><<He>> looks aroused.</span>
+		<<else>>
+			<span class="teal"><<He>> looks stimulated.</span>
+		<</if>>
+		<br>
+		<<switch $worship.body>>
+			<<case 8 7 6 5 4 3>><<His>> skin is <span class="pink">trailed with $_fluid</span><<if $worship.semen>> and <span class="pink">some of your semen</span><</if>>.
+			<<case 2>><<His>> skin is <span class="blue">splattered with $_fluid</span><<if $worship.semen>> and <span class="pink">some of your semen</span><</if>>.
+			<<case 1>><<His>> skin is <span class="teal">smeared with $_fluid</span><<if $worship.semen>> and <span class="pink">some of your semen</span><</if>>.
+			<<default>><<His>> skin is <span class="green">clean</span><<if $worship.semen>>, save for <span class="pink">some of your semen</span><</if>>.
+		<</switch>>
+		<br>
+		<<switch $worship.tummy>>
+			<<case 8 7 6 5 4 3>><<His>> <<bellyDescription "Gwylan">> is <span class="pink">covered in $_fluid</span>.
+			<<case 2>><<His>> <<bellyDescription "Gwylan">> is <span class="blue">splattered with $_fluid</span>. You can see parts of <<his>> tattoos peeking through.
+			<<case 1>><<His>> <<bellyDescription "Gwylan">> is <span class="teal">smeared with $_fluid</span>. You can see <<his>> tattoos peeking through.
+			<<default>><<His>> <<bellyDescription "Gwylan">> is <span class="green">clean</span>. <<if $worship.arousal gte 150>>You can see <<his>> tattoos softly glowing.<</if>>
+		<</switch>>
+		<br>
+		<<switch $worship.breasts>>
+			<<case 8 7 6 5 4>><<His>> <<= C.npc.Gwylan.breastsdesc>> are <span class="pink">covered in $_fluid</span>.
+			<<case 3 2>><<His>> <<= C.npc.Gwylan.breastsdesc>> are <span class="blue">splattered with $_fluid</span>.
+			<<case 1>><<His>> <<= C.npc.Gwylan.breastsdesc>> are <span class="teal">smeared with $_fluid</span>.
+			<<default>><<His>> <<= C.npc.Gwylan.breastsdesc>> are <span class="green">clean</span>.
+		<</switch>>
+		<br>
+		<<switch $worship.genitals>>
+			<<case 4 3 2>><<His>> <<npcGenitals 0>> is <span class="pink">barely concealed by $_fluid</span>.
+			<<case 1>><<His>> <<npcGenitals 0>> is <span class="teal">smeared with $_fluid</span>.
+			<<default>><<His>> <<npcGenitals 0>> is <span class="green">clean</span>.
+		<</switch>>
+		<br><br>
+	<</if>>
+<</widget>>
+
+<<widget "gwylanWorshipActions">>
+	<<set $_fluid to $worship.fluid>>
+	<<if $worship.body gte 1 and $worship.control is "player">>
+		<<set $_action to true>>
+		<<if $worship.actionLast is "body">>
+			<<link [[Continue licking the $_fluid off of Gwylan's body|$passage]]>><<set $worship.action to "body">><</link>>
+		<<else>>
+			<<link [[Lick the $_fluid off of Gwylan's body|$passage]]>><<set $worship.action to "body">><</link>>
+		<</if>>
+		<br>
+	<</if>>
+	<<if $worship.tummy gte 1 and $worship.control is "player">>
+		<<set $_action to true>>
+		<<if $worship.actionLast is "tummy">>
+			<<link [[Continue licking the $_fluid off of Gwylan's <<bellyDescription "Gwylan">>|$passage]]>><<set $worship.action to "tummy">><</link>>
+		<<else>>
+			<<link [[Lick the $_fluid off of Gwylan's <<bellyDescription "Gwylan">>|$passage]]>><<set $worship.action to "tummy">><</link>>
+		<</if>>
+		<br>
+	<</if>>
+	<<if !$worship.noBreasts and $worship.control is "player">>
+		<<set $_action to true>>
+		<<if $worship.actionLast is "breasts">>
+			<<link [[Continue licking Gwylan's <<npcChest 0>>|$passage]]>><<set $worship.action to "breasts">><</link>>
+			<br>
+			<<link [[Suck Gwylan's nipples|$passage]]>><<set $worship.action to "nipples">><</link>>
+			<br>
+		<<elseif ["nipples", "nipplesBite"].includes($worship.actionLast)>>
+			<<link [[Continue sucking Gwylan's nipples|$passage]]>><<set $worship.action to "nipples">><</link>>
+			<br>
+			<<link [[Nibble on Gwylan's nipples|$passage]]>><<set $worship.action to "nipplesBite">><</link>>
+			<br>
+		<<else>>
+			<<if $worship.breasts gte 1>>
+				<<link [[Lick the $_fluid off of Gwylan's <<npcChest 0>>|$passage]]>><<set $worship.action to "breasts">><</link>><<if !$worship.promBreasts>><<promiscuous1>><</if>>
+				<br>
+			<<else>>
+				<<link [[Lick Gwylan's <<npcChest 0>>|$passage]]>><<set $worship.action to "breasts">><</link>><<if !$worship.promBreasts>><<promiscuous1>><</if>>
+				<br>
+			<</if>>
+		<</if>>
+	<</if>>
+	<<if $worship.actionLast is "genitals">>
+		<<set $_action to true>>
+		<<if $worship.genitals gte 1>>
+			<<link [[Continue licking the $_fluid off of Gwylan's <<npcGenitals 0>>|$passage]]>><<set $worship.action to "genitals">><</link>>
+			<br>
+		<<else>>
+			<<link [[Continue servicing Gwylan's <<npcGenitals 0>>|$passage]]>><<set $worship.action to "genitals">><</link>>
+			<br>
+		<</if>>
+		<<if C.npc.Gwylan.penis isnot "none">>
+			<<if hasSexStat("promiscuity", 3)>>
+				<<link [[Take Gwylan's penis into your mouth|$passage]]>><<set $worship.action to "oral">><</link>><<oralvirginitywarning>>
+			<<else>>
+				<<insufficientStat "promiscuity" "to take Gwylan's penis into your mouth">>
+			<</if>>
+			<br>
+		<</if>>
+	<<else>>
+		<<if $worship.genitals gte 1>>
+			<<if hasSexStat("promiscuity", 2) or $worship.control is "Gwylan">>
+				<<set $_action to true>>
+				<<link [[Lick the $_fluid off of Gwylan's <<npcGenitals 0>>|$passage]]>><<set $worship.action to "genitals">><</link>><<if !$worship.promGenitals and $worship.control is "player">><<promiscuous2>><</if>>
+			<<else>>
+				<!-- Concats value into string beforehand to prevent error -->
+				<<set $_fluid_string to "to lick the " + $_fluid + " directly off of Gwylan's <<npcGenitals 0>>">>
+				<<insufficientStat "promiscuity" $_fluid_string>>
+			<</if>>
+			<br>
+		<<else>>
+			<<if hasSexStat("promiscuity", 2) or $worship.control is "Gwylan">>
+				<<set $_action to true>>
+				<<link [[Lick Gwylan's <<npcGenitals 0>>|$passage]]>><<set $worship.action to "genitals">><</link>><<if !$worship.promGenitals and $worship.control is "player">><<promiscuous2>><</if>>
+			<<else>>
+				<<insufficientStat "promiscuity" "to service Gwylan's <<npcGenitals 0>>">>
+			<</if>>
+			<br>
+		<</if>>
+	<</if>>
+	<<if $worship.actionLast is "oral">>
+		<<set $_action to true>>
+		<<link [[Continue servicing Gwylan's <<npcGenitals 0>>|$passage]]>><<set $worship.action to "oral">><</link>>
+		<br>
+	<</if>>
+	<<if $worship.residue gte 1 and $worship.control is "player">>
+		<<set $_action to true>>
+		<<link [[Lick the purple residue on the corner of Gwylan's mouth|$passage]]>><<set $worship.action to "residue">><</link>>
+		<br>
+	<</if>>
+	<<if ($worship.residue is 0 or $drugged) and $arousal gte 9000 and $player.penisExist is true and $worship.control is "player">>
+		<<set $_action to true>>
+		<<link [[Cum on <<him>>|$passage]]>><<set $worship.action to "splurt">><</link>>
+		<br>
+	<<elseif $worship.semen and $worship.control is "player">>
+		<<set $_action to true>>
+		<<link [[Lick your cum off of <<him>>|$passage]]>><<set $worship.action to "splurtLick">><</link>>
+		<br>
+	<</if>>
+	<<if $hypnosis_traits.devotion isnot 5 and $worship.control is "player">>
+		<<set $_action to true>>
+		<<link [[Do nothing|$passage]]>><<sub 1>><<set $worship.action to "none">><</link>>
+		<br>
+	<</if>>
+	<<if !$_action>>
+		<<link [[Next|Gwylan Cream Lick End]]>><<set $worship.end to "clean">><<set $phase to "clean">><</link>>
+	<</if>>
+<</widget>>
+
+<<widget "gwylanStalkInit">>
+	<<set $_skillAdded to C.npc.Gwylan.lust + C.npc.Gwylan.dom>>
+	<<if $location is "forest">>
+		<<set $_skillAdded += 200>>
+	<</if>>
+	<<set $NPCList[0].skills.security to 600 + $_skillAdded + random(10, 100)>>
+	<<set $NPCList[0].skills.athletics to 600 + $_skillAdded + random(10, 100)>>
+	<<run statusCheck("Gwylan")>>
+	<<if _gwylanStatus.includes("wounded")>>
+		<<set $NPCList[0].skills.athletics -= 500>>
+	<</if>>
+	<<if _gwylanStatus.includesAny("reunion", "heat", "badEndReady") or $gwylan?.hunting gte 2>>
+		<<set $NPCList[0].bold to 10000>>
+		<<set $combatgoal to "confront">>
+	<<elseif $gwylan?.hunting is 1 and ($settings.hypnosisEnabled or $hypnosis_devotion)>>
+		<<set $NPCList[0].bold to 10000>>
+		<<set $combatgoal to "confront">>
+	<<else>>
+		<<set $NPCList[0].bold to (($allure / 20) + (C.npc.Gwylan.lust * 2) + (C.npc.Gwylan.dom * 2) + (C.npc.Gwylan.love * 2))>>
+	<</if>>
+<</widget>>
+
+<<widget "gwylanHuntStart">>
+	<<set $huntGame to {
+		otherHealth: 3,
+		hunter: "other",
+		hunterKnown: false,
+		adversary: "Gwylan",
+		adversaryText: "Gwylan",
+		adversaryKnown: true,
+		otherTracked: false,
+		otherAction: "",
+		playerHealth: 3,
+		playerTracked: false,
+		playerTrackedKnown: false,
+		playerAction: "",
+		consensual: 1,
+		event: "",
+		turn: 0,
+		distance: 5,
+	}>>
+	<<set $_difficultyAdded to C.npc.Gwylan.lust + C.npc.Gwylan.dom>>
+	<<set $huntGame.skills to {
+		danceMin: 400 + $_difficultyAdded,
+		danceMax: 700 + $_difficultyAdded,
+		athleticsMin: 400 + $_difficultyAdded,
+		athleticsMax: 700 + $_difficultyAdded,
+		skulduggeryMin: 400 + $_difficultyAdded,
+		skulduggeryMax: 800 + $_difficultyAdded,
+	}>>
+	<<set $_skillAdded to C.npc.Gwylan.lust + C.npc.Gwylan.dom>>
+	<<if $location is "forest">>
+		<<set $_skillAdded += 200>>
+	<</if>>
+	<<set $NPCList[0].skills.security to 600 + $_skillAdded + random(10, 100)>>
+	<<set $NPCList[0].skills.athletics to 600 + $_skillAdded + random(10, 100)>>
+	<<run statusCheck("Gwylan")>>
+	<<if _gwylanStatus.includes("wounded")>>
+		<<set $NPCList[0].skills.athletics -= 500>>
+	<</if>>
+<</widget>>
+
+<<widget "gwylanHuntState">>
+	<<if hasSharpSenses("instincts")>>
+		<span class="teal">Your bestial instincts are prepared for the hunt.</span>
+		<br>
+		<<set $huntGame.hunterKnown to true>>
+		<<if $huntGame.hunter is "other">>
+			<span class="red"><<= $huntGame.adversaryText.toUpperFirst()>> is the hunter.</span>
+			<<if (playerHeatMinArousal() gte 1 or playerRutMinArousal() gte 1)>>
+				<<if $huntGame.adversary is "Gwylan" and _gwylanTF?.known or ["fox","wolf","Black Wolf"].includes($huntGame.adversary)>>
+					<br>
+					<<if playerHeatMinArousal() gte 1 and playerRutMinArousal() gte 1>>
+						<span class="lewd"><<He>> can almost certainly smell that you're in heat and rut, and probably has your scent already.</span>
+					<<elseif playerRutMinArousal()>>
+						<span class="lewd"><<He>> can almost certainly smell that you're in rut, and probably has your scent already.</span>
+					<<else>>
+						<span class="lewd"><<He>> can almost certainly smell that you're in heat, and probably has your scent already.</span>
+					<</if>>
+				<</if>>
+				<<set $huntGame.playerTracked to "scent">><<set $huntGame.playerTrackedKnown to true>>
+			<<elseif $huntGame.playerTrackedKnown>>
+				<br>
+				<span class="pink">You know <<hes>> tracked you.</span>
+			<</if>>
+		<<else>>
+			<span class="green">You are the hunter.</span>
+			<<if $huntGame.playerTrackedKnown>>
+				<br>
+				<span class="pink">You know <<hes>> tracked you.</span>
+			<</if>>
+		<</if>>
+		<<if $huntGame.adversary is "Gwylan" and _gwylanTF?.known and _gwylanStatus?.includes("heat")>>
+			<br>
+			<span class="pink">You can smell that <<hes>> in <<if C.npc.Gwylan.vagina isnot "none">>heat<<else>>rut<</if>>.</span>
+			<<set $huntGame.otherTracked to "scent">>
+		<</if>>
+	<<else>>
+		<<if $huntGame.hunterKnown>>
+			<<if $huntGame.hunter is "other">>
+				<span class="red"><<= $huntGame.adversaryText.toUpperFirst()>> is hunting you.</span>
+			<<else>>
+				<span class="green">You are hunting <<= $huntGame.adversaryText>>.</span>
+			<</if>>
+			<<if $huntGame.playerTrackedKnown>>
+				<br>
+				<span class="pink">You know <<hes>> tracked you.</span>
+			<</if>>
+		<<else>>
+			<span class="blue">You're not sure if you're hunting <<= $huntGame.adversaryText>>, or <<= $huntGame.adversaryText>> is hunting you.</span>
+		<</if>>
+	<</if>>
+	<<if $huntGame.otherTracked>>
+		<br>
+		<<if $huntGame.otherTracked is "scent">>
+			You can smell <<= $huntGame.adversaryText>>
+		<<else>>
+			You can tell <<= $huntGame.adversaryText>> is
+		<</if>>
+		<<if $huntGame.distance gte 5>>
+			<span class="teal">far away</span>.
+		<<elseif $huntGame.distance gte 4>>
+			<span class="blue">in the area</span>.
+		<<elseif $huntGame.distance gte 3>>
+			<span class="purple">somewhat close by</span>.
+		<<elseif $huntGame.distance gte 2>>
+			<span class="pink">very close by</span>.
+		<<else>>
+			<span class="red">here</span>!
+		<</if>>
+	<</if>>
+	<br><br>
+<</widget>>
+
+<<widget "gwylanHuntEffects">>
+	<<if $huntGame.timer gte 20>>
+		<<set _forceConfrontation to true>>
+		<<set $huntGame.distance to 0>>
+	<</if>>
+
+	/* Player actions */
+	<<switch $huntGame.playerAction>>
+		<<case "hunt">>
+			<<if $huntGame.hunterKnown and $huntGame.hunter is "other">>
+				You try to circle back on <<= $huntGame.adversaryText>>, following <<his>> <<if $huntGame.otherTracked is "scent">>scent<<else>>trail<</if>>.
+			<<else>>
+				You follow <<= $huntGame.adversaryText>>'s <<if $huntGame.otherTracked is "scent">>scent<<else>>trail<</if>>.
+			<</if>>
+			<<if $huntGame.otherAction is "run">>
+				<br>
+				<<if $athleticsSuccess>>
+					<<set $_actionPassed to true>>
+					<<set $huntGame.distance -= 1>>
+					<<if $huntGame.hunter is "player">>
+						<<set $huntGame.distance -= 1>>
+						<span class="green">You can tell you're gaining on <<him>>.</span>
+					<<else>>
+						<span class="purple">It won't be long until you force a confrontation at this rate.</span>
+					<</if>>
+				<<else>>
+					<<if $huntGame.hunter is "player">>
+						<<set $huntGame.distance -= 1>>
+						<span class="purple">You're evenly paced with <<him>>.</span>
+					<<else>>
+						<span class="purple">It won't be long until you force a confrontation at this rate.</span>
+					<</if>>
+				<</if>>
+			<<else>>
+				<<set $huntGame.distance -= 2>>
+			<</if>>
+		<<case "track">>
+			<<if hasSharpSenses("instincts")>>
+				You sniff the air, trying to find <<= $huntGame.adversaryText>>'s scent.
+			<<else>>
+				You stay low, checking for any sign of <<= $huntGame.adversaryText>>'s passing.
+			<</if>>
+			<<if ["hide", "stealth"].includes($huntGame.otherAction)>><<set $skulduggerydifficulty += 100>><</if>>
+			<<skulduggerycheck "silent">>
+			<<if $skulduggerysuccess is 1>>
+				<<set $_actionPassed to true>>
+				<<if hasSharpSenses("instincts") and random(0, 1)>>
+					<<set $huntGame.otherTracked to "scent">>
+					<span class="green">Then, you smell it; the faintest hint on the wind. You have <<him>>.</span>
+				<<else>>
+					<<set $huntGame.otherTracked to "trail">>
+					<span class="green">You manage to find <<print either("some disturbed leaves", "a broken branch", "a few faint footprints")>>. You have <<his>> trail.</span>
+				<</if>>
+				<br><br>
+
+				<span class="purple">The hunt intensifies...</span> <<note "+ Skulduggery Difficulty" "purple">>
+				<<set $huntGame.skills.skulduggeryMin += 20>><<set $huntGame.skills.skulduggeryMax += 20>>
+			<<else>>
+				<span class="red">You fail to find anything.</span>
+			<</if>>
+		<<case "stealth">>
+			You skulk through the underbrush, trying to leave as little of a trail as possible.
+			<<skulduggerycheck "silent">>
+			<<if $skulduggerysuccess is 1>>
+				<<if $huntGame.hunterKnown and $huntGame.hunter is "other" and $huntGame.otherTracked and $huntGame.playerTracked and $huntGame.playerTrackedKnown>>
+					<span class="gold">You're sure you've made <<him>> lose your trail.</span>
+					<<set $huntGame.playerTracked to false>><<set $huntGame.playerTrackedKnown to false>>
+					<br><br>
+
+					<span class="purple">The hunt intensifies...</span> <<note "+ Skulduggery Difficulty" "purple">>
+					<<set $huntGame.skills.skulduggeryMin += 20>><<set $huntGame.skills.skulduggeryMax += 20>>
+				<<else>>
+					<span class="green">You pass without trace, making it more difficult for <<him>> to track you.</span>
+				<</if>>
+				<<set $_actionPassed to true>>
+				<<if $huntGame.hunter is "player">>
+					<<set $huntGame.distance-->>
+				<<else>>
+					<<set $huntGame.distance++>>
+				<</if>>
+			<<else>>
+				<span class="red">You have limited success.</span>
+			<</if>>
+		<<case "hide">>
+			<<if $huntGame.playerActionLast is "hide">>
+				You continue hunkering down in your hiding spot. It's impossible to tell if <<he>> knows exactly where you are.
+			<<else>>
+				You find a hiding spot and hunker down.
+			<</if>>
+			<<skulduggerycheck "silent">>
+			<<if $skulduggerysuccess is 1>>
+				<<if $huntGame.hunterKnown and $huntGame.hunter is "other" and $huntGame.otherTracked and $huntGame.playerTracked and $huntGame.playerTrackedKnown>>
+					<br>
+					You steady your breathing and focus. The forest blankets you in silence. <span class="gold">You're sure you've made <<him>> lose your trail.</span>
+					<<set $huntGame.playerTracked to false>><<set $huntGame.playerTrackedKnown to false>>
+					<br><br>
+
+					<span class="purple">The hunt intensifies...</span> <<note "+ Skulduggery Difficulty" "purple">>
+					<<set $huntGame.skills.skulduggeryMin += 20>><<set $huntGame.skills.skulduggeryMax += 20>>
+				<</if>>
+				<<set $_actionPassed to true>>
+			<</if>>
+		/* Actions that lead into a proper chase or confrontation */
+		<<case "ambush">>
+			<<if $physiqueSuccess>>
+				<span class="green"><<He>> doesn't see you coming.</span>
+				<<if $huntGame.consensual and $huntGame.hunter is "other">>
+					<br>
+					<span class="gold">You are now the hunter.</span>
+					<<set $huntGame.hunter to "player">>
+				<</if>>
+				<<set $huntGame.end to "ambushSuccess">>
+			<<else>>
+				<span class="red"><<Hes>> ready for you.</span>
+				<<set $huntGame.end to "ambushFailed">>
+			<</if>>
+			<<exit>>
+		<<case "hideKeep">>
+			<<if _forceConfrontation>>
+				<span class="red"><<He>> suddenly turns to face you, and runs towards you!</span>
+				<<set $huntGame.end to "caught">><<set $phase to "noDodge">>
+				<<exit>>
+			<<elseif $skulduggerysuccess>>
+				After a moment of searching, <span class="green"><<he>> moves on. You stealthily follow.</span>
+				<<if $huntGame.consensual and $huntGame.hunter is "other">>
+					<br>
+					<span class="gold">You are now the hunter.</span>
+					<<set $huntGame.hunter to "player">>
+				<</if>>
+				<br><br>
+
+				<span class="purple">The hunt intensifies...</span> <<note "+ Skulduggery Difficulty" "purple">>
+				<<set $huntGame.skills.skulduggeryMin += 20>><<set $huntGame.skills.skulduggeryMax += 20>>
+				<<set $huntGame.otherTracked to "trail">><<set $huntGame.distance to 2>>
+			<<else>>
+				<span class="red"><<He>> suddenly turns to face you, and runs towards you!</span>
+				<<set $huntGame.end to "caught">><<set $phase to "noDodge">>
+				<<exit>>
+			<</if>>
+	<</switch>>
+	<br><br>
+
+	/* Adversary actions */
+	<<if !$huntGame.playerTracked and ($huntGame.hunter is "other" or $huntGame.distance gte 3)>>
+		<<set $huntGame.otherAction to "track">>
+		<<set $_otherTrackingDiff to currentSkillValue("skulduggery")>>
+		<<if ["stealth", "hide"].includes($huntGame.playerAction) and $_actionPassed>>
+			/* Failed to track */
+		<<elseif $NPCList[0].skills.security gte random(1, $_otherTrackingDiff)>>
+			<<set $huntGame.playerTracked to true>>
+		<</if>>
+
+		<<if ["hide"].includes($huntGame.playerAction) or $huntGame.playerAction is "stealth" and !$_actionPassed>>
+			<<set $huntGame.distance-->>
+		<</if>>
+	<<elseif $huntGame.hunter is "player">>
+		<<if ["hide", "ambush"].includes($huntGame.otherAction) and !$huntGame.noMoreHiding>>
+			<<set $huntGame.otherHideTimer-->>
+			<<if random(0, 2)>>
+				<<set $huntGame.otherAction to "ambush">>
+			<</if>>
+			<<if $huntGame.otherHideTimer lte 0>>
+				<<set $huntGame.noMoreHiding to true>>
+			<</if>>
+		<<elseif $huntGame.distance gte 3 and random(0, 1) and !$huntGame.noMoreHiding>>
+			<<set $huntGame.otherAction to "hide">>
+			<<set $huntGame.otherHideTimer ||= 3>>
+		<<elseif $huntGame.distance gte 2>>
+			<<set $huntGame.otherAction to "stealth">>
+			<<if $huntGame.playerTracked and !($huntGame.playerAction is "hunt" and $huntGame.otherTracked and $_actionPassed)>>
+				<<set $huntGame.distance++>>
+			<<elseif !$huntGame.playerTracked>>
+				<<set $huntGame.distance += random(-1, 1)>>
+			<</if>>
+		<<else>>
+			<<set $huntGame.otherAction to "run">>
+			<<if $huntGame.playerTracked and !($huntGame.playerAction is "hunt" and $huntGame.otherTracked and $_actionPassed)>>
+				<<set $huntGame.distance += 2>>
+			<<elseif $huntGame.playerTracked>>
+				<<set $huntGame.distance += 1>>
+			<<else>>
+				<<set $huntGame.distance += random(-1, 2)>>
+			<</if>>
+		<</if>>
+	<<elseif $huntGame.playerTracked>>
+		<<set $huntGame.otherAction to "hunt">>
+		<<set $huntGame.distance-->>
+	<<else>>
+		<<set $huntGame.otherAction to "stealth">>
+	<</if>>
+
+	/* Give player information if tracked */
+	<<if $huntGame.otherTracked>>
+		<<if $huntGame.playerAction is "tracked" and $_actionPassed>>
+			You spend some time following it, and realise that
+			<<if $huntGame.otherAction is "track">>
+				<<if $huntGame.playerTracked>>
+					<<set $huntGame.hunterKnown to true>><<set $huntGame.playerTrackedKnown to true>>
+					<<hes>> just tracked you too. <span class="pink">You're encircling each other.</span> It's cat and mouse, now.
+				<<else>>
+					<<set $huntGame.hunterKnown to true>>
+					<<hes>> trying to track you too. <span class="green"><<He>> doesn't seem to know where you are yet!</span>
+					<<if $huntGame.consensual and $huntGame.hunter is "other">>
+						<br>
+						<span class="gold">You are now the hunter.</span>
+						<<set $huntGame.hunter to "player">>
+					<</if>>
+				<</if>>
+			<<elseif $huntGame.otherAction is "stealth">>
+				<<hes>> moving slowly and stealthily. Not stealthily enough, yet.
+			<<elseif $huntGame.otherAction is "run">>
+				<<hes>> running.
+				<<if $huntGame.playerTracked>>
+					<<He>> must know you have <<his>> trail.
+				<<else>>
+					Blindly. <<He>> doesn't know exactly where you are.
+				<</if>>
+			<<elseif $huntGame.otherAction is "hunt">>
+				<<set $huntGame.hunterKnown to true>><<set $huntGame.playerTrackedKnown to true>>
+				<<hes>> hunting you, too. <span class="pink">You're encircling each other.</span> It's cat and mouse, now.
+			<<else>>
+				<<hes>> likely hiding somewhere ahead.
+			<</if>>
+		<<else>>
+			<<if ["hide"].includes($huntGame.playerAction) and $huntGame.otherTracked>>
+				<<set $huntGame.otherTracked to false>>
+				<span class="red">You lose <<his>> trail.</span>
+			<<else>>
+				<<switch $huntGame.otherAction>>
+					<<case "track">>
+						You can tell <<hes>> trying to track you, too.
+						<<if $huntGame.playerTracked>>
+							<<set $huntGame.hunterKnown to true>><<set $huntGame.playerTrackedKnown to true>>
+							<span class="pink">You're encircling each other.</span>
+						<<else>>
+							<<set $huntGame.hunterKnown to true>>
+							<span class="green"><<He>> doesn't seem to know where you are yet!</span>
+							<<if $huntGame.consensual and $huntGame.hunter is "other">>
+								<br>
+								<span class="gold">You are now the hunter.</span>
+								<<set $huntGame.hunter to "player">>
+							<</if>>
+						<</if>>
+					<<case "stealth">>
+						You can tell <<hes>> moving slowly and methodically.
+						<<if !($huntGame.playerAction is "track" and $_actionPassed)>>
+							<<set $skulduggerydifficulty to random($huntGame.skills.skulduggeryMin, $huntGame.skills.skulduggeryMax)>>
+							<<skulduggerycheck "silent">>
+						<</if>>
+						<<if $skulduggerysuccess>>
+							<span class="green">You still have <<his>> trail for now.</span>
+							<<set $huntGame.skills.skulduggeryMin += 20>><<set $huntGame.skills.skulduggeryMax += 20>>
+						<<else>>
+							<span class="red"><<Hes>> good. You lose <<his>> trail.</span>
+							<<set $huntGame.otherTracked to false>>
+						<</if>>
+					<<case "run">>
+						You can tell <<hes>> running away.
+						<<if $huntGame.playerTracked>>
+							<<He>> must know you have <<his>> trail.
+						<<else>>
+							Blindly. <<He>> doesn't know exactly where you are.
+						<</if>>
+					<<case "hunt">>
+						<<set $huntGame.hunterKnown to true>><<set $huntGame.playerTrackedKnown to true>>
+						<<His>> movements are aggressive. <<Hes>> hunting you down.
+						<<if $huntGame.hunter is "player">>
+							<br>
+							<span class="red">You are no longer the hunter.</span>
+							<<set $huntGame.hunter to "other">>
+						<</if>>
+					<<default>>
+						You can tell <<hes>> hiding somewhere.
+						<<if !($huntGame.playerAction is "track" and $_actionPassed)>>
+							<<set $skulduggerydifficulty to random($huntGame.skills.skulduggeryMin, $huntGame.skills.skulduggeryMax)>>
+							<<skulduggerycheck "silent">>
+						<</if>>
+						<<if $skulduggerysuccess>>
+							<span class="green">You still have <<his>> trail for now.</span>
+							<<set $huntGame.skills.skulduggeryMin += 20>><<set $huntGame.skills.skulduggeryMax += 20>>
+						<<else>>
+							<span class="red"><<Hes>> good. You lose <<his>> trail.</span>
+							<<set $huntGame.otherTracked to false>>
+						<</if>>
+				<</switch>>
+			<</if>>
+		<</if>>
+		<br><br>
+	<</if>>
+
+	/* Confrontation */
+	<<if $huntGame.distance lte 1 and $huntGame.playerAction isnot "hide" or _forceConfrontation>>
+		<<if ["hide","ambush"].includes($huntGame.otherAction) and $huntGame.hunter is "player" and $huntGame.playerAction is "stealth" and $_actionPassed and !_forceConfrontation>>
+			<<set $huntGame.end to "chase">><<set $huntGame.chaseDistance to 1>>
+			You spot <<= $huntGame.adversaryText>> hiding in the underbrush ahead! <span class="green">Thanks to your stealthy movement, you've spotted <<him>> first.</span>
+			<br><br>
+
+			You get the drop on <<him>>. <<He>> starts to run, but you're already right behind <<him>>.
+		<<elseif $huntGame.otherAction is "ambush" or _forceConfrontation>>
+			<<set $huntGame.end to "caught">>
+			You hear a rustle from the bushes. <<He>> was waiting in ambush for you!
+			<<if $huntGame.hunterKnown>>
+				<br>
+				<span class="red">You are no longer the hunter.</span>
+			<</if>>
+			<<set $huntGame.hunter to "other">>
+			<<set $huntGame.playerTracked to true>>
+		<<elseif $huntGame.hunter is "player">>
+			<<set $huntGame.end to "chase">>
+			You spot <<him>> skulking through the underbrush ahead. <<He>> sees you too. <<He>> starts running!
+		<<else>>
+			<<set $huntGame.end to "caught">>
+			You hear running close by. <<Hes>> found you!
+		<</if>>
+		<<exit>>
+	<</if>>
+
+	<<set $huntGame.turn++>>
+	<<if $huntGame.hunter is "player">>
+		<<set $huntGame.playerHuntTimer ||= 7>>
+		<<set $huntGame.playerHuntTimer-->>
+		<<if !$huntGame.playerHuntTimer or _forceConfrontation>>
+			<<if $huntGame.hunterKnown>>
+				Something changes on the wind. You suddenly feel vulnerable.
+				<br>
+				<span class="red">You are no longer the hunter.</span>
+				<br><br>
+			<</if>>
+			<<set $huntGame.hunter to "other">>
+			<<set $huntGame.playerTracked to true>>
+		<</if>>
+	<</if>>
+	<<set $huntGame.distance to Math.clamp($huntGame.distance, 0, 7)>>
+	<<set $huntGame.playerActionLast to $huntGame.playerAction>>
+	<<pass 2>>
+<</widget>>
+
+<<widget "gwylanHuntOptions">>
+	<<set $skulduggerydifficulty to random($huntGame.skills.skulduggeryMin, $huntGame.skills.skulduggeryMax)>>
+	<<if $huntGame.distance lte 1 and $huntGame.playerAction is "hide">>
+		You peek out from your hiding spot and see <<him>> searching for you. <span class="green"><<He>> hasn't seen you yet.</span>
+		<br><br>
+
+		<<link [[Ambush|$huntGame.event]]>><<set $huntGame.playerAction to "ambush">><<transform fox 1>><</link>><<physiquedifficulty 4000 17000>>
+		<br>
+		<<if $huntGame.consensual>>
+			<<link [[Keep hiding, and track <<him>> once <<he>> leaves|$huntGame.event]]>><<set $huntGame.playerAction to "hideKeep">><</link>><<skulduggerydifficulty>>
+		<<else>>
+			<<link [[Keep hiding, and escape once <<he>> leaves|$huntGame.event]]>><<set $huntGame.playerAction to "hideKeepEscape">><</link>><<skulduggerydifficulty>>
+		<</if>>
+		<br>
+	<<else>>
+		<<if $huntGame.otherTracked>>
+			<<if $huntGame.hunterKnown and $huntGame.hunter is "other">>
+				<<link [[Force a confrontation|$huntGame.event]]>><<set $huntGame.playerAction to "hunt">><</link>><<note "- - Distance" "teal">>
+			<<else>>
+				<<link [[Hunt <<= $huntGame.adversaryText>> down|$huntGame.event]]>><<set $huntGame.playerAction to "hunt">><</link>><<note "- Distance" "teal">>
+				<<if $huntGame.otherTracked and $huntGame.otherAction is "run">><<athleticsdifficulty $huntGame.skills.athleticsMin $huntGame.skills.athleticsMax>><</if>>
+			<</if>>
+		<<else>>
+			<<link [[Track <<= $huntGame.adversaryText>>|$huntGame.event]]>><<set $huntGame.playerAction to "track">><</link>><<skulduggerydifficulty>>
+		<</if>>
+		<br>
+		<<if $huntGame.hunterKnown and $huntGame.hunter is "other" and $huntGame.otherTracked and $huntGame.playerTracked and $huntGame.playerTrackedKnown>>
+			<<link [[Move stealthily, and try to make <<= $huntGame.adversaryText>> lose your trail|$huntGame.event]]>><<set $huntGame.playerAction to "stealth">><</link>><<skulduggerydifficulty>>
+			<br>
+		<<elseif $huntGame.hunterKnown and $huntGame.hunter is "other" and $huntGame.otherTracked>>
+			<<link [[Move stealthily away from <<= $huntGame.adversaryText>>|$huntGame.event]]>><<set $huntGame.playerAction to "stealth">><</link>><<skulduggerydifficulty>>
+			<br>
+		<<else>>
+			<<link [[Move stealthily|$huntGame.event]]>><<set $huntGame.playerAction to "stealth">><</link>><<skulduggerydifficulty>>
+			<br>
+		<</if>>
+		<<link [[Hide|$huntGame.event]]>><<set $huntGame.playerAction to "hide">><</link>><<skulduggerydifficulty>>
+		<br>
+	<</if>>
+<</widget>>
+
+<<widget "gwylanCombatInit">>
+	<<run statusCheck("Gwylan")>>
+	<<set $enemyarousalmax to 1200>>
+	<<set $enemyarousal += C.npc.Gwylan.lust>>
+	<<if _gwylanStatus.includes("heat")>>
+		<<set $enemyarousal += 100>>
+	<</if>>
+	<<set $combat_player_orgasm_target to Math.clamp(Math.ceil((C.npc.Gwylan.lust + C.npc.Gwylan.dom) / 100) + _gwylanStatus.count("heat"), 1, 10)>>
+	<<if $arousal gte ($arousalmax / 5) * 4 and $combat_player_orgasm_target lte 1>>
+		<<set $combat_player_orgasm_target++>>
+	<</if>>
+	<<if !_gwylanStatus.includes("wantsPregnancy")>>
+		<<set $disableNormalImpregnation to true>>
+		<<set $disableImpregnation to true>>
+	<</if>>
+
+	/* ToDo: Gwylan - delete when pregnancy is to be enabled */
+	<<set $disableNormalImpregnation to true>>
+	<<set $disableImpregnation to true>>
+
+	/* ToDo: Gwylan - Start combat effects from hypnosis traits or bad end triggers? */
+	<<set $_hypnoMessages to []>>
+	<<if $gwylan.silence>>
+		<<set $combat_silenced to true>>
+		<<set $_hypnoMessages.push("<span class='red'>Gwylan steals your voice</span>")>>
+	<</if>>
+	<<if $gwylan.trance>>
+		<<set $trance to 1>><<set $timer to $hypnosis_traits.devotion>>
+		<<set $_hypnoMessages.push("<span class='lewd'>You are entranced</span>")>>
+	<</if>>
+	<<if $_hypnoMessages.length>>
+		<<hypnosisText "<<= formatList($_hypnoMessages, '', true, '. ')>>.">>
+		<br><br>
+	<</if>>
+<</widget>>
+
+<<widget "gwylanNobody">>
+	<<set $_banishedDays to _args[0] || 9>>
+	<<if $gwylan.timer and ["active", "scorned"].includes(C.npc.Gwylan.state) and typeof $_banishedDays is "number">>
+		<<set $gwylan.timer.nobody to new DateTime(Time.date).addDays($_banishedDays).timeStamp>>
+		<<if $worn.neck.name is "familiar collar">>
+			<<set $worn.neck.type.delete("leash")>>
+			<<set $worn.neck.cursed to 0>>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "gwylanDesc">><<silently>>
+	<<if $forest_shop_intro or $gwylan_rescue or $gwylan_cafe_intro>>
+		<<set _text_output to "Gwylan">>
+	<<elseif _args.includes("the")>>
+		<<set _text_output to "the mousy <<nnpc_gendery 'Gwylan'>>">>
+	<<else>>
+		<<set _text_output to "a mousy <<nnpc_gendery 'Gwylan'>>">>
+	<</if>>
+	<<if _args.includes("cap")>><<set _text_output to _text_output.toUpperFirst()>><</if>>
+<</silently>><<print _text_output>><</widget>>
+
+<<widget "shopkeeperDesc">><<silently>>
+	<<if $forest_shop_intro or $gwylan_rescue or $gwylan_cafe_intro>>
+		<<set _text_output to "shopkeeper">>
+	<<else>>
+		<<set _text_output to "<<nnpc_gendery 'Gwylan'>>">>
+	<</if>>
+	<<if _args.includes("cap")>><<capitalise>><</if>>
+<</silently>><<print _text_output>><</widget>>
+
+<<widget "gwylanRescueStats">>
+	<<if !$gwylanRescue>>
+		<<set $gwylanRescue to {
+			seen: [],
+			failed: "",
+			count: 0,
+			eden: 0,
+		}>>
+	<</if>>
+
+	<<if !$gwylanRescue.seen.includes(_args[1])>>
+		<<set _gwylanFirstRescue to _args[1]>>
+	<</if>>
+
+	<<if _args[0] is true>>
+		<<set $rescued++>>
+		<<set $gwylanRescue.count++>>
+		<<if _args[2] is "Eden" and !$edenCagedEscape>>
+			<<set $gwylanRescue.eden++>>
+		<</if>>
+		<<set $gwylanRescue.seen.pushUnique(_args[1])>>
+	<<else>>
+		<<set $gwylanRescue.failed to _args[1]>>
+		<<set $gwylanRescue.seen.pushUnique(_args[1] + "Failed")>>
+	<</if>>
+<</widget>>
+
+<<widget "gwylanReunion">>
+	You tell <<him>> about your time <<badEndProse $badEndStats.last()?.source "at">>. <<He>> listens without speaking, stroking your hair as <<he>> does. When you finish, <<he>> kisses your forehead.
+	<<switch $badEndStats.last()?.source>>
+		<<case "Underground Farm">>
+			<<if $brownFoxRevealed>>
+				"You're lucky to have gotten away from the High Elk. <<nnpc_Hes "Remy">> a powerful <<nnpc_gender "Remy">>, especially alongside <<nnpc_his "Remy">> Cannibal Fox."
+			<<else>>
+				"You're lucky to have gotten away from Remy. <<nnpc_Hes "Remy">> a powerful <<nnpc_gender "Remy">>."
+			<</if>>
+			<<He>> holds your cheeks between <<his>> palms, looking into your eyes.
+			<<if $dissociation gte 1>>
+				"They've stolen the light from your eyes." <<He>> hugs you again, tighter now.
+			<<else>>
+				"Remember that you're still human. Nothing they do will change that." <<He>> hugs you again, tighter now.
+			<</if>>
+			<<if !$gwylanTalked.includes("underground_farm")>>
+				<<set _badEndFollowup to true>>
+			<</if>>
+		<<case "Wolf Cave">>
+			"The wolves are usually so docile, but the black one has been growing more and more bold," <<he>> says. "I'm so sorry that <<if ($settings.monsterChance gte random(1, 100) and ($hallucinations gte 1 or !$settings.monsterHallucinationsOnly)) or $blackwolfmonster is 2>><<nnpc_he "Black Wolf">><<else>>it<</if>> put you through that."
+			<<if !$gwylanTalked.includes("loincloth")>>
+				<<set _badEndFollowup to true>>
+			<</if>>
+		<<case "Eden">>
+			"The forest knows," <<he>> says. "All <<nnpc_he "Eden">> does is take and destroy." <<His>> eyes darken.
+			<<if !$gwylanTalked.includes("loincloth")>>
+				<<set _badEndFollowup to true>>
+			<</if>>
+		<<case "Underground Dungeon">>
+			"That's absolutely horrid. People trafficked like objects to be used and discarded, it makes me sick imagining how many weren't so lucky to escape." <<He>> hugs you tighter. "I'm ever grateful you did."
+			<<if !$gwylanTalked.includes("underground_brothel")>>
+				<<set _badEndFollowup to true>>
+			<</if>>
+		<<case "Mines">>
+			"I can't believe something so sinister is going on right beneath our feet," <<he>> says. "You're very strong for making it out."
+		<<case "Asylum">>
+			"One can find <<pherself>> going mad from such treatment," <<he>> says. "<<if $gwylanSeen.includes("hypnosis_removal")>>Remember, if<<else>>If<</if>> that <<nnpc_gender "Harper">> has made you think something that you would never normally think, <span class="blue">please come see me at the shop</span>. I can help."
+			<<if !$gwylanTalked.includes("asylum")>>
+				<<set _badEndFollowup to true>>
+			<</if>>
+		<<case "Prison">>
+			"We all have to reap what we sow," <<he>> says, "but sometimes the punishment does not fit the crime.
+			<<if $badEndStats.find(stat => stat.source === "Prison").reasonEnd is "prisonServed">>
+				I'm glad you were able to withstand your sentence's length without withering."
+			<<else>>
+				I'm glad you were resourceful enough to escape."
+			<</if>>
+			<<if !$gwylanTalked.includes("prison")>>
+				<<set _badEndFollowup to true>>
+			<</if>>
+		<<case "Pound">>
+			<<if isLoveInterest("Gwylan")>>"<span class="lewd">I'm the only one who can treat you like that.</span>"<<else>>"It's beyond cruel to turn a human into an animal. I hope you remember who you are."<</if>>
+		<<case "Kylar Abduction">>
+			"Your friend?" <<He>> doesn't sound surprised. "Whatever drove <<nnpc_him "Kylar">> to such extreme means must have been hard for both of you to bear."
+			<br><br>
+
+			<<if $syndromekylar is 1>>
+				<<if !$gwylanTalked.includes("vampire")>>
+					<<set _badEndFollowup to true>>
+				<</if>>
+				"It was, but I understand," you say. "<<nnpc_Hes "Kylar">> misunderstood and needs a friend.
+			<<else>>
+				"It was," you say. "I can't understand <<nnpc_him "Kylar">>.
+			<</if>>
+			I'm just glad it's over."
+			<br><br>
+
+			"I am, too," <<he>> says. <<if isLoveInterest("Gwylan")>>"I missed you."<</if>>
+		<<case "Pirate Ship">>
+			"That sounds... familiar," <<he>> says. "It sounds like quite an adventure. A heart at sea... I hope you didn't become lost in its depths."
+		<<default>>
+			Gwylan sticks a pinky in <<his>> ear. "What was that? Sorry, <span class="red">I think there's a bug here</span>. Go tell <span class="gold">PurityGuy</span> what you've been up to, not me."
+	<</switch>>
+<</widget>>
+
+<<widget "schoolWalkChat">>
+	<<set _gwylan to statusCheck("Gwylan")>><<set _robin to statusCheck("Robin")>>
+	<<set _gwylanPresent to _args.includes("gwylan")>><<set _robinPresent to _args.includes("robin")>>
+	<<cleareventpool>>
+
+	<<if _gwylanPresent>>
+		<<if !$weekly.gwylan_school_talk_classes>>
+			<<addinlineevent "school_gwylan_classes" 1>>
+				<<set $weekly.gwylan_school_talk_classes to 1>>
+				<<if _robinPresent>>
+					"How are classes going for you?" Gwylan asks.
+				<<else>>
+					"How are classes going for you?" <<nnpc_he "Gwylan">> asks.
+				<</if>>
+				<<if $sciencetrait + $mathstrait + $englishtrait + $historytrait gte 16>>
+					You proudly tell <<nnpc_him "Gwylan">> how you've aced every single one. <<nnpc_He "Gwylan">> listens as you talk at length about the interesting facts you've learned.
+					<br><br>
+
+					"That's wonderful news, <<pcpetname "Gwylan" "simple">>." <<nnpc_He "Gwylan">> smiles. "Knowledge nourishes the brain. I hope you never stop trying to learn."
+				<<elseif $sciencetrait + $mathstrait + $englishtrait + $historytrait gte 8 and ($sciencetrait lte 1 or $mathstrait lte 1 or $englishtrait lte 1 or $historytrait lte 1)>>
+					<<set _badClass to $sciencetrait lte 1 ? "science" : $mathstrait lte 1 ? "maths" : $englishtrait lte 1 ? "English" : "history">>
+					You tell <<nnpc_him "Gwylan">> they're are going well for the most part, but you're falling behind on _badClass.
+					<br><br>
+
+					<<nnpc_He "Gwylan">> pats your head. "Everyone has their shortcomings. It's natural, so don't beat yourself up over it. Just do your best, okay?"
+				<<elseif $sciencetrait + $mathstrait + $englishtrait + $historytrait gte 8>>
+					You tell <<nnpc_him "Gwylan">> you're making good headway,
+					<<if $stress gte ($stressmax / 5) * 3>>
+						but that you're feeling stressed about all the school work.
+						<br><br>
+
+						Gwylan leans in and hugs you<<if $gwylanSeen.includes("partners")>>, planting a kiss on your cheek. <<stress -10>><<llstress>><<else>>. <<stress -5>><<lstress>><</if>>
+						<br><br>
+
+						"I'm sorry to hear that. The school system can be very heartless when it comes to students' mental health. Don't let them whittle you down, you deserve a break."
+					<<else>>
+						and continuing to improve.
+						<br><br>
+
+						<<nnpc_He "Gwylan">> smiles. "Good work, <<pcpetname "Gwylan" "simple">>. It's always a wonder to learn more about this world we live in."
+					<</if>>
+				<<elseif $sciencetrait + $mathstrait + $englishtrait + $historytrait gte 4>>
+					You tell <<nnpc_him "Gwylan">> it's going okay, nothing remarkable.
+					<br><br>
+
+					Gwylan shrugs. "I wouldn't say that. You're learning something new each day, no matter how small. That's good."
+				<<elseif $sciencetrait + $mathstrait + $englishtrait + $historytrait is 0>>
+					You grit your teeth. You know all your grades are awful. You try not to look at <<nnpc_him "Gwylan">> as you tell <<nnpc_him "Gwylan">> about your failures.
+					<br><br>
+
+					Gwylan frowns. "You're too hard on yourself. As long as you're trying, you're doing just fine, <<pcpetname "Gwylan">>."
+				<<else>>
+					<<set _goodClass to []>>
+					<<if $sciencetrait gte 1>><<set _goodClass.push("science")>><</if>>
+					<<if $mathstrait gte 1>><<set _goodClass.push("maths")>><</if>>
+					<<if $englishtrait gte 1>><<set _goodClass.push("English")>><</if>>
+					<<if $historytrait gte 1>><<set _goodClass.push("history")>><</if>>
+					You tell <<nnpc_him "Gwylan">> about your forward strides in _goodClass.pluck().
+					<br><br>
+
+					"Nice work. That's a difficult subject to grasp, so I'm proud of you for taking on the challenge!"
+				<</if>>
+				<br><br>
+			<</addinlineevent>>
+		<</if>>
+
+		<<if Weather.precipitation is "rain">>
+			<<addinlineevent "school_gwylan_rain" 1>>
+				As you pass by a deep puddle, you're suddenly met with a big splash. <<lowerwet 100>><<underlowerwet 50>><<effectswater "water">><<exposure>> You look back to see Gwylan standing in the middle of it, jumping up and down without a care.
+				<br><br>
+
+				<<nnpc_He "Gwylan">> stops, looks up at you
+				<<if $exposed gte 1>>
+					drenched from the waist down, and covers <<nnpc_his "Gwylan">> mouth. "Oops," <<nnpc_he "Gwylan">> says, <<nnpc_his "Gwylan">> tone of voice betraying any attempt to appear surprised.
+				<<else>>
+					and smiles. "Sorry, I couldn't help it. That puddle was massive! Did you see the wave it made?" You can't help but agree.
+				<</if>>
+				<br><br>
+
+				<<if hasSexStat("exhibitionism", 4) and $exposed is 1 and $uncomfortable.underwear is false or hasSexStat("exhibitionism", 5) and $exposed is 2 and $uncomfortable.nude is false>>
+					<<if $worn.feet.type.includes("rugged")>>
+						You smirk. Gwylan's not getting away with this. You get a running start, and jump straight towards <<nnpc_him "Gwylan">>. You manage to glimpse a brief moment of fear in <<nnpc_his "Gwylan">> eyes when <<nnpc_he "Gwylan">> realises what you're doing.
+						<br><br>
+
+						<<nnpc_He "Gwylan">> yelps as your feet come crashing down into the puddle, completely drenching <<nnpc_him "Gwylan">> in water too. You grin smugly. "Oops."
+						<br><br>
+
+						<<nnpc_He "Gwylan">> shakes some water off <<nnpc_his "Gwylan">> <<npcClothesText _gwylan "lower">> and pouts, but you clearly see <<nnpc_hes "Gwylan">> enjoying it too. "I guess I should've expected that. Now we're both wet." <<nnpc_He "Gwylan">> looks around and says "Come, we need to get dried off," taking your hand and running down the nearby alley, away from the rain. <<takeHandholdingVirginity "Gwylan" `(V.gwylanSeen.includes("partners") ? "romantic" : "consensual")`>>
+						<br><br>
+
+						You both spend a few minutes drying off before moving on. <<nnpc_He "Gwylan">> winks at you mischievously as you exit the alley.
+					<<else>>
+						You take the opportunity to strike a few lewd poses for anybody watching. Gwylan giggles.
+						<br><br>
+
+						"<<pcPetname "Gwylan" "naughty">>. Come on, let's go get you dried off already." <<nnpc_He "Gwylan">> takes your hand and leads you down an alley, away from the rain. <<takeHandholdingVirginity "Gwylan" `(V.gwylanSeen.includes("partners") ? "romantic" : "consensual")`>>
+						<br><br>
+
+						You spend a few minutes drying off before moving on.
+					<</if>>
+					<<fame 1 "exhibitionism">>
+				<<elseif $exposed gte 1>>
+					You instinctively <<if ["naked", "bellyShow"].includes($worn.upper.type)>>pull your $worn.upper.name down to <</if>>try to conceal your <<exposedlower>>.
+					<br><br>
+
+					"Aww, I'm sorry, <<pcpetname "Gwylan">>. Here, let's go get you dried off. Follow me." <<nnpc_He "Gwylan">> takes your hand and uses <<nnpc_his "Gwylan">> body to cover you as <<nnpc_he "Gwylan">> leads you down an alley, away from the rain. <<takeHandholdingVirginity "Gwylan" `(V.gwylanSeen.includes("partners") ? "romantic" : "consensual")`>>
+					<br><br>
+
+					You spend a few minutes drying off before moving on.
+				<</if>>
+				<br><br>
+				<<dry_full>>
+			<</addinlineevent>>
+		<</if>>
+
+		<<if $gwylanSeen.includes("yearning")>>
+			<<addinlineevent "school_gwylan_handholding" 1>>
+				You walk in silence for a while, when you feel Gwylan's hand brush up against yours. <<nnpc_He "Gwylan">> takes it absentmindedly, before realising what <<nnpc_hes "Gwylan">> doing. <<takeHandholdingVirginity "Gwylan" `(V.gwylanSeen.includes("partners") ? "romantic" : "consensual")`>>
+				<br><br>
+
+				<<if $gwylanSeen.includes("partners")>>
+					<<nnpc_He "Gwylan">> suddenly grips your hand tighter, <span class="lewd">and kisses you on the cheek</span>. <<arousal 400>><<garousal>>
+				<<else>>
+					<<nnpc_He "Gwylan">> blushes, <span class="blue">and lets go</span>.
+				<</if>>
+				<br><br>
+			<</addinlineevent>>
+		<</if>>
+
+		<<addinlineevent "school_gwylan_object" 1>>
+			Gwylan gets your attention and points at
+			<<print either(
+				"a pretty rock.",
+				"a piece of graffiti on the wall.",
+				"a seagull swallowing a cigarette.",
+				"a weird-looking house.",
+				"a strangely shaped cloud.",
+				"a kid with a fox beanie.",
+				"a kid with a balloon.",
+				"a street performer.",
+				"a sign with a typo.",
+				"a funny street name.",
+				"a tired-looking teen.",
+				"a family having a picnic.",
+				"a funny licence plate.",
+				"a police officer on a horse.",
+				"a passing police car.",
+				"a passing fire engine.",
+				"a passing ambulance.",
+				"a group of kids chasing after soap bubbles.",
+				"some students chatting loudly.",
+				"some kids playing on a slide.",
+				"some people flying kites.",
+				"someone dressed very extravagantly.",
+				"someone getting splashed with a water balloon.",
+				"someone shouting angrily into a phone.",
+				"someone biking around with almost no clothes on.",
+				"someone with very thick eyebrows.",
+				"someone with enormous... assets.",
+				"someone slapping a catcaller.",
+				"someone in a rush dropping a stack of papers.",
+				"someone struggling to eat a very thick sandwich.",
+				"two shop owners arguing.",
+				"two people arguing in a foreign language.",
+				"two people stumbling out of a bar together.",
+				"two birds fighting over a worm.",
+				"two people sharing a large pizza.",
+				"two people playfully fighting with sticks.",
+				"three kids playing tag.",
+				"three dogs jumping around and playing together."
+			)>>
+			<br><br>
+
+			You spend some time chatting about it.
+			<<if $rng gte 96>>
+				You get really into the discussion, creating an elaborate but silly story from it. Gwylan laughs. <<stress -8>><<trauma -2>><<npcincr Gwylan dom 1>><<llstress>><<ltrauma>><<gyearning>>
+			<<else>>
+				<<stress -4>><<lstress>>
+			<</if>>
+			<br><br>
+		<</addinlineevent>>
+	<</if>>
+
+	<<addinlineevent "school_talk_nothing" 1>>
+		/* Nothing */
+	<</addinlineevent>>
+
+	<<runeventpool>>
+<</widget>>
+
+<<widget "witch">>
+	<<if C.npc.Gwylan.pronoun is "m">>
+		<<set _text_output to "witch">>
+	<<else>>
+		<<set _text_output to "witch">>
+	<</if>>
+
+	<<exit _text_output>>
+<</widget>>
+
+<<widget "gwylanRobin">>
+	<<set $_incr to _args[0] or 1>>
+	<<set $_cap to _args[1] or 0>>
+	/* Note: $_cap could be used to add automatic breakpoints based on `$gwylanSeen` properties. For now, they're done manually with argument */
+
+	<<if !$_cap or $gwylan.robin + $_incr lte $_cap>>
+		<<set $gwylan.robin += $_incr>>
+	<<elseif $gwylan.robin lt $_cap and $gwylan.robin + $_incr gte $_cap>>
+		<<set $gwylan.robin to $_cap>>
+	<</if>>
+<</widget>>
+
+<<widget "measuringcharmsimage">>
+	<<set _softCorruption to Math.clamp(Math.ceil($world_corruption_soft / 10), 0, 10)>>
+	<<set _hardCorruption to Math.clamp($world_corruption_hard, 0, 10)>>
+	<<if $options.images is 1>>
+		<div id="divcharms">
+			<<if $world_corruption_soft gt 0 and $world_corruption_soft lt 10>>
+				<img id="map" src="img/misc/prop/charm-big-0b.png">
+			<<else>>
+				<img id="map" @src="'img/misc/prop/charm-big-' + Math.clamp(Math.ceil($world_corruption_soft / 10), 0, 10) + '.png'">
+			<</if>>
+			<img id="maparrow" @src="'img/misc/prop/charm-small-' + Math.clamp($world_corruption_hard, 0, 10) + '.png'">
+		</div>
+		<br>
+	<</if>>
+<</widget>>
+
+<<widget "gwylanClothesValentinesContents">>
+
+<<if $gwylanSeen.includes("romance")>>
+	"I'll confess, Valentine's was my least favourite time of the year. You know how hesitant I was to be romantic with you. Once it starts, it all comes out like a flood."
+	<br><br>
+
+	<<He>> stops walking, and picks up one of the roses. A pink one. "It's not enough to be close. It's the gnawing, all-consuming yearning to be with the one you love. It's the dread of losing them.
+	It's the fear of the future, tempered by the joy of the present. It's stopping to smell the roses, even when love hurts, and true love truly hurts."
+	<<He>> tucks <<his>> head into the crook of your neck.
+	<br><br>
+
+	<<if isLoveInterest("Gwylan")>>
+		"It was too much for me. I'm sorry I pushed you away, but I'm happy you're here with me now."
+	<<else>>
+		"You best remember your promise, dearest."
+	<</if>>
+	<<He>> continues thumbing the petals of the rose off to the side.
+<<elseif $gwylanSeen.includes("yearning") or $gwylanSeen.includesAll("ritual_sex", "pink_rose")>>
+	"I'll confess, Valentine's is my least favourite time of the year. I'm not terribly romantic." <<He>> pauses. "I try not to be, at least. Too many complicated emotions." <<His>> eyes seem to sharpen towards you at the word 'complicated'.
+	"It's not all terrible, but in the long term, it's going to hurt. Infatuation is doomed to end in tragedy. Love hurts, and true love truly hurts."
+	<br><br>
+
+	<<He>> stops walking, and picks up one of the roses. A pink one. "Especially in a town like this. It looks so pretty from the outside, despite the thorns. But a careless grasp will leave your hands bloody all the same."
+	<<His>> hand tenses up. <<He>> looks as though <<hes>> about to crush the head of the rose, but stops <<himself>>.
+	<br><br>
+
+	"Someone will always end up hurt, and carry that pain with them forever." <<He>> closes <<his>> eyes and places the rose back. "Is the joy worth the pain? Can one bear those memories for a lifetime?"
+<<else>>
+	"I'll confess, Valentine's is my least favourite time of the year. I'm not terribly romantic."
+	<<He>> stops walking, and picks up one of the roses. A pink one.
+	<br><br>
+
+	"It looks so pretty from the outside. The petals of infatuation appear comforting. Like you could wrap yourself in them and take shelter, alongside someone who can keep you... warm."
+	<<His>> expression is hollow, <<his>> eyes unfocused. With two fingers, <<he>> snaps the head of the rose clean off.
+	<br><br>
+
+	"It's doomed to end in tragedy, in a town like this. Those feelings, that person, will fade away, and leave something ugly behind. Love hurts, and true love truly hurts."
+	<<He>> crushes the head of the rose in <<his>> hand, and blows the ruined petals away. They're caught by a phantom breeze. After a moment of dancing through the air, they escape through a nearby window with unsettling precision.
+<</if>>
+<br><br>
+
+<<link [[Say nothing|Gwylan Talk Clothes Valentines Silent]]>><</link>>
+<br>
+<<if !$gwylanSeen.includes("romance")>>
+	<<if !_hasLI>>
+		<<link [[Agree with <<him>>|Gwylan Talk Clothes Valentines Agree]]>><</link>>
+		<br>
+	<</if>>
+	<<if $gwylanSeen.includesAny("yearning", "pink_rose") and _hasLI>>
+		<<link [[Tell <<him>> that <<hes>> wrong|Gwylan Talk Clothes Valentines Wrong]]>><<npcincr Gwylan dom 5>><</link>><<ggyearning>>
+	<<else>>
+		<<link [[Ask <<him>> where that came from|Gwylan Talk Clothes Valentines Ask]]>><</link>>
+	<</if>>
+	<br>
+<</if>>
+<<link [[Hug <<him>>|Gwylan Talk Clothes Valentines Hug]]>><<npcincr Gwylan dom 2>><</link>><<gyearning>>
+<br>
+<<if $gwylanSeen.includes("partners")>>
+	<<link [[Tell <<him>> that you love <<him>>|Gwylan Talk Clothes Valentines Love]]>><<npcincr Gwylan dom 5>><</link>><<ggyearning>>
+	<br>
+<</if>>
+
+<</widget>>

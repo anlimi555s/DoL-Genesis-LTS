@@ -1,0 +1,2759 @@
+:: Nightmare Test
+<<effects>>
+
+<<link [[Eden nightmare|Nightmare Eden]]>><<set $sleephour to 1>><<set $nightmareExit to "Eden Cabin Bed">><</link>>
+<br>
+<<link [[Wraith nightmare|Nightmare Wraith]]>><<set $sleephour to 1>><<set $nightmareExit to "Bed">><</link>>
+<br>
+<<link [[Harper nightmare|Nightmare Harper]]>><<set $sleephour to 1>><<set $nightmareExit to "Bed">><</link>>
+<br>
+<<link [[Great Hawk nightmare|Nightmare Bird]]>><<set $sleephour to 1>><<set $nightmareExit to "Bird Tower Bed">><</link>>
+<br>
+<<link [[Corrupt Sydney nightmare|Nightmare Corrupt Sydney]]>><<set $sleephour to 1>><<set $nightmareExit to "Bed">><</link>>
+<br>
+<<link [[Alex nightmare|Nightmare Alex]]>><<set $sleephour to 1>><<set $nightmareExit to "Farm Alex Bed">><</link>>
+<br>
+<<link [[Hopeless Cycle nightmare|Nightmare Witch]]>><<set $sleephour to 1>><<set $nightmareExit to "Bed">><</link>>
+<br>
+<<link [[Office nightmare|Nightmare Office]]>><<set $sleephour to 1>><<set $nightmareExit to "Bed">><</link>>
+<br>
+
+<<link [[Back|Bedroom]]>><</link>>
+<br>
+
+:: Nightmare Eden
+<<effects>><<nightmareStart "eden">><<set $location to "cabin">>
+
+<<generate1>><<npc "Eden" 2>><<person2>>
+<<set $NPCList[0] to clone($NPCList[1])>>
+<<set $NPCList[0].description to "shadowed">>
+<<set $NPCList[0].role to ($pronoun is "m" ? "man" : "woman")>>
+<<set $NPCList[0].name_known to 0>>
+<<clearsinglenpc 1>><<person1>>
+
+You try to drift to sleep. It doesn't come easy. Your heart speeds up when it should be steadying. Your eyes are closed, yet they see everything, clear as day.
+<br><br>
+
+Shadows cling to the corners of the cabin. They branch out, groping with spindly fingers. Even in the safety of Eden's comfort, you can feel their nails against your skin.<<stress 6>><<gstress>>
+<br><br>
+
+<<if $nightmaresSeen.includes("eden")>>
+	Something's wrong. You've seen this before. <span class="purple">It isn't real.</span>
+	<br><br>
+
+	<<link [[Wake up|Nightmare Eden Wake]]>><<set $phase to 0>><</link>><<nightmareWakeDifficulty>>
+	<br>
+<</if>>
+<<link [[Wake Eden|Nightmare Eden 2]]>><<set $phase to 0>><</link>>
+<br>
+<<link [[Hide under the sheets|Nightmare Eden 2]]>><<set $phase to 1>><</link>>
+<br>
+
+:: Nightmare Eden Wake
+<<effects>>
+
+<<if $phase is 2>>
+	The <<person>> draws closer. You won't let it take you. When you wake up, you'll be back at Eden's side. <<He>>'ll protect you.
+<<elseif $phase is 1>>
+	The encroaching hands threaten to turn all your thoughts to terror. You refuse to surrender them. Without your body, they're all you have left. You shut your eyes and focus.
+<<else>>
+	Fear lingers in the back of your mind, but you push it aside. There's nothing to be afraid of. Not with Eden by your side. You shut your eyes, and relax.
+<</if>>
+<br><br>
+
+<<if $willpowerSuccess>>
+	Your body twitches. Whatever's holding you down, <span class="green">you've managed to wrestle some control back.</span> Just enough to open your mouth.
+	<br><br>
+
+	A piercing scream leaves your lips. You keep screaming, until your throat burns. You don't care. It's enough to drive the shadows away.
+	<br><br>
+
+	Someone grabs your shoulders and forces you upright, stealing your attention from the corner. You panic, until your eyes meet a familiar glare. It's Eden.
+	<br><br>
+
+	<<link [[Next|Nightmare Eden Wake 2]]>><</link>>
+	<br>
+<<else>>
+	<<if $phase is 2>>
+		You try to keep your thoughts on Eden. <<His>> face distorts in your mind, <span class="red">melting into a shadowy mess.</span> You open your eyes in panic, only to find yourself face-to-face with the very same shadow. <<He>> descends on you.<<stress 12>><<ggstress>>
+		<br><br>
+
+		<<link [[Next|Nightmare Eden Molestation]]>><<set $phase to 1>><<set $molestationstart to 1>><</link>>
+		<br>
+	<<elseif $phase is 1>>
+		<span class="red">Something brushes your neck,</span> shattering your concentration. Your eyes snap open to find a mass of shadows swirling along your body, slowly taking shape and submerging you.<<stress 6>><<gstress>>
+		<br><br>
+
+		<<link [[Next|Nightmare Eden 3]]>><<set $phase to 1>><</link>>
+		<br>
+	<<else>>
+		Even with your eyes closed, the shadows continue to writhe. <span class="red">You can't block them out.</span> Whatever force is holding you down breaches your thoughts, preventing escape.<<stress 6>><<gstress>>
+		<br><br>
+
+		<<link [[Next|Nightmare Eden 2]]>><<set $phase to 1>><</link>>
+		<br>
+	<</if>>
+<</if>>
+
+:: Nightmare Eden 2
+<<effects>>
+
+<<if $phase is 1>>
+	You try to cover yourself with your sheets.
+<<elseif $phase is 0>>
+	You try to turn and wake up Eden.
+<</if>>
+You can't. <span class="red">You can't move an inch.</span> Not even your fingers twitch as the shadows advance. They swirl around the bed, reaching out, then retracting at the last second. Each grab drags them closer to you.<<stress 6>><<gstress>>
+<br><br>
+
+Eden snores beside you, unaffected by the imminent danger. <<He>> said <<he>> would protect you. That <<he>> would keep you safe. You just have to wake <<him>>.
+<br><br>
+
+<<if $nightmaresSeen.includes("eden")>>
+	<<link [[Wake up|Nightmare Eden Wake]]>><<set $phase to 1>><</link>><<nightmareWakeDifficulty>>
+	<br>
+<</if>>
+<<link [[Try to move|Nightmare Eden 3]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Scream|Nightmare Eden 3]]>><<set $phase to 0>><</link>>
+<br>
+
+:: Nightmare Eden 3
+<<effects>>
+
+<<if $phase is 1>>
+	Despite your best efforts, your body remains frozen, only capable of shivering in place.
+<<else>>
+	Your mind screams, yet your lips remain sealed. Only a meek whimper worms its way out.
+<</if>>
+Eden doesn't flinch.<<stress 6>><<gstress>>
+<br><br>
+
+Abstract shapes merge into a towering figure. It stands silent over your prone body, reaching out with a clawed hand. The closer it gets, the more it solidifies. Colour seeps into its form until it resembles a blank-faced <<personsimple>>.
+<br><br>
+
+The cabin's dead silent. You can't tell if Eden's by your side. You're alone with the <<person>>.
+<br><br>
+
+<<if $nightmaresSeen.includes("eden")>>
+	<<link [[Wake up|Nightmare Eden Wake]]>><<set $phase to 2>><</link>><<nightmareWakeDifficulty>>
+	<br>
+<</if>>
+<<link [[Struggle|Nightmare Eden Molestation]]>><<set $phase to 1>><<set $molestationstart to 1>><</link>>
+<br>
+<<link [[Give in|Nightmare Eden Molestation]]>><<set $phase to 0>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Nightmare Eden Molestation
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<set $trance to 1>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemyanger to 70>>
+	<<set $enemytrust to 0>>
+	<<if $phase is 1>>
+		You give one last feeble push against the force pinning you down. It's hopeless. You feel your will succumb to the <<persons>>.
+	<<else>>
+		Powerless, you submit your body and mind to the <<persons>> will.
+	<</if>>
+	<<He>> lays <<his>> hands on you. They're cold.
+	<<controlloss>>
+	<<molested>>
+	<<set $enemyarousalmax to 250>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Nightmare Eden Molestation Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Nightmare Eden Molestation]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Nightmare Eden Molestation Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<set _nn to 0>>
+	<<set $pronoun to $NPCList[0].pronoun>>
+	<<set $NPCList[0].intro to 1>>
+	<<ejaculation-eden>>
+
+	<<animateCombat>>
+
+	<<He>> caresses your hair, gently moving stray strands from your face, before retreating from your still-frozen body.
+<<else>>
+	The <<person>> collapses off the bed, joining the shadows. They writhe along the floor, retreating from your still-frozen body.
+<</if>>
+<br><br>
+
+You watch <<him>> slither back into the corner. As <<his>> shadow fades, your muscles relax, freeing you from your invisible chains.
+<br><br>
+
+<<tearful>> you sit up, unable to take your <<if $pain gte 20>>tear-blurred<</if>> eyes away from the dark corner.
+<br><br>
+
+<<link [[Next|Nightmare Eden End]]>><<endcombat>><<clotheson>><</link>>
+<br>
+
+:: Nightmare Eden End
+<<effects>><<nightmareEnd>>
+<<npc "Eden">><<person1>>
+
+<<if Time.hour gte 0 and Time.hour lte 6>>
+	You reach for Eden, and find <<his>> arm. You wrap yours around it. <<Hes>> still here. <<He>> was here the whole time.
+<<else>>
+	You reach for Eden. All you find is an empty spot at your side. <<He>> must be awake already. You hope <<hes>> just awake.
+<</if>>
+<br><br>
+
+<<He>> didn't save you. <<He>> promised you'd be safe. Why did <<he>> lie?<<stress 18>><<gggstress>>
+<br><br>
+
+<<link [[Next|$nightmareExit]]>><<unset $nightmareExit>><<endevent>><</link>>
+<br>
+
+:: Nightmare Eden Wake 2
+<<effects>><<nightmareEnd>>
+<<npc "Eden">><<person1>>
+
+"What is it?" <<he>> demands. "What happened?"
+<br><br>
+
+<<He>> doesn't wait for an answer. <<Hes>> already on <<his>> feet, gun in hand. Your eyes remain on the corner, until <<he>> snaps <<his>> fingers in front of your face.
+<br><br>
+
+"Hey! What are you staring at?"
+<br><br>
+
+<<link [[Tell <<him>>|Nightmare Eden Console]]>><</link>>
+<br>
+<<link [[Insist it was nothing|Nightmare Eden Insist]]>><</link>>
+
+:: Nightmare Eden Console
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I-I saw something over there," you say. "It was, it was going to take me away. It wanted to—" You hyperventilate, clinging tightly to Eden for support.
+<<elseif $speech_attitude is "bratty">>
+	"There was a... thing!" you yell. "There was a horrible thing, right over there." You push <<him>> towards the corner.
+<<else>>
+	"Didn't you see it?" you whisper. "The creature. It was right there." You nod at the corner, snuggling into <<his>> warmth.
+<</if>>
+<br><br>
+
+<<He>> brushes you off. "There's nothing there," <<he>> mutters, peering back down at you. "Must've been a nightmare."
+<br><br>
+
+You're not given a chance to argue.
+<<if Time.hour gte 0 and Time.hour lte 6>>
+	<<His>> gun clatters against the wall, the bed creaks, and <<hes>> out like a light.
+<<else>>
+	<<He>> stomps outside, leaving you alone with your thoughts.
+<</if>>
+<br><br>
+
+Eden must be right. It was all just a dream.
+<br><br>
+
+<<link [[Next|$nightmareExit]]>><<unset $nightmareExit>><<endevent>><</link>>
+<br>
+
+:: Nightmare Eden Insist
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I-it was just a nightmare," you say, smiling nervously. "Nothing to worry about." From the look on <<his>> face, you can't tell if <<he>> believes you.
+<<elseif $speech_attitude is "bratty">>
+	"It was a stupid nightmare," you mutter. "I'll be fine." Eden snorts.
+<<else>>
+	"I think it was just a bad dream," you say. <<He>> stares at you a moment, before turning <<his>> back to you.
+<</if>>
+<br><br>
+
+"All that for a nightmare," <<he>> sighs as <<he>> <<if Time.hour gte 0 and Time.hour lte 6>>drifts back to sleep<<else>>stomps back outside<</if>>.
+<br><br>
+
+Eden must be right. It was all just a dream.
+<br><br>
+
+<<link [[Next|$nightmareExit]]>><<unset $nightmareExit>><<endevent>><</link>>
+<br>
+
+:: Nightmare Wraith
+<<effects>><<nightmareStart "wraith">><<set $location to "temple">>
+<<set Time.setTime(12, 0)>>
+
+You fall into a restless sleep.
+<br><br>
+
+You wake up face-down in a patch of grass. Blinking away the lingering sleep, you push yourself up and take in your surroundings.
+<br><br>
+
+You're on a hill overlooking a temple. Smoke and laughter carry through the trees behind you. It all seems familiar, somehow.
+<<if $awarelevel gte 2>>
+	It looks like the forest lake, but there's no water in sight.
+<</if>>
+<br><br>
+
+<<if $nightmaresSeen.includes("wraith")>>
+	You know this place. It isn't real. <span class="purple">It isn't safe.</span>
+	<br><br>
+
+	<<link [[Wake up|Nightmare Wraith Wake]]>><<set $phase to 0>><</link>><<nightmareWakeDifficulty>>
+	<br>
+	<span class="nextLink"><<link [[Stay.|Nightmare Wraith 2]]>><<set $phase to 1>><</link>></span>
+	<br>
+<<else>>
+	<<link [[Next|Nightmare Wraith 2]]>><<set $phase to 0>><</link>>
+	<br>
+<</if>>
+
+:: Nightmare Wraith Wake
+<<effects>>
+
+<<if $phase is 2>>
+	Wind and water whip your face, but you ignore the discomfort. It isn't real. When you wake up, it'll go away. You close your eyes.
+<<elseif $phase is 1>>
+	You close your eyes and cover your ears. Beautiful or not, you can't let the song, or the singer, control you. You try to wake up.
+<<else>>
+	You close your eyes and focus. Wherever you are, there's nothing worth staying here for. You take a deep breath and will yourself awake.
+<</if>>
+<br><br>
+
+<<if $willpowerSuccess>>
+	You feel cold. Deathly cold. Panic rises, but you don't let it overwhelm you. You're so close to reality.
+	<br><br>
+
+	"<span class="wraith">Hide in the dark, <<pcpetname "Wraith">>. Hide in yourself.</span>"
+	<br><br>
+
+	A frozen finger brushes your cheek. You gasp and open your eyes.
+	<br><br>
+
+	<<link [[Next|Nightmare Wraith End]]>><<endevent>><<set $phase to 1>><</link>>
+	<br>
+<<else>>
+	<<set $nightmareWake++>>
+
+	<<if $phase is 2>>
+		<span class="red">A massive wave crashes over you, knocking you on your feet.</span> You try to rise, but a phantom presence pins you down. The pale figure towers over you, its <<wraithEyes>> eyes boring into yours.<<stress 6>><<gstress>>
+		<br><br>
+
+		<span class="nextLink"><<link [[Watch.|Nightmare Wraith 4]]>><</link>></span>
+		<br>
+	<<elseif $phase is 1>>
+		But no matter how hard you try, <span class="red">you can't tune it out.</span> It lulls you into a sense of safety. Your eyes open of their own accord. Your hands fall limp at your sides. All you can do is watch. Watch and listen.<<stress 6>><<gstress>>
+		<br><br>
+
+		<span class="nextLink"><<link [[Listen.|Nightmare Wraith 3]]>><</link>></span>
+		<br>
+	<<else>>
+		<span class="red">A whisper breaks your concentration.</span> You couldn't have heard more than a second of it, but it was enough. It wrestles you from reality, coaxing you to stay. <span class="red">You're rooted in place.</span><<stress 6>><<gstress>>
+		<br><br>
+
+		<span class="nextLink"><<link [[Look.|Nightmare Wraith 2]]>><<set $phase to 0>><</link>></span>
+		<br>
+	<</if>>
+<</if>>
+
+:: Nightmare Wraith 2
+<<effects>>
+<<set Weather.set("heavyClouds", true)>>
+
+<<if $phase is 1>>
+	Memories of a beautiful song flood your mind. You want to hear it again. <span class="blue">You need to.</span>
+	<br><br>
+
+	Looking all over, you spot them in the distance.
+<<else>>
+	Something catches the corner of your eye. Far out of reach stands a figure.
+<</if>>
+You can't make out the features, save for a dull brown robe against pale white hair.
+<br><br>
+
+It's faint, but it sounds like they're singing. You don't recognise the language, but it carries a gentle melody. You're lulled into serenity the longer you listen.
+<br><br>
+
+Their voice grows louder. You notice movement at the bottom of the hill. Water runs from the temple.
+<br><br>
+
+<<if $nightmaresSeen.includes("Wraith")>>
+	<<link [[Wake up|Nightmare Wraith Wake]]>><<set $phase to 1>><</link>><<nightmareWakeDifficulty>>
+	<br>
+<</if>>
+<span class="nextLink"><<link [[Listen.|Nightmare Wraith 3]]>><</link>></span>
+<br>
+
+:: Nightmare Wraith 3
+<<effects>>
+<<set Time.setTime(20, 0)>>
+<<set Weather.set("heavyPrecipitation", true)>>
+
+The calm begins to fade. The figure's voice gets louder and louder, the tone mournful and desperate.
+<br><br>
+
+More water cascades from the doors and windows of the temple, until it pours out in a flood. The basin at the bottom of the hill fills and fills. The wind picks up, carrying water with it and drenching you and the figure.
+<br><br>
+
+With the wind blowing their hair, you're given a clear view of its face. It gets paler and paler, until it becomes translucent. Its voice is now a screech.
+<br><br>
+
+Something drops from its neck, falling into the pool at its feet.
+<br><br>
+
+<<if $nightmaresSeen.includes("Wraith")>>
+	<<link [[Wake up|Nightmare Wraith Wake]]>><<set $phase to 2>><</link>><<nightmareWakeDifficulty>>
+	<br>
+<</if>>
+<span class="nextLink"><<link [[Watch.|Nightmare Wraith 4]]>><</link>></span>
+<br>
+
+:: Nightmare Wraith 4
+<<effects>><<set $forcedBloodmoon to true>>
+<<set Time.setTime(21, 0)>>
+
+The forest is silent. Not even the wind rustles the trees.
+<br><br>
+
+"<span class="wraith">Frozen evermore,</span>" the figure speaks. "<span class="wraith">Cold, breathless.</span>"
+<br><br>
+
+You turn your gaze up to face it. It's looking directly at you, its face free of expression.
+<br><br>
+
+"<span class="wraith">Would you like to join them, <<pcpetname "Wraith">>?</span>"
+<br><br>
+
+<<link [[Stay still|Nightmare Wraith 5]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Run|Nightmare Wraith 5]]>><<set $phase to 0>><</link>>
+<br>
+
+:: Nightmare Wraith 5
+<<effects>>
+
+<<if $phase is 1>>
+	You gaze up at the figure as it draws near. Gently, it guides you to the floor. A surge of <<if $settings.tentaclesEnabled>>tentacles<<else>>pale arms<</if>> burst from its back and pin you down.
+<<else>>
+	You try to bolt into the trees, but the figure strikes quickly. It pounces, pinning you to the ground with a surge of <<if $settings.tentaclesEnabled>>writhing tentacles<<else>>thrashing arms<</if>>.
+<</if>>
+<br><br>
+
+Heat seeps from your body. Water drips off the figure's hair, onto your face.
+<br><br>
+
+<<if $wraith.state is "haunt">>
+	"<span class="wraith"><<pcPetname "Wraith">>. You took something of mine. Your warmth is the least you can share.</span>"
+<<elseif $wraith.state is "despair">>
+	"<span class="wraith">Lend me your warmth. It's so cold. It's always so cold.</span>"
+<<else>>
+	"<span class="wraith">Lend me your warmth.</span>"
+<</if>>
+<br><br>
+
+<<endevent>>
+<<generateWraith 1 true>><<initWraith "abomination">>
+
+<<link [[Next|Nightmare Wraith Rape]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Nightmare Wraith Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+<</if>>
+
+<<effectsWraith>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Nightmare Wraith Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Nightmare Wraith Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Nightmare Wraith Rape Finish
+<<effects>>
+
+<<if $enemyhealth lte 0 and $wraith.type is "man">>
+		The pale figure hisses as it withdraws.
+		<br><br>
+
+		"<span class="wraith">Ignorant one.</span>" It floats backwards, towards the newly-formed lake. "<span class="wraith">Blind and soft. Warm, yet dulling.</span>"
+		<br><br>
+
+		It glares at you as it sinks into the depths. The water froths around it.
+		<<set $wraith.defeated++>>
+<<else>>
+	<<ejacW>>
+	<<if $enemyanger gt 0>>
+		"<span class="wraith">Such vibrance. How long will it last?</span>"
+		<br><br>
+
+		It withdraws slowly, caressing your body as it does. It harshly pinches your thigh one last time before rising.
+		<br><br>
+
+		An unsettling smile settles on its face as it floats backwards, sinking into the waters of the lake. The water froths around it.
+	<<else>>
+		"<span class="wraith">An echo.</span>" It brushes a cold finger over your cheek. "<span class="wraith">A memory.</span>"
+		<br><br>
+
+		It withdraws slowly, caressing your body as it does. It seems reluctant to let go.
+		<br><br>
+
+		Appearing as serene as before, it begins to drift backwards. It sinks down into the water, never breaking your gaze. The water froths around it.
+	<</if>>
+<</if>>
+<br><br>
+
+<<link [[Next|Nightmare Wraith 6]]>><<endcombat>><</link>>
+<br>
+
+:: Nightmare Wraith 6
+<<effects>><<set $location to "lake_ruin">>
+
+The water pops and churns, the figure no longer visible. You scramble backwards, trying to avoid the rising tide. It comes quickly and violently.
+<br><br>
+
+<span class="red">Something grabs your ankle.</span> A foamy hand, strong and tight. You fall onto the grass, mud splashing onto your face as pale hands crawl up your body.
+<br><br>
+
+It drags you back, pulling your body into the lake. The water's chill steals your breath, down to the last gasp. <span class="red">You can't breathe!</span>
+<br><br>
+
+The crimson glow of the moon fades through the waves as you're pulled further below.
+<br><br>
+
+<span class="nextLink"><<link [[Drown.|Nightmare Wraith End]]>><<clotheson>><<unset $forcedBloodmoon>><<set $phase to 0>><</link>></span>
+<br>
+
+:: Nightmare Wraith End
+<<effects>><<nightmareEnd>>
+
+<<if $phase is 1>>
+	You jolt upright. The sound of the forest slowly fades. You're awake.
+	<br><br>
+
+	A breeze washes over you. You realise how warm you've gotten. Your whole body's burning up. Except your cheek.<<stress 2>><<gstress>>
+<<else>>
+	A sound wakes you. You had been flailing in your sleep and smacked into the wall.<<pain 1>><<gpain>>
+	<br><br>
+
+	Shivering, you sit up and look around. There's no water. No pale figures. You're safe.
+	<<if ["asylum", "prison"].includes($location)>>
+		Relatively speaking.
+	<</if>>
+	It was only a dream.
+<</if>>
+<br><br>
+
+<<link [[Next|$nightmareExit]]>><<unset $nightmareExit>><</link>>
+<br>
+
+:: Nightmare Bird
+<<effects>><<nightmareStart "bird">><<set $location to "tower">>
+<<npc "Great Hawk">><<person1>>
+
+You fall into a restless sleep.
+<br><br>
+
+A gust of wind jolts you awake. You snuggle up to your <<if $monster is 1>><<nnpc_wife "Great Hawk">><<else>>partner<</if>> for warmth, but you can't feel <<bhim>>. You can't feel anything. Just the wind and a sharp pain in your back.
+<br><br>
+
+You open your eyes, and find yourself staring at the tower. It's distant. You look down. <span class="red">A vast stretch of darkness stares back,</span> the ground concealed by <<if Time.dayState is "night">>night<<else>>mist<</if>>.<<stress 6>><<gstress>>
+<br><br>
+
+A pair of massive wings beat overhead. Your <<if $monster is 1>><<nnpc_wife "Great Hawk">><<else>>mate<</if>>.
+Gripping you tight, <<bhe>> carries you to the tower and throws you down. <<bHis>> wings
+<<if Time.dayState is "night">>
+	swallow the stars
+<<else>>
+	cast a great shadow over you
+<</if>>
+as you lie sprawled at <<bhis>> talons.
+<br><br>
+
+<<if $nightmaresSeen.includes("bird")>>
+	Something's wrong. <span class="purple"><<bHe>> isn't your <<if $monster is 1>><<nnpc_wife "Great Hawk">><<else>>partner<</if>>.</span>
+	<br><br>
+
+	<<link [[Wake up|Nightmare Bird Wake]]>><</link>><<willpowerdifficulty 1 1000>>
+	<br>
+<</if>>
+<<link [[Soothe|Nightmare Bird 2]]>><<set $phase to 1>><<sub 1>><</link>><<gmystery>>
+<br>
+<<link [[Scold|Nightmare Bird 2]]>><<set $phase to 0>><<def 1>><</link>><<gmystery>>
+<br>
+
+:: Nightmare Bird Wake
+<<effects>>
+
+You don't want to be here. You want to be in your nest, with your <<if $monster is 1>><<nnpc_wife "Great Hawk">><<else>>mate<</if>>. Not <<if $monster is 1>>who<<else>>what<</if>>ever this is. You close your eyes.
+<br><br>
+
+<<if $willpowerSuccess>>
+	You feel the world fade around you, <span class="green">giving way to reality.</span> The <<beasttype>> shrieks, until it too fades.
+	<br><br>
+
+	<<link [[Next|Nightmare Bird End]]>><<endevent>><</link>>
+	<br>
+<<else>>
+	<span class="red">A terrible shriek rends you from reality.</span> The <<beasttypes>> talon sinks into your chest, pinning you down. You're trapped, in body and mind.<<stress 6>><<pain 4>><<gstress>><<gpain>>
+	<br><br>
+
+	<<link [[Next|Nightmare Bird 2]]>><<set $phase to 2>><</link>>
+	<br>
+<</if>>
+
+:: Nightmare Bird 2
+<<effects>>
+
+<<if $phase is 1>>
+	You prop yourself up and extend a hand to the <<beasttype>>.
+	<<if $speech_attitude is "meek">>
+		"Th-there, there," you coo. "You're just grumpy. Let's go to bed."
+	<<elseif $speech_attitude is "bratty">>
+		"What's gotten into you?" you say. "Just go back to bed, featherhead."
+	<<else>>
+		"It's okay," you whisper. "You just need your rest."
+	<</if>>
+	<br><br>
+
+	<<if $monster is 1>>
+		<span class="red"><<bHe>> answers with shriek and a violent swipe.</span>
+	<<else>>
+		<span class="red"><<bHe>> answers with a snap and a shriek.</span>
+	<</if>>
+	You reel back. <<bHis>> gaze stalks you.<<stress 6>><<gstress>>
+	<br><br>
+<<elseif $phase is 0>>
+	<<if $speech_attitude is "meek">>
+		"Please stop," you whine, burying yourself in the nest. "I'm trying to sleep."
+	<<elseif $speech_attitude is "bratty">>
+		You turn aside dismissively. "Knock it off," you groan. "I'm trying to sleep."
+	<<else>>
+		You roll over and sigh. "I'm sleeping," you say. "Don't wake me again."
+	<</if>>
+	<br><br>
+
+	With a terrible shriek, <span class="red"><<bhe>> captures your neck in <<bhis>> talon,</span> wrenching you back around to meet <<bhis>> gaze.<<stress 6>><<gstress>>
+	<br><br>
+<</if>>
+
+<<bHe>> leans in, backing you into the nest,
+<<if $monster is 1>>
+	until your faces are level. <<bHis>> hair is matted and tangled,
+<<else>>
+	until its beak is level with you. Its feathers are wild, absent of their usual grooming,
+<</if>>
+and <<bhis>> talons seem especially sharp against your skin. There's no recognition behind <<bhis>> glare. Only a terrible, feral lust.
+<br><br>
+
+With no warning, <<bhe>> lunges for you!
+<br><br>
+
+<<link [[Next|Nightmare Bird Rape]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Nightmare Bird Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+	<<set $enemytrust -= 100>>
+	<<set $enemyanger += 200>>
+	<<set $enemyhealthmax to 600>>
+	<<set $enemyhealth to 600>>
+	<<if $monster isnot 1>>
+		<<set $position to "doggy">>
+		<<set $NPCList[0].stance to "top">>
+	<</if>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<br><br>
+<<beast $enemyno>>
+<br><br>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Nightmare Bird Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Nightmare Bird Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Nightmare Bird Rape Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<beastejaculation>>
+
+	<<bHe>> stares at you,
+	<<if $monster is 1>>
+		dead silent.
+	<<else>>
+		motionless.
+	<</if>>
+	All at once, <<bhe>> launches into the air, snatches you in <<bhis>> talons, and drags you off the edge of the tower.
+<<else>>
+	<<bHe>> recoils and lets out a piercing shriek. With a running start, <<bhe>> snatches you in <<bhis>> talons and drags you off the edge of the tower.
+<</if>>
+You're once again brought to face the black abyss below. The <<beasttypes>> talons dig deep into your flesh, keeping you close.
+<br><br>
+
+Then, <<bhe>> lets go.<<stress 12>><<ggstress>>
+<br><br>
+
+The <<beasttype>> vanishes from view as you plummet.
+<<if $speech_attitude is "meek">>
+	You call out to <<bhim>>, begging and pleading. The wind steals your cries.
+<<elseif $speech_attitude is "bratty">>
+	You make a desperate grab at <<bhim>>. You're left clutching at the wind.
+<<else>>
+	You flail wildly, screaming for help. Only the wind answers.
+<</if>>
+Discarded like trash, and entirely helpless, you fall.
+<br><br>
+
+<<link [[Next|Nightmare Bird End]]>><<endcombat>><<clotheson>><</link>>
+<br>
+
+:: Nightmare Bird End
+<<effects>><<nightmareEnd>>
+<<npc "Great Hawk">><<person1>>
+
+You wake up shaking, covered in sweat, but safely in the nest. The <<beasttype>> sleeps beside you, peaceful and oblivious. Your eyes linger on <<bhis>> sleeping form, before drifting away from the tower.
+<br><br>
+
+Even with the haze of your dream lifted, there's nothing but darkness over the edge. You shiver.<<stress 6>><<gstress>>
+<br><br>
+
+<<link [[Next|$nightmareExit]]>><<unset $nightmareExit>><<endevent>><</link>>
+<br>
+
+:: Nightmare Harper
+<<effects>><<nightmareStart "harper">><<set $location to "asylum">>
+<<silently>><<ruined>><</silently>>
+<<upperwear "patient gown">>
+<<npc Harper>><<generate2>><<generate3>><<generate4>><<person1>>
+
+You fall into a restless sleep.
+<br><br>
+
+You awaken to blinding lights, sat upright yet unable to move. Your limbs are bound. You can't even turn your head.<<stress 6>><<gstress>>
+<br><br>
+
+Glancing around, you're able to glimpse your surroundings. Sleek white walls. Three chairs. In front of them, a strange machine on a table. The room is devoid of people.
+<br><br>
+
+<<if $nightmaresSeen.includes("harper")>>
+	You know this place. It isn't real. <span class="purple">It isn't safe.</span>
+	<br><br>
+
+	<<link [[Wake up|Nightmare Harper Wake]]>><<set $phase to 0>><</link>><<nightmareWakeDifficulty>>
+	<br>
+<</if>>
+<<link [[Struggle|Nightmare Harper 2]]>><<set $phase to 1>><<pain 6>><</link>>
+<br>
+<<link [[Wait|Nightmare Harper 2]]>><<set $phase to 0>><<stress 6>><</link>>
+<br>
+
+:: Nightmare Harper Wake
+<<effects>>
+
+<<if $phase is 2>>
+	Your heart beats faster as the scalpel draws closer, but you shut your eyes tight. It isn't real. It won't hurt you. You will yourself awake.
+<<elseif $phase is 1>>
+	You ignore Harper and the others. They can't hurt you once you're awake. You close your eyes.
+<<else>>
+	There's no use struggling. If you're to escape, you'll need a clear mind. You close your eyes.
+<</if>>
+<br><br>
+
+<<if $willpowerSuccess>>
+	The room grows brighter. Light flashes through your eyes, <span class="green">and you feel your limbs fall free.</span> Your whole body falls free. You keep falling through a white void. Finally, you land. Your vision slowly clears.
+	<br><br>
+
+	<<link [[Next|Nightmare Harper End]]>><<endevent>><<set $phase to 1>><</link>>
+	<br>
+<<else>>
+	<<set $nightmareWake++>>
+
+	<<if $phase is 2>>
+		The blade presses against you, deeper by the second. You can't think. <span class="red">The threat is too real.</span> Instinct takes over, and you desperately tug at your binds.<<stress 6>><<gstress>>
+		<br><br>
+
+		<<link [[Next|Nightmare Harper 4]]>><<set $phase to 1>><</link>>
+		<br>
+	<<elseif $phase is 1>>
+		"Perfect," Harper says. "Nice and relaxed." <span class="red"><<person1>><<His>> words break your concentration.</span> Your eyes dart nervously from person to person. Anticipation creeps back into your mind.<<stress 6>><<gstress>>
+		<br><br>
+
+		<<link [[Next|Nightmare Harper 3]]>><<set $phase to 0>><</link>>
+		<br>
+	<<else>>
+		You try to concentrate, <span class="red">but something gnaws at the back of your mind.</span> You don't remember why you're here, but you know it isn't safe. <span class="red">You lose your focus.</span><<stress 6>><<gstress>>
+		<br><br>
+
+		<<link [[Next|Nightmare Harper 2]]>><<set $phase to 2>><</link>>
+		<br>
+	<</if>>
+<</if>>
+<br><br>
+
+:: Nightmare Harper 2
+<<if $phase is 1>>
+	You try to pull at the leather straps holding you still. Despite your best efforts, all you succeed in is rubbing your wrists raw.<<gpain>>
+<<elseif $phase is 0>>
+	The straps are too tight. You'd only hurt yourself trying to break out. With nothing else to do, you sit and wait in tense silence.<<gstress>>
+<</if>>
+<br><br>
+
+A door opens behind you. Two figures enter, dressed in hospital scrubs. Two others follow behind. You recognise one of them. It's Doctor Harper.
+<br><br>
+
+"Good evening," <<he>> says as <<he>> leads <<his>> colleague to the table. The others roll a trolley in front of you. It carries some sort of contraption.
+<br><br>
+
+<<if $nightmaresSeen.includes("harper")>>
+	<<link [[Wake up|Nightmare Harper Wake]]>><<set $phase to 1>><</link>><<nightmareWakeDifficulty>>
+	<br>
+<</if>>
+<<link [[Demand|Nightmare Harper 3]]>><<def 1>><<set $phase to 1>><</link>>
+<br>
+<<link [[Stay silent|Nightmare Harper 3]]>><<set $phase to 0>><</link>>
+<br>
+
+:: Nightmare Harper 3
+<<effects>>
+
+<<if $phase is 1>>
+	<<if $speech_attitude is "meek">>
+		"W-where am I?" you plead.
+		<br><br>
+
+		Harper looks up from <<his>> clipboard with a smile. "Don't worry," <<he>> says. "You're in safe hands. Everything will be okay."
+	<<elseif $speech_attitude is "bratty">>
+		"Hey!" you shout, struggling against your binds. "What the fuck is this?"
+		<br><br>
+
+		Harper frowns. "Treatment will commence shortly," <<he>> sighs. "Please refrain from using such language."
+	<<else>>
+		"What do you want with me?" you ask.
+		<br><br>
+
+		Harper jots on <<his>> clipboard. You can't make out the words. "You'll see," <<he>> says. "It's for your own benefit. Don't fret."
+	<</if>>
+	<br><br>
+<</if>>
+
+The two orderlies finish setting up their contraption, connecting it to the device on the table.
+<<if $fluid_forced_stat gte 100>>
+	Now fully assembled, there's no mistaking it. <span class="lewd">It's a milking machine from Remy's farm.</span>
+<<else>>
+	It's fully assembled, but you've no clue what it is.
+<</if>>
+Harper ignores the two in favour of <<his>> friend. <<person2>><<Hes>> in a white coat, just like Harper.
+<br><br>
+
+"This is a patient of mine," <<person1>><<he>> begins. "I thought that <<pshe>> would be the perfect subject for our newest treatment plan. Please, pay close attention."
+<br><br>
+
+<<He>> nods at the orderlies. One of them, a <<person3>><<person>>, holds you by the shoulders. The other brandishes a scalpel. <span class="red"><<person4>><<He>> presses the blade to your chest.</span><<stress 6>><<gstress>>
+<br><br>
+
+<<if $nightmaresSeen.includes("harper")>>
+	<<link [[Wake up|Nightmare Harper Wake]]>><<set $phase to 2>><</link>><<nightmareWakeDifficulty>>
+	<br>
+<</if>>
+<<link [[Struggle|Nightmare Harper 4]]>><<def 1>><<set $phase to 1>><<pain 6>><</link>>
+<br>
+<<link [[Let it happen|Nightmare Harper 4]]>><<sub 1>><<set $phase to 0>><<stress 6>><</link>><<gstress>>
+<br>
+
+:: Nightmare Harper 4
+<<effects>>
+
+<<if $phase is 1>>
+	You writhe in your seat. The <<person3>><<person>> tightens <<his>> hold on you. You struggle to breathe under <<his>> grasp.<<pain 2>><<gpain>>
+	<br><br>
+
+	Unaffected, the <<person4>><<person>> continues. The blade pierces your gown, but goes no further.
+<<else>>
+	You shut your eyes and brace yourself. Mercifully, the blade stops once it's pierced your gown.
+<</if>>
+<<He>> slices away,
+<<if playerChastity()>>
+	<span class="lewd">exposing your $worn.genitals.name.</span> Harper frowns. "That may skew the results."
+	<br><br>
+	<<if $worn.genitals.name is "chastity parasite">>
+		<<person1>><<He>> moves a machine from somewhere behind you. The <<person4>><<person>> places small pads on your $worn.genitals.name and quickly attaches it to the machine. <span class="red">You scream as a sudden, searing pain shocks your <<genitals>>.</span> When it subsides, your $worn.genitals.name turns into dust.
+	<<else>>
+		<<person1>><<He>> produces a sharp implement from <<his>> coat. The <<person4>><<person>> takes it. With surgical precision, <<he>> slides the tip into the keyhole of your chastity device. It clicks. <span class="red">You scream as a sudden, searing pain shocks your <<genitals>>.</span> When it subsides, your $worn.genitals.name clatters to the floor.
+	<</if>>
+	<<set $worn.genitals.type.push("broken")>><<genitalsruined>><<ruined>>
+	<<stress 12>><<pain 10>><<ggstress>><<gggpain>>
+<<else>>
+	<span class="lewd">exposing your <<genitals>>.</span>
+	<<ruined>><<stress 6>><<gstress>>
+<</if>>
+<br><br>
+
+<<if hasSexStat("exhibitionism", 5)>>
+	You're used to the exposure, but their clinical detachment does little to stir your arousal.
+<<else>>
+	The shame of your exposure is overwhelming, but there's nothing you can do about it.
+<</if>>
+Helpless against your restraints, you can only watch as Harper takes in your naked body. "Good," <<nnpc_he "Harper">> says to the orderlies. "Now, please begin the procedure."
+<br><br>
+
+<<link [[Next|Nightmare Harper 5]]>><</link>>
+<br>
+
+:: Nightmare Harper 5
+<<effects>>
+
+The <<person4>><<person>> flicks a switch on your chair. In a blur, it snaps backwards, forcing you onto your back.
+<br><br>
+
+"One can't have a healthy mind," Harper says, "without a healthy body." On <<person1>><<his>> cue, the orderlies move to the machine.
+<br><br>
+
+<<if $player.penisExist and $lactating is 1>>
+	<<set $phase2 to 2>>
+	The <<person3>><<person>> retrieves a glass pump, while <<his>> partner holds up a pair of rubber cups. <span class="lewd">They latch onto your <<penis>> and <<breasts>>,</span> the rubber sealing tight around them.
+<<elseif $player.penisExist>>
+	<<set $phase2 to 1>>
+	The <<person3>><<person>> takes your <<penis>> in <<his>> hand while the <<person4>><<person>> unfurls a long, rubber tube. A glass pump is fixed to the end. <<He>> lowers it, <span class="lewd">until it connects with your <<penis>>.</span> The rubber seals tight around it.
+<<else>>
+	<<set $phase2 to 0>>
+	The <<person3>><<person>> retrieves a small, pill-shaped object. <span class="lewd"><<He>> slips it against your exposed clit,</span> fastening it with a strip of tape. <<His>> partner latches a pair of rubber cups to your <<breasts>>, the rubber sealing tight over your nipples.
+<</if>>
+<<stress 6>><<arousal 100>><<gstress>><<garousal>>
+<br><br>
+
+Harper nods to the <<person4>><<person>>. With a flick of a switch, the machine whirrs to life.
+<br><br>
+
+<<link [[Next|Nightmare Harper Machine]]>><<set $phase to "start">><<person1>><</link>>
+<br>
+
+:: Nightmare Harper Machine
+<<effects>>
+
+<<if $phase is "resist">>
+	You try to tune out the machine's invasive probing.
+	<<if $willpowerSuccess>>
+		<span class="green">You're able to detach yourself from the sensation.</span> It feels almost unreal.
+	<<else>>
+		<span class="red">The <<if $phase2 is 0>>vibrations prove<<else>>suction proves<</if>> too much,</span> however, and you're left feeling more heated than before.<<arousal 2500>><<garousal>>
+	<</if>>
+	<br><br>
+
+	<<print either(
+		`"The procedure takes time," Harper tells <<his>> associate. "<<pShe>>'ll warm up."`,
+		`Harper calls out numbers to the orderlies. They adjust the machine accordingly.`,
+		`Harper shakes <<his>> head. "Treatment only works for those who take it."`,
+		`Harper watches with interest. <<He>> makes notes every so often.`,
+		`Harper frowns. "Such tension is unhealthy."`
+	)>>
+<<elseif $phase is "struggle">>
+	Though restrained, you jerk and thrash against the machine.
+	<<if $physiqueSuccess>>
+		<<set $harperNightmareMachine -= 1>>
+		<span class="green">Sparks fly as it yields to your strength.</span> The tubes dislodge, if only for a moment.
+	<<else>>
+		<span class="red">It remains attached,</span> your struggles quickly eroded by its <<if $phase2 is 0>>vibrations<<else>>suction<</if>>.<<arousal 2500>><<garousal>>
+	<</if>>
+	<br><br>
+
+	<<print either(
+		`"<<pShe>> might struggle," Harper says to <<his>> companion, "but I assure you, <<pshe>> won't get far."`,
+		`Harper tuts in annoyance. "Please, control yourself. This is for your own good."`,
+		`Harper calls out numbers to the orderlies. They adjust the machine accordingly.`,
+		`Harper watches with interest. <<He>> makes notes every so often.`,
+		`Harper sighs. "This would be easier if you'd relax."`
+	)>>
+<<elseif $phase is "let">>
+	You let the "treatment" play out.
+	<<switch $phase2>>
+		<<case 2>>
+			The tube tightens around your <<penis>>, pumping it.
+			<<if $arousal gte 5000>>
+				Its pace is swift and mechanical, almost painful.
+			<<else>>
+				Slowly at first, but steadily increasing in speed.
+			<</if>>
+			Up above, the cups clamp around your <<breasts>>. <span class="lewd">Semen and milk trickle through the tubes as you're sucked dry.</span>
+		<<case 1>>
+			The tube tightens around your <<penis>>, pumping it.
+			<<if $arousal gte 5000>>
+				Its pace is swift and mechanical, almost painful.
+			<<else>>
+				Slowly at first, but steadily increasing in speed.
+			<</if>>
+			<span class="lewd">Semen trickles through the tube as it milks you dry.</span>
+		<<default>>
+			The device against your <<pussy>> vibrates.
+			<<if $arousal gte 5000>>
+				The pressure alone is enough to overwhelm you.
+			<<else>>
+				Gently at first, but steadily increasing in pressure.
+			<</if>>
+			Up above, the cups <<if $player.breastsize is 0>>press tight against your chest<<else>>clamp tight over your <<breasts>><</if>>.
+			<<if $lactating is 1>>
+				<span class="lewd">Milk leaks out, trickling through the tubes.</span>
+			<<else>>
+				It twists and tweaks your nipples, drawing gasps of pleasure.
+			<</if>>
+	<</switch>>
+	You're left shaking in your restraints.<<garousal>><<arousal 2500>>
+	<br><br>
+
+	<<print either(
+		`Harper calls out numbers to the orderlies. They adjust the machine accordingly.`,
+		`"Look at how <<pshe>> convulses," Harper points out to <<his>> companion.`,
+		`Harper watches with interest. <<He>> makes notes every so often.`,
+		`Harper claps <<his>> hands together. "Such a wonderful blush!"`,
+		`Harper smiles. "There. It feels good, doesn't it?"`
+	)>>
+<<elseif $phase is "start">>
+	<<set $harperNightmareTimer to 9>>
+	<<set $harperNightmareMachine to 4>>
+	<<set $position to "missionary">>
+
+	The machine rumbles. You squirm in discomfort, but your binds keep you locked in place. Harper and the <<person2>><<person>> watch closely.<<person1>>
+<</if>>
+<br><br>
+
+<<switch $phase2>>
+	<<case 2>><<barn_img both no_livestock table>>
+	<<case 1>><<barn_img penis no_livestock table>>
+	<<default>><<barn_img breasts no_livestock table>>
+<</switch>>
+<br><br>
+
+<<if $arousal gte $arousalmax>>
+	The sensation is too much. <<orgasm>>
+
+	<<link [[Next|Nightmare Harper Machine Finish]]>><<set $phase to "orgasm">><</link>>
+	<br>
+<<elseif $harperNightmareMachine lte 0>>
+	<span class="green">The machine hisses,</span> its probing implements sliding off your <<if $phase2 isnot 1>>chest and<</if>> groin. Harper clenches a fist around <<his>> pen.
+	<br><br>
+
+	<<link [[Next|Nightmare Harper Machine Finish]]>><<set $phase to "break">><</link>>
+	<br>
+<<elseif $harperNightmareTimer lte 0>>
+	Something clicks in the machine. A light flashes, and suddenly, <span class="green">it stops.</span> It must be drained. Harper frowns.
+	<br><br>
+
+	<<link [[Next|Nightmare Harper Machine Finish]]>><<set $phase to "timer">><</link>>
+	<br>
+<<else>>
+	<<set $harperNightmareTimer -= 1>>
+
+	<<link [[Resist|Nightmare Harper Machine]]>><<set $phase to "resist">><</link>><<willpowerdifficulty 1 $willpowermax>>
+	<br>
+	<<link [[Struggle|Nightmare Harper Machine]]>><<set $phase to "struggle">><</link>><<physiquedifficulty 1 $physiquemax>>
+	<br>
+	<<link [[Let it happen|Nightmare Harper Machine]]>><<set $phase to "let">><</link>>
+	<br>
+<</if>>
+
+:: Nightmare Harper Machine Finish
+<<effects>>
+
+<<if $phase is "orgasm">>
+	"Very good," Harper says. <<He>> beckons <<his>> companion closer, eagerly pointing out parts of your body. "<<pShes>> much more relaxed. Wouldn't you agree?"
+	<br><br>
+
+	They talk, poking and prodding at your exposed body. Still restrained, you're powerless to stop them, or even cover up.<<stress 6>><<gstress>>
+	<br><br>
+
+	Finally, <<he>> smiles and rests a hand on your head. "You've done amazing," <<he>> says. "But it's time to rest."
+<<elseif $phase is "break">>
+	"You needn't be so troublesome," Harper sighs. "We're trying to help you." The anger in <<his>> voice is palpable, but <<he>> wears <<his>> usual smile as <<he>> turns to <<his>> colleague.
+	<br><br>
+
+	"Consider this a trial run," <<he>> says. "Further testing is required, naturally. For now, this one needs to be taken to <<pher>> room."
+<<else>>
+	"How disappointing," Harper sighs. "Perhaps <<pshe>> was scared. Fear can reduce pleasure, after all."
+	<br><br>
+
+	<<He>> snaps <<his>> fingers. The orderlies come forward. "We'll try this again later." <<He>> pats your head. "Time to go back to your room."
+<</if>>
+<br><br>
+
+<<link [[Next|Nightmare Harper 6]]>><<unset $harperNightmareMachine>><<unset $harperNightmareTimer>><</link>>
+<br>
+
+:: Nightmare Harper 6
+<<effects>>
+
+The <<person3>><<person>> holds your arm down as Harper produces a needle from <<person1>><<his>> coat. Your arm is cleaned as Harper flicks the cap off.
+<br><br>
+
+"Just close your eyes," <<he>> whispers as the needle sinks into your skin.<<gpain>>
+<br><br>
+
+It acts fast. Exhaustion takes control of you. Your limbs are liberated of their restraints, yet you still can't move. Your whole body's in a haze as you're lifted and loaded onto a gurney.
+<br><br>
+
+Harper stalks behind as you're wheeled away. "Be well," <<he>> says, though you can barely make it out. <<He>> doesn't stop watching until the door closes, your eyes closing with them.
+<br><br>
+
+<<link [[Next|Nightmare Harper End]]>><<machine_end>><<endevent>><</link>>
+<br>
+
+:: Nightmare Harper End
+<<effects>><<nightmareEnd>>
+
+<<tearful>> you sit up.
+<<if $phase is 1>>
+	Your vision's still blurry,
+<<else>>
+	Your body's burning with arousal,
+<</if>>
+but you're safe. It was just a dream.
+<br><br>
+
+<<link [[Next|$nightmareExit]]>><<unset $nightmareExit>><</link>>
+<br>
+
+:: Nightmare Corrupt Sydney
+<<effects>><<nightmareStart "sydneyCorrupt">><<set $location to "temple">>
+
+<<npc Sydney>><<person1>>
+<<if $phase2 is "stay">>
+	Something compels you to stay. Maybe there's something for you to learn here. You look towards the doors.
+<<else>>
+	A restful sleep evades you.
+	<br><br>
+	Everything around you swirls. The world is grey and hazy. You're dizzy as you try to stand.
+	<br><br>
+	The world slowly gets clearer. Eventually you can see that you are in a grey marble hallway. It splits in two at the end.
+	<br><br>
+	There are two doors at the end of each corridor.
+<</if>>
+<br><br>
+
+<<if $nightmaresSeen.includes("sydneyCorrupt") and $phase2 isnot "stay">>
+	You recognise this place. You saw it in a strange dream once.
+	<br><br>
+	<<link [[Try to wake up|Nightmare Corrupt Sydney Wake]]>><<set $phase to 0>><</link>><<nightmareWakeDifficulty>>
+	<br>
+	<<link [[Stay in the dream|Nightmare Corrupt Sydney]]>><<set $phase2 to "stay">><</link>>
+	<br>
+<<else>>
+	<<link [[The door to the left|Nightmare Corrupt Sydney 2]]>><<set $phase to 0>><</link>>
+	<br>
+	<<link [[The door to the right|Nightmare Corrupt Sydney 2]]>><<set $phase to 1>><</link>>
+	<br>
+<</if>>
+
+:: Nightmare Corrupt Sydney Wake
+<<effects>>
+
+Closing your eyes, you take a few seconds to breathe deeply and slowly. In your head you begin a mantra. Wake up. Wake up. Over and over you repeat it, getting louder each time until you're screaming the words.
+<br><br>
+<<if $willpowerSuccess>>
+	<<nightmareEnd>>
+	<span class="green">You come to with a start.</span> A thin layer of sweat covers your skin as you sit up, breathing heavily. It's okay now, you're not stuck in that dream anymore.
+	<br><br>
+
+	<<link [[Next|$nightmareExit]]>><<unset $nightmareExit>><<endevent>><</link>>
+	<br>
+<<else>>
+	Your eyes open. <span class="red">You're still stuck in the dream.</span> Your gaze falls on the doors.
+	<br><br>
+
+	<<link [[The door to the left|Nightmare Corrupt Sydney 2]]>><<set $phase to 0>><</link>>
+	<br>
+	<<link [[The door to the right|Nightmare Corrupt Sydney 2]]>><<set $phase to 1>><</link>>
+	<br>
+<</if>>
+
+:: Nightmare Corrupt Sydney 2
+<<effects>>
+
+<<if $nightmaresSeen.includes("sydneyCorrupt") and $sydneyNightmareDoor isnot $phase>>
+	<<set $frozenValues.sydneyNightmareDoor to 2>>
+<<else>>
+	<<set $frozenValues.sydneyNightmareDoor to $phase>>
+<</if>>
+
+You choose the <<= $phase is 0 ? "left" : "right">> door.
+
+<<if $nightmaresSeen.includes("sydneyCorrupt")>>
+	<<if $sydneyNightmareDoor is 2>>
+		You know it doesn't make a difference which door you choose. They both lead to the same room.
+	<<else>>
+		Knowing what to expect, you make your way towards the doors.
+	<</if>>
+<</if>>
+
+<<if $nightmaresSeen.includes("sydneyCorrupt") and $sydneyNightmareDoor isnot $phase and $sydneyNightmareDoor isnot 2>>
+	You tried the other one the first time, maybe this time you'll go the other way?
+	<br><br>
+	Fighting against the weight that keeps your body heavy, you limp towards the door you didn't try the last time you dreamed.
+	<br><br>
+	When you reach it you're quick to push it forwards, only to be disappointed to see the same grey room as before.
+<<else>>
+	It is hard to walk. Your body feels heavy.
+	<br><br>
+	Eventually you make it to the door. The weight on your shoulders gets heavier as you reach forwards. However, as soon as you push the door open and step through everything gets lighter.
+<</if>>
+<br><br>
+The room is empty. There is no door beside the one you just came in from.
+<br><br>
+
+<<if $nightmaresSeen.includes("sydneyCorrupt")>>
+	<<link [[Next|Nightmare Corrupt Sydney 3]]>><</link>>
+	<br>
+<<else>>
+	<<link [[Turn and try the other door|Nightmare Corrupt Sydney 3]]>><<set $phase to 0>><</link>>
+	<br>
+	<<link [[Look for a hidden exit|Nightmare Corrupt Sydney 3]]>><<set $phase to 1>><</link>>
+	<br>
+<</if>>
+
+:: Nightmare Corrupt Sydney 3
+<<effects>>
+
+<<if $nightmaresSeen.includes("sydneyCorrupt")>>
+	You step into the room, waiting to hear a familiar sound. Sure enough, Sydney's laughter is heard coming from above. It doesn't feel as comforting as it did the first time.
+<<else>>
+	You decide to <<= $phase is 0 ? "try the other room" : "look harder for anything hidden">>.
+	<br><br>
+	You barely take two steps before the silence is interrupted by a giggle. It's coming from above.
+	<br><br>
+	Shocked, you peer up at the ceiling. There is a hole in the middle.
+	<br><br>
+	Another laugh comes from above. It sounds familiar. It sounds comforting.
+<</if>>
+<br><br>
+
+<<link [[Investigate the laugh|Nightmare Corrupt Sydney 4]]>><</link>>
+<br>
+<<if $numberify_enabled is 1>>
+	<<fadeText "<span class='linkBlue' style= 'cursor: pointer'>(2) Run</span>" "<<link [[Investigate the laugh|Nightmare Corrupt Sydney 4]]>><</link>>">>
+<<else>>
+	<<fadeText "<span class='linkBlue' style= 'cursor: pointer'>Run</span>" "<<link [[Investigate the laugh|Nightmare Corrupt Sydney 4]]>><</link>>">>
+<</if>>
+<br>
+
+:: Nightmare Corrupt Sydney 4
+<<effects>>
+
+<<if $nightmaresSeen.includes("sydneyCorrupt")>>
+	You know what to do. Stepping forwards, you watch as Sydney runs from the hole in the ceiling, leaving you with only a brief glimpse of <<his>> back.
+	<br><br>
+	How strange that your body seems to move on its own. Did it do this before?<<awareness 1>><<gawareness>>
+<<else>>
+	The sound draws you closer to the hole. Your heart beats frantically as you approach. Your breath is held as you lean to take a peak.
+	<br><br>
+	The hole seems to lead up to another room. There is a figure stood beside the edge. Their back is turned, but you recognise their hair and clothes.
+	<br><br>
+	It's Sydney.
+<</if>>
+<br><br>
+
+<<link [[Call out|Nightmare Corrupt Sydney 5]]>><<set $phase to 0>><</link>>
+<br>
+<<if $numberify_enabled is 1>>
+	<<fadeText "<span class='linkBlue' style= 'cursor: pointer'>(2) Run</span>" "<<link [[Reach out|Nightmare Corrupt Sydney 5]]>><<set $phase to 1>><</link>>">>
+<<else>>
+	<<fadeText "<span class='linkBlue' style= 'cursor: pointer'>Run</span>" "<<link [[Reach out|Nightmare Corrupt Sydney 5]]>><<set $phase to 1>><</link>>">>
+<</if>>
+<br>
+
+:: Nightmare Corrupt Sydney 5
+<<effects>>
+
+<<if $nightmaresSeen.includes("sydneyCorrupt")>>
+	There's no reason to call out. Your body won't run even if you want it to. You know you have to go up.
+<<else>>
+	<<= $phase is 0 ? "It is hard to speak, but you call out Sydney's name" : "You reach your hand up, barely grazing the edge of the hole">>.
+	<br><br>
+	Sydney stops laughing. You try again to <<= $phase is 0 ? "yell" : "climb">>, but <<he>> runs before you get a chance to.
+<</if>>
+<br><br>
+
+<<link [[Jump|Nightmare Corrupt Sydney 6]]>><</link>>
+<br>
+<<if $numberify_enabled is 1>>
+	<<fadeText "<span class='linkBlue' style= 'cursor: pointer'>(2) Yell louder</span>" "<<link [[Jump|Nightmare Corrupt Sydney 6]]>><</link>>">>
+<<else>>
+	<<fadeText "<span class='linkBlue' style= 'cursor: pointer'>Yell louder</span>" "<<link [[Jump|Nightmare Corrupt Sydney 6]]>><</link>>">>
+<</if>>
+<br>
+
+:: Nightmare Corrupt Sydney 6
+<<effects>>
+
+Jumping up, you desperately cling to the smooth surface and try to pull yourself up.
+
+<<if $nightmaresSeen.includes("sydneyCorrupt")>>
+	<<= currentSkillValue('athletics') gte 600 ? "It's easy to get up there" : "It's a struggle to make it up to the second floor">>.
+	<br><br>
+	After making the climb so many times, you know that Sydney won't be there at the top.
+	<br><br>
+	You're right when you look around and see emptiness once more.
+<<else>>
+	<<if currentSkillValue('athletics') gte 600>>
+		It doesn't take much effort to haul yourself through the hole.
+	<<else>>
+		It takes some effort to haul yourself through the hole. You are out of breath by the time you reach the upper floor.<<tiredness 5>><<gtiredness>>
+	<</if>>
+	<br><br>
+	Examining the room you've now found yourself in you see nothing except the way you came from. Sydney is gone.
+	<br><br>
+	Where could Sydney have gone?
+<</if>>
+<br><br>
+
+<<link [[Go back|Nightmare Corrupt Sydney 7]]>><</link>>
+<br>
+<<if $numberify_enabled is 1>>
+	<<fadeText "<span class='linkBlue' style= 'cursor: pointer'>(2) Investigate further</span>" "<<link [[Go back|Nightmare Corrupt Sydney 7]]>><</link>>">>
+<<else>>
+	<<fadeText "<span class='linkBlue' style= 'cursor: pointer'>Investigate further</span>" "<<link [[Go back|Nightmare Corrupt Sydney 7]]>><</link>>">>
+<</if>>
+<br>
+
+:: Nightmare Corrupt Sydney 7
+<<effects>>
+
+<<if $nightmaresSeen.includes("sydneyCorrupt")>>
+	The dream takes over your actions, forcing you to turn back towards the hole as you watch from what seems to be the inside of your mind. You prepare to jump. Sydney giggles. But once you're back down on the first floor <<hes>> gone. The door into the room is gone, too, just like last time.
+	<br><br>
+	This time, however, Sydney doesn't laugh again. "Are you coming?" <<he>> teases, disembodied voice ringing all around you.
+<<else>>
+	With no other choice, you take a look back down the hole.
+	<br><br>
+	Just as you're about to climb down, you hear shoes clicking against the floor below, followed by another giggle. It's Sydney, once more.
+	<br><br>
+	You crouch as you land, immediately looking around to find yet another empty space.
+	<br><br>
+	Lost and alone, your head starts to feel more and more fuzzy. Details of the world around you become a haze. It all focuses when you hear yet another laugh—this one in the upper room.
+<</if>>
+<br><br>
+
+<<link [[Chase Sydney|Nightmare Corrupt Sydney 8]]>><</link>>
+<br>
+<<if $numberify_enabled is 1>>
+	<<fadeText "<span class='linkBlue' style= 'cursor: pointer'>(2) Look for the door</span>" "<<link [[Chase Sydney|Nightmare Corrupt Sydney 8]]>><</link>>">>
+<<else>>
+	<<fadeText "<span class='linkBlue' style= 'cursor: pointer'>Look for the door</span>" "<<link [[Chase Sydney|Nightmare Corrupt Sydney 8]]>><</link>>">>
+<</if>>
+<br>
+
+:: Nightmare Corrupt Sydney 8
+<<effects>>
+
+<<if $nightmaresSeen.includes("sydneyCorrupt")>>
+	Confused to hear Sydney speak this soon, you quickly make the descent. The shock seems to have brought a little control back to your body. Your efforts are for nothing, however, as Sydney is still gone when you make it down.
+	<br><br>
+	Tired, but unable to stop yourself, you sink back into the haze.
+	<br><br>
+	Willingly giving over control, you embrace the loop. Up, down, up, down, until you can barely feel your arms and your legs are shaky. Until you collapse on the cool floor, waiting for Sydney to come to you.
+<<else>>
+	Starting to panic, you frantically chase Sydney back upstairs. <<Hes>> the only thing that is familiar in this strange place. Yet again, you find no Sydney in either room.
+	<br><br>
+	You find yourself stuck in a loop, climbing and jumping over and over again. Each time you switch between the rooms they seem to get smaller, the walls dimming in colour. Cracks show in the marble.
+	<br><br>
+	Eventually, you exhaust yourself. One final climb leaves you weak, sprawled out onto the floor as you gasp for air.
+<</if>>
+<br><br>
+"Are you tired already?"
+<br><br>
+A shadow falls over you. Sydney crouches down, petting your hair. "I'm sorry, I thought you would be able to keep up. It was fun though, right?"
+<br><br>
+<<He>> reaches <<his>> hand out for you to grab.
+<br><br>
+
+<<link [[Take Sydney's hand|Nightmare Corrupt Sydney 9]]>><</link>>
+<br>
+<<link [[Take Sydney's hand|Nightmare Corrupt Sydney 9]]>><</link>>
+<br>
+
+:: Nightmare Corrupt Sydney 9
+<<effects>>
+
+<<if $nightmaresSeen.includes("sydneyCorrupt")>>
+	Your hand moves on its own, straining as it reaches for Sydney's. It doesn't make it, not before the second Sydney speaks up from <<his>> corner.
+	<br><br>
+	"You know not to touch them. Why do I have to tell you again?"
+	<br><br>
+	The second Sydney looked scared the first time. Now <<he>> looks betrayed.
+	<br><br>
+	<<if $sydneyNightmareSyd is 0>> /* Only chosen 1st Sydney (Corrupt) */
+		"<<pShe>> knows you're a liar. There's nothing wrong with me, you're the one with issues," the closer Sydney huffs, moving to block the further one. Is it your vision <<hes>> blocking, or <<hers>>?
+	<<elseif $sydneyNightmareSyd is 1>> /* Only chosen 2st Sydney (Pure) */
+		"Because you lied to <<phim>> last time. You said horrible things about me and now <<pshes>> here to learn the truth." The closer Sydney sounds confident, blocking your view as <<he>> turns to confront the other.
+	<<else>> /* Done both */
+		"Well obviously because they know I'm the real one," the closer Sydney mocks, rolling <<his>> eyes. "<<pShes>> done this enough to know that." <<He>> starts petting your hair again, eyes soft as <<he>> looks down.
+	<</if>>
+<<else>>
+	You reach up towards the outstretched hand. Before you can make contact, another voice speaks up.
+	<br><br>
+	"You shouldn't touch that one. They're not real."
+	<br><br>
+	It's difficult to lift your head and see the new person, but you manage. In the corner, watching with a horrified expression, another Sydney stands with <<his>> hands fussing at <<his>> holy symbol.
+	<br><br>
+	"No, no, don't listen to <<him>>," the Sydney closer to you says with a furrowed brow. <<He>> moves, trying to block your sight so that the new Sydney can't be seen. "I'm obviously real. You know me, don't you, my love?"
+<</if>>
+<br><br>
+
+<<link [[Reach out to the closer Sydney|Nightmare Corrupt Sydney 10]]>><<set $phase to 0>><</link>>
+<br>
+<<link [[Call out for the new Sydney|Nightmare Corrupt Sydney 10]]>><<set $phase to 1>><</link>>
+<br>
+
+
+:: Nightmare Corrupt Sydney 10
+<<effects>>
+
+<<if $phase is 0>> /* Reach out to the closer Sydney */
+	Lifting your hand, you brush your fingers against <<hers>>. The new Sydney <<= $nightmaresSeen.includes("sydneyCorrupt") ? "sighs, shaking <<his>> head before strolling" : "gasps, covering <<his>> face with <<his>> own hands before rushing">> forwards. <<He>> pulls your hand away, pulling your body towards <<his>> own as <<he>> does.
+
+	<<if $nightmaresSeen.includes("sydneyCorrupt")>>
+		<br><br>
+		"How foolish can you be? Please, you know what is right." <<He>> sounds almost reverent as <<he>> addresses you.
+	<</if>>
+<<else>> /* Call out for the new Sydney */
+	"Help me," you whisper, unable to talk any louder.
+	<br><br>
+	"I am helping," the first Sydney whispers back, <<= $nightmaresSeen.includes("sydneyCorrupt") ? "smiling until <<his>> counterpart speaks once more" : "smiling">>.
+	<br><br>
+	"Not you, <<pshe>> needs me," <<= $nightmaresSeen.includes("sydneyCorrupt") ? "<<he>>" : "the new Sydney">> insists, moving forwards to crouch down on the other side of you. <<He>> gently cradles your head, moving it to <<his>> lap.
+
+	<<if $nightmaresSeen.includes("sydneyCorrupt")>>
+		<br><br>
+		<<He>> tuts, but refuses to look at the other as <<he>> takes over petting your hair. "You should know by now that I'm the one <<pshe>> calls for help."
+	<</if>>
+<</if>>
+
+<<if $nightmaresSeen.includes("sydneyCorrupt")>>
+	<br><br>
+	You lie there confused. <span class="red">You don't remember doing this before.</span>
+<</if>>
+<br><br>
+"You aren't even giving <<phim>> a choice," the first Sydney snarls, snatching your hand into <<his>> own.
+<br><br>
+"You are living a lie," the new Sydney spits back, venom lacing <<his>> words. "Sinner. Nothing more than a corrupt version of what you once were."
+<br><br>
+"As if you're so pure?"
+<br>
+"I am far more virtuous than you."
+<br>
+"Repressed whore."
+<br>
+"Filthy masochist!"
+
+<<if $nightmaresSeen.includes("sydneyCorrupt")>>
+	<br><br>
+	You lie back and watch as they argue. It seems familiar. Have you done this before? You really aren't sure.
+<</if>>
+<br><br>
+
+<<link [[Interrupt Pure Sydney|Nightmare Corrupt Sydney 11]]>><<set $phase to 0>><</link>>
+<br>
+<<link [[Interrupt Corrupt Sydney|Nightmare Corrupt Sydney 11]]>><<set $phase to 1>><</link>>
+<br>
+
+
+:: Nightmare Corrupt Sydney 11
+<<effects>>
+
+<<if $nightmaresSeen.includes("sydneyCorrupt") and $sydneyNightmareSyd isnot $phase>>
+	<<set $frozenValues.sydneyNightmareSyd to 2>>
+<<else>>
+	<<set $frozenValues.sydneyNightmareSyd to $phase>>
+<</if>>
+
+"You're right," you say, voice strong and firm. The two Sydneys cease fighting at once, both looking down to you.
+<br><br>
+"Which one, dear?" the supposedly corrupt one asks, leaning forwards.
+<br><br>
+<<if $phase is 0>> /* Interrupt Pure Sydney */
+	"You." You make eye contact with the first Sydney to appear to you here.
+	<br><br>
+	The other one tenses behind you before pulling away, making a disgusted sound as <<he>> does. "It was never meant to go like this. You should never have walked down this dark path."
+	<br><br>
+	Darkness seeps into the stone, turning it from grey to black. The cracks widen more and more while your Sydney holds onto you. The other gets brighter and brighter, contrasting with the darkening world.
+	<br><br>
+	Stone falls away piece by piece. When the one beneath you falls, you only float.
+	<br><br>
+	With one last betrayed look, the other Sydney disappears in a flash of bright light.
+<<else>> /* Interrupt Corrupt Sydney */
+	"This one." You smile, reaching to cup the cheek of the newer Sydney. "The pure one."
+	<br><br>
+	Pulling away as if <<hes>> been struck, the corrupt Sydney releases <<his>> hold on you. "I thought that you loved me," <<he>> whines, tears gathering in <<his>> eyes as the other Sydney rises to <<his>> feet.
+	<br><br>
+	The room seems to heal, becoming white. It doesn't stop when it reaches the state it originally was in, instead getting brighter and brighter until no shadows remain. As the light brightens, the first Sydney grows translucent.
+	<br><br>
+	<<His>> body seems to dissolve, the last part to disappear being <<his>> heart-broken gaze, never leaving your own.
+<</if>>
+<<stress 6>><<trauma 6>><<gstress>><<gtrauma>>
+<br><br>
+
+<<link [[Next|Nightmare Corrupt Sydney 12]]>><</link>>
+<br>
+
+:: Nightmare Corrupt Sydney 12
+<<effects>><<clothesstrip>>
+
+<<if $phase is 0>> /* Interrupt Pure Sydney = Corrupt Sydney End*/
+	"I knew you'd pick me," Sydney laughs, kissing your cheek before <<he>> rises. <<He>> holds your hands as you get up, too, supporting you as <<he>> begins to lead you seemingly nowhere. It takes a moment for you to see the new door in the darkness.
+	<br><br>
+	"Through here," <<he>> urges, almost dragging you as the feeling in your legs begins to return.
+	<br><br>
+	You know the room that lies beyond the door. It's the prayer room, the incense filling the air.
+	<br><br>
+	"<<He>> had no idea what <<he>> was talking about," Sydney says as <<he>> lets your arm go. Quickly, <<he>> begins to undress. "You too, this is what we do to show that we love each other, remember?"
+	<br><br>
+	Hesitantly, you remove your own clothes, accepting help from Sydney's excited hands.
+	<br><br>
+	"You look so hot like this," <<he>> whispers as <<he>> begins pushing you onto your back. "Let me show you how much I love you."
+	<br><br>
+	Sydney places a kiss on your collarbone, making you shiver. Strangely, <<he>> pulls back before going any further.
+	<br><br>
+	"Sydney?" you ask, unsure as to why <<he>> stopped until something strange appears over <<his>> shoulder.
+	<br><br>
+	A tentacle wraps around <<his>> shoulder, extending forward until it brushes your knee.
+	<br><br>
+	"Relax, dear," Sydney says once more. More tentacles appear.
+<<else>> /* Interrupt Corrupt Sydney = Pure Sydney End */
+	"Come on," Sydney says, urging you to your feet. Blinking, you oblige, leaning on <<him>> as your legs get their feeling back. "You chose properly, I promise."
+	<br><br>
+	You stumble as Sydney guides you forward. Smoke surrounds your feet with every step. A new door appears in the never-ending landscape, opening without anyone touching it. You're led to and through it.
+	<br><br>
+	The area beyond it is reminiscent of the Temple with some changes. The ornate altar in the centre draws your eyes.
+	<br><br>
+	Sydney stops, cradling your face in <<his>> hands. "You need to be purified. You've been letting that false me touch you. It's okay, I don't blame you. You didn't know."
+	<br><br>
+	Your legs are stronger now, making it easy to descend the steps and climb onto the altar. Sydney helps you to undress and instructs you on how to lie down. Every step of the way <<he>> utters encouraging words.
+	<br><br>
+	The final step is to be adorned with holy oils as Sydney sings a prayer. When <<he>> is satisfied, <<he>> steps back and nods with approval. "You're ready. Please don't fight this."
+	<br><br>
+	A chill settles in your skin as Sydney steps away. Fight what?
+	<br><br>
+	Something wet slaps against the stone of the altar. A tentacle slowly curls over the lip of the stone. Many more follow.
+	<br><br>
+	"Just let it happen," Sydney says with a flat tone. <<He>> has also taken <<his>> clothes off, coming back to the altar as the tentacles edge closer.
+<</if>>
+<br><br>
+
+<<link [[Next|Nightmare Corrupt Sydney Rape]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Nightmare Corrupt Sydney Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+
+	<<maninit>><<npcexpose>>
+
+	<<if $pain gte 80>>
+		<<set $pain to 80>>
+	<</if>>
+	<<set $enemyarousalmax to 800>>
+	<<set _randomtentacles to random(8, 12)>>
+	<<makeAbomination _randomtentacles 8 "tentacle" "tentacle" true>>
+<</if>>
+
+<<effects>>
+<<effectsabomination>>
+<<abomination>>
+<<stateabomination>>
+<br><br>
+<<actionsabomination>>
+
+<<if _combatend or ($pain gte 100 and $willpowerpain is 0)>>
+	<span id="next"><<link [[Next|Nightmare Corrupt Sydney Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Nightmare Corrupt Sydney Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Nightmare Corrupt Sydney Rape Finish
+<<effects>>
+
+<<if $phase is 0>> /*Corrupt Sydney End*/
+	<<if $enemyhealth lte 0>>
+		The tentacles wither away as Sydney holds <<his>> stomach.
+		<br><br>
+		"What's wrong with you? You chose this," Sydney hisses, crawling backwards.
+		<br><br>
+		"After everything I did for you, you do this? After everything I risked?"
+		<br><br>
+		Sydney loses <<himself>> in a rant, getting angrier and advancing towards your cowering body as you try to crawl away. Sydney raises a hand to strike you, but before <<he>> can a piercing light reaches through the walls of the prayer room.
+	<<elseif $enemyarousal gte $enemyarousalmax>>
+		<<ejaculation>>
+
+		Satisfied, the tentacles go limp and withdraw. Sydney sighs with satisfaction as <<he>> lies down beside you.
+		<br><br>
+		"I never would have done that before I met you, you know?" <<He>> stretches, yawning but happy. "You've changed me so much."
+		<br><br>
+		Sydney tries to climb back on top of you, obviously ready to do it again. <<He>> doesn't get far before a bright light shines through the walls of the prayer room. Sydney jumps back, startled and blinded.
+	<<else>>
+		Angered, the tentacles wrap around <<if $settings.asphyxiaLevel gte 1>>your throat<<else>>you<</if>>, tightly squeezing for a few seconds before finally releasing.
+		<br><br>
+		Sydney sneers, also unhappy with your defiance. "You chose this, you made me like this. This is your fault."
+		<br><br>
+		<<He>> raises <<his>> hand to strike you as the tentacles begin to curl around you once more. Before that can happen, a piercing light breaks through the walls of the prayer room. The brightness causes Sydney to cover <<his>> eyes and pull away, giving you a chance to crawl into the corner of the room. The tentacles also cower.
+	<</if>>
+	<br><br>
+	The room heats up as fire erupts, separating you from Sydney. <<He>> tries to reach you once more, but the flames won't allow it. Instead, they get higher and higher until you can only hear Sydney scream out for you to come back.
+<<else>> /* Pure Sydney End*/
+	<<if $enemyhealth lte 0>>
+		The tentacles wither away with unnerving movements as Sydney holds <<his>> stomach.
+		<br><br>
+		"No!" <<he>> yells. "You shouldn't have done this, you'll remain defiled now."
+		<br><br>
+		Sydney sinks to <<his>> knees, mumbling as <<he>> pulls at <<his>> hair. You slide from the altar, watching out for the tentacles as you do. There are none to be found.
+		<br><br>
+		"W-we should have done it properly, we should have been promised," Sydney whimpers, seemingly broken.
+		<br><br>
+
+		<<silently>><<endcombat>><</silently>>
+		<<npc Sydney>><<person1>>
+		<<link [[Reach out to Sydney|Nightmare Corrupt Sydney Rape Finish 2]]>><<set $phase to 0>><</link>>
+		<br>
+		<<link [[Just watch|Nightmare Corrupt Sydney Rape Finish 2]]>><<set $phase to 1>><</link>>
+		<br>
+		<<exit>>
+	<<elseif $enemyarousal gte $enemyarousalmax>>
+		<<ejaculation>>
+
+		Satisfied, the tentacles go limp and withdraw. Sydney lies down beside you with a serene expression.
+		<br><br>
+		"You're doing so well, I'm so proud of you," <<he>> says. <<He>> brings <<his>> hand up, almost touching you before a rumble knocks the Temple.
+		<br><br>
+		Sydney looks scared when a second wave hits, desperately trying to grab you once more. It's too late. The altar splits, sending you spiralling into a dark void as Sydney calls out for you to stay.
+	<<else>>
+		Angered, the tentacles wrap around <<if $settings.asphyxiaLevel gte 1>>your throat<<else>>you<</if>>, tightly squeezing for a few seconds before finally releasing.
+		<br><br>
+		Sydney scowls down at you. "Why did you fight like that? You are being purified, there is nothing to fight against."
+		<br><br>
+		The tentacles try to wind their way back up your legs, almost succeeding until a rumble shakes the Temple. The first was small compared to the second, which caused cracks to form in the stone. Bit by bit, the Temple begins to collapse. Sydney and the tentacles withdraw, leaving you to drift away from them in the separating landscape.
+	<</if>>
+<</if>>
+<br><br>
+<<silently>><<endcombat>><</silently>>
+
+<<link [[Next|Nightmare Corrupt Sydney End]]>><<clotheson>><<endevent>><</link>>
+<br>
+
+
+:: Nightmare Corrupt Sydney Rape Finish 2
+<<effects>>
+
+<<if $phase is 0>> /* Reach out */
+	Feeling guilty, you try to hug Sydney. You barely reach <<him>> before a rumble shakes the ground. It nearly knocks you off of your feet before it subsides. However, it returns much stronger a second time.
+<<else>> /* Just watch */
+	Wanting only to get away, you stay where you are and watch <<him>> break down. You close your eyes, wishing to be anywhere else, before a rumble shakes the ground. It nearly knocks you off of your feet before it subsides. However, it returns much stronger a second time.
+<</if>>
+<br><br>
+
+The Temple begins to collapse, Sydney not moving an inch even as the ground cracks between the two of you. You are split apart, the world falling away into darkness.
+<br><br>
+
+<<link [[Next|Nightmare Corrupt Sydney End]]>><<clotheson>><<endevent>><</link>>
+<br>
+
+:: Nightmare Corrupt Sydney End
+<<effects>><<nightmareEnd>>
+
+You come to with a start. A thin layer of sweat covers your skin as you sit up, breathing heavily. For a moment, you forget where you are before you begin to recognise your surroundings.
+<br><br>
+It's over. You're not dreaming anymore. You're safe.
+<br><br>
+
+<<link [[Next|$nightmareExit]]>><<unset $nightmareExit>><</link>>
+<br>
+
+:: Nightmare Alex
+<<effects>><<nightmareStart "Alex">><<set $location to "alex_cottage">>
+<<npc Alex>><<person1>>
+
+A loud bang jolts you awake. The sound of footsteps echo from somewhere below you. Glancing around, you see a room in disarray and blacked-out windows.
+<br><br>
+The heavy stench of alcohol permeates the air and crawls down your throat. It burns as it goes down.
+<br><br>
+<<if $nightmaresSeen.includes("Alex")>>
+	Something's wrong. You know this place. It's 'Alex's' room. <span class="purple">It isn't real.</span>
+	<br><br>
+
+	<<link [[Wake up|Nightmare Alex Wake]]>><<set $phase to 0>><</link>><<nightmareWakeDifficulty>>
+	<br>
+<</if>>
+<<link [[Next|Nightmare Alex 2]]>><</link>>
+<br>
+
+:: Nightmare Alex Wake
+<<effects>>
+
+You curl into a ball and dig your fingers into your legs. This isn't real. <<if isLoveInterest("Alex")>>This isn't your Alex.<</if>> You dig your nails into your skin, until they break the surface.
+<br><br>
+<<if $willpowerSuccess>>
+	You manage to push past the smell of booze. <span class="green">The pain brings you back to reality.</span>
+	<br><br>
+
+	<<link [[Next|Nightmare Alex End]]>><<endevent>><<nightmareEnd>><<set $phase to 0>><</link>>
+	<br>
+<<else>>
+	The vile scent of booze pulls most of your focus. <span class="red">The pain is not enough to wake yourself up.</span>
+	<br><br>
+
+	<<link [[Next|Nightmare Alex 2]]>><</link>>
+	<br>
+<</if>>
+
+:: Nightmare Alex 2
+<<effects>>
+
+The door opens and a redheaded <<nnpc_gendery "Alex">> approaches you. It's Alex. <<He>> wordlessly climbs on top of you.
+<<if $settings.asphyxiaLevel gte 1>>
+	Alex wraps <<his>> hands around your neck. <<He>> presses <<his>> thumbs into your windpipe. Breathing becomes a struggle. Your gasps for air, only for <<him>> to press harder.
+<<else>>
+	Alex grips you by your chin and slaps your face.
+<</if>>
+<br><br>
+<<He>> reeks of alcohol, and <<his>> eyes are dark and empty, yet filled with contempt.
+<<if C.npc.Alex.dom gte 30>>
+	"You said you would help out around here, but I'm always stuck cleaning up your fuck-ups."
+	<br><br>
+	<<if C.npc.Alex.lust gte 60>>
+		<<He>> <<npcUndressText $NPCList[0] "lower" "self">> and
+		<<if $NPCList[0].penis isnot "none">>
+			grips the base of <<his>> dick.
+		<<else>>
+			pulls <<his>> boyshorts aside.
+		<</if>>
+		"I deserve something for busting my ass out there."
+	<<else>>
+		Alex presses <<his>> forehead to your own. "Thought I would finally get some help around here. Should've known better than to trust a townie to do anything right."
+	<</if>>
+<<else>>
+	"How is some damn townie better at farm work than me? I busted my ass, just to be outdone by a city slicker."
+	<br><br>
+	<<if C.npc.Alex.lust gte 60>>
+		<<He>> <<npcUndressText $NPCList[0] "lower" "self">> and
+		<<if $NPCList[0].penis isnot "none">>
+			grips <<his>> dick.
+		<<else>>
+			pulls <<his>> boyshorts aside.
+		<</if>>
+		"Don't I deserve something for working as hard as I do?"
+	<<else>>
+		Alex presses <<his>> nose to your own. "Why'd you come around? Why did you have to come and ruin my life?"
+	<</if>>
+<</if>>
+<br><br>
+
+<<link [[Next|Nightmare Alex Rape]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Nightmare Alex Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+
+	<<maninit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+<span id="next"><<link [[Next|Nightmare Alex Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+<span id="next"><<link [[Next|Nightmare Alex Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Nightmare Alex Rape Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+
+	Alex snickers, leaning back. <<He>> soon climbs off the bed and grabs a stray bottle of alcohol from the nightstand. <<He>> pays you no mind while <<he>> downs the bottle.
+	<br><br>
+	"You stay there and look cute, you hear? Might need you again soon." <<He>> glances back at you with a smirk and leaves you alone on the bed.
+	<br><br>
+	You don't have the strength to move, nor the will. You curl up on your broken body and end up falling asleep, your body trembling all the while.
+<<else>>
+	You manage to free yourself from Alex and scramble to the door. It's jammed. <<Hes>> screaming incoherent nonsense. A glass bottle smashes just beside your head as you struggle to open the door.
+	<br><br>
+	Alex closes the distance; <<hes>> mere millimetres away. The door finally opens, and you rush out into the void.
+<</if>>
+<br><br>
+<<silently>><<endcombat>><</silently>>
+
+<<link [[Next|Nightmare Alex End]]>><<clotheson>><<nightmareEnd>><<set $phase to 1>><</link>>
+
+:: Nightmare Alex End
+<<effects>>
+<<npc Alex>><<person1>>
+
+<<if $phase is 1>>
+	You awake, shaking. The memories of the nightmare play repeatedly in your head.<<stress 18>><<trauma 18>><<gggstress>><<gggtrauma>>
+	<br><br>
+	You slept, but your body and mind feel utterly exhausted.<<tiredness 15>><<gggtiredness>>
+	<br><br>
+	A door opens somewhere, and you freeze at the sound of Alex's voice. <<He>> seems to be addressing the farm animals. You wait for <<him>> to start marching upstairs, expecting your nightmare to become a reality. When the door shuts once more, you can't help but still feel unnerved.
+	<br><br>
+	Alex would never hurt you like that, would <<he>>? <<He>> kept you around all this time. If <<he>> hated you, <<he>> would make you leave, right?
+<<else>>
+	You awake in a cold sweat.<<stress 12>><<trauma 12>><<ggstress>><<ggtrauma>>
+	<br><br>
+	You feel dizzy. Your body is more tired than it was before you slept.<<tiredness 10>><<ggtiredness>>
+	<br><br>
+	The sound of footsteps and a voice from downstairs causes you to jump. It's Alex, droning on about some of the farm animals. You suddenly don't feel safe with <<him>> in the cottage, though you can't explain why.
+<</if>>
+<br><br>
+
+<<link [[Next|$nightmareExit]]>><<unset $nightmareExit>><<endevent>><</link>>
+<br>
+
+
+:: Nightmare Witch
+<<effects>><<nightmareStart "witch">><<set $location to "old_temple">>
+<<set Time.setTime(18, 30)>><<set Weather.set("heavyClouds", true)>>
+
+You fall into a restless sleep. You toss and turn. It feels as though you're sleeping on cold stone.
+<br><br>
+
+You jolt up to the sound of a whip cracking, and someone crying out in pain.
+<br><br>
+
+You rub your eyes, struggling to see through the gloom. A torch casts the long shadow of a whip over you, as it comes down again.
+<br><br>
+
+You see a man with long blond hair in a suit of chainmail, with a large black cloth adorned over it.
+His back is turned to you. He brings his whip down one last time, before stepping aside and fading away into the stone wall.
+<br><br>
+
+<<if $nightmaresSeen.includes("witch")>>
+	You know this place. It isn't real, you don't think. The witch slowly looks up at you as she pants for breath. <span class="pink">She seems to faintly recognise you.</span>
+	<br><br>
+
+	<<link [[Wake up|Nightmare Witch Wake]]>><</link>><<nightmareWakeDifficulty>>
+	<br>
+	<<link [[Talk|Nightmare Witch 2]]>><</link>>
+	<br>
+<<else>>
+	A woman sits, bound by silver manacles, against the wall. She slowly looks up at you as she pants for breath.
+	<br><br>
+
+	Her grey eye widens in surprise upon seeing you. She coughs. <span class="pink">Glowing pink fluid trails down her chin into a silver vessel.</span>
+	<br><br>
+
+	You can't help but feel she looks familiar. The left half of her face is obscured by swirling shadows, while the right sports a fresh burn.
+	<br><br>
+
+	<<link [[Next|Nightmare Witch 2]]>><</link>>
+	<br>
+<</if>>
+
+:: Nightmare Witch Wake
+<<effects>>
+
+You know the way out. You unlock the cell door and leave the dungeon, looking over your shoulder one last time.
+<br><br>
+
+<<if $willpowerSuccess>>
+	You resist the urge to turn around. She isn't real.
+	<br><br>
+
+	<<link [[Next|Nightmare Witch End]]>><</link>>
+	<br>
+<<else>>
+	You walk down the corridor, up the long stone steps, and emerge... back in her cell. She stares at you.
+	<br><br>
+
+	You sit down.
+	<br><br>
+
+	<<link [[Next|Nightmare Witch 2]]>><</link>>
+	<br>
+<</if>>
+
+:: Nightmare Witch 2
+<<effects>>
+
+She dissolves into blackness as the torch goes out.
+<br><br>
+
+Another torch is lit in the cell. She appears under it, now naked, being scrubbed down and washed by the same man from before.
+<br><br>
+
+A black antler emerges from the left side of her head. The man disappears again. She starts to crawl towards you, her mouth hanging open, revealing no tongue within.
+<br><br>
+
+She says nothing, but you can hear words being spoken into your head.
+<br><br>
+
+<<if $nightmaresSeen.includes("witch")>>
+	'Why did you return?'
+<<else>>
+	'Did you enjoy watching me suffer?'
+<</if>>
+<br><br>
+
+She doesn't wait for your answer. Her shadow turns, passing over the torch, snuffing it out.
+<br><br>
+
+<<link [[Next|Nightmare Witch 3]]>><</link>>
+<br>
+
+:: Nightmare Witch 3
+<<effects>>
+
+Another torch flickers to life. She and the gaoler appear again. A cross is being branded into her flesh.
+<br><br>
+
+She's screaming in pain, but the words continue. 'This isn't your prison.'
+<br><br>
+
+A torrent of silver needles fall from the ceiling. She vanishes behind them.
+The needles all land in a bucket.
+<br><br>
+
+Another torch is lit. The two are sharing a stolen meal.
+<br><br>
+
+The words become more clear. 'I am trapped in this story. Reliving it over and over. It has been... so long.
+I know not which retelling is accurate. Each has pieces of the truth lost in lies. I have heard... seen it so many times. Who am I?'
+<br><br>
+
+<<link [[Tell the witch her name|Nightmare Witch 4]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Say nothing|Nightmare Witch 4]]>><<set $phase to 2>><</link>>
+<br>
+
+:: Nightmare Witch 4
+<<effects>>
+
+<<if $phase is 1>>
+	You try to say her name aloud. The word refuses to leave your lips. Yet, she seemed to hear it.
+	<br><br>
+
+	'That is what the townsfolk called me. Was it my true name?' She shakes her head, uncertain.
+<<else>>
+	You sit in silence.
+	<br><br>
+
+	'Perhaps the name should remain lost.' She shakes her head, uncertain.
+<</if>>
+'I do not... I do not go by that name any longer. That name passed on with...'
+<br><br>
+
+Her expression becomes unreadable as the gaoler reappears in front of her, gently covering her with a bedsheet.
+<br><br>
+
+'...him.' She stares.
+<br><br>
+
+'I believe... we are both dreaming. You, and whomever I am a memory of. I keep returning here. Others who hear the tale end up here, sometimes. The story is a curse.
+Am I truly her? I awaken, and forget, until I am brought here again. And again. And again. And again. And again.'
+<br><br>
+
+<span class="red">A coil of chains slithers around you like a snake.</span> The room flips, and you're suddenly hanging from the ceiling.
+She looks at you apologetically. 'Just remain still. This is not your prison. You will not face punishment, for you have not transgressed.'
+<br><br>
+
+You swing back and forth, making your stomach rise.
+<<if $nightmaresSeen.includes("witch")>>
+	'Has your answer changed since last we met? Grant me closure that I might find rest.'
+<<else>>
+	'You... you may be able to aid me. Provide me relief, however temporary.'
+<</if>>
+<br><br>
+
+She reappears with the gaoler. They are embracing.
+'Which do you <span class="gold">believe</span> rings the most true?'
+<br><br>
+
+<<if $hcEndings.includes("S")>>
+	<<link [[Faith|Nightmare Witch Faith]]>><</link>>
+<<else>>
+	<span class="black">You haven't heard this version of the story yet.</span>
+<</if>>
+<br>
+<<if $hcEndings.includes("A")>>
+	<<link [[Love|Nightmare Witch Love]]>><</link>>
+<<else>>
+	<span class="black">You haven't heard this version of the story yet.</span>
+<</if>>
+<br>
+<<if $hcEndings.includes("B")>>
+	<<link [[Desperation|Nightmare Witch Desperation]]>><</link>>
+<<else>>
+	<span class="black">You haven't heard this version of the story yet.</span>
+<</if>>
+<br>
+<<if $hcEndings.includes("C")>>
+	<<link [[Perdition|Nightmare Witch Perdition]]>><</link>>
+<<else>>
+	<span class="black">You haven't heard this version of the story yet.</span>
+<</if>>
+<br>
+<<if $hcEndings.includes("D")>>
+	<<link [[Stagnation|Nightmare Witch Stagnation]]>><</link>>
+<<else>>
+	<span class="black">You haven't heard this version of the story yet.</span>
+<</if>>
+<br>
+<<if $hcEndings.includes("E")>>
+	<<link [[Paranoia|Nightmare Witch Paranoia]]>><</link>>
+<<else>>
+	<span class="black">You haven't heard this version of the story yet.</span>
+<</if>>
+<br>
+<<if $hcEndings.includes("F")>>
+	<<link [[Hatred|Nightmare Witch Hatred]]>><</link>>
+<<else>>
+	<span class="black">You haven't heard this version of the story yet.</span>
+<</if>>
+<br>
+<<link [[Say nothing|Nightmare Witch Nothing]]>><</link>>
+<br>
+
+:: Nightmare Witch Faith
+<<effects>><<set Weather.set("lightPrecipitation", true)>><<set $location to "forest">>
+
+She lets out a soft laugh as recognition crosses her face. She fades away. 'If only it could be the whole truth.
+I was still his prisoner. My love for him did not change that simple fact. I could not walk. I was weak.'
+<br><br>
+
+She reappears in the gaoler's arms. He's carrying her away into the forest. Her fists clench, and her face falls to an expression of terrible understanding.
+'I would gladly accept being his prisoner alone. Yet, I did not expect to remain his prisoner after my body had died.'
+She suddenly looks afraid. The tears begin to flow. 'Why must you believe this one? This...'
+<br><br>
+
+The scene fades away, before coming back into focus. You're in a small wooden cabin. She sits in a rocking chair. The gaoler kneels before her, his head pressed into her... baby bump.
+She wipes her eyes. 'This is why I can never forget. This is why I remain trapped here. He made me so happy. So very happy. A heretic, a monster like me did not deserve it.'
+<br><br>
+
+The scene fades away again. You're outside, the sound of gentle rain and wind meeting your ears.
+<br><br>
+
+The gaoler sits on the grass in front of a stone object. Beside him, a little girl in a green dress stands sobbing. The chains are gone. You approach.
+<br><br>
+
+You peer over the gaoler's shoulder. It's a grave marker. A stone cross, engraved with a name.
+<br><br>
+
+<span class="narration">Nona ap Fayne</span>
+<br><br>
+
+The girl turns to you, as if suddenly able to see you.
+<br><br>
+
+"Thank you," she says with Nona's voice. "I'll forget when I come here again. But thank you, even for just one night's rest..."
+<br><br>
+
+<<link [[Wake up|Nightmare Witch End]]>><</link>>
+<br>
+
+:: Nightmare Witch Love
+<<effects>><<set Weather.set("clear", true)>><<set $location to "forest">>
+<<set Time.setTime(23, 0)>>
+
+She fades away, laughing with devious glee.
+<br><br>
+
+The gaoler appears, strings attached to his head and limbs. The demon towers above you, working his strings like a puppet.
+<br><br>
+
+"He was so eager to give me his heart. Was it so wrong for me to take it?" Her voice sounds more real, yet there's an eerie hiss to it. A tentacle in her mouth acts as her tongue. She puts a hand up to it and giggles as they both vanish again.
+<br><br>
+
+A stone altar appears before you. They both lie on it, and she moans in ecstasy. A regal pair of antlers adorn her head, a pair of purple wings on her back.
+"He was h... hhhaaappy. I know that much to be true, from- ah! From this telling."
+<br><br>
+
+Her legs, enwreathed in tentacles, wrap around his waist as he reaches climax. "It would have been a waste to let him be free. He was mine. Mine alone."
+<br><br>
+
+They vanish once more. She appears behind you, walking on legs braced by tentacles. Her blackened, elongated arms nearly touch the ground. The gaoler stumbles behind her.
+Her look of smug superiority fades into a sad smile. "In truth, I think he and I were both prisoners. Prisoners and gaolers of one another. As cold as my heart was..."
+<br><br>
+
+A tear rolls down the demon's cheek. "I did not want to let him go. I could not. Perhaps I did not love him, but I know he loved me. It was something I could indulge, if nothing else."
+<br><br>
+
+She puts a black claw over her chest, and the other over her tummy. "No... no, there was more. I—wait, don't leave! We were so close to the truth!"
+<br><br>
+
+<<link [[Wake up|Nightmare Witch End]]>><</link>>
+<br>
+
+:: Nightmare Witch Desperation
+<<effects>><<set Weather.set("clear", true)>><<set $location to "forest">>
+<<set Time.setTime(23, 0)>>
+
+She fades away, and something roars in the distance.
+<br><br>
+
+'There's... familiarity here. Many truths, and many lies. It falters in context.' Four long, glassy, spider-like limbs reach out from the dark, carrying her broken body.
+<br><br>
+
+'Was this the end? No. I remember. This is the story that ends best for him.' An approximation of a sad smile crosses her split jaws.
+'He was looking for me. I was looking for him, too. I believed myself to be the monster that the cloister made me. Despite that, I wished to see him one last time before my body failed.'
+<br><br>
+
+She fades away. You're in a small clearing. The gaoler is holding an infant with tiny twig-like antlers on her head.
+<br><br>
+
+'We did see each other again, although he would never realise it.' The bushes rustle as someone flees the clearing.
+<br><br>
+
+A person with leaves in their hair turns to you. You don't catch what they say before you wake up.
+<br><br>
+
+<<link [[Wake up|Nightmare Witch End]]>><</link>>
+<br>
+
+:: Nightmare Witch Perdition
+<<effects>>
+
+She vanishes, and reappears with a silk cord around her neck. Her face is flushed and full of sadistic desire.
+<br><br>
+
+She brings down a black claw on a man in monk's robes. The gaoler stands behind her, whipping the monk if he moves too much.
+<br><br>
+
+She seems embarrassed. 'I remember. I was terrified of the hounds after what they did to me.
+This... act of ours, it helped alleviate my mental strain. It was only ever us, though. I was never used to punish the sins of others.'
+<br><br>
+
+She obediently barks at her master. The gaoler lifts her, carrying her like a princess to their bedchamber.
+<br><br>
+
+'Did I grow affectionate for him? I must have. There was so much more than this, however. This was only a fraction of a truth.'
+<br><br>
+
+<<link [[Wake up|Nightmare Witch End]]>><</link>>
+<br>
+
+:: Nightmare Witch Stagnation
+<<effects>>
+
+Her body slumps over, like an unwanted doll cast aside.
+<br><br>
+
+'Trapped. Trapped within a broken body, unable to move, forever.' Her skin takes on the texture of fabric. She's suddenly impaled by countless silver needles. Cotton spills from her insides.
+<br><br>
+
+'It was maddening. He... helped me. His pure touch granted me strength. Clarity.' One by one, the needles are pulled out. A pair of hands gently pick her up.
+<br><br>
+
+The gaoler holds the doll up to his cheek, before vanishing.
+<br><br>
+
+He reappears with a sewing needle, stitching closed the countless <span class="tentacle">holes</span> in the doll. His fingers are covered in small bandages.
+<br><br>
+
+When he's finished, he turns around and hands the doll to someone. A little girl, who looks a lot like the witch, and a lot like him too.
+She looks up to him with wonder, before hugging his waist. He returns the embrace.
+<br><br>
+
+She runs off into another room, where the witch sits in a rocking chair. The girl shows her the doll with pure joy, jumping up and down. The witch smiles warmly.
+<br><br>
+
+Her face suddenly changes to confusion. 'I... I don't understand...'
+<br><br>
+
+<<link [[Wake up|Nightmare Witch End]]>><</link>>
+<br>
+
+:: Nightmare Witch Paranoia
+<<effects>>
+
+She vanishes, along with the cell. Empty red light surrounds you.
+<br><br>
+
+'The cloister. They called themselves family, yet they so often turned their wrath on one another.'
+<br><br>
+
+The gaoler appears, wearing rags, bound to a chunk of wall floating in the nothingness.
+<br><br>
+
+'It did not end like this. There was doubt in his heart, this much is true. It drove him to do... something.
+I can't remember what.'
+<br><br>
+
+His chains suddenly burst, falling far below. He begins to run towards a stone altar.
+<br><br>
+
+'No closure, only more questions.'
+<br><br>
+
+<<link [[Wake up|Nightmare Witch End]]>><</link>>
+<br>
+
+:: Nightmare Witch Hatred
+<<effects>>
+
+Her limp legs begin to fuse together. Her body elongates.
+<br><br>
+
+The serpent coils around you. Her face comes very close to yours. <span class="red">Your joints all lock up, and you can't move!</span>
+<br><br>
+
+'There was much hatred between us. This is true. It would eventually destroy us.' She tightens around you. <span class="red">You can't breathe.</span> 'Suffocating, binding hatred.'
+<br><br>
+
+You shed your skin. She emerges from you.
+<br><br>
+
+<<link [[Wake up|Nightmare Witch End]]>><</link>>
+<br>
+
+:: Nightmare Witch Nothing
+<<effects>>
+
+She vanishes.
+<br><br>
+
+'Is the only way to be free to forget?'
+<br><br>
+
+A long silence follows.
+<br><br>
+
+'If I forget this, I may forget everything.'
+<br><br>
+
+<<link [[Wake up|Nightmare Witch End]]>><</link>>
+<br>
+
+:: Nightmare Witch End
+<<effects>><<nightmareEnd>>
+
+You shiver as you wake.
+<br><br>
+
+It was only a dream. A story is just a story.
+<br><br>
+
+<<link [[Next|$nightmareExit]]>><<unset $nightmareExit>><</link>>
+<br>
+
+:: Nightmare Gwylan
+<<effects>><<nightmareStart "gwylan">><<set $location to "docks">>
+<<set Time.setTime(15, 33)>><<set Weather.set("heavyClouds", true)>>
+<<clearsinglenpc 0>><<npc Gwylan>><<person1>><<set $dockCount to 2>>
+You smell salt in the air, and open your eyes. You're at the docks on Mer Street.
+<br><br>
+
+A <<personsimple>> stands at the very end of the furthest dock, <<his>> mousy hair blowing in the wind. <<He>> gently sways to a rhythm you can't hear, <span class="teal">but know</span>.
+<br><br>
+
+<<if $nightmaresSeen.includes("gwylan")>>
+	You know what this is. The ocean threatens to swallow you already. It isn't real, you hope.
+	<br><br>
+
+	<<link [[Wake up|Nightmare Gwylan Wake]]>><</link>><<gwylanWillpowerDifficulty>>
+	<br>
+<<else>>
+	You squint, trying to see clearly. Your eyes sting. The reflection on the top of the ocean is nearly perfect in clarity. For a moment, you feel like you're falling upwards.
+	<br><br>
+<</if>>
+<<link [[Approach|Nightmare Gwylan 2]]>><</link>>
+<br>
+<<link [[Leave|Nightmare Gwylan Leave]]>><</link>>
+<br>
+
+:: Nightmare Gwylan Wake
+<<effects>>
+You turn around and run, your eyes closed. You need to be anywhere else. Away from the ocean.
+<br><br>
+
+<<if $willpowerSuccess>>
+	You hear Gwylan's voice singing to you. You cover your ears. It does nothing to muffle the song, <span class="green">but it keeps you focused</span>. The air rushes by you as water spouts descend, trying to pull you into oblivion. You will them away.
+	<br><br>
+
+	<<link [[Next|Nightmare Gwylan End]]>><</link>>
+	<br>
+<<elseif $hypnosis_traits.devotion gte 4>>
+	You hear Gwylan's voice singing to you. <<hypnosisText "<span class='red'>Your body turns around on its own.</span>">> Your eyes open. <<Hes>> on every street corner, staring at you with those empty eyes.
+	You run right into <<nnpc_his "Gwylan">> embrace. A paradox of terror and relief pulls you in opposite directions, as hundreds of Gwylans giggle and drag you back to the docks.
+	<br><br>
+
+	<<link [[Next|Nightmare Gwylan 2]]>><<set $phase to "forced">><</link>>
+	<br>
+<<else>>
+	You hear a familiar voice singing to you. <span class="red">It's so sweet, so alluring.</span> You must have turned around without realising it, as you hear your footsteps on wood once more.
+	<br><br>
+
+	<<link [[Next|Nightmare Gwylan 2]]>><</link>>
+	<br>
+<</if>>
+
+:: Nightmare Gwylan Leave
+<<effects>>
+You turn to leave, stepping back onto Mer Street.
+<br><br>
+
+You feel like you walk for ages. It takes you far too long realise that instead of Starfish Street, you're back on Mer Street. Another dock sits on the ocean before you. You look back, and can still see the first.
+<br><br>
+
+<<link [[Step onto the docks|Nightmare Gwylan 2]]>><</link>>
+<br>
+<<link [[Go back to the first dock|Nightmare Gwylan Leave 2]]>><<set $phase to "back">><</link>>
+<br>
+<<link [[Keep walking|Nightmare Gwylan Leave 2]]>><<set $phase to "persist">><</link>>
+<br>
+
+:: Nightmare Gwylan Leave 2
+<<effects>><<set $dockCount++>>
+<<if $phase is "persist">>
+	You clench your fists and keep walking. A third dock stretches out over the ocean.
+	<br><br>
+<<elseif $phase is "back">>
+	You make your way back to the first dock.
+	<<if $dockCount gte 4>>
+		At least, you're mostly sure it's the first one.
+	<</if>>
+	<br><br>
+<</if>>
+
+You are on Mer Street. A dock sits on the surface of the water. Someone stands at the very end.
+<br><br>
+
+<<if $dockCount gte 9>>
+	The docks form a nine-pointed star, with you at the centre. No matter where you turn, only the docks, and the ocean beyond, stretch on.
+	<br><br>
+
+	<<link [[Step onto the docks|Nightmare Gwylan 2]]>><<set $phase to 0>><</link>>
+	<br>
+<<else>>
+	<<if $dockCount gte 5>>
+		<<Number $dockCount>> docks stretch out into the ocean. The same person stands at the end of each.
+		<br><br>
+	<</if>>
+
+	<<link [[Step onto the docks|Nightmare Gwylan 2]]>><<set $phase to 0>><</link>>
+	<br>
+	<<if $phase isnot "back">>
+		<<link [[Go back to the first dock|Nightmare Gwylan Leave 2]]>><<set $phase to "back">><</link>>
+		<br>
+	<</if>>
+	<<link [[Keep walking|Nightmare Gwylan Leave 2]]>><<set $phase to 0>><</link>>
+	<br>
+<</if>>
+
+:: Nightmare Gwylan 2
+<<effects>>
+<<if $phase is "forced">>
+	You're dragged onto the dock, innumerable soft hands forcing you to stand. They guide your steps forward, and you're unable to resist, merely a puppet on strings.
+	<br><br>
+
+	The other Gwylans all fall apart and rush ahead in ribbons of themselves, joining the one in front of you as the song reaches a crescendo.
+<<else>>
+	You can hear the <<personsimple>> at the end singing as you approach. The dock seems to be extending as you walk, as <<he>> doesn't seem to be getting any closer.
+	<br><br>
+
+	The song is scrambled. The words don't make sense, but you know it's coming to an end. This fills you with dread, but you don't know why.
+<</if>>
+<br><br>
+
+With a final note, the dock between you compresses, bringing you right behind <<him>> in an instant.
+<br><br>
+
+<<if $phase isnot "forced">>
+	You recognise <<him>> now. It's Gwylan.
+<</if>>
+<<His>> clothes are waterlogged and torn. The smell of saltwater and brine is overwhelming.
+<br><br>
+
+<<link [[Talk to <<him>>|Nightmare Gwylan 3]]>><<set $phase to "talk">><</link>>
+<br>
+<<link [[Turn around and leave|Nightmare Gwylan 3]]>><<set $phase to "leave">><</link>>
+<br>
+<<link [[Hug <<him>>|Nightmare Gwylan 3]]>><<set $phase to "hug">><</link>>
+<br>
+
+:: Nightmare Gwylan 3
+<<effects>>
+<<if $phase is "talk">>
+	You open your mouth to speak, but only whalesong escapes.
+<<elseif $phase is "leave">>
+	You turn to leave, but your legs aren't there anymore.
+<<else>>
+	You reach out to <<him>>, but the space between you is infinite. <<He>> can touch you, yet you can't touch <<him>>.
+<</if>>
+<br><br>
+<<set $phase to 0>>
+
+You hear a low gurgle.
+<br><br>
+
+The ocean's surface reflects silver manacles and needles.
+<br><br>
+
+It reflects planes flying overhead, dropping payloads that float upward. They fall forever.
+<br><br>
+
+It reflects a neverending array of burning docks in the sky, spinning into each other in endless ruin.
+<br><br>
+
+It reflects the forest.
+<br><br>
+
+A circle forms in the water before <<him>>.
+<br><br>
+
+It reflects everything.
+<br><br>
+
+Water droplets rise, falling into the sky.
+<br><br>
+
+It reflects everybody.
+<br><br>
+
+The reflection becomes imperfect as the disturbance deepens, a crown of water rising as the clouds darken.
+<br><br>
+
+It reflects nobody.
+<br><br>
+
+Nobody turns around.
+<br><br>
+
+<<link [[Look|Nightmare Gwylan 4]]>><<set $phase to "look">><</link>>
+<br>
+<<link [[Close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes close your eyes|Nightmare Gwylan 4]]>><<set $phase to "close">><</link>>
+<br>
+
+:: Nightmare Gwylan 4
+<<effects>><<set Weather.set("lightPrecipitation", true)>>
+<<if $phase is "look">>
+	Your eyes <span class="witch">yearn</span> for the sting of the saltwater.
+	<br><br>
+
+	<<He>> turns.
+	<br><br>
+
+	<<His>> eye sockets are empty.
+	<br><br>
+
+	Yet, you can read <<his>> expression. You can read it painfully well. Ennui. Hopelessness. A tired smile. Saltwater leaks from the corners.
+	<br><br>
+
+	<<His>> chest is hollow. <<His>> ribs make a cage for a black, unbeating heart in a void of static.
+<<else>>
+	You close your eyes, unable to bear the sting of the saltwater anymore.
+	<br><br>
+
+	<<He>> turns. You don't know how long <<he>> stares at you, but you can feel <<his>> gaze peeling you apart.
+<</if>>
+<br><br>
+
+<<His>> mouth opens.
+<br><br>
+
+<b>"<span class="witch">All returns to the tide.</span>"</b>
+<br><br>
+
+<<link [[...|Nightmare Gwylan Tornado]]>><</link>>
+<br>
+
+:: Nightmare Gwylan Tornado
+<<effects>><<set Weather.set("heavyPrecipitation", true)>>
+The circle of water rises into the sky to meet the clouds. It spins in a vortex, screaming as though it were in pain. It grows.
+<br><br>
+
+The wind rushes towards it. You feel yourself being pulled in. It grows further.
+<br><br>
+
+The entire horizon is consumed by the water spout, or perhaps you're already inside of it. The ocean sings in agony.
+<br><br>
+
+Gwylan takes your hands with a loving smile. You feel it gnaw at your spine.
+<<if $phase is "close">>
+	When did your eyes open? Why are Gwylan's eyes empty?
+<</if>>
+<br><br>
+
+<<link [[Return|Nightmare Gwylan Whalefall]]>><<set $phase to "go">><</link>>
+<br>
+<<link [[Resist|Nightmare Gwylan Whalefall]]>><<set $phase to "stay">><</link>>
+<br>
+
+:: Nightmare Gwylan Whalefall
+<<effects>>
+
+<<He>> says something to you, but you can't hear it over the death scream of the sea.
+<br><br>
+
+<<He>> pulls on your hands, and starts to fall backwards.
+<<if $phase is "go">>
+	You step forward in turn, taking the plunge with <<him>>.
+	<br><br>
+
+	You embrace as you break the surface.
+	<br><br>
+
+	<<He>> sighs with relief. Or maybe that was you. Neither of you will be alone in the end, at least.
+	<br><br>
+
+	You pull your head back to look at <<him>> one last time, before the last light of the surface winks out.
+	<<His>> eyes are no longer empty. <<His>> tears float upwards past you. <<He>> smiles lovingly, and <<his>> heart starts to beat.
+	<br><br>
+
+	The screams of the world fade away as you sink yet further. You're plunged into the darkness of the ocean floor.
+	<br><br>
+
+	With one final embrace, the two of you land at the bottom, at long last.
+	<br><br>
+
+	You settle into the sediment, kicking up silt. <<His>> hands dig into your back and you hold <<him>> tighter, each of you making sure the other is still there in the pitch-blackness. Your heartbeats ring out together.
+	<br><br>
+
+	Your bodies nourish the rebirth of the world. Your ribcages link in an eternal embrace. Nobody remembers either of you.
+<<else>>
+	You refuse to leave. <<He>> falls regardless, <span class="red">taking your hands with <<him>></span>.
+	<br><br>
+
+	<<His>> smile vanishes, replaced by a look of agonising betrayal. A thin black line shoots down from the sky, straight through <<his>> heart. You've broken a promise.
+	<br><br>
+
+	<<He>> vanishes under the waves.
+	<br><br>
+
+	You stand alone in the vortex. You remain in a vast sea of nothing, an abyss that will never support life again. You never remember who was here with you. The sky goes dark.
+<</if>>
+<<set $phase to 0>>
+<br><br>
+
+<<link [[Next|Nightmare Gwylan End]]>><</link>>
+<br>
+
+:: Nightmare Gwylan End
+<<effects>><<nightmareEnd>>
+
+You shiver and cough as you wake. Your tongue is horribly dry, and you feel like there's a hole in your chest.
+<br><br>
+
+It was only a dream. You feel dizzy.
+<br><br>
+
+<<link [[Next|$nightmareExit]]>><<unset $nightmareExit>><</link>>
+<br>
+
+:: Nightmare Office
+<<effects>><<nightmareStart "office">><<set $location to "office">>
+
+You find yourself thinking about your day as you try to fall asleep. You flip the pillow over to the cold side and shove your arm underneath before closing your eyes.
+<br><br>
+Your ears ring as if they're muffling your thoughts, and you blink in a vain attempt to shake it away. A strange sense of uncanniness falls over you as you hear the methodical clacking of a keyboard.<<stress 6>><<gstress>>
+<br><br>
+
+<<if $nightmaresSeen.includes("office")>>
+	You know this place. It isn't real.
+	<br><br>
+	<<link [[Try to wake up|Nightmare Office Wake]]>><<set $phase to 0>><</link>><<nightmareWakeDifficulty>>
+	<br>
+	<<link [[Stay in the dream|Nightmare Office 2]]>><<set $phase to 1>><</link>>
+	<br>
+<<else>>
+	<<link [[Next|Nightmare Office 2]]>><<set $phase to 2>><</link>>
+	<br>
+<</if>>
+
+:: Nightmare Office Wake
+<<effects>>
+
+<<if $willpowerSuccess>>
+	This doesn't feel right. You force yourself to turn around and rush out the door of the building.
+	<br><br>
+	<<link [[Next|Nightmare Office End]]>><</link>>
+	<br>
+<<else>>
+	You fail to wake up. You must press forward. There is work to be done.
+	<br><br>
+	<<link [[Next|Nightmare Office 2]]>><<set $phase to 3>><</link>>
+	<br>
+<</if>>
+
+:: Nightmare Office 2
+<<effects>>
+
+"You have an assignment waiting," you hear someone call out from behind a computer.
+<br><br>
+
+<<if $phase is 3>>
+	You shake yourself from your stupor and report in for your assignment.
+	<br><br>
+<<else>>
+	You have work to do. You can't just slack off like this; you have to do your job.
+	<br><br>
+<</if>>
+
+A poster sits in front of you. You grab it and trudge along to the copying room. You place the poster on top of the copy machine. You click the button to start it up. Nothing happens.
+<br><br>
+
+You take a step back and look at the shredder next to the copying machine. The shredder is on, judging by the soft hum it emits. You glance at the outlets behind the two machines, and sure enough, the shredder is plugged in, while the copier is not.
+<br><br>
+
+You wedge yourself between the two machines to reach the outlet, unplugging one and plugging in the other with a swift motion.
+<br><br>
+
+As soon as you plug it in, however, you realise that <span class="red">you are stuck.</span>
+<br><br>
+
+Someone's coming. You feel a presence looming over you.
+<br><br>
+
+<<link [[Stay still|Nightmare Office 3]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Try to turn around|Nightmare Office 3]]>><<set $phase to 2>><</link>>
+<br>
+<<link [[Try to break free|Nightmare Office 3]]>><<set $phase to 3>><</link>>
+<br>
+
+:: Nightmare Office 3
+<<effects>>
+
+<<switch $phase>>
+	<<case 1>>
+		You freeze up, hoping that staying still will make yourself less noticeable. It doesn't work.
+	<<case 2>>
+		You try to turn around to the figure, but you can barely twist your body to get a good look.
+	<<case 3>>
+		You feel adrenaline rush through you as you try and thrash backward, like a cornered animal.
+<</switch>>
+<br><br>
+
+<<if $daily.officeManagerMasturbate is true and $moleststat gte 10 and $rapestat gte 5>>
+	<<generateManager>><<person1>><<set $phase to 1>>
+<<elseif $averyragerevealed is 1 and C.npc.Avery.rage gte 60 and $weekly.averyAssistant?.work>>
+	<<npc Avery>><<person1>><<set $phase to 2>>
+<<else>>
+	<<generate1>><<person1>><<set $phase to 3>>
+<</if>>
+
+You can feel your heartbeat in your ears as something slides across your hip. There is a sudden sickening twist in your gut as you recognise the scent in the air. <span class="red">It's the same fragrance that <<if $phase is 1>><<office_manager>><<elseif $phase is 2>>Avery<<else>>your coworker<</if>> wears.</span><<stress 6>><<gstress>>
+<br><br>
+
+<<link [[Next|Nightmare Office Rape]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Nightmare Office Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+	<<set $position to "doggy">>
+	<<set $position_lock to 1>>
+	<<if $phase is 2>>
+		"There you are, you worthless <<bitch>>," <<he>> says, forcefully grabbing your hip. "Let's put this body into good use, shall we?"
+	<<else>>
+		"I need you to help me with something," <<he>> says as <<he>> tightens <<his>> grip on your hip, <<his>> fingers smoothly caressing your skin under your clothes.
+	<</if>>
+	<br><br>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Nightmare Office Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Nightmare Office Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Nightmare Office Rape Finish
+<<effects>>
+
+<<if $enemyhealth lte 0>>
+	You shove <<him>> off you, and <<he>> falls back on the ground.
+	<<if $phase is 2>>
+		"You'll regret this." <<He>> stares at you furiously before exiting the room.
+	<<else>>
+		<<He>> stares at you in shock before exiting the room.
+	<</if>>
+	<br><br>
+
+	<<tearful>> you sit up. You hear the sound of the printer whirring to life as copies start to shoot out all across the room.
+	<br><br>
+	A copy lands on your lap, and you see the image of yourself in a compromising position.<<stress 6>><<gstress>>
+	<br><br>
+
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	As <<he>> climaxes, you can hear the sound of the copier going off as copies start to shoot out all across the room.
+	<br><br>
+
+	<<tearful>> you lay motionless on the ground. <<He>> redresses <<himself>> and places one in your hand. It's still warm from the printer.
+	<br><br>
+
+	<<if $phase is 2>>
+		"This is <<= either ("the only thing you're good for", "what you were made for")>>. Remember that." <<He>> cocks <<his>> head. "Actually, you should be grateful for getting raped in the first place. Looking good while doing it, too,"
+	<<else>>
+		"You really do make cute faces,"
+	<</if>>
+	<<he>> says with a soft laugh before leaving the copy room.<<stress 6>><<gstress>>
+	<br><br>
+<</if>>
+
+<<link [[Next|Nightmare Office End]]>><<set $phase to 1>><</link>>
+<br>
+
+:: Nightmare Office End
+<<effects>><<nightmareEnd>>
+
+<<if $phase is 1>>
+	You look down at the freshly copied picture and see your own face, in a compromising position, staring back at you.<<stress 6>><<gstress>>
+	<br><br>
+	You startle awake and find yourself face down in your pillow. Turning your head over, you let out a breath. It was only a dream.
+	<br><br>
+<<else>>
+	You find yourself almost falling out of your bed while tangled in your blanket, and you see the pillow lying on the floor. You're safe. It was just a dream.
+	<br><br>
+<</if>>
+
+<<link [[Next|$nightmareExit]]>><<unset $nightmareExit>><<endevent>><</link>>
+<br>

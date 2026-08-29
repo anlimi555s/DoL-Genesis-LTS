@@ -1,0 +1,288 @@
+:: Robin Gifts List
+<<effects>>
+
+What would you like to give Robin?
+<br><br>
+<<food_gift_list>>
+
+<<if _food_gift_found is true>>
+	<<skinicon "give">><<link [[Give gift (0:05)|Robin Gifts]]>><<pass 5>><<give_gift Robin>><</link>>
+	<br>
+<</if>>
+<<refuseicon>><<link [[Reconsider|Robin Gifts Reconsider]]>><</link>>
+<br>
+
+:: Robin Gifts Reconsider
+<<effects>>
+
+Robin smiles at you.
+<br><br>
+
+<<robinoptions>>
+
+:: Robin Gifts
+<<effects>>
+<<set _gift to setup.foodstuff[$gift].name + (setup.foodstuff[$gift].food.handheld_gift ? " gift" : "")>>
+<<wearProp _gift>>
+
+<<if $phase is 1>>
+	"I've brought you something," you say.
+<<elseif $phase is 2>>
+	"I made something," you say. "Just for you."
+<<else>>
+	"I've made you a gift," you say. "I hope you like it."
+<</if>>
+<br><br>
+
+<<if $gift is "sticky_toffee_pudding">>
+	Robin is rendered speechless by the sight of the <<recipe_name $gift>>. "This is my favourite!" <<he>> says. "Thank you so much!"<<gglove>><<npcincr Robin love 3>>
+	<br><br>
+
+	<<He>> tucks in, a rapturous look on <<his>> face the whole time. "Bailey doesn't like me eating sticky toffee pudding," <<he>> says between swallows. "Even outside the orphanage. Says it's bad for you."
+	<br><br>
+
+	<<link [[Ask for some|Robin Gifts Pudding Ask]]>><<npcincr Robin dom 1>><</link>><<gdom>>
+	<br>
+	<<link [[Say nothing|Robin Gifts Pudding Nothing]]>><</link>>
+	<br>
+	<<saveFavoriteFood "Robin" $gift>>
+	<<earnFeat "Hungry Orphan">>
+<<elseif $gift is "lemonade">>
+	<<switch $speech_attitude>>
+		<<case "meek">>
+			"I made you a glass of lemonade. I hope you like it, e-even if you already sell it..."
+		<<case "bratty">>
+			"I made you a cup of lemonade. Let's see who makes it better."
+		<<default>>
+			"I know you sell lemonade, but I wanted to make you some."
+	<</switch>>
+	You hold out the cup of lemonade. Robin smiles happily. "You really made this for me?"
+	<br><br>
+
+	Robin hugs you, careful not to spill the drink. <<He>> takes the cup and admires the lemon slice on the side, watching the ice cubes swirl around the glass with sparkling eyes.
+	<br><br>
+
+	"Thank you. I don't drink the stuff I make. I'd be losing money if I did. This means a lot to me." <<He>> looks at you. "Would you like to share? I have two straws."<<glove>><<npcincr Robin love 1>>
+	<br><br>
+
+	<<link [[Share|Robin Gifts Lemonade Share]]>><</link>>
+	<br>
+	<<link [[Let Robin enjoy it alone|Robin Gifts Lemonade Enjoy]]>><</link>>
+	<br>
+<<elseif $gift is "valentines_chocolate" and $valentines>>
+	<<earnFeat "Be My Valentine">>
+	<<if C.npc.Robin.trauma gte 20>>
+		You hold out the box of chocolates. Robin dons a weak smile. "For me?" <<he>> asks. "Thank you. You're very kind." <<He>> opens the lid, and peers inside. "You've always been better than me in the kitchen."<<gglove>><<npcincr Robin love 3>>
+		<br><br>
+		<<He>> closes the lid, and places the box on <<his>> bedside cabinet with care. "I'll try one later. I don't think I could keep them down right now."
+		<br><br>
+
+		<<robinoptions>>
+	<<elseif $robinromance is 1>>
+		You hold out the box of chocolates. Robin clasps <<his>> hands together, and a blush creeps into <<his>> face. "For me?" <<he>> asks. <<He>> reaches for the box, opens it, and a look of wonder lights up <<his>> features. "They're wonderful."<<gglove>><<npcincr Robin love 3>>
+		<br><br>
+
+		<<He>> picks up a chocolate, and bites into one side. <<He>> moves <<his>> hand away, letting it sit between <<his>> lips.
+		<br><br>
+
+		<<link [[Kiss|Robin Gifts Valentines Kiss]]>><<npcincr Robin love 3>><</link>><<kissvirginitywarning>><<gglove>>
+		<br>
+		<<link [[Wait|Robin Gifts Valentines Wait]]>><</link>>
+		<br>
+	<<else>>
+		You hold out the box of chocolates. Robin laughs, joy lighting <<his>> face. "Valentines chocolates," <<he>> says. "You're so thoughtful."<<gglove>><<npcincr Robin love 3>>
+		<br><br>
+		<<He>> opens the box, and bites into one of the chocolates. "These are amazing," <<he>> says. "They're too good for me to eat alone. Can I share them with the orphans?"
+		<br><br>
+		<<link [[Say yes|Robin Gifts Valentines Yes]]>><<hope 1>><</link>><<ghope>>
+		<br>
+		<<link [[Say only Robin can eat them|Robin Gifts Valentines No]]>><</link>>
+		<br>
+	<</if>>
+<<elseif setup.foodstuff[$gift].food.tags.includes("spicy")>>
+	Robin clutches <<his>> hands together as <<he>> regards the <<recipe_name $gift>>. "For me? Thank you so much." <<His>> smile beams, then falters a little. "It smells spicy. I hope I'm up to it."
+	<br><br>
+
+	<<He>> places the dish between you. "Would you like some?"<<glove>><<npcincr Robin love 1>>
+	<br><br>
+
+	<<link [[Share|Robin Gifts Spicy Share]]>><</link>>
+	<br>
+	<<link [[Let Robin enjoy it alone|Robin Gifts Spicy Enjoy]]>><</link>>
+	<br>
+<<elseif setup.foodstuff[$gift].food.tags.includes("drink")>>
+	Robin clutches <<his>> hands together as <<he>> regards the <<recipe_name $gift>>. "For me? Thank you so much." <<His>> smile beams as <<he>> holds the drink between <<his>> palms. "Would you like to share? I have two straws."<<glove>><<npcincr Robin love 1>>
+	<br><br>
+	<<link [[Share|Robin Gifts Drink Share]]>><</link>>
+	<br>
+	<<link [[Let Robin enjoy it alone|Robin Gifts Drink Enjoy]]>><</link>>
+	<br>
+<<else>>
+	Robin clutches <<his>> hands together as <<he>> regards the <<recipe_name $gift>>. "For me? Thank you so much." <<His>> smile beams. "Would you like some?"<<glove>><<npcincr Robin love 1>>
+	<br><br>
+
+	<<link [[Share|Robin Gifts Share]]>><</link>>
+	<br>
+	<<link [[Let Robin enjoy it alone|Robin Gifts Enjoy]]>><</link>>
+	<br>
+<</if>>
+
+:: Robin Gifts Valentines Yes
+<<effects>>
+
+Robin throws <<his>> arms around you. "Thank you. The orphans will love them."
+<br><br>
+
+<<He>> closes the box, and places it on <<his>> bedside cabinet with care.
+<br><br>
+
+<<robinoptions>>
+
+:: Robin Gifts Valentines No
+<<effects>>
+
+"But I feel so selfish," Robin says. <<Hes>> still smiling. "I'll make sure to pace myself."
+<br><br>
+
+<<He>> closes the box, and places it on <<his>> bedside cabinet with care.
+<br><br>
+
+<<robinoptions>>
+
+
+:: Robin Gifts Valentines Kiss
+<<effects>>
+
+You lean close to Robin, and take the other side of the chocolate into your mouth, letting your lips meet. You bite into the chocolate, and pull away with your half. The blush on Robin's face has turned scarlet, and <<he>> laughs.<<takeKissVirginity "Robin" "love_interest">>
+<br><br>
+In high spirits, Robin closes the box, and puts it on <<his>> bedside cabinet with care. "I want to eat them all now, but I should pace myself. Thank you. You're the best <<girlfriend>> in the world."
+<br><br>
+
+<<robinoptions>>
+
+:: Robin Gifts Valentines Wait
+<<effects>>
+
+You wait for Robin to bite through the chocolate, catching the remainder in <<his>> palm. "This is the best chocolate I've ever tasted," <<he>> says. "I wish I was as good as you."
+<br><br>
+
+<<He>> closes the box, and puts it on <<his>> bedside cabinet with care. "I want to eat them all now, but I should pace myself. Thank you. You're the best <<girlfriend>> in the world."
+<br><br>
+
+<<robinoptions>>
+
+:: Robin Gifts Share
+<<effects>>
+
+You eat the <<recipe_name $gift>> with Robin. "It's really good," <<he>> says between mouthfuls. "Like it was made by a professional."
+<br><br>
+
+<<He>> puts the plate aside when finished. "I'll wash it up later."
+<br><br>
+
+<<robinoptions>>
+
+:: Robin Gifts Enjoy
+<<effects>>
+
+You need to insist, but Robin agrees to eat the food alone. "It's really good," <<he>> says between mouthfuls. "Like it was made by a professional."
+<br><br>
+
+<<He>> puts the plate aside when finished. "I'll wash it up later."
+<br><br>
+
+<<robinoptions>>
+
+:: Robin Gifts Pudding Ask
+<<effects>>
+
+<<if $speech_attitudes is "meek">>
+	"Can I try some?" you ask.
+<<elseif $speech_attitudes is "bratty">>
+	"Don't be such a pig," you say. "Let me try some."
+<<else>>
+	"Can I have some?" you ask.
+<</if>>
+<br><br>
+
+Robin looks at you, uncomprehending for a moment, then an embarrassed blush spreads across <<his>> cheeks. "I'm so sorry!" <<he>> says, pushing the dish your way. "I forgot my manners. It was too tasty."
+<br><br>
+
+You help Robin finish the sticky toffee pudding. It's very sweet.
+<br><br>
+
+<<robinoptions>>
+
+:: Robin Gifts Pudding Nothing
+<<effects>>
+
+You say nothing as Robin devours the sticky toffee pudding. <<He>> closes <<his>> eyes with a satisfied smile when finished.
+<br><br>
+
+<<robinoptions>>
+
+:: Robin Gifts Spicy Share
+<<effects>>
+
+You eat the <<recipe_name $gift>> with Robin. "It's really good," <<he>> says between mouthfuls, but <<his>> eyes tear up as <<he>> eats.
+<br><br>
+
+<<He>> runs off to fetch a glass of water, and brings you one as well. <<He>> drinks the whole glass before finishing. <<He>> puts the plate and glass aside. "I'll clean them up later."
+<br><br>
+
+<<robinoptions>>
+
+:: Robin Gifts Spicy Enjoy
+<<effects>>
+
+You need to insist, but Robin agrees to eat the meal alone. "It's really good," <<he>> says between mouthfuls, but <<his>> eyes tear up as <<he>> eats.
+<br><br>
+
+<<He>> runs off to fetch a glass of water, and brings you one as well. <<He>> drinks the whole glass before finishing. <<He>> puts the plate and glass aside. "I'll clean them up later."
+<br><br>
+
+<<robinoptions>>
+
+:: Robin Gifts Drink Share
+<<effects>>
+
+Robin places two straws in the drink and swivels one <<his>> way. You both take a sip. "It's really good," <<he>> says, before taking another.
+<br><br>
+
+<<He>> sips away until the drink is gone, then smiles at you. "You could teach me a thing or two about how to make a beverage. People would pay for this."
+<br><br>
+
+<<robinoptions>>
+
+:: Robin Gifts Drink Enjoy
+<<effects>>
+
+You need to insist, but Robin agrees to drink the beverage alone. <<He>> takes a sip. "It's really good," <<he>> says, before taking another.
+<br><br>
+
+<<He>> sips away until the drink is gone, then smiles at you. "You could teach me a thing or two about how to make a beverage. People would pay for this."
+<br><br>
+
+<<robinoptions>>
+
+:: Robin Gifts Lemonade Share
+<<effects>>
+
+Robin places two straws in the drink and swivels one <<his>> way. You both take a sip. "This is good," <<he>> says. "It's not too sour, and it's not too sweet. I love it, thank you."
+<br><br>
+
+<<He>> sips away until the drink is gone, then smiles at you.
+<br><br>
+
+<<robinoptions>>
+
+:: Robin Gifts Lemonade Enjoy
+<<effects>>
+
+You need to insist, but Robin agrees to drink the lemonade alone. <<He>> takes a sip. "This is good," <<he>> says. "It's not too sour, and it's not too sweet. I love it, thank you."
+<br><br>
+
+<<He>> sips away until the drink is gone, then smiles at you.
+<br><br>
+
+<<robinoptions>>

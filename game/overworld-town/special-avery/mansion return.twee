@@ -1,0 +1,4707 @@
+:: Mansion Return Flowers Accept
+<<effects>><<wearProp "bouquet" "red">>
+
+You take the roses. Avery smiles, wraps an arm around your waist, and pulls you close. "It's my work. It stresses me out, but I shouldn't take it out on you."
+<br><br>
+
+<<link [[Say you forgive <<him>>|Mansion Return Flowers Forgive]]>><<npcincr Avery love 1>><</link>><<glove>>
+<br>
+<<link [[Say there's nothing to forgive|Mansion Return Flowers Nothing]]>><<npcincr Avery love 1>><</link>><<glove>>
+<br>
+<<link [[Remain silent|Mansion Return Flowers Silent]]>><<npcincr Avery love 1>><</link>><<glove>>
+<br>
+
+
+:: Mansion Return Flowers Forgive
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I forgive you," you say. "Always."
+<<elseif $speech_attitude is "bratty">>
+	"It's a fucked up world," you say. "I get it."
+<<else>>
+	"I forgive you," you say. "Thank you for apologising."
+<</if>>
+<br><br>
+
+Avery squeezes you tight, then walks away.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links>>
+
+:: Mansion Return Flowers Nothing
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"You did nothing wrong," you say. "It's my fault for being disappointing."
+<<elseif $speech_attitude is "bratty">>
+	"Don't worry about it," you say. "It's my fault for winding you up."
+<<else>>
+	"Don't apologise," you say. "It's my fault."
+<</if>>
+<br><br>
+
+"I don't deserve you," Avery whispers. <<He>> squeezes you tight, flashes you another smile, then walks away.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links>>
+
+
+:: Mansion Return Flowers Silent
+<<effects>>
+
+Avery takes your silence as agreement. <<He>> squeezes you tight, flashes you another smile, then walks away.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links>>
+
+
+:: Mansion Return Flowers Refuse
+<<effects>>
+
+You walk around Avery as if <<he>> were a mere obstacle, leaving <<him>> stood alone with the flowers. You hear <<him>> crush them a few moments later.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links>>
+
+:: Mansion Return Flowers Smack
+<<effects>>
+
+You smack the roses out of Avery's hand. <<He>> sneers, and grasps your hair.<<gstress>><<stress 6>><<gpain>><<pain 4>>
+<br><br>
+"You think that's funny?" <<he>> says. "I bare my heart for you, and this is what I get?"
+<br><br>
+
+<<if hasSexStat("promiscuity", 2)>>
+	<<link [[Seduce|Mansion Return Flowers Seduce]]>><</link>><<promiscuous2>>
+	<br>
+<</if>>
+<<link [[Apologise|Mansion Return Flowers Apologise 2]]>><</link>>
+<br>
+<<link [[Remain silent|Mansion Return Flowers Silent 2]]>><</link>>
+<br>
+
+:: Mansion Return Flowers Apologise 2
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I'm sorry," you say. "Please let me go. You're hurting me."
+<<elseif $speech_attitude is "bratty">>
+	"It was a joke," you say. "I'm sorry. Come on."
+<<else>>
+	"I didn't mean to anger you," you say. "I'm sorry."
+<</if>>
+<br><br>
+
+Avery glances up and down your body, as if plotting something, but then <<he>> releases you. <<He>> walks away, throwing the roses aside as <<he>> does.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links>>
+
+:: Mansion Return Flowers Silent 2
+<<effects>>
+
+You remain silent. Avery glances up and down your body, as if planning something, but then <<he>> releases you. <<He>> walks away, throwing the roses aside as <<he>> does.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links>>
+
+:: Mansion Return Flowers Seduce
+<<effects>>
+
+<<set $seductiondifficulty to 10000>>
+<<seductioncheck>>
+<<seductionskilluptext>>
+<<seductionskilluse>>
+
+You half-close your eyes and lean into Avery, as if passing out.
+<<promiscuity2>>
+
+<<if $seductionrating gte $seductionrequired>>
+
+	<<He>> seems caught off-guard. <<He>> shifts to better support your weight, only for you to lean into <<him>> more. <<He>> soon has to cradle you. You grasp the back of <<his>> neck, and pull <<him>> closer.
+	<br><br>
+	<<link [[Next|Mansion Return Flowers Sex]]>><<set $sexstart to 1>><</link>>
+	<br>
+<<else>>
+
+	<<He>> releases you, letting you fall to the ground. <<He>> dumps the roses on top of you, and walks away.<<gpain>><<pain 4>>
+	<br><br>
+	<<endevent>>
+	<<avery_mansion_end_links>>
+<</if>>
+
+:: Mansion Return Flowers Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 100>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if _combatend>>
+	<span id="next"><<link [[Next|Mansion Return Flowers Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Return Flowers Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Return Flowers Sex Finish
+
+<<set $outside to 0>><<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Avery is still panting, but recovers <<his>> wits. "They don't respect me like they should. But that's not your fault." <<He>> puts the roses in a pot, and walks away.<<larage>><<npcincr Avery rage -1>>
+	<br><br>
+	<<tearful>> you catch your breath.
+	<br><br>
+<<elseif $enemyhealth lte 0>>
+	Avery tumbles to the ground, the roses falling after <<him>>. <<He>> climbs to <<his>> feet.
+	<br><br>
+	"Clean this up," <<he>> says, gesturing at the flowers. <<He>> adjusts <<his>> composure, and walks away. <<garage>><<ldom>><<npcincr Avery rage 1>><<npcincr Avery dom -1>>
+	<br><br>
+	<<tearful>> you catch your breath.
+	<br><br>
+<<else>>
+	Avery adjusts <<his>> composure, puts the roses in a pot, and walks away.
+	<br><br>
+	<<tearful>> you catch your breath.
+	<br><br>
+<</if>>
+<<clotheson>>
+<<endcombat>>
+<<avery_mansion_end_links>>
+
+
+:: Mansion Return Drink Accept
+<<effects>>
+<<set $outside to 0>>
+
+<<if $bus isnot "avery_lounge">>
+	You follow Avery into the lounge. <<He>> slumps into the sofa while you approach the drinks cabinet.
+<<else>>
+	Avery slumps into the sofa while you approach the drinks cabinet.
+	<<set $bus to "avery_lounge">>
+<</if>>
+It's very well-stocked. What shall you pour for Avery?
+<br><br>
+
+<<if playerIsPregnant() and playerAwareTheyArePregnant()>>
+	<input type="checkbox" checked disabled /> <span class="black">Pour one for yourself too</span>
+	<br>
+	<span class="blue small-description"><i>You can't bring yourself to drink while you know you're with child.</i></span>
+<<else>>
+	<label><<checkbox "$avery_mansion_drink_p" "f" "t">> Pour one for yourself too</label>
+<</if>>
+<br>
+
+<<foodicon "whisky">><<link [[Bourbon|Mansion Return Drink]]>><<set $avery_mansion_drink to "bourbon">><</link>>
+<br>
+<<foodicon "scotch">><<link [[Scotch|Mansion Return Drink]]>><<set $avery_mansion_drink to "scotch">><</link>>
+<br>
+<<foodicon "brandy">><<link [[Brandy|Mansion Return Drink]]>><<set $avery_mansion_drink to "brandy">><</link>>
+<br>
+<<foodstufficon "red_wine">><<link [[Red wine|Mansion Return Drink]]>><<set $avery_mansion_drink to "red">><</link>>
+<br>
+<<foodstufficon "white_wine">><<link [[White wine|Mansion Return Drink]]>><<set $avery_mansion_drink to "white">><</link>>
+<br>
+<<foodicon "cider">><<link [[Cider|Mansion Return Drink]]>><<set $avery_mansion_drink to "cider">><</link>>
+<br>
+
+:: Mansion Return Drink
+<<effects>>
+
+<<if $avery_mansion_drink_p is "t">>
+	You pour a glass of $avery_mansion_drink for Avery, and for yourself, while Avery rubs <<his>> temples with <<his>> eyes closed. <<He>> somehow knows when you're close, and reaches out to take it.
+	<br><br>
+<<else>>
+	You pour a glass of $avery_mansion_drink for Avery while <<he>> rubs <<his>> temples, eyes closed. <<He>> somehow knows when you're close, and reaches out to take it.
+	<br><br>
+<</if>>
+
+<<He>> takes a swig.
+<<switch $avery_mansion_drink>>
+	<<case "bourbon">>
+		<<wearProp "whisky">>
+		<<if Time.weekDay is 1>>
+			"Ahh, bourbon. Just what I needed."<<gglove>><<npcincr Avery love 3>>
+		<<else>>
+			"Mmm. Bourbon. Can't go wrong."<<glove>><<npcincr Avery love 1>>
+		<</if>>
+	<<case "scotch">>
+		<<wearProp "scotch">>
+		<<if Time.weekDay is 2>>
+			"There's a time and place for scotch," <<he>> says, taking another swig. "Here and now."<<gglove>><<npcincr Avery love 3>>
+		<<else>>
+			"Scotch? Can't say it's what I'd have chosen." <<He>> takes another swig regardless.
+		<</if>>
+	<<case "brandy">>
+		<<wearProp "brandy">>
+		<<if Time.weekDay is 3>>
+			"Perfect time for brandy," <<he>> says, taking another swig.<<gglove>><<npcincr Avery love 3>>
+		<<else>>
+			"Brandy eh," <<he>> says, taking another sip. "Not in the mood for it, but a drink's a drink."
+		<</if>>
+	<<case "red">>
+		<<wearProp "red wine">>
+		<<if Time.weekDay is 4>>
+			"Nothing like a glass of red," <<he>> says, reclining.<<gglove>><<npcincr Avery love 3>>
+		<<else>>
+			"Not my usual time for red," <<he>> says. "Does the job I suppose."
+		<</if>>
+	<<case "white">>
+		<<wearProp "white wine">>
+		<<if Time.weekDay is 5>>
+			"Good vintage," <<he>> says. "Thanks dear."<<gglove>><<npcincr Avery love 3>>
+		<<else>>
+			"Doesn't seem the time for white wine," <<he>> says. "But a drink's a drink."
+		<</if>>
+	<<case "cider">>
+		<<wearProp "cider">>
+		<<if Time.weekDay is 6>>
+			"Ahh," <<he>> says. "Refreshing cider."<<gglove>><<npcincr Avery love 3>>
+		<<else>>
+			"I could have used something stronger," <<he>> says.
+		<</if>>
+<</switch>>
+<br><br>
+
+<<if $avery_mansion_drink_p is "t">>
+	<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed is 1>>
+		<<His>> eyes narrow on your glass. "Did I say you could drink?"<<gstress>><<stress 6>>
+		<br><br>
+
+		<<link [[Put the drink back|Mansion Return Drink Back]]>><<npcincr Avery dom 1>><</link>><<gdom>>
+		<br>
+		<<link [[Put the drink back and apologise|Mansion Return Drink Apologise]]>><<npcincr Avery dom 3>><<stress -6>><</link>><<ggdom>><<lstress>>
+		<br>
+		<<link [[Provoke|Mansion Return Drink Provoke]]>><<npcincr Avery dom -1>><<npcincr Avery rage 1>><</link>><<garage>><<ldom>>
+		<br>
+		<<link [[Gulp it down|Mansion Return Drink Drink]]>><<npcincr Avery dom -1>><<npcincr Avery rage 1>><</link>><<garage>><<ldom>>
+		<br>
+
+	<<else>>
+		<<He>> watches you take a sip of yours, but doesn't say anything.<<lstress>><<galcohol>><<stress -6>><<alcohol 60>>
+		<br><br>
+
+		<<unset $avery_mansion_drink>>
+		<<unset $avery_mansion_drink_p>>
+		<<endevent>>
+		<<link [[Next|Mansion Lounge]]>><</link>>
+	<</if>>
+<<else>>
+
+	<<unset $avery_mansion_drink>>
+	<<unset $avery_mansion_drink_p>>
+	<<endevent>>
+	<<link [[Next|Mansion Lounge]]>><</link>>
+<</if>>
+
+:: Mansion Return Drink Back
+<<effects>>
+
+You return to the drinks cabinet, and pour yours back into the bottle. Avery nods, satisfied.
+<br><br>
+
+<<unset $avery_mansion_drink>>
+<<unset $avery_mansion_drink_p>>
+<<endevent>>
+<<link [[Next|Mansion Lounge]]>><</link>>
+
+:: Mansion Return Drink Apologise
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I'm sorry," you say, returning to the drinks cabinet. "I forgot my place." You pour your drink back into the bottle. Avery nods in satisfaction.
+<<elseif $speech_attitude is "bratty">>
+	"Sorry," you say, returning to the drinks cabinet. "If you don't want a drinking partner, fine." You pour your drink back into the bottle. Avery nods in satisfaction.
+<<else>>
+	"Sorry," you say, returning to the drinks cabinet. "I thought it would be okay." You pour your drink back into the bottle. Avery nods in satisfaction.
+<</if>>
+<br><br>
+
+<<unset $avery_mansion_drink>>
+<<unset $avery_mansion_drink_p>>
+<<endevent>>
+<<link [[Next|Mansion Lounge]]>><</link>>
+
+:: Mansion Return Drink Provoke
+<<effects>>
+<<switch $avery_mansion_drink>>
+	<<case "bourbon">>
+		<<wearProp "whisky">>
+	<<case "scotch">>
+		<<wearProp "shot">>
+	<<case "brandy">>
+		<<wearProp "brandy">>
+	<<case "red">>
+		<<wearProp "red wine">>
+	<<case "white">>
+		<<wearProp "white wine">>
+	<<case "cider">>
+		<<wearProp "autumn ale">>
+<</switch>>
+You look Avery in the eyes, and take a sip.
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I only want a little," you say.
+<<elseif $speech_attitude is "bratty">>
+	"You didn't," you say. "Is that supposed to matter?"
+<<else>>
+	"What's yours is mine," you say.
+<</if>>
+<br><br>
+
+Avery puts <<his>> glass to the side, and rises to <<his>> feet. <<He>> steps closer. "Put the glass down." <<He>> seizes your hair. "Or else."
+<br><br>
+
+<<link [[Apologise|Mansion Return Drink Apologise 2]]>><<npcincr Avery dom 3>><<npcincr Avery rage -1>><</link>><<ggdom>><<larage>>
+<br>
+<<link [[Drink|Mansion Return Drink Drink 2]]>><<npcincr Avery rage 1>><<npcincr Avery dom -1>><</link>><<garage>><<ldom>>
+<br>
+
+:: Mansion Return Drink Apologise 2
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"You're hurting me," you say. "I'll put the drink back. Just let go."
+<<elseif $speech_attitude is "bratty">>
+	"Alright," you say. "You've made your point. Let me go and I'll put the drink back."
+<<else>>
+	"I'll do it," you say. "Just let me go."
+<</if>>
+<br><br>
+
+Avery releases you, and watches as you pour the drink back into the bottle.
+<br><br>
+
+<<He>> returns to <<his>> own drink, and sips it with a satisfied smile.
+<br><br>
+
+<<unset $avery_mansion_drink>>
+<<unset $avery_mansion_drink_p>>
+<<endevent>>
+<<link [[Next|Mansion Lounge]]>><</link>>
+
+:: Mansion Return Drink Drink
+<<effects>>
+<<switch $avery_mansion_drink>>
+	<<case "bourbon">>
+		<<wearProp "whisky">>
+	<<case "scotch">>
+		<<wearProp "shot">>
+	<<case "brandy">>
+		<<wearProp "brandy">>
+	<<case "red">>
+		<<wearProp "red wine">>
+	<<case "white">>
+		<<wearProp "white wine">>
+	<<case "cider">>
+		<<wearProp "autumn ale">>
+<</switch>>
+
+You pour the entire drink down your throat.
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed is 1>>
+	Avery shatters the glass in <<his>> hand, and lunges at you.<<galcohol>><<alcohol 60>>
+	<br><br>
+
+	<<link [[Next|Mansion Return Drink Rape]]>><<set $molestationstart to 1>><</link>>
+	<br>
+<<else>>
+	Avery watches, <<his>> eyes full of malice, but <<he>> doesn't say anything. <<He>> finishes <<his>> own drink, slams it on the table so hard it almost shatters, then walks away.
+	<br><br><<unset $avery_mansion_drink>>
+	<<unset $avery_mansion_drink_p>>
+	<<endevent>>
+	<<link [[Next|Mansion Lounge]]>><</link>>
+<</if>>
+
+
+:: Mansion Return Drink Drink 2
+<<effects>>
+<<switch $avery_mansion_drink>>
+	<<case "bourbon">>
+		<<wearProp "whisky">>
+	<<case "scotch">>
+		<<wearProp "shot">>
+	<<case "brandy">>
+		<<wearProp "brandy">>
+	<<case "red">>
+		<<wearProp "red wine">>
+	<<case "white">>
+		<<wearProp "white wine">>
+	<<case "cider">>
+		<<wearProp "autumn ale">>
+<</switch>>
+
+You look Avery dead in the eyes, and pour the drink down your throat. <<He>> waits until you finish, only tightening <<his>> grip in the meantime.
+<br><br>
+"You fucking brat," <<he>> says. "If you need a lesson that badly, so be it."
+<br><br>
+
+<<link [[Next|Mansion Return Drink Rape]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Mansion Return Drink Rape
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>><<set $enemyanger += 50>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Mansion Return Drink Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Return Drink Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Return Drink Rape Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Satisfied, Avery returns to <<his>> drink as if nothing were amiss.<<gdom>><<larage>><<npcincr Avery dom 1>><<npcincr Avery rage -1>>
+	<br><br>
+	<<tearful>> you climb to your feet.
+	<br><br>
+<<elseif $enemyhealth lte 0>>
+	Avery trips over the table, and almost crashes through it. <<tearful>> use the opportunity to put some distance between you and <<he>>. <<He>> climbs to <<his>> feet and glares at you, then
+	<<if $bus is "avery_lounge">>
+		approaches the drinks cabinet.
+	<<else>>
+		leaves the room.
+	<</if>>
+	<<garage>><<ldom>><<npcincr Avery rage 1>><<npcincr Avery dom -1>><<avery_housework_change lounge 1>>
+	<br><br>
+<</if>>
+<<clotheson>>
+
+<<unset $avery_mansion_drink>>
+<<unset $avery_mansion_drink_p>>
+<<endcombat>>
+<<endevent>>
+<<link [[Next|Mansion Lounge]]>><</link>>
+<br>
+
+:: Mansion Return Drink Polite
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I couldn't make the drink as well as you," you say.
+<<elseif $speech_attitude is "bratty">>
+	"I've been on my feet all day," you say. "The drinks cabinet is right over there if you want to sort yourself out though."
+<<else>>
+	"I'm sure you've been busy," you say. "But can't you make your own drink?"
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed is 1>>
+	"I didn't ask for your opinion," Avery says, stepping closer. "Make me a drink. I won't tell you again."<<gstress>><<stress 6>>
+	<br><br>
+
+	<<link [[Make Avery a drink|Mansion Return Drink Accept]]>><<npcincr Avery dom 1>><</link>><<gdom>>
+	<br>
+	<<link [[Refuse|Mansion Return Drink Refuse]]>><<npcincr Avery rage 1>><</link>><<garage>>
+	<br>
+<<else>>
+	Avery looks at you a moment, before
+	<<if $bus is "avery_lounge">>
+		approaching the drinks cabinet <<himself>>.
+	<<else>>
+		walking towards the lounge.
+	<</if>>
+	<br><br>
+	<<endevent>>
+	<<avery_mansion_end_links>>
+<</if>>
+
+:: Mansion Return Drink Refuse
+<<effects>>
+
+<<if $speech_attutude is "meek" or $speech_attitude_avery>>
+	"I'm sorry," you say. "I don't want to."
+<<elseif $speech_attitude is "bratty">>
+	"You won't tell me again?" you ask. "Sounds good."
+<<else>>
+	"You can pour your own drink," you say. "It's not hard."
+<</if>>
+<br><br>
+
+Avery glares at you a moment, before tearing <<his>> gaze away, and pouring <<himself>> a glass of bourbon. <<He>> downs it in one gulp, then pours another.
+<br><br>
+
+	<<endevent>>
+	<<avery_mansion_end_links>>
+
+:: Mansion Return Drink Blunt
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"You should get your own drink," you say.
+<<elseif $speech_attitude is "bratty">>
+	"Get your own damn drink," you say. "It's not hard."
+<<else>>
+	"I'm busy," you say. "You know where the drinks are."
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed is 1>>
+	"Watch your fucking tone," Avery says, stepping closer. "Make me a drink. Or else."<<gstress>><<stress 6>>
+	<br><br>
+
+	<<link [[Make Avery a drink|Mansion Return Drink Accept]]>><<npcincr Avery dom 1>><</link>><<gdom>>
+	<br>
+	<<link [[Refuse|Mansion Return Drink Refuse]]>><<npcincr Avery rage 1>><</link>><<garage>>
+	<br>
+<<else>>
+	Avery stares at you a moment, before
+	<<if $bus is "avery_lounge">>
+		approaching the drinks cabinet <<himself>>.
+	<<else>>
+		walking towards the lounge.
+	<</if>>
+	<br><br>
+	<<endevent>>
+	<<avery_mansion_end_links>>
+<</if>>
+
+:: Mansion Return Massage Accept
+<<effects>>
+<<set $outside to 0>>
+
+<<if $bus is "avery_bathroom">>
+	"Oils are in there," Avery says, gesturing at a cupboard while disrobing.
+<<else>>
+	You accompany Avery to the bathroom. "Oils are in there," Avery says, gesturing at a cupboard while disrobing.
+<</if>>
+<br><br>
+
+How do you want to behave?
+<br><br>
+
+<<link [[Cute|Mansion Return Massage Cute]]>><<npcincr Avery love 1>><</link>><<glove>>
+<br>
+<<link [[Sophisticated|Mansion Return Massage Sophisticated]]>><<npcincr Avery dom -1>><</link>><<ldom>>
+<br>
+<<link [[Alluring|Mansion Return Massage Alluring]]>><<npcincr Avery rage -1>><</link>><<larage>>
+<br>
+
+:: Mansion Return Massage Cute
+<<effects>>
+
+"I won't keep you waiting," you say, choosing the right oils from the cupboard. Avery is naked when you turn, and lying on <<his>> front. "Oh my!"
+<br><br>
+
+You can tell Avery is smiling. "You don't need to be shy. Or gentle."
+<br><br>
+You squirt oil on your hands, and rub it into <<his>> back. You feel the muscles beneath <<his>> skin, taut from stress.
+<br><br>
+
+How should you proceed?
+<br><br>
+
+<<link [[Play it safe|Mansion Return Massage Cute Safe]]>><</link>>
+<br>
+<<link [[Do it properly|Mansion Return Massage Cute Proper]]>><</link>><<skill_difficulty `currentSkillValue("handskill")` "Hand Skill" 1 600>>
+<br>
+<<link [[Cause as much pain as you can get away with|Mansion Return Massage Cute Pain]]>><<npcincr Avery rage 1>><<npcincr Avery dom -1>><</link>><<garage>><<ldom>>
+<br>
+
+:: Mansion Return Massage Cute Safe
+<<effects>>
+
+"I'll be as rough as I can," you lie. You knead Avery's back, doing little to unknot <<his>> muscles, but <<he>> doesn't seem to mind.
+<br><br>
+
+"That spa at the hot spring," <<he>> says without opening <<his>> eyes. "I knew a <<girl>> who worked there. Pretty, but not pretty like you. I wonder what became of <<phim>>."
+<br><br>
+
+<<link [[Next|Mansion Return Massage Cute 2]]>><</link>>
+<br>
+
+:: Mansion Return Massage Cute 2
+<<effects>>
+
+<<if $worn.upper.name isnot "naked" or $worn.lower.name isnot "naked" or $worn.under_upper.name isnot "naked" or $worn.under_lower.name isnot "naked">>
+	<<He>> grasps your arm all of a sudden, one eye open. "Where are my manners?" <<he>> says, sitting upright. "Undress. I'll show you how it's done."
+	<br><br>
+
+	<<if hasSexStat("exhibitionism", 4)>>
+		<<link [[Strip naked|Mansion Return Massage Cute Naked]]>><<strip>><</link>><<exhibitionist4>>
+		<br>
+	<</if>>
+	<<if hasSexStat("exhibitionism", 2) and ($worn.under_lower.name isnot "naked" and ($worn.under_upper.name isnot "naked" or $player.gender_appearance is "m"))>>
+		<<link [[Strip to your underwear|Mansion Return Massage Cute Undies]]>><<upperstrip>><<lowerstrip>><<handheldstrip>><<feetstrip>><<legsstrip>><</link>><<exhibitionist2>>
+		<br>
+	<</if>>
+	<<link [[Say you're too shy|Mansion Return Massage Cute Shy]]>><</link>>
+	<br>
+<<else>>
+	<<He>> grasps your arm all of a sudden, one eye open. "Where are my manners?" <<he>> says, sitting upright. "I'll show you how it's done."
+	<br><br>
+
+	<<link [[Lie on the table|Mansion Return Massage Cute Lie]]>><</link>>
+	<br>
+	<<link [[Refuse|Mansion Return Massage Cute Refuse]]>><<npcincr Avery rage 1>><</link>><<garage>>
+	<br>
+<</if>>
+
+:: Mansion Return Massage Cute Refuse
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"It's proper for you to be the one getting a massage," you say. "I don't deserve one."
+<<elseif $speech_attitude is "bratty">>
+	"I'm more interested in touching than being touched right now," you say.
+<<else>>
+	"I'm not in the mood for a massage right now," you say.
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed is 1>>
+	Avery responds with a hard smack to your <<bottom>>. "On the table. Now."<<gpain>><<gtrauma>><<gstress>><<trauma 6>><<stress 6>><<pain 4>>
+	<br><br>
+
+	<<link [[Lie on the table|Mansion Return Massage Cute Lie]]>><<npcincr Avery dom 1>><</link>><<gdom>>
+	<br>
+	<<link [[Refuse again|Mansion Return Massage Cute Refuse 2]]>><</link>>
+	<br>
+<<else>>
+	"Fine," Avery replies. "That'll do for now." <<He>> wraps a towel around <<his>> nudity, and enters the bedroom.
+	<br><br>
+
+	<<link [[Next|Mansion Bathroom]]>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Return Massage Cute Shy
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I can't undress in front of you!" you say. "I'm far too shy."
+<<elseif $speech_attitude is "bratty">>
+	"Your being naked is one thing," you say. "Both of us naked is quite another."
+<<else>>
+	"I'm far too shy to undress," you say.
+<</if>>
+<br><br>
+
+"Then allow me," Avery says, grasping your clothes.
+<br><br>
+
+<<link [[Allow|Mansion Return Massage Cute Strip]]>><<shavestrip>><<handheldstrip>><<stress 6>><<arousal 600>><<npcincr Avery dom 1>><</link>><<gstress>><<garousal>><<gdom>>
+<br>
+<<link [[Refuse|Mansion Return Massage Cute Refuse]]>><</link>>
+<br>
+
+:: Mansion Return Massage Cute Strip
+<<effects>>
+
+You allow Avery to remove your clothes. <<Hes>> in no hurry, stopping to admire your skin as it's exposed. <<covered>>
+<br><br>
+
+<<He>> examines your body while waiting for you to climb onto the table.
+<br><br>
+
+<<link [[Next|Mansion Return Massage Cute Lie]]>><</link>>
+<br>
+
+:: Mansion Return Massage Cute Undies
+<<effects>>
+
+You remove your clothing, stripping down to your underwear. Avery eyes you up all the while. "No chance I could convince you to strip further?" <<he>> grins. "Don't worry. Baby steps. Lie on the table."
+<<exhibitionism2>>
+
+<<link [[Next|Mansion Return Massage Cute Lie]]>><</link>>
+<br>
+
+:: Mansion Return Massage Cute Naked
+<<effects>>
+
+You remove your clothing while Avery watches with <<his>> arms folded, still naked <<himself>>. <<covered>>
+<<exhibitionism4>>
+
+"Good," <<he>> says, smiling. "Now lie down."
+<br><br>
+
+<<link [[Next|Mansion Return Massage Cute Lie]]>><</link>>
+<br>
+
+:: Mansion Return Massage Cute Lie
+<<effects>>
+
+You lie down on the table, exposing your back to Avery. You hear <<him>> clap <<his>> hands together. "Just relax," <<he>> says. "I won't be offended if you fall asleep."
+<br><br>
+
+<<His>> hands travel the length of your back, rubbing the oil into your skin. Pleasure erupts wherever <<his>> fingers roam. <<Hes>> experienced.
+<br><br>
+
+"Satisfied?" <<he>> whispers, an inch from your ear. "My turn."
+<br><br>
+
+<<link [[Next|Mansion Return Massage Sex]]>><<set $sexstart to 1>><</link>>
+<br>
+
+:: Mansion Return Massage Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 100>>
+	<<prop table>>
+	<<npcexpose>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if _combatend>>
+	<span id="next"><<link [[Next|Mansion Return Massage Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Return Massage Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Return Massage Sex Finish
+
+<<set $outside to 0>><<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	<<if _averyEnjoyedSelfDialogue>>
+		"Thank you for the wonderful time," Avery says, wrapping a towel <<his>> body.
+	<<else>>
+		"Hope you enjoyed that," Avery says, wrapping a towel around <<his>> body. "I know I did."
+	<</if>>
+	<<larage>><<glove>><<npcincr Avery rage -1>><<npcincr Avery love 1>>
+	<br><br>
+	<<tearful>> you climb off the table.
+	<br><br>
+<<elseif $enemyhealth lte 0>>
+	You shove Avery away from you. <<He>> almost falls into the bath. <<He>> glares at you, then walks into the bedroom without a word.<<garage>><<ldom>><<npcincr Avery rage 1>><<npcincr Avery dom -1>>
+	<br><br>
+	<<tearful>> you climb off the table.
+	<br><br>
+<<else>>
+	"Too intense for you?" Avery smirks. "I'll give you a moment to recover." <<He>> leaves the room, not stopping to cover <<his>> nudity.
+	<br><br>
+	<<tearful>> you recover.
+	<br><br>
+<</if>>
+<<clotheson>>
+<<endcombat>>
+<<link [[Next|Mansion Bedroom]]>><</link>>
+
+:: Mansion Return Massage Cute Refuse 2
+<<effects>>
+
+You open your mouth to refuse, but Avery anticipates your words. <<He>> shoves you onto the table.
+<br><br>
+
+<<link [[Next|Mansion Return Massage Rape]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Mansion Return Massage Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+	<<prop table>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Mansion Return Massage Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Return Massage Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Return Massage Rape Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Avery leaves you lying on the table.
+	<br><br>
+	<<tearful>> you drop to your feet.
+	<br><br>
+
+<<elseif $enemyhealth lte 0>>
+	You shove Avery away from you. <<He>> almost falls in the bath. <<He>> glares at you a moment, then walks away.
+	<br><br>
+	<<tearful>> you drop to your feet.
+	<br><br>
+<</if>>
+
+<<clotheson>>
+<<endcombat>>
+
+<<link [[Next|Mansion Bathroom]]>><</link>>
+<br>
+
+
+:: Mansion Return Massage Cute Proper
+<<effects>>
+
+You focus on unknotting the muscles in Avery's back, your hands firm and sure.
+<br><br>
+<<if currentSkillValue("handskill") gte random(1, 600)>>
+	"I hope you like it," you say. <span class="green">Avery responds with a gentle moan.</span><<glove>><<ldom>><<larage>><<npcincr Avery love 1>><<npcincr Avery dom -1>><<npcincr Avery rage -1>>
+	<br><br>
+	<<link [[Next|Mansion Return Massage Cute 2]]>><</link>>
+	<br>
+<<else>>
+	<span class="red">"Ow!"</span> Avery says, eyes open at once.
+
+	<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+		"What the fuck's wrong with you?" <<He>> rises, and grasps your arm. "It doesn't matter. There's a better way you can help with my stress."
+		<br><br>
+
+		<<link [[Next|Mansion Return Massage Rape]]>><<set $molestationstart to 1>><</link>>
+		<br>
+	<<else>>
+		"You need to be more careful."<<garage>><<llove>><<npcincr Avery rage 1>><<npcincr Avery love -1>>
+		<br><br>
+
+		<<link [[Next|Mansion Return Massage Cute 2]]>><</link>>
+		<br>
+	<</if>>
+<</if>>
+
+:: Mansion Return Massage Cute Pain
+<<effects>>
+
+You assault Avery's back, poking and proding, observing <<his>> reactions so you don't push <<him>> too far. <<He>> bears it with practised stoicism. For a while.
+<br><br>
+
+"Ow!"
+<br><br>
+
+"Would you like me to be more gentle?" You give <<him>> a sweet smile.
+<br><br>
+
+<<link [[Next|Mansion Return Massage Cute 2]]>><</link>>
+<br>
+
+
+:: Mansion Return Massage Sophisticated
+<<effects>>
+
+"I'll be right with you," you say, choosing the right oils from the cupboard. Avery is naked when you turn, and lying on <<his>> front.
+<br><br>
+
+"Please relax," you say, rubbing the oil between your hands, then onto <<his>> back. <<His>> muscles feel tight.
+<br><br>
+
+How should you proceed?
+<br><br>
+
+<<link [[Play it safe|Mansion Return Massage Sophisticated Safe]]>><</link>>
+<br>
+<<link [[Do it properly|Mansion Return Massage Sophisticated Proper]]>><</link>><<skill_difficulty `currentSkillValue("handskill")` "Hand Skill" 1 600>>
+<br>
+<<link [[Cause as much pain as you can get away with|Mansion Return Massage Sophisticated Pain]]>><<npcincr Avery rage 1>><<npcincr Avery dom -1>><</link>><<garage>><<ldom>>
+<br>
+
+:: Mansion Return Massage Sophisticated Safe
+<<effects>>
+
+You massage Avery's back, focusing on knots without pushing too hard.
+<br>
+"Is everything satisfactory?"
+<br>
+"Mmm."
+<br><br>
+
+<<link [[Next|Mansion Return Massage Sophisticated 2]]>><</link>>
+<br>
+
+:: Mansion Return Massage Sophisticated Proper
+<<effects>>
+
+You begin with Avery's legs, and work your way up, focusing on <<his>> knotted muscles. They require a bit of force.
+<br><br>
+
+<<if currentSkillValue("handskill") gte random(1, 600)>>
+	If Avery's pleasured moans are anything to go by, <span class="green">you're doing a good job.</span><<glove>><<ldom>><<larage>><<npcincr Avery love 1>><<npcincr Avery dom -1>><<npcincr Avery rage -1>>
+	<br><br><<link [[Next|Mansion Return Massage Sophisticated 2]]>><</link>>
+	<br>
+<<else>>
+	<span class="red">Ow!</span> Avery says.<<llove>><<garage>><<npcincr Avery love -1>><<npcincr Avery rage 1>>
+	<br><br>
+	"Did that hurt?" you ask. "Forgive my lapse."
+	<br><br>
+	<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+		"Did that hurt?" Avery says, rising in a rage. "I'll show you hurt."
+		<br><br>
+
+		<<link [[Next|Mansion Return Massage Rape]]>><<set $molestationstart to 1>><</link>>
+		<br>
+	<<else>>
+		"Just be more careful."
+		<br><br>
+		<<link [[Next|Mansion Return Massage Sophisticated 2]]>><</link>>
+		<br>
+	<</if>>
+<</if>>
+
+
+
+:: Mansion Return Massage Sophisticated Pain
+<<effects>>
+
+Until you jab your elbow between Avery's shoulder blades.
+<br><br>
+"Ow!"
+<br><br>
+"If this is too painful," you say. "Perhaps massage isn't for you."
+<br><br>
+
+<<link [[Next|Mansion Return Massage Sophisticated 2]]>><</link>>
+<br>
+
+:: Mansion Return Massage Sophisticated 2
+<<effects>>
+
+<<if $worn.upper.name isnot "naked" or $worn.lower.name isnot "naked" or $worn.under_upper.name isnot "naked" or $worn.under_lower.name isnot "naked">>
+	"Let's try something more," Avery pauses. "Intense." <<He>> sits upright. "Hand me that bottle, and undress."
+	<br><br>
+
+	<<if hasSexStat("exhibitionism", 4)>>
+		<<link [[Strip naked|Mansion Return Massage Sophisticated Naked]]>><<clothesstrip>><</link>><<exhibitionist4>>
+		<br>
+	<</if>>
+	<<if hasSexStat("exhibitionism", 2) and ($worn.under_lower.name isnot "naked" and ($worn.under_upper.name isnot "naked" or $player.gender_appearance is "m"))>>
+		<<link [[Strip to your underwear|Mansion Return Massage Sophisticated Undies]]>><<upperstrip>><<lowerstrip>><<handheldstrip>><<feetstrip>><<legsstrip>><</link>><<exhibitionist2>>
+		<br>
+	<</if>>
+	<<link [[Say you're too shy|Mansion Return Massage Sophisticated Shy]]>><</link>>
+	<br>
+<<else>>
+	"Let's try something more," Avery pauses. "Intense." <<He>> sits upright. "Hand me that bottle."
+	<br><br>
+
+	<<He>> squirts out a liberal helping, and lathers it over your body. <<He>> squirts out more, this time onto your body directly. <<He>> squeezes the bottle empty, discards it, and rubs <<his>> hands all over you.
+	<<outergoo>>
+	<br><br>
+
+	<<link [[Next|Mansion Return Massage Sophisticated 3]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Return Massage Sophisticated Naked
+<<effects>>
+
+You remove your clothing. Avery watches as if appraising you. <<covered>>
+<<exhibitionism4>>
+
+"Good. Hand me that bottle." <<He>> squirts out a liberal helping, and lathers it over your body. <<He>> squirts out more, this time onto your body directly. <<He>> squeezes the bottle empty, discards it, and rubs <<his>> hands all over you.
+<<outergoo>>
+<br><br>
+
+<<link [[Next|Mansion Return Massage Sophisticated 3]]>><</link>>
+<br>
+
+:: Mansion Return Massage Sophisticated Undies
+<<effects>>
+
+You strip to your underwear. Avery watches as if appriasing you. <<covered>>
+<<exhibitionism2>>
+
+"Keeping the underwear? Fine. Hand me that bottle." <<He>> squirts out a liberal helping, and lathers it over your body. <<He>> squirts out more, this time onto your body directly. <<He>> squeezes the bottle empty, discards it, and rubs <<his>> hands all over you.
+<<outergoo>>
+<br><br>
+
+<<link [[Next|Mansion Return Massage Sophisticated 3]]>><</link>>
+<br>
+
+:: Mansion Return Massage Sophisticated Shy
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I can't undress like you," you say. "I'm not hot enough."
+<<elseif $speech_attitude is "bratty">>
+	"I'm the one giving the massage here," you say.
+<<else>>
+	"I don't think it's appropriate for me to undress too," you say.
+<</if>>
+<br><br>
+
+"Nonsense," Avery says, grasping your clothes. "Here. Allow me."
+<br><br>
+
+<<link [[Allow|Mansion Return Massage Sophisticated Strip]]>><<shavestrip>><<handheldstrip>><<stress 6>><<arousal 600>><<npcincr Avery dom 1>><</link>><<gstress>><<garousal>><<gdom>>
+<br>
+<<link [[Refuse|Mansion Return Massage Sophisticated Refuse]]>><<npcincr Avery rage 1>><</link>><<garage>>
+<br>
+
+
+:: Mansion Return Massage Sophisticated Strip
+<<effects>>
+
+You allow Avery to remove your clothing. <<Hes>> in no hurry. <<He>> leers at your body as it's revealed. <<covered>>
+<br><br>
+
+"Good. Hand me that bottle." <<He>> squirts out a liberal helping, and lathers it over your body. Then <<he>> squeezes the bottle onto you directly, and doesn't stop until its empty. <<He>> rubs <<his>> hands all over you.
+<<outergoo>>
+<br><br>
+
+<<link [[Next|Mansion Return Massage Sophisticated 3]]>><</link>>
+<br>
+
+:: Mansion Return Massage Sophisticated Refuse
+<<effects>>
+
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+	Avery anticipates your words. "Let's skip to the end." <<He>> grasps your arm, and pulls you onto the table.<<gtrauma>><<gstress>><<trauma 6>><<stress 6>>
+	<br><br>
+
+	<<link [[Next|Mansion Return Massage Rape]]>><<set $molestationstart to 1>><</link>>
+	<br>
+<<else>>
+	Avery anticipates your words. "Fine." <<He>> stands, and wraps a towel around <<his>> body before entering the bedroom. "Maybe next time."
+	<br><br>
+
+	<<link [[Next|Mansion Bathroom]]>><<endevent>><</link>>
+	<br>
+<</if>>
+
+
+:: Mansion Return Massage Sophisticated 3
+<<effects>>
+
+Avery ends by grasping a towel, and tying your wrists together behind your back. It's not tight. You could pull free if you wanted to.
+<br><br>
+
+<<He>> lies down again. "Massage me now," <<he>> says. "Without using your hands."
+<br><br>
+
+<<link [[Next|Mansion Return Massage Sophisticated 4]]>><</link>>
+<br><br>
+
+:: Mansion Return Massage Sophisticated 4
+<<effects>>
+
+You climb atop Avery, and rest your <<breasts>> against <<his>> back. You move your body forward and backward, the thick oil making you slide. Keeping balanced would be easier with arms. You suspect an actual massage would be more pleasurable for <<him>>, yet you feel Avery's pulse quicken.
+<br><br>
+
+<<He>> turns, and pulls you into an embrace.
+<br><br>
+
+<<link [[Allow|Mansion Return Massage Sex]]>><<set $sexstart to 1>><</link>>
+<br>
+<<link [[Refuse|Mansion Return Massage Sophisticated Refuse 2]]>><</link>>
+<br>
+
+
+:: Mansion Return Massage Sophisticated Refuse 2
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Not now," you say. "I'm too slimy."
+<<elseif $speech_attitude is "bratty">>
+	"Not now," you say. "I'm too slippery. If you squeeze me I'll shoot across the room."
+<<else>>
+	"Not now," you say. "It would be slimy and improper."
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+	"You're in no position to refuse," Avery says.<<gtrauma>><<gstress>><<trauma 6>><<stress 6>>
+	<br><br>
+	<<link [[Next|Mansion Return Massage Rape]]>><<set $molestationstart to 1>><</link>>
+	<br>
+<<else>>
+	"You're such a tease. Fine." Avery pushes you away, rises, and wraps a towel around <<his>> body before entering the bedroom.
+	<br><br>
+	<<link [[Next|Mansion Bathroom]]>><<clotheson>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Return Massage Alluring
+<<effects>>
+
+Avery is naked when you turn, and lying on <<his>> front.
+<br><br>
+
+"What a treat," you whisper, rubbing the oil between your hands, then into <<his>> toned bottom. "I think I'll enjoy this as much as you."
+<br><br>
+
+How should you proceed?
+<br><br>
+
+<<link [[Play it safe|Mansion Return Massage Alluring Safe]]>><</link>>
+<br>
+<<link [[Do it properly|Mansion Return Massage Alluring Proper]]>><</link>><<skill_difficulty `currentSkillValue("handskill")` "Hand Skill" 1 600>>
+<br>
+<<link [[Cause as much pain as you can get away with|Mansion Return Massage Alluring Pain]]>><<npcincr Avery rage 1>><<npcincr Avery dom -1>><</link>><<garage>><<ldom>>
+<br>
+
+:: Mansion Return Massage Alluring Safe
+<<effects>>
+
+You rub the oil into Avery's skin, and run your fingers over <<his>> tight muscles. You loosen them a little, but avoid causing pain.
+<br><br>
+You whisper to Avery while you work, asking <<him>> if everything is to <<his>> satisfaction. <<He>> murmurs assent.
+<br><br>
+
+<<link [[Next|Mansion Return Massage Alluring 2]]>><</link>>
+<br>
+
+:: Mansion Return Massage Alluring Proper
+<<effects>>
+
+You rub the oil into Avery's skin, and focus on <<his>> knotted muscles.
+<br><br>
+<<if currentSkillValue("handskill") gte random(1, 600)>>
+	You feel them loosen. If Avery's pleasured moans are anything to go by, <span class="green">you're doing a good job.</span><<glove>><<ldom>><<larage>><<npcincr Avery love 1>><<npcincr Avery dom -1>><<npcincr Avery rage -1>>
+	<br><br>
+	<<link [[Next|Mansion Return Massage Alluring 2]]>><</link>>
+	<br>
+<<else>>
+	<span class="red">Ow!</span> Avery says.<<llove>><<garage>><<npcincr Avery love -1>><<npcincr Avery rage 1>>
+	<br><br>
+	"Sorry," you say. "Your physique distracted me."
+	<br><br>
+	<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+		"I'll give you a fucking distraction," <<he>> says, grasping your arm.
+		<br><br>
+		<<link [[Next|Mansion Return Massage Rape]]>><<set $molestationstart to 1>><</link>>
+		<br>
+	<<else>>
+		"Just try to focus," <<he>> says, keeping one eye open.
+		<br><br>
+
+		<<link [[Next|Mansion Return Massage Alluring 2]]>><</link>>
+		<br>
+	<</if>>
+<</if>>
+
+
+:: Mansion Return Massage Alluring Pain
+<<effects>>
+
+You give <<his>> bottom muscles a lot of attention. <<His>> eyes snap open when you spank <<him>>. Perhaps that was too far.
+<br><br>
+
+"Sorry," you say, meeting <<his>> gaze. "I couldn't resist."
+<br><br>
+
+<<link [[Next|Mansion Return Massage Alluring 2]]>><</link>>
+<br>
+
+:: Mansion Return Massage Alluring 2
+<<effects>>
+
+Avery sits upright, and beckons for you to sit on the table. "Give me a show," <<he>> says, folding <<his>> arms and leaning against the wall.
+<br><br>
+
+<<link [["Ask what " + $NPCList[0].pronouns.he + " wants"|Mansion Return Massage Alluring Ask]]>><</link>>
+<br>
+<<if hasSexStat("exhibitionism", 5)>>
+	<<link [[Masturbate|Mansion Return Massage Masturbate]]>><<set $masturbationstart to 1>><<npcincr Avery dom 1>><<npcincr Avery rage -1>><<npcincr Avery love 1>><</link>><<exhibitionist5>><<gdom>><<larage>><<glove>>
+	<br>
+<</if>>
+
+
+:: Mansion Return Massage Alluring Ask
+<<effects>>
+
+"Isn't it obvious?" Avery asks. "Touch yourself. Masturbate for me."
+<br><br>
+
+<<if hasSexStat("exhibitionism", 5)>>
+	<<link [[Masturbate|Mansion Return Massage Masturbate]]>><<set $masturbationstart to 1>><<npcincr Avery dom 1>><<npcincr Avery love 1>><<npcincr Avery rage -1>><</link>><<exhibitionist5>><<gdom>><<larage>><<glove>>
+	<br>
+	<<link [[Say you're too shy (lie)|Mansion Return Massage Alluring Shy]]>><</link>>
+	<br>
+<<else>>
+	<<link [[Say you're too shy (truth)|Mansion Return Massage Alluring Shy]]>><</link>>
+	<br>
+<</if>>
+
+
+:: Mansion Return Massage Alluring Shy
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I'm far too shy for that!" you say.
+<<elseif $speech_attitude is "bratty">>
+	You fold your arms as well, and stare back at Avery. "You first."
+<<else>>
+	"That would be too lewd," you say.
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+	"Fine," Avery says, unfolding <<his>> arms and stepping closer. "I'll help."<<gtrauma>><<gstress>><<trauma 6>><<stress 6>>
+	<br><br>
+	<<link [[Next|Mansion Return Massage Rape]]>><<set $molestationstart to 1>><</link>>
+	<br>
+<<else>>
+	Avery smirks. "Perhaps another time, then." <<He>> wraps a towel around <<his>> body, and leaves the bathroom.
+	<br><br>
+	<<link [[Next|Mansion Bathroom]]>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Return Massage Masturbate
+<<effects>>
+<<if $masturbationstart is 1>>
+	<<set $masturbationstart to 0>>
+	<<set $masturbationstat += 1>>
+	<<set $timer to 40>>
+	/* TODO: Write flavour for Avery being impatient/enjoying the show? */
+	<<exhibitionism5>>
+	<<masturbationstart>>
+<</if>>
+
+Avery watches, arms folded, expression unreadable.
+<br><br>
+
+<<masturbationeffects>>
+<<masturbationactions>>
+<<masturbationControls "orgasmcurrent|timer">>
+
+:: Mansion Return Massage Masturbate Finish
+<<effects>>
+<<if $orgasmcurrent gte 1>>
+	<<endmasturbation>>
+	<<clotheson>>
+	<<endcombat>>
+	<<npc "Avery">><<person1>>
+	Avery claps <<his>> hands together twice. "Good show. Thank you." <<He>> wraps a towel around <<his>> body, and enters the bedroom.
+	<br><br>
+	<<link [[Next|Mansion Bedroom]]>><<endevent>><</link>>
+	<br>
+<<else>>
+	<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 100>>
+		<<endmasturbation>>
+		<<clotheson>>
+		<<endcombat>>
+		<<npc "Avery">><<person1>>
+		"You'll have to do better than that," Avery says, uncrossing <<his>> arms and stepping closer, malicious intent in <<his>> eyes.<<gtrauma>><<trauma 6>><<gstress>><<stress 6>>
+		<br><br>
+		<<link [[Next|Mansion Return Massage Rape]]>><<set $molestationstart to 1>><</link>>
+		<br>
+	<<else>>
+		<<endmasturbation>>
+		<<clotheson>>
+		<<endcombat>>
+		<<npc "Avery">><<person1>>
+		"That all?" Avery asks. "Shame." <<He>> wraps a towel around <<his>> body, and enters the bedroom.
+		<br><br>
+		<<link [[Next|Mansion Bathroom]]>><<endevent>><</link>>
+		<br>
+	<</if>>
+<</if>>
+
+:: Mansion Return Massage Polite
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I'm sorry," you say. "My hands are sore from all the housework."
+<<elseif $speech_attitude is "bratty">>
+	"I'd love to," you say. "But my hands are too rough from all the housework you have me doing."
+<<else>>
+	"Sorry," you say. "But my hands are tired from all the housework."
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed is 1>>
+	"Fine," Avery says, grasping your arm. "I can think of a quicker way to destress."
+	<br><br>
+
+	<<link [[Next|Mansion Return Massage Rape]]>><<set $molestationstart to 1>><</link>>
+	<br>
+<<else>>
+	Avery stares at you a moment, flexes the muscles in <<his>> hands, then walks away.
+	<br><br>
+
+	<<endevent>>
+	<<avery_mansion_end_links>>
+<</if>>
+
+
+:: Mansion Return Massage Blunt
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"There are other ways to relax," you point out. "There might be something you like on the telly."
+<<elseif $speech_attitude is "bratty">>
+	"I've been busy all day too," you say. "Maybe I should be the one getting a massage."
+<<else>>
+	"I'm tired too," you say. "Too tired to give a massage."
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed is 1>>
+	"Shut your mouth," Avery says, grasping your arm. "Or I'll shut it for you."
+	<br><br>
+
+	<<link [[Next|Mansion Return Massage Rape]]>><<set $molestationstart to 1>><</link>>
+	<br>
+<<else>>
+	Avery glares at you a moment, flexes the muscles in <<his>> hands, then walks away.
+	<br><br>
+
+	<<endevent>>
+	<<avery_mansion_end_links>>
+<</if>>
+
+
+:: Mansion Return Walk
+<<effects>>
+<<set $outside to 1>>
+
+Arms linked, Avery leads you through the garden, and outside the mansion grounds.
+
+<<if Weather.precipitation is "rain">>
+	Other pedestrians hurry about, umbrellas aloft.
+<<elseif Weather.precipitation is "snow">>
+	Other pedestrians trudge through the snow.
+<<else>>
+	Other pedestrians walk to and fro.
+<</if>>
+
+Some glance at Avery. <<His>> strides are long,
+<<if $physique gte 6000>>
+	but you're able to keep up with <<him>>.
+<<else>>
+	and it's hard to keep up with <<him>>.
+<</if>>
+<br><br>
+
+"It's a lovely neighbourhood," <<he>> says, making space for an elderly couple to pass. "No crime to speak of." <<He>> pauses. "I'd still prefer you not leave the mansion without me. Can't be too careful."
+<br><br>
+
+
+<<link [[Next|Mansion Return Walk 2]]>><<pass 10>><</link>>
+<br>
+
+:: Mansion Return Walk 2
+<<effects>>
+
+<<generate2>><<person2>>
+Avery leads you into a public garden, and you take a seat on a bench beside a churning river. Several people pass by, some with dogs, until a <<person>> stops in front of you.
+<br><br>
+
+<<rng 3>>
+<<if $rng gte 3>>
+	"Avery?" <<he>> says. "Fancy meeting you here."
+	<br>
+	Avery gives <<him>> a friendly smile. "Is it so odd? I live nearby."
+	<br>
+	"True, but I know how ragged they run you at that job of yours." <<He>> smiles at you. "I take it this pretty <<lass>> is your partner?" <<He>> holds out <<his>> hand.
+	<br><br>
+
+	<<link [[Take it|Mansion Return Walk Take]]>><</link>>
+	<br>
+	<<link [[Wait for Avery's response|Mansion Return Walk Wait]]>><<npcincr Avery dom 1>><</link>><<gdom>>
+	<br>
+	<<link [[Turn away|Mansion Return Walk Turn]]>><<npcincr Avery love 1>><</link>><<glove>>
+	<br>
+
+<<elseif $rng gte 2>>
+	"Why," <<he>> says. "If it isn't Avery!"
+	<br>
+	Avery returns a polite smile. "A pleasure, as always." <<person1>><<He>> wraps an arm around your shoulder, drawing the <<person2>><<persons>> attention your way.
+	<br>
+	"What a pretty thing. You Avery's <<girlfriend>>?"
+	<br><br>
+
+	<<link [[Say yes|Mansion Return Walk Yes]]>><<npcincr Avery love 1>><<npcincr Avery rage -1>><</link>><<glove>><<larage>>
+	<br>
+	<<link [[Avoid the question, but be polite|Mansion Return Walk Avoid]]>><</link>>
+	<br>
+	<<link [[Say no|Mansion Return Walk No]]>><<npcincr Avery love -1>><<npcincr Avery dom -1>><</link>><<llove>><<ldom>>
+	<br>
+<<else>>
+	"Avery?" <<he>> says. "Just who I wanted to see."
+	<br><br>
+	"Do I know you?" Avery asks.
+	<br>
+	"No. I mean yes. We met last spring. At one of the mayor's functions."
+	<br>
+	"Is that so? If you don't mind, my <<girlfriend>> and I are enjoying the view."
+	<br>
+	"Yes, sorry to bother you, but I need help with—"
+	<br><br>
+	Avery raises a silencing hand. The <<person>> glances at you, as if for help.
+	<br><br>
+	<<link [[Be sweet|Mansion Return Walk Sweet]]>><</link>>
+	<br>
+	<<link [[Be polite|Mansion Return Walk Polite]]>><</link>>
+	<br>
+	<<link [[Just stare|Mansion Return Walk Stare]]>><<npcincr Avery love 1>><</link>><<glove>>
+	<br>
+<</if>>
+
+:: Mansion Return Walk Take
+<<effects>>
+
+You take the <<persons>> hand. <<He>> bows, and lifts your fingers a little, planting a kiss on each one. Avery stiffens beside you.
+<br><br>
+
+The <<person>> catches something in Avery's eyes, and lets your hand drop. "Sorry old friend," <<he>> says. "I didn't realise <<pshe>> meant that much to you."
+<br><br>
+<<person1>>
+"That's enough," Avery says, raising <<his>> voice. "It was nice seeing you."
+<br><br>
+<<person2>>
+The <<person>> hesitates, then decides against whatever <<he>> was planning, instead turning and walking away at a brisk pace.
+<br><br>
+
+<<link [[Next|Mansion Return Walk 3]]>><<endevent>><<npc "Avery">><<pass 10>><</link>>
+<br>
+
+:: Mansion Return Walk Wait
+<<effects>>
+
+You remain still, waiting for Avery to make the next move. You don't have to wait long. <<person1>><<He>> reclines in <<his>> seat, and clutches your hand in <<hers>>. Grasps it tight.
+<br><br>
+
+The <<person2>><<person>> takes the hint. "Was nice seeing you, Avery."
+<br>
+Avery responds with a nod. The <<person>> waits a moment to see if anything more is coming, then turns and walks way.
+<br><br>
+
+<<link [[Next|Mansion Return Walk 3]]>><<endevent>><<npc "Avery">><<pass 10>><</link>>
+<br>
+
+:: Mansion Return Walk Turn
+<<effects>>
+
+You turn your head away from the <<person2>><<person>>, leaving <<him>> to recover with an awkward jerk.
+<br><br>
+
+Avery looks satisfied. "It was nice seeing you." <<person1>><<He>> wraps an arm around your shoulders. "I'll invite you to the mansion one of these days."
+<br><br>
+
+The <<person2>><<person>> smiles, gives an awkward half-bow, turns, and walks away.
+<br><br>
+
+<<link [[Next|Mansion Return Walk 3]]>><<endevent>><<npc "Avery">><<pass 10>><</link>>
+<br>
+
+:: Mansion Return Walk Yes
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I am," you say. "I'm the luckiest <<girl>> in the world."
+<<elseif $speech_attitude is "bratty">>
+	"Avery is my <<nnpc_girlfriend "Avery">> alright," you say.
+<<else>>
+	"That's right," you say. "I'm Avery's <<girlfriend>>."
+<</if>>
+<br><br>
+
+"You've outdone yourself this time," the <<person2>><<person>> says.
+<br>
+Avery's grasp tightens. "How's your other half?" <<person1>><<he>> asks.
+<br>
+"Ah. Well, you know."
+<br>
+"I don't. That's why I'm asking."
+<br>
+"I've taken enough of your time. Good day to both of you." <<person2>><<He>> walks on.
+<br><br>
+
+<<link [[Next|Mansion Return Walk 3]]>><<endevent>><<npc "Avery">><<pass 10>><</link>>
+<br>
+
+:: Mansion Return Walk Avoid
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Avery's taking me for a walk," you say. "This is a lovely place."
+<<elseif $speech_attitude is "bratty">>
+	"Avery asked me to walk with <<person1>><<him>>," you say. "We thought this would be a nice place to take a quiet break."
+<<else>>
+	"Avery invited me to walk with <<person1>><<him>>," you say.
+<</if>>
+<br><br>
+
+"A walk?" the <<person2>><<person>> says. "Are you a dog?"
+<br>
+Avery's grip tightens. "You've forgotten yourself."
+<br>
+"Apologies. I'll leave you to it." <<He>> walks away.
+<br><br>
+
+<<link [[Next|Mansion Return Walk 3]]>><<endevent>><<npc "Avery">><<pass 10>><</link>>
+<br>
+
+:: Mansion Return Walk No
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Am I <<person1>><<his>> <<girlfriend>>?" you say. "I wouldn't be so bold as to say."
+<<elseif $speech_attitude is "bratty">>
+	"No," you say. "I'm not <<person1>><<his>> <<girlfriend>>."
+<<else>>
+	"We're just friends," you say.
+<</if>>
+<br><br>
+
+The <<person2>><<person>> raises <<his>> eyebrows. "You haven't trained this one so well."
+<br>
+Avery's grip tightens. "Do you mind? We're enjoying the garden."
+<br>
+"But of course. Forgive my intrusion." <<He>> nods at Avery, then at you, then walks away.
+<br><br>
+
+<<link [[Next|Mansion Return Walk 3]]>><<endevent>><<npc "Avery">><<pass 10>><</link>>
+<br>
+
+
+:: Mansion Return Walk Sweet
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Avery," you say. "You're making this <<personsimple>> uncomfortable!"
+<<elseif $speech_attitude is "bratty">>
+	"Stop torturing the poor <<personsimple>> Avery," you say.
+<<else>>
+	"We should be more polite to <<him>>, Avery," you say.
+<</if>>
+<br><br>
+
+The <<person>> looks hopeful, but Avery soon dashes it with a glare. <<He>> scurries away.
+<br><br>
+
+<<link [[Next|Mansion Return Walk 3]]>><<endevent>><<npc "Avery">><<pass 10>><</link>>
+<br>
+
+:: Mansion Return Walk Polite
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"It's nice of you to talk to us," you say.
+<<elseif $speech_attitude is "bratty">>
+	"Thanks for the introduction," you say.
+<<else>>
+	"It's a pleasure to meet you," you say.
+<</if>>
+<br><br>
+
+The <<person>> waits, as if hoping you'll say more, but Avery sends <<him>> scurrying away with a glare.
+<br><br>
+<<link [[Next|Mansion Return Walk 3]]>><<endevent>><<npc "Avery">><<pass 10>><</link>>
+<br>
+
+:: Mansion Return Walk Stare
+<<effects>>
+
+You stare at the <<person2>><<person>>. <<He>> drops <<his>> gaze at once. Avery coughs to stifle a laugh.
+<br><br>
+
+The <<person>> throws another pleading glance at Avery, then scurries away.
+<br><br>
+
+<<link [[Next|Mansion Return Walk 3]]>><<endevent>><<npc "Avery">><<pass 10>><</link>>
+<br>
+
+:: Mansion Return Walk 3
+<<effects>>
+
+You walk back to the mansion with Avery. It's a harder journey in this direction, with the road climbing a hill. The gates rattle open.
+<br><br>
+"Thanks for the company," Avery says, planting a kiss on your hand. "Now to relax."
+<br><br>
+
+<<link [[Next|Mansion Garden]]>><<pass 10>><<clotheson>><<endevent>><</link>>
+<br>
+
+:: Mansion Return Walk Undies
+<<effects>>
+<<set $outside to 1>>
+
+Avery leads you through the garden, and outside the mansion grounds.
+
+<<if Weather.precipitation is "rain">>
+	Other pedestrians hurry about, umbrellas aloft.
+<<elseif Weather.precipitation is "snow">>
+	Other pedestrians trudge through the snow.
+<<else>>
+	Other pedestrians walk to and fro.
+<</if>>
+Some glance at Avery. More glance at you, and your <<nudity>>.
+<<if $phase is 1>>
+	<<exhibitionism3>>
+<<else>>
+	<br><br>
+<</if>>
+
+<<link [[Next|Mansion Return Walk Undies 2]]>><<pass 10>><</link>>
+<br>
+
+:: Mansion Return Walk Undies 2
+<<effects>>
+
+<<npc Niki 2>><<person2>>
+More heads turn as you reach the end of the boulevard. All heads, except a young <<personsimple>> with a white stick in <<his>> mouth, crouched with a camera. <<Hes>> looking at a squirrel in a tree.
+<br><br>
+<<if !$nikiSeen.length>>
+	Avery stops beside <<him>>. "Can I trouble you for a moment, young <<personsimple>>?"
+	<br>
+	The young <<personsimple>> looks up. <<He>> glances at your state of dress.
+	<br>
+	"Niki, isn't it?" Avery continues.
+	<br>
+	Niki nods, and stands upright. "Can I help you? Looking for a photographer?"
+	<br>
+	"I am." Avery produces a wad of cash.
+	<br>
+	"You'd normally need an appointment."
+	<br>
+	Avery adds another wad. "We won't take much of your time." <<person1>><<He>> gestures at the squirrel. "Could you snap my partner and I in the same frame as that critter?"
+	<br><br>
+	Niki glances at your state of dress again, then at the money, then <<person2>><<he>> nods.
+	<br><br>
+<<elseif $nikiSeen.includes("danube_boulevard")>>
+	It's Niki.
+	<br><br>
+	"Our photographer friend," Avery says. "How fortunate."
+	<br>
+	Niki stands at the sound of Avery's voice. "Can I help you?"
+	<br>
+	Avery produces a thick wad of cash, and nods at the squirrel. "Another picture, if you don't mind."
+	<br>
+	Niki considers a moment, then nods.
+	<br><br>
+<<elseif $nikiSeen.includes("farm")>>
+	Avery stops beside <<him>>. "Can I trouble you for a moment, young <<personsimple>>?"
+	<br>
+	You recognise <<him>> from Remy's farm. It's Niki. <<He>> looks up, and flashes you an apologetic smile.
+	<br>
+	"Niki, isn't it?" Avery continues.
+	<br>
+	Niki nods, and stands upright. "Can I help you? Looking for a photographer?"
+	<br>
+	"I am." Avery produces a wad of cash.
+	<br>
+	"You'd normally need to book ahead of time."
+	<br>
+	Avery adds another wad. "This won't take long." <<person1>><<He>> gestures at the squirrel. "Could you snap my partner and I in the same frame as that critter?"
+	<br><br>
+	Niki glances at your state of dress again, then at the money, then <<person2>><<he>> nods.
+	<br><br>
+<<else>>
+	Avery stops beside <<him>>. "Can I trouble you for a moment, young <<personsimple>>?"
+	<br>
+	You recognise <<him>>. It's Niki. <<He>> looks up, lingering a moment on your state of dress.
+	<br>
+	"Niki, isn't it?" Avery continues.
+	<br>
+	Niki nods, and stands upright. "Can I help you? Looking for a photographer?"
+	<br>
+	"I am." Avery produces a wad of cash.
+	<br>
+	"You'd normally need to book ahead of time."
+	<br>
+	Avery adds another wad. "This won't take long." <<person1>><<He>> gestures at the squirrel. "Could you snap my partner and I in the same frame as that critter?"
+	<br><br>
+	Niki glances at your state of dress again, then at the money, then <<person2>><<he>> nods.
+	<br><br>
+<</if>>
+<<set $nikiSeen.pushUnique("danube_boulevard")>>
+
+<<link [[Next|Mansion Return Walk Undies 3]]>><<pass 10>><</link>>
+<br><br>
+
+:: Mansion Return Walk Undies 3
+<<effects>>
+
+You walk with Avery towards the tree, making no sudden movements. You pose beneath the squirrel, Avery's arm around your waist.
+<br><br>
+
+Niki peers through the camera. Then <<person2>><<he>> looks around it, frowning. Avery looks up, just in time to see the squirrel leap off the branch. It lands on Avery's chest, and squirms down the front of <<person1>><<his>> top.
+<br><br>
+
+With a cry, Avery tears off <<his>> shirt, revealing <<his>> <<if $NPCList[0].gender is "m">>toned chest<<else>>full bra<</if>>. <<He>> shakes the fabric, and the squirrel drops to the grass. It avoids a stomping foot, and hides under a bush.
+<br><br>
+
+Niki doesn't know where to look.
+<br><br>
+
+<<link [[Suggest taking the picture like this|Mansion Return Walk Undies Suggest]]>><<npcincr Avery dom -1>><<npcincr Avery rage 1>><</link>><<garage>><<ldom>>
+<br>
+<<link [[Remain silent|Mansion Return Walk Undies Silent]]>><</link>>
+<br>
+
+:: Mansion Return Walk Undies Suggest
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"We'd look good together like this," you suggest.
+<<elseif $speech_attitude is "bratty">>
+	"What's wrong?" you ask Niki. "Don't stop now."
+<<else>>
+	"Let's have the photographer snap a picture of us like this," you say. "It'll be fun."
+<</if>>
+<br><br>
+<<person1>>
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+	Avery delivers a hard smack to your face, almost knocking you off your feet. <<He>> glances at <<his>> hand, then shakes it, as if removing something dirty. Niki busies <<person2>><<himself>> with <<his>> camera.
+	<br><br>
+
+	The walk back to the mansion is tense. Avery strides through the front gates, and into the mansion proper, without a word.
+	<br><br>
+<<else>>
+	Avery looks at you a moment, blood rushing to <<his>> face. Then <<he>> throws back <<his>> head and laughs, making Niki jump.
+	<br><br>
+	The rest of the impromptu photoshoot goes well. Avery recovers on the walk back to the mansion. "Thanks for the company," <<he>> says. "Time to relax."
+	<br><br>
+<</if>>
+
+<<link [[Next|Mansion Garden]]>><<pass 10>><<clotheson>><<endevent>><</link>>
+<br>
+
+:: Mansion Return Walk Undies Silent
+<<effects>>
+
+You decide to remain silent. Avery fixes <<person1>><<his>> clothing, and drags you away from the tree. Niki keeps <<person2>><<his>> eyes averted.
+<br><br>
+
+The walk back to the mansion is tense, but the colour leaves Avery's face before you arrive. <<person1>><<He>> smiles at you. "Thanks for the company. Now to relax."
+<br><br>
+
+<<link [[Next|Mansion Garden]]>><<fameexhibitionism 5>><<clotheson>><<pass 10>><<endevent>><</link>>
+<br>
+
+:: Mansion Return Walk Naked
+<<effects>>
+<<set $outside to 1>>
+
+Avery leads you through the garden, and outside the mansion grounds.
+
+<<if Weather.precipitation is "rain">>
+	Other pedestrians hurry about, umbrellas aloft.
+<<elseif Weather.precipitation is "snow">>
+	Other pedestrians trudge through the snow.
+<<else>>
+	Other pedestrians walk to and fro.
+<</if>>
+Some glance at Avery. More glance at you, and your <<nudity>>. Some refuse to look, red creeping into their cheeks.
+<<if $phase is 1>>
+	<<exhibitionism5>>
+<<else>>
+	<br><br>
+<</if>>
+
+A police car drives into view. It slows as it draws closer. Avery waves. It speeds up, and passes by.
+<br><br>
+
+"They like to keep the neighbourhood free of riffraff," <<he>> says. "It's good their priorities are in order."
+<br><br>
+
+<<link [[Next|Mansion Return Walk Naked 2]]>><<pass 10>><</link>>
+<br>
+
+:: Mansion Return Walk Naked 2
+<<effects>>
+
+<span class="blue">You feel like you're being followed.</span> You glance behind you. Some of the faces you saw pass are now walking in the same direction as you. The opposite side of the street is becoming more crowded as well. There's a crossing now far ahead. People are already traversing it.
+<br><br>
+
+If the people here have bad intentions, you're about to be surrounded.
+<br><br>
+
+<<link [[Warn Avery|Mansion Return Walk Naked Warn]]>><<pass 10>><<npcincr Avery dom 1>><</link>><<gdom>>
+<br>
+<<link [[Remain silent|Mansion Return Walk Naked Silent]]>><<pass 10>><<npcincr Avery dom -1>><</link>><<dangerousText>><<ldom>>
+<br>
+
+
+:: Mansion Return Walk Naked Warn
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I'm sorry to interrupt our walk," you say. "But the people around are scary. Are you sure it's safe?"
+<<elseif $speech_attitude is "bratty">>
+	"I think we need to hurry off this road," you say. "These people are planning something."
+<<else>>
+	"We're in danger," you say. "We need to leave the road. Fast."
+<</if>>
+<br><br>
+
+"Nonsense," Avery says. "This is the safest street in town." <<He>> glances around. Despite <<his>> words, you can tell <<hes>> noticed it too.
+<br><br>
+
+<<He>> grasps your arm, and pulls you from the path, down a trail leading between two hedgerows. <<He>> speeds up once the roads out of sight, walking fast enough that you're out of breath by the time you emerge near the mansion. There's no one around.
+<br><br>
+
+"I like that path," <<he>> says as you walk through the gates. "Bracing. Thanks for the company. Time to relax."
+<br><br>
+
+<<link [[Next|Mansion Garden]]>><<pass 10>><<clotheson>><<endevent>><</link>>
+<br>
+
+
+:: Mansion Return Walk Naked Silent
+<<effects>>
+<<endevent>>
+<<generate1>><<generate2>><<generate3>><<generate4>><<generate5>><<generate6>>
+You remain silent. People get closer, both behind and in front. A <<person2>><<person>>, approaching from ahead, has a mad glimmer in <<his>> eyes.
+<br><br>
+
+The <<person>> blocks Avery's path. "Can I help you?" Avery asks, anger shaking <<nnpc_his Avery>> voice.
+<br>
+"Nice piece you have there," the <<person2>><<person>> replies. <<He>> nods your way, but <<his>> eyes remain fixed on Avery. "How's about sharing?"
+<br><br>
+
+<<link [[Next|Mansion Return Walk Naked Assault]]>><</link>>
+<br>
+
+:: Mansion Return Walk Naked Assault
+<<effects>>
+
+A <<person3>><<person>> and <<person4>><<person>> step between you and Avery.
+<br><br>
+
+"What the fuck do you think you're doing?" Avery asks, <<nnpc_his Avery>> anger bubbling over. "Do you have any idea who I am?"
+<br><br>
+A <<person5>><<person>> and <<person6>><<person>> grab your arms from behind, and try to pull you from the road. Avery shouts something, but you can't hear the words over the excited leers of the growing crowd.
+<br><br>
+
+<<link [[Next|Mansion Return Walk Naked Assault 2]]>><</link>>
+<br>
+
+:: Mansion Return Walk Naked Assault 2
+<<effects>>
+
+Free from the road, the <<person5>><<person>> shoves you into a ditch. You stare up, surrounded by a lecherous crowd on all sides.
+<br><br>
+
+They close in.
+<br><br>
+
+<<link [[Next|Mansion Return Walk Naked Assault Rape]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Mansion Return Walk Naked Assault Rape
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<audience>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Mansion Return Walk Naked Assault Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Return Walk Naked Assault Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Return Walk Naked Assault Rape Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	You hear a siren. The crowd scatters, leaving you alone in a ditch. <<tearful>> you climb to your feet.
+	<br><br>
+
+	<<endcombat>>
+
+	<<link [[Next|Mansion Return Walk Naked Assault Lose]]>><</link>>
+	<br>
+
+<<elseif $enemyhealth lte 0>>
+	Shocked by your ferocity, your assailants back away from you. You seize the initiative, kicking the <<person1>><<persons>> legs out from under them, and smack the <<person2>><<person>> and <<person3>><<person>> against each other. The <<person4>><<person>>, <<person5>><<person>>, and <<person6>><<person>> trip over each other in their haste to escape you.
+	<br><br>
+	The rest of the crowd turns and runs in all direction. <<tearful>> you stand triumphant.
+	<br><br>
+
+	<<endcombat>>
+
+	<<link [[Next|Mansion Return Walk Naked Assault Win]]>><</link>>
+	<br>
+<</if>>
+
+
+:: Mansion Return Walk Naked Assault Win
+<<effects>>
+
+<<npc Avery>><<person1>><<generate2>><<generate3>>
+Avery rushes into view, <<his>> eyes changing from relief at the sight of you, to shock at the sight of the people lying around. A <<person2>><<person>> and <<person3>><<person>> accompanying, both dressed as police officers. They wrestle a couple of the fleeing onlookers to the ground.
+<br><br>
+
+"What happened?" Avery asks once close. "What did you do?"
+<br><br>
+
+<<link [[Brag|Mansion Return Walk Naked Assault Explain]]>><<npcincr Avery dom -1>><</link>><<ldom>>
+<br>
+<<link [[Remain silent|Mansion Return Walk Naked Assault Silent]]>><<npcincr Avery love 1>><</link>><<glove>>
+<br>
+
+:: Mansion Return Walk Naked Assault Explain
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"They were awfully rude," you say. "They bit off more than they could chew."
+<<elseif $speech_attitude is "bratty">>
+	"I beat them up," you say. "Quite simple."
+<<else>>
+	"I was able to fight them off," you say.
+<</if>>
+<br><br>
+
+The disbelief fades from Avery's face as <<person1>><<he>> notices the way the would-be rapists cringe from you.
+<br><br>
+
+<<link [[Next|Mansion Return Walk Naked Assault End]]>><</link>>
+<br>
+
+:: Mansion Return Walk Naked Assault Silent
+<<effects>>
+
+You remain silent, but the fallen rapists speak volumes, not to mention the way they cringe from you.
+<br><br>
+
+<<link [[Next|Mansion Return Walk Naked Assault End]]>><</link>>
+<br>
+
+
+:: Mansion Return Walk Naked Assault Lose
+<<effects>>
+
+<<npc Avery>><<person1>><<generate2>><<generate3>>
+
+Avery walks into view, flanked by a <<person2>><<person>> and <<person3>><<person>>, both dressed as police officers. The <<person2>><<person>> blows into a whistle, and they chase after the fleeing rapists.
+<br><br>
+
+Avery ignores the rapists, and runs up to you. "Did they defile you?" <<person1>><<he>> asks.
+<br><br>
+
+<<link [[Nod|Mansion Return Walk Naked Assault Nod]]>><</link>>
+<br>
+<<link [[Say no|Mansion Return Walk Naked Assault No]]>><</link>>
+<br>
+
+
+:: Mansion Return Walk Naked Assault Nod
+<<effects>>
+
+You nod. Avery sneers, and looks in the direction of the fleeing rapists. "There'll be a reckoning."
+<br><br>
+
+
+<<link [[Next|Mansion Return Walk Naked Assault End]]>><</link>>
+<br>
+
+:: Mansion Return Walk Naked Assault No
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"You saved me in time," you say.
+<<elseif $speech_attitude is "bratty">>
+	"I fought them off," you say.
+<<else>>
+	"The police arrived in time," you say. "The siren spooked them."
+<</if>>
+<br><br>
+<<person1>>
+Avery nods, but <<he>> doesn't look assured. "Someone will answer for this."
+<br><br>
+
+<<link [[Next|Mansion Return Walk Naked Assault End]]>><</link>>
+<br>
+
+:: Mansion Return Walk Naked Assault End
+<<effects>>
+
+<<towelup>><<person1>>
+The police officers give you a towel to cover with. Avery doesn't complain. They take a statement, and the two of you return to the boulevard. Avery is quiet on the way back to the mansion.
+<br><br>
+
+"Perhaps it's unwise to let you walk around unclothed," Avery says once at the mansion's gates. "It's a safe neighbourhood, but there's nothing stopping vermin wandering in."
+<br><br>
+
+"I need something to relax." <<He>> walks inside.
+<br><br>
+
+<<link [[Next|Mansion Garden]]>><<pass 10>><<clotheson>><<endevent>><</link>>
+<br>
+
+:: Mansion Return Walk Undies Shy
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"This attire is inappropriate," you say. "You don't want me to be seen like this, surely!"
+<<elseif $speech_attitude is "bratty">>
+	"I'm not going out dressed like this," you say. "People will think we're mad."
+<<else>>
+	"I'm not dressed for a walk," you say. "People will get the wrong idea."
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+	"If I wanted your opinion," <<he>> says, grasping your arm. "I'd ask. We're going for a walk. If you don't want to seem a slut, don't wander around the mansion with nothing on."<<gtrauma>><<gstress>><<trauma 6>><<stress 6>>
+	<br><br>
+	<<link [[Walk (0:30)|Mansion Return Walk Undies]]>><</link>>
+	<br>
+	<<link [[Fight|Mansion Return Walk Fight]]>><</link>>
+	<br>
+<<else>>
+	Avery frowns a moment, then smiles. "It was a joke," <<he>> laughs. "What would the neighbours think? Another time, then." <<He>> walks away.
+	<br><br>
+
+	<<endevent>>
+	<<avery_mansion_end_links>>
+<</if>>
+
+:: Mansion Return Walk Naked Shy
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"How uncouth!" you say. "I can't go out without clothes."
+<<elseif $speech_attitude is "bratty">>
+	"I'm not going out with nothing to wear," you say. "It would make me, and you, look cheap and pitiable."
+<<else>>
+	"I can't go out without clothes," you say. "What would the neighbours think?"
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+	"I didn't ask for your opinion," <<he>> says, grasping your arm. "You're coming with me, and we're going to show everyone how hot you are."<<gtrauma>><<gstress>><<trauma 6>><<stress 6>>
+	<br><br>
+	<<link [[Walk (0:30)|Mansion Return Walk Naked]]>><</link>>
+	<br>
+	<<link [[Fight|Mansion Return Walk Fight]]>><<set $fightstart to 1>><</link>>
+	<br>
+<<else>>
+	Avery frowns a moment, then smiles. "You're right of course," <<he>> says. "I wasn't thinking straight. I blame your figure. It has that effect on me." <<He>> walks away.
+	<br><br>
+
+	<<endevent>>
+	<<avery_mansion_end_links>>
+<</if>>
+
+:: Mansion Return Walk Naked Strip
+<<effects>>
+
+<<strip>>
+You remove your clothing. Avery watches, a small smile on <<his>> lips. "Not bad." You're not sure what <<hes>> referring to.
+
+<<if $phase is 1>>
+	<<exhibitionism5>>
+<<else>>
+	<br><br>
+<</if>>
+
+<<He>> takes your arm.
+<br><br>
+
+<<link [[Next|Mansion Return Walk Naked]]>><</link>>
+<br>
+
+:: Mansion Return Walk Naked Strip Shy
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I can't go out without wearing anything," you say. "The neighbours will think we're deviants!"
+<<elseif $speech_attitude is "bratty">>
+	"Going out naked is asking for trouble," you say. "You don't realise how much."
+<<else>>
+	"I can't go out naked," you say. "It's too dangerous."
+<</if>>
+<br><br>
+
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+	"Noted. Now take off your clothes. Or else."<<gtrauma>><<gstress>><<trauma 6>><<stress 6>>
+	<br><br>
+
+	<<link [[Strip and walk (0:30)|Mansion Return Walk Naked Strip]]>><</link>>
+	<br>
+	<<link [[Fight|Mansion Return Walk Fight]]>><<set $fightstart to 1>><</link>>
+	<br>
+<<else>>
+	"A pity," Avery says. "Though perhaps it's best I keep you all to myself." <<He>> walks away.
+	<br><br>
+
+	<<endevent>>
+	<<avery_mansion_end_links>>
+<</if>>
+
+:: Mansion Return Walk Undies Strip
+<<effects>>
+
+<<upperstrip>><<lowerstrip>><<handheldstrip>><<feetstrip>><<legsstrip>>
+Avery watches while you undress.
+<<if $worn.under_upper.name is "naked" and $worn.under_lower.name is "naked">>
+	<<His>> eyebrows raise at the sight of your <<nudity>>. "My my," <<he>> says. "Aren't you a rascal."
+	<<if $phase is 1>>
+		<<exhibitionism5>>
+	<<else>>
+		<br><br>
+	<</if>>
+<<else>>
+	<<His>> face gives nothing away, but you can tell from the change in posture that <<hes>> pleased with what <<he>> sees.
+	<<if $phase is 1>>
+		<<exhibitionism3>>
+	<<else>>
+		<br><br>
+	<</if>>
+<</if>>
+
+<<He>> takes your arm.
+<br><br>
+
+<<link [[Next|Mansion Return Walk Undies]]>><</link>>
+<br>
+
+:: Mansion Return Walk Undies Strip Shy
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I can't go out like that," you say, covering yourself despite being clothed. "What would the neighbours think?"
+<<elseif $speech_attitude is "bratty">>
+	"Do you go out in your underwear?" you ask. "Is that a normal thing here? I think not."
+<<else>>
+	"I'm far too shy to go out wearing so little," you say.
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+	"I'm not asking," Avery says. "Take off your clothes, or I'll find a faster way to get some exercise."<<gtrauma>><<gstress>><<trauma 6>><<stress 6>>
+	<br><br>
+
+	<<link [[Strip and walk (0:30)|Mansion Return Walk Undies Strip]]>><</link>>
+	<br>
+	<<link [[Fight|Mansion Return Walk Fight]]>><<set $fightstart to 1>><</link>>
+	<br>
+<<else>>
+	Avery stares at your face a moment. "Of course," <<he>> says. "Silly of me to ask. I'll find another way to exercise."
+	<br><br>
+
+	<<endevent>>
+	<<avery_mansion_end_links>>
+<</if>>
+
+:: Mansion Return Walk Dog
+<<effects>>
+
+<<if $worn.neck.name is "familiar collar" and $worn.neck.cursed is 1>>
+	Avery pulls on your familiar collar, trying to remove and replace it, but no matter how hard <<he>> tugs, it doesn't give.
+	<br><br>
+
+	<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+		<<He>> gives one last hearty tug, and <span class="blue">freezes as <<his>> hands touch the golden heart</span>. You hear a low buzzing. <span class="red">Avery starts to shake.</span>
+		<br><br>
+
+		<<He>> manages to let go, and gasps. <span class="red"><<His>> eyes are full of rage,</span> but <<he>> backs down, staring at the heart. <<npcincr Avery rage 1>><<npcincr Avery dom -1>><<garage>><<ldom>>
+		<br><br>
+
+		<<endevent>>
+		<<avery_mansion_end_links>>
+	<<else>>
+		<<He>> releases you with a huff. "Pity. I've always wanted a dog. Suppose I'll have to make do, as usual." <<He>> walks away.
+		<br><br>
+
+		<<endevent>>
+		<<avery_mansion_end_links>>
+	<</if>>
+<<else>>
+	<<if $exposed gte 2>>
+		Avery watches you remove your clothing, <<his>> expression unreadable. You drop to your knees, and Avery steps forward, collar ready. <<He>> tightens it until it's snug. Then <<he>> tightens it another notch.
+
+		<<if $phase is 1>>
+			<<exhibitionism5>>
+		<<else>>
+			<br><br>
+		<</if>>
+	<<else>>
+		You drop to your knees. Avery steps forward, collar ready. <<He>> tightens it until it's snug. Then <<he>> tightens it another notch.
+	<</if>>
+	<<undress "avery_dog_walk">>
+	<br><br>
+
+	<<He>> walks in a circle, examining you, while pulling the leash taut between <<his>> hands. <<He>> crouches to attach it.
+	<<leash 24>>
+	<br><br>
+
+	"Who's a good dog?"
+	<br><br>
+
+	<<link [[Bark happily|Mansion Return Walk Dog Bark]]>><<set $avery_walk_reaction to "bark">><<attach_leash>><<npcincr Avery dom 1>><</link>><<gdom>>
+	<br>
+	<<link [[Remain silent|Mansion Return Walk Dog Silent]]>><<set $avery_walk_reaction to "silent">><<attach_leash>><<npcincr Avery dom 1>><</link>><<gdom>>
+	<br>
+	<<link [[Bite|Mansion Return Walk Dog Bite]]>><<set $avery_walk_reaction to "bite">><<attach_leash>><<pain 4>><<npcincr Avery love -1>><<npcincr Avery rage 1>><<npcincr Avery dom -1>><</link>><<gpain>><<llove>><<garage>><<ldom>>
+	<br>
+<</if>>
+
+:: Mansion Return Walk Dog Shy
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"But people will think we're deviants!" you say.
+<<elseif $speech_attitude is "bratty">>
+	"Maybe I should walk you instead," you say.
+<<else>>
+	"I couldn't go out naked," you say. "Let alone with a collar and leash."
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+	"I won't ask again," Avery says. "Get on your fucking knees, or I'll make you."<<gtrauma>><<gstress>><<trauma 6>><<stress 6>>
+	<br><br>
+
+	<<if $exposed gte 2>>
+		<<link [[Get on your knees (0:30)|Mansion Return Walk Dog]]>><<npcincr Avery dom 3>><</link>><<ggdom>>
+		<br>
+	<<else>>
+		<<link [[Strip and get on your knees (0:30)|Mansion Return Walk Dog]]>><<npcincr Avery dom 3>><</link>><<ggdom>>
+		<br>
+	<</if>>
+	<<link [[Fight|Mansion Return Walk Fight]]>><<set $fightstart to 1>><</link>>
+	<br>
+<<else>>
+	Avery laughs. There's no mirth. "Pity. I've always wanted a dog. Suppose I'll have to make do, as usual." <<He>> walks away.
+	<br><br>
+
+	<<endevent>>
+	<<avery_mansion_end_links>>
+<</if>>
+
+:: Mansion Return Walk Dog Bark
+<<effects>>
+<<set $outside to 1>>
+
+You bark happily as Avery attaches the leash to your collar. <<He>> smiles, and strokes your hair.
+<br><br>
+
+Avery leads you through the mansion grounds, then through the front gate, to the boulevard outside.
+<br><br>
+
+<<link [[Next|Mansion Return Walk Dog 2]]>><<pass 10>><</link>>
+<br>
+
+:: Mansion Return Walk Dog Silent
+<<effects>>
+<<set $outside to 1>>
+
+You remain silent as Avery attaches the leash to your collar.
+<br><br>
+
+Avery leads you through the mansion grounds, then through the front gate, to the boulevard outside.
+<br><br>
+
+<<link [[Next|Mansion Return Walk Dog 2]]>><<pass 10>><</link>>
+<br>
+
+:: Mansion Return Walk Dog Bite
+<<effects>>
+<<set $outside to 1>>
+
+Avery reaches for your collar, bringing <<his>> hand within chomping distance. You take advantage, and sink your
+
+<<if $transformationParts.traits.fangs isnot "disabled">>
+	fangs
+<<else>>
+	teeth
+<</if>>
+into <<his>> skin.
+<br><br>
+
+<<He>> recoils with a shout, then retaliates with a smack to your face. <<He>> seizes your collar and attaches the leash before you can recover, then backs out of biting distance.
+<br><br>
+
+Avery pulls you through the mansion grounds, then between the front gates, to the boulevard outside.
+<br><br>
+
+<<link [[Next|Mansion Return Walk Dog 2]]>><<pass 10>><</link>>
+<br>
+
+:: Mansion Return Walk Dog 2
+<<effects>>
+
+You crawl after Avery. Heads turn. Passers-by stop and whisper, or just ogle. No one intervenes as you walk on all fours behind Avery, pulled along by <<his>> leash.
+<br><br>
+
+<<rng 3>>
+<<if $rng is 3>>
+	Avery leads you away from the road, into a public garden. <<He>> crouches beside you, and removes your leash. "Go run around a bit," <<he>> says, taking a seat on a bench in view of the road. "Get some exercise."<<detach_leash>>
+	<br><br>
+
+	<<link [[Stay near Avery|Mansion Return Walk Dog Near]]>><<pass 10>><</link>>
+	<br>
+	<<link [[Run around|Mansion Return Walk Dog Run]]>><<athletics 2>><<pass 10>><<tiredness 1>><</link>><<gtiredness>><<gathletics>>
+	<br>
+<<elseif $rng is 2>>
+	<<endevent>><<beastNEWinit 1 "dog">><<generate2>><<npc Avery 3>>
+	<<person2>>
+	A <<person>> walks into view, a <<beasttype>> at <<his>> side, also leashed. The <<beasttype>> looks at you with a quizzical expression as they get closer.
+	<br><br>
+	"Avery," the <<person>> says as they draw close.
+
+	<<if Weather.precipitation is "rain">>
+		"Nice to run into you. Shame about the weather." <<He>> holds <<his>> palm out, as if catching it.
+	<<elseif Weather.precipitation is "snow">>
+		"Cold day." <<He>> shivers beneath <<his>> coat, as if to punctuate the point.
+	<<else>>
+		"Good to see you on this fine day." <<He>> holds out <<his>> hand."
+	<</if>>
+	<br><br>
+	<<if $monster is 1 or $settings.bestialityEnabled>>
+		Avery and the <<person>> make small talk. Meanwhile, the <<beasttype>> examines you. <<bHe 0>> walks around you three times, then sticks <<bhis 0>> nose in your <<bottom>>.<<gstress>><<stress 6>>
+		<br><br>
+		<<link [[Endure|Mansion Return Walk Dog Endure]]>><<sub 1>><<stress 12>><<npcincr Avery dom 1>><</link>><<gdom>><<ggstress>>
+		<br>
+		<<link [[Stand up|Mansion Return Walk Dog Stand]]>><<npcincr Avery rage 1>><<npcincr Avery love -1>><<pain 4>><<trauma 6>><<stress 6>><</link>><<gpain>><<garage>><<llove>><<gtrauma>><<gstress>>
+		<br>
+	<<else>>
+		Avery and the <<person>> make small talk for a while, before parting ways.
+		<br><br>
+		<<endevent>><<npc Avery>>
+		<<link [[Next|Mansion Return Walk Dog End]]>><<pass 10>><</link>>
+		<br>
+	<</if>>
+<<else>>
+	<<generate2>><<person2>>
+	A <<person>> approaches Avery at bottom of the boulevard. "What a cute dog you have," <<he>> says, crouching beside you. <<He>> reaches forward to pet.
+	<<if $avery_walk_reaction is "bite">>
+		Avery looks concerned, afraid you'll bite again.
+	<</if>>
+	<br><br>
+
+	<<link [[Bark happily|Mansion Return Walk Dog 2 Bark]]>><<attach_leash>><<npcincr Avery dom 1>><</link>><<gdom>>
+	<br>
+	<<link [[Remain silent|Mansion Return Walk Dog 2 Silent]]>><<attach_leash>><<npcincr Avery dom 1>><</link>><<gdom>>
+	<br>
+	<<link [[Bite|Mansion Return Walk Dog 2 Bite]]>><<attach_leash>><<pain 4>><<npcincr Avery love -1>><<npcincr Avery rage 1>><<npcincr Avery dom -1>><</link>><<gpain>><<llove>><<garage>><<ldom>>
+	<br>
+<</if>>
+
+:: Mansion Return Walk Dog Near
+<<effects>>
+
+You crawl around, but stay near Avery, enduring the eyes of passers-by on the road. Avery reclines on the bench, and strokes your hair when you pass by.
+<br><br>
+
+After a while, <<he>> grasps your collar to hold you still, and motions for you to climb onto the bench with <<him>>.
+<br><br>
+
+<<link [[Do as bid|Mansion Return Walk Dog Bid]]>><<npcincr Avery dom 1>><<npcincr Avery love 1>><</link>><<gdom>><<glove>>
+<br>
+<<link [[Snap at Avery's hand|Mansion Return Walk Dog Snap]]>><</link>>
+<br>
+
+:: Mansion Return Walk Dog Bid
+<<effects>>
+
+You climb onto the bench. Avery pulls your head into <<his>> lap, and lets you rest there while <<he>> strokes your hair.
+<br><br>
+
+<<He>> places <<his>> other hand by your mouth.
+<br><br>
+
+<<link [[Lick|Mansion Return Walk Dog Lick]]>><<npcincr Avery dom 1>><<npcincr Avery love 1>><</link>>
+<br>
+<<link [[Keep your mouth shut|Mansion Return Walk Dog Shut]]>><</link>>
+<br>
+
+:: Mansion Return Walk Dog Lick
+<<effects>>
+
+You lick Avery's finger. <<He>> moves <<his>> hand closer to your mouth, giving you easier access, while still stroking your hair with <<his>> other hand.
+<br><br>
+
+After a moment, <<he>> angles <<his>> index finger toward you, letting you take it into your mouth. You feel <<his>> pulse quicken through your tongue.
+<br><br>
+
+<<He>> pulls <<his>> finger out of your mouth all of a sudden. "Good <<girl>>," <<he>> says, but <<he>> seems reluctant to make eye contact.
+<br><br>
+
+<<He>> attaches the leash to your collar, and leads you back to the boulevard.<<attach_leash>>
+<br><br>
+
+<<link [[Next|Mansion Return Walk Dog End]]>><</link>>
+<br>
+
+:: Mansion Return Walk Dog Shut
+<<effects>>
+
+You keep your mouth shut. Avery rubs <<his>> thumb over your lips, while continuing to stroke your hair with <<his>> other hand.
+<br><br>
+
+After a few moments, <<he>> attaches the leash to your collar, and leads you back to the boulevard.<<attach_leash>>
+<br><br>
+
+<<link [[Next|Mansion Return Walk Dog End]]>><</link>>
+<br>
+
+:: Mansion Return Walk Dog Snap
+<<effects>>
+
+You snap at Avery's hand, making <<him>> recoil, but <<he>> seems more amused than anything. <<He>> lets you explore the garden nearby for a while longer, than attaches the leash to your collar once again.<<attach_leash>>
+<br><br>
+
+<<He>> leads you back onto the boulevard.
+<br><br>
+
+<<link [[Next|Mansion Return Walk Dog End]]>><</link>>
+<br>
+
+:: Mansion Return Walk Dog Run
+<<effects>>
+
+You crawl around the garden, leaving Avery to relax on the bench. There's lots to explore, and Avery seems happy to let you leave <<his>> view.
+<br><br>
+<<endevent>>
+<<beastNEWinit 1 "wolf">>
+<<if $monster is 1 or $settings.bestialityEnabled>>
+	You're crawling along a riverbank when a pair of yellow eyes emerge from a nearby bush. A <<beasttype>> steps out, fur dripping. <<bHe>> prowls toward you, as if you were prey.
+	<br><br>
+	<<if $syndromewolves is 1>>
+		You don't recognise <<bhim>>. <span class="red"><<bHes>> not of your pack.</span>
+	<</if>>
+
+	<<if $monster is 1>>
+		<<bHe>> looks at your collar, and dons a mocking grin. "Nice necklace," <<bhe>> says, with a sarcasm uncharacteristic of the forest wolves. "Do they give you lots of pets? Call you a good <<girl>>? Maybe you'll be good for me." <<bHe>> bares <<bhis>> fangs as <<bhe>> walks closer.
+		<br><br>
+	<<else>>
+		<<bHe>> looks at your collar, and bares <<bhis>> fangs as <<bhe>> walks closer.
+		<br><br>
+	<</if>>
+
+	<<if $wolfpackleader gte 1>>
+		<<link [[Howl|Mansion Return Walk Dog Howl]]>><<def 1>><</link>><<note "Pack Alpha" "red">>
+		<br>
+	<</if>>
+	<<if $wolfgirl gte 6>>
+		<<link [[Growl|Mansion Return Walk Dog Growl]]>><</link>><<wolfgirl>>
+		<br>
+	<</if>>
+	<<link [[Next|Mansion Return Walk Dog Rape]]>><<set $molestationstart to 1>><</link>>
+	<br>
+<<else>>
+	You're crawling along a riverbank when a pair of yellow eyes appear on the opposite bank. Spooked, you flee back to Avery.
+	<<npc Avery>><<person1>>
+	Sensing your fright, <<he>> attaches the leash to your collar, and leads you back to the boulevard.<<gstress>><<stress 6>>
+	<br><br>
+
+	<<link [[Next|Mansion Return Walk Dog End]]>><</link>>
+	<br>
+<</if>>
+
+
+:: Mansion Return Walk Dog Howl
+<<effects>>
+
+You throw back your head, and unleash a terrible howl. The trees shake. Likely due to the wind, but anyone hearing you would think they quiver at your voice.
+<br><br>
+
+<<if $monster is 1>>
+	"You're an alpha?" the <<beasttype>> asks, incredulous. <<bHe>> glances at your collar again, frowns, then turns and flees.
+<<else>>
+	The <<beasttype>> backs away from you, turns, and flees.
+<</if>>
+<br><br>
+
+Avery emerges from between two hedgerows, and fixes the fleeing <<beasttype>> with
+<<endevent>>
+<<npc "Avery">><<person1>>
+<<his>> gaze. "I thought I heard a wolf," <<he>> says, rushing over to you. "Are you okay? Did it bite you?"
+<br><br>
+
+<<link [[Say the howl was yours|Mansion Return Walk Dog Yours]]>><</link>>
+<br>
+<<link [[Say you're okay|Mansion Return Walk Dog Okay]]>><</link>>
+<br>
+<<link [["Lick " + $NPCList[0].pronouns.his + " hand"|Mansion Return Walk Dog Lick 2]]>><<npcincr Avery dom 1>><<npcincr Avery love 1>><</link>><<gdom>><<glove>>
+<br>
+<<link [[Remain silent|Mansion Return Walk Dog Wolf Silent]]>><</link>>
+<br>
+
+
+:: Mansion Return Walk Dog Yours
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"That was my howl actually," you say. "I hope it didn't spook you."
+<<elseif $speech_attitude is "bratty">>
+	"As if a mangy mutt like that could howl so well," you say. "That was me."
+<<else>>
+	"That was me howling," you say.
+<</if>>
+<br><br>
+
+Avery laughs. "I was so shocked I left character. Apologies." <<He>> attaches the leash to your collar, and leads you back to the boulevard.<<attach_leash>>
+<br><br>
+
+<<link [[Next|Mansion Return Walk Dog End]]>><</link>>
+<br>
+
+:: Mansion Return Walk Dog Okay
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I'm okay now you're here," you say.
+<<elseif $speech_attitude is "bratty">>
+	"I'm fine," you say. "A mutt like that isn't trouble to me."
+<<else>>
+	"I'm unhurt," you say. "Thanks for asking."
+<</if>>
+<br><br>
+
+Avery nods. "Forgive me for breaking character. Here, let's get back to it." <<He>> attaches the leash to your collar, and leads you back to the boulevard.<<attach_leash>>
+<br><br>
+
+<<link [[Next|Mansion Return Walk Dog End]]>><</link>>
+<br>
+
+:: Mansion Return Walk Dog Lick 2
+<<effects>>
+
+You just lick Avery's hand. "I'll take that as a yes," <<he>> laughs. "I'm glad one of us stayed in character. Forgive me for forgetting."
+<br><br>
+
+<<He>> attaches the leash to your collar, and leads you back to the boulevard.<<attach_leash>>
+<br><br>
+
+<<link [[Next|Mansion Return Walk Dog End]]>><</link>>
+<br>
+
+:: Mansion Return Walk Dog Wolf Silent
+<<effects>>
+
+You remain silent. "I'll take that as a yes," Avery says. "I was so shocked I left character. Let's get back to it." <<He>> attaches the leash to your collar, and leads you back to the boulevard.<<attach_leash>>
+<br><br>
+
+<<link [[Next|Mansion Return Walk Dog End]]>><</link>>
+<br>
+
+
+:: Mansion Return Walk Dog Growl
+<<effects>>
+
+You release a low growl. The <<beasttype>> freezes on the spot, looking surprised for just a moment, then <<bhe>> growls back. You remain there for a few moments, eyes locked on one another. Then the <<beasttype>> turns and flees.
+<br><br>
+<<endevent>>
+<<npc "Avery">><<person1>>
+You return to Avery. "Enjoy your exercise?" <<he>> asks.
+<br><br>
+
+<<link [["Lick " + $NPCList[0].pronouns.his + " hand"|Mansion Return Walk Dog Growl Lick]]>><</link>>
+<br>
+<<link [[Remain silent|Mansion Return Walk Dog Growl Silent]]>><</link>>
+<br>
+<<link [[Say a wolf approached you|Mansion Return Walk Dog Growl Attacked]]>><</link>>
+<br>
+
+:: Mansion Return Walk Dog Growl Lick
+<<effects>>
+
+You just lick Avery's hand. "I'll take that as a yes," <<he>> laughs. "Come on. Let's go home."
+<br><br>
+
+<<He>> attaches the leash to your collar, and leads you back to the boulevard.
+<br><br>
+
+<<link [[Next|Mansion Return Walk Dog End]]>><</link>>
+<br>
+
+:: Mansion Return Walk Dog Growl Silent
+<<effects>>
+
+You remain silent. "Of course," Avery says. "Dogs don't talk." <<He>> attaches the leash to your collar, and leads you back to the boulevard.<<attach_leash>>
+<br><br>
+
+<<link [[Next|Mansion Return Walk Dog End]]>><</link>>
+<br>
+
+:: Mansion Return Walk Dog Growl Attacked
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I was attacked by a scary wolf from the forest," you say.
+<<elseif $speech_attitude is "bratty">>
+	"There was a wolf from the forest," you say. "But I scared it away."
+<<else>>
+	"I had to scare away a wolf," you say. "Wandered in from the forest"
+<</if>>
+<br><br>
+
+Avery frowns. "You must be mistaken. You saw a large dog, perhaps. They wouldn't let a creature like that reach here. This isn't Wolf Street."
+<br><br>
+
+Avery attaches the leash to your collar, and leads you back to the boulevard.<<attach_leash>>
+<br><br>
+
+<<link [[Next|Mansion Return Walk Dog End]]>><</link>>
+<br>
+
+:: Mansion Return Walk Dog Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<br><br>
+<<beast $enemyno>>
+<br><br>
+
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Mansion Return Walk Dog Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Return Walk Dog Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Return Walk Dog Rape Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+
+	<<beastejaculation knot>>
+
+	<<if _knotted>>
+		You hear Avery whistle, and call for you. <<nnpc_He Avery>>'s getting closer. You try to pull yourself free of the <<beasttype>>, <span class="red">but it's no use.</span> You're stuck firm.
+		<br><br>
+		Avery emerges from between two hedgerows. <<nnpc_His Avery>> gaze falls on you and the <<beasttype>>, and <<nnpc_he Avery>> freezes in place, unblinking.<<ggdom>><<npcincr Avery dom 3>>
+		<br><br>
+
+		<<link [[Ask for help|Mansion Return Walk Dog Rape Help]]>><</link>>
+		<br>
+		<<link [[Cover your face|Mansion Return Walk Dog Rape Cover]]>><</link>>
+		<br>
+	<<else>>
+		Satisfied, the <<beasttype>> leaves you lying on the grass.
+		<br><br>
+
+		<<tearful>> you crawl back to Avery.
+		<br><br>
+
+		<<endcombat>>
+
+		<<link [[Next|Mansion Return Walk Dog Rape Avery]]>><</link>>
+		<br>
+	<</if>>
+
+<<elseif $enemyhealth lte 0>>
+
+	The <<beasttype>> backs away from you, then turns and flees, paddling across the river.
+	<br><br>
+
+	<<tearful>> you catch your breath.
+	<br><br>
+
+	<<endcombat>>
+
+	<<link [[Next|Mansion Return Walk Dog Rape Avery]]>><</link>>
+	<br>
+<<else>><<set $rescued += 1>>
+
+	You hear Avery whistle, and call for you. The <<beasttype>>'s ears perk up, then <<bhe>> turns and runs. Avery emerges from between two hedgerows in time to see <<bhim>> escape.
+	<br><br>
+
+	<<tearful>> you catch your breath. Avery crouches beside you, and attaches the leash to your collar.
+	<br><br>
+
+	<<endcombat>>
+
+	<<npc "Avery">><<person1>>
+	"A wolf so close to town," Avery says, shaking <<his>> head. "Someone will be fired for this. Come on, let's get home."<<attach_leash>>
+	<br><br>
+	<<He>> leads you back to the boulevard.
+	<br><br>
+
+	<<link [[Next|Mansion Return Walk Dog End]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Return Walk Dog Rape Avery
+<<effects>>
+
+<<npc "Avery">><<person1>>
+Avery's smile fades when <<he>> sees you close up.
+<br><br>
+
+"What happened?" <<he>> asks.
+<br><br>
+
+<<link [[Remain silent|Mansion Return Walk Dog Rape Silent]]>><</link>>
+<br>
+<<link [[Say a wolf attacked you|Mansion Return Walk Dog Rape Say]]>><</link>>
+<br>
+
+
+:: Mansion Return Walk Dog Rape Silent
+<<effects>>
+
+You remain silent. Avery looks above you, but doesn't press further. <<He>> attaches the leash to your collar, and leads you back to the boulevard.
+<br><br>
+
+<<link [[Next|Mansion Return Walk Dog End]]>><</link>>
+<br>
+
+:: Mansion Return Walk Dog Rape Say
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I was attacked by a wild wolf," you say. "It was terrifying."
+<<elseif $speech_attitude is "bratty">>
+	"A wolf attacked me," you say. "Nothing I couldn't handle."
+<<else>>
+	"I was attacked by a wolf," you say. "It must have wandered in from the forest."
+<</if>>
+<br><br>
+
+"Impossible," Avery says. "They wouldn't let a wolf enter town." <<He>> doesn't sound convinced. "Someone will lose their job if this is true."
+<br><br>
+
+<<He>> thinks for a moment, then crouches to attach the leash to your collar. "I'm glad you're safe. Let's go home."<<attach_leash>>
+<br><br>
+
+<<He>> leads you back to the boulevard.
+<br><br>
+
+<<link [[Next|Mansion Return Walk Dog End]]>><</link>>
+<br>
+
+:: Mansion Return Walk Dog Rape Help
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Please help me," you say.
+<<elseif $speech_attitude is "bratty">>
+	"I could use a hand," you say. "Surprising, I know."
+<<else>>
+	"Could you get this wolf off me?" you ask.
+<</if>>
+<br><br>
+
+Avery recovers from <<nnpc_his Avery>> shock, and marches towards you. The <<beasttype>> tries to scramble away, but can't get far, attached as <<bhe>> is. Avery holds <<bhim>> down by the neck, and frees you from the knot.
+<br><br>
+
+<<link [[Next|Mansion Return Walk Dog Rape Free]]>><</link>>
+<br>
+
+:: Mansion Return Walk Dog Rape Cover
+<<effects>>
+
+You cover your face. Avery's footsteps draw closer. You feel the <<beasttype>> try to scramble away from <<nnpc_him Avery>>, but <<bhe>> can't get far, attached to you as <<bhe>> is. Avery holds <<bhim>> down by the neck, and frees you from the knot.
+<br><br>
+
+<<link [[Next|Mansion Return Walk Dog Rape Free]]>><</link>>
+<br>
+
+
+:: Mansion Return Walk Dog Rape Free
+<<effects>>
+
+You follow behind Avery as <<nnpc_he Avery>> drags the <<beasttype>> to the groundskeeper.
+<br><br>
+
+<<endcombat>>
+<<npc "Avery">><<person1>>
+"Heads will roll for this," Avery says. "A wolf within the town limits. Off Danube Street! I'd expect that near the temple, but here is inexcusable."
+<br><br>
+"Right so, right so." The groundskeeper looks at you, and grins. "This one trouble too?"
+<br><br>
+Avery thinks for a moment, then shakes <<his>> head. <<He>> leads you back to the boulevard.
+<br><br>
+
+<<link [[Next|Mansion Return Walk Dog End]]>><</link>>
+<br>
+
+
+:: Mansion Return Walk Dog Endure
+<<effects>>
+
+You endure as the <<beasttype>> sniffs your rear, until the <<person2>><<person>> notices. <<He>> shouts at <<his>> pet, who jumps in fright and returns to <<bhis 0>> master's side. Avery pats your head.
+<br><br>
+
+"Terribly sorry, Avery. Anyway, I'll let you get on."
+<br><br>
+
+<<endevent>><<npc Avery>>
+<<link [[Next|Mansion Return Walk Dog End]]>><<pass 10>><</link>>
+<br>
+
+:: Mansion Return Walk Dog Stand
+<<effects>>
+
+You stand. The <<beasttype>> backs away from you in surprise, and <<bhis 0>> master looks at you, aghast.
+<br><br>
+"Avery! I had no idea you were into such perversions."
+<br>
+Avery glances at you, eyes full of venom, but then <<person3>><<he>> looks at the <<person2>><<person>>. "I'll give you perversions," <<person3>><<he>> spits. "Address me like that again and I'll have you on a leash."
+<br><br>
+The <<person2>><<person>> opens <<his>> mouth to argue, but decides against it. <<He>> and the <<beasttype>> walk away. The <<beasttype>> throws another quizzical look over <<bhis 0>> shoulder.
+<br><br>
+
+Avery holds the leash close to your neck and yanks you back to the floor.
+<br><br>
+
+<<endevent>><<npc Avery>>
+<<link [[Next|Mansion Return Walk Dog End]]>><<pass 10>><</link>>
+<br>
+
+
+:: Mansion Return Walk Dog 2 Bark
+<<effects>>
+
+You bark happily as the <<person>> pats your head. "There's a good <<girl>>!"
+<br><br>
+
+<<if $avery_walk_reaction is "bark">>
+	"A good <<girl>> indeed," Avery agrees with a smile. "Always happy to make a friend."
+<<elseif $avery_walk_reaction is "bite">>
+	Avery breathes a sigh of relief, and nods. If the <<person>> noticed Avery's concern, <<he>> gives no sign.
+<<else>>
+	"No trouble at all to tame," Avery says. "Just needs a firm hand."
+<</if>>
+<br><br>
+
+They chat for a while while you wait at Avery's side, in full view of anyone passing by. A <<generate3>><<person3>><<persons>> eyes flash with violent intentions, but a glance at Avery dissuades <<him>>.
+<br><br>
+
+The <<person2>><<person>> bids Avery goodbye, and <<person1>><<he>> continues walking you.
+<br><br>
+
+<<link [[Next|Mansion Return Walk Dog End]]>><<pass 10>><</link>>
+<br>
+
+:: Mansion Return Walk Dog 2 Silent
+<<effects>>
+
+You remain silent as the <<person>> pats your head. "Does <<pshe>> have a name?"
+<br><br>
+<<if $avery_walk_reaction is "bark">>
+	Avery observes you. "I haven't thought of a name yet."
+<<elseif $avery_walk_reaction is "bite">>
+	The tension leaves Avery's body as <<he>> pulls away, out of biting distance. "I haven't thought of a name yet."
+<<else>>
+	Avery strokes <<person1>><<his>> chin. "I haven't thought of a name yet."
+<</if>>
+<br><br>
+They chat for a while while you wait at Avery's side, in full view of anyone passing by. A <<generate3>><<person3>><<persons>> eyes flash with violent intentions, but a glance at Avery dissuades <<him>>.
+<br><br>
+
+The <<person2>><<person>> bids Avery goodbye, and <<person1>><<he>> continues walking you.
+<br><br>
+
+
+<<link [[Next|Mansion Return Walk Dog End]]>><<pass 10>><</link>>
+<br>
+
+:: Mansion Return Walk Dog 2 Bite
+<<effects>>
+
+<<if $avery_walk_reaction is "bark">>
+	Avery sees something in your eyes, and <<person1>><<his>> smile evaporates.
+<<elseif $avery_walk_reaction is "bite">>
+	Avery tries to intercede, but it's too late.
+<<else>>
+	Avery watches you with care, but when <<person1>><<he>> realises your intent, it's too late.
+<</if>>
+<<set $avery_walk_reaction to "bite">>
+<br><br>
+<<person2>>
+You chomp the <<persons>> hand. <<He>> recoils and cries out in pain.
+<br><br>
+
+"You should give this mutt of yours a muzzle!"
+<br>
+"You should've asked before trying to touch <<phim>>," Avery says. "I could have warned you."
+<br><br>
+
+The <<person2>><<person>> calms <<himself>> down, and somewhat restores <<his>> dignity. <<He>> bids Avery a polite farewell.
+<br><br>
+<<person1>>
+
+<<link [[Next|Mansion Return Walk Dog End]]>><<pass 10>><</link>>
+<br>
+
+
+:: Mansion Return Walk Dog End
+<<effects>>
+
+<<person1>>
+Avery walks you back up the boulevard, toward the mansion. <<He>> waits until you're through the front gates before removing your leash.
+<br><br>
+<<if $avery_walk_reaction is "bite">>
+	"I hope you're better behaved in the future," <<he>> says. "Or I'll find you a muzzle."
+<<else>>
+	"You make a good pet," <<he>> says. "If you didn't have work to do, I'd keep you naked and leashed all the time."
+<</if>>
+<<unset $avery_walk_reaction>>
+<br><br>
+
+<<He>> walks into the mansion, leaving you in the garden.
+<br><br>
+
+<<link [[Next|Mansion Garden]]>>
+	<<if clothingInStorage("avery_dog_walk").length gt 0>>
+		<<storeon "avery_dog_walk">>
+	<</if>>
+	<<pass 10>>
+	<<endevent>>
+<</link>>
+<br>
+
+
+:: Mansion Return Walk Refuse
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Go on without me," you say. "I'll only slow you down."
+<<elseif $speech_attitude is "bratty">>
+	"Feel free to stretch your legs," you say. "I've been walking enough as is."
+<<else>>
+	"Not today," you say. "I'm tired from all the housework."
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+	"That wasn't a request," Avery says, grasping your arm. "Are you going to come willingly, or do I have to make you?"<<gtrauma>><<gstress>><<trauma 6>><<stress 6>>
+	<br><br>
+
+	<<if $exposed gte 2>>
+		<<link [[Walk (0:30)|Mansion Return Walk Naked]]>><</link>>
+		<br>
+	<<elseif $exposed gte 1>>
+		<<link [[Walk (0:30)|Mansion Return Walk Undies]]>><</link>>
+		<br>
+	<<else>>
+		<<link [[Walk (0:30)|Mansion Return Walk]]>><</link>>
+		<br>
+	<</if>>
+	<<link [[Fight|Mansion Return Walk Fight]]>><</link>>
+	<br>
+<<else>>
+	Avery tuts. "It's no fun if I don't get to show you off. I'll stay as well."
+	<br><br>
+
+	<<endevent>>
+	<<avery_mansion_end_links>>
+<</if>>
+
+:: Mansion Return Walk Fight
+<<if $fightstart is 1>>
+	<<set $fightstart to 0>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust -= 100>>
+	<<set $enemyanger += 200>>
+	<<npcidlegenitals>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend or ($pain gte 100 and $willpowerpain is 0)>>
+	<span id="next"><<link [[Next|Mansion Return Walk Fight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Return Walk Fight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Return Walk Fight Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Avery leans against the wall to catch <<his>> breath.
+	<br><br>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"You said you needed exercise," you say. "I hope I could help."
+	<<elseif $speech_attitude is "bratty">>
+		"I'm glad they kept your energy penned in all day," you say. "More for me."
+	<<else>>
+		"I hope I could help give you some exercise," you say.
+	<</if>>
+	<br><br>
+	Avery glares at you, but seems to decide it would be more dignified to remain silent. <<He>> turns around, and walks away.<<ldom>><<npcincr Avery dom -1>><<larage>><<npcincr Avery rage -1>>
+	<br><br>
+	<<tearful>> you brush yourself down.
+	<br><br>
+
+<<elseif $enemyhealth lte 0>>
+	You shove Avery against a wall. <<He>> loses <<his>> footing, and falls to the ground.
+	<br><br>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"You said you needed exercise," you say. "I hope I could help."
+	<<elseif $speech_attitude is "bratty">>
+		"I'm glad they kept your energy penned up at a desk all day," you say. "More for me."
+	<<else>>
+		"I hope I could help give you some exercise," you say.
+	<</if>>
+	<br><br>
+	Avery glares at you, but seems to decide it would be more dignified to remain silent. <<He>> climbs to <<his>> feet, and walks away.<<ldom>><<npcincr Avery dom -1>><<garage>><<npcincr Avery rage 1>>
+	<br><br>
+	<<tearful>> you brush yourself down.
+	<br><br>
+
+<<else>>
+	You fall to the ground, too hurt to continue fighting. Avery stands over you, panting.<<ggdom>><<npcincr Avery dom 3>>
+	<br><br>
+	"Guess that'll do for exercise," <<he>> says. "Don't refuse me again." <<He>> walks away.
+	<br><br>
+	<<tearful>> you climb to your feet.
+	<br><br>
+
+<</if>>
+<<clotheson>>
+<<endcombat>>
+<<avery_mansion_end_links>>
+
+
+:: Mansion Return Sit Excuse
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I'm afraid I'm busy," you say. "Sorry."
+<<elseif $speech_attitude is "bratty">>
+	"The news is boring," you say. "I'll pass."
+<<else>>
+	"Maybe another time," you say.
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+	"I'm not asking much," Avery says, grasping your shoulder. Hard. "Are you going to keep me company, or do you satisfy me some other way?"<<gpain>><<gtrauma>><<gstress>><<pain 4>><<trauma 6>><<stress 6>>
+	<br><br>
+
+	<<link [[Sit with Avery (0:30)|Mansion Return Sit]]>><</link>>
+	<br>
+	<<link [[Fight|Mansion Return Sit Fight]]>><<set $fightstart to 1>><</link>>
+	<br>
+<<else>>
+	Avery frowns at you, then sniffs. "Nevermind. I'll catch the news later." <<He>> walks away.
+	<br><br>
+
+	<<endevent>>
+	<<avery_mansion_end_links>>
+<</if>>
+
+:: Mansion Return Sit Fight
+<<if $fightstart is 1>>
+	<<set $fightstart to 0>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust -= 100>>
+	<<set $enemyanger += 200>>
+	<<npcidlegenitals>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+
+
+<<if _combatend or ($pain gte 100 and $willpowerpain is 0)>>
+	<span id="next"><<link [[Next|Mansion Return Sit Fight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Return Sit Fight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Return Sit Fight Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"I'm sorry I can't watch the news with you," you say. "I hope this satisfied you instead."
+	<<elseif $speech_attitude is "bratty">>
+		"Satisfied?" you ask.
+	<<else>>
+		"I hope this satisfies you," you say.
+	<</if>>
+	<br><br>
+	Avery leans against the wall, catching <<his>> breath. <<He>> wears a conflicted expression, and avoids looking at you. Then <<he>> pushes <<himself>> from the wall, and walks away.<<ldom>><<larage>><<npcincr Avery dom -1>><<npcincr Avery rage -1>>
+	<<tearful>> you recover.
+	<br><br>
+
+<<elseif $enemyhealth lte 0>>
+	Avery backs away from you, clutching <<his>> arm.
+	<br><br>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"I'm sorry I can't sit with you," you repeat. "I'm busy."
+	<<elseif $speech_attitude is "bratty">>
+		"I'm glad that's out of the way," you say. "Enjoy the news."
+	<<else>>
+		"We can watch the news together another time," you repeat.
+	<</if>>
+	<br><br>
+	Avery glares at you, then turns and walks away.<<garage>><<ldom>><<npcincr Avery rage 1>><<npcincr Avery dom -1>>
+	<br><br>
+	<<tearful>> you brush yourself down.
+	<br><br>
+
+<<else>>
+	You fall to the ground, too hurt to continue fighting.
+	<br><br>
+	Avery stands over you, looks at <<his>> hands, then turns and walks away.<<ggdom>><<npcincr Avery dom 3>>
+	<br>
+
+	<<tearful>> you struggle to your feet.
+	<br><br>
+
+<</if>>
+<<clotheson>>
+<<endcombat>>
+<<avery_mansion_end_links>>
+
+
+:: Mansion Return Sit
+<<effects>>
+<<set $outside to 0>>
+
+You sit on the sofa in the lounge. Avery turns on the television, and thumbs through the channels, never finding one that quite satisfies <<him>>.
+<br><br>
+
+<<He>> looks tense.
+<br><br>
+
+<<link [["Try to help " + $NPCList[0].pronouns.him + " relax"|Mansion Return Sit Seduce]]>><</link>><<promiscuous1>>
+<br>
+<<link [[Just sit|Mansion Return Sit 2]]>><</link>>
+<br>
+
+
+:: Mansion Return Sit 2
+<<effects>>
+
+Avery settles on a channel at last, but seems unimpressed. "They always dance around the topic," <<he>> says, turning the television off in disgust, and rising to <<his>> feet. "Nevermind. I'll ask around tomorrow."
+<br><br>
+
+<<He>> walks away.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links>>
+
+:: Mansion Return Sit Seduce
+<<effects>>
+
+<<set $seductiondifficulty to 6000>>
+<<seductioncheck>>
+<<seductionskilluptext>>
+<<seductionskilluse>>
+
+You lean close to Avery, and kiss <<his>> neck.
+<<promiscuity1>>
+
+<<if $seductionrating gte $seductionrequired>>
+
+	<span class="green"><<He>> closes <<his>> eyes and leans back,</span> forgetting the news, for a moment.<<glove>><<npcincr Avery love 1>>
+	<br><br>
+
+	<<link [["Continue the assault on " + $NPCList[0].pronouns.his + " neck"|Mansion Return Sit Neck]]>><<npcincr Avery love 1>><</link>><<glove>>
+	<br>
+	<<link [["Shift focus to " + $NPCList[0].pronouns.his + " hand"|Mansion Return Sit Hand]]>><<npcincr Avery love 1>><</link>><<glove>>
+	<br>
+	<<link [[Pull away|Mansion Return Sit Pull]]>><</link>>
+	<br>
+<<else>>
+
+	<span class="red"><<He>> shakes you off.</span> "Do you mind?" <<he>> says, eyes fixed on the television. "This is important."
+	<br><br>
+	You lean back in your seat.
+	<br><br>
+
+	<<link [[Next|Mansion Return Sit 2]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Return Sit Pull
+<<effects>>
+
+You pull away from Avery, leaving <<him>> breathless for a moment, but <<he>> soon recovers. <<He>> sits upright, and turns off the television.
+<br><br>
+
+"Thanks for the company," <<he>> says, flashing you a smile, before walking away.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links>>
+
+:: Mansion Return Sit Neck
+<<effects>>
+
+You plant a series of kisses on Avery's neck, working your way to <<his>> throat, while reaching for <<his>> nape. You stroke <<him>> there, and kiss <<his>> throat. <<He>> releases a pleasured sigh, and wraps an arm around your waist.
+<br><br>
+
+With a sudden burst of energy, <<he>> flips you onto your back, and raises <<himself>> above you, a hungry look in <<his>> eyes.
+<br><br>
+
+<<link [[Surrender|Mansion Return Sit Surrender]]>><<npcincr Avery dom 1>><</link>><<kissvirginitywarning>><<gdom>>
+<br>
+<<link [[Seize the initiative|Mansion Return Sit Seize]]>><</link>><<kissvirginitywarning>>
+<br>
+<<link [[Turn your head away|Mansion Return Sit Turn]]>><<npcincr Avery rage 1>><<npcincr Avery love -1>><</link>><<garage>><<llove>>
+<br>
+
+
+:: Mansion Return Sit Surrender
+<<effects>>
+
+You let your muscles relax, and your eyes close, as Avery leans in to devour a kiss. You melt beneath <<him>>.
+<<takeKissVirginity "Avery" "loveInterest">>
+<br><br>
+
+<<He>> holds you there for a while longer. You're not sure how much time passes. <<He>> wears a strange smile when <<he>> pulls away.
+<br><br>
+
+"We should do this again sometime," <<he>> says, adjusting <<his>> clothes. <<He>> frowns at the television, as if surprised to see it on. <<He>> turns it off, and walks away.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links>>
+
+
+:: Mansion Return Sit Seize
+<<effects>>
+
+You wrap your arms around Avery, and pull <<him>> closer. <<He>> looks surprised for a moment, but doesn't protest as you pull <<him>> into a kiss.
+<<takeKissVirginity "Avery" "loveInterest">>
+<br><br>
+
+You lie together for a while longer. You're not sure how much time passes. <<He>> wears a strange smile when <<he>> pulls away.
+<br><br>
+
+"Thanks for the distraction," <<he>> says. <<He>> glances at the television, then turns it off without looking at it again.
+<br><br>
+
+
+<<endevent>>
+<<avery_mansion_end_links>>
+
+:: Mansion Return Sit Turn
+<<effects>>
+
+You turn your face away from Avery as <<he>> leans in.
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+	That doesn't stop <<him>>. <<He>> grasps your hair, and bites your cheek.<<gpain>><<gstress>><<pain 4>><<stress 6>>
+	<br><br>
+	"You're a little tease," <<he>> says. "One of these days you'll get in serious trouble." <<He>> releases you, rises to <<his>> feet, and walks away.
+	<br><br>
+<<else>>
+	"Change of heart?" <<he>> asks. "No matter."
+	<br><br>
+	<<He>> rises to <<his>> feet, and adjusts <<his>> clothes, before walking away.
+	<br><br>
+<</if>>
+
+<<endevent>>
+<<avery_mansion_end_links>>
+
+:: Mansion Return Sit Hand
+<<effects>>
+
+You lean down, and raise Avery's hand with your own. You plant a kiss on it, then another, working your way to the tips of <<his>> fingers and planting a kiss on each one.
+<br><br>
+
+<<He>> places <<his>> palm beneath your chin, and holds the fingers of <<his>> other hand close.
+<br><br>
+
+<<link [[Lick them playfully|Mansion Return Sit Hand Playful]]>><<npcincr Avery love 1>><<npcincr Avery dom 1>><</link>><<gdom>><<glove>>
+<br>
+<<link [[Bite and lick them aggressively|Mansion Return Sit Hand Aggressive]]>><<npcincr Avery love 1>><<npcincr Avery dom -1>><</link>><<glove>><<ldom>>
+<br>
+<<link [[Pull away|Mansion Return Sit Hand Pull]]>><</link>>
+<br>
+
+:: Mansion Return Sit Hand Playful
+<<effects>>
+
+You half close your eyes, and lick Avery's hand like it were covered in something sweet. <<He>> releases a soft moan as <<he>> slides one finger between your lips.
+<br><br>
+You feel Avery's pulse quicken.
+<br><br>
+
+<<link [[Verbally tease|Mansion Return Sit Hand Tease]]>><<npcincr Avery dom -1>><</link>><<ldom>>
+<br>
+<<if $NPCList[0].gender is "f">>
+	<<link [["Lift " + $NPCList[0].pronouns.his + " skirt"|Mansion Return Sit Hand Oral]]>><</link>>
+	<br>
+<<else>>
+	<<link [["Unzip " + $NPCList[0].pronouns.his + " fly"|Mansion Return Sit Hand Oral]]>><</link>>
+	<br>
+<</if>>
+
+
+:: Mansion Return Sit Hand Aggressive
+<<effects>>
+
+You assault Avery's fingers with your tongue, and teeth. Your bites are gentle, just hard enough to make Avery wince. <<His>> eyes alight with a playful anger, and <<he>> grasps your hair.<<gpain>><<pain 4>>
+<br><br>
+
+"So that's how you want it to be, hmm?" <<he>> says, holding you closer. "Play nice. Or I'll make you wish you had." <<He>> shoves you away, and releases <<his>> grasp.
+<br><br>
+
+<<link [[Be more gentle|Mansion Return Sit Hand Gentle]]>><<npcincr Avery love 1>><<npcincr Avery dom 1>><</link>>
+<br>
+<<link [[Bite harder|Mansion Return Sit Hand Harder]]>><<npcincr Avery dom -1>><</link>>
+<br>
+
+:: Mansion Return Sit Hand Gentle
+<<effects>>
+
+You press your teeth against Avery's fingers, no longer biting, but look <<him>> in the eyes, challenging. <<He>> smiles.
+<br><br>
+You feel <<his>> pulse quicken.
+<br><br>
+
+<<link [[Verbally tease|Mansion Return Sit Hand Tease]]>><<npcincr Avery dom -1>><</link>><<ldom>>
+<br>
+<<if $NPCList[0].gender is "f">>
+	<<link [["Lift " + $NPCList[0].pronouns.his + " skirt"|Mansion Return Sit Hand Oral]]>><</link>>
+	<br>
+<<else>>
+	<<link [["Unzip " + $NPCList[0].pronouns.his + " fly"|Mansion Return Sit Hand Oral]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Return Sit Hand Tease
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"You like that," you say. "Don't you?"
+<<elseif $speech_attitude is "bratty">>
+	"Getting a little hot and bothered?" you ask. "I have that effect on people. Even you."
+<<else>>
+	"I can feel your pulse quicken," you say. "I'm having quite the effect on you."
+<</if>>
+<br><br>
+
+With a sudden burst of energy, <<he>> wraps an arm around your waist and flips you onto your back, before raising <<himself>> above you, a hungry look in <<his>> eyes.
+<br><br>
+
+<<link [[Surrender|Mansion Return Sit Surrender]]>><<npcincr Avery dom 1>><</link>><<kissvirginitywarning>><<gdom>>
+<br>
+<<link [[Seize the initiative|Mansion Return Sit Seize]]>><</link>><<kissvirginitywarning>>
+<br>
+<<link [[Turn your head away|Mansion Return Sit Turn]]>><<npcincr Avery rage 1>><<npcincr Avery love -1>><</link>><<garage>><<llove>>
+<br>
+
+:: Mansion Return Sit Hand Harder
+<<effects>>
+
+You bite down on Avery's fingers, while staring <<him>> straight in the eyes. <<He>> winces and recoils, but manages to keep <<his>> expression neutral. Almost. You lick your lips.
+<br><br>
+
+"Enough." Avery glances at the television, as if surprised to find it on. <<He>> rises to <<his>> feet, turns it off, and walks away.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links>>
+
+:: Mansion Return Sit Hand Oral
+<<effects>>
+
+<<if $NPCList[0].gender is "m">>
+	You unzip Avery's fly,
+<<else>>
+	You lift Avery's skirt,
+<</if>>
+and let your eyes widen at what you see. A subtle gesture, but it has an effect on Avery. <<His>> eyes alight with hunger.
+<br><br>
+
+<<He>> grasps the back of your head, and pulls you closer.
+<br><br>
+
+<<link [[Lick|Mansion Return Sit Hand Sex]]>><<set $sexstart to 1>><</link>>
+<br>
+<<link [[Pull away|Mansion Return Sit Hand Pull]]>><</link>>
+<br>
+
+:: Mansion Return Sit Hand Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 100>>
+	<<npcoral>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if _combatend>>
+	<span id="next"><<link [[Next|Mansion Return Sit Hand Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Return Sit Hand Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Return Sit Hand Sex Finish
+
+<<set $outside to 0>><<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Avery leans back on the sofa, and gasps for breath. <<tearful>> you lick your lips. <<He>> throws a glance your way, and smiles.
+	<br><br>
+	<<He>> looks at the clock on the wall, and struggles to <<his>> feet. "Thanks for the company," <<he>> says. <<He>> switches off the television, and walks away.
+	<br><br>
+<<elseif $enemyhealth lte 0>>
+	You shove Avery away from you. <<He>> flips over the sofa, but manages to stabilise <<himself>> with dignity intact. Almost. <<He>> adjusts <<his>> clothes, and walks away.
+	<br><br>
+	<<tearful>> you catch your breath.
+	<br><br>
+<<else>>
+	"You're such a tease," Avery says, rising to <<his>> feet. <<He>> turns off the television, and walks away.
+	<br><br>
+	<<tearful>> you catch your breath.
+	<br><br>
+<</if>>
+
+<<clotheson>>
+<<endcombat>>
+<<avery_mansion_end_links>>
+
+:: Mansion Return Sit Hand Pull
+<<effects>>
+
+You pull away from Avery. <<He>> considers you a moment, then adjusts <<his>> outfit.
+<br><br>
+"That's enough of that," <<he>> says, turning off the television and rising to <<his>> feet. "I'm hungry." <<He>> walks away.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links>>
+
+:: Mansion Return Bathe Refuse
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"No hot tub for me, but I hope you enjoy it," you say.
+<<elseif $speech_attitude is "bratty">>
+	"I'm clean enough," you say, shaking your head.
+<<else>>
+	"I don't fancy a hot tub right now," you say.
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+	"I want to spend some time in the hot tub," Avery says, grasping your wrist. Hard. "On the balcony. With my <<girlfriend>>. That isn't too much to ask, is it?"<<gpain>><<gtrauma>><<gstress>><<trauma 6>><<stress 6>><<pain 4>>
+	<br><br>
+	Avery isn't going to take no for an answer.
+	<br><br>
+	<<link [[Fight|Mansion Return Bathe Fight]]>><<set $fightstart to 1>><</link>>
+	<br>
+	<<link [[Bathe in the hot tub with Avery (0:30)|Mansion Return Bathe]]>><<pass 10>><</link>>
+	<br>
+<<else>>
+	Avery sniffs. "As you wish. Some other time." <<He>> walks away.
+	<br><br>
+
+	<<endevent>>
+	<<avery_mansion_end_links>>
+<</if>>
+
+:: Mansion Return Bathe Fight
+<<if $fightstart is 1>>
+	<<set $fightstart to 0>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust -= 100>>
+	<<set $enemyanger += 200>>
+	<<npcidlegenitals>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend or ($pain gte 100 and $willpowerpain is 0)>>
+	<span id="next"><<link [[Next|Mansion Return Bathe Fight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Return Bathe Fight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Return Bathe Fight Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Avery leans against the wall for support, but slips, and knocks over an expensive vase.<<ldom>><<npcincr Avery dom -1>><<larage>><<npcincr Avery rage -1>>
+	<br><br>
+	<<He>> glares at you, but decides to spare what remains of <<his>> dignity, <<he>> walks away. <<tearful>> you brush yourself down.
+	<br><br>
+
+<<elseif $enemyhealth lte 0>>
+	You smack Avery away from you, forcing <<him>> back against a wall. <<He>> leans against it for support, but slips, and knocks over an expensive vase.<<ldom>><<npcincr Avery dom -1>><<garage>><<npcincr Avery rage 1>>
+	<br><br>
+	<<He>> glares at you, but decides to spare what remains of <<his>> dignity, <<he>> walks away. <<tearful>> you brush yourself down.
+	<br><br>
+
+<<else>>
+	You fall to the ground, too hurt to continue fighting. Avery stands above you, panting. Then <<he>> turns and walks away.<<ggdom>><<npcincr Avery dom 3>>
+	<br><br>
+	<<tearful>> you struggle to your feet.
+	<br><br>
+
+<</if>>
+
+<<clotheson>>
+<<endcombat>>
+<<avery_mansion_end_links>>
+
+:: Mansion Return Bathe
+<<effects>>
+<<set $outside to 1>>
+<<outfitChecks>>
+<<if $bus is "avery_bedroom">>
+	Avery leads you out onto the balcony.
+<<else>>
+	Avery leads you to the bedroom, then out onto the balcony.
+<</if>>
+<<He>> disrobes fast, and stretches as <<he>> stands, facing the town, with no shame.
+<br><br>
+
+"You can wear a towel," <<he>> says. "If you're shy."
+<<if _fullyNaked>><<He>> rakes <<his>> eyes over your naked body. "Though for some reason, I doubt you are." <<He>> <<= C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1 ? "sneers" : "smiles">>.<</if>>
+<br><br>
+
+<<if hasSexStat("exhibitionism", 3)>>
+	<<link [[Bathe naked|Mansion Return Bathe Naked]]>><<undress "avery_tub">><</link>><<exhibitionist3>>
+	<br>
+<</if>>
+<<link [[Wear a towel|Mansion Return Bathe Towel]]>><<undress "avery_tub">><</link>>
+<br>
+
+:: Mansion Return Bathe Towel
+<<effects>>
+<<silently>><<wash>><<water>><</silently>>
+<<outfitChecks>>
+<<towelup>>
+<<if !_fullyNaked>>
+	You remove your clothing in the bedroom, concealed from view of the towel, and wrap a towel around your body. Avery is already in the water when you step onto the balcony, facing you with <<his>> arms resting on the edge of the hot tub.
+<<else>>
+	You accept the towel and wrap it around your body. Avery's eyebrows raise, but <<he>> doesn't question it. <<He>> slips into the hot tub before you, facing away from you. You have to climb in around <<him>>.
+<</if>>
+<br><br>
+
+You <<= !_fullyNaked ? "climb in" : "sit">> opposite Avery. The water is warm.
+<br><br>
+
+<<link [[Next|Mansion Return Bathe 2]]>><</link>>
+<br>
+
+:: Mansion Return Bathe Naked
+<<effects>>
+<<silently>><<wash>><<water>><</silently>>
+<<outfitChecks>>
+<<if !_fullyNaked>>
+	Avery watches you remove your clothing, as <<he>> did, without apparent shame.
+<<else>>
+	Avery chuckles.
+<</if>>
+<<He>> takes your hand.
+<<exhibitionism3>>
+
+You climb into the hot tub together. If anyone's watching, they get a good view. Avery sits opposite you, and rests <<his>> arms on the edge of the hot tub.
+<br><br>
+
+<<link [[Next|Mansion Return Bathe 2]]>><</link>>
+<br>
+
+:: Mansion Return Bathe 2
+<<effects>>
+<<silently>><<water>><</silently>>
+Avery presses a button, and the bubbles intensify. <<He>> presses another, and a compartment opens to <<his>> side. A crisp vapour emerges, revealing a bottle of wine, and two glasses.
+<<if currentSkillValue('housekeeping') gte 800>>
+	That's a very expensive vintage.
+<</if>>
+<br><br>
+
+"Care for a drink?" <<he>> asks.
+<br><br>
+
+<<if playerIsPregnant() and playerAwareTheyArePregnant()>>
+	<span class="blue">You can't bring yourself to drink while you know you're with child.</span>
+<<else>>
+	<<link [[Accept|Mansion Return Bathe Drink]]>><<pass 10>><<alcohol 60>><</link>><<galcohol>>
+<</if>>
+<br>
+<<link [[Refuse|Mansion Return Bathe Drink Refuse]]>><<pass 10>><</link>>
+<br>
+
+:: Mansion Return Bathe Drink
+<<effects>>
+<<silently>><<water>><</silently>><<wearProp "white wine">>
+Avery pours a glass for you, and one for <<himself>>. "Cheers." You clink your glasses together, and sip. It's fizzy. Avery leans back, and closes <<his>> eyes in relaxation.
+<br><br>
+
+You look out over the town,
+
+<<if currentSkillValue('skulduggery') gte 800>>
+	<span class="pink">and notice light reflect off a camera.</span> There's plenty of light emerging from distant windows, concealed by trees and bushes, but this is different. Someone is sitting in the branches, watching you and Avery.
+	<br><br>
+
+	<<link [[Tell Avery|Mansion Return Bathe Voyeur]]>><</link>>
+	<br>
+	<<link [[Ignore it|Mansion Return Bathe 3]]>><</link>>
+	<br>
+<<else>>
+	<span class="pink">and can't shake the feeling you're being watched.</span> There's nothing to indicate you are though. Just distant lights from windows, concealed by trees and bushes.
+	<br><br>
+
+	<<link [[Next|Mansion Return Bathe 3]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Return Bathe Drink Refuse
+<<effects>>
+<<silently>><<water>><</silently>>
+You shake your head. Avery pours one for <<himself>>, and reclines in relaxation while sipping it.
+<br><br>
+
+You look out over the town,
+
+<<if currentSkillValue('skulduggery') gte 800>>
+	<span class="pink">and notice light reflect off a camera.</span> There's plenty of light emerging from distant windows, concealed by trees and bushes, but this is different. Someone is sitting in the branches, watching you and Avery.
+	<br><br>
+
+	<<link [[Tell Avery|Mansion Return Bathe Voyeur]]>><</link>>
+	<br>
+	<<link [[Ignore it|Mansion Return Bathe 3]]>><</link>>
+	<br>
+<<else>>
+	<span class="pink">and can't shake the feeling you're being watched.</span> There's nothing to indicate you are though. Just distant lights from windows, concealed by trees and bushes.
+	<br><br>
+
+	<<link [[Next|Mansion Return Bathe 3]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Return Bathe Voyeur
+<<effects>>
+<<silently>><<water>><</silently>>
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"There's someone watching us," you say, afraid to look over again. "In the tree behind you."
+<<elseif $speech_attitude is "bratty">>
+	"We're being watched," you say. "Some pervert in a tree."
+<<else>>
+	"There's a voyeur in a tree," you say. "With a camera. Watching us."
+<</if>>
+<br><br>
+
+Avery looks in the direction of the voyeur. <<He>> keeps moving <<his>> head, unsure where to look, but <<he>> seems convinced by your words regardless. "Well then," <<he>> says, reaching for <<his>> phone. <<He>> taps something into it. "Let's give them a show, shall we?"
+<br><br>
+
+Avery grasps your waist, and pulls you closer.
+<br><br>
+
+<<link [[Allow|Mansion Return Bathe Voyeur Sex]]>><<set $sexstart to 1>><<npcincr Avery love 1>><</link>><<promiscuous1>><<glove>>
+<br>
+<<link [[Refuse|Mansion Return Bathe Voyeur Sex Refuse]]>><<npcincr Avery love -1>><<npcincr Avery rage 1>><</link>><<garage>><<llove>>
+<br>
+
+
+:: Mansion Return Bathe Voyeur Sex Refuse
+<<effects>>
+<<silently>><<water>><</silently>>
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I couldn't possibly!" you say. "They don't deserve a show."
+<<elseif $speech_attitude is "bratty">>
+	"You might be eager to show off," you say. "But I'd rather keep my dignity."
+<<else>>
+	"I don't want to give that pervert a show," you say.
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+	Avery glares at you, and reaches as if to grab you, but decides against it. "Fine," <<he>> says. "Fine."<<gstress>><<stress 6>>
+	<br><br>
+
+	You climb out the pool with Avery. <<He>> wraps a towel around <<his>> body, and strides into the mansion.
+	<br><br>
+
+	<<link [[Next|Mansion Bedroom]]>><<pass 10>><<storeon "avery_tub">><<endevent>><</link>>
+	<br>
+<<else>>
+	"Fair point," Avery says. "I suppose I'm feeling adventurous out here. Come on, let's go inside."
+	<br><br>
+
+	You climb out the pool with Avery. <<He>> wraps a towel around <<his>> body, and strides into the mansion.
+	<br><br>
+
+	<<link [[Next|Mansion Bedroom]]>><<pass 10>><<storeon "avery_tub">><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Return Bathe Voyeur Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<npcexpose>>
+	<<set $enemytrust += 100>><<promiscuity1>>
+	<<set $timer to 10>>
+<</if>>
+
+<<if $timer is 1>>
+	<span class="blue">The blue light of a police siren lights up the voyeur, but they're too engrossed by you and Avery to notice.</span>
+	<br><br>
+<</if>>
+
+<<effects>>
+<<silently>><<water>><</silently>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if _combatend>>
+	<span id="next"><<link [[Next|Mansion Return Bathe Voyeur Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Return Bathe Voyeur Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Return Bathe Voyeur Sex Finish
+<<effects>>
+<<silently>><<water>><</silently>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	The voyeur notices the police at last, but it's too late. They're already surrounded. They attempt to leap from one branch to the branch of a neighbouring tree. Avery notices them now, and laughs as the voyeur slips and falls.
+	<br><br>
+	"Worth another drink," Avery says, one hand resting on your <<bottom>>. "Come on. Let's get in the warm."<<larage>><<npcincr Avery rage -1>><<glove>><<npcincr Avery love 1>>
+	<br><br>
+	<<tearful>> you follow Avery inside.
+	<br><br>
+<<elseif $enemyhealth lte 0>>
+	Avery trips over the edge of the hot tub, and almost falls off the balcony. The voyeur is so absorbed that they don't notice the police officer climb the tree behind them. They almost fall in surprise when the cuffs go on.
+	<br><br>
+	Avery glances at the voyeur, and smiles, though it doesn't touch <<his>> eyes. "Guess we gave them a show after all. Come on. Let's get in the warm."<<garage>><<ldom>><<npcincr Avery rage 1>><<npcincr Avery dom -1>>
+	<br><br>
+	<<tearful>> you follow Avery inside.
+	<br><br>
+<<else>>
+	The voyeur notices the approaching police. They climb down the tree, almost dropping their camera. You can't tell if they escaped.
+	<br><br>
+	"I need to warm up," Avery says. "Come on. Let's go inside." <<tearful>> you follow Avery inside.
+	<br><br>
+<</if>>
+
+<<endcombat>>
+<<link [[Next|Mansion Bedroom]]>><<pass 10>><<storeon "avery_tub">><<endevent>><</link>>
+<br>
+
+
+:: Mansion Return Bathe 3
+<<effects>>
+
+Avery closes <<his>> eyes, and takes a deep breath. <<He>> smiles, and looks at you. Above the surface of the water, then below it.<<fameexhibitionism 5>>
+<br><br>
+
+<<He>> wraps a leg around your waist, and tries to pull you to <<him>>. There's no question as to <<his>> intentions. <<His>> eyes are full of lust.
+<br><br>
+
+<<link [[Allow|Mansion Return Bathe Sex]]>><<set $sexstart to 1>><</link>><<promiscuous1>>
+<br>
+<<link [[Refuse|Mansion Return Bathe Sex Refuse]]>><<npcincr Avery rage 1>><</link>><<garage>>
+<br>
+
+
+:: Mansion Return Bathe Sex Refuse
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"The water would make a poor lubricant," you point out.
+<<elseif $speech_attitude is "bratty">>
+	"Can't we have a nice relaxing evening without you wanting to fuck?" you ask.
+<<else>>
+	"I'm not in the mood," you say.
+<</if>>
+<br><br>
+
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+	Avery grasps the back of your neck, and pulls you closer. "You should be nicer to me," <<he>> says. "Remember what can happen if you don't."<<gpain>><<gtrauma>><<gstress>><<pain 4>><<trauma 6>><<stress 6>>
+	<br><br>
+
+	<<He>> rises to <<his>> feet, wraps a towel around <<his>> body, and steps from the hot tub.
+	<br><br>
+
+	<<link [[Next|Mansion Bedroom]]>><<pass 10>><<storeon "avery_tub">><<endevent>><</link>>
+	<br>
+<<else>>
+	Avery taps <<his>> chin. "Forgive me. You're just that desirable." <<He>> glances at <<his>> watch, and rises to <<his>> feet. "Come on. Let's go inside." <<He>> steps from the hot tub, and wraps a towel around <<his>> body.
+	<br><br>
+	<<link [[Next|Mansion Bedroom]]>><<pass 10>><<storeon "avery_tub">><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Return Bathe Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 100>><<promiscuity1>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if _combatend>>
+	<span id="next"><<link [[Next|Mansion Return Bathe Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Return Bathe Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Return Bathe Sex Finish
+
+<<set $outside to 0>><<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	After that, <<he>> holds you close a moment, then releases you, letting you float in the water. <<He>> glances at the time, then rises to <<his>> feet. <<He>> helps you up in turn.<<larage>><<glove>><<npcincr Avery rage -1>><<npcincr Avery love 1>>
+	<br><br>
+	"Let's get back in the warm," <<he>> says. <<He>> strides from the hot tub, wraps a towel around <<his>> waist, and enters the bedroom. <<tearful>> you follow suit.
+	<br><br>
+<<elseif $enemyhealth lte 0>>
+	You shove Avery away from you. <<He>> trips over the edge of the hot tub, and almost falls from the balcony.<<garage>><<ldom>><<npcincr Avery rage 1>><<npcincr Avery dom -1>>
+	<br><br>
+	Avery steadies <<himself>>, catches <<his>> breath, then strides into the bedroom without sparing you another glance. <<tearful>> you enter after <<him>>.
+	<br><br>
+<<else>>
+	"We'll finish later," Avery says, flashing a smile. <<He>> rises to <<his>> feet, and steps out the hot tub, before wrapping a towel around <<his>> body and entering the bedroom.
+	<br><br>
+	<<tearful>> you follow suit.
+	<br><br>
+<</if>>
+
+
+<<endcombat>>
+<<link [[Next|Mansion Bedroom]]>><<pass 10>><<storeon "avery_tub">><</link>>
+<br>
+
+
+:: Mansion Return Ride Refuse
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"No thank you," you say. "I might get car sick."
+<<elseif $speech_attitude is "bratty">>
+	"I'm sure you can drive around feeling cool without me," you say.
+<<else>>
+	"No driving for me today," you say.
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+	Avery takes a step closer. "I'll ask again," <<he>> says. "Would you accompany me?"<<gtrauma>><<gstress>>
+	<br><br>
+
+	<<link [[Ride with Avery (0:30)|Mansion Return Ride]]>><<pass 10>><</link>>
+	<br>
+	<<link [[Fight|Mansion Return Ride Fight]]>><<set $fightstart to 1>><</link>>
+	<br>
+<<else>>
+	Avery curls <<his>> lips as if in a smile, but it evaporates at once. "Pity. I wanted to show off. Another time."
+	<br><br>
+	<<He>> walks away.
+	<br><br>
+	<<endevent>>
+	<<avery_mansion_end_links>>
+<</if>>
+
+:: Mansion Return Ride Fight
+<<if $fightstart is 1>>
+	<<set $fightstart to 0>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust -= 100>>
+	<<set $enemyanger += 200>>
+	<<npcidlegenitals>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend or ($pain gte 100 and $willpowerpain is 0)>>
+	<span id="next"><<link [[Next|Mansion Return Ride Fight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Return Ride Fight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Return Ride Fight Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Avery steadies <<himself>>, and seems to have difficulty focusing. <<He>> gathers <<his>> dignity, and walks away.<<ldom>><<npcincr Avery dom -1>><<larage>><<npcincr Avery rage -1>>
+	<br><br>
+	<<tearful>> you catch your breath.
+	<br><br>
+<<elseif $enemyhealth lte 0>>
+	You shove Avery against a plant pot. <<He>> manages to steady it, but falls to the ground in the process. <<He>> climbs to <<his>> feet, and walks away without looking at you.<<ldom>><<npcincr Avery dom -1>><<garage>><<npcincr Avery rage 1>>
+	<br><br>
+	<<tearful>> you catch your breath.
+	<br><br>
+<<else>>
+	You fall to the ground, too hurt to continue fighting. Avery stands over your, fists clenched, panting. <<He>> frowns, stares at <<his>> fist, then walks away.<<ggdom>><<npcincr Avery dom 3>>
+	<br><br>
+	<<tearful>> you struggle to your feet.
+	<br><br>
+<</if>>
+
+<<clotheson>>
+<<endcombat>>
+<<avery_mansion_end_links>>
+
+
+:: Mansion Return Ride
+<<effects>>
+<<set $outside to 0>>
+
+You climb into Avery's sports car. The interior is less luxurious than Avery's usual want, but <<he>> doesn't seem to mind. <<He>> thumbs the steering wheel as if it were a favoured pet.
+<br><br>
+
+Avery turns on the engine, and thunders through the gates.
+<br><br>
+
+<<link [[Next|Mansion Return Ride 2]]>><</link>>
+<br>
+
+:: Mansion Return Ride 2
+<<set $location to "town">><<effects>>
+
+Avery's tyres screech through the town's streets, breaking the speed limit, and forcing other drivers to make way. It's a wonder <<he>> doesn't crash. <<He>> wears a silly grin the whole time.
+<br><br>
+
+You hear a siren, and look over your shoulder. A police car follows. It's catching up. Avery glances in the rear view mirror. "What do you think?" <<he>> asks. "Shall we give them the slip?"
+<br><br>
+
+<<link [[Tell Avery to stop|Mansion Return Ride Stop]]>><<pass 10>><</link>>
+<br>
+<<link [[Remain silent|Mansion Return Ride Silent]]>><<pass 10>><</link>>
+<br>
+<<link [[Egg Avery on|Mansion Return Ride Egg]]>><<pass 10>><<npcincr Avery love 1>><</link>><<glove>>
+<br>
+
+:: Mansion Return Ride Stop
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Please stop," you say, resting both hands on Avery's arm. "You'll get us both in trouble."
+<<elseif $speech_attitude is "bratty">>
+	"What's wrong with you?" you ask. "Are you trying to get us in trouble?"
+<<else>>
+	"You should stop," you say. "Or you'll get us in trouble."
+<</if>>
+<br><br>
+
+Avery speeds up a moment. Then <<he>> hits the brakes. Your seatbelt presses into your chest. "You spoilsport," <<he>> says, but <<he>> sounds amused. "You're right though. We shouldn't antagonise the police without reason."
+<br><br>
+
+<<He>> opens the window, and greets the police officer with an innocent smile.
+<br><br>
+
+<<link [[Next|Mansion Return Ride Stop 2]]>><</link>>
+<br>
+
+:: Mansion Return Ride Stop 2
+<<effects>>
+
+<<generate2>><<person2>>
+The police officer's demeanour shifts when <<he>> sees Avery behind the wheel. "Just wanted to make sure everything's in order," <<he>> says. Avery replies with a most polite smile.
+<br><br>
+
+Avery drives you back to the mansion, winding through odd streets, avoiding the rougher parts of town. <<person1>><<He>> pulls into the garage, climbs from the car, and stretches before opening your door.
+<br><br>
+
+<<link [[Next|Mansion Garage]]>><<endevent>><<pass 10>><</link>>
+<br>
+
+:: Mansion Return Ride Silent
+<<effects>>
+
+You remain silent. Avery takes it as a yes. <<He>> accelerates, and swerves, forcing a pedestrian to leap back in fright. The police car accelerates after you, but doesn't risk such manoeuvres. You gain ground.
+<br><br>
+
+Avery skids onto Harvest Street, then onto the road leading to the town's outskirts. "Let's hope we don't meet oncoming traffic," <<he>> says. "I won't be slowing for them."
+<br><br>
+
+<<link [[Next|Mansion Return Ride Egg 2]]>><</link>>
+<br>
+
+:: Mansion Return Ride Egg
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"You need to go faster," you say. "I don't want to get in trouble!"
+<<elseif $speech_attitude is "bratty">>
+	"Hit it," you say.
+<<else>>
+	You nod, and brace yourself.
+<</if>>
+<br><br>
+Avery doesn't need asking twice. <<He>> accelerates, and swerves, forcing a pedestrian to leap back in fright. The police car accelerates after you, but doesn't risk such manoeuvres. You gain ground.
+<br><br>
+
+Avery skids onto Harvest Street, then onto the road leading to the town's outskirts. "Let's hope we don't meet oncoming traffic," <<he>> says. "I won't be slowing for them."
+<br><br>
+
+<<link [[Next|Mansion Return Ride Egg 2]]>><</link>>
+<br>
+
+:: Mansion Return Ride Egg 2
+<<effects>>
+
+Avery turns down one of the thin side roads, then swerves off the road, cutting through a field. The sound of the siren fades behind you.
+<br><br>
+"Easy as that," Avery says. "Hope we didn't pick up too much dirt."
+<br><br>
+
+Another couple of turns, and you're back on Harvest Street. Avery drives you to the mansion, taking strange roads, and avoiding the rougher parts of town. <<He>> pulls into the garage, climbs from the car, and stretches before opening your door.
+<br><br>
+
+"Shame about the mud," <<he>> says, plucking a half-grown plant from above the wheel. <<He>> observes it a moment, then walks away.
+<br><br>
+
+<<link [[Next|Mansion Garage]]>><<endevent>><<pass 10>><</link>>
+<br>
+
+:: Mansion Return Badminton Refuse
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"No thank you," you say. "You're too good for me."
+<<elseif $speech_attitude is "bratty">>
+	"No thanks," you say. "You wouldn't be enough of a challenge."
+<<else>>
+	"No thanks," you say. "I'm too tired."
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+	Avery adjusts <<his>> clothing. Then steps closer, menace in <<his>> eyes. "I wasn't asking," <<he>> says. "You'll help me unwind. One way or another."
+	<br><br>
+
+	<<link [[Play badminton with Avery (0:30)|Mansion Return Badminton]]>><<pass 10>><</link>>
+	<br>
+	<<link [[Fight|Mansion Return Badminton Fight]]>><<set $fightstart to 1>><</link>>
+	<br>
+<<else>>
+	Avery stares at you a moment, then offers a cold smile. "A shame. Another time then." <<He>> walks away.
+	<br><br>
+	<<endevent>>
+	<<avery_mansion_end_links>>
+<</if>>
+
+:: Mansion Return Badminton Fight
+<<if $fightstart is 1>>
+	<<set $fightstart to 0>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust -= 100>>
+	<<set $enemyanger += 200>>
+	<<npcidlegenitals>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend or ($pain gte 100 and $willpowerpain is 0)>>
+	<span id="next"><<link [[Next|Mansion Return Badminton Fight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Return Badminton Fight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Return Badminton Fight Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Avery leans against the wall, and regards you, while catching <<his>> breath. <<He>> pushes <<himself>> off the wall, and walks away.<<larage>><<ldom>><<npcincr Avery rage -1>><<npcincr Avery dom -1>>
+	<br><br>
+	<<tearful>> you catch your breath.
+	<br><br>
+
+<<elseif $enemyhealth lte 0>>
+	Avery smacks against the wall, cries out, and clutches <<his>> back. <<He>> glares at you a moment, then walks away.<<ldom>><<npcincr Avery dom -1>>
+	<br><br>
+	<<tearful>> you catch your breath.
+	<br><br>
+
+<<else>>
+	You fall to the ground, too hurt to continue fighting. Avery adjusts <<his>> clothing, then walks away.<<ggdom>><<npcincr Avery dom 3>>
+	<br><br>
+	<<tearful>> you struggle to your feet.
+	<br><br>
+
+<</if>>
+
+<<clotheson>>
+<<endcombat>>
+<<avery_mansion_end_links>>
+
+:: Mansion Return Badminton
+<<effects>><<wearProp "badminton racquet">>
+<<set $outside to 1>>
+<<set $avery_passage to "Mansion Garden">>
+
+You go to the badminton court near the garden. Avery arrives a few minutes later, wearing a white shirt and
+<<if $NPCList[0].gender is "m">>
+	shorts.
+<<else>>
+	skirt.
+<</if>>
+<<He>> carries two rackets, and a collection of shuttlecocks. <<He>> hands you one of the former, and places all but one shuttlecock on a table beside the court.
+<br><br>
+
+<<rng 2>>
+<<if $rng is 2>>
+	<<set $phase to 1>>
+<<else>>
+	<<set $phase to 0>>
+<</if>>
+<<He>> retrieves a coin from <<his>> shirt pocket, and flips it in the air. "Heads or tails?"
+<br><br>
+
+<<link [[Heads|Mansion Return Badminton Heads]]>><</link>>
+<br>
+<<link [[Tails|Mansion Return Badminton Tails]]>><</link>>
+<br>
+
+:: Mansion Return Badminton Heads
+<<effects>><<wearProp "badminton racquet">>
+
+<<if $phase is 1>>
+	Avery reveals the coin. Heads. "You go first," <<he>> says. <<He>> walks to <<his>> side of the court, and awaits your move.
+	<br><br>
+	<<link [[Play normally|Mansion Return Badminton Normal]]>><<pass 10>><</link>><<athleticsdifficulty 650 850>>
+	<br>
+<<else>>
+	Avery reveals the coin. Tails. "I'll go first," <<he>> says. <<He>> walks to <<his>> side of the court, and prepares to serve.
+	<br><br>
+	<<link [[Play normally|Mansion Return Badminton Normal]]>><<pass 10>><</link>><<athleticsdifficulty 700 900>>
+	<br>
+<</if>>
+
+<<link [[Let Avery win|Mansion Return Badminton Throw]]>><<pass 10>><<npcincr Avery dom 1>><</link>><<gdom>>
+<br>
+
+:: Mansion Return Badminton Tails
+<<effects>><<wearProp "badminton racquet">>
+
+<<if $phase is 0>>
+	Avery reveals the coin. Tails. "You go first," <<he>> says. <<He>> walks to <<his>> side of the court, and awaits your move.
+	<br><br>
+	<<link [[Play normally|Mansion Return Badminton Normal]]>><<pass 10>><</link>><<athleticsdifficulty 650 850>>
+	<br>
+<<else>>
+	Avery reveals the coin. Heads. "I'll go first," <<he>> says. <<He>> walks to <<his>> side of the court, and prepares to serve.
+	<br><br>
+	<<link [[Play normally|Mansion Return Badminton Normal]]>><<pass 10>><</link>><<athleticsdifficulty 700 900>>
+	<br>
+<</if>>
+
+<<link [[Let Avery win|Mansion Return Badminton Throw]]>><<pass 10>><<npcincr Avery dom 1>><</link>><<gdom>>
+<br>
+
+:: Mansion Return Badminton Normal
+<<effects>><<wearProp "badminton racquet">>
+
+You play to the best of your ability.
+<<if $athleticsSuccess>>
+	Avery is no slouch,
+	<<if currentSkillValue('athletics') gte 1000>>
+		but <<he>> has to exert <<himself>> to <<his>> fullest just to keep up with you, stretching and straining, sweating and panting, <span class="green">until <<he>> fumbles.</span>
+	<<else>>
+		and <<he>> puts up a struggle. You both end up panting and sweating, but <span class="green"><<he>> fumbles first.</span>
+	<</if>>
+	<<garage>><<npcincr Avery rage 1>>
+	<br><br>
+	"Again," Avery says through gritted teeth. <<He>> performs no better this time. Or the next.
+	<br><br>
+	<<He>> throws <<his>> racket over a hedge, and leaves the court without looking at you.
+	<br><br>
+<<else>>
+	Avery is good however, and you have trouble keeping up with <<his>> speed and strength. <span class="red"><<He>> wins soundly.</span><<gdom>><<npcincr Avery dom 1>>
+	<br><br>
+	"Keep at it," <<he>> says, taking a swig of water. "One day you could almost be as good as me." <<He>> gathers up the shuttlecocks, and walks inside.
+	<br><br>
+<</if>>
+
+<<endevent>>
+<<avery_mansion_end_links>>
+
+:: Mansion Return Badminton Throw
+<<effects>><<wearProp "badminton racquet">>
+
+You let Avery win.
+<<if currentSkillValue('athletics') gte 900>>
+	You make a good show of it, pushing <<him>> until <<he>> breaks into a sweat, then you 'fumble.'
+	<br><br>
+<<else>>
+	Avery is good though, and might have been able to win regardless.
+	<br><br>
+<</if>>
+<<He>> seems satisfied. "Keep at it," <<he>> says, taking a swig of water. "One day you could almost be as good as me." <<He>> gathers up the shuttlecocks, and walks inside.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links>>
+
+
+:: Mansion Return Bow Agree
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Whatever makes you happy," you say.
+<<elseif $speech_attitude is "bratty">>
+	"Sure," you say. "It's no work on my end."
+<<else>>
+	"I can do that," you say.
+<</if>>
+<br><br>
+
+Avery nods "Good. I'll be glad to be greeted such." <<He>> flashes you a smile, and walks away.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links>>
+
+:: Mansion Return Bow Demonstrate
+<<effects>>
+
+<<if $player.gender_appearance is "f">>
+	You drop into a deep curtsy, then look up at Avery.
+<<else>>
+	You drop into a deep bow, then look up at Avery.
+<</if>>
+"Like this?"
+<br><br>
+
+Avery nods. "Quite so. Yes, I'll be most pleased to be greeted such." <<He>> flashes you a smile, and walks away.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links>>
+
+:: Mansion Return Bow Refuse
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I'm thankful for all you do for me," you say. "But you shouldn't request something unreasonable."
+<<elseif $speech_attitude is "bratty">>
+	"You think you're royalty or something?" you ask. "No, I won't be doing that."
+<<else>>
+	"That sounds a bit strange," you say.
+<</if>>
+<br><br>
+
+Avery's smile doesn't touch <<his>> eyes. "I must insist. It's not much to ask."
+<br><br>
+<<He>> adjusts <<his>> collar, and walks away.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links>>
+
+:: Mansion Return Kneel
+<<effects>>
+
+You drop to your knees before Avery. <<He>> rests <<his>> foot against the top of your head, then forces you down against the ground.
+<br><br>
+
+"Good <<girl>>," <<he>> says. "This is how I want you to greet me in the future. Forehead against the ground. Understood?" <<He>> moves <<his>> foot, and walks away.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links>>
+
+:: Mansion Return Kneel Refuse
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"But I've a better view of you from up here," you say.
+<<elseif $speech_attitude is "bratty">>
+	"You kneel first," you say. "Then I'll consider it."
+<<else>>
+	"I don't want to get my knees dirty," you say.
+<</if>>
+<br><br>
+
+Avery flashes a terrible smile. "Don't talk back. I'll expect you to kneel when you greet me from now on. Don't disappoint." <<He>> walks away.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links>>
+
+:: Mansion Return Meek
+<<effects>>
+
+"Yes, <<sir>>," you say, averting your gaze. "I will."
+<br><br>
+
+"Good. Don't forget." <<He>> pats your head, and walks away.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links>>
+
+:: Mansion Return Meek Refuse
+<<effects>>
+
+<<if $speech_attitude is "bratty">>
+	"I've no intention of degrading myself so," you say.
+<<else>>
+	"I don't think I'd like that," you say.
+<</if>>
+<br><br>
+
+Avery stiffens. "I'll overlook this slight," <<he>> says. "But don't make the same mistake again. You will address me with appropriate decorum. Or else." <<He>> walks away.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links>>
+
+:: Mansion Return Dungeon
+<<set $outside to 0>><<effects>>
+
+<<if $avery_bus isnot "study">>
+	Avery leads you to <<his>> study. <<He>> stops at the door, "Wait here. I won't be long."
+	<br><br>
+<<else>>
+	"Step outside a moment," Avery says. "I won't be long."
+	<br><br>
+	You leave the study.
+<</if>>
+
+<<if $skulduggery gte 1000>>
+	Avery takes seven steps. <<He>> stops beside the shelf in the corner, behind the desk. It's ever so faint, but you hear <<his>> watch catch on the shelf as <<he>> reaches for something. If Avery thought keeping you outside would hide <<his>> movements from you, <span class="green"><<he>> was mistaken.</span>
+	<<set $avery_mansion.study_secret to 1>>
+<<else>>
+	You hear Avery pace around the study. Then <<he>> pauses. A moment later, you hear a metallic thud, the creak of wood, and a distant mechanical whir. The noise stops.
+<</if>>
+<br><br>
+
+"Come in," Avery says. You do so.
+<br><br>
+The room is filled with an ominous red light. The desk has been split in two and moved aside, revealing a staircase.
+<br><br>
+"After you, my pet."
+<br><br>
+
+<<link [[Go down the staircase|Mansion Return Dungeon Staircase]]>><</link>>
+<br>
+<<link [[Hesitate|Mansion Return Dungeon Hesitate]]>><</link>>
+<br>
+
+:: Mansion Return Dungeon Staircase
+<<effects>>
+
+You walk down the staircase. It spirals downwards, far enough that you must be underground. Avery follows close behind, <<his>> grin lit by the fell light.
+<br><br>
+
+The staircase emerges in a straight hallway. Red lights line the stone walls. At the far end stands an ornate door. "I've only shown this place to one other," Avery says, striding ahead of you. "I might have been too hasty. They didn't last much longer." <<He>> pushes the door open with one hand.
+<br><br>
+
+<<link [[Next|Mansion Return Dungeon 2]]>><</link>>
+<br>
+
+:: Mansion Return Dungeon Hesitate
+<<effects>>
+
+You hesitate, but Avery doesn't seem to mind. "What are you frightened of?" <<He>> rests a hand on your <<bottom>>. "You know I wouldn't put you in danger, right?"
+<br><br>
+
+<<He>> pushes you.
+<br><br>
+
+<<link [[Next|Mansion Return Dungeon Staircase]]>><</link>>
+<br>
+
+:: Mansion Return Dungeon 2
+<<effects>>
+
+Beyond is a wide room. In the centre stands two wooden boards, crossing each other in the shape of an X. Ropes hang and coil from the ends. A table sits beside it, holding a candle, various striking implements including a whip, and a bottle of red wine.
+<br><br>
+There's another hallway leading away from this room, <span class="blue">with a large metal door at the far end.</span> It looks like the entrance of a vault. You spy a keypad beside it.
+<br><br>
+
+"What do you think?" Avery asks.
+<br><br>
+
+<<link [[Say it looks scary|Mansion Return Dungeon Scary]]>><</link>>
+<br>
+<<link [[Ask to try it out|Mansion Return Dungeon Ask]]>><<npcincr Avery dom 1>><</link>><<gdom>>
+<br>
+<<link [[Remain silent|Mansion Return Dungeon Silent]]>><</link>>
+<br>
+
+
+:: Mansion Return Dungeon Scary
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"This is a very scary place," you say.
+<<elseif $speech_attitude is "bratty">>
+	"It's a bit grubby in here," you say. "I'm glad you don't show the guests."
+<<else>>
+	"It's scary," you say.
+<</if>>
+<br><br>
+
+Avery laughs. "Good. This rack here," Avery takes the whip from the table. "It's for you." Avery strikes the rack with the whip, then laughs. "Not yet though. I just wanted you to know what was coming."
+<br><br>
+
+<<He>> places the whip back on the table, wraps an arm around your shoulder, and steers you towards the stairs.
+<br><br>
+
+<<link [[Next|Mansion Return Dungeon End]]>><</link>>
+<br>
+
+:: Mansion Return Dungeon Ask
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Can you show me how it works?" you ask. "Please."
+<<elseif $speech_attitude is "bratty">>
+	"Kinky," you say, walking towards the rack. "Strap me down."
+<<else>>
+	"I'd like to try this," you say, walking towards the rack.
+<</if>>
+<br><br>
+
+Avery frowns in surprise, but <<he>> recovers fast. "Very good." <<He>> lifts the whip from the table. "Not yet though." <<He>> strikes the rack with the whip. "I just wanted you to see what was coming."
+<br><br>
+
+<<He>> places the whip back on the table, wraps an arm around your shoulder, and steers you towards the stairs.
+<br><br>
+
+<<link [[Next|Mansion Return Dungeon End]]>><</link>>
+<br>
+
+
+:: Mansion Return Dungeon Silent
+<<effects>>
+
+You remain silent. "Speechless?" Avery says. "Good." <<He>> lifts the whip from the table. "Not yet though." <<He>> strikes the rack with the whip. "I just wanted you to see what was coming."
+<br><br>
+
+<<He>> places the whip back on the table, wraps an arm around your shoulder, and steers you towards the stairs.
+<br><br>
+
+<<link [[Next|Mansion Return Dungeon End]]>><</link>>
+<br>
+
+
+:: Mansion Return Dungeon End
+<<effects>>
+
+Avery follows you up the staircase, away from the dungeon, and the fell light. <<He>> turns to you once in the study, and gestures at the door. "Step outside. Let me have my secrets."
+<br><br>
+
+You step outside. You hear Avery pace around the room, followed by a mechanical whirring, then a metallic thud. Avery exits the study, and stops to lock the door.
+<br><br>
+
+"I'm famished." <<He>> winks at you, and passes by.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_end_links>>
+
+:: Mansion Return Broken Bed
+<<effects>>
+The mansion is silent, and seems empty, until you arrive in the garage. Avery sits behind the wheel of <<his>> sports car. One arm is encased in a white cast, held aloft by a sling around <<his>> neck. The other clutches a bottle of cheap bourbon. <<He>> takes a swig.
+<br><br>
+
+<<link [[Approach|Mansion Return Broken Approach]]>><<set $avery_injury to false>><<set $avery_mansion.injury_timer to 90>><<set $avery_mansion.injury_stage to "fresh">><</link>>
+<br>
+<<link [[Just watch (0:10)|Mansion Return Broken Watch]]>><<set $avery_injury to false>><<set $avery_mansion.injury_timer to 90>><<set $avery_mansion.injury_stage to "fresh">><<pass 10>><</link>>
+<br>
+
+
+:: Mansion Return Broken Approach
+<<effects>>
+
+You approach Avery. <<He>> lowers the bottle when <<he>> notices you, concealing it from view, before stepping from the car.
+<br><br>
+
+"They say I'll make a full recovery," <<he>> says, lifting <<his>> broken arm a little. "Broken bones heal stronger." <<He>> stares at you across the bonnet of the car, as if unsure of what to say.<<lllarage>><<npcincr Avery rage -9>><<llldom>><<npcincr Avery dom -9>>
+<<set $avery_mansion.rage.timer to 30>>
+<br><br>
+
+<<link [[Welcome Avery home|Mansion Return Broken Welcome]]>><<npcincr Avery love 1>><</link>><<glove>>
+<br>
+<<link [["Run up and hug " + $NPCList[0].pronouns.him|Mansion Return Broken Hug]]>><<npcincr Avery love 1>><</link>><<glove>>
+<br>
+<<link [[Say nothing|Mansion Return Broken Silent]]>><</link>>
+<br>
+
+:: Mansion Return Broken Watch
+<<effects>>
+
+You watch Avery from the shadows. <<He>> leans against the bonnet, staring into space, and taking the occasional sip from the bottle. <<He>> continues until half the bottle is gone, then <<he>> screws on the lid and hides it in the glove compartment.
+<br><br>
+
+<<He>> notices you as <<he>> climbs from the car. "They say I'll make a full recovery," <<he>> says, lifting <<his>> broken arm a little. "Broken bones heal stronger." <<He>> stares at you across the bonnet of the car, as if unsure of what to say.<<lllarage>><<npcincr Avery rage -9>><<llldom>><<npcincr Avery dom -9>>
+<<set $avery_mansion.rage.timer to 30>>
+<br><br>
+
+<<link [[Welcome Avery home|Mansion Return Broken Welcome]]>><<npcincr Avery love 1>><</link>><<glove>>
+<br>
+<<link [["Run up and hug " + $NPCList[0].pronouns.him|Mansion Return Broken Hug]]>><<npcincr Avery love 1>><</link>><<glove>>
+<br>
+<<link [[Say nothing|Mansion Return Broken Silent]]>><<npcincr Avery dom -1>><</link>><<ldom>>
+<br>
+
+:: Mansion Return Broken Welcome
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Welcome home," you say. "It's felt empty without you."
+<<elseif $speech_attitude is "bratty">>
+	"Welcome," you say. "It's good to see you in one piece."
+<<else>>
+	"Welcome back," you say.
+<</if>>
+<br><br>
+
+"I hope you've kept everything clean," Avery says. "I won't be much use there."
+<br><br>
+
+<<He>> stares at you a moment longer, then walks away.
+<br><br>
+
+<<link [[Next|Mansion Garage]]>><<endevent>><</link>>
+<br>
+
+:: Mansion Return Broken Hug
+<<effects>>
+
+You rush up to Avery and throw your arms around <<him>>, careful to avoid <<his>> broken arm. <<He>> pats you on the back with <<his>> good hand.
+<br><br>
+
+"I'm glad you're pleased to see me," <<he>> says. "I hope you've kept the place clean. I'm not going to be much use."
+<br><br>
+
+<<He>> extracts <<himself>> from your arms, and walks away.
+<br><br>
+
+<<link [[Next|Mansion Garage]]>><<endevent>><</link>>
+<br>
+
+:: Mansion Return Broken Silent
+<<effects>>
+
+You remain silent, and stare at Avery across the bonnet. <<He>> averts <<his>> eyes after a moment, and walks away.
+<br><br>
+
+<<link [[Next|Mansion Garage]]>><<endevent>><</link>>
+<br>
+
+:: Mansion Return Bed Work
+<<effects>>
+
+<<if $avery_mansion.schedule is "bath">>
+	<<set $avery_mansion.rage.work to false>>
+
+	<<avery_housework_assess bath>>
+<<elseif $avery_mansion.schedule is "sleep">>
+	<<set $avery_mansion.rage.work to false>>
+
+	<<avery_housework_assess sleep>>
+<<else>>
+	<<set $avery_mansion.rage.work to false>>
+
+	<<avery_housework_assess work>>
+<</if>>
+
+:: Mansion Return Bed Assess
+<<effects>>
+
+<<avery_housework_assess>>
+
+
+
+:: Mansion Return Bed Party
+<<effects>>
+
+<<avery_mansion_contents_party>>
+
+:: Mansion Return Bed Party Prepare
+<<effects>>
+<<avery_mansion_contents_party_prepare>>

@@ -1,0 +1,123 @@
+:: Widgets Underground [widget]
+
+<<widget "dungeonescape">>
+	<<if $baileySold>>
+		<<set $baileyReunionScene to "dungeon">>
+	<</if>>
+
+	<<if $whitneyromance is 1>>
+		<<set $whitneyReunionScene to "dungeon">>
+	<</if>>
+
+	<<if C.npc.Kylar.love gte 50>>
+		<<set $kylarReunionScene to "dungeon">>
+	<</if>>
+
+	<<if C.npc.Robin.init is 1>>
+		<<if $hoursGoneFromHome gte 4 and !$undergroundbrothel.robin>>
+			<<set $robinReunionScene to "dungeon">>
+		<<elseif $undergroundbrothel.robinGone>>
+			<<set $robinReunionScene to "dungeonRobin">>
+		<</if>>
+	<</if>>
+
+	<<if $undergroundbrothel.robin>>
+		<<set $robinmissing to 0>>
+	<</if>>
+
+	<<unset $baileySold>>
+	<<unset $wraithUnderground>>
+	<<set $undergroundbrothelescaped to true>>
+	<<set $undergroundbrothel to {"escape": $undergroundbrothel.escape}>>
+	<<unset $underground_shirt>>
+<</widget>>
+
+<<widget "undergroundCellOptions">>
+	<<bedicon "zzz">><<link [[Rest (1:00)|Underground Cell Rest]]>><<pass 1 hour>><<set $tiredness -= 1000>><</link>><<ltiredness>>
+	<br>
+	<<if $undergroundbrothel.robin and !$undergroundbrothel.robinSpoke>>
+		<<ind>><<link [[Talk to Robin (0:10)|Underground Cell Robin Talk]]>><<pass 10>><<stress -4>><<trauma -4>><<npcincr Robin trauma -2>><</link>><<lstress>><<ltrauma>><<lrtrauma>>
+		<br>
+	<</if>>
+	<<if $undergroundbrothel.escape is 0>>
+		<<investigateicon>><<link [[Look for a way out|Underground Cell Look]]>><</link>>
+	<<elseif $undergroundbrothel.escape gte 19>>
+		<<getouticon "hole">><<link [[Escape|Underground Escape]]>><</link>>
+	<<elseif $undergroundbrothel.escape gte 18 and $physiquesize lte 12000>>
+		<<getouticon "hole">><<link [[Escape|Underground Escape]]>><</link>><<small_text>>
+	<<elseif $undergroundbrothel.escape gte 17 and $physiquesize lte 9000>>
+		<<getouticon "hole">><<link [[Escape|Underground Escape]]>><</link>><<small_text>>
+	<<elseif $undergroundbrothel.escape gte 16 and $physiquesize lte 6000>>
+		<<getouticon "hole">><<link [[Escape|Underground Escape]]>><</link>><<small_text>>
+	<<else>>
+		<<getouticon "dig">><<link [[Dig (1:00)|Underground Cell Dig]]>><<pass 1 hour>><</link>>
+	<</if>>
+	<br>
+	<<investigateicon>><<link [[Examine the door|Underground Cell Lock]]>><</link>>
+<</widget>>
+
+<<widget "undergroundEscapeForestStart">>
+	<<clotheson>>
+	<<endcombat>>
+
+	A chill runs up your spine, a warning from some primal instinct. <span class="red">Something is hunting you.</span>
+	<<set $foresthunt to 1>><<set $forestHunter to "Eden">><<badEndTrackingEnd "Underground Dungeon" { reason: "uDungeonDefeated" }>><<dungeonescape>>
+	<br><br>
+	<<specialClothesUnlock "set" "underground_brothel">>
+
+	<<link [[Next|Forest]]>><<set $forest to 40>><</link>>
+<</widget>>
+
+<<widget "undergroundReturnToCell">>
+	<<clearNPC handler>>
+
+	<<tearful>> you sit on the mattress.
+	<<if _args[0] is "Robin">>
+		At least Robin got away.
+	<</if>>
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<if _args[0] is "skip">>
+		<<set $eventskip to 1>>
+	<</if>>
+
+	<<if _args[0] is undefined or _args[0]>>
+		<<link [[Next|Underground Cell]]>><</link>>
+		<br>
+	<</if>>
+<</widget>>
+
+<<widget "undergroundPlantFakeChoice">>
+	"Did you hit your head?" the <<person2>><<person>> grunts. "It doesn't matter if <<pshe>> wants to or not. <<pShes>> yours."
+	<br><br>
+
+	"Oh yeah! I forgot this place worked like that!" The <<person1>><<person>> claps <<his>> hands together and lunges for you.
+	<br><br>
+
+	<<link [[Next|Underground Plant Molestation]]>><<set $molestationstart to 1>><</link>>
+<</widget>>
+
+<<widget "averyUndergroundReunionReaction">>
+	<<He>> <<if C.npc.Avery.rage gte 60>>yanks<<else>>grabs<</if>> your collar, pulling you close to <<him>>. <<He>> leans in to whisper in your ear.
+	<<if C.npc.Avery.state is "dismissed">>
+		"You made a mistake getting rid of me, you whore."
+	<<elseif C.npc.Avery.rage gte 60>>
+		<<if C.npc.Avery.love gte 60>>
+			"It's too bad a slut like you never learned how to be a good <<girl>>."
+		<<else>>
+			"Think of this as karma, you defiant slut. Maybe this will teach you how to be a good <<girl>>."
+		<</if>>
+	<<elseif C.npc.Avery.love gte 60>>
+		<<if isLoveInterest("Avery")>>
+			"What a pity, <<pcpetname "Avery">>. I was looking forward to taking you out this weekend."
+		<<else>>
+			"What a shame, you had such great potential."
+		<</if>>
+	<<else>>
+		"Too bad this is where you ended up. You always did seem like a whore."
+	<</if>>
+	<br><br>
+<</widget>>

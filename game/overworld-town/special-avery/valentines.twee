@@ -1,0 +1,2996 @@
+:: Avery Valentines Invite Street End
+<<effects>>
+
+<<if $avery_valentines.invite>>
+	<<if $phase is 1>>
+		"Good." Avery looks pleased. "Most have to wait a year to book a table, and it's rare for anyone to get a reservation like this at such short notice." <<His>> voice lowers as <<he>> continues,
+		<<if C.npc.Avery.rage gte 40 and $averyragerevealed gte 1>>
+			"I expect you to show the proper amount of gratitude at the end of all this,
+		<<else>>
+			"I hope you appreciate all my hard work,
+		<</if>>
+		<<pcpetname "Avery">>. I'll see you at our usual time."
+		<br><br>
+	<<elseif $phase is 2>>
+		<<if $avery_mansion>>
+			"Good." Avery nods, smoothing <<his>> expression over. "I'll see you in the garage at our usual time."
+			<br><br>
+		<<else>>
+			"Good." Avery nods, smoothing <<his>> expression over. "I'll see you on Domus Street at our usual time."
+			<br><br>
+		<</if>>
+	<</if>>
+	With that, <<he>> rolls up <<his>> window and drives off.
+	<br><br>
+	<<if $avery_mansion>>
+		<i>Avery will expect you to meet <<him>> in the garage at <<ampm 21 00>> on <<= getFormattedDate(new DateTime(Time.year, 2, 14))>>.</i>
+		<br><br>
+	<<else>>
+		<i>Avery will expect you to meet <<him>> on Domus Street at <<ampm 20 00>> on <<= getFormattedDate(new DateTime(Time.year, 2, 14))>>.</i>
+		<br><br>
+	<</if>>
+<<else>>
+	<<if $averyragerevealed gte 1>>
+		Avery's frown turns into a scowl. "Fine," <<he>> grits out. "Have it your way. We'll see if I ever make such an offer again." With that, <<he>> rolls up <<his>> window and drives off.
+	<<else>>
+		Avery's brows furrow, and <<he>> sighs. "Very well, then. If you insist." It looks like <<he>> wants to say something else, but <<he>> just shakes <<his>> head, rolls up <<his>> window, and drives off.
+	<</if>><<npcincr Avery rage 1>><<garage>>
+	<br><br>
+<</if>>
+
+<<endevent>>
+<<destinationeventend>>
+
+:: Avery Valentines Invite Street 2
+<<effects>>
+
+Avery frowns. "Most have to wait a year to book a table, and it's rare for anyone to get a reservation like this at such short notice," <<he>> says<<if $averyragerevealed is 1 and C.npc.Avery.rage gte 60>>, trying to keep a hold on <<his>> temper<</if>>.
+<br><br>
+<<if $averyragerevealed gte 1 and C.npc.Avery.rage gte 20>>
+	"This isn't something you could have ever had without me."
+<<else>>
+	"Are you sure you want to turn down an offer like that?"
+<</if>>
+<br><br>
+<<link [[Reconsider|Avery Valentines Invite Street End]]>><<set $phase to 2>><<set $avery_valentines.invite to true>><</link>>
+<br>
+<<link [[Commit|Avery Valentines Invite Street End]]>><<set $phase to 3>><<set $avery_valentines.invite to false>><</link>><<garage>>
+<br>
+
+:: Avery Valentines Invite Mansion
+<<effects>>
+
+<<set $avery_valentines.init to true>>
+"There you are," Avery says. "I made reservations for us on Valentine's Day. Dinner at the most exclusive restaurant in town." <<His>> smile widens. "You'll come, won't you?"
+<br><br>
+<<link [[Yes|Avery Valentines Invite Mansion End]]>><<set $phase to 1>><<set $avery_valentines.invite to true>><</link>>
+<br>
+<<link [[No|Avery Valentines Invite Mansion 2]]>><<set $phase to 0>><</link>>
+<br>
+
+:: Avery Valentines Invite Mansion End
+<<effects>>
+
+<<if $avery_valentines.invite>>
+	<<if $phase is 1>>
+		"Good." Avery looks pleased. "Most have to wait a year to book a table, and it's rare for anyone to get a reservation like this at such short notice." <<He>> reaches up to <<= $averyragerevealed is 1 and C.npc.Avery.rage gte 60 ? "pinch" : "stroke">> your cheek.
+		<<if C.npc.Avery.rage gte 40 and $averyragerevealed gte 1>>
+			"I expect you to show the proper amount of gratitude at the end of all this,
+		<<else>>
+			"I hope you appreciate all my hard work,
+		<</if>>
+		<<pcpetname "Avery">>. I'll see you at our usual time."
+		<br><br>
+	<<else>>
+		"Good." Avery nods, smoothing <<his>> expression over. "I'll see you in the garage at our usual time."
+		<br><br>
+	<</if>>
+
+	<i>Avery will expect you to meet <<him>> at <<ampm 21 00>> in the garage on <<= getFormattedDate(new DateTime(Time.year, 2, 14))>>.</i>
+	<br><br>
+<<else>>
+	<<if $averyragerevealed gte 1>>
+		Avery's frown turns into a scowl. "Fine," <<he>> grits out. "Have it your way. We'll see if I ever make such an offer again." With that, <<he>> spins on <<his>> heel and stalks away.
+	<<else>>
+		Avery's brows furrow, and <<he>> sighs. "Very well, then. If you insist." It looks like <<he>> wants to say something else, but <<he>> just shakes <<his>> head, turns around, and walks off.
+	<</if>><<npcincr Avery rage 1>><<garage>>
+	<br><br>
+<</if>>
+
+<<endevent>>
+<<avery_mansion_end_links>>
+
+
+:: Avery Valentines Invite Mansion 2
+<<effects>>
+
+Avery frowns. "Most have to wait a year to book a table, and it's rare for anyone to get a reservation like this at such short notice," <<he>> says<<if $averyragerevealed is 1 and C.npc.Avery.rage gte 60>>, trying to keep a hold on <<his>> temper<</if>>.
+<<if $averyragerevealed gte 1 and C.npc.Avery.rage gte 20>>
+	"This isn't something you could have ever had without me."
+<<else>>
+	"Are you sure you want to turn down an offer like that?"
+<</if>>
+<br><br>
+
+<<link [[Reconsider|Avery Valentines Invite Mansion End]]>><<set $phase to 2>><<set $avery_valentines.invite to true>><</link>>
+<br>
+<<link [[Commit|Avery Valentines Invite Mansion End]]>><<set $phase to 3>><<set $avery_valentines.invite to false>><</link>><<garage>>
+<br>
+
+:: Avery Valentines
+<<effects>>
+
+<<npc Avery>><<person1>>
+<<avery_injury_check>>
+Avery is dressed for the occasion. <<He>> wears a nice coat over a
+<<if $NPCList[0].gender is "f">>
+	gorgeous well-fitted dress
+<<else>>
+	sharp well-fitted suit
+<</if>>
+that must have cost <<him>> a small fortune<<if _avery_injured>>, though the cast<<if $avery_mansion?.injury_stage is "sling">> and sling<</if>> somewhat stands out<</if>>. When you<<if $bus is "domus">> approach<<else>> enter the garage<</if>>, <<he>> looks up and
+<<if $worn.upper.type.includes("formal") and $worn.lower.type.includes("formal")>>
+	smiles. "There you are. You look <<= $player.gender_appearance is "m" ? "handsome" : "beautiful">> tonight, <<pcpetname "Avery">>. Are you ready to go?"
+	<br><br>
+	<<icon "avery-car.png">><<link [[Go on Valentine's date|Avery Valentines 2]]>><<set $avery_valentines.done to true>><<set $avery_valentines.invite to false>><<endevent>><</link>>
+	<br>
+	<<if $foodstuff.valentines_chocolate.amount gte 1 and !$avery_valentines.chocolate>>
+		If you want to give Avery special valentine's chocolate, now's the time.
+		<br><br>
+		<<foodstufficon "valentines_chocolate">><<link [[Offer Avery Valentine's Day chocolate|Avery Valentines Chocolate]]>><<set $avery_valentines.chocolate to true>><</link>><<glove>>
+		<br>
+	<</if>>
+	<<if $bus is "domus">>
+		<<refuseicon>><<link [[Say you're not ready yet|Domus Street]]>><<endevent>><<set $eventskip to 1>><</link>>
+		<br>
+	<<else>>
+		<<refuseicon>><<link [[Say you're not ready yet|Mansion Garage]]>><<endevent>><</link>>
+		<br>
+	<</if>>
+<<else>>
+	frowns. "I'm afraid that that attire<<if $exposed gte 1>>, or lack thereof, <<else>> <</if>>isn't appropriate for where we're going. Go get changed."
+	<br><br>
+	<<if $bus is "domus">>
+		<<link [[Next|Domus Street]]>><<endevent>><<set $eventskip to 1>><</link>>
+		<br>
+	<<else>>
+		<<link [[Next|Mansion Garage]]>><<endevent>><</link>>
+		<br>
+	<</if>>
+<</if>>
+
+:: Avery Valentines Chocolate
+<<effects>><<wearProp "valentines chocolate">>
+<<earnFeat "Be My Valentine">>
+You take out the box of Valentine's Day chocolate you made, and hold it out to Avery.
+<br><br>
+Avery raises an eyebrow. "What's this?" <<he>> asks as <<he>> takes it, lifting the lid.
+<br><br>
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I made you some chocolate for Valentine's Day," you say without making eye contact.
+<<elseif $speech_attitude is "bratty">>
+	"Valentine's Day chocolate. Made it myself."
+<<else>>
+	"I made you some chocolate." You smile. "It's Valentine's Day, after all."
+<</if>>
+<br><br>
+You watch as Avery plucks one of the chocolates from the box, and pushes it into <<his>> mouth. A smile spreads over <<his>> face as <<he>> bites into it.<<npcincr Avery love 1>><<glove>>
+<br><br>
+"It's delicious," <<he>> says, shutting the box. "I'd eat more, but I don't want to spoil dinner. Thank you, <<pcpetname "Avery">>." <<He>> squeezes your shoulder, then stows the box of chocolates in the back seat of the car.
+<br><br>
+"Now, shall we go?"
+<br><br>
+<<link [[Yes|Avery Valentines 2]]>><<endevent>><<set $avery_valentines.done to true>><<set $avery_valentines.invite to false>><</link>>
+<br>
+<<if $bus is "domus">>
+	<<link [[No|Domus Street]]>><<endevent>><</link>>
+	<br>
+<<else>>
+	<<link [[No|Mansion Garage]]>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Avery Valentines 2
+<<effects>><<set $outside to 0>>
+<<set $dateCount.Total++>><<set $dateCount.Avery++>>
+
+<<pass 5>><<npc Avery 1>><<generatep2>><<generatep3>><<person1>>
+
+Avery opens the door for you, and shuts it once you've climbed in. On the drive, <<he>> talks about how prestigious this restaurant is, listing off names of the famous and powerful that have visited.
+<br><br>
+You soon arrive, and Avery comes to a slow stop. A valet takes Avery's keys as you exit, and Avery takes your arm, leading you towards the entrance.<<if $fame.model gte 400>> You turn a few heads as you walk.<</if>>
+<br><br>
+There's a short queue, comprised of couples. A <<person2>><<person>> in front of you leans down to kiss <<his>> partner's cheek. The partner, a <<person3>><<person>>, <<laughs>> and looks away.
+<br><br>
+Meanwhile, at your side, Avery scrolls through <<person1>><<his>> phone to find your reservation code.
+<br><br>
+<<link [[Next|Avery Valentines 3]]>><</link>>
+<br>
+
+:: Avery Valentines 3
+<<effects>>
+
+When you reach the doors, the doorman asks for Avery's name, and scans the code on <<his>> phone, before ushering you both inside.
+<br><br>
+The restaurant is lavish, the furniture ornate. A band plays mellow orchestral music, and the chandeliers cast a golden glow throughout. Everyone here, including the servers, are dressed in expensive and fashionable attire. Avery looks like <<he>> belongs,
+<<if $fame.social gte 800>>
+	and <span class="green">so do you</span>.
+<<elseif $speech_attitude is "bratty" and !$speech_attitude_avery>>
+	but you don't bother trying to match <<him>>.
+<<else>>
+	and you try your best to comport yourself in appropriate fashion.
+<</if>>
+<br><br>
+Avery's coat is passed off, and then the host of the restaurant leads you to your table. It's a small and intimate table for two, with placards bearing Avery's name and your own. They're taken away by the host, who hands out menus, and informs you that your server will arrive soon.
+<br><br>
+You and Avery are left alone.
+<br><br>
+<<link [[Thank Avery for taking you out|Avery Valentines 4]]>><<set $phase to 0>><<set $avery_valentines.talk to "thank">><</link>>
+<br>
+<<if !$avery_valentines.reservations>>
+	<<link [[Ask how Avery got dinner reservations on such short notice|Avery Valentines 4]]>><<set $phase to 0>><<set $avery_valentines.talk to "reservations">><</link>>
+	<br>
+<</if>>
+<<link [[Just look at the menu|Avery Valentines 5]]>><<set $phase to 1>><</link>>
+<br>
+
+:: Avery Valentines 4
+<<effects>>
+
+<<switch $avery_valentines.talk>>
+<<case "thank">>
+	<<set $averySeen.pushUnique("vday_thank")>>
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Thank you for inviting me, Avery," you say.
+<<elseif $speech_attitude is "bratty">>
+	"Thanks for taking me here. This place is pretty swanky."
+<<else>>
+	"Thanks for inviting me, Avery," you say. "I've never been to a place like this before."
+<</if>>
+<br><br>
+Avery looks up from scanning <<his>> menu and smiles. "Of course. Anything for my <<princess>>."
+<br><br>
+<<case "reservations">>
+	<<set $averySeen.pushUnique("vday_reservations")>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"Um, Avery? I've been curious. How did you get these reservations on such short notice?" you ask. "I heard you have to wait a year to get a table."
+	<<elseif $speech_attitude is "bratty">>
+		"Hey, how did you get those reservations in only two weeks?" you ask. "You have to wait a year for this place."
+	<<else>>
+		"How did you get those reservations on such short notice?" you ask. "Don't you have to wait a year to get a table at this place?"
+	<</if>>
+	<br>
+	Avery dons a
+	<<if $avery_fate is "ascended">>
+		smug smile. "For others, that's true." <<He>> lifts <<his>> menu. "But queues don't apply to me. You'd do well to remember that."
+		<br>
+		<<= $averyragerevealed is 1 and C.npc.Avery.rage gte 60 ? "There's a slight threat in <<his>> tone." : "<<He>> gives you a flash of a smile before looking back down at <<his>> menu.">>
+	<<else>>
+		mysterious smile. "Ah, well. It's useful knowing the right kind of people." <<He>> looks back down at <<his>> menu. "But I'd prefer you focus on enjoying the experience, rather than how it came to be."
+	<</if>>
+	<br><br>
+<<case "vday_date">>
+	<<set $averySeen.pushUnique("vday_date")>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"Have you brought anyone else here before?"
+	<<elseif $speech_attitude is "bratty">>
+		"So, brought anyone here besides me, or am I special?"
+	<<else>>
+		"Have you ever brought anyone else here?"
+	<</if>>
+	<br>
+	"No, I haven't, actually," Avery says, amused. "No one but you. Surprised?"
+	<br><br>
+<<case "past_lovers">>
+	<<set $averySeen.pushUnique("past_lovers")>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>Keeping your voice gentle and low, you ask<<else>>You ask<</if>> about Avery's past relationships. You can't be the only one.
+	<br>
+	"Could it be that you're jealous, my <<pcpetname "Avery" "my">>?" Avery asks, rather than answering your question. <<He>> seems pleased by the idea.<<npcincr Avery love 1>><<glove>>
+	<br>
+	"I've been in relationships before, of course. But most people my age have. If you're concerned I'm seeing anyone other than you, then worry not." <<He>> flashes you a <<= $averyragerevealed is 1 ? "smirk" : "smile">>. "You're the only one."
+	<br><br>
+<<case "first_meeting">>
+	<<set $averySeen.pushUnique("first_meeting")>>
+	You ask Avery about the day you met, and why <<he>> approached you.
+	<br>
+	Avery's brows rise in idle surprise. <<He>> considers a moment, then <<laughs>>. "In all honesty? I saw you and thought, 'What a cute <<girl>>.'
+	<<if $averySeen.includes("meetParkPolice") or !$averySeen.includes("meetPark")>>
+		A cute <<girl>> being harassed by a <<= $averySeen.includes("meetParkPolice") ? "police officer" : "random stranger">> at that. I just had to step in."
+	<<else>>
+		A cute <<girl>> in need of help climbing that statue. I just had to step in."
+	<</if>>
+	<br><br>
+<<case "first_meeting_thank">>
+	<<set $averySeen.pushUnique("first_meeting_thank")>>
+	<<if $averyromance>>
+		<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+			"Y-you saved me when we first met." You feel your face heating, and you smile at <<him>>. "Thank you, Avery."
+		<<elseif $speech_attitude is "bratty">>
+			"You did save me back when we first met." You look away for a moment, face warming. "Thanks, I guess."
+		<<else>>
+			"You saved me when we first met." You smile at <<him>>. "Thank you, Avery."
+		<</if>>
+		<br><br>
+		"Of course." <<He>> gives you a wink. "Any time."
+	<<else>>
+		<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+			"Y-you saved me when we first met." You look down at your hands. "Thank you, Avery."
+		<<elseif $speech_attitude is "bratty">>
+			"You did save me back when we first met." You snort. "Right. Because I'm cute."
+		<<else>>
+			"You saved me when we first met. Thank you, Avery."
+		<</if>>
+		<br><br>
+		<<if $speech_attitude is "bratty" and !$speech_attitude_avery>>
+			<<He>> lets out an amused hum. "It's true," <<he>> says with a wink.
+		<<else>>
+			"Of course." <<He>> gives you a wink. "Any time."
+		<</if>>
+	<</if>>
+	<br><br>
+<</switch>>
+
+<<if !$averySeen.includes("vday_thank")>>
+	<<link [[Thank Avery for taking you out|Avery Valentines 4]]>><<set $avery_valentines.talk to "thank">><</link>>
+	<br>
+<</if>>
+<<if !$avery_valentines.reservations and !$averySeen.includes("vday_reservations")>>
+	<<link [[Ask how Avery got dinner reservations on such short notice|Avery Valentines 4]]>><<set $avery_valentines.talk to "reservations">><</link>>
+	<br>
+<</if>>
+<<if !$averySeen.includes("vday_date")>>
+	<<link [[Ask if Avery's taken anyone else here before|Avery Valentines 4]]>><<set $avery_valentines.talk to "vday_date">><</link>>
+	<br>
+<</if>>
+<<if $averySeen.includes("vday_date") and !$averySeen.includes("past_lovers")>>
+	<<link [[Ask about Avery's past relationships|Avery Valentines 4]]>><<set $avery_valentines.talk to "past_lovers">><</link>>
+	<br>
+<</if>>
+<<if $averySeen.includes("past_lovers") and !$averySeen.includes("first_meeting")>>
+	<<link [[Ask why Avery first approached you|Avery Valentines 4]]>><<set $avery_valentines.talk to "first_meeting">><</link>>
+	<br>
+<</if>>
+<<if $averySeen.includes("first_meeting") and !$averySeen.includes("first_meeting_thank")>>
+	<<link [[Thank Avery for saving you when you first met|Avery Valentines 4]]>><<set $avery_valentines.talk to "first_meeting_thank">><</link>>
+	<br>
+<</if>>
+<<link [[Stop chatting and peruse the menu|Avery Valentines 5]]>><</link>>
+<br>
+
+:: Avery Valentines 5
+<<effects>>
+
+<<pass 10>>
+
+You<<if $phase is 1>> decide not to say anything, and<</if>> look over your menu. Soon enough, a server arrives with another, detailing available wines. You're informed which dishes go with which wines, then the server slips away, promising to return soon.
+<br><br>
+Avery hums as <<he>> peruses the new menu. <<He>> glances up to catch your eye, and smiles. "Feel free to order whatever you like, by the way. It's not every day you can visit a restaurant like this."
+<br><br>
+<<link [[Order something delicious|Avery Valentines 6]]>><<set $avery_valentines.food to "tasty">><</link>>
+<br>
+<<link [[Order something expensive|Avery Valentines 6]]>><<set $avery_valentines.food to "expensive">><</link>>
+<br>
+<<link [[Order something you're unfamiliar with|Avery Valentines 6]]>><<set $avery_valentines.food to "new">><</link>>
+<br>
+
+:: Avery Valentines 6
+<<effects>>
+
+<<pass 10>>
+
+<<if $avery_valentines.food is "tasty">>
+	You decide to order something you recognise. It's a familiar dish, but you imagine it will be more delicious when made in a restaurant with a reputation like this one.
+<<elseif $avery_valentines.food is "expensive">>
+	As Avery said, it's not every day you can order food at a place like this. You decide on the most expensive meal on the menu. If Avery is upset about it, <<his>> placid expression gives nothing away.
+<<else>>
+	As Avery said, it's not every day you can order food at a place like this. You decide to try something you've never had before.
+<</if>>
+<br><br>
+The server comes by again, and both of you give your orders. Avery orders a bottle of wine to go with them as well. The menus are whisked away, and once again the two of you are left alone.
+<br><br>
+Avery opens <<his>> mouth to speak, but pauses when <<he>> notices the building argument of a couple at a nearby table.
+<br><br>
+<<link [[Next|Avery Valentines 7]]>><</link>>
+<br>
+
+:: Avery Valentines 7
+<<effects>>
+
+It's the <<person2>><<person>> and <<person3>><<person>> you saw outside. Far from bashful now, the <<person>> is glaring daggers at <<his>> partner, who is scowling back in return. It's a jarring departure from how they appeared earlier.
+<br><br>
+"I'm so sick of it!" the <<person>> says, now loud enough for you to make out the words. A quick glance around tells you that you two are not the only one hearing <<him>>. People look anywhere but there. "Having a big salary doesn't mean you get to act like a <<person2>><<king>>!"
+<br><br>
+"What are you talking about?" the <<person>> retorts, just as heated. "I'm not asking much of you! Just some more work around the house since I'm bringing in more money between the two of us! Is that really too much to ask for?"
+<br><br>
+Avery looks at the couple askance with a slight frown. The pair's very public argument is ruining the atmosphere of the restaurant, and <<person1>><<hes>> not the only one that seems bothered.
+<br><br>
+<<link [[Intervene|Avery Valentines Intervene]]>><</link>>
+<br>
+<<link [[Try to ignore them|Avery Valentines Ignore]]>><</link>>
+<br>
+
+:: Avery Valentines Intervene
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Um, excuse me?" you call out just loud enough to be heard over the argument.
+<<elseif $speech_attitude is "bratty">>
+	"Hey, 'lovebirds,'" you call out over the arguing couple.
+<<else>>
+	"Excuse me," you call out to the arguing couple.
+<</if>>
+<br><br>
+They drop silent, and they turn their ire towards you. In your periphery, you notice Avery <<= $averyragerevealed gte 1 ? "gives you a subtle quelling stare" : "stiffens up, and shakes <<his>> head">>.
+<br><br>
+<<link [[Try to help|Avery Valentines Intervene 2]]>><<set $phase to 0>><</link>><<englishdifficulty 400 600>>
+<br>
+<<link [[Apologise|Avery Valentines Ignore]]>><<set $phase to 1>><</link>>
+<br>
+
+:: Avery Valentines Ignore
+<<effects>>
+
+<<if $phase is 1>>
+	You apologise, and the couple returns to their fighting. Avery relaxes.
+	<br><br>
+<</if>>
+You, Avery, and everyone else seated nearby do your best to ignore the arguing couple. Each goes on a tirade about how the other doesn't appreciate them, and how they don't feel cared about. <<stress 6>><<gstress>>
+<br><br>
+A brave member of the staff comes by, and the couple leave the restaurant, fuming.
+<br><br>
+Avery sighs across from you. "Finally."
+<br><br>
+
+<<link [[Agree|Avery Valentines Ignore 2]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Express sympathy for the couple|Avery Valentines Ignore 2]]>><<set $phase to 2>><</link>>
+<br>
+<<link [[Say nothing|Avery Valentines 8]]>><<set $phase to 0>><</link>>
+<br>
+
+:: Avery Valentines Ignore 2
+<<effects>>
+
+<<if $phase is 1>>
+	You nod along. Their argument was ruining the ambience, and it's not every day you get to visit a restaurant like this.
+	<br><br>
+	<<link [[Next|Avery Valentines 8]]>><</link>>
+<<else>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"It seems like such a shame," you say. "Breaking up on Valentine's Day, I mean."
+	<<elseif $speech_attitude is "bratty">>
+		"It's Valentine's Day." You huff. "That's the last holiday you should be breaking up with your partner on."
+	<<else>>
+		"It seems tragic to be fighting on Valentine's Day of all days."
+	<</if>>
+	<br><br>
+	"Do you think so? Many couples break up on Valentine's Day, you know." <<He>> looks in the direction the couple stormed off in with a <<= $averyragerevealed is 1 ? "dismissive" : "placid">> expression. "The bigger tragedy is wasting their reservation like that. Though making up this time wouldn't have changed anything. They'd be right back at it again the moment they stopped getting what they wanted out of each other. That's all any relationship is, once you've stripped away the trappings: A transaction."
+	<br><br>
+	<<He>> says the last part as though <<hes>> imparting some great wisdom to you.
+	<br><br>
+
+	<<link [[Agree|Avery Valentines Cynic]]>><<set $avery_valentines.opinion to "cynic">><<set $phase to 1>><</link>>
+	<br>
+	<<link [[Disagree|Avery Valentines Romantic]]>><<set $avery_valentines.opinion to "romantic">><</link>>
+	<br>
+	<<link [[Stay silent|Avery Valentines Cynic]]>><<set $avery_valentines.opinion to "silent">><<set $phase to 2>><</link>>
+	<br>
+<</if>>
+
+
+:: Avery Valentines Intervene 2
+<<effects>>
+
+<<if $englishSuccess>>
+	<<if $speech_attitude is "meek">>
+		"I'm sorry for intruding on your conversation, but i-it just seemed like neither of you were listening to each other," you say, looking between them. "It's important to hear out your partner when they're hurting, don't you think?"
+	<<elseif $speech_attitude is "bratty">>
+		"Not that this is any of my business, but neither of you are listening to the other," you point out, looking between them. "You're adults, aren't you? Act like it."
+	<<else>>
+		"I know it's none of my business, but it sounds to me like neither of you were listening. I think you two ought to give each other some more grace," you say, looking between them. "Even when you're hurting."
+	<</if>>
+	<br><br>
+	The <<person2>><<person>> and <<person3>><<person>> glare daggers at you, but then they glance around the room, and deflate a little. They look back at each other, quiet for a moment. Their anger simmers down after a moment of consideration, and they begin talking again, this time hushed. At one point, the <<person>> reaches out, takes the <<person2>><<persons>> hand, and strokes the back of it while staring into <<person3>><<his>> partner's eyes.
+	<br><br>
+	A part of you feels warm and fuzzy at the sight. <<stress -6>><<lstress>><<trauma -6>><<ltrauma>>
+	<br><br>
+	Avery hums in thought.
+	<br><br>
+	<<link [[Next|Avery Valentines Intervene 3]]>><<set $phase to 1>><</link>>
+	<br>
+<<else>>
+	<<if $speech_attitude is "meek">>
+		"I just thought, well, it's Valentine's Day," you say. "Is now really the time to be arguing?"
+	<<elseif $speech_attitude is "bratty">>
+		"It's Valentine's Day," you say. "Are you really going to get into a hissy fit now?"
+	<<else>>
+		"It's Valentine's Day," you say. "Is today really the day to fight with each other?"
+	<</if>>
+	<br><br>
+	The <<person2>><<person>> and <<person3>><<person>> glare daggers at you, but a glance at Avery turns them away. Almost in spite of your effort, they begin arguing even louder about how one doesn't appreciate the other, and how neither of them feel cared about. <<stress 6>><<gstress>><<trauma 6>><<gtrauma>>
+	<br><br>
+	A brave member of the staff comes by, and the couple leave the restaurant, fuming.
+	<br><br>
+	Avery sighs.
+	<br><br>
+	<<link [[Next|Avery Valentines Intervene 3]]>><<set $phase to 2>><</link>>
+	<br>
+<</if>>
+
+:: Avery Valentines Intervene 3
+<<effects>>
+
+<<if $phase is 1>>
+	"Well done, <<pcpetname "Avery">>," <<person1>><<he>> says. "In all honesty, I thought that was a lost cause."
+	<br><br>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"It just seemed like such a shame," you say. "Breaking up on Valentine's Day, I mean."
+	<<elseif $speech_attitude is "bratty">>
+		"It's Valentine's Day." You cross your arms with a huff. "That's the last holiday you should be breaking up with your partner on."
+	<<else>>
+		"It just seems tragic to be fighting on Valentine's Day of all days."
+	<</if>>
+	<br><br>
+	"Do you think so? Many couples break up on Valentine's Day, you know." <<He>> looks in the direction of the couple with <<= $averyragerevealed is 1 ? "an almost calculating" : "a contemplative">> expression. "At least they didn't waste their reservation. Though making up won't change anything in the long run. They'll be right back at it the moment they stop getting what they want out of each other again. That's all any relationship is, once you've stripped away the trappings. A transaction."
+	<br><br>
+<<else>>
+	"You gave it your best attempt, but I believe it was a lost cause from the start, <<pcpetname "Avery">>," <<person1>><<he>> says.
+
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"It seems like such a shame," you say. "Breaking up on Valentine's Day, I mean."
+	<<elseif $speech_attitude is "bratty">>
+		"It's Valentine's Day." You cross your arms with a huff. "That's the last holiday you should be breaking up with your partner on."
+	<<else>>
+		"It just seemed tragic to be fighting on Valentine's Day of all days."
+	<</if>>
+
+	"Do you think so? Many couples break up on Valentine's Day, you know." <<He>> looks in the direction the couple stormed off in with a <<= $averyragerevealed is 1 ? "dismissive" : "placid">> expression. "The bigger tragedy is wasting their reservation like that. Though making up wouldn't have changed anything. They'd be right back at it the moment they stopped getting what they wanted out of each other again. That's all any relationship is, once you've stripped away the trappings. A transaction."
+	<br><br>
+<</if>>
+<<He>> says the last part as though <<hes>> imparting some great wisdom to you.
+<br><br>
+<<link [[Agree|Avery Valentines Cynic]]>><<set $avery_valentines.opinion to "cynic">><<set $phase to 1>><</link>>
+<br>
+<<link [[Disagree|Avery Valentines Romantic]]>><<set $avery_valentines.opinion to "romantic">><<set $phase to 0>><</link>>
+<br>
+<<link [[Stay silent|Avery Valentines Cynic]]>><<set $avery_valentines.opinion to "silent">><<set $phase to 2>><</link>>
+<br>
+
+
+
+:: Avery Valentines Cynic
+<<effects>>
+
+<<pass 10>><<set $avery_valentines.soften to false>>
+
+<<if $phase is 1>>
+	You nod in agreement.
+<<else>>
+	You don't say anything one way or another.
+<</if>>
+<br><br>
+Dinner arrives soon enough, and it's a welcome change of subject. Your meal is as beautiful as it is delicious. You notice Avery pull out <<his>> phone to snap a quick picture of <<hers>> before digging in.
+<br><br>
+<<link [[Next|Avery Valentines 8]]>><</link>>
+<br>
+
+:: Avery Valentines Romantic
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	<<if $speech_attitude_avery>>
+		"That isn't, ah, I respectfully disagree," you say. "I don't think love is about what you get from someone."
+	<<else>>
+		"But that isn't," you mumble. "I don't think love is about what you get from someone."
+	<</if>>
+<<elseif $speech_attitude is "bratty">>
+	"No, that's bullshit," you say, shaking your head. "There's more to relationships than what someone does for you."
+<<else>>
+	"I can't agree with you on that," you say. "Relationships can't be boiled down to something as simple as what you get out of someone."
+<</if>>
+<br><br>
+Avery looks back at you again, brow raised<<if $speech_attitude is "bratty">> at your language<</if>>. "Oh?" <<He>> sounds <<= $averyragerevealed is 1 and C.npc.Avery.rage gte 60 ? "dismissive" : $averyragerevealed is 1 and C.npc.Avery.rage gte 20 ? "amused" : "dubious">>. "Is that so?"
+<br><br>
+
+<<link [[Tell Avery you don't need anything from <<him>>|Avery Valentines Romantic 2]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Insist|Avery Valentines Romantic Unconvinced]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Give up|Avery Valentines Romantic Unconvinced]]>><<set $phase to 3>><</link>>
+<br>
+
+:: Avery Valentines Romantic 2
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Well, I don't have any expectations of you. Surely that means something?"
+<<elseif $speech_attitude is "bratty">>
+	"Yeah. It's not like I actually need anything from you, for instance."
+<<else>>
+	"It is. For example, I don't have any expectations of you."
+<</if>>
+<br><br>
+Avery hums. "You'll have to forgive my scepticism on that matter. After all," <<he>> gestures to the restaurant at large. "You receive quite a lot from me in exchange for your time, <<pcpetname "Avery">>. Can you really tout <i>our</i> association as evidence to the contrary?"
+<br><br>
+<<if isLoveInterest("Avery")>>
+	<<link [[Confess that you have romantic feelings for Avery (truth)|Avery Valentines Romantic Soften]]>><<set $phase to 1>><<set $avery_valentines.confess to true>><<set $averyromance to true>><</link>><<kissvirginitywarning>>
+	<br>
+<</if>>
+<<if $avery_fate is "saved">>
+	<<link [[Point out that you risked your life to save <<him>>|Avery Valentines Romantic Soften]]>><<set $phase to 2>><</link>>
+	<br>
+<<else>>
+	<<link [[Continue to insist|Avery Valentines Romantic Unconvinced]]>><<set $phase to 2>><</link>>
+	<br>
+<</if>>
+<<link [[Give up|Avery Valentines Romantic Unconvinced]]>><<set $phase to 3>><</link>>
+<br>
+
+:: Avery Valentines Romantic Unconvinced
+<<effects>>
+
+<<pass 15>><<set $avery_valentines.soften to false>>
+
+<<if $phase is 1>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"It is," you insist, hands fidgeting in your lap. "It has to be."
+	<<elseif $speech_attitude is "bratty">>
+		"Yeah, of course it is," you insist.
+	<<else>>
+		"It is," you insist. "Things aren't that simple."
+	<</if>>
+	<br><br>
+	Avery dons an indulgent smile. "Of course, <<pcpetname "Avery">>," <<he>> says. <<He>> doesn't seem to believe you.
+	<br><br>
+<<elseif $phase is 2>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"But it's true," you insist, hands fidgeting in your lap. "I don't do what I do for money or the things you do for me."
+	<<elseif $speech_attitude is "bratty">>
+		"Hey, I don't do all this for cash and dates," you say.
+	<<else>>
+		"I mean it, Avery. I don't need anything from you," you insist. "This isn't all just for money or dates, you know."
+	<</if>>
+	<br><br>
+	Avery dons an indulgent smile. "Of course not, <<pcpetname "Avery">>," <<he>> says. <<He>> doesn't seem to believe you.
+	<br><br>
+<</if>>
+
+You give up trying to persuade Avery otherwise.<<if $avery_fate>> From what you've gathered, <<he>> won't be convinced on this matter anyway.<</if>> Dinner arrives, and it's a welcome change of subject.
+<br><br>
+Your meal is as beautiful as it is delicious. You notice Avery pull out <<his>> phone to snap a quick picture of <<hers>> before digging in.
+<br><br>
+<<link [[Next|Avery Valentines 8]]>><</link>>
+
+:: Avery Valentines Romantic Soften
+<<set $avery_valentines.soften to true>>
+
+<<if $phase is 1>> /* Love confession */
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"I can, because I," Your hands fidget in your lap<<if $speech_attitude is "meek">> while you work up to courage to speak up<</if>>. "I love you, Avery. I'm grateful for everything you do for me, but the reason I stay is because I like being around you."
+	<<elseif $speech_attitude is "bratty">>
+		"Yeah, I can. Because I like you, okay?" You tilt your chin up. "Thanks for the money and gifts and everything, Avery, but those aren't why I stick around."
+	<<else>>
+		"The reason I don't have any expectations from you is because I love you, Avery," you say. "I appreciate what you do for me, but I just like spending time with you, really. That's all."
+	<</if>>
+	<br><br>
+	Avery's eyes widen<<if $averySeen.includes("chase")>>, <<his>> brows furrowing<</if>>. <<He>> hesitates for a moment before reaching over,
+	<<if $avery_fate is "saved">>
+		and cupping your chin with gentle fingers. <<He>> leans forward,
+		<<if $worn.face.type.includes("mask")>>
+			lifts your mask just enough,
+		<</if>>
+		and pulls you into a sweet kiss.
+	<<elseif $avery_fate is "ascended">>
+		and cupping your chin with firm fingers. <<He>> leans forward,
+		<<if $worn.face.type.includes("mask")>>
+			lifts your mask just enough,
+		<</if>>
+		and pulls you into a deep kiss.
+	<<else>>
+		cupping your chin. <<He>> leans forward,
+		<<if $worn.face.type.includes("mask")>>
+			lifts your mask just enough,
+		<</if>>
+		and pulls you into a gentle kiss.
+	<</if>>
+	<<takeKissVirginity "Avery" "loveInterest">>
+	<br><br>
+	<<He>> pulls away, smiling. It's a little strange, almost out of place on <<his>> features.<<if $avery_fate is "saved">> "That must be why," <<he>> cuts off, and looks thoughtful.<</if>> <<npcincr Avery love 1>><<glove>><<npcincr Avery rage -1>><<larage>>
+	<br><br>
+<<else>> /* Saved */
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"But it's true," you insist, hands fidgeting in your lap. "I risked my life for you. That wasn't for money or the things you do for me."
+	<<elseif $speech_attitude is "bratty">>
+		"Hey, I didn't risk my life to save you for cash or dates," you say. "I could've just run away and left you back there to save my skin, but I didn't."
+	<<else>>
+		"I mean it, Avery. I don't need anything from you," you insist. "I didn't risk my life to save you just for money or dates."
+	<</if>>
+	<br><br>
+	Avery pauses at that, <<his>> expression freezing into place. Then a smile tugs at <<his>> lips. "I suppose I can't argue with you on that point, at least. That would make me appear ungrateful, wouldn't it?" <<He>> chuckles. <<npcincr Avery rage -1>><<larage>><<note "Avery's Saviour" "teal">>
+	<br><br>
+<</if>>
+
+<<link [[Next|Avery Valentines Romantic Soften 2]]>><</link>>
+<br>
+
+:: Avery Valentines Romantic Soften 2
+<<pass 15>>
+
+<<if $phase is 1>>
+	Your orders arrive, saving Avery before <<he>> can say anything<<if $avery_fate is "saved">> else<</if>>. Your dish is as beautiful as it is delicious. Rather than giving you <<his>> proper response to your feelings, Avery compliments your choice of meal before attending to <<his>> own.
+<<else>>
+	Your orders arrive soon enough. Your dish is as beautiful as it is delicious. Avery compliments your choice of meal before attending to <<his>> own.
+<</if>>
+You notice <<he>> pulls out <<his>> phone to snap a quick picture of <<hers>> before digging in.
+<br><br>
+<<if $averyromance>>
+	The two of you talk over dinner. Every now and then, <<he>>'ll brush <<his>> ankle against yours under the table, and it makes your heart skip a beat. Going by the way <<his>> smile always widens a little at your reaction, you suspect that's why <<hes>> doing it.
+	<br><br>
+	<<His>> eyes on you are often intent and lingering, but there's something different to it tonight. Perhaps it's just the lighting, but there's something warmer in <<his>> gaze. You notice that it doesn't often stray from you for long, like it tends to do when you're in public together. <<= $speech_attitude is "meek" ? "It's almost hard to meet it, but you also can't look away." : "It's hard to look away.">>
+<<else>>
+	The two of you talk over dinner. <<His>> eyes on you are often intent and lingering, but there's something different to it tonight. Perhaps it's just the lighting, but there's something warmer in <<his>> gaze. You notice that it doesn't often stray from you for long like it tends to do when you're in public together.
+<</if>>
+<br><br>
+Something has shifted in a way you can't quite put a finger on. It's not a bad thing, though. <<stress -3>><<lstress>><<trauma -3>><<ltrauma>>
+<br><br>
+<<link [[Next|Avery Valentines 8]]>><</link>>
+<br>
+
+:: Avery Valentines 8
+<<effects>>
+
+<<pass 20>><<endevent>><<npc Avery 1>><<generate2>><<person2>>
+
+Part of the way through your meal, you notice a <<person>> walking in your general direction. At first you think <<hes>> headed towards the toilets, but then <<he>> comes to a stop and puts a hand on Avery's shoulder. Avery jumps and whips <<person1>><<his>> head around, caught by surprise.
+<br><br>
+"Avery, old <<= $NPCList[0].pronoun is "m" ? "chum" : "girl">>!" the <<person2>><<person>> says with a smile. "It's been ages!"
+<br><br>
+"Ah," Avery's smile stays on <<person1>><<his>> face, but you notice the corner tense, as if under strain. "Good evening. It's been some time, hasn't it?"
+<br><br>
+"I almost didn't recognise you." The <<person2>><<person>> looks at you. "Avery and I went to university together, though that was, what? A couple decades ago now?" <<He>> erupts in merry laughter. "Time flies, doesn't it?"
+<br><br>
+<<if $avery_valentines.soften>>
+	Avery glances at you, <<person1>><<his>> brows pinching in the middle for a moment, then back at <<his>> old friend. "So it does."
+<<else>>
+	Avery glances at you, then back at <<person1>><<his>> old friend with narrowed eyes. "So it does."
+<</if>>
+<br><br>
+The <<person2>><<person>> then tilts in your direction, looking you up and down, before looking back to Avery. "And who is this <<cute>> thing? Your <<girlfriend>>?"
+<br><br>
+"Yes," Avery says, <<= $avery_valentines.soften ? "resting an ankle against yours beneath the table" : "eyes flicking towards you">>. "I decided to take <<phim>> out to dinner for Valentine's Day."
+<br><br>
+<<link [[Act friendly|Avery Valentines 9]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Act reserved|Avery Valentines 9]]>><<set $phase to 2>><</link>>
+<br>
+
+:: Avery Valentines 9
+<<effects>>
+
+<<person1>>
+<<if $phase is 1>>
+	You introduce yourself with a smile, and ask what Avery was like in university.
+	<<if $avery_valentines.soften>>
+		Avery frowns a moment before smoothing over <<his>> expression.
+	<<elseif (C.npc.Avery.rage gte 60 and $averyragerevealed) or $avery_fate is "ascended">>
+		Avery winces a moment before smoothing over <<his>> expression.
+	<<elseif $averyragerevealed is 1>>
+		Avery looks exasperated, but soon smoothes it over.
+	<<else>>
+		Resignation flashes across Avery's face, smoothed over so fast you might have imagined it.
+	<</if>>
+	<br><br>
+	"Oh, <<he>> was a riot," the <<person2>><<person>> says. "We, Avery, Remy, myself, and the rest, would skip classes sometimes, go out on adventures. Ah." <<He>> seems to recall something, and is more animated when <<he>> continues. "Hear this. Once, we were stranded in the middle of nowhere, right? No civilisation to be seen for miles around. And Avery here almost died of thirst!"
+	<br><br>
+<<else>>
+	You introduce yourself in simple terms and say nothing else, looking to Avery for guidance. Avery smiles, reaching over to take your hand in <<hers>>.
+	<<if $avery_valentines.soften>>
+		<<He>> even lifts it up to kiss your knuckles.<<if $averyromance>> Your cheeks heat up, and you feel <<his>> quiet laugh against your fingers.<</if>>
+	<</if>><<takeHandholdingVirginity "Avery" "romantic">>
+	<br><br>
+	The <<person2>><<person>> hums, sounding amused. "You've changed, haven't you?" When Avery raises an eyebrow at <<him>>, <<he>> continues, "Well, you seem so <<= $avery_fate is "ascended" ? "sure of yourself" : "mature">> now! Back in university, you were always skipping class with Remy and the rest of us, going out on adventures. Ah." <<He>> seems to recall something, and looks at you with a grin. "Hear this. Once, we were stranded in the middle of nowhere, right? No civilisation to be seen a mile around. And Avery here almost died of thirst!"
+	<br><br>
+<</if>>
+
+Avery clears <<person1>><<his>> throat. "That's enough of that, I think."
+<br><br>
+"Ah, sorry about that." The <<person2>><<person>> grins. "I'd hate to make you look foolish in front of your <<girlfriend>> on Valentine's Day." <<He>> gives you a wink, and whispers, "Say, give me your number, and I can tell you the full story later."
+<br><br>
+/* Phone */
+You tell <<him>> you don't have a cell phone, and <<he>> looks a little disappointed.
+<br><br>
+"If you don't mind, old friend, we've a dinner to return to," Avery says.<<if $phase is 1>> <<person1>><<He>> reaches over to place <<his>> hand over yours<<if $avery_valentines.soften>> and gives it a squeeze<</if>>.<</if>>
+<br><br>
+"Very well," the <<person2>><<person>> says. "I'll leave you two lovebirds alone." With a wave, the <<person>> saunters off.
+<br><br>
+<<link [[Next|Avery Valentines 10]]>><</link>>
+<br>
+
+:: Avery Valentines 10
+<<effects>>
+<<pass 5>>
+
+<<person1>>
+<<if $avery_valentines.soften>>
+	With that, the two of you return to your dinner. You're interrupted once again a minute later by Avery's phone vibrating on the table.
+	<<if $averyragerevealed is 1 and C.npc.Avery.rage gte 60>>
+		Avery looks down at it with a sudden scowl, and snatches it. "Not now," <<he>> hisses. "Whatever it is can wait."
+	<<elseif $averyragerevealed is 1 and C.npc.Avery.rage gte 20>>
+		Avery looks down at it, lip curling, and picks it up. "I'm busy right now," <<he>> says. "Call me again tomorrow."
+	<<else>>
+		Avery looks down at it with a small frown, sighs, and picks it up. "I'm afraid I'm in the middle of dinner. I think that whatever it is can wait until tomorrow."
+	<</if>>
+	<br><br>
+	<<He>> hangs up without another word, then slides <<his>> phone into <<his>> <<= $NPCList[0].gender is "m" ? "breast pocket" : "purse">> and gives you a renewed smile.<<if $averyragerevealed is 1 and C.npc.Avery.rage gte 60>> The change is like night and day.<</if>> "Now where were we?" <<he>> asks.
+	<br><br>
+<<else>> /* Not softened */
+	With that, the two of you return to your dinner, talking here and there.
+	<br><br>
+	At one point, Avery pulls out <<his>> phone again, and has you pose for a photo with <<him>>.
+	<<if $averyragerevealed is 1 and C.npc.Avery.rage gte 60 or $avery_fate is "ascended">>
+		<<Hes>> quite nitpicky about your pose and the way you smile.
+	<<elseif $averyragerevealed is 1 and C.npc.Avery.rage gte 20>>
+		<<He>> tells you how to pose, and how broad you should smile.
+	<<else>>
+		<<He>> asks you to lean in a bit closer, and to smile a bit wider for the camera.
+	<</if>>
+	<<if $avery_fate is "saved" and ["cast","sling"].includes($avery_mansion?.injury_stage)>>
+		<<He>> makes sure to hide <<his>> injured arm behind you.
+	<</if>>
+	It takes a couple of attempts before <<hes>> satisfied. <<He>> seems quite pleased with <<himself>> as <<he>> posts the photo online.
+	<<famesocial 20>><<famemodel 20>>
+	<br><br>
+	"Now, where were we?" <<he>> asks, setting <<his>> phone back down on the table.
+	<br><br>
+<</if>>
+
+<<link [[Ask how Avery almost died of thirst|Avery Valentines 11]]>><<set $avery_valentines.talk to "sparkling_water">><</link>>
+<br>
+<<link [[Ask Avery about that old friend of <<hers>>|Avery Valentines 11]]>><<set $avery_valentines.talk to "university_friend">><</link>>
+<br>
+<<link [[Focus on your food (0:30)|Avery Valentines 12]]>><</link>>
+<br>
+
+:: Avery Valentines 11
+<<effects>>
+
+<<switch $avery_valentines.talk>>
+<<case "sparkling_water">>
+	<<set $averySeen.pushUnique("sparkling_water")>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"If you don't mind me asking," you say. "What happened? At the end of that story about how you almost died of thirst, I mean."
+	<<elseif $speech_attitude is "bratty">>
+		"I can't believe you cut off that story right when it was getting good," you say. "Come on, what happened? How'd you almost die of thirst?"
+	<<else>>
+		"What happened back then?" you ask. "How did you almost die of thirst?"
+	<</if>>
+	<br><br>
+	<<if C.npc.Avery.love gte 50>>
+		Avery <<laughs>>. "Well, I only drank sparkling water, and there was none to be found." <<He>> shrugs one shoulder as if that answers that. "But I survived. That adventure, as well as a number of others." There's a mysterious smile on <<his>> face.
+	<<elseif $avery_valentines.soften>>
+		Avery huffs a laugh. "Suffice it to say it was for a silly reason. I'm certain you've had some of those moments of your own."
+	<<else>>
+		"Never mind that." Avery waves a hand as if discouraging a fly. "<<person2>><<He>> was exaggerating, as one typically does when telling stories about one's youth."
+	<</if>>
+	<br><br>
+	<<person1>>
+<<case "university_friend">>
+	<<set $averySeen.pushUnique("university_friend")>>
+	You ask about that friend of Avery's.
+	<br><br>
+	Avery <<= $averyragerevealed is 1 ? "rolls <<his>> eyes" : "sighs">>. "Don't mind <<person2>><<him>>. <<He>> used to revel in inappropriate behaviour." <<person1>><<His>> lip curls. "And it appears <<person2>><<he>> hasn't changed a bit. No wonder <<he>> was surprised to see that I had."
+	<br><br>
+	<<person1>>
+<<case "mansion2">>
+	<<if $phase is 1>> /* Like it */
+		You tell Avery that you like living with <<him>>. It's an upgrade from life at the orphanage.
+		<br><br>
+		Avery listens to your answer with a growing smile. "Is that so? Why, I'm glad to hear it.
+		<br><br>
+		<<if C.npc.Avery.love gte 60>>
+			I enjoy having you around, too. I see that
+		<<elseif $avery_mansion?.days_absent gte 7>>
+			Though it's hard to believe when I haven't seen you around in over a week. Still, at least
+		<<else>>
+			I see that
+		<</if>>
+		living with Bailey has given you an appreciation for the finer things in life," <<he>> muses. "Speaking of Bailey, what was it like living with your old caretaker?"
+		<br><br>
+	<<elseif $phase is 2>> /* Noncommittal */
+		You muddle through a response, avoiding taking one stance or another. It wouldn't do to offend Avery.
+		<br><br>
+		Avery listens to your answer with a smile and a raised brow. "An interesting answer. I suppose living with Bailey in the orphanage has left you at a loss in the face of luxury." <<He>> laughs to <<himself>>. "Speaking of Bailey, what was it like living with your old caretaker?"
+		<br><br>
+	<<else>> /* Dislike it */
+		You tell Avery you don't like living in <<his>> mansion. You didn't expect to have to <<= $avery_mansion?.jobs.includes("lounge")>> ? "cook and clean" : "cook dinner">> when you were taken in.
+		<br><br>
+		Avery raises an eyebrow as you speak. When you're finished, <<he>> <<laughs>>, unfazed by your criticism<<if $averyragerevealed is 1>> to your surprise<</if>>.
+		<br><br>
+		"My, my. Is it so bad to have work to do?" <<he>> asks. "It builds character, after all. Besides, my paying Bailey for you means you're earning far more than any team of professional cleaners would. All it takes is a little bit of work and time out of your day, and you needn't worry a bit about <<nnpc_him "Bailey">>."
+		<br><br>
+		<<He>> leans back in <<his>> seat, and asks, "Speaking of Bailey, what was it like living with your old caretaker?"
+		<br><br>
+	<</if>>
+
+	<<link [[Say it was terrible|Avery Valentines 11]]>><<set $avery_valentines.talk to "bailey">><<set $phase to 1>><</link>>
+	<br>
+	<<link [[Answer noncommittally|Avery Valentines 11]]>><<set $avery_valentines.talk to "bailey">><<set $phase to 2>><</link>>
+	<br>
+	<<link [[Say you're grateful towards Bailey|Avery Valentines 11]]>><<set $avery_valentines.talk to "bailey">><<set $phase to 3>><</link>>
+	<br>
+<<case "bailey">>
+	<<if $phase is 1>> /* Terrible */
+		<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+			"It was miserable, to be honest," you say, your face crumpling.
+		<<elseif $speech_attitude is "bratty">>
+			"Oh, it sucked," you say with a scowl.
+		<<else>>
+			"It was terrible," you say with a frown.
+		<</if>> You tell Avery a few stories of Bailey's cruelty towards the orphans.
+		<br><br>
+		Avery listens and nods here and there. When you're finished, <<he>> says, "<<nnpc_He "Bailey">> seems to be quite the tyrant. It's a good thing I saved you from <<nnpc_him "Bailey">>, isn't it?<<if C.npc.Avery.dom gte 60>> You ought to thank me more often.<</if>>"
+		<br><br>
+		<<He>> then waves a dismissive hand as if to ward off a fly. "But enough about <<nnpc_him "Bailey">>.<<if $avery_valentines.soften>> Tonight is about us.<</if>>"
+		<br><br>
+	<<elseif $phase is 2>> /* Noncommittal */
+		<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+			"It was fine," you say.
+		<<elseif $speech_attitude is "bratty">>
+			"It was whatever," you say with a shrug.
+		<<else>>
+			"It had its ups and downs," you say with a shrug.
+		<</if>>
+		<br><br>
+		You don't offer anything else of substance. Avery seems a bit disappointed, and soon waves a dismissive hand as if to ward off a fly. "Well, enough about <<nnpc_him "Bailey">>.<<if $avery_valentines.soften>> Tonight is about us.<</if>>"
+		<br><br>
+	<<else>> /* Grateful */
+		<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+			"I'm actually very grateful for <<nnpc_him "Bailey">>," you say.
+		<<elseif $speech_attitude is "bratty">>
+			"It was fine. <<nnpc_He "Bailey">>'d help us out here and there," you say with a shrug.
+		<<else>>
+			"It was all right," you say. "I'm actually pretty grateful for Bailey. <<nnpc_Hes "Bailey">> helped us out a lot."
+		<</if>> You tell Avery a few stories of how Bailey has helped the orphans.
+		<br><br>
+		Avery listens, but appears to be unmoved by them, giving the odd acknowledging hum here and there. When you're finished, <<he>> gives a <<= $averyragerevealed is 1 ? "feigned" : "wry">> smile, and says, "I think you've mistaken Bailey's motives, <<pcpetname "Avery">>. <<nnpc_He "Bailey">> is far from a saint."
+		<br><br>
+		<<He>> then waves a dismissive hand as if to ward off a fly. "But enough about <<nnpc_him "Bailey">>.<<if $avery_valentines.soften>> Tonight is about us.<</if>>"
+		<br><br>
+	<</if>>
+<<case "remy_past">>
+	<<set $averySeen.pushUnique("remy_past")>>
+	You ask how long Avery has known Remy.
+	<br><br>
+	"I've known Remy since university, though we were both aware of each other before then," Avery answers. "Similar circles, you see. <<nnpc_He "Remy">> and I, as well as a small coterie, including the <<person2>><<gentleman_npc>> you just met, would often meet together for various activities."
+	<br><br>
+	"Even back then, I knew Remy was destined for success. But <<nnpc_he "Remy">> was always too..." <<person1>><<He>> drums <<his>> fingers on the table for a few moments as <<he>> thinks. "Rigid is the word for it, I suppose. <<nnpc_He "Remy">> missed out on more than one golden opportunity back then. I would let <<nnpc_him "Remy">> know it, too."
+	<br><br>
+	"And now?"
+	<br><br>
+	"Now," Avery
+	<<if $avery_fate is "ascended">>
+		frowns and shakes <<his>> head. "Now I don't bother. Neither of us are who we were back then. Though Remy is as stubborn as ever."
+	<<elseif $avery_fate is "saved">>
+		frowns a little, and <<his>> gaze goes somewhat distant. "Now I wonder if things could have gone differently." <<He>> continues, but trails off, then sighs. "In any case, Remy is much the same. Though things have rather changed of late."
+	<<else>>
+		shrugs. "Now I keep such things to myself. It's not as if <<nnpc_he "Remy">> would listen, anyway," <<he>> murmurs.
+	<</if>>
+	<br><br>
+<<case "trading_card">>
+	<<set $averySeen.pushUnique("trading_card")>>
+	"About that trading card I gave you," you start.
+	<br><br>
+	"Ah, that." Avery cocks <<his>> head a little and scrutinises you. "Just where did you get it, exactly? It wasn't just some common card you'd given me."
+	<br><br>
+	You say you got it from a friend.
+	<br><br>
+	"I see." <<His>> eyes drift shut as <<he>> takes a sip from <<his>> wine. "Well, it's just
+	<<if $avery_fate is "saved">>
+		from a silly game." <<He>> pauses, and a nostalgic look crosses <<his>> face. "I used to play it with my friends, once upon a time. Of course, that was back when I was a child. I don't know why you decided to give it to me of all people."
+	<<elseif $avery_fate is "ascended">>
+		a card from some silly game meant for children," <<he>> says. "To be frank, I don't know why you gave it to me. It's of no use."
+	<<else>>
+		from some silly game," <<he>> says with a shrug. "I don't know why you decided to give it to me of all people."
+	<</if>>
+	<br><br>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"Oh." You give <<him>> a confused look. "Isn't it why you forgave me, though?"
+	<<elseif $speech_attitude is "bratty">>
+		"Wait, but if you didn't want it, then why'd you forgive me when I gave it to you?"
+	<<else>>
+		"But isn't it why you forgave me?"
+	<</if>>
+	<br><br>
+	Avery raises an eyebrow. "I forgave you because I could tell how desperate you were for another chance." <<He>> smirks. "That's all."
+	<br><br>
+<<case "trading_card2">>
+	<<set $averySeen.pushUnique("trading_card2")>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"What did you do with the card, if you don't mind my asking?"
+	<<elseif $speech_attitude is "bratty">>
+		"What'd you do with the card anyway?"
+	<<else>>
+		"What did you do with the card?"
+	<</if>>
+	<br><br>
+	<<if $avery_fate is "saved">>
+		<<set $averySeen.pushUnique("trading_card_collection")>>
+		"If you must know, I added it to my collection. What's left of it, anyway. It's not as though it sees any use."
+	<<else>>
+		"I don't remember," Avery says, turning <<his>> head to observe the restaurant. "You gave it to me months ago."
+	<</if>>
+	<br><br>
+<<case "why_town">>
+	<<set $averySeen.pushUnique("why_town")>>
+	"What brought me here?" Avery hums. "It's a reasonable question, I suppose. After all, this town
+	<<if $averyragerevealed gte 1 and C.npc.Avery.rage gte 20>>
+		is utter rubbish.
+	<<else>>
+		isn't exactly a shining beacon of civilisation.
+	<</if>>
+	But..." <<He>> plays with the stem of <<his>> glass, watching the wine swirl inside it. "That's why I came. We all want someplace to call our own, don't we? If I help save this town from itself, well." <<He>> smirks. "I could make it mine."
+	<br><br>
+	After a moment, <<he>> looks back up at you, and smiles. "And what about you?" <<he>> asks. "What do you think about this town?"
+	<br><br>
+	<<link [[Say you like it just fine|Avery Valentines 11]]>><<set $avery_valentines.talk to "why_town2">><<set $phase to 1>><</link>>
+	<br>
+	<<link [[Answer noncommittally|Avery Valentines 11]]>><<set $avery_valentines.talk to "why_town2">><<set $phase to 2>><</link>>
+	<br>
+	<<link [[Say you don't like it|Avery Valentines 11]]>><<set $avery_valentines.talk to "why_town2">><<set $phase to 3>><</link>>
+	<br>
+	<<if $trauma gte ($traumamax * 0.8)>>
+		<<link [[Say you hate it here|Avery Valentines 11]]>><<set $avery_valentines.talk to "why_town2">><<set $phase to 4>><</link>><<lstress>><<ltrauma>>
+		<br>
+	<</if>>
+<<case "why_town2">>
+	<<if $phase is 1>> /* Like it */
+		You tell Avery you like it here just fine.
+		<br><br>
+		"Is that so?" Avery
+		<<if $avery_fate is "ascended">>
+			appears dubious. "Well, don't worry, <<pcpetname "Avery">>. You'll still like it once I'm done with it." <<His>> mouth quirks up in one corner. "Perhaps you'll like it even better."
+		<<else>>
+			flashes a smile. "Then forgive me for besmirching it."
+		<</if>>
+		<br><br>
+	<<elseif $phase is 2>> /* Noncommittal */
+		You equivocate on your feelings on this town. It's hard to say one way or another how you feel about it.
+		<br><br>
+		Avery gives you a knowing smile, and says, "I understand. I doubt anyone who lives here has a simple opinion on the place, especially those who grew up here.<<if $avery_fate is "ascended">>" <<He>> pats your hand. "Don't worry, <<pcpetname "Avery">>. I'm certain you'll like it once I'm done with it.<</if>>"
+		<br><br>
+	<<elseif $phase is 3>> /* Dislike it */
+		You start to complain about living in this town. Avery <<laughs>> or gives an acknowledging nod where appropriate.
+		<br><br>
+		"Then you and I are of the same mind," <<he>> says. "It could use the guidance of someone with vision.
+		<<if $avery_fate is "ascended">>
+			Guidance I intend to provide."
+		<<else>>
+			Wouldn't you agree, <<pcpetname "Avery">>?"
+		<</if>>
+		<br><br>
+	<<else>> /* Hate it */
+		You start to complain about living in this town, and about how terrible the people can be. By the time you finish, you realise tears have started to fall down your cheeks<<if $makeup.mascara != 0>>, ruining your mascara<</if>>. Still, it's a relief to get some of your grief off your chest.<<stress -9>><<lstress>><<trauma -9>><<ltrauma>>
+		<br><br>
+		Avery reaches into <<his>> <<= $NPCList[0].gender is "m" ? "breast pocket" : "purse">>, and pulls out a handkerchief. <<He>>
+		<<if $avery_valentines.soften>>
+			reaches over to dab at your tears<<if $makeup.mascara != 0>> and fix your mascara as best as <<he>> can<</if>>. "There, there, <<pcpetname "Avery">>."
+			<br><br>
+			<<He>> pulls the handkerchief away and stows it again once you've composed yourself.
+			<br><br>
+		<<else>>
+			hands it over for you to dab at your tears<<if $makeup.mascara != 0>> and fix your mascara as best as you can<</if>>. "Steady on, <<pcpetname "Avery">>."
+			<br><br>
+			<<He>> takes the handkerchief back and stows it again once you've composed yourself.
+			<br><br>
+		<</if>>
+	<</if>>
+<<case "why_mansion">>
+	<<set $averySeen.pushUnique("why_mansion")>>
+	<<if $avery_fate is "ascended">>
+		"Well, you know that I like a good view, and my mansion is on the tallest hill in that corner of town. And," <<He>> chuckles. "It has a certain past. One related to a certain group of individuals."
+	<<elseif $avery_fate is "saved">>
+		"Well, I like a good view," <<he>> says, "and my mansion is on the tallest hill in that corner of town. That's all."
+	<<else>>
+		"Well, I like a good view, and my mansion is on the tallest hill in that corner of town. It also has a curious past," <<he>> adds with a secretive smile.
+	<</if>>
+	<br><br>
+	<<He>> doesn't say any more on the subject.
+	<br><br>
+<<default>>
+	Avery takes a sip of <<his>> wine, while looking at you over the rim.
+	<br><br>
+<</switch>>
+
+
+<<set $avery_valentines.talk_count += 1>>
+
+<<if $avery_valentines.talk isnot "mansion2" and $avery_valentines.talk isnot "why_town">>
+
+	<<if $avery_valentines.talk_count gte 2 and !$averySeen.includes("mansion_thoughts") and $avery_mansion>>
+		<<set $averySeen.pushUnique("mansion_thoughts")>>
+	<</if>>
+
+	<<if !$averySeen.includes("sparkling_water")>>
+		<<link [[Ask how Avery almost died of thirst|Avery Valentines 11]]>><<set $avery_valentines.talk to "sparkling_water">><</link>>
+		<br>
+	<</if>>
+	<<if !$averySeen.includes("university_friend")>>
+		<<link [[Ask Avery about that old friend of <<hers>>|Avery Valentines 11]]>><<set $avery_valentines.talk to "university_friend">><</link>>
+		<br>
+	<</if>>
+	<<if $averySeen.includes("university_friend") and !$averySeen.includes("remy_past")>>
+		<<link [[Ask about Avery's relationship with Remy|Avery Valentines 11]]>><<set $avery_valentines.talk to "remy_past">><</link>>
+		<br>
+	<</if>>
+	<<if $avery_card_gift>>
+		<<if !$averySeen.includes("trading_card")>>
+			<<link [[Ask about that trading card you gave Avery|Avery Valentines 11]]>><<set $avery_valentines.talk to "trading_card">><</link>>
+			<br>
+		<</if>>
+		<<if $averySeen.includes("trading_card") and !$averySeen.includes("trading_card2")>>
+			<<link [[Ask what Avery did with the trading card|Avery Valentines 11]]>><<set $avery_valentines.talk to "trading_card2">><</link>>
+			<br>
+		<</if>>
+	<</if>>
+	<<if !$averySeen.includes("why_town")>>
+		<<link [[Ask why Avery moved to this town|Avery Valentines 11]]>><<set $avery_valentines.talk to "why_town">><</link>>
+		<br>
+	<</if>>
+	<<if $averySeen.includes("mansion_thoughts") and $averySeen.includes("why_town") and !$averySeen.includes("why_mansion")>>
+		<<link [[Ask why Avery chose <<his>> mansion|Avery Valentines 11]]>><<set $avery_valentines.talk to "why_mansion">><</link>>
+		<br>
+	<</if>>
+	<<link [[Focus on your food|Avery Valentines 12]]>><</link>>
+	<br>
+<</if>>
+
+
+:: Avery Valentines 12
+<<effects>>
+
+<<pass 30>><<endevent>><<npc Avery>><<person1>>
+
+Dinner comes to an end. Delicious as it was, however, you still have a little room in your stomach for more. Just as you're considering whether or not to ask about dessert, Avery brings it up <<himself>>.
+<br><br>
+"Are you still hungry?" <<he>> asks. "The portions here are more artistic than filling. We could order you some dessert."
+<br><br>
+<<if $avery_sweets_known>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"Oh," you say. "Don't you want dessert, too? Since you like sweets and all."
+	<<elseif $speech_attitude is "bratty">>
+		"Just for me? Wait, are you trying to pretend you don't like sweets?" You smirk at <<him>>.
+	<<else>>
+		"What about you? You like sweet things, don't you?"
+	<</if>>
+	<br><br>
+	Avery purses <<his>> lips<<if $speech_attitude is "bratty">> and raises an eyebrow<</if>>. "<<if $speech_attitude is "bratty">>Cheeky. <</if>>Well, I suppose you aren't wrong. How about it, then?"
+	<br><br>
+<<else>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"Oh, um, did you not want any?"
+	<<elseif $speech_attitude is "bratty">>
+		"Just me? You aren't going to have anything?"
+	<<else>>
+		"What about you?"
+	<</if>>
+	<br><br>
+	"I suppose I could have some myself as well," Avery says. "How about it?"
+	<br><br>
+<</if>>
+
+<<link [[Yes|Avery Valentines Dessert]]>><<set $phase to 0>><</link>>
+<br>
+<<link [[No|Avery Valentines 13]]>><<set $phase to 1>><</link>>
+<br>
+
+
+:: Avery Valentines Dessert
+<<effects>>
+
+<<pass 15>>
+
+Avery orders a <<= $avery_sweets_known ? "crème brûlée" : "mild panna cotta with berries">>. Like you did with your dinner, you pick something
+<<if $avery_valentines.food is "tasty">>
+	you know to be delicious.
+<<elseif $avery_valentines.food is "expensive">>
+	expensive.
+<<else>>
+	you've never had before.
+<</if>>
+<br><br>
+When your dishes arrive, the two of you tuck in. It's just as good as the entrée. <<stress -12>><<lstress>>
+<br><br>
+<<if $avery_valentines.soften>>
+	As you eat, chatting in the meanwhile, the small band in the corner of the restaurant begins playing an orchestral cover of a pop song. One of the violinists plays a note off-key during a solo, and a murmured laugh sweeps through the restaurant, including from you and Avery. <<His>> quiet laugh sounds more relaxed than usual.
+	<br><br>
+	The violinist recovers. <<= either("He","She")>> still wears a big grin. <<trauma -2>><<ltrauma>>
+	<br><br>
+	When you look back at Avery, you see <<him>> staring at you. When caught, <<his>> smile just widens, and <<he>> reaches over and<<if $hairlength gte 200>> tucks a lock of hair behind your ear. Rather than pull <<his>> hand away, <<he>> then<</if>> strokes your cheek.<<if $averyromance>> You feel your heart skip a beat.<</if>>
+	<br><br>
+<</if>>
+
+<<link [[Next|Avery Valentines 13]]>><<set $phase to 0>><</link>>
+<br>
+
+:: Avery Valentines 13
+<<effects>>
+
+<<pass 5>><<famesocial 50>>
+<<earnFeat "Most Exclusive">>
+Dinner<<if $phase is 0>> and dessert<</if>> consumed, Avery flags down a server and pays the bill. You get a slight peek at the receipt and see
+<<if $money gte 5000000>>
+	an amount that used to be expensive, but is now trivial to you.
+<<elseif $money gte 500000>>
+	an amount that used to be expensive, but is no longer as big a hit to your wallet.
+<<elseif $money gte 50000>>
+	a non-negligible amount that would put a dent into your own wallet.
+<<else>>
+	a price tag you wouldn't dare to spend<<if $money lt 25000>>, and couldn't even if you wanted to,<<else>> <</if>> if you <<= $avery_mansion?.rage.assess gte 9 or $avery_mansion?.days_absent gte 2 ? "were to try" : "intend">> to make Bailey's payments this week.
+<</if>>
+<br><br>
+Avery guides you with an arm around your waist as you both walk towards the exit.
+<<if $avery_valentines.soften>>
+	<<He>> regards you with that strange smile again, one you can't quite read. It seems positive, at least.
+<<else>>
+	<<He>> nods at those <<he>> meets eyes with, ones that <<he>> seems to recognise.<<if $fame.social gte 600>> You recognise them, too. They're some of the higher class residents in town, as well as some that must have come all the way from the moor.<</if>><<if $rng gte 91>> You think you even spot a celebrity amidst the crowd.<</if>>
+<</if>>
+<br><br>
+Outside, the valet retrieves Avery's car, and the two of you get in.
+<<if $avery_valentines.soften and !$avery_mansion?.injury_stage is "fresh">>
+	<<set $phase to 1>>
+	As the car revs to life, <<he>> moves <<his>> hand over to your lap, where <<he>> takes your hand in <<hers>>.<<takeHandholdingVirginity "Avery" "romantic">>
+<<else>>
+	<<set $phase to 0>>
+<</if>>
+<br><br>
+<<if $avery_fate>>
+	On the way back to the <<= $avery_mansion ? "mansion" : "orphanage">>, the car comes to a stop at the intersection, and you see<<if $avery_fate is "saved">> the husk of<</if>> the skyscraper on Elk Street in the distance. You remember that night as if it were yesterday, including those visions you saw of Avery's past. So much happened afterwards that you never got the chance to ask <<him>> about them.
+	<br><br>
+	<<He>> seems to be in a good mood at the moment. <<He>> might answer you if you were to ask now.
+	<br><br>
+	<<link [[Ask Avery about what you saw that night|Avery Valentines 14]]>><</link>>
+	<br>
+	<<link [[Leave it be|Avery Valentines 15]]>><</link>>
+	<br>
+<<else>>
+	<<link [[Next|Avery Valentines 15]]>><</link>>
+	<br>
+<</if>>
+
+
+:: Avery Valentines 14
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Avery. That night, those visions we saw. Were they true? Did those things actually happen to you?" you ask.
+<<elseif $speech_attitude is "bratty">>
+	"You know, I've been wondering about those visions we saw that night. Whether or not they were true. Were they?" you ask. "Did you get disowned?"
+<<else>>
+	"Avery, I've been wondering. Those visions we saw that night. Were they true? Did all that really happen to you?" you ask.
+<</if>>
+<br><br>
+It's clear Avery knows what night you refer to without clarification. <<His>> grip on the steering wheel<<if $phase is 1>> and your hand<</if>> tightens for a moment, and <<he>> glances at you out of the corner of <<his>> eye. When <<he>> replies, <<his>> tone is nonchalant, and <<his>> attention is already back on the road.
+<br><br>
+<<if $avery_fate is "saved">>
+	"Quite a lot happened that night, <<pcpetname "Avery">>, and not much of it pleasant. I wish you wouldn't ruminate too much on it. The past ought to remain in the past."
+<<else>>
+	"Don't worry yourself about what you saw that night, my <<pcpetname "Avery" "my">>. The past ought to remain in the past. It's our job to rise above it."
+<</if>>
+<<set $averySeen.pushUnique("visions_asked")>>
+<br><br>
+That's all <<he>> says on the matter. You notice <<he>> didn't deny anything.
+<br><br>
+<<link [[Next|Avery Valentines 15]]>><</link>>
+<br>
+
+:: Avery Valentines 15
+<<effects>>
+
+<<pass 20>>
+
+There's some traffic on the way to the <<= $avery_mansion ? "mansion" : "orphanage">>. Couples on their way home from their dates, it seems. You see some of them walking down the sidewalk as well.
+<<if $averyromance and $phase is 1>>
+	You squeeze Avery's hand. You get a squeeze in return.
+<<else>>
+	You can't help but think of that couple that was arguing earlier in the restaurant, and what they're doing at this moment.
+	<<if $avery_valentines.opinion is "romantic">>
+		You hope Avery was wrong, and that they've talked out their problems.
+	<<elseif $avery_valentines.opinion is "cynic">>
+		You wonder if they're fighting again already as Avery presumed.
+	<</if>>
+<</if>>
+<<endevent>><<npc Avery>><<person1>>
+<br><br>
+<<if $avery_mansion>>
+	It's not too much longer of a drive to the mansion, and <<= $avery_valentines.soften ? "Avery opens the door for you" : "you climb out of the car">> when you arrive. When you enter the mansion proper, <<he>> leans in with a <<= C.npc.Avery.lust gte 65 ? "wolfish" : "playful">> smile.
+	<br><br>
+	"Shall we finish off our Valentine's Day with a happy ending, <<pcpetname "Avery">>?" <<he>> purrs, gesturing towards the stairs.
+	<br><br>
+	<<link [[Go to bed with <<him>>|Avery Valentines Sex]]>><<set $phase to 0>><</link>><<promiscuous1>>
+	<br>
+	<<link [[Turn <<him>> down|Avery Valentines End]]>><<set $phase to 1>><</link>>
+	<br>
+<<else>>
+	On an intersection between Connudatus Street and Danube Street, Avery glances at you with a <<= C.npc.Avery.lust gte 65 ? "lecherous" : "playful">> smile.
+	<br><br>
+	"Shall we finish off our Valentine's Day with a happy ending, <<pcpetname "Avery">>?" <<he>> purrs. "You haven't visited my home yet, have you? I have quite a comfortable bed."
+	<br><br>
+	<<if hasSexStat("promiscuity", 2)>>
+		/* Set Avery Valentine's visit variable outside of avery_mansion since it errors if it doesn't exist yet and outside of avery_valentines so it remains persistent, allowing different mansion reactions if the PC is later bought by Avery */
+		<<link [[Visit Avery's mansion and go to bed with <<him>>|Avery Valentines Sex]]>><<set $avery_valentines_visit to true>><</link>><<promiscuous2>>
+		<br>
+	<<else>>
+		<span class="blue">You're not lewd enough to take up such an offer!</span>
+		<br>
+	<</if>>
+	<<link [[Turn <<him>> down|Avery Valentines End]]>><<set $phase to 1>><</link>>
+	<br>
+<</if>>
+
+:: Avery Valentines Sex
+<<effects>><<set $location to "avery_mansion">>
+
+<<pass 5>>
+
+"Wonderful," Avery says, <<his>> smile widening.
+<br><br>
+<<if $avery_mansion>>
+	You go up the stairs with Avery, heading for the bedroom.
+<<else>>
+	<<pass 10>>
+	<<He>> turns onto Danube Street, and eventually onto the boulevard.
+	<br><br>
+	The mansions of Danube Boulevard loom at night, and Avery's is no different. A gate rattles open as Avery drives up to it, and you see the silhouette of a beautiful garden as you approach a garage. When the car is parked inside, <<= $avery_valentines.soften ? "Avery opens the door for you" : "you climb out of the car">>, and you're guided into a sumptuous abode.
+	<br><br>
+	You don't get to see much of it, however. Avery leads you directly up a flight of stairs and into the bedroom.
+	<br><br>
+<</if>>
+The lights are switched on, but dimmed. Avery begins undressing, <<his>> <<= $NPCList[0].gender is "m" ? "suit" : "dress">> cast aside to reveal a set of sheer <<if $NPCList[0].gender is "f">>lingerie<<else>>underwear<</if>>. It accentuates <<his>> body, and puts emphasis on <<his>>
+<<if $NPCList[0].penis isnot "none" and $NPCList[0].penissize gte 3 and $NPCList[0].breastsize gte 3>>
+	<<npcChest>> and <<npcPenis>>.
+<<elseif $NPCList[0].breastsize gte 3>>
+	<<npcChest>>.
+<<elseif $NPCList[0].penis isnot "none" and $NPCList[0].penissize gte 3>>
+	<<npcPenis>>.
+<<else>>
+	trim figure.
+<</if>><<arousal 50>><<garousal>>
+<br><br>
+Avery catches you looking and seems <<= $averyragerevealed gte 1 ? "smug" : "amused">>. "Well? Aren't you going to join me?" <<he>> asks, taking a seat on the edge of the bed.
+<<promiscuity1>>
+
+<<link [[Next|Avery Valentines Sex 2]]>><</link>>
+<br>
+
+:: Avery Valentines Sex 2
+<<effects>><<strip>>
+
+<<if $player.virginity.vaginal is true and $player.virginity.penile is true>>
+	<<set $avery_valentines_virginity to true>>
+	<<if $averySeen.includes("player_virgin")>>
+		<<set $avery_valentines_steal_virginity to true>>
+	<</if>>
+<<elseif $player.virginity.temple and $averySeen.includes("player_virgin")>>
+	<<set $avery_valentines_vow to true>>
+<</if>>
+You follow Avery's example and undress. <<He>> watches you while you do. There's an intent look on <<his>> face, and a hand moves between <<his>> thighs to start rubbing <<his>> <<npcGenitals>> over <<his>> <<if $NPCList[0].gender is "f">>lingerie<<else>>underwear<</if>>.
+<br><br>
+When you're finished, you move to join Avery on the bed. <<He>> pushes you down onto the mattress, positioning you so your head is on the pillows, and moves
+<<if $NPCList[0].penis isnot "none">> /* Avery has a penis */
+	<<if $player.penisExist and $settings.analEnabled and !playerChastity("penis") and !playerChastity("anus")>> /* PC has a penis */
+		<<if ($rng gte 51 or $avery_valentines_steal_virginity or $avery_valentines_vow)>>
+			to straddle you. <<He>> reaches into the drawer of <<his>> bedside table and pulls out a bottle of lubricant. <<He>> pops the cap open and brings it behind <<himself>>.
+			<br><br>
+			"I think I'll ride you tonight, <<pcpetname "Avery">>," <<he>> announces.
+			<br><br>
+			<<if hasSexStat("promiscuity", 4)>>
+				<<link [[Go along with it|Avery Valentines Sex Penis]]>><<set $avery_valentines.sex to "penis">><<set $phase to 0>><</link>><<penilevirginitywarning>><<if $NPCList[0].penis isnot "none" and $NPCList[0].virginity.anal is true>><<NPCvirginitywarning "Avery" "anal">><</if>><<promiscuous4>>
+				<br>
+			<</if>>
+			<<if $player.vaginaExist and !playerChastity("vagina")>>
+				<<if hasSexStat("promiscuity", 4)>>
+					<<link [[Offer your vagina instead|Avery Valentines Sex Vagina]]>><<set $avery_valentines.sex to "vagina">><<set $phase to 1>><</link>><<vaginalvirginitywarning>><<promiscuous4>>
+					<br>
+				<</if>>
+			<</if>>
+
+			<<if hasSexStat("promiscuity", 4)>>
+				<<link [[Offer your ass instead|Avery Valentines Sex Ass]]>><<if $player.virginity.anal is true>><<set $avery_valentines_anal_virginity to true>><</if>><<set $avery_valentines.sex to "ass">><<set $phase to 1>><</link>><<analvirginitywarning>><<promiscuous4>>
+				<br>
+			<</if>>
+			<<if !hasSexStat("promiscuity", 4)>>
+				<span class="blue">You're not promiscuous enough for such behaviour!</span>
+				<br>
+			<</if>>
+		<<elseif !playerChastity("anus")>>
+			between your legs. <<He>> reaches into the drawer of <<his>> bedside table and pulls out a bottle of lubricant. <<He>> pops the cap open and brings it to your <<bottom>>.
+			<br><br>
+			"I think I'll fuck you tonight, <<pcpetname "Avery">>," <<he>> announces.
+			<br><br>
+			<<if hasSexStat("promiscuity", 4)>>
+				<<link [[Go along with it|Avery Valentines Sex Ass]]>><<if $player.virginity.anal is true>><<set $avery_valentines_anal_virginity to true>><</if>><<set $avery_valentines.sex to "ass">><<set $phase to 0>><</link>><<analvirginitywarning>><<promiscuous4>>
+				<br>
+			<</if>>
+			<<if $player.vaginaExist and !playerChastity("vagina")>>
+				<<if hasSexStat("promiscuity", 4)>>
+					<<link [[Offer your vagina instead|Avery Valentines Sex Vagina]]>><<set $avery_valentines.sex to "vagina">><<set $phase to 1>><</link>><<vaginalvirginitywarning>><<promiscuous4>>
+					<br>
+				<</if>>
+			<</if>>
+			<<if hasSexStat("promiscuity", 4) and !playerChastity("penis")>>
+				<<link [[Offer to be on top instead|Avery Valentines Sex Penis]]>><<set $avery_valentines.sex to "penis">><<set $phase to 1>><</link>><<penilevirginitywarning>><<if $NPCList[0].penis isnot "none" and $NPCList[0].virginity.anal is true>><<NPCvirginitywarning "Avery" "anal">><</if>><<promiscuous4>>
+				<br>
+			<</if>>
+			<<if !hasSexStat("promiscuity", 4)>>
+				<span class="blue">You're not promiscuous enough for such behaviour!</span>
+				<br>
+			<</if>>
+		<<else>>
+			to push <<his>> <<print $NPCList[0].penisdesc>> against your face.
+			<br><br>
+			"I think I'll fuck you tonight, <<pcpetname "Avery">>," <<he>> announces.
+			<br><br>
+			<<if hasSexStat("promiscuity", 4)>>
+				<<link [[Go along with it|Avery Valentines Sex Mouth]]>><<set $avery_valentines.sex to "mouth">><<set $phase to 0>><</link>><<oralvirginitywarning>><<promiscuous4>>
+				<br>
+			<<else>>
+				<span class="blue">You're not promiscuous enough for such behaviour!</span>
+				<br>
+			<</if>>
+		<</if>>
+	<<elseif $player.penisExist and !$player.vaginaExist>> /* PC only has a penis + anal is disabled */
+		<<if !playerChastity("penis")>>
+			to straddle you. You shiver when <<he>> grinds down and rubs your penises together. <<arousal 500 "genitals">><<garousal>>
+			<br><br>
+			"I think I'll ride you tonight, <<pcpetname "Avery">>," <<he>> announces.
+			<br><br>
+			<<link [[Go along with it|Avery Valentines Sex Frot]]>><<set $avery_valentines.sex to "frot">><<set $phase to 0>><</link>>
+			<br>
+		<<else>>
+			to push <<his>> <<print $NPCList[0].penisdesc>> against your face.
+			<br><br>
+			"I think I'll fuck you tonight, <<pcpetname "Avery">>," <<he>> announces.
+			<br><br>
+			<<if hasSexStat("promiscuity", 4)>>
+				<<link [[Go along with it|Avery Valentines Sex Mouth]]>><<set $avery_valentines.sex to "mouth">><<set $phase to 0>><</link>><<oralvirginitywarning>><<promiscuous4>>
+				<br>
+			<<else>>
+				<span class="blue">You're not promiscuous enough for such behaviour!</span>
+				<br>
+			<</if>>
+		<</if>>
+	<<elseif $player.vaginaExist and !playerChastity("vagina")>> /* PC has a vagina */
+		<<if $rng gte 51 or $avery_valentines_steal_virginity or $avery_valentines_vow>>
+			between your legs. <<He>> reaches into the drawer of <<his>> bedside table and pulls out a bottle of lubricant. <<He>> pops the cap open and brings it to your <<pussy>>.
+			<br><br>
+			"I think I'll fuck you tonight, <<pcpetname "Avery">>," <<he>> announces.
+			<br><br>
+			<<if hasSexStat("promiscuity", 4)>>
+				<<link [[Go along with it|Avery Valentines Sex Vagina]]>><<set $avery_valentines.sex to "vagina">><<set $phase to 0>><</link>><<vaginalvirginitywarning>><<promiscuous4>>
+				<br>
+			<</if>>
+
+			<<if hasSexStat("promiscuity", 4) and !playerChastity("anus")>>
+				<<link [[Offer your ass instead|Avery Valentines Sex Ass]]>><<if $player.virginity.anal is true>><<set $avery_valentines_anal_virginity to true>><</if>><<set $avery_valentines.sex to "ass">><<set $phase to 1>><</link>><<analvirginitywarning>><<promiscuous4>>
+				<br>
+			<</if>>
+			<<if !hasSexStat("promiscuity", 4)>>
+				<span class="blue">You're not promiscuous enough for such behaviour!</span>
+				<br>
+			<</if>>
+		<<else>>
+			between your legs. <<He>> reaches into the drawer of <<his>> bedside table and pulls out a bottle of lubricant. <<He>> pops the cap open and brings it to your <<bottom>>.
+			<br><br>
+			"I think I'll fuck you tonight, <<pcpetname "Avery">>," <<he>> announces.
+			<br><br>
+			<<if hasSexStat("promiscuity", 4) and !playerChastity("anus")>>
+				<<link [[Go along with it|Avery Valentines Sex Ass]]>><<if $player.virginity.anal is true>><<set $avery_valentines_anal_virginity to true>><</if>><<set $avery_valentines.sex to "ass">><<set $phase to 0>><</link>><<analvirginitywarning>><<promiscuous4>>
+				<br>
+			<</if>>
+			<<if hasSexStat("promiscuity", 4)>>
+				<<link [[Offer your vagina instead|Avery Valentines Sex Vagina]]>><<set $avery_valentines.sex to "vagina">><<set $phase to 1>><</link>><<vaginalvirginitywarning>><<promiscuous4>>
+				<br>
+			<</if>>
+			<<if !hasSexStat("promiscuity", 4)>>
+				<span class="blue">You're not promiscuous enough for such behaviour!</span>
+				<br>
+			<</if>>
+		<</if>>
+	<<else>>
+		to push <<his>> <<print $NPCList[0].penisdesc>> against your face.
+		<br><br>
+		"I think I'll fuck you tonight, <<pcpetname "Avery">>," <<he>> announces.
+		<br><br>
+		<<if hasSexStat("promiscuity", 4)>>
+			<<link [[Go along with it|Avery Valentines Sex Mouth]]>><<set $avery_valentines.sex to "mouth">><<set $phase to 0>><</link>><<oralvirginitywarning>><<promiscuous4>>
+			<br>
+		<<else>>
+			<span class="blue">You're not promiscuous enough for such behaviour!</span>
+			<br>
+		<</if>>
+	<</if>>
+<<else>> /* Avery has a vagina */
+	<<if $player.penisExist and ($rng gte 51 or $avery_valentines_steal_virginity or $avery_valentines_vow) and !playerChastity("penis")>> /* PC has a penis */
+		to straddle you. <<He>> reaches into the drawer of <<his>> bedside table and pulls out a bottle of lubricant. <<He>> pops the cap open and brings it to your <<penis>>.
+		<br><br>
+		"I think I'll ride you tonight, <<pcpetname "Avery">>," <<he>> announces.
+		<br><br>
+		<<if $player.vaginaExist>>
+			<<if hasSexStat("promiscuity", 4)>>
+				<<link [[Go along with it|Avery Valentines Sex Penis]]>><<set $avery_valentines.sex to "penis">><<set $phase to 0>><</link>><<penilevirginitywarning>><<promiscuous4>>
+				<br>
+			<</if>>
+			<<if !hasSexStat("promiscuity", 4)>>
+				<span class="blue">You're not promiscuous enough for such behaviour!</span>
+				<br>
+			<</if>>
+			<<link [[Offer your vagina instead|Avery Valentines Sex Frot]]>><<set $avery_valentines.sex to "frot">><<set $phase to 1>><</link>>
+			<br>
+		<<else>>
+			<<if hasSexStat("promiscuity", 4)>>
+				<<link [[Go along with it|Avery Valentines Sex Penis]]>><<set $avery_valentines.sex to "penis">><<set $phase to 0>><</link>><<penilevirginitywarning>><<promiscuous4>>
+				<br>
+			<</if>>
+			<<if !hasSexStat("promiscuity", 4)>>
+				<span class="blue">You're not promiscuous enough for such behaviour!</span>
+				<br>
+			<</if>>
+		<</if>>
+	<<elseif !playerChastity("vagina") and $player.vaginaExist>> /* PC has a vagina */
+		between your thighs. <<He>> lifts one of your legs up, and straddles the other. You shiver when <<he>> scoots forward and presses your pussies together. <<arousal 500 "genitals">><<garousal>>
+		<br><br>
+		"I think I'll ride you tonight, <<pcpetname "Avery">>," <<he>> announces.
+		<br><br>
+		<<link [[Go along with it|Avery Valentines Sex Frot]]>><<set $avery_valentines.sex to "frot">><<set $phase to 0>><</link>>
+		<br>
+	<<else>>
+		to push <<his>> pussy against your face.
+		<br><br>
+		"I think I'll fuck you tonight, <<pcpetname "Avery">>," <<he>> announces.
+		<br><br>
+		<<if hasSexStat("promiscuity", 4)>>
+			<<link [[Go along with it|Avery Valentines Sex Mouth]]>><<set $avery_valentines.sex to "mouth">><<set $phase to 0>><</link>><<oralvirginitywarning>><<promiscuous4>>
+			<br>
+		<<else>>
+			<span class="blue">You're not promiscuous enough for such behaviour!</span>
+			<br>
+		<</if>>
+	<</if>>
+<</if>>
+<<link [[Back out|Avery Valentines End]]>><<set $phase to 1>><</link>>
+<br>
+
+:: Avery Valentines Sex Penis
+<<effects>>
+
+Avery<<if $phase is 1>> raises a brow, then nods. <<He>><</if>> pulls <<his>> <<if $NPCList[0].gender is "f">>lingerie<<else>>underwear<</if>> aside just enough to expose <<his>> <<= $NPCList[0].penis isnot "none" ? "ass" : "<<npcVagina>>">>, and squirts some lubrication on <<his>> fingers.
+<br><br>
+As <<he>> prepares <<himself>> for you, <<he>> eyes your <<penis>> with
+<<if $player.penissize gte 6>>
+	interest, and a hint of trepidation. But that doesn't stop <<him>> from lining it up with <<his>> <<= $NPCList[0].penis isnot "none" ? "anus" : "vagina">>, and sinking down on it<<if $player.virginity.penile is true>>, <span class="red"> separating your foreskin from your glans and forever robbing you of your purity</span><</if>>. <<He>> gasps and twitches here and there as <<he>> does, and you feel the way <<he>> tries to relax <<his>> muscles for your tremendous size.
+<<elseif $player.penissize lte 3>>
+	a bit of amusement. <<He>> doesn't bother to stretch <<himself>> out for long, and soon lines it up with <<his>> <<= $NPCList[0].penis isnot "none" ? "anus" : "vagina">>. <<He>> sinks down on it<<if $player.virginity.penile is true>>, <span class="red"> separating your foreskin from your glans and forever robbing you of your purity</span><</if>>, and doesn't react to taking your full length.
+<<else>>
+	interest. Once <<hes>> finished preparing <<himself>>, <<he>> lines your tip up with <<his>> <<= $NPCList[0].penis isnot "none" ? "anus" : "vagina">>, and <<he>> begins sinking down on it. <<He>> gasps and twitches here and there until <<hes>> taken your full length<<if $player.virginity.penile is true>>, <span class="red">separating your foreskin from your glans and forever robbing you of your purity</span><</if>>.
+<</if>>
+<<if $NPCList[0].penis isnot "none" and $NPCList[0].virginity.anal is true>>
+	<br><br>
+	<span class="pink">It's a tight fit. This is <<his>> first time doing this.</span><<arousal 2000>><<ggarousal>>
+<</if>>
+<<if $NPCList[0].penis isnot "none">>
+	<<takeNPCVirginity "Avery" "anal">>
+<<else>>
+	<<takeNPCVirginity "Avery" "vaginal">>
+<</if>>
+<<takeVirginity "Avery" "penile">>
+<br><br>
+<<penilestat>><<fallenTransform>>
+Once settled, <<he>> smiles down at you, and
+<<if $avery_valentines_steal_virginity>>
+	murmurs, "Ah, there we are. You haven't done this before, have you?" <<He>> squeezes around your cock, sending shivers through you. "Well, how splendid. Your virginity is a wonderful gift, <<pcpetname "Avery">>."
+<<elseif $avery_valentines_virginity>>
+	murmurs, "Ah. You've never done this before, have you?" <<He>> squeezes around your cock, sending shivers through you. "Well, how splendid. Your virginity is a wonderful gift, <<pcpetname "Avery">>."
+<<elseif $avery_valentines_vow>>
+	murmurs, "Ah, that's right. Your vow of chastity." <<He>> squeezes around your cock, sending shivers through you. "Forgive me for breaking it. I'd forgotten all about it." <<He>> doesn't seem all that apologetic.
+<<else>>
+	squeezes around your cock, sending shivers through you.
+<</if>>
+You buck your hips up into the warm, wet heat. <<arousal 1000 "genitals">><<garousal>>
+<br><br>
+"Ah, ah," Avery tuts. "None of that." <<He>> smirks at you and drags <<his>> fingers down your front as <<he>> continues, "I want you to stay perfectly still while I fuck you, <<pcpetname "Avery">>. Move, and it's over. You'll be left to tend to yourself on your own. Understand?"
+<br><br>
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	You whimper, nod, and grip the pillow under your head.
+<<elseif $speech_attitude is "bratty">>
+	"What?" You grumble a little to yourself, then sigh. "Fine." You grip the pillow under your head.
+<<else>>
+	"Yes, Avery," you say with a nod. You grip the pillow under your head.
+<</if>>
+<br><br>
+"Good <<girl>>," Avery says. Then <<he>> lifts <<himself>> up, drops back down, and again, starting a rhythm.
+<<promiscuity4>>
+<<link [[Next|Avery Valentines Sex Penis 2]]>><</link>>
+<br>
+
+:: Avery Valentines Sex Penis 2
+<<effects>>
+<<avery_injury_check>>
+Avery starts slow. That doesn't mean that it isn't pleasurable, of course. <<Hes>> quite skilled at this, controlling the pace of <<his>> motions well.<<if $NPCList[0].penis isnot "none" and $NPCList[0].virginity.anal is true>> If you didn't know any better, you'd guess that <<he>> had done this before.<</if>> <<arousal 1000 "genitals">><<garousal>>
+<br><br>
+"You feel so good inside me," <<he>> says, voice husky. "Look at me, <<pcpetname "Avery">>. I want to watch you fall apart."
+<br><br>
+<<if $submissive gte 1500>>
+	<<His>> words, combined with the physical sensation of <<his>> insides squeezing hard around you, sends waves of arousal throughout your body. <<= $speech_attitude is "meek" ? "A lewd mewl escapes" : $speech_attitude is "bratty" ? "An aborted grunt replaces a moan that threatened to slip past" : "A moan slips past">>
+<<else>>
+	<<He>> squeezes hard around you, which sends waves of arousal throughout your body, and <<= $speech_attitude is "meek" ? "a lewd mewl escapes" : $speech_attitude is "bratty" ? "an aborted grunt replaces a moan that threatened to slip past" : "a moan slips past">>
+<</if>>
+your lips. A smug smile appears on Avery's face. <<He>> puts <<his>>
+<<if _avery_injured>>
+	good hand on <<= $player.breastsize gte 2 ? "one of your shoulders" : "your chest">>
+<<else>>
+	hands on your <<= $player.breastsize gte 2 ? "shoulders" : "chest">>
+<</if>>
+for leverage, and starts to ride you with a bit more force. <<arousal 1800 "genitals">><<ggarousal>>
+<br><br>
+<<link [[Do as you're told|Avery Valentines Sex Penis 3]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Beg for more|Avery Valentines Sex Penis 3]]>><<sub 1>><<set $phase to 2>><</link>>
+<br>
+<<link [[Look away|Avery Valentines Sex Penis 3]]>><<def 1>><<set $phase to 3>><</link>>
+<br>
+
+:: Avery Valentines Sex Penis 3
+<<effects>>
+<<avery_injury_check>>
+<<if $phase is 3>>
+	You look away, defiant, burying half your face in the pillows and shutting your eyes. You hear a quiet click of a tongue, then Avery
+	<<if _avery_injured>>
+		snatches one of your wrists and pins it beside your head.
+	<<else>>
+		snatches your wrists and pins them either side of your head.
+	<</if>>
+	<<He>> makes good use of the leverage, and it becomes difficult to keep your composure. <<arousal 2000 "genitals">><<ggarousal>>
+	<br><br>
+<<else>>
+	You do your best to keep your eyes open and on Avery. The pleasure makes this difficult. <<He>> lifts <<his>> hand to start pinching and playing with one of your <<nipples>>, which doesn't help. <<arousal 1000 "breasts">><<arousal 1000 "genitals">><<ggarousal>>
+	<br><br>
+	<<if $phase is 2>>
+		<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+			"Avery," you moan. "Please!"
+		<<elseif $speech_attitude is "bratty">>
+			"Fuck," you breathe. "Avery, please."
+		<<else>>
+			"Avery, please, more," you beg.
+		<</if>>
+		<br><br>
+		<<He>> chuckles above you. "Good <<girl>>," <<he>> coos. "You asked so nicely." As a reward, <<he>> starts riding you a little harder, snapping <<his>> hips down with force enough to start rocking the bed. <<arousal 1000 "genitals">>
+		<br><br>
+	<</if>>
+<</if>>
+
+<<if $arousal gte $arousalmax>>
+	<<set $phase to 0>>
+	<<set _hole to C.npc.Avery.penis isnot "none" ? "anus" : "vagina">>
+	Your arousal mounts, and your orgasm strikes you hard and sudden. <<orgasm>><<penileejacstat>><<creampie "npc" _hole>>
+	<<if $phase is 2 or $averyromance>> You cry out Avery's name as your back arches, much to <<his>> satisfaction.<br><br><</if>>
+	<<He>> watches you shuddering and jerking, seeming unbothered by your finishing inside, and <<laughs>> deep in <<his>> throat. "Finished already?" <<he>> asks, voice rough with exertion and pleasure both. "<<= $avery_valentines.soften or C.npc.Avery.love gte 60 ? "How adorable" : "So easy">>." <<He>> leans down to murmur in your ear, "But I'm not finished with you just yet."
+	<br><br>
+	With that, <<he>> pushes <<himself>> back up, spine straight.
+	<<if $avery_valentines.soften or C.npc.Avery.love gte 60>>
+		With a devious glint in <<his>> eyes, <<he>> starts riding your softening <<penis>> fast and dirty.
+	<<else>>
+		No longer concerned for your comfort, <<he>> starts riding your softening <<penis>> with abandon, focused on <<his>> own pleasure.
+	<</if>>
+	<br><br>
+	The sound of skin slapping against skin fills the room, along with Avery's moans and grunts of effort. It's all almost unbearable with your sensitivity, and you can't help but <<= $bottomsensitivity gte 2 ? "writhe" : "squirm">> beneath <<him>> just to withstand the intense overstimulation. <<arousal 1000 "genitals">><<garousal>>
+
+	<br><br>
+<<else>>
+	<<set $phase to "no orgasm">>
+	As Avery rides your <<penis>> hard, <<he>> <<= $phase is 3 ? "begins" : "continues">> to toy with your <<nipples>>. <<arousal 1000 "genitals">><<arousal 1000 "breasts">><<ggarousal>>
+	<br><br>
+	"That's it," <<he>> says when you start to <<= $genitalsensitivity gte 2 || $breastsensitivity gte 2 ? "writhe" : "squirm">> and arch your back beneath <<him>>. <<His>> voice is rough with exertion and pleasure both. "It feels good, doesn't it?" <<He>> snaps <<his>> hips down hard in a way that makes you moan.
+	<br><br>
+	You're close, and Avery seems to be as well.
+	<br><br>
+<</if>>
+
+<<link [[Next|Avery Valentines Sex 4]]>><</link>>
+<br>
+
+:: Avery Valentines Sex Ass
+<<effects>>
+<<avery_injury_check>>
+<<if $phase is 1>>
+	Avery <<= $avery_valentines_steal_virginity or $avery_valentines_vow ? "sighs" : "raises a brow">>, but nods, moving to start preparing your ass for <<his>> cock.
+	<br><br>
+<</if>>
+<<if $avery_valentines_anal_virginity>>
+	"This may hurt a bit, but you'll feel good soon," <<he>> says with a little laugh. "Trust me."
+	<br><br>
+	It's a unique sensation, and somewhat painful at first, but as Avery said, it starts to feel good.<<if $player.penisExist>> All the more when <<he>> presses <<his>> fingers against your prostate.<</if>>
+	<br><br>
+<</if>>
+After spending a few minutes preparing you, Avery pushes <<his>> <<if $NPCList[0].gender is "f">>lingerie<<else>>underwear<</if>> down enough to reveal <<his>> <<npcPenis>>, already stirred to life. The remaining lubrication on <<his>> fingers is used to slick it. <<He>> shifts closer, presses <<his>> tip against your hole, and begins to slide in.
+<<takeNPCVirginity "Avery" "penile">>
+<<takeVirginity "Avery" "anal">>
+<br><br>
+<<analstat>>
+<<if $NPCList[0].penissize gte 4>>
+	<<His>> huge cock is a stretch, even with your preparation. Only when <<his>> hips press against your <<bottomsimple>> do you let out the breath you didn't realise you were holding.<<if $player.penisExist>> You feel it pressing against your prostate without effort.<</if>> <<pain 2>><<gpain>><<arousal 300>><<garousal>>
+<<elseif $NPCList[0].penissize is 1>>
+	It doesn't take long for <<his>> hips to press against your <<bottomsimple>>. It could be bigger, but it's not as though you don't feel anything. <<arousal 200>><<garousal>>
+<<else>>
+	When <<his>> hips press against your <<bottomsimple>>, you feel satisfied and full. <<arousal 300>><<garousal>>
+<</if>>
+<br><br>
+Avery's
+<<if _avery_injured>>
+	hand move to one of your hips, and <<he>> rubs circles into your skin.
+<<else>>
+	hands move to your hips, and <<he>> rubs circles into them.
+<</if>>
+After a moment to let you adjust, <<he>> pulls out and starts fucking you.
+<<promiscuity4>>
+<<link [[Next|Avery Valentines Sex Ass 2]]>><</link>>
+<br>
+
+:: Avery Valentines Sex Ass 2
+<<effects>>
+
+Avery starts slow. That doesn't mean that it isn't pleasurable, of course. <<Hes>> quite skilled at this, hitting various sensitive spots inside of you with every thrust. <<arousal 1000 "bottom">><<garousal>>
+<br><br>
+"You feel so good around me." <<he>> says, voice husky. "Look at me, <<pcpetname "Avery">>. I want to watch you fall apart."
+<br><br>
+<<if $submissive gte 1500>>
+	<<His>> words, combined with the physical sensation of <<his>> cock driving inside of you, sends waves of arousal throughout your body. <<= $speech_attitude is "meek" ? "A lewd mewl escapes" : $speech_attitude is "bratty" ? "An aborted grunt replaces a moan that threatened to slip past" : "A moan slips past">>
+<<else>>
+	<<His>> thrusts each send waves of arousal throughout your body, and <<= $speech_attitude is "meek" ? "a lewd mewl escapes" : $speech_attitude is "bratty" ? "an aborted grunt replaces a moan that threatened to slip past" : "a moan slips past">>
+<</if>>
+your lips. A smug smile appears on Avery's face. <<His>> hands tighten on your hips, and <<he>> starts to rock <<his>> own with a bit more force. <<arousal 1800 "bottom">><<ggarousal>>
+<br><br>
+<<link [[Do as you're told|Avery Valentines Sex Ass 3]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Beg for more|Avery Valentines Sex Ass 3]]>><<sub 1>><<set $phase to 2>><</link>>
+<br>
+<<link [[Look away|Avery Valentines Sex Ass 3]]>><<def 1>><<set $phase to 3>><</link>>
+<br>
+
+:: Avery Valentines Sex Ass 3
+<<effects>>
+<<avery_injury_check>>
+<<if $phase is 3>>
+	You look away, defiant, burying half your face in the pillows and squeezing your eyes shut. You hear a quiet click of a tongue, then Avery
+	<<if _avery_injured>>
+		snatches one of your wrists and pins it beside your head.
+	<<else>>
+		snatches your wrists and pins them either side of your head.
+	<</if>>
+	<<He>> makes good use of the leverage, fucking you all the harder, breaking down your composure.. <<arousal 2000 "bottom">><<ggarousal>>
+	<br><br>
+<<else>>
+	You do your best to keep your eyes open and on Avery. The pleasure makes this difficult. All the more when <<he>> reaches down between you to start playing with your <<clit>>. <<arousal 2000 "genitals">><<ggarousal>>
+	<br><br>
+	<<if $phase is 2>>
+		<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+			"Avery," you moan. "Please!"
+		<<elseif $speech_attitude is "bratty">>
+			"Fuck," you breathe. "Avery, please."
+		<<else>>
+			"Avery, please, more," you beg.
+		<</if>>
+		<br><br>
+		<<He>> chuckles above you. "Good <<girl>>," <<he>> coos. "You asked so nicely." As a reward, <<he>> starts fucking you a little harder, snapping <<his>> hips forward with force enough to start rocking the bed. <<arousal 1000 "bottom">>
+		<br><br>
+	<</if>>
+<</if>>
+
+<<if $arousal gte $arousalmax>>
+	<<set $phase to 0>>
+	Your arousal mounts, and your orgasm strikes you hard and fast. <<orgasm>><<if $phase is 2 or $averyromance>> You cry out Avery's name as your back arches, much to <<his>> satisfaction.<br><br><</if>><<if $player.penisExist>> Your abdomen is soon covered in semen.<br><br><</if>>
+
+	Avery watches you shuddering and jerking, and <<laughs>> deep in <<his>> throat. "Finished already?" <<he>> asks, voice rough with exertion and pleasure both. "<<= $avery_valentines.soften or C.npc.Avery.love gte 60 ? "How adorable" : "So sensitive">>." <<He>> leans down to murmur in your ear, "But I'm not finished with you just yet."
+	<br><br>
+	With that, <<he>> pushes <<himself>> back up, and shifts <<his>> grip on you.
+	<<if $avery_valentines.soften or C.npc.Avery.love gte 60>>
+		With a devious glint in <<his>> eyes, <<he>> starts fucking you fast and dirty.
+	<<else>>
+		No longer concerned for your comfort, <<he>> starts fucking you with abandon, focused on <<his>> own pleasure.
+	<</if>>
+	<br><br>
+	The sound of skin slapping against skin fills the room, along with Avery's moans and grunts of effort. It's all almost unbearable with your sensitivity, and you can't help but <<= $bottomsensitivity gte 2 ? "writhe" : "squirm">> beneath <<him>> just to withstand the intense overstimulation. <<arousal 1000 "bottom">><<garousal>>
+	<br><br>
+<<else>>
+	<<set $phase to "no orgasm">>
+	As Avery drives in and out of your <<bottom>>, <<he>> <<= $phase is 3 ? "begins" : "continues">> to fondle your
+	<<if $player.penisExist>>
+		leaking erection. <<He>> strokes you in time with <<his>> thrusts, sending dual sensations through you<<if $NPCList[0].penissize gte 2>> whenever <<he>> pounds into your prostate<</if>>.
+	<<else>>
+		clit. <<His>> fingers then move to your slit, and <<he>> slides <<his>> fingers inside your <<pussy>>. <<He>> fingers you in time with <<his>> thrusts, sending dual sensations through you<<if $NPCList[0].penissize gte 2>> whenever <<he>> pounds in deep<</if>>.
+	<</if>><<arousal 1000 "genitals">><<arousal 1000 "bottom">><<ggarousal>>
+	<br><br>
+	"That's it," Avery says when you start to <<= $bottomsensitivity gte 2 ? "writhe" : "squirm">> and arch your back beneath <<him>>. <<His>> voice is rough with exertion and pleasure both. "It feels good, doesn't it?" <<He>> gives you hard thrust, making you moan.
+	<br><br>
+	You're close, and Avery seems to be as well.
+	<br><br>
+<</if>>
+
+<<link [[Next|Avery Valentines Sex 4]]>><</link>>
+<br>
+
+:: Avery Valentines Sex Vagina
+<<effects>>
+<<avery_injury_check>>
+<<if $phase is 1>>
+	Avery raises a brow, then nods, moving to start preparing your vagina for <<his>> cock.<<if $avery_valentines_virginity and !$averySeen.includes("player_virgin")>> <<He>> prods your hymen, making you jerk a little.<</if>>
+	<br><br>
+<</if>>
+After spending a few minutes preparing you, Avery pushes <<his>> <<if $NPCList[0].gender is "f">>lingerie<<else>>underwear<</if>> down enough to reveal <<his>> <<npcPenis>>, already stirred to life. The remaining lubrication on <<his>> fingers is used to slick it. <<He>> shifts closer, and presses <<his>> tip against your slit, then begins to slide in<<if $player.virginity.vaginal is true>>, <span class="red">breaking your hymen and forever robbing you of your purity</span><</if>>.
+<<takeNPCVirginity "Avery" "penile">>
+<<takeVirginity "Avery" "vaginal">>
+<br><br>
+<<vaginalstat>><<fallenTransform>>
+<<if $NPCList[0].penissize gte 4>>
+	<<His>> large cock is a stretch, even with your preparation. Only when <<his>> hips press against your <<bottomsimple>> do you let out the breath you didn't realise you were holding. You feel it pressing against your <<prostate>> without effort. <<pain 2>><<gpain>><<arousal 300>><<garousal>>
+<<elseif $NPCList[0].penissize is 1>>
+	It doesn't take long for <<his>> hips to press against your <<bottomsimple>>. It could be bigger, but it's not as though you don't feel anything. <<arousal 200>><<garousal>>
+<<else>>
+	When <<his>> hips press against the backs of your thighs, you feel satisfied and full. <<arousal 300>><<garousal>>
+<</if>>
+<br><br>
+Once settled, Avery
+<<if $avery_valentines_steal_virginity>>
+	murmurs, "Ah, there we are. You haven't done this before, have you?" <<He>> rocks against you, sending shivers throughout your body. "Your virginity is a wonderful gift, <<pcpetname "Avery">>."
+<<elseif $avery_valentines_virginity>>
+	murmurs, "Ah. You haven't done this before, have you?" <<He>> rocks against you, sending shivers throughout your body. "Well, how splendid. Your virginity is a wonderful gift, <<pcpetname "Avery">>."
+<<elseif $avery_valentines_vow>>
+	"Ah, that's right. Your vow of chastity." <<He>> rocks against you, sending shivers through you. "Forgive me for breaking it. I'd forgotten all about it." <<He>> doesn't seem all that apologetic.
+<<else>>
+	rocks against you, sending shivers throughout your body.
+<</if>>
+<br><br>
+Avery's
+<<if _avery_injured>>
+	hand move to one of your hips, and <<he>> rubs circles into your skin.
+<<else>>
+	hands move to your hips, and <<he>> rubs circles into them.
+<</if>>
+After a moment to let you adjust, <<he>> pulls out and starts fucking you.
+<<promiscuity4>>
+<<link [[Next|Avery Valentines Sex Vagina 2]]>><</link>>
+<br>
+
+:: Avery Valentines Sex Vagina 2
+<<effects>>
+<<avery_injury_check>>
+Avery starts slow. That doesn't mean that it isn't pleasurable, of course. <<Hes>> quite skilled at this, hitting various sensitive spots inside of you with every thrust. <<arousal 1000 "genitals">><<garousal>>
+<br><br>
+"You feel so good around me." <<he>> says, voice husky. "Look at me, <<pcpetname "Avery">>. I want to watch you fall apart."
+<br><br>
+<<if $submissive gte 1500>>
+	<<His>> words, combined with the physical sensation of <<his>> cock driving inside of you, sends waves of arousal throughout your body. <<= $speech_attitude is "meek" ? "A lewd mewl escapes" : $speech_attitude is "bratty" ? "An aborted grunt replaces a moan that threatened to slip past" : "A moan slips past">>
+<<else>>
+	<<His>> thrusts each send waves of arousal throughout your body, and <<= $speech_attitude is "meek" ? "a lewd mewl escapes" : $speech_attitude is "bratty" ? "an aborted grunt replaces a moan that threatened to slip past" : "a moan slips past">>
+<</if>>
+your lips. It appears to satisfy Avery to hear it, as a smug smile appears on <<his>> face. <<His>> hands tighten on your hips, and <<he>> starts to rock <<his>> own with a bit more force. <<arousal 1800 "genitals">><<ggarousal>>
+<br><br>
+
+<<link [[Do as you're told|Avery Valentines Sex Vagina 3]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Beg for more|Avery Valentines Sex Vagina 3]]>><<sub 1>><<set $phase to 2>><</link>>
+<br>
+<<link [[Look away|Avery Valentines Sex Vagina 3]]>><<def 1>><<set $phase to 3>><</link>>
+<br>
+
+:: Avery Valentines Sex Vagina 3
+<<effects>>
+<<avery_injury_check>>
+<<if $phase is 3>>
+	You look away, defiant, burying half your face in the pillows and squeezing your eyes shut. You hear a quiet click of a tongue, then Avery
+	<<if _avery_injured>>
+		snatches one of your wrists and pins it beside your head.
+	<<else>>
+		snatches your wrists and pins them either side of your head.
+	<</if>>
+	<<He>> makes good use of the leverage, using it to fuck you all the harder, breaking down your composure. <<arousal 2000 "genitals">><<ggarousal>>
+	<br><br>
+<<else>>
+	You do your best to keep your eyes open and on Avery. The pleasure makes this difficult. All the more when <<he>> reaches down between you to start playing with your <<clit>>. <<arousal 2000 "genitals">><<ggarousal>>
+	<br><br>
+	<<if $phase is 2>>
+		<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+			"Avery," you moan. "Please!"
+		<<elseif $speech_attitude is "bratty">>
+			"Fuck," you breathe. "Avery, please."
+		<<else>>
+			"Avery, please, more," you beg.
+		<</if>>
+		<br><br>
+		<<He>> chuckles above you. "Good <<girl>>," <<he>> coos. "You asked so nicely." As a reward, <<he>> starts fucking you a little harder, snapping <<his>> hips forward with force enough to start rocking the bed. <<arousal 1000 "genitals">><<garousal>>
+		<br><br>
+	<</if>>
+<</if>>
+
+<<if $arousal gte $arousalmax>>
+	<<set $phase to 0>>
+	Your arousal mounts, and your orgasm strikes you hard. <<orgasm>><<if $phase is 2 or $averyromance>> You cry out Avery's name as your back arches, much to <<his>> satisfaction.<br><br><</if>><<if $player.penisExist>> Your abdomen is soon covered in semen.<br><br><</if>>
+
+	Avery watches you shuddering and jerking, and <<laughs>> deep in <<his>> throat. "Finished already?" <<he>> asks, voice rough with exertion and pleasure both. "<<= $avery_valentines.soften or C.npc.Avery.love gte 60 ? "How adorable" : "So sensitive">>." <<He>> leans down to murmur in your ear, "But I'm not finished with you just yet."
+	<br><br>
+	With that, <<he>> pushes <<himself>> back up, and shifts <<his>> grip on you.
+	<<if $avery_valentines.soften or C.npc.Avery.love gte 60>>
+		With a devious glint in <<his>> eyes, <<he>> starts fucking you fast and dirty.
+	<<else>>
+		No longer concerned for your comfort, <<he>> starts fucking you with abandon, focused on <<his>> own pleasure.
+	<</if>>
+	<br><br>
+	The sound of skin slapping against skin fills the room, along with Avery's moans and grunts of effort. It's all almost unbearable with your sensitivity, and you can't help but <<= $genitalsensitivity gte 2 ? "writhe" : "squirm">> beneath <<him>> just to withstand the intense overstimulation. <<arousal 1000 "genitals">><<garousal>>
+	<br><br>
+<<else>>
+	<<set $phase to "no orgasm">>
+	As Avery drives in and out of your <<pussy>>, <<he>> <<= $phase is 3 ? "begins" : "continues">> to fondle your
+	<<if $player.penisExist>>
+		leaking erection. <<He>> strokes you
+	<<else>>
+		clit. <<He>> rubs it
+	<</if>>
+	in time with <<his>> thrusts, sending dual sensations through you<<if $NPCList[0].penissize gte 2>> whenever <<he>> pounds into your womb<</if>>.
+	<br><br>
+	"That's it," Avery says when you start to <<= $genitalsensitivity gte 2 ? "writhe" : "squirm">> and arch your back beneath <<him>>. <<His>> voice is rough with exertion and pleasure both. "It feels good, doesn't it?" <<He>> gives you a hard thrust that makes you moan.
+	<br><br>
+	You're close, and Avery seems to be as well.
+	<br><br>
+<</if>>
+
+<<link [[Next|Avery Valentines Sex 4]]>><</link>>
+
+
+:: Avery Valentines Sex Mouth
+<<effects>>
+<<avery_injury_check>>
+
+<<if $NPCList[0].penis isnot "none">>
+	<<if $player.virginity.oral is true>>
+		<<set _virginity_oral to true>>
+	<</if>>
+	Avery holds your chin, and pushes a thumb into your mouth. <<He>> plays with your tongue for a few moments, then pushes <<his>> <<if $NPCList[0].gender is "f">>lingerie<<else>>underwear<</if>> down enough to reveal <<his>> <<npcPenis>>, already stirred to life. <<He>> shifts closer, and presses <<his>> tip against your lips, then begins to slide in. <<if $player.virginity.oral is true>><span class="red">It tastes strange.</span><</if>>
+	<<takeNPCVirginity "Avery" "penile">>
+	<<takeVirginity "Avery" "oral">>
+	<br><br>
+
+	<<if $NPCList[0].penissize gte 4>>
+		It's hard to breathe around <<his>> large cock, but you manage it. You can feel your spittle running down your chin.<<arousal 300>><<garousal>>
+	<<elseif $NPCList[0].penissize is 1>>
+		Your mouth is able to accommodate it with ease.<<arousal 200>><<garousal>>
+	<<else>>
+		You're able to accommodate <<his>> girth without feeling too uncomfortable. <<arousal 300>><<garousal>>
+	<</if>>
+	<br><br>
+	Once settled, Avery
+	<<if _virginity_oral>>
+		murmurs, "You're new to this, aren't you?" <<He>> grasps the back of your head, pushes <<himself>> further into you. "Don't worry, I won't give you more than you can handle."
+	<<else>>
+		grasps the back of your head, and pushes <<himself>> further into you.
+	<</if>>
+<<else>>
+	Avery holds your chin, and pushes a thumb into your mouth. <<He>> plays with your tongue for a few moments, then pushes <<his>> <<if $NPCList[0].gender is "f">>lingerie<<else>>underwear<</if>> down enough to reveal <<his>> pussy. <<He>> shifts closer, and presses <<himself>> against your lips.
+	<br><br>
+	Once settled, Avery murmurs, "That's it. Use your tongue." <<He>> grasps the back of your head, and gently thrusts against you.
+<</if>>
+<<promiscuity4>>
+<<link [[Next|Avery Valentines Sex Mouth 2]]>><</link>>
+<br>
+
+:: Avery Valentines Sex Mouth 2
+<<effects>>
+<<avery_injury_check>>
+
+Avery is gentle, waiting for you to do most of the work. <<He>> rests one hand on the back of your head, the other on the wall in front of <<him>>, looking down at you all the while.
+<br><br>
+
+"You're making me feel so good," <<he>> says, voice husky. "Look at me, <<pcpetname "Avery">>. I want to watch you fall apart."
+<br><br>
+
+<<if $submissive gte 1500>>
+	<<His>> words, combined with the feel of <<him>> in your mouth, send waves of arousal through your body. <<= $speech_attitude is "meek" ? "A lewd mewl escapes" : $speech_attitude is "bratty" ? "An aborted grunt replaces a moan that threatened to slip past" : "A moan slips past">>
+<<else>>
+	The feel of <<him>> moving in your mouth sends waves of arousal through your body. <<= $speech_attitude is "meek" ? "A lewd mewl escapes" : $speech_attitude is "bratty" ? "An aborted grunt replaces a moan that threatened to slip past" : "A moan slips past">>
+<</if>>
+your lips. It appears to satisfy Avery to hear it, as a smug smile appears on <<his>> face. <<His>> hand tightens on your head, and <<he>> starts to thrust against you with more force. <<arousal 1800 "mouth">><<ggarousal>>
+<br><br>
+<<link [[Do as you're told|Avery Valentines Sex Mouth 3]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Beg for more|Avery Valentines Sex Mouth 3]]>><<sub 1>><<set $phase to 2>><</link>>
+<br>
+<<link [[Look away|Avery Valentines Sex Mouth 3]]>><<def 1>><<set $phase to 3>><</link>>
+<br>
+
+:: Avery Valentines Sex Mouth 3
+<<effects>>
+<<avery_injury_check>>
+<<if $phase is 3>>
+	You squeeze your eyes shut, defiant. You hear a quiet click of a tongue, then Avery presses <<his>> thighs against you. <<He>> makes good use of the leverage, using it to fuck you all the harder, breaking down your composure. <<arousal 2000 "mouth">><<ggarousal>>
+	<br><br>
+<<else>>
+	You do your best to keep your eyes open and on Avery. The pleasure makes this difficult.<<arousal 2000 "mouth">><<ggarousal>>
+	<br><br>
+	<<if $phase is 2>>
+		<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+			"Avery," you moan. "Please!"
+		<<elseif $speech_attitude is "bratty">>
+			"Fuck," you breathe. "Avery, please."
+		<<else>>
+			"Avery, please, more," you beg.
+		<</if>>
+		<br><br>
+		<<He>> chuckles above you. "Good <<girl>>," <<he>> coos. "You asked so nicely." As a reward, <<he>> starts fucking you a little harder, pushing you to the limit. <<arousal 1000 "mouth">>
+		<br><br>
+	<</if>>
+<</if>>
+
+<<if $arousal gte $arousalmax>>
+	Your arousal mounts, and your orgasm strikes you hard. <<orgasm>><<if $phase is 2 or $averyromance>> You cry out
+	<<if $NPCList[0].penis isnot "none">>
+		around Avery's <<print $NPCList[0].penisdesc>>
+	<<else>>
+		against Avery's pussy
+	<</if>>
+	as your back arches, much to <<his>> satisfaction.<</if>><<if $player.penisExist>> You feel warm semen coat your abdomen.
+	<br><br><</if>>
+	Avery watches you shuddering and jerking, and <<laughs>> deep in <<his>> throat. "Finished already?" <<he>> asks, voice rough with exertion and pleasure both. "<<= $avery_valentines.soften or C.npc.Avery.love gte 60 ? "How adorable" : "So sensitive">>." <<He>> leans closer, and murmurs. "But I'm not finished with you just yet."
+	<br><br>
+	With that, <<he>> grasps your hair, and tilts you to face <<him>>.
+	<<if $avery_valentines.soften or C.npc.Avery.love gte 60>>
+		With a devious glint in <<his>> eyes, <<he>> starts fucking you fast and dirty.
+	<<else>>
+		No longer concerned for your comfort, <<he>> starts fucking you with abandon, focused on <<his>> own pleasure.
+	<</if>>
+	<br><br>
+	The sound of your own gurgling fills the room, along with Avery's moans and grunts of effort. It's all almost unbearable with your sensitivity, and you can't help but <<= $genitalsensitivity gte 2 ? "writhe" : "squirm">> beneath <<him>> just to withstand the intense overstimulation. <<arousal 1000 "mouth">><<garousal>>
+	<br><br>
+<<else>>
+	<<set _no_orgasm to true>>
+	As Avery drives
+	<<if $NPCList[0].penis isnot "none">>
+		into your mouth,
+	<<else>>
+		against your mouth,
+	<</if>>
+	<<he>> <<= $phase is 3 ? "begins" : "continues">> to fondle your
+	<<if $player.penisExist>>
+		leaking erection. <<He>> strokes you
+	<<else>>
+		clit. <<He>> rubs it
+	<</if>>
+	in time with <<his>> thrusts, sending dual sensations through you whenever <<he>> pounds your face.<<arousal 2000 "mouth">><<ggarousal>>
+	<br><br>
+	"That's it," Avery says when you start to <<= $mouthsensitivity gte 2 ? "writhe" : "squirm">> and arch your back beneath <<him>>. <<His>> voice is rough with exertion and pleasure both. "It feels good, doesn't it?" <<He>> gives you a hard thrust that makes you moan.
+	<br><br>
+	You're close, and Avery seems to be as well.
+	<br><br>
+<</if>>
+
+<<link [[Next|Avery Valentines Sex 4]]>><</link>>
+
+
+:: Avery Valentines Sex Frot
+<<effects>>
+<<avery_injury_check>>
+<<if $phase is 1>>
+	<<He>> <<= $avery_valentines_steal_virginity or $avery_valentines_vow ? "sighs" : "raises a brow">>, but nods, moving between your thighs instead. <<He>> lifts one of your legs up, and straddles the other. You shiver when <<he>> scoots forward and presses your pussies together. <<arousal 500 "genitals">><<garousal>>
+	<br><br>
+<</if>>
+Avery starts slow. That doesn't mean that it isn't pleasurable, of course. <<Hes>> quite skilled at this, controlling the pace of <<his>> rocking well. <<arousal 1000 "genitals">><<garousal>>
+<br><br>
+"You feel so good," <<he>> says, voice husky. "Look at me, <<pcpetname "Avery">>. I want to watch you fall apart."<<if $submissive gte 1500>> <<His>> words send a tingle down your spine.<</if>>
+<br><br>
+<<He>> grinds hard against you with a wet slide, which sends sparks of arousal throughout your nervous system.
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	A lewd mewl escapes
+<<elseif $speech_attitude is "bratty">>
+	An aborted grunt replaces a moan that threatened to slip past
+<<else>>
+	A moan slips past
+<</if>>
+your lips. It satisfies Avery to hear it, as a smug smile appears on <<his>> face. <<He>> puts <<his>>
+<<if _avery_injured>>
+	good hand on <<= $player.breastsize gte 2 ? "one of your shoulders" : "your chest">>
+<<else>>
+	hands on your <<= $player.breastsize gte 2 ? "shoulders" : "chest">>
+<</if>>
+for leverage, and starts to ride you with a bit more force. <<arousal 1800 "genitals">><<ggarousal>>
+<br><br>
+<<link [[Do as you're told|Avery Valentines Sex Frot 2]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Beg for more|Avery Valentines Sex Frot 2]]>><<sub 1>><<set $phase to 2>><</link>>
+<br>
+<<link [[Look away|Avery Valentines Sex Frot 2]]>><<def 1>><<set $phase to 3>><</link>>
+<br>
+
+:: Avery Valentines Sex Frot 2
+<<effects>>
+<<avery_injury_check>>
+<<if $phase is 3>>
+	You look away, defiant, burying half your face in the pillows and squeezing your eyes shut. You hear a quiet click of a tongue, then Avery
+	<<if _avery_injured>>
+		snatches one of your wrists and pins it beside your head.
+	<<else>>
+		snatches your wrists and pins them either side of your head.
+	<</if>>
+	<<He>> makes good use of the leverage, using it to fuck you all the harder, breaking down your composure. <<arousal 2000 "genitals">><<ggarousal>>
+	<br><br>
+<<else>>
+	You do your best to keep your eyes open and on Avery. The pleasure makes this difficult. All the more when <<he>> lifts <<his>> hand to start pinching and playing with one of your <<nipples>>. <<arousal 1000 "breasts">><<arousal 1000 "genitals">><<ggarousal>>
+	<br><br>
+	<<if $phase is 2>>
+		<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+			"Avery," you moan. "Please!"
+		<<elseif $speech_attitude is "bratty">>
+			"Fuck," you breathe. "Avery, please."
+		<<else>>
+			"Avery, please, more," you beg.
+		<</if>>
+		<br><br>
+		<<He>> chuckles above you. "Good <<girl>>," <<he>> coos. "You asked so nicely." As a reward, <<he>> starts rocking against you a little harder, snapping <<his>> hips against you with force enough to start rocking the bed. <<arousal 1000 "genitals">>
+		<br><br>
+	<</if>>
+<</if>>
+
+<<if $arousal gte $arousalmax>>
+	<<set $phase to 0>>
+	Your arousal mounts, and your orgasm strikes you hard and fast. <<orgasm>><<if $player.penisExist>> Your abdomen is soon covered in semen.<br><br><</if>><<if $phase is 2 or $averyromance>> You cry out Avery's name as your back arches, much to <<his>> satisfaction.<br><br><</if>>
+
+	Avery watches you shuddering and jerking, and <<laughs>> deep in <<his>> throat. "Finished already?" <<he>> asks, voice rough with exertion and pleasure both. "<<= $avery_valentines.soften or C.npc.Avery.love gte 60 ? "How adorable" : "So sensitive">>." <<He>> leans down to murmur in your ear, "But I'm not finished with you just yet."
+	<br><br>
+	With that, <<he>> pushes <<himself>> back up, and shifts <<his>> grip on you.
+	<<if $avery_valentines.soften or C.npc.Avery.love gte 60>>
+		With a devious glint in <<his>> eyes, <<he>> starts fucking you fast and dirty.
+	<<else>>
+		No longer concerned for your comfort, <<he>> starts fucking you with abandon, focused on <<his>> own pleasure.
+	<</if>>
+	The lewd, wet sounds of your <<= ((C.npc.Avery.penis === "none" && !$player.penisExist) or (C.npc.Avery.penis !== "none" && $player.penisExist)) ? ($player.vaginaExist ? "cunts" : "cocks") : "genitals" >> rubbing together fills the room, along with Avery's moans and grunts of effort. It's all almost unbearable with your sensitivity, and you can't help but <<= $genitalsensitivity gte 2 ? "writhe" : "squirm">> beneath <<him>> just to withstand the intense overstimulation. <<arousal 1000 "genitals">><<garousal>>
+	<br><br>
+<<else>>
+	<<set $phase to "no orgasm">>
+	Avery rocks against your <<genitals>>, and<<if $phase is 3 and (!$avery_mansion?.injury_stage or $avery_mansion?.injury_stage isnot "healed")>> lets go of your wrist, and<</if>> <<= $phase is 3 ? "begins" : "continues">> to fondle your
+	<<if !$player.vaginaExist>>
+		leaking erections. <<He>> strokes both of you, still thrusting into <<his>> grip as <<he>> does.<<arousal 1000 "genitals">>
+	<<else>>
+		<<nipple>>, pinching and pulling at them.<<arousal 1000 "breasts">>
+	<</if>><<arousal 1000 "genitals">><<ggarousal>>
+	<br><br>
+	"That's it," Avery says when you start to <<= $genitalsensitivity gte 2 ? "writhe" : "squirm">> and arch your back beneath <<him>>. <<His>> voice is rough with exertion and pleasure both. "It feels good, doesn't it?" <<He>> <<= $player.vaginaExist ? "gives your nipple a hard pinch" : "gives your penis a stroke">> that makes you moan.
+	<br><br>
+	You're close, and Avery seems to be as well.
+	<br><br>
+<</if>>
+
+<<link [[Next|Avery Valentines Sex 4]]>><<pass 20>><</link>>
+<br>
+
+:: Avery Valentines Sex 4
+<<effects>>
+
+<<if $avery_valentines.sex is "penis">>
+	Avery's rhythm turns uneven as <<he>> approaches the edge.
+	<<if $phase is "no orgasm">>
+		<<set _hole to C.npc.Avery.penis isnot "none" ? "anus" : "vagina">>
+		You're faring no better, and the arousal builds up in you until you can take it no longer. <<orgasm>><<if $phase is 2 or $averyromance>> You cry out Avery's name as your back arches, much to <<his>> satisfaction.<</if>> <<He>> seems unbothered by your finishing inside. If anything <<he>> seem content to continue fucking your <<penis>>, even though it's beginning to soften.
+
+		<<He>> doesn't last much longer than you.
+	<</if>>
+	<<He>> jerks up and down one more time, then again, until an orgasm hits <<him>> with a loud moan.
+	<<if $NPCList[0].penis isnot "none">>
+		<<if $NPCList[0].penissize gte 4>>
+			<<bodyliquid "tummy" "semen" 3>>
+			Wave after wave of ejaculate splatters onto your stomach and abdomen. Your front is drenched in cum by the time <<hes>> finished.<<if $ejactrait>> It sends a lewd thrill through you.<</if>>
+		<<elseif $NPCList[0].penissize is 1>>
+			<<bodyliquid "tummy" "semen" 1>>
+			<<His>> tiny cock spurts a few splatters of cum onto your abdomen, but there's not much of it to be had.<<if $ejactrait>> You can't help but feel a little disappointed.<</if>>
+		<<else>>
+			<<bodyliquid "tummy" "semen" 2>>
+			Pulses of cum splatter onto your stomach and abdomen, leaving quite a mess.<<if $ejactrait>> It sends a lewd thrill through you.<</if>>
+		<</if>>
+	<<else>>
+		<<bodyliquid "penis" "goo" 2>>
+		You feel <<him>> squirting onto your groin as <<he>> grinds against your<<if $phase isnot "no orgasm">> softened<</if>> length.<<if $ejactrait>> It makes you shudder, and sends a lewd thrill through you<</if>>.
+	<</if>>
+<<elseif $avery_valentines.sex is "ass">>
+	Avery's rhythm turns uneven as <<he>> approaches the edge.
+	<<if $phase is "no orgasm">>
+		You're faring no better, the arousing building until you can take it no longer. <<orgasm>><<if $phase is 2 or $averyromance>> You cry out Avery's name as your back arches, much to <<his>> satisfaction.<br><br><</if>>
+
+		<<He>> doesn't last much longer than you.
+
+	<</if>>
+	<<He>> jerks in and out of you once, then twice, until an orgasm hits <<him>> with a loud moan.
+	<<analejacstat>>
+	<<if $NPCList[0].penissize gte 4>>
+		<<bodyliquid "anus" "semen" 3>>
+		Cum floods your insides, gushing out with each of Avery's weakening thrusts into you. <<His>> <<npcPenis>> and semen fill you to the brim.<<if $ejactrait>> It all sends a lewd thrill through you.<</if>>
+	<<elseif $NPCList[0].penissize is 1>>
+		<<bodyliquid "anus" "semen" 1>>
+		You feel <<his>> cum pulsing inside of you as <<he>> thrusts in and out of you, but there's not much of it to be had.<<if $ejactrait>> You can't help but feel a little disappointed.<</if>>
+	<<else>>
+		<<bodyliquid "anus" "semen" 2>>
+		You feel <<his>> ejaculate filling your insides in waves, and <<he>> thrusts in and out of you as <<he>> wrings out all the pleasure <<he>> can. You feel some of <<his>> ejaculate gush out of your hole.<<if $ejactrait>> It sends a lewd thrill through you.<</if>>
+	<</if>>
+
+<<elseif $avery_valentines.sex is "vagina">>
+	Avery's rhythm turns uneven as <<he>> approaches the edge.
+	<<if $phase is "no orgasm">>
+		You're faring no better, the arousal building until you can take it no longer. <<orgasm>><<if $phase is 2 or $averyromance>> You cry out Avery's name as your back arches, much to <<his>> satisfaction.<br><br><</if>>
+
+		<<He>> doesn't last much longer than you.
+	<</if>>
+	<<He>> jerks in and out of you once, then twice, until an orgasm hits <<him>> with a loud moan.
+	<<vaginalejacstat>>
+	<<if $NPCList[0].penissize gte 4>>
+		<<bodyliquid "vagina" "semen" 3>>
+		Cum floods your womb, gushing out with each of Avery's weakening thrusts into you. <<His>> <<npcPenis>> and semen fill you to the brim.<<if $ejactrait>> It all sends a lewd thrill through you.<</if>>
+	<<elseif $NPCList[0].penissize is 1>>
+		<<bodyliquid "vagina" "semen" 1>>
+		You feel <<his>> cum pulsing inside of you as <<he>> thrusts in and out of you, but there's not much of it to be had.<<if $ejactrait>> You can't help but feel a little disappointed.<</if>>
+	<<else>>
+		<<bodyliquid "vagina" "semen" 2>>
+		You feel <<his>> ejaculate filling your womb in waves, and <<he>> thrusts in and out of you as <<he>> wrings out all the pleasure <<he>> can. You feel some of <<his>> ejaculate gush out of your <<pussy>>.<<if $ejactrait>> It sends a lewd thrill through you.<</if>>
+	<</if>>
+<<elseif $avery_valentines.sex is "mouth">>
+	Avery's rhythm turns uneven as <<he>> approaches the edge.
+	<<if $phase is "no orgasm">>
+		You're faring no better, the arousal building until you can take it no longer. <<orgasm>><<if $phase is 2 or $averyromance>> You cry out Avery's name as your back arches, much to <<his>> satisfaction.<br><br><</if>>
+
+		<<He>> doesn't last much longer than you.
+	<</if>>
+	<<if $NPCList[0].penis isnot "none">>
+		<<He>> jerks in and out of you once, then twice, until an orgasm hits <<him>> with a loud moan.
+		<<oralejacstat>>
+		<<if $NPCList[0].penissize gte 4>>
+			<<bodyliquid "mouth" "semen" 3>>
+			Cum floods your throat, gushing out with each of Avery's weakening thrusts into you. <<His>> <<npcPenis>> and semen fill you to the brim.<<if $ejactrait>> It all sends a lewd thrill through you.<</if>>
+		<<elseif $NPCList[0].penissize is 1>>
+			<<bodyliquid "mouth" "semen" 1>>
+			You taste <<his>> cum pulsing into your mouth as <<he>> thrusts in and out of you, but there's not much of it to be had.<<if $ejactrait>> You can't help but feel a little disappointed.<</if>>
+		<<else>>
+			<<bodyliquid "mouth" "semen" 2>>
+			You taste <<his>> ejaculate filling your mouth in waves, and <<he>> thrusts in and out of you as <<he>> wrings out all the pleasure <<he>> can. You feel some of <<his>> ejaculate run down your throat.<<if $ejactrait>> It sends a lewd thrill through you.<</if>>
+		<</if>>
+	<<else>> /* Cunnilingus */
+		<<He>> grinds against your mouth, until <<he>> cums with a loud moan.<<cunnilingusejacstat>> You feel <<him>> squirting into your mouth. The grip on the back of your head keeps you in place, forcing you to swallow. You feel some of <<his>> juices run down your chin.<<if $ejactrait>> It sends a lewd thrill through you.<</if>>
+	<</if>>
+<<else>> /* Frot */
+	Avery's rhythm turns uneven as <<he>> approaches the edge.
+	<<if $phase is "no orgasm">>
+		You're faring no better, the arousal building until you can take it no longer. <<orgasm>><<if $player.penisExist and !$femaleclimax and !_deniedOrgasm>> Your semen splatters onto your abdomen.<<bodyliquid "tummy" "semen" 1>><br><br><</if>><<if $phase is 2 or $averyromance>> You cry out Avery's name as your back arches, much to <<his>> satisfaction.<br><br><</if>>
+
+		<<He>> doesn't last much longer than you.
+	<</if>>
+	<<He>> jerks against you one more time, then again, until an orgasm hits <<him>> with a loud moan.
+	<<if $NPCList[0].penis isnot "none">>
+		<<if !$player.penisExist or $femaleclimax or _deniedOrgasm>>
+			<<if $NPCList[0].penissize gte 4>>
+				<<bodyliquid "tummy" "semen" 3>>
+				Wave after wave of ejaculate splatters onto your stomach and abdomen. Your front is drenched in cum by the time <<hes>> finished.<<if $ejactrait>> It sends a lewd thrill through you.<</if>>
+			<<elseif $NPCList[0].penissize is 1>>
+				<<bodyliquid "tummy" "semen" 1>>
+				<<His>> tiny cock spurts a few splatters of cum onto your abdomen, but there's not much of it to be had.<<if $ejactrait>> You can't help but feel a little disappointed.<</if>>
+			<<else>>
+				<<bodyliquid "tummy" "semen" 2>>
+				Pulses of cum splatter onto your stomach and abdomen, leaving quite a mess.<<if $ejactrait>> It sends a lewd thrill through you.<</if>>
+			<</if>>
+		<<else>>
+			You feel <<his>> <<semen>> mix with yours as <<he>> grinds against you. It makes you shudder<<if $ejactrait>>, and sends a lewd thrill through you<</if>>.
+		<</if>>
+	<<else>> /* Avery has no penis */
+		<<if $player.vaginaExist>> /* vagina-to-vagina (tribadism) */
+			<<bodyliquid "vagina" "goo" 2>>
+			You feel <<him>> squirting onto your groin as <<he>> grinds against your cunt.<<if $ejactrait>> It makes you shudder, and sends a lewd thrill through you<</if>>.
+		<<else>> /* vagina-to-penis */
+			<<bodyliquid "penis" "goo" 2>>
+			You feel <<him>> squirting onto your groin as <<he>> grinds against your<<if $phase isnot "no orgasm">> softened<</if>> length.<<if $ejactrait>> It makes you shudder, and sends a lewd thrill through you<</if>>.
+		<</if>>
+	<</if>>
+<</if>>
+<br><br>
+Once <<his>> orgasm comes to an end, <<he>> curses under <<his>> breath and <<he>> collapses on top of you, using one forearm to keep <<his>> full weight off of you. The two of you pant for breath in the afterglow, <<his>> forehead against your collarbone, the combined heat of your bodies making you sweat all the more.
+<<if $assertiveaction is "trauma" or $assertiveaction is "submissive">>
+	<<trauma -6>><<ltrauma>>
+<<else>>
+	<<stress -6>><<lstress>>
+<</if>><<npcincr Avery lust -20>><<llust>>
+<br><br>
+After a few moments in each other's arms, Avery stirs, pushing <<himself>> up once more.<<if $avery_valentines.soften>> <<He>> has a contented air to <<him>> that you've not seen before quite like this.<</if>> <<He>>
+<<if $avery_valentines.sex is "penis">>
+	looks you up and down. <<His>> eyes linger on the <<semen>> oozing out of <<his>> <<= $NPCList[0].penis isnot "none" ? "ass" : "<<npcVagina>>">> and onto your well-used <<penis>>, and you notice <<his>> smile widens a fraction.
+<<elseif $avery_valentines.sex is "frot">>
+	looks you up and down, and at the mess <<hes>> made of you, and smiles. <<His>> eyes linger on
+	<<if !$player.vaginaExist>>
+		the mess of cum on your front,
+	<<else>>
+		your combined juices oozing down your <<pussy>>,
+	<</if>>
+	and you notice <<his>> smile widens a fraction.
+<<else>>
+	<<if $NPCList[0].penis isnot "none">>
+		pulls out, and looks you up and down. <<His>> eyes linger on the semen oozing out of your <<= $avery_valentines.sex is "ass" ? "<<bottom>>" : $avery_valentines.sex is "mouth" ? "lips" : "<<pussy 2>>">>, and you notice <<his>> smile widens a fraction.
+	<<else>>
+		looks you up and down. <<His>> eyes linger on <<his>> juices smeared across your face, and you notice <<his>> smile widens a fraction.
+	<</if>>
+<</if>><<npcincr Avery rage -1>><<larage>>
+<br><br>
+"I'd say we ought to take a bath," <<he>> says, looking you in the eye again. "Will you join me, <<pcpetname "Avery">>?"
+<br><br>
+
+<<link [[Bathe with Avery (0:20)|Avery Valentines Sex 5]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Decline|Avery Valentines Sex 5]]>><<set $phase to 2>><</link>>
+<br>
+
+:: Avery Valentines Sex 5
+<<effects>>
+<<wash>>
+<<avery_injury_check>>
+<<if $phase is 1>>
+	You enter the bathroom with Avery<<if ($avery_valentines.sex is "ass" or $avery_valentines.sex is "vagina") and $NPCList[0].penissize gte 4>>, feeling a little sore from the rough fucking you just had<</if>>. After drawing a nice, hot bath, the two of you climb in.<<if _avery_injured>> <<He>> slides <<his>> casted arm along the edge of the bath, keeping it out of the water.<</if>>
+	<br><br>
+	<<if $avery_fate is "ascended">>
+		"Clean me," <<he>> says, drawing you close.
+		<br><br>
+		You do as ordered,
+	<<elseif $avery_fate is "saved">>
+		"Clean me?" <<he>> asks, drawing you close.
+		<br><bR>
+		You do as asked,
+	<<else>>
+		"Clean me," <<he>> says, drawing you close.
+		<br><br>
+		You do as told,
+	<</if>>
+	rubbing Avery clean of sweat and lewd fluids. <<He>> watches you as you do with a <<= $avery_valentines.soften ? "warm" : "pleased">> smile, and when you're finished, <<he>> pulls you against <<him>>, your back to <<his>> front,
+	<<if $avery_valentines.soften>>
+		and returns the favour. <<He>> takes <<his>> time on your <<genitals>><<if $avery_valentines.sex is "ass">> and <<bottom>><</if>>, though <<he>> seems inclined to tease you, rather than attempt another round. <<arousal 150 "genitals">><<if $avery_valentines.sex is "ass">><<arousal 150 "bottom">><</if>><<garousal>>
+	<<else>>
+		while you wash yourself.
+	<</if>>
+	<br><br>
+	"This has been quite a satisfactory evening," <<he>> says with a contented sigh. "More so than I had expected. Thank you for coming along with me, <<pcpetname "Avery">>."
+	<br><br>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"Oh, um, of course," you say.<<if $averyromance>> "I enjoyed myself, too."<</if>>
+	<<elseif $speech_attitude is "bratty">>
+		"Yeah, sure," you say, splashing the water a bit.<<if $averyromance>> "Wouldn't mind doing something like this again sometime, I guess."<</if>>
+	<<else>>
+		"Of course," you say.<<if $averyromance>> "I had fun, too."<</if>>
+	<</if>>
+	<br><br>
+	<<if $averyromance>>
+		<<if $speech_attitude is "bratty">>
+			Avery <<laughs>>, and kisses the side of your neck. "How dishonest. You could simply say you had a good time, you know.<<if $avery_valentines.confess>> You said so yourself during dinner that you enjoy my company.<</if>>"
+		<<else>>
+			Avery hums, and kisses the side of your neck. "I know you did. <<= $avery_valentines.confess ? "You made it quite clear during dinner how much you enjoy my company." : "You enjoy my company plenty, don't you?">>"
+		<</if>>
+
+		<<His>> <<= _avery_injured ? "arm shifts" : "arms shift">> into a loose embrace. "Perhaps we should do this again next year," <<he>> murmurs.
+	<<else>>
+		Avery hums, and kisses the side of your neck. "Perhaps we should do this again next year."
+	<</if>>
+	<br><br>
+	<<link [[Next|Avery Valentines End]]>><<set $phase to 2>><</link>>
+<<else>>
+	<<if $averyragerevealed is 1 and C.npc.Avery.rage gte 60>>
+		"Don't be ridiculous," Avery says with a scowl replacing <<his>> smile. "We're filthy. Come now."
+		<br><br>
+		You enter the bathroom with Avery<<if ($avery_valentines.sex is "ass" or $avery_valentines.sex is "vagina") and $NPCList[0].penissize gte 4>>, feeling a little sore from the rough fucking you just had<</if>>. After drawing a nice, hot bath, the two of you climb in.<<if _avery_injured>> <<He>> slides <<his>> casted arm along the edge of the bath, keeping it out of the water.<</if>>
+		<br><br>
+		<<if $avery_fate is "ascended">>
+			"Clean me," <<he>> says, drawing you close.
+			<br><br>
+			You do as you're ordered,
+		<<else>>
+			"Clean me," <<he>> says, drawing you close.
+			<br><br>
+			You do as you're told,
+		<</if>>
+		rubbing Avery clean of sweat and lewd fluids. <<He>> watches you as you do with an intent look, though it softens into a <<= $avery_valentines.soften ? "pleased" : "idle">> smile. <<His>> temper seems to have cooled thanks to your obedience.
+		<br><br>
+		When you're finished, <<he>> pulls you against <<him>>, your back to <<his>> front,
+		<<if $avery_valentines.soften>>
+			and returns the favour. <<He>> takes <<his>> time on your <<genitals>><<if $avery_valentines.sex is "ass">> and <<bottom>><</if>>, though <<he>> seems inclined to tease you, rather than attempt another round. <<arousal 150 "genitals">><<if $avery_valentines.sex is "ass">><<arousal 150 "bottom">><</if>><<garousal>>
+		<<else>>
+			while you wash yourself.
+		<</if>>
+		<br><br>
+		"All in all, this has been quite a satisfactory evening," <<he>> says with a contented sigh. "More so than I had expected. Thank you for coming along with me, <<pcpetname "Avery">>."
+		<br><br>
+		<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+			"Oh, um, of course," you say.<<if $averyromance>> "I enjoyed myself, too."<</if>>
+		<<elseif $speech_attitude is "bratty">>
+			"Yeah, sure," you say, splashing the water a bit.<<if $averyromance>> "Wouldn't mind doing something like this again sometime, I guess."<</if>>
+		<<else>>
+			"Of course," you say.<<if $averyromance>> "I had fun, too."<</if>>
+		<</if>>
+		<br><br>
+		<<if $averyromance>>
+			<<if $speech_attitude is "bratty">>
+				Avery <<laughs>>. "How dishonest. You could simply say you had a good time, you know.<<if $avery_valentines.confess>> You said so yourself during dinner that you enjoy my company.<</if>>"
+			<<else>>
+				Avery hums. "I know you did. <<= $avery_valentines.confess ? "You made it quite clear during dinner how much you enjoy my company." : "You enjoy my company plenty, don't you?">>"
+			<</if>>
+			<br><br>
+			<<His>> arms shift into a loose embrace. "Perhaps we should do this again next year," <<he>> murmurs.
+			<br><br>
+		<<else>>
+			Avery hums. "Perhaps we should do this again next year."
+			<br><br>
+		<</if>>
+		<br><br>
+		<<link [[Next|Avery Valentines End]]>><<set $phase to 2>><</link>>
+	<<else>>
+		<<set $avery_valentines.end to "neutral">>
+		<<if $avery_mansion>>
+			Avery has a disappointed look, but shrugs. "All right. I suppose I'll bathe on my own," <<he>> says. "Regardless, thank you for joining me for dinner this evening, <<pcpetname "Avery">>."
+			<br><br>
+			<<He>> gets up from the bed and heads for the bathroom, leaving you to wipe yourself down with a few tissues and gather your clothes.
+			<br><br>
+			<<endevent>>
+			<<silently>><<clotheson>><</silently>>
+			<<set $bus to "avery_bedroom">>
+			<<avery_valentines_end>>
+			<<avery_mansion_end_links>>
+		<<else>>
+			"All right, if you say so," <<he>> says. "Thank you for joining me for dinner this evening, <<pcpetname "Avery">>. I suppose we ought to get you back home."
+			<br><br>
+			<<silently>><<clotheson>><</silently>>
+			You and Avery wipe yourselves down with a few tissues, and get dressed again. You head back to the car, and it's not too far a drive back to the orphanage. Once you arrive, Avery kisses your forehead, then lets you go. <<His>> eyes linger on you, as they often do, as you walk off.
+			<br><br>
+			<<link [[Next|Domus Street]]>><<pass 15>><<endevent>><</link>>
+			<br>
+		<</if>>
+	<</if>>
+<</if>>
+
+
+:: Avery Valentines End
+<<avery_injury_check>>
+<<if $phase is 1>> /* Said no to sex */
+	<<pass 5>>
+	<<if $avery_valentines.soften>>
+		<<set $avery_valentines.end to "neutral">>
+		Avery's smile drops.
+		<<if $averyragerevealed is 1 and C.npc.Avery.rage gte 60>>
+			Despite <<his>> obvious displeasure, <<he>>
+		<<elseif $averyragerevealed is 1 and C.npc.Avery.rage gte 20>>
+			<<His>> brows furrow, but <<he>>
+		<<else>>
+			<<He>> sighs, and
+		<</if>>
+		lets you go. "Very well. Perhaps another time," <<he>> says.
+		<<if $avery_mansion>>
+			"Thank you for joining me for dinner tonight, <<pcpetname "Avery">>."
+			<br><br>
+			<<He>> gives you a lingering look before walking off.
+			<br><br>
+			<<endevent>>
+			<<silently>><<clotheson>><</silently>>
+			<<set $bus to "avery_lounge">>
+			<<avery_valentines_end>>
+			<<avery_mansion_end_links>>
+		<<else>>
+			"Thank you for joining me for dinner tonight, <<pcpetname "Avery">>. Let's get you back home."
+			<br><br>
+			It's not too far a drive back to the orphanage. Once you arrive, Avery kisses your forehead, then lets you go. <<His>> eyes linger on you, as they often do, as you walk off.
+			<br><br>
+			<<silently>><<clotheson>><</silently>>
+			<<avery_valentines_end>>
+			<<link [[Next|Domus Street]]>><<pass 10>><<endevent>><</link>>
+			<br>
+		<</if>>
+	<<else>>
+		<<if C.npc.Avery.rage gte random(20,100)>><<set $averyragerevealed to 1>>
+			Avery's expression turns cold. <<He>> glares at you, lip curled.
+			<br><br>
+			"After all I've done for you tonight," <<he>> mutters under <<his>> breath. "After all I did. Getting that reservation, treating you to a meal you'd have never been able to earn yourself, all of it. You won't show even a little gratitude?"
+			<br><br>
+			<<if $avery_mansion>>
+				<<He>> grabs you by the arm and pushes you up against the nearest wall. Holding you there by the <<= $_avery_injured ? "throat" : "arms">>,
+			<<else>>
+				<<He>> turns into an alleyway, and undoes <<his>> seatbelt, then yours. Then <<he>> grabs you by the front of your top, and yanks you into the back seat. <<He>> isn't gentle<<if $avery_valentines.chocolate>> and the box of chocolates you gave <<him>> is crushed in the process<<set $avery_valentines.chocolate to false>><</if>>.
+				<br><br>
+				When <<he>> has you where <<he>> wants you, with
+				<<if $settings.asphyxiaLevel gte 2>>
+					<<= $_avery_injured ? "<<his>> good hand wrapped around your throat" : "your wrists pinned above your head">>,
+				<<else>>
+					<<= $_avery_injured ? "<<his>> good hand pinning a wrist above your head" : "your wrists pinned above your head">>,
+				<</if>>
+			<</if>>
+			<<he>> leans in and snarls, "I'll be having you whether you like it or not, <<pcpetname "Avery">>.<<if C.npc.Avery.rage lte 29>> Don't fight me, and maybe you'll even enjoy yourself.<</if>>"
+			<br><br>
+			<<link [[Next|Avery Valentines Rape]]>><<set $molestationstart to 1>><</link>>
+			<br>
+		<<else>>
+			<<set $avery_valentines.end to "neutral">>
+			Avery's smile drops.
+			<<if $averyragerevealed gte 1 and C.npc.Avery.rage gte 60>>
+				Despite <<his>> obvious displeasure, <<he>>
+			<<elseif $averyragerevealed gte 1 and C.npc.Avery.rage gte 20>>
+				<<His>> brows furrow, but <<he>>
+			<<else>>
+				<<He>> sighs, and
+			<</if>>
+			lets you go. "Very well. Perhaps another time," <<he>> says.
+			<<if $avery_mansion>>
+				"Thank you for joining me for dinner tonight, <<pcpetname "Avery">>."
+				<br><br>
+				<<He>> gives you a lingering look before walking off.
+				<br><br>
+				<<endevent>>
+				<<silently>><<clotheson>><</silently>>
+				<<set $bus to "avery_lounge">>
+				<<avery_valentines_end>>
+				<<avery_mansion_end_links>>
+			<<else>>
+				"Thank you for joining me for dinner this evening, <<pcpetname "Avery">>. Let's get you back home."
+				<br><br>
+				It's not too far a drive back to the orphanage. Once you arrive, Avery kisses your forehead, then lets you go. <<His>> eyes linger on you, as they often do, as you walk off.
+				<br><br>
+				<<silently>><<clotheson>><</silently>>
+				<<avery_valentines_end>>
+				<<link [[Next|Domus Street]]>><<pass 15>><<endevent>><</link>>
+			<</if>>
+		<</if>>
+	<</if>>
+<<else>> /* After sex + bath */
+	<<set $avery_valentines.end to "good">>
+	<<pass 20>>
+	After you're both clean and the water has cooled, Avery announces the bath is over. You climb out, dry off, and put your clothes back on. <<He>> gives you an innocent look when you catch <<him>> watching you dress.
+	<br><br>
+	<<if $avery_mansion>>
+		When you're both clothed once more, Avery in more casual wear, <<he>> gives you a little wave and a lingering look as <<he>> walks off.
+		<br><br>
+		<<endevent>>
+		<<silently>><<clotheson>><</silently>>
+		<<set $bus to "avery_lounge">>
+		<<avery_valentines_end>>
+		<<avery_mansion_end_links>>
+	<<else>>
+		"Let's get you back home, <<pcpetname "Avery">>," <<he>> says, leading you back to the garage with a hand on the small of your back.
+		<br><br>
+		It's not too far a drive back to the orphanage. Once you arrive, Avery kisses your forehead, then lets you go. <<His>> eyes linger on you, as they often do, as you walk off.
+		<br><br>
+		<<silently>><<clotheson>><</silently>>
+		<<avery_valentines_end>>
+		<<link [[Next|Domus Street]]>><<pass 10>><<endevent>><</link>>
+		<br>
+	<</if>>
+<</if>>
+
+:: Avery Valentines Rape
+<<effects>>
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+	<<set $position to "missionary">>
+	<<avery_injury_check>>
+	<<if !_avery_injured>>
+		<<set $rightarm to "grappled">>
+		<<set $NPCList[0].righthand to "arms">>
+		<<set $leftarm to "grappled">>
+		<<set $NPCList[0].lefthand to "arms">>
+	<<else>>
+		<<if $settings.asphyxiaLevel gte 2>>
+			<<set $neckuse to "hand">>
+			<<set $NPCList[0].righthand to "throat">>
+		<<else>>
+			<<set $rightarm to "grappled">>
+			<<set $NPCList[0].righthand to "arms">>
+		<</if>>
+	<</if>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+<span id="next"><<link [[Next|Avery Valentines Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+<span id="next"><<link [[Next|Avery Valentines Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+
+
+:: Avery Valentines Rape Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<set $avery_valentines.end to "neutral">>
+	<<ejaculation>>
+
+	Avery pulls away after catching <<his>> breath, and gives you a stern look. "Remember how to show your gratitude properly in the future," <<he>> says.
+	<br><br>
+	<<if $avery_mansion>>
+		With an almost painful silence, <<he>> turns, and heads further into the mansion.
+	<<else>>
+		"I think you can find your own way home." <<He>> reaches over to open the door on your side. You're herded out<<if $pain gte 50>> before you can recover<</if>>.
+
+		You press yourself against a wall as Avery moves to the driver's seat and turns the car back on. <<He>> drives out of the alleyway, and leaves you alone.
+	<</if>><<npcincr Avery lust -20>><<llust>><<npcincr Avery rage -1>><<larage>>
+	<br><br>
+<<elseif $enemyhealth lte 0>>
+	<<set $avery_valentines.end to "bad">>
+	You shove Avery away, and <<he>>
+	<<if $avery_mansion>>
+		crashes against the wall opposite you with a cry of pain. You don't wait for <<him>> to recover, and rush deeper into the mansion. You hear <<him>> yell after you, but to your<<if $averySeen.includes("chase")>> immense<</if>> relief, <<he>> doesn't chase after you.
+	<<else>>
+		knocks <<his>> head against the window of the door opposite you. You don't wait for <<him>> to recover, and quickly open your door to scramble out of it and out the other end of the alleyway. You hear <<him>> yell after you, but to your relief, <<he>> doesn't chase after you.
+	<</if>><<npcincr Avery love -1>><<llove>><<npcincr Avery rage 1>><<garage>>
+	<br><br>
+<<elseif $finish is 1>>
+	<<set $avery_valentines.end to "neutral">>
+	Avery sighs, and backs away from you. <<He>> has a disgruntled look on <<his>> face, but <<he>> otherwise seems calmer. <<note "Avery's Saviour" "teal">>
+	<br><br>
+	"Fine," <<he>> says with a huff. "Fine. But you could do to show more gratitude in the future, <<pcpetname "Avery">>. I put in quite a lot of work for you." <<He>> huffs. "I'd hate to think that it had been all in vain."
+	<br><br>
+	With that, <<he>> turns on one heel, and stalks off.
+	<br><br>
+<</if>>
+
+<<clotheson>>
+<<endcombat>>
+<<set $bus to "avery_lounge">>
+<<avery_valentines_end>>
+<<avery_mansion_end_links>>
+
+
+:: Avery Valentines Missed Intro
+<<effects>>
+<<avery_injury_check>>
+Avery steps closer.
+<<if C.npc.Avery.rage gte random(20,100)>><<set $averyragerevealed to 1>>
+	A cold fury distorts <<his>> features.<<npcincr Avery love -1>><<llove>><<npcincr Avery rage 1>><<garage>>
+	<br><br>
+	"You couldn't make the goddamn effort for one night? After all I did for you?" <<He>> storms up to you and grabs you by the <<= _avery_injured ? "arm" : "arms">>. "After all I had to do to get those reservations, all for <i>you</i>. The least you could have done was show your fucking face for it.<<if $avery_valentines.chocolate>> You didn't think that chocolate was going to make a difference, do you?<</if>>"
+	<br><br>
+	<<He>> shoves you against the nearest wall, kicks your knees hard enough that you fall to them, and grabs a handful of your hair to pull your face against <<his>> crotch.<<if $NPCList[0].penis isnot "none">> You can feel <<his>> <<npcPenis>> start to firm up <<= $NPCList[0].gender is "m" ? "in <<his>> trousers" : "under <<his>> skirt">>.<</if>><<pain 2>><<gpain>>
+	<br><br>
+	"I know how you can start to make it up to me, though," <<he>> growls. "Open your mouth."
+	<br><br>
+	<<if hasSexStat("promiscuity", 2) or isLoveInterest("Avery") or $averyromance>>
+		<<link [[Comply eagerly|Avery Valentines Missed Rage]]>><<set $phase to 1>><</link>><<promiscuous2>>
+		<br>
+	<</if>>
+	<<link [[Comply reluctantly|Avery Valentines Missed Rage]]>><<set $phase to 2>><</link>><<gtrauma>><<gstress>><<promiscuous2>>
+	<br>
+	<<link [[Beg for forgiveness|Avery Valentines Missed Rage]]>><<set $phase to 3>><<sub 1>><</link>><<gdom>><<larage>>
+	<br>
+	<<link [[Fight|Avery Valentines Missed Rage]]>><<set $phase to 4>><<def 1>><</link>><<gpain>><<garage>>
+	<br>
+<<else>>
+	<<if $averyragerevealed is 1 and C.npc.Avery.rage gte 60>>
+		<<He>> looks angry.<<npcincr Avery rage 1>><<garage>>
+		<br><br>
+		"You weren't here on Valentine's Day," <<he>> says, glaring at you. "I ask you to put in the effort for one evening, and you can't even do that." <<He>> scoffs and shakes <<his>> head. "Unbelievable.<<if $avery_valentines.chocolate>> And if you thought that that chocolate made up for you standing me up, you're sorely mistaken. <</if>>"
+		<br><br>
+	<<elseif $averyragerevealed is 1 and C.npc.Avery.rage gte 20>>
+		<<He>> looks upset.<<npcincr Avery rage 1>><<garage>>
+		<br><br>
+		"I missed you on Valentine's Day." <<He>> stares at you. "You couldn't make the effort for one bloody evening. All you had to do was show your face, and I would have treated you to a once-in-a-lifetime experience." <<He>> crosses <<his>> arms and scoffs. "But no. Instead you<<if $avery_valentines.chocolate>> dropped off some chocolate, as though that'd be enough, and then<</if>> decided to stand me up. You have no idea how much of my time and effort you wasted," <<he>> finishes.
+		<br><br>
+	<<else>>
+		<<He>> looks upset.<<npcincr Avery rage 1>><<garage>>
+		<br><br>
+		"I missed you on Valentine's Day." <<He>> frowns at you. "You couldn't make time for a single evening to go out with me? I was going to be treating you to a once-in-a-lifetime experience." <<He>> sighs. "<<if $avery_valentines.chocolate>>I do hope you didn't think that that chocolate was a suitable replacement for your presence. <</if>>Those reservations weren't easy to get, you know<<if $avery_valentines.chocolate>>, and a box of chocolate doesn't make up for it<</if>>."
+		<br><br>
+	<</if>>
+
+	<<link [[Apologise|Avery Valentines Missed]]>><<set $phase to 1>><</link>><<gdom>>
+	<br>
+	<<link [[Say nothing|Avery Valentines Missed]]>><<set $phase to 2>><</link>>
+	<br>
+	<<link [[Say you were busy|Avery Valentines Missed]]>><<set $phase to 3>><</link>><<ldom>>
+	<br>
+<</if>>
+
+:: Avery Valentines Missed
+<<effects>>
+
+<<if $avery_fate is "ascended">>
+	<<if $phase isnot 2>>Before you can say anything, <</if>>Avery reaches over and cups your chin, tilting your head so you can only look <<him>> in the eyes. <<His>> gaze appears cold and detached, though you can sense the tension in the grip on your chin.
+	<br><br>
+	<<if $averyragerevealed is 1 and C.npc.Avery.rage gte 60>>
+		"You've been a bad <<girl>> lately, <<pcpetname "Avery">>," <<he>> says, voice low. "One misdeed after another. You've well earned a punishment, especially after this last fuck-up, and I'd enjoy giving it to you. But I won't." <<His>> eyes narrow, and a cruel smirk spreads over <<his>> lips. "I hope you know that you're toeing a fine line every time you act up like this,"
+	<<elseif $averyragerevealed is 1 and C.npc.Avery.rage gte 20>>
+		"I won't forgive you for standing me up, <<pcpetname "Avery">>, but I'd be willing to forget this little mistake in judgment so long as you swear to follow through on your promises in the future. If you don't," <<his>> eyes narrow. "Then I won't hesitate to punish you,"
+	<<else>>
+		"You're lucky I'm in a charitable mood, <<pcpetname "Avery">>," <<he>> says, a smile curling on <<his>> lips. "I'll let you go for now, but I expect you to follow through on your promises in the future. If you don't," <<his>> smile turns to a smirk. "Then I'll have to punish you,"
+	<</if>>
+	<<he>> finishes, pulling <<his>> hand away from you.
+	<br><br>
+	You feel a shiver run down your spine.<<stress 6>><<gstress>>
+<<else>>
+	<<if $phase is 1>> /* Apologise */
+		<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+			"I'm sorry," you mumble. "Please forgive me."
+		<<elseif $speech_attitude is "bratty">>
+			"Look, I'm sorry, all right?" you say with a huff.
+		<<else>>
+			"I'm sorry, Avery," you say. "I hope you can forgive me."
+		<</if>>
+
+		Avery stares back at you<<if C.npc.Avery.rage gte 60>>, eyes cold,<</if>> for a few long moments. Then <<he>>
+		<<if $averyragerevealed is 1 and C.npc.Avery.rage gte 20>>
+			clicks <<his>> tongue. "Yes, yes, you're very sorry, I'm sure. From now on, I'd like you to prove it by following through on your promises. All right?"
+		<<else>>
+			sighs. "Very well. I accept your apology<<if $averyragerevealed is 1>>, but don't think I'll be as forgiving in the future. I expect you to follow through on your promises going forward<</if>>."
+		<</if>><<npcincr Avery dom 1>><<gdom>>
+	<<else>>
+		<<if $phase is 2>>
+			You say nothing to Avery.<<if $speech_attitude is "meek" or $speech_attitude_avery>> You only bow your head slightly.<</if>> <<His>> expression tightens at your lack of a response.
+		<<else>>
+			<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+				"I'm sorry, Avery," you stammer.
+			<<elseif $speech_attitude is "bratty">>
+				"Look, I got busy," you say.
+			<<else>>
+				"Sorry, Avery, but something came up," you say.
+			<</if>>
+			<br><br>
+			"'Busy'?" Avery interrupts.<<if $avery_valentines.chocolate>> "Yet you weren't too busy to come drop off that chocolate."<</if>>
+		<</if>><<npcincr Avery dom -1>><<ldom>>
+		<br><br>
+		With a sigh, <<he>> starts pacing before you. <<He>> has the air of a teacher disciplining a student. "When you make plans with someone, those plans take priority over anything else that might come up. I can't imagine there's anyone or anything going on in your life so important that you had to stand me up." <<He>> shoots you a <<= $averyragerevealed is 1 and C.npc.Avery.rage gte 40 ? "scowl" : "frown">>. "In the future, I expect better from you. Understood?"
+	<</if>>
+<</if>>
+<br><br>
+
+With that said, <<he>> turns on <<his>> heel, and walks away.
+<br><br>
+<<endevent>>
+<<avery_mansion_end_links>>
+
+:: Avery Valentines Missed Rage
+
+<<if $phase is 1>> /* Comply eagerly */
+	You let Avery manoeuvre you as <<he>> likes, and you mouth against <<his>> <<npcGenitals>> through <<his>> clothing. You hear a quiet sound of interest from above, and <<he>> <<= $NPCList[0].gender is "m" ? "undoes his fly" : "pulls up her skirt">>.<<npcincr Avery lust 1>><<glust>>
+	<<promiscuity2>>
+	<<link [[Next|Avery Valentines Missed Rage Sex]]>><<set $sexstart to 1>><<set $phase to 0>><</link>>
+	<br>
+<<elseif $phase is 2>> /* Comply reluctantly */
+	Avery <<= $NPCList[0].gender is "m" ? "undoes his fly" : "pulls up her skirt">>. You let <<him>> manoeuvre you as <<he>> likes, endeavouring not to anger <<him>> further.<<stress 4>><<gstress>><<trauma 4>><<gtrauma>>
+	<br><br>
+	<<link [[Next|Avery Valentines Missed Rage Sex]]>><<set $molestationstart to 1>><<set $phase to 0>><</link>>
+	<br>
+<<elseif $phase is 3>> /* Beg for forgiveness */
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"Avery, please forgive me," you stammer, not daring to look <<him>> in the eyes. "I'm very sorry."
+	<<elseif $speech_attitude is "bratty">>
+		"I-I'm sorry, okay?" you blurt out, through not quite gritted teeth. "Forgive me. Please."
+	<<else>>
+		"I'm sorry, Avery," you say, looking up at <<him>>. "Please forgive me."
+	<</if>>
+	<br><br>
+	Avery pauses in <<his>> movements at your begging. After a few moments that drag on too long, <<he>> smirks.
+	<<if C.npc.Avery.rage lte 59 and $avery_fate is "saved">>
+		"I do like the way you beg," <<he>> says. After another moment of consideration, <<he>> releases you. "Very well, I'll let you off. But I won't be so forgiving next time. I expect you to properly follow through on your promises going forward."<<npcincr Avery dom 1>><<gdom>><<npcincr Avery rage -1>><<larage>><<note "Avery's Saviour" "teal">>
+		<br><br>
+		As you stand up and part ways, you feel Avery's eyes on your back the entire way.<<npcincr Avery lust 5>><<glust>>
+		<br><br>
+		<<endevent>>
+		<<avery_mansion_end_links>>
+	<<else>>
+		"You do sound nice when you're begging," <<he>> says. "I'd like to hear more of it. Perhaps later. For now, open your mouth." <<He>> shakes your head with <<his>> grip on your hair.<<npcincr Avery dom 1>><<gdom>><<npcincr Avery rage -1>><<larage>>
+		<br><br>
+		<<if hasSexStat("promiscuity", 2) or isLoveInterest("Avery")>>
+			<<link [[Comply eagerly|Avery Valentines Missed Rage]]>><<set $phase to 1>><</link>><<promiscuous2>>
+			<br>
+		<</if>>
+		<<link [[Comply reluctantly|Avery Valentines Missed Rage]]>><<set $phase to 2>><</link>><<gtrauma>><<gstress>>
+		<br>
+		<<link [[Fight|Avery Valentines Missed Rage]]>><<set $phase to 4>><<def 1>><</link>><<gpain>><<garage>>
+		<br>
+	<</if>>
+<<else>> /* Fight */
+	You struggle in Avery's grip and lash out. <<He>> snarls, pushes you away, and lunges after you.
+	<br><br>
+	<<link [[Next|Avery Valentines Missed Rage Fight]]>><<set $fightstart to 1>><<set $phase to 0>><</link>>
+	<br>
+<</if>>
+
+:: Avery Valentines Missed Rage Sex
+<<effects>>
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+	<<set $position to "doggy">>
+	<<set $enemyanger += 35>>
+<<elseif $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 100>>
+	<<set $position to "doggy">>
+	<<set $enemyanger += 35>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Avery Valentines Missed Rage Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Avery Valentines Missed Rage Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+
+:: Avery Valentines Missed Rage Sex Finish
+<<effects>>
+<<avery_current_room_dirty_check>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+
+	Avery wipes a drop of sweat from <<his>> forehead and backs away from you. With a slight breathlessness in <<his>> tone, <<he>> says, "There. <i>That's</i> an apology." <<He>> <<laughs>> to <<himself>>. <<npcincr Avery lust -20>><<llust>><<npcincr Avery rage -1>><<larage>>
+	<br><br>
+
+	"Now,
+	<<if $avery_mansion?.schedule is "dinner">>
+		time for dinner, isn't it?" <<he>> says, walking in the direction of the dining room.
+	<<elseif _dirty_room>>
+		you have some cleaning to do, I believe," <<he>> says, walking away.
+	<<else>>
+		be on your way," <<he>> says, walking away.
+	<</if>>
+	<br><br>
+	<<endcombat>>
+	<<avery_mansion_end_links>>
+<<elseif $enemyhealth lte 0>>
+	Avery cries out in pain as <<he>> crashes back <<= $bus is "avery_garden" ? "into a hedge" : $bus is "avery_pool" ? "into a pool lounger" : "against the opposite wall">>.<<npcincr Avery dom -1>><<ldom>><<npcincr Avery rage 1>><<garage>>
+
+	You run away before <<he>> can recover, and end up in the
+	<<if $outside is 1>>
+		garage.
+		<br><br>
+		<<endcombat>>
+		<<set $bus to "avery_garage">>
+		<<avery_mansion_end_links>>
+	<<else>>
+		bedroom.
+		<br><br>
+		<<endcombat>>
+		<<set $bus to "avery_bedroom">>
+		<<avery_mansion_end_links>>
+	<</if>>
+<<elseif $finish is 1>> /* Asked to stop */
+	Avery lets you go, though <<he>>
+	<<if $averyragerevealed is 1 and C.npc.Avery.rage gte 60>>
+		doesn't look any less angry. "Fine," <<he>> snaps,
+	<<else>>
+		still seems irate. "Very well then," <<he>> says,
+	<</if>>
+	pulling away from you.
+	<<if $avery_mansion?.schedule is "dinner">>
+		"It's time for dinner, anyway." <<He>> stalks off in the direction of the dining room.
+	<<elseif _dirty_room>>
+		"You have some cleaning to do, anyway." <<He>> stalks away.
+	<<else>>
+		<<He>> stalks away.
+	<</if>><<npcincr Avery lust 5>><<glust>>
+	<br><br>
+	<<endcombat>>
+	<<avery_mansion_end_links>>
+<</if>>
+
+:: Avery Valentines Missed Rage Fight
+
+<<if $fightstart is 1>>
+	<<set $fightstart to 0>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust -= 100>>
+	<<set $enemyanger += 200>>
+	<<npcidlegenitals>>
+	<<set $position to "missionary">>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend or ($pain gte 100 and $willpowerpain is 0)>>
+	<span id="next"><<link [[Next|Avery Valentines Missed Rage Fight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Avery Valentines Missed Rage Fight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Avery Valentines Missed Rage Fight Finish
+<<avery_current_room_dirty_check>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+
+	Avery wipes a drop of sweat from <<his>> forehead and backs away from you. With a slight breathlessness in <<his>> tone, <<he>> says, "That will do for
+	<<if $avery_mansion?.schedule is "dinner">>
+		now. It's time for dinner, anyway." <<He>> stalks off in the direction of the dining room.
+	<<elseif _dirty_room>>
+		now. You have some cleaning to do, anyway." <<He>> stalks away.
+	<<else>>
+		now." <<He>> stalks away.
+	<</if>><<npcincr Avery lust -20>><<llust>><<npcincr Avery rage -1>><<larage>>
+	<br><br>
+	<<endcombat>>
+	<<avery_mansion_end_links>>
+<<elseif $enemyhealth lte 0>>
+	Avery cries out in pain as <<he>> crashes back <<= $bus is "avery_garden" ? "into a hedge" : $bus is "avery_pool" ? "into a pool lounger" : "against the opposite wall">>.<<npcincr Avery dom -1>><<ldom>><<npcincr Avery rage 1>><<garage>>
+	<br><br>
+	You run away before <<he>> can recover, and end up in the
+	<<if $outside is 1>>
+		garage.
+		<br><br>
+		<<endcombat>>
+		<<set $bus "avery_garage">>
+		<<avery_mansion_end_links>>
+	<<else>>
+		bedroom.
+		<br><br>
+		<<endcombat>>
+		<<set $bus to "avery_bedroom">>
+		<<avery_mansion_end_links>>
+	<</if>>
+<<elseif $finish is 1>> /* Asked to stop */
+	Avery lets you go, though <<he>>
+	<<if $averyragerevealed is 1 and C.npc.Avery.rage gte 60>>
+		doesn't look any less angry. "Fine," <<he>> snaps,
+	<<else>>
+		still seems irate. "Very well then," <<he>> says,
+	<</if>>
+	pulling away from you.
+	<<if $avery_mansion?.schedule is "dinner">>
+		"It's time for dinner, anyway." <<He>> stalks off in the direction of the dining room.
+	<<elseif _dirty_room>>
+		"You have some cleaning to do, anyway." <<He>> stalks away.
+	<<else>>
+		<<He>> stalks away.
+	<</if>><<npcincr Avery lust 5>><<glust>>
+	<br><br>
+	<<endcombat>>
+	<<avery_mansion_end_links>>
+<<else>> /* Maxed pain */
+	You crumple to the floor as you are overcome with pain. Avery watches with an impassable expression. <<He>> rubs at the knuckles of one hand as <<he>> says,
+	<<if $enemyhealth gte $enemyhealthmax>>
+		"Glad to see that you know how to take your punishment. But ideally you don't anger me in the first place. I expect you to follow through on your promises going forward. Understood?"<<npcincr Avery rage -1>><<larage>>
+	<<else>>
+		"It wouldn't have been as bad if you hadn't tried to fight back, <<= C.npc.Avery.rage gte 60 ? "<<girl>>" : "<<pcpetname "Avery">>">>. Remember that next time."<<npcincr Avery rage 1>><<garage>>
+	<</if>><<npcincr Avery dom 1>><<gdom>>
+	<br><br>
+	With that, <<he>>
+	<<if $avery_mansion?.schedule is "dinner">>
+		leaves in the direction of the dining room.
+	<<else>>
+		walks away.
+	<</if>>
+	<br><br>
+	<<endcombat>>
+	<<avery_mansion_end_links>>
+<</if>>

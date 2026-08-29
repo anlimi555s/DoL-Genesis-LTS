@@ -1,0 +1,2616 @@
+:: Cheats [widget]
+<<widget "cheats">>
+	<<link [[Confirm|$passage]]>><<set $cheatReload to true>><</link>>
+	<br>
+	Can cause problems if confirmed during events, or with NPCs around.
+	<br>
+	Only required if you want cheats to take immediate effect on the current scene.
+	<hr>
+	<div id="cheatsShown"><<cheats-characterStats>></div>
+
+	<div class="settingsGrid">
+		<input type="button" class="toTop options" value="Top of Page" onclick="$('#customOverlayContent').scrollTop(0)"/>
+	</div>
+<</widget>>
+
+<<widget "cheatVirginityToggle">>
+	<<set _type to _args[0]>>
+	<<set _id to `stats${_type}virginity`>>
+	<<capture _type _id>>
+		<span @id="_id"><<= ($player.virginity[_type] is true ? "Present" : "Taken by " + ($player.virginity[_type] is false ? "unknown" : $player.virginity[_type]))>></span> |
+		<span @id="_id + 'link'"><<link `($player.virginity[_type] is true and !$player?.virginityDetails?.[_type]?.taker ? "Take" : "Restore")`>>
+			<<if $player.virginity[_type] is true>>
+				<<set $player.virginity[_type] to (_virginity[_type] is true ? false : _virginity[_type])>>
+				<<if $player.virginity[_type] is false and $player?.virginityDetails?.[_type]?.taker>><<set $player.virginity[_type] to $player.virginityDetails[_type].taker>><</if>>
+				<<if $player.virginity.temple isnot false and ["penile", "vaginal"].includes(_type)>><<set $player.virginity.temple to "unknown">><</if>>
+			<<else>>
+				<<set $player.virginity[_type] to true>>
+				<<if $player.virginity.temple isnot false and ["penile", "vaginal"].includes(_type)>><<set $player.virginity.temple to true>><</if>>
+			<</if>>
+			<<run $(`#${_id}link .link-internal`).html($player.virginity[_type] is true and !$player?.virginityDetails?.[_type]?.taker ? "Take" : "Restore")>>
+			<<run $(`#${_id}`).html($player.virginity[_type] is true ? "Present" : "Taken by " + ($player.virginity[_type] is false ? "unknown" : $player.virginity[_type]))>>
+		<</link>></span>
+	<</capture>>
+<</widget>>
+
+<<widget "cheatParasiteToggle">>
+	<<set _bodypart to _args[0]>>
+	<<set _parasiteTypes to setup.parasiteTypesPerBodypart[_bodypart]>>
+
+	<<= _bodypart.toUpperFirst().replace("_", " ")>>:
+	<<capture _bodypart, _parasiteTypes, _i, _temp>>
+		<<for _i = 0; _i < _parasiteTypes.length; _i++>>
+			<span @id="_parasite" @class="_parasiteTypes[_i] is $parasite[_bodypart].name || _parasiteTypes[_i] is 'none' and !$parasite[_bodypart].name ? 'goldLink' : 'link' ">
+				<<link _parasiteTypes[_i]>>
+					<<removeparasite _bodypart>>
+					<<set _temp to _parasiteTypes[_i]>>
+					<<set _parasiteTypes[_i] to _parasiteTypes[0]>>
+					<<set _parasiteTypes[0] to _temp>>
+					<<if _temp isnot "none">>
+						<<parasite _bodypart _temp>>
+					<</if>>
+					<<updatesidebarimg>>
+					<<replace `"#"+ _bodypart`>><<cheatParasiteToggle _bodypart>><</replace>>
+				<</link>>
+			</span>
+			<<if _i < _parasiteTypes.length - 1>> |<</if>>
+		<</for>>
+	<</capture>>
+<</widget>>
+
+<<widget "cheatBodyLiquid">>
+	<<set _semen to _args[0]>>
+	<<set _label to _semen is "goo" ? "slime" : _semen>>
+	<div class="settingsToggleItem">
+		<span class="gold"><<= _label.toUpperFirst()>></span>
+		<br>
+
+		<<capture _type _semen>>
+			<<link `'Add all ' + _label`>>
+				<<for _type range ["neck","rightarm","leftarm","thigh","bottom","tummy","chest","face","hair","feet","vaginaoutside","vagina","penis","anus","mouth"]>>
+					<<bodyliquid _type _semen 5>><<run $(`#stats${_type}${_semen}`).html(Math.trunc($player.bodyliquid[_type][_semen]))>>
+				<</for>>
+				<<updatesidebarimg>>
+				<<set _id to "#cheatLiquids-" + _semen>>
+				<<replace _id>><<cheatBodyliquidElement _semen>><</replace>>
+			<</link>>
+		<</capture>> |
+
+		<<capture _type _semen>>
+			<<link `'Remove all ' + _label`>>
+				<<for _type range ["neck","rightarm","leftarm","thigh","bottom","tummy","chest","face","hair","feet","vaginaoutside","vagina","penis","anus","mouth"]>>
+					<<bodyliquid _type _semen -5>><<run $(`#stats${_type}${_semen}`).html(Math.trunc($player.bodyliquid[_type][_semen]))>>
+				<</for>>
+				<<updatesidebarimg>>
+				<<set _id to "#cheatLiquids-" + _semen>>
+				<<replace _id>><<cheatBodyliquidElement _semen>><</replace>>
+			<</link>>
+		<</capture>>
+		<br>
+		<<set _id to "cheatLiquids-" + _semen>>
+		<span @id="_id">
+			<<cheatBodyliquidElement _semen>>
+		</span>
+	</div>
+<</widget>>
+
+<<widget "cheatBodyliquidElement">>
+	<<set _semen to _args[0]>>
+	<<set _options to {
+			max: 5,
+			step: 1,
+			values: [_semen],
+			activeButtons: ["single", "minMax"],
+			percentage: false,
+			reverse: true,
+			css: {display: "inline-block", "margin-bottom": "0"}
+		}>>
+	<<numberStepper "Neck" $player.bodyliquid.neck[_semen] {...T.options, callback: (value, arr) => { V.player.bodyliquid.neck[arr[0]] = value; Wikifier.wikifyEval("<<updatesidebarimg>>") }}>>
+	<<numberStepper "Right arm" $player.bodyliquid.rightarm[_semen] {...T.options, callback: (value, arr) => { V.player.bodyliquid.rightarm[arr[0]] = value; Wikifier.wikifyEval("<<updatesidebarimg>>") }}>>
+	<<numberStepper "Left arm" $player.bodyliquid.leftarm[_semen] {...T.options, callback: (value, arr) => { V.player.bodyliquid.leftarm[arr[0]] = value; Wikifier.wikifyEval("<<updatesidebarimg>>") }}>>
+	<<numberStepper "Thigh" $player.bodyliquid.thigh[_semen] {...T.options, callback: (value, arr) => { V.player.bodyliquid.thigh[arr[0]] = value; Wikifier.wikifyEval("<<updatesidebarimg>>") }}>>
+	<<numberStepper "Bottom" $player.bodyliquid.bottom[_semen] {...T.options, callback: (value, arr) => { V.player.bodyliquid.bottom[arr[0]] = value; Wikifier.wikifyEval("<<updatesidebarimg>>") }}>>
+	<<numberStepper "Tummy" $player.bodyliquid.tummy[_semen] {...T.options, callback: (value, arr) => { V.player.bodyliquid.tummy[arr[0]] = value; Wikifier.wikifyEval("<<updatesidebarimg>>") }}>>
+	<<numberStepper "Chest" $player.bodyliquid.chest[_semen] {...T.options, callback: (value, arr) => { V.player.bodyliquid.chest[arr[0]] = value; Wikifier.wikifyEval("<<updatesidebarimg>>") }}>>
+	<<numberStepper "Face" $player.bodyliquid.face[_semen] {...T.options, callback: (value, arr) => { V.player.bodyliquid.face[arr[0]] = value; Wikifier.wikifyEval("<<updatesidebarimg>>") }}>>
+	<<numberStepper "Hair" $player.bodyliquid.hair[_semen] {...T.options, callback: (value, arr) => { V.player.bodyliquid.hair[arr[0]] = value; Wikifier.wikifyEval("<<updatesidebarimg>>") }}>>
+	<<numberStepper "Feet" $player.bodyliquid.feet[_semen] {...T.options, callback: (value, arr) => { V.player.bodyliquid.feet[arr[0]] = value; Wikifier.wikifyEval("<<updatesidebarimg>>") }}>>
+	<<numberStepper "Labia" $player.bodyliquid.vaginaoutside[_semen] {...T.options, callback: (value, arr) => { V.player.bodyliquid.vaginaoutside[arr[0]] = value; Wikifier.wikifyEval("<<updatesidebarimg>>") }}>>
+	<<numberStepper "Vagina" $player.bodyliquid.vagina[_semen] {...T.options, callback: (value, arr) => { V.player.bodyliquid.vagina[arr[0]] = value; Wikifier.wikifyEval("<<updatesidebarimg>>") }}>>
+	<<numberStepper "Penis" $player.bodyliquid.penis[_semen] {...T.options, callback: (value, arr) => { V.player.bodyliquid.penis[arr[0]] = value; Wikifier.wikifyEval("<<updatesidebarimg>>") }}>>
+	<<numberStepper "Anus" $player.bodyliquid.anus[_semen] {...T.options, callback: (value, arr) => { V.player.bodyliquid.anus[arr[0]] = value; Wikifier.wikifyEval("<<updatesidebarimg>>") }}>>
+	<<numberStepper "Mouth" $player.bodyliquid.mouth[_semen] {...T.options, callback: (value, arr) => { V.player.bodyliquid.mouth[arr[0]] = value; Wikifier.wikifyEval("<<updatesidebarimg>>") }}>>
+<</widget>>
+
+<<widget "cheats-characterStats">>
+	<div class="settingsGrid">
+		<div class="settingsHeader options">Player</div>
+		<div class="settingsToggleItemWide">
+			<span class="gold">Miscellaneous</span>
+			<br>
+			<<numberStepper "Money" $money {
+				activeButtons: ["single", "double", "triple"],
+				step: 1000,
+				max: 10000000000,
+				colorArr:["--yellow"],
+				percentage: false,
+				valueFormat: (value) => `<b>${formatMoney(value)}</b>`,
+				callback: (value) => {
+					const difference = value - V.money;
+					V.moneyStats.cheats.earned += difference;
+					V.money = value;
+				}
+			}>>
+
+			<<if $location is "prison">>
+				<<set $prison.teeth to $prison.teeth or 0>>
+				<<numberStepper "Teeth" $prison.teeth {callback: (value) => V.prison.teeth = value, disableMinMax: true, step: 1, max: 1000000, colorArr:["--yellow"], percentage: false}>>
+			<</if>>
+
+			Infinite spray: <span id="statsinfinitespray"><<= ($infinitespray ? "On" : "Off")>></span> |
+			<<link "Change">>
+				<<if $infinitespray is 1>>
+					<<set $infinitespray to 0>>
+				<<else>>
+					<<spray 5>>
+					<<set $infinitespray to 1>>
+				<</if>>
+				<<replace "#statsinfinitespray">><<= ($infinitespray ? "On" : "Off")>><</replace>>
+			<</link>>
+			<br>
+
+			<<if $debug is 1>>
+				Pheromones (DEBUG): <span id="statsalluretest"><<= $alluretest ? "On" : "Off">></span> |
+				<<link "Change">>
+					<<if $alluretest is 1>>
+						<<set $alluretest to 0>>
+					<<else>>
+						<<set $alluretest to 1>>
+					<</if>>
+					<<replace "#statsalluretest">><<= $alluretest>><</replace>>
+				<</link>>
+				<br>
+			<</if>>
+		</div>
+		<div class="settingsToggleItem">
+			<span class="gold">Body</span> <mouse class="tooltip linkBlue">(?)<span>Changing the player's genitalia will wash the player of lewd fluids and remove genital parasites to prevent them from lingering on nonexisting body parts.</span></mouse>
+			<br>
+			Genitals:
+			<span id="statsGender">
+				<<cheatsSex>>
+			</span>
+			<br>
+			<<set _gender_body_words to {"m": "Masculine", "f": "Feminine", "a": "Androgynous"}>>
+			Body type <mouse class="tooltip linkBlue">(?)<span>Contributes to how feminine or masculine you appear. In normal gameplay, the player's body type does not contribute to gender appearance, unless it has been feminised or masculinised via special clothing.</span></mouse>:
+			<span id="statsBodyType">
+				<<cheatsBody>>
+			</span>
+			<br>
+			<<set _bodysize_words to ["Tiny","Small","Normal","Large"]>>
+			Body size:
+			<span id="statsBodySize">
+				<<cheatsBodySize>>
+			</span>
+			<br>
+			Body shape:
+			<span id="statsBodyShape">
+				<<cheatsBodyShape>>
+			</span>
+			<<if setup.faceStyleOptions.length gt 1>>
+				<br>
+				Face style:
+				<span id="statsFaceStyle">
+					<<cheatsFaceStyle>>
+				</span>
+			<</if>>
+			<br>
+			Demeanour:
+			<span id="statsDemeanour">
+				<<cheatsDemeanour>>
+			</span>
+		</div>
+		<div class="settingsToggleItem">
+			<span class="gold">Virginity</span>
+			<br>
+			<<set _virginity to clone($player.virginity)>>
+			<<if $player.vaginaExist or $player.virginity.vaginal isnot true>>
+				Vaginal: <<cheatVirginityToggle "vaginal">>
+				<br>
+			<</if>>
+			<<if $player.penisExist or $player.virginity.penile isnot true>>
+				Penile: <<cheatVirginityToggle "penile">>
+				<br>
+			<</if>>
+			Anal: <<cheatVirginityToggle "anal">>
+			<br>
+			Oral: <<cheatVirginityToggle "oral">>
+			<br>
+			Handholding: <<cheatVirginityToggle "handholding">>
+			<br>
+			First kiss: <<cheatVirginityToggle "kiss">>
+			<<if $temple_rank isnot undefined and $temple_rank isnot "prospective">>
+				<br>
+				Temple Vow: <<cheatVirginityToggle "temple">>
+			<</if>>
+		</div>
+		<div class="settingsToggleItem">
+			<span class="gold">State</span>
+			<br>
+			<<set _state to ["pain", "arousal", "tiredness", "stress", "trauma", "drunk", "drugged", "hallucinogen"]>>
+
+			<<link "Refresh">>
+				<<set $control = 1000>><<clamp>>
+				<<for _i range _state>>
+					<<set V[_i] to 0>><<clamp>>
+				<</for>>
+				<<replace "#cheatstate">><<cheatSection "state">><</replace>>
+				<<updatesidebarimg>>
+			<</link>> |
+
+			<<link "Ruin">>
+				<<set $control = 0>><<clamp>>
+				<<for _i range _state>>
+					<<set V[_i] to 20000>><<clamp>>
+				<</for>>
+				<<replace "#cheatstate">><<cheatSection "state">><</replace>>
+				<<updatesidebarimg>>
+			<</link>>
+			<br><br>
+			<div id="cheatstate">
+				<<cheatSection "state">>
+			</div>
+		</div>
+		<div class="settingsToggleItem">
+			<span class="gold">Fluids:</span>
+			<<link "Refill">>
+				<<set $semen_amount to $semen_volume>>
+				<<set $milk_amount to $milk_volume>>
+				<<replace "#fluids">><<cheats-fluids>><</replace>>
+			<</link>> | <<link "Empty">>
+				<<set $semen_amount to 0>>
+				<<set $milk_amount to 0>>
+				<<replace "#fluids">><<cheats-fluids>><</replace>>
+			<</link>>
+			<br>
+			<span class="gold">Lactating:</span> <span id="statslactatingspray"><<= ($lactating is 1 ? "Yes" : "No")>></span> |	<<link "Toggle">><<set $lactating to ($lactating is 1 ? 0 : 1)>><<set $lactation_pressure to $lactating * 100>><<replace "#statslactatingspray">><<= ($lactating is 1 ? "Yes" : "No")>><</replace>><<updatesidebarimg>><</link>>
+			<br><br>
+			<span id="fluids"><<cheats-fluids>></span>
+			<<numberStepper "Milk Volume" $milk_volume {
+				callback: value => {
+					V.milk_volume = value;
+					V.milk_amount = Math.min(V.milk_amount, V.milk_volume);
+					Wikifier.wikifyEval("<<replace '#fluids'>><<cheats-fluids>><</replace>>");
+				},
+				step: 10,
+				valueFormat: value => Math.round(value) + "ml",
+				percentage: false, min: 24, max: (V.cow >= 6 ? 6000 : 3000)
+			}>>
+			<<if $player.penisExist>>
+				<<numberStepper "Semen Volume" $semen_volume {
+					callback: value => {
+						V.semen_volume = value;
+						V.semen_amount = Math.min(V.semen_amount, V.semen_volume);
+						Wikifier.wikifyEval("<<replace '#fluids'>><<cheats-fluids>><</replace>>");
+					},
+					step: 10,
+					valueFormat: value => Math.round(value) + "ml",
+					percentage: false, max: (V.cow >= 6 ? 4000 : 3000)
+				}>>
+			<</if>>
+		</div>
+	</div>
+	<hr>
+	<div class="settingsGrid">
+		<div class="settingsHeader options">Clothes</div>
+		<div class="settingsToggleItemWide">
+			<<link "Unlock all special clothing">>
+				<<run for(const c in V.specialClothes) {if (V.specialClothes[c].unlocked === 0) V.specialClothes[c].unlocked = 1}>>
+			<</link>>
+			<br>
+			<span class="description">If clothing health is set to zero, it will break. Leaving the cheats menu will destroy it, and you will not be able to get it back.</span>
+			<br>
+		</div>
+		<<set _cl_slots to ["upper", "lower", "under_upper", "under_lower", "over_upper", "over_lower", "genitals"]>>
+		<<if $worn.face.type.includesAny("face_covering", "gag", "mask")>>
+			<<run _cl_slots.push("face")>>
+		<</if>>
+		<<set $_clothes to []>>
+
+		<<if $worn.over_upper.integrity gte 1>>
+			<div class="settingsToggleItem numberslider-inline">
+				<span class="gold"><<clothingicon $worn.over_upper "over_upper">><<= $worn.over_upper.name.toUpperFirst()>> integrity:</span>
+
+				<<set _overupperintegritymax to getSetupClothing('over_upper', $worn.over_upper)?.integrity_max || 200>>
+				<<numberslider "$worn.over_upper.integrity" `Math.min($worn.over_upper.integrity, _overupperintegritymax)` 0 _overupperintegritymax 1 {
+					onInputChange: value => wikifier("<<updatesidebarimg false>>"),
+					value: () => integrityWord(V.worn.over_upper, "over_upper") || `<span class="green">full</span>`
+				}>>
+			</div>
+			<div class="settingsToggleItem numberslider-inline">
+				<span class="gold"><<clothingicon $worn.over_upper "over_upper">><<= $worn.over_upper.name.toUpperFirst()>> wetness:</span>
+				<<numberslider "$overupperwet" $overupperwet 0 200 1 {
+					onInputChange: (value) => cheatsShowWetness('overupperwet', value),
+					value: v => wetnessWord('overupper')
+				}>>
+			</div>
+		<<else>>
+			<<set $_clothes.push("an overtop")>>
+		<</if>>
+		<<if $worn.over_lower.integrity gte 1>>
+			<div class="settingsToggleItem numberslider-inline">
+				<<set _overlowerintegritymax to getSetupClothing('over_lower', $worn.over_lower)?.integrity_max || 200>>
+				<span class="gold"><<clothingicon $worn.over_lower "over_lower">><<= $worn.over_lower.name.toUpperFirst()>> integrity:</span>
+				<<numberslider "$worn.over_lower.integrity" `Math.min($worn.over_lower.integrity, _overlowerintegritymax)` 0 _overlowerintegritymax 1 {
+					onInputChange: value => wikifier("<<updatesidebarimg false>>"),
+					value: () => integrityWord(V.worn.over_lower, "over_lower") || `<span class="green">full</span>`
+				}>>
+			</div>
+			<div class="settingsToggleItem numberslider-inline">
+				<span class="gold"><<clothingicon $worn.over_lower "over_lower">><<= $worn.over_lower.name.toUpperFirst()>> wetness:</span>
+				<<numberslider "$overlowerwet" $overlowerwet 0 200 1 {
+					onInputChange: (value) => cheatsShowWetness('overlowerwet', value),
+					value: v => wetnessWord('overlower')
+				}>>
+			</div>
+		<<else>>
+			<<set $_clothes.push("an overbottom")>>
+		<</if>>
+
+		<<if $worn.upper.integrity gte 1>>
+			<div class="settingsToggleItem numberslider-inline">
+				<span class="gold"><<clothingicon $worn.upper "upper">><<= $worn.upper.name.toUpperFirst()>> integrity:</span>
+				<<set _upperintegritymax to getSetupClothing('upper', $worn.upper)?.integrity_max || 200>>
+				<<numberslider "$worn.upper.integrity" `Math.min($worn.upper.integrity, _upperintegritymax)` 0 _upperintegritymax 1 {
+					onInputChange: value => wikifier("<<updatesidebarimg false>>"),
+					value: () => integrityWord(V.worn.upper, "upper") || `<span class="green">full</span>`
+				}>>
+			</div>
+			<div class="settingsToggleItem numberslider-inline">
+				<span class="gold"><<clothingicon $worn.upper "upper">><<= $worn.upper.name.toUpperFirst()>> wetness:</span>
+				<<numberslider "$upperwet" $upperwet 0 200 1 {
+					onInputChange: (value) => cheatsShowWetness('upperwet', value),
+					value: v => wetnessWord('upper')
+				}>>
+			</div>
+		<<else>>
+			<<set $_clothes.push("a top")>>
+		<</if>>
+
+		<<if $worn.lower.integrity gte 1>>
+			<div class="settingsToggleItem numberslider-inline">
+				<span class="gold"><<clothingicon $worn.lower "lower">><<= $worn.lower.name.toUpperFirst()>> integrity:</span>
+				<<set _lowerintegritymax to getSetupClothing('lower', $worn.lower)?.integrity_max || 200>>
+				<<numberslider "$worn.lower.integrity" `Math.min($worn.lower.integrity, _lowerintegritymax)` 0 _lowerintegritymax 1 {
+					onInputChange: value => wikifier("<<updatesidebarimg false>>"),
+					value: () => integrityWord(V.worn.lower, "lower") || `<span class="green">full</span>`
+				}>>
+			</div>
+			<div class="settingsToggleItem numberslider-inline">
+				<span class="gold"><<clothingicon $worn.lower "lower">><<= $worn.lower.name.toUpperFirst()>> wetness:</span>
+				<<numberslider "$lowerwet" $lowerwet 0 200 1 {
+					onInputChange: (value) => cheatsShowWetness('lowerwet', value),
+					value: v => wetnessWord('lower')
+				}>>
+			</div>
+		<<else>>
+			<<set $_clothes.push("a bottom")>>
+		<</if>>
+
+		<<if $worn.under_lower.integrity gte 1>>
+			<div class="settingsToggleItem numberslider-inline">
+				<span class="gold"><<clothingicon $worn.under_lower "under_lower">><<= $worn.under_lower.name.toUpperFirst()>> integrity:</span>
+				<<set _underlowerintegritymax to getSetupClothing('under_lower', $worn.under_lower)?.integrity_max || 200>>
+				<<numberslider "$worn.under_lower.integrity" `Math.min($worn.under_lower.integrity, _underlowerintegritymax)`  0 _underlowerintegritymax 1 {
+					onInputChange: value => wikifier("<<updatesidebarimg false>>"),
+					value: () => integrityWord(V.worn.under_lower, "under_lower") || `<span class="green">full</span>`
+				}>>
+				<br>
+			</div>
+			<div class="settingsToggleItem numberslider-inline">
+				<span class="gold"><<clothingicon $worn.under_lower "under_lower">><<= $worn.under_lower.name.toUpperFirst()>> wetness:</span>
+				<<numberslider "$underlowerwet" $underlowerwet 0 200 1 {
+					onInputChange: (value) => cheatsShowWetness('underlowerwet', value),
+					value: v => wetnessWord('underlower')
+				}>>
+			</div>
+		<<else>>
+			<<set $_clothes.push("underbottoms")>>
+		<</if>>
+
+		<<if $worn.under_upper.integrity gte 1>>
+			<div class="settingsToggleItem numberslider-inline">
+				<span class="gold"><<clothingicon $worn.under_upper "under_upper">><<= $worn.under_upper.name.toUpperFirst()>> integrity:</span>
+				<<set _underupperintegritymax to getSetupClothing('under_upper', $worn.under_upper)?.integrity_max || 200>>
+				<<numberslider "$worn.under_upper.integrity" `Math.min($worn.under_upper.integrity, _underupperintegritymax)` 0 _underupperintegritymax 1 {
+					onInputChange: value => wikifier("<<updatesidebarimg false>>"),
+					value: () => integrityWord(V.worn.under_upper, "under_upper") || `<span class="green">full</span>`
+				}>>
+				<br>
+			</div>
+			<div class="settingsToggleItem numberslider-inline">
+				<span class="gold"><<clothingicon $worn.under_upper "under_upper">><<= $worn.under_upper.name.toUpperFirst()>> wetness:</span>
+				<<numberslider "$underupperwet" $underupperwet 0 200 1 {
+					onInputChange: (value) => cheatsShowWetness('underupperwet', value),
+					value: v => wetnessWord('underupper')
+				}>>
+			</div>
+		<<else>>
+			<<set $_clothes.push("an undertop")>>
+		<</if>>
+
+		<<if $worn.genitals.integrity gte 1>>
+			<div class="settingsToggleItemWide numberslider-inline">
+				<span class="gold"><<clothingicon $worn.genitals "genitals">><<= $worn.genitals.name.toUpperFirst()>> integrity:</span>
+				<<set _genitalsintegritymax to getSetupClothing('genitals', $worn.genitals)?.integrity_max || 200>>
+				<<numberslider "$worn.genitals.integrity" `Math.min($worn.genitals.integrity, _genitalsintegritymax)` 0 _genitalsintegritymax 1 {
+					onInputChange: value => wikifier("<<updatesidebarimg false>>"),
+					value: () => integrityWord(V.worn.genitals, "genitals") || `<span class="green">full</span>`
+				}>>
+				<br>
+			</div>
+		<<else>>
+			<<set $_clothes.push("a chastity belt")>>
+		<</if>>
+
+		<<if $worn.face.type.includesAny("face_covering", "gag", "mask")>>
+			<div class="settingsToggleItemWide numberslider-inline">
+				<span class="gold"><<clothingicon $worn.face "face">><<= $worn.face.name.toUpperFirst()>> integrity:</span>
+
+				<<set _faceintegritymax to getSetupClothing('face', $worn.face)?.integrity_max || 200>>
+				<<numberslider "$worn.face.integrity" `Math.min($worn.face.integrity, _faceintegritymax)` 0 _faceintegritymax 1 {
+					onInputChange: value => wikifier("<<updatesidebarimg false>>"),
+					value: () => integrityWord(V.worn.face, "face") || `<span class="green">full</span>`
+				}>>
+				<br>
+			</div>
+		<<else>>
+			<<set $_clothes.push("a mask, or a gag")>>
+		<</if>>
+		<div class="settingsToggleItemWide">
+			You are not wearing <span class="gold"><<= $_clothes.join(", ")>></span>.
+
+			<br>
+			<label>Auto repair <<checkbox "$cheatClothes" false true autocheck>></label> |
+			/* Don't show links if player doesn't have anything to fix/destroy */
+			<<if $_clothes.length lt 8>>
+				<<link "Fix all">>
+					<<run _cl_slots.forEach((slot) => {
+						if (V.worn[slot].name === "naked") return;
+						V.worn[slot].integrity = clothingData(slot, V.worn[slot], "integrity_max");
+						cheatsUpdateSlider(
+							`#numberslider-input-worn${slot.replace('_', '-')}integrity`,
+							V.worn[slot].integrity
+						);
+					})>>
+					<<updatesidebarimg>>
+				<</link>> |
+				<<link "Destroy all">>
+					/* not using ruined widgets to avoid side effects until confirmation */
+					<<run _cl_slots.forEach((slot) => {
+						if (V.worn[slot].name === "naked") return;
+						V.worn[slot].integrity = 0;
+						cheatsUpdateSlider(
+							`#numberslider-input-worn${slot.replace('_', '-')}integrity`,
+							V.worn[slot].integrity
+						);
+					})>>
+					<<updatesidebarimg>>
+				<</link>>
+			<</if>>
+			/* Don't show unless the player is wearing clothes that can be drenched or dried */
+			<<if !$_clothes.includesAll("an overtop", "an overbottom", "a top", "a bottom", "underbottoms", "an undertop")>>
+				| <<link "Dry all">>
+					<<dry_full>>
+					<<run _cl_slots.slice(0, 4).forEach((slot) => {
+						if (V.worn[slot].name === 'naked') return;
+						const wetnessProp = slot.replace('_', '') + 'wet';
+						V[wetnessProp + 'stage'] = 0;
+						cheatsUpdateSlider(`#numberslider-input-${wetnessProp}`, V[wetnessProp]);
+					})>>
+					<<updatesidebarimg>>
+				<</link>> |
+				<<link "Drench all">>
+					<<run _cl_slots.slice(0, 4).forEach((slot) => {
+						if (V.worn[slot].name === 'naked') return;
+						const wetnessProp = slot.replace('_', '') + 'wet';
+						V[wetnessProp] = 200;
+						V[wetnessProp + 'stage'] = 3;
+						cheatsUpdateSlider(`#numberslider-input-${wetnessProp}`, V[wetnessProp]);
+					})>>
+					<<updatesidebarimg>>
+				<</link>>
+			<</if>>
+			<br><br>
+			<span class="gold">Bindings:</span>
+			<br>
+			<span class="description"> Binding your arms will destroy handheld items. Shackling your feet will destroy shoes.</span>
+			<br>
+			<<icon "clothes/gag.png">><<link "Gag">><<facewear "gag">><<updatesidebarimg>><</link>> | <<link "Blindfold">><<facewear "blindfold">><<updatesidebarimg>><</link>> | <<link "Gag and blindfold">><<facewear "gag and blindfold">><<updatesidebarimg>><</link>> | <<link "Bind arms">><<bind>><<updatesidebarimg>><</link>> | <<link "Shackle feet">><<shackle_feet>><<updatesidebarimg>><</link>>
+			<br>
+			<<undobindingsicon>> <<link "Unbind all">><<unbind>><<if $worn.face.type.includes("gag") or $worn.face.type.includes("blindfold")>><<set $worn.face.type.push("broken")>><<faceruined>><</if>><<updatesidebarimg>><</link>>
+
+			<<if $debug is 1>>
+				<br><br>
+				<span class="gold">Add to Wardrobe:</span>
+				<br>
+				<span class="description">DEBUG: Send clothing with a given ID to your wardrobe.</span>
+				<br>
+				<<listbox "_slot" autoselect>>
+					<<optionsfrom setup.clothingLayer.body>>
+				<</listbox>>
+				<<set _clothesID to 1>>
+				<<numberbox "_clothesID" 1>>
+				<br>
+				<<link "Send">>
+					<<if !between(_clothesID, 1, setup.clothes[_slot].length - 1)>>
+						<<replace "#ClothesSendResult">>That didn't work!<</replace>>
+					<<else>>
+						<<shopbuyv2 _slot "buy" "send" _clothesID 1>>
+						<<replace "#ClothesSendResult">>Sent <<= setup.clothes[_slot][_clothesID].name>> to your wardrobe!<</replace>>
+					<</if>>
+				<</link>>
+				<br>
+				<span id="ClothesSendResult"></span>
+			<</if>>
+		</div>
+	</div>
+	<hr>
+	<div class="cheatsGrid">
+		<div class="settingsHeader options">Characteristics</div>
+		<div class="settingsToggleItem">
+			<<set _core to ["purity", "beauty", "physique", "willpower", "awareness", "promiscuity", "exhibitionism", "deviancy"]>>
+			<<if numberOfEarSlime()>><<set _core.push("earSlime.corruption")>><</if>>
+			<span class="gold">Core Characteristics</span>
+			<br>
+			<<link "Set all to 0">>
+				<<for _i range _core>>
+					<<set V[_i] to 0>><<clamp>>
+				<</for>>
+				<<replace "#characteristics">><<cheatSection "characteristics">><</replace>>
+			<</link>>
+			|
+			<<link "Set all to max">>
+				<<for _i range _core>>
+					<<set V[_i] to 20000>><<clamp>>
+				<</for>>
+				<<replace "#characteristics">><<cheatSection "characteristics">><</replace>>
+			<</link>>
+			<br><br>
+			<span id="characteristics">
+				<<cheatSection "characteristics">>
+			</span>
+			<hr>
+			<span class="gold">Secondary Characteristics</span>
+			<br>
+			Speech Attitude:
+			<span id="statsSpeechAttitude">
+				<<cheatsSpeechAttitude>>
+			</span>
+			<br>
+			<span class="description">Changing speech attitude will also alter your submissiveness.</span>
+			<<numberStepper "Submissiveness" $submissive "submissive" {max: 2000}>>
+			<<numberStepper "Masochism" $masochism "masochism" {max: 1000}>>
+			<<numberStepper "Sadism" $sadism "sadism" {max: 1000}>>
+
+			<<if $temple_rank is "initiate" or $temple_rank is "monk" or $temple_rank is "priest">>
+				<<numberStepper "Grace" $grace "grace">>
+			<</if>>
+		</div>
+
+		<div class="settingsToggleItem">
+			<<set _skills to ["skulduggery", "skulduggeryday", "danceskill", "swimmingskill", "athletics", "tending", "housekeeping"]>>
+			<span class="gold">Core Skills</span>
+			<br>
+			<<link "Set all to 0">>
+				<<for _i range _skills>>
+					<<set V[_i] to 0>><<clamp>>
+				<</for>>
+				<<replace "#coreSkills">><<cheatSection "skills">><</replace>>
+			<</link>>
+			|
+			<<link "Set all to max">>
+				<<for _i range _skills>>
+					<<set V[_i] to 20000>><<clamp>>
+				<</for>>
+				<<replace "#coreSkills">><<cheatSection "skills">><</replace>>
+			<</link>>
+			<br><br>
+			<span id="coreSkills">
+				<<cheatSection "skills">>
+			</span>
+			<hr>
+			<<set _subjects to ["english", "maths", "science", "history"]>>
+			<span class="gold">School Skills</span>
+			<br>
+			<<link "Set all to 0">>
+				<<for _i range _subjects>>
+					<<set V[_i] to 0>><<clamp>>
+				<</for>>
+				<<adjust_school_traits>>
+				<<replace "#schoolSkills">><<cheatSection "school">><</replace>>
+			<</link>>
+			|
+			<<link "Set all to max">>
+				<<for _i range _subjects>>
+					<<set V[_i] to 1000>><<clamp>>
+				<</for>>
+				<<adjust_school_traits>>
+				<<replace "#schoolSkills">><<cheatSection "school">><</replace>>
+			<</link>>
+			<br><br>
+			<span id="schoolSkills">
+				<<cheatSection "school">>
+			</span>
+		</div>
+
+		<div class="settingsToggleItem">
+			<<set _sexSkills to ["seduction", "oral", "vaginal", "penile", "anal", "hand", "feet", "bottom", "thigh", "chest"]>>
+			<span class="gold">Sex Skills</span>
+			<br>
+			<<link "Set all to 0">>
+				<<for _i range _sexSkills>>
+					<<set V[`${_i}skill`] to 0>><<clamp>>
+				<</for>>
+				<<replace "#cheatsSex">><<cheatSection "sex">><</replace>>
+			<</link>>
+			|
+			<<link "Set all to max">>
+				<<for _i range _sexSkills>>
+					<<set V[`${_i}skill`] to 1000>><<clamp>>
+				<</for>>
+				<<replace "#cheatsSex">><<cheatSection "sex">><</replace>>
+			<</link>>
+			<br><br>
+
+			<span id="cheatsSex">
+				<<cheatSection "sex">>
+			</span>
+		</div>
+
+		<div class="settingsToggleItem">
+			<span class="gold">Traits</span>
+			<br>
+			<<set $_traits to {"choke": $choketrait, "milkdrank" : $milkdranktrait, "vore" : $voretrait, "tentacle" : $tentacletrait, "bestiality" : $bestialitytrait, "rape" : $rapetrait, "molest" : $molesttrait, "ejac" : $ejactrait, "orgasm" : $orgasmtrait}>>
+			<<set _traitValue to {"1": "On", "-1": "Disabled", "0": "Off"}>>
+
+			Orgasm Addict: <span id="statsorgasmtrait" @class="$orgasmtrait is 1 ? 'green' : 'red'"><<= _traitValue[$_traits["orgasm"].toString()]>></span> |
+			<<link "Change">>
+				<<set $orgasmtrait += 1>>
+				<<if $orgasmtrait gte 2>>
+					<<set $orgasmtrait to -1>>
+				<</if>>
+				<<replace "#statsorgasmtrait">>
+					<<set _orgasmtrait to _traitValue[$orgasmtrait.toString()]>>
+					<<= _orgasmtrait>>
+					<<changeCheatClass "#statsorgasmtrait" _orgasmtrait>>
+				<</replace>>
+			<</link>>
+			<br>
+
+			Cum Dump: <span id="statsejactrait" @class="$ejactrait is 1 ? 'green' : 'red'"><<= _traitValue[$_traits["ejac"].toString()]>></span> |
+			<<link "Change">>
+				<<set $ejactrait += 1>>
+				<<if $ejactrait gte 2>>
+					<<set $ejactrait to -1>>
+				<</if>>
+				<<replace "#statsejactrait">>
+					<<set _ejactrait to _traitValue[$ejactrait.toString()]>>
+					<<= _ejactrait>>
+					<<changeCheatClass "#statsejactrait" _ejactrait>>
+				<</replace>>
+			<</link>>
+			<br>
+
+			Plaything: <span id="statsmolesttrait" @class="$molesttrait is 1 ? 'green' : 'red'"><<= _traitValue[$_traits["molest"].toString()]>></span> |
+			<<link "Change">>
+				<<set $molesttrait += 1>>
+				<<if $molesttrait gte 2>>
+					<<set $molesttrait to -1>>
+				<</if>>
+				<<replace "#statsmolesttrait">>
+					<<set _molesttrait to _traitValue[$molesttrait.toString()]>>
+					<<= _molesttrait>>
+					<<changeCheatClass "#statsmolesttrait" _molesttrait>>
+				<</replace>>
+			<</link>>
+			<br>
+
+			Fucktoy: <span id="statsrapetrait" @class="$rapetrait is 1 ? 'green' : 'red'"><<= _traitValue[$_traits["rape"].toString()]>></span> |
+			<<link "Change">>
+				<<set $rapetrait += 1>>
+				<<if $rapetrait gte 2>>
+					<<set $rapetrait to -1>>
+				<</if>>
+				<<replace "#statsrapetrait">>
+					<<set _rapetrait to _traitValue[$rapetrait.toString()]>>
+					<<= _rapetrait>>
+					<<changeCheatClass "#statsrapetrait" _rapetrait>>
+				<</replace>>
+			<</link>>
+			<br>
+
+			Bitch: <span id="statsbestialitytrait" @class="$bestialitytrait is 1 ? 'green' : 'red'"><<= _traitValue[$_traits["bestiality"].toString()]>></span> |
+			<<link "Change">>
+				<<set $bestialitytrait += 1>>
+				<<if $bestialitytrait gte 2>>
+					<<set $bestialitytrait to -1>>
+				<</if>>
+				<<replace "#statsbestialitytrait">>
+					<<set _bestialitytrait to _traitValue[$bestialitytrait.toString()]>>
+					<<= _bestialitytrait>>
+					<<changeCheatClass "#statsbestialitytrait" _bestialitytrait>>
+				<</replace>>
+			<</link>>
+			<br>
+
+			Prey: <span id="statstentacletrait" @class="$tentacletrait is 1 ? 'green' : 'red'"><<= _traitValue[$_traits["tentacle"].toString()]>></span> |
+			<<link "Change">>
+				<<set $tentacletrait += 1>>
+				<<if $tentacletrait gte 2>>
+					<<set $tentacletrait to -1>>
+				<</if>>
+				<<replace "#statstentacletrait">>
+					<<set _tentacletrait to _traitValue[$tentacletrait.toString()]>>
+					<<= _tentacletrait>>
+					<<changeCheatClass "#statstentacletrait" _tentacletrait>>
+				<</replace>>
+			<</link>>
+			<br>
+
+			Tasty: <span id="statsvoretrait" @class="$voretrait is 1 ? 'green' : 'red'"><<= _traitValue[$_traits["vore"].toString()]>></span> |
+			<<link "Change">>
+				<<set $voretrait += 1>>
+				<<if $voretrait gte 2>>
+					<<set $voretrait to -1>>
+				<</if>>
+				<<replace "#statsvoretrait">>
+					<<set _voretrait to _traitValue[$voretrait.toString()]>>
+					<<= _voretrait>>
+					<<changeCheatClass "#statsvoretrait" _voretrait>>
+				<</replace>>
+			<</link>>
+			<br>
+
+			Milk Addict: <span id="statsmilkdranktrait" @class="$milkdranktrait is 1 ? 'green' : 'red'"><<= _traitValue[$_traits["milkdrank"].toString()]>></span> |
+			<<link "Change">>
+				<<set $milkdranktrait += 1>>
+				<<if $milkdranktrait gte 2>>
+					<<set $milkdranktrait to -1>>
+				<</if>>
+				<<replace "#statsmilkdranktrait">>
+					<<set _milkdranktrait to _traitValue[$milkdranktrait.toString()]>>
+					<<= _milkdranktrait>>
+					<<changeCheatClass "#statsmilkdranktrait" _milkdranktrait>>
+				<</replace>>
+			<</link>>
+			<br>
+
+			Lustful: <span id="statslustful" @class="$backgroundTraits.includes('lustful') is true ? 'green' : 'red'"><<= $backgroundTraits.includes("lustful") is true ? "On" : "Off">></span> |
+			<<link "Change">>
+				<<if !$backgroundTraits.includes("lustful")>>
+					<<set $backgroundTraits.pushUnique("lustful")>><<set $specialClothesEffects.bimbo.total to 1200>>
+				<<else>>
+					<<set $backgroundTraits.delete("lustful")>><<if $specialClothesEffects.bimbo.total gt 1000>><<set $specialClothesEffects.bimbo.total to 1000>><</if>>
+				<</if>>
+				<<replace "#statslustful">>
+					<<set _lustful to $backgroundTraits.includes("lustful") is true ? "On" : "Off">>
+					<<= _lustful>>
+					<<changeCheatClass "#statslustful" _lustful>>
+				<</replace>>
+			<</link>>
+			<br>
+
+			Crossdresser: <span id="statscrossdresser" @class="$backgroundTraits.includes('crossdresser') is true ? 'green' : 'red'"><<= $backgroundTraits.includes("crossdresser") is true ? "On" : "Off">></span> |
+			<<link "Change">>
+				<<if !$backgroundTraits.includes("crossdresser")>>
+					<<set $backgroundTraits.pushUnique("crossdresser")>><<set $crossdressingTrait to 100>>
+				<<else>>
+					<<set $backgroundTraits.delete("crossdresser")>><<if $crossdressingTrait gt 80>><<set $crossdressingTrait to 80>><</if>>
+				<</if>>
+				<<replace "#statscrossdresser">>
+					<<set _crossdresser to $backgroundTraits.includes("crossdresser") is true ? "On" : "Off">>
+					<<= _crossdresser>>
+					<<changeCheatClass "#statscrossdresser" _crossdresser>>
+				<</replace>>
+			<</link>>
+			<br>
+
+			Green Thumb: <span id="statsgreenthumb" @class="$backgroundTraits.includes('greenthumb') is true ? 'green' : 'red'"><<= $backgroundTraits.includes("greenthumb")is true ? "On" : "Off">></span> |
+			<<link "Change">>
+				<<if !$backgroundTraits.includes("greenthumb")>>
+					<<set $backgroundTraits.pushUnique("greenthumb")>>
+				<<else>>
+					<<set $backgroundTraits.delete("greenthumb")>>
+				<</if>>
+				<<replace "#statsgreenthumb">>
+					<<set _greenthumb to $backgroundTraits.includes("greenthumb") is true ? "On" : "Off">>
+					<<= _greenthumb>>
+					<<changeCheatClass "#statsgreenthumb" _greenthumb>>
+				<</replace>>
+			<</link>>
+			<br>
+
+			Asphyxiophilia: <span id="statschoke" @class="$choketrait is 1 ? 'green' : 'red'"><<= _traitValue[$_traits["choke"].toString()]>></span> |
+			<<link "Change">>
+				<<set $choketrait += 1>>
+				<<if $choketrait gte 2>>
+					<<set $choketrait to 0>>
+				<</if>>
+				<<replace "#statschoke">>
+					<<set _choketrait to _traitValue[$choketrait.toString()]>>
+					<<= _choketrait>>
+					<<changeCheatClass "#statschoke" _choketrait>>
+				<</replace>>
+			<</link>>
+			<br>
+
+			Plant Lover: <span id="statsplantlover" @class="$backgroundTraits.includes('plantlover') is true ? 'green' : 'red'"><<= $backgroundTraits.includes("plantlover")is true ? "On" : "Off">></span> |
+			<<link "Change">>
+				<<if !$backgroundTraits.includes("plantlover")>>
+					<<set $backgroundTraits.pushUnique("plantlover")>>
+					<<set $nectar_addiction to 200>>
+					<<set $nectar_timer to 21>>
+				<<else>>
+					<<set $backgroundTraits.delete("plantlover")>>
+					<<set $nectar_addiction to 0>>
+					<<set $nectar_timer to 0>>
+				<</if>>
+				<<replace "#statsplantlover">>
+					<<set _plantlover to $backgroundTraits.includes("plantlover") is true ? "On" : "Off">>
+					<<= _plantlover>>
+					<<changeCheatClass "#statsplantlover" _plantlover>>
+				<</replace>>
+			<</link>>
+		</div>
+	</div>
+	<hr>
+	<div class="settingsGrid">
+		<div class="settingsHeader options">Fame</div>
+		<div class="settingsToggleItem">
+			<<set _positiveFames to ["good", "business", "scrap", "social", "model"]>>
+			<<set _negativeFames to ["exhibitionism", "prostitution", "bestiality", "sex", "rape", "pregnancy", "impreg"]>>
+			<span class="gold">Negative Fame</span>
+			<br>
+			<<link "Set all to 0">>
+				<<for _i range _negativeFames>>
+					<<set $fame[_i] to 0>>
+				<</for>>
+				<<fameclamp>>
+				<<replace #cheatsNegative>><<cheatSection "negative">><</replace>>
+			<</link>>
+			|
+			<<link "Set all to max">>
+				<<for _i range _negativeFames>>
+					<<set $fame[_i] to 2000>>
+				<</for>>
+				<<fameclamp>>
+				<<replace #cheatsNegative>><<cheatSection "negative">><</replace>>
+			<</link>>
+			<br><br>
+			<span id="cheatsNegative">
+				<<cheatSection "negative">>
+			</span>
+			<hr>
+			<span class="gold">Positive Fame</span>
+			<br>
+			<<link "Set all to 0">>
+				<<for _i range _positiveFames>>
+					<<set $fame[_i] to 0>>
+				<</for>>
+				<<fameclamp>>
+				<<replace #cheatsPositive>><<cheatSection "positive">><</replace>>
+			<</link>>
+			|
+			<<link "Set all to max">>
+				<<for _i range _positiveFames>>
+					<<set $fame[_i] to 2000>>
+				<</for>>
+				<<fameclamp>>
+				<<replace #cheatsPositive>><<cheatSection "positive">><</replace>>
+			<</link>>
+			<br><br>
+			<span id="cheatsPositive">
+				<<cheatSection "positive">>
+			</span>
+		</div>
+		<div class="settingsToggleItem">
+			<span class="gold">Crime</span>
+			<br>
+			<<link "Set all to 0">>
+				<<for _cr range Object.keys(setup.crimeNames)>>
+					<<capture _cr>>
+						<<set C.crime[_cr] to 0>>
+						<<replace "#cheatsCrime">><<cheatSection "crime">><</replace>>
+					<</capture>>
+				<</for>>
+			<</link>> |
+			<<link "Set all to max">>
+				<<for _cr range Object.keys(setup.crimeNames)>>
+					<<capture _cr>>
+						<<set C.crime[_cr] to 10000>>
+						<<replace "#cheatsCrime">><<cheatSection "crime">><</replace>>
+					<</capture>>
+				<</for>>
+			<</link>>
+			<br><br>
+			<span id="cheatsCrime">
+				<<cheatSection "crime">>
+			</span>
+			<hr>
+			<span class="gold">Crime Events</span>
+			<br>
+			<span id="statscrimeevents"><<listCrimeCheats>></span>
+			<<link "Clear Crime events">><<crimeClearEvent "all">><<replace #statscrimeevents>><<listCrimeCheats>><</replace>><</link>>
+		</div>
+	</div>
+<</widget>>
+
+<<widget "cheats-fluids">>
+	<<numberStepper "Milk Amount" $milk_amount "milk_amount" {
+		max: $milk_volume,
+		step: 10,
+		valueFormat: (value, percentage) => `<b>${Math.round(percentage)}%</b> (${Math.round(value)}ml)`
+	}>>
+	<<if $player.penisExist>>
+		<<numberStepper "Semen Amount" $semen_amount "semen_amount" {
+			max: $semen_volume,
+			step: 10,
+			valueFormat: (value, percentage) => `<b>${Math.round(percentage)}%</b> (${Math.round(value)}ml)`
+		}>>
+	<</if>>
+<</widget>>
+
+<<widget "cheats-characterVisual">>
+	<div class="settingsGrid">
+		<div class="settingsHeader options">Player</div>
+		<div class="settingsToggleItemWide">
+			<span class="gold">Hair Length</span>
+			<br>
+			<<if $passage is "Hairdressers Seat">>
+				Hair cheats are disabled while at the hairdressers.
+				<br><br>
+			<<else>>
+				<<numberStepper "Hair length" $hairlength {max: 1000, callback: value => {V.hairlength = value; calchairlengthstage(); wikifier("updatesidebarimg")}}>>
+				<<numberStepper "Fringe length" $fringelength {max: 1000, callback: value => {V.fringelength = value; calchairlengthstage(); wikifier("updatesidebarimg")}}>>
+
+				<<if $hairtest is 1 or $debug>>
+					<<foldout false "_cheatsFoldoutNatural">>
+						<span class="gold">Natural Hair Colour (DEBUG)</span>
+						<<set _bar to false>>
+						<<for _i = 0; _i < setup.colours.hair.length; _i++>>
+							<<if setup.colours.hair[_i].natural>>
+								<<if _bar>>|<</if>>
+								<label><span @class="setup.colours.hair[_i].csstext"><<= setup.colours.hair[_i].name_cap>></span> <<radiovar "$naturalhaircolour" setup.colours.hair[_i].variable>> <<updatesidebarimg>><</radiovar>></label>
+								<<set _bar to true>>
+							<</if>>
+						<</for>>
+						<br><br>
+					<</foldout>>
+				<</if>>
+
+				<<foldout false "_cheatsFoldoutDye">>
+					<span class="gold">Hair Dye</span>
+					<label>None <<radiovar "$haircolour" $naturalhaircolour>> <<updatesidebarimg>><</radiovar>></label>
+					<<for _i = 0; _i < setup.colours.hair.length; _i++>>
+						<<if setup.colours.hair[_i].dye>>
+							| <label><span @class="setup.colours.hair[_i].csstext"><<= setup.colours.hair[_i].name_cap>></span> <<radiovar "$haircolour" setup.colours.hair[_i].variable>> <<updatesidebarimg>><</radiovar>></label>
+						<</if>>
+					<</for>>
+					<br>
+					Two-tone:
+					<label>Enable <<radiovar "$hairColourStyle" "gradient">> <<updatesidebarimg>><</radiovar>></label>
+					<label>Disable <<radiovar "$hairColourStyle" "simple">> <<updatesidebarimg>><</radiovar>></label>
+					<br>
+					Two-tone style: <<listbox "$hairColourGradient.style" autoselect>>
+								<<option "Low Ombré" "low-ombre">>
+								<<option "High Ombré" "high-ombre">>
+								<<option "Split" "split">>
+								<<option "Face-framing highlights" "face-frame">>
+							<</listbox>>
+					<br><br>
+				<</foldout>>
+
+				<<foldout false "_cheatsFoldoutFringe">>
+					<span class="gold">Hair Fringe Dye</span>
+					<label>None <<radiovar "$hairfringecolour" $naturalhaircolour>> <<updatesidebarimg>><</radiovar>></label>
+					<<for _i = 0; _i < setup.colours.hair.length; _i++>>
+						<<if setup.colours.hair[_i].dye>>
+							| <label><span @class="setup.colours.hair[_i].csstext"><<= setup.colours.hair[_i].name_cap>></span> <<radiovar "$hairfringecolour" setup.colours.hair[_i].variable>> <<updatesidebarimg>><</radiovar>></label>
+						<</if>>
+					<</for>>
+					<br>
+					Two-tone:
+					<label>Enable <<radiovar "$hairFringeColourStyle" "gradient">> <<updatesidebarimg>><</radiovar>></label>
+					<label>Disable <<radiovar "$hairFringeColourStyle" "simple">> <<updatesidebarimg>><</radiovar>></label>
+					<br>
+					Two-tone style: <<listbox "$hairFringeColourGradient.style" autoselect>>
+								<<option "Low Ombré" "low-ombre">>
+								<<option "High Ombré" "high-ombre">>
+								<<option "Split" "split">>
+								<<option "Face-framing highlights" "face-frame">>
+							<</listbox>>
+					<br><br>
+				<</foldout>>
+			<</if>>
+		</div>
+
+		<div class="settingsToggleItem">
+			<span class="gold">Eye Colour</span>
+			<br>
+			<<set _bar to false>>
+			<<set _temp_list to []>>
+			<<for _i = 0; _i < setup.colours.eyes.length; _i++>>
+				<<if setup.colours.eyes[_i].natural and !_temp_list.includes(setup.colours.eyes[_i].name)>>
+					<<if _bar>>|<</if>>
+					<label>
+						<span @class="setup.colours.eyes[_i].csstext">
+							<<= setup.colours.eyes[_i].name>>
+						</span>
+						<<radiovar "$eyeselected" setup.colours.eyes[_i].variable>>
+							<<cheatMenuEyesSelected>>
+						<</radiovar>>
+						<<set _temp_list.push(setup.colours.eyes[_i].name)>>
+					</label>
+					<<set _bar to true>>
+				<</if>>
+			<</for>>
+		</div>
+		<div class="settingsToggleItem">
+			<span class="gold">Freckles</span>
+			<br>
+			<label>Enabled <<radiobutton "$player.freckles" true autocheck>></label>
+			| <label>Disabled <<radiobutton "$player.freckles" false `!$player.freckles ? "checked" : ""`>></label>
+		</div>
+		<div class="settingsToggleItem">
+			<span class="gold">Breast Size</span>
+			<<set _breastsText to ["Flat", "Budding", "Tiny", "Small", "Pert", "Modest", "Full", "Large", "Ample", "Massive", "Huge", "Gigantic", "Enormous"]>>
+			<<numberslider "$player.breastsize" $player.breastsize  0 _breastsText.length-1 1 {
+				onInputChange: value => {
+					wikifier("<<updatesidebarimg false>>");
+				},
+				value: v => {
+					return T.breastsText[v];
+				}
+			}>>
+			<br><br>
+
+			<span class="gold">Bottom Size</span>
+			<<set _buttsText to ["Slender", "Slim", "Modest", "Cushioned", "Soft", "Round", "Plump", "Large", "Huge"]>>
+			<<numberslider "$player.bottomsize" $player.bottomsize  0 _buttsText.length-1 1 {
+				onInputChange: value => {
+					wikifier("<<updatesidebarimg false>>");
+				},
+				value: v => {
+					return T.buttsText[v];
+				}
+			}>>
+
+			<<if $player.penisExist>>
+				<br><br>
+				<span class="gold">Penis Size</span>
+				<<set _penisText to ["Micro", "Mini", "Tiny", "Small", "Normal", "Large", "Enormous"]>>
+				<<numberslider "$player.penissize" $player.penissize 0 6 1 {
+				onInputChange: value => {
+					wikifier("<<updatesidebarimg false>>");
+				},
+				value: v => {
+					return T.penisText[v];
+				}
+			}>>
+				<<if $debug is 1>>
+					<br>
+					<span class="description">Ball Size (DEBUG):
+					<<link "<">><<set $ballssize -= 1>><<clamp>><<replace "#statsballssize">><<= Math.trunc($ballssize)>><</replace>> <<updatesidebarimg>><</link>> |
+					<span id="statsballssize"><<= Math.trunc($ballssize)>></span>
+					| <<link ">">><<set $ballssize += 1>><<clamp>><<replace "#statsballssize">><<= Math.trunc($ballssize)>><</replace>> <<updatesidebarimg>><</link>></span>
+				<</if>>
+			<</if>>
+			<br><br>
+			<label>Cover nudity (only if embarrassed): <<checkbox "$dontHide" true false autocheck>>
+			<<run $(() => $('#checkbox-donthide').on('change', e => wikifier('<<updatesidebarimg>>')))>></label>
+		</div>
+		<div class="settingsToggleItem">
+			<span class="gold">Sensitivity</span>
+			<<numberStepper "Mouth sensitivity" $mouthsensitivity "mouthsensitivity" {
+				min: 1, max: 4, step: 0.1, reverse: true,
+				valueFormat: value => `<b>${round(value, 2)}</b> (${sensitivityString(value)})`
+			}>>
+			<<numberStepper "Breast sensitivity" $breastsensitivity "breastsensitivity" {
+				min: 1, max: 4, step: 0.1, reverse: true,
+				valueFormat: value => `<b>${round(value, 2)}</b> (${sensitivityString(value)})`
+			}>>
+			<<numberStepper "Genital sensitivity" $genitalsensitivity "genitalsensitivity" {
+				min: 1, max: 4, step: 0.1, reverse: true,
+				valueFormat: value => `<b>${round(value, 2)}</b> (${sensitivityString(value)})`
+			}>>
+			<<numberStepper "Bottom sensitivity" $bottomsensitivity "bottomsensitivity" {
+				min: 1, max: 4, step: 0.1, reverse: true,
+				valueFormat: value => `<b>${round(value, 2)}</b> (${sensitivityString(value)})`
+			}>>
+		</div>
+	</div>
+	<<if $settings.parasitesEnabled>>
+		<hr>
+		<div class="settingsGrid">
+			<div class="settingsHeader options">Parasites</div>
+			<div class="settingsToggleItemWide">
+				<<set _penis to $player.penisExist ? "penis" : "clit">>
+				<div id="nipples"><<cheatParasiteToggle "nipples">></div>
+				<div @id="_penis"><<cheatParasiteToggle _penis>></div>
+				<div id="bottom"><<cheatParasiteToggle "bottom">></div>
+				<div id="left_thigh"><<cheatParasiteToggle "left_thigh">></div>
+				<div id="right_thigh"><<cheatParasiteToggle "right_thigh">></div>
+				<div id="left_arm"><<cheatParasiteToggle "left_arm">></div>
+				<div id="right_arm"><<cheatParasiteToggle "right_arm">></div>
+				<div id="tummy"><<cheatParasiteToggle "tummy">></div>
+				<<if playerIsPregnant() and $player.sex is "m" and numberOfEarSlime()>>
+					<div class="red">Unable to remove ear slimes while pregnant as a male.</div>
+				<<else>>
+					<div id="left_ear"><<cheatParasiteToggle "left_ear">></div>
+					<div id="right_ear"><<cheatParasiteToggle "right_ear">></div>
+				<</if>>
+			</div>
+		</div>
+	<</if>>
+	<hr>
+	<div class="settingsGrid">
+		<div class="settingsHeader options">Fluids</div>
+		<<cheatBodyLiquid "semen">>
+		<<cheatBodyLiquid "goo">>
+		<<cheatBodyLiquid "nectar">>
+	</div>
+	<hr>
+	<div class="settingsGrid">
+		<div class="settingsHeader options">Transformations</div>
+		<div class="settingsToggleItem">
+			<span class="gold">Transformation Types</span>
+			<br>
+			<span class="description">You may only have one animal and one divine transformation at a time.</span>
+			<br>
+			<<tficon "angel">>Angel: <<link "Set">><<clearDivineTransformations>><<angelTransform>><<updatesidebarimg>><</link>> | <<link "Clear">><<angelTransform 99>><<updatesidebarimg>><</link>><br>
+			<<tficon "fallenangel">>Fallen Angel: <<link "Set">><<clearDivineTransformations>><<set $specialTransform to 1>>
+			<<set $fallenangel to 2>><<set $transformationParts.fallenAngel.halo to ($transformationParts.angel.halo is "traditional" ? "traditional" : "default")>><<set $transformationParts.fallenAngel.wings to ($transformationParts.angel.wings is "classic" ? "classic" : "default")>><<updatesidebarimg>><</link>> | <<link "Clear">><<fallenButNotOut 99>><<updatesidebarimg>><</link>><br>
+			<<tficon "demon">>Demon: <<link "Set">><<clearDivineTransformations>><<demonTransform>><<updatesidebarimg>><</link>> | <<link "Clear">><<demonTransform 99>><<updatesidebarimg>><</link>><br>
+			<<tficon "wolf">>Wolf: <<link "Set">><<clearAnimalTransformations>><<wolfTransform>><<updatesidebarimg>><</link>> | <<link "Clear">><<wolfTransform 99>><<updatesidebarimg>><</link>><br>
+			<<tficon "cat">>Cat: <<link "Set">><<clearAnimalTransformations>><<catTransform>><<updatesidebarimg>><</link>> | <<link "Clear">><<catTransform 99>><<updatesidebarimg>><</link>><br>
+			<<tficon "cow">>Cow: <<link "Set">><<clearAnimalTransformations>><<cowTransform>><<updatesidebarimg>><</link>> | <<link "Clear">><<cowTransform 99>><<updatesidebarimg>><</link>><br>
+			<<tficon "bird">>Bird: <<link "Set">><<clearAnimalTransformations>><<harpyTransform>><<updatesidebarimg>><</link>> | <<link "Clear">><<harpyTransform 99>><<updatesidebarimg>><</link>><br>
+			<<tficon "fox">>Fox: <<link "Set">><<clearAnimalTransformations>><<foxTransform>><<updatesidebarimg>><</link>> | <<link "Clear">><<foxTransform 99>><<updatesidebarimg>><</link>>
+		</div>
+		<div class="settingsToggleItem">
+			<span class="gold">Transformation Points</span>
+			<br>
+			<span class="description">Angel and Cat require 50 points to reach their full transformation, while all others require 30 points. Fallen Angel requires 30 points for Acceptance.</span>
+			<<for _tf range ["angel", "fallenangel", "demon", "wolf", "cat", "cow", "bird", "fox"]>>
+				<<capture _tf>>
+					<<set _name to (_tf is "fallenangel" ? "Fallen Angel" : _tf)>>
+					<<set _title to `<<tficon _tf>> ${toTitleCase(_name)}`>>
+					<<set _varName to (_tf is "fallenangel" ? "fallenbuild" : `${_tf}build`)>>
+					<<numberStepper _title `V[T.varName]` {
+						callback: (value, arr) => {
+							V[arr[0]] = value;
+							Wikifier.wikifyEval("<<transformationAlteration>><<updatesidebarimg>>");
+						},
+						max: 100, percentage: false, colorArr: ["--teal", "--purple"], values: [T.varName]
+					}>>
+				<</capture>>
+			<</for>>
+			<<unset _cr>>
+		</div>
+	</div>
+<</widget>>
+
+<<widget "cheatMenuEyesSelected">>
+	<<set $leftEyeColour to $eyeselected>>
+	<<set $rightEyeColour to $eyeselected>>
+	<<updatesidebarimg>>
+<</widget>>
+
+<<widget "cheats-npcs">>
+	<div class="settingsGrid">
+		<div class="settingsHeader options">NPC Virginity</div>
+		<div class="settingsToggleItemWide">
+			Reset the following NPC's virginities to their starting values:
+			<br>
+			<<listbox "_npcId" autoselect>>
+				<<optionsfrom $NPCNameList>>
+			<</listbox>>
+			<br><br>
+			<<link "Confirm">>
+				<<initNNPCVirginity $NPCNameList.indexOf(_npcId)>>
+				<<if $npc.includes(_npcId)>>
+					<<set $NPCList[$npcrow[$npc.indexOf(_npcId)]].virginity to C.npc[_npcId].virginity>>
+				<</if>>
+				<<for _virginType, _virginList range $virginTaken>>
+					<<run _virginList.delete(_npcId)>>
+				<</for>>
+				<<replace "#npcvirgin">><br><<= _npcId>>'s virginities have been restored.<</replace>>
+			<</link>>
+			<span id="npcvirgin"></span>
+		</div>
+	</div>
+	<hr>
+	<div class="settingsGrid">
+		<div class="settingsHeader options">Primary Relationships</div>
+		<div class="settingsToggleItem">
+			<span class="gold">Robin</span>
+			<<numberStepper "<<symbol love>> Love" `C.npc.Robin.love` { callback: value => { C.npc.Robin.love = value } }>>
+			<<numberStepper "<<symbol lust>> Lust" `C.npc.Robin.lust` { callback: value => { C.npc.Robin.lust = value } }>>
+			<<numberStepper "<<symbol confidence>> Confidence" `C.npc.Robin.dom` { callback: value => { C.npc.Robin.dom = value } }>>
+			<<numberStepper "<<symbol trauma>> Trauma" `C.npc.Robin.trauma` { callback: value => { C.npc.Robin.trauma = value }, reverse: true }>>
+		</div>
+		<div class="settingsToggleItem">
+			<span class="gold">Whitney</span>
+			<<numberStepper "<<symbol love>> Love" `C.npc.Whitney.love` { callback: value => { C.npc.Whitney.love = value }, max: 30 }>>
+			<<numberStepper "<<symbol lust>> Lust" `C.npc.Whitney.lust` { callback: value => { C.npc.Whitney.lust = value } }>>
+			<<numberStepper "<<symbol dominance>> Dominance" `C.npc.Whitney.dom` { callback: value => { C.npc.Whitney.dom = value }, max: 20 }>>
+		</div>
+		<div class="settingsToggleItem">
+			<span class="gold">Eden</span>
+			<<numberStepper "<<symbol love>> Love" `C.npc.Eden.love` { callback: value => { C.npc.Eden.love = value }, max: 200 }>>
+			<<numberStepper "<<symbol lust>> Lust" `C.npc.Eden.lust` { callback: value => { C.npc.Eden.lust = value } }>>
+			<<numberStepper "<<symbol dominance>> Dominance" `C.npc.Eden.dom` { callback: value => { C.npc.Eden.dom = value }, max: 150}>>
+		</div>
+		<div class="settingsToggleItem">
+			<span class="gold">Kylar</span>
+			<<numberStepper "<<symbol love>> Love" `C.npc.Kylar.love` { callback: value => { C.npc.Kylar.love = value } }>>
+			<<numberStepper "<<symbol lust>> Lust" `C.npc.Kylar.lust` { callback: value => { C.npc.Kylar.lust = value } }>>
+			<<numberStepper "<<symbol jealousy>> Jealousy" `C.npc.Kylar.rage` { callback: value => { C.npc.Kylar.rage = value }, reverse: true }>>
+		</div>
+		<div class="settingsToggleItem">
+			<span class="gold">Avery</span>
+			<<numberStepper "<<symbol love>> Love" `C.npc.Avery.love` { callback: value => { C.npc.Avery.love = value } }>>
+			<<numberStepper "<<symbol rage>> Rage" `C.npc.Avery.rage` { callback: value => { C.npc.Avery.rage = value }, reverse: true }>>
+			<<numberStepper "<<symbol dominance>> Dominance" `C.npc.Avery.dom` { callback: value => { C.npc.Avery.dom = value } }>>
+		</div>
+
+		<div class="settingsToggleItem">
+			<span class="gold">Alex</span>
+			<<numberStepper "<<symbol love>> Love" `C.npc.Alex.love` { callback: value => { C.npc.Alex.love = value } }>>
+			<<numberStepper "<<symbol lust>> Lust" `C.npc.Alex.lust` { callback: value => { C.npc.Alex.lust = value } }>>
+			<<numberStepper "<<symbol dominance>> Dominance" `C.npc.Alex.dom` { callback: value => { C.npc.Alex.dom = value }, min: -50 }>>
+		</div>
+		<div class="settingsToggleItem">
+			<span class="gold">Great Hawk</span>
+			<<numberStepper "<<symbol love>> Love" `C.npc["Great Hawk"].love` { callback: value => { C.npc["Great Hawk"].love = value } }>>
+			<<numberStepper "<<symbol dominance>> Dominance" `C.npc["Great Hawk"].dom` { callback: value => { C.npc["Great Hawk"].dom = value } }>>
+		</div>
+		<div class="settingsToggleItem">
+			<span class="gold">Black Wolf</span>
+			<<numberStepper "<<symbol love>> Love" `C.npc["Black Wolf"].love` { callback: value => { C.npc["Black Wolf"].love = value }, max: 150 }>>
+		</div>
+		<div class="settingsToggleItemWide">
+			<span class="gold">Sydney</span>
+			<<set _purity to C.npc.Sydney.purity gt 0 ? "purity" : "corruption">>
+			<<numberStepper "<<symbol love>> Love" `C.npc.Sydney.love` { callback: value => { C.npc.Sydney.love = value }, max: 150 }>>
+			<<numberStepper "<<symbol lust>> Lust" `C.npc.Sydney.lust` { callback: value => { C.npc.Sydney.lust = value } }>>
+			<span id="sydneypurity">
+				<<sydneyPurity>>
+			</span>
+			<span id="sydneydesc" class="description">
+				Setting Sydney's <<= _purity is "purity" ? "purity to below 0%" : "corruption to above 0%">> will switch it to <<= _purity is "purity" ? "corruption" : "purity">>.
+			</span>
+		</div>
+		/* Gwylan's love is a calculated value and any change added here would not stick. */
+		<<if $gwylanSeen?.includes("yearning")>>
+			<div class="settingsToggleItemWide">
+				<span class="gold">Gwylan</span>
+				<span id="gwylandesc" class="description">
+					Gwylan's love is calculated as a total from a list of events and can not be set with cheats.
+				</span>
+				<<numberStepper "<<symbol lust>> Lust" `C.npc.Gwylan.lust` { callback: value => { C.npc.Gwylan.lust = value } }>>
+				<<numberStepper "<<symbol yearning>> Yearning" `C.npc.Gwylan.dom` { callback: value => { C.npc.Gwylan.dom = value }, max: 150 }>>
+			</div>
+		<</if>>
+	</div>
+	<hr>
+	<div class="settingsGrid">
+		<div class="settingsHeader options">People of Interest</div>
+		<div class="settingsToggleItem">
+			<span class="gold">Mason</span>
+			<<numberStepper "<<symbol love>> <<print setup.loveAlias.Mason()>>" `C.npc.Mason.love` { callback: value => { C.npc.Mason.love = value }, max: 50 }>>
+			<<numberStepper "<<symbol lust>> Lust" `C.npc.Mason.lust` { callback: value => { C.npc.Mason.lust = value }, max: 100 }>>
+		</div>
+		<div class="settingsToggleItem">
+			<span class="gold">Zephyr</span>
+			<<numberStepper "<<symbol love>> <<print setup.loveAlias.Zephyr()>>" `C.npc.Zephyr.love` { callback: value => { C.npc.Zephyr.love = value } }>>
+			<<numberStepper "<<symbol lust>> Lust" `C.npc.Zephyr.lust` { callback: value => { C.npc.Zephyr.lust = value }, max: 100 }>>
+		</div>
+		<div class="settingsToggleItem">
+			<span class="gold">Teachers</span>
+			<<numberStepper "<<symbol love>> Sirris <<print setup.loveAlias.Sirris()>>" `C.npc.Sirris.love` { callback: value => { C.npc.Sirris.love = value } }>>
+			<<numberStepper "<<symbol love>> Doren <<print setup.loveAlias.Doren()>>" `C.npc.Doren.love` { callback: value => { C.npc.Doren.love = value } }>>
+			<<numberStepper "<<symbol love>> Leighton <<print setup.loveAlias.Leighton()>>" `C.npc.Leighton.love` { callback: value => { C.npc.Leighton.love = value } }>>
+			<<numberStepper "<<symbol love>> River <<print setup.loveAlias.River()>>" `C.npc.River.love` { callback: value => { C.npc.River.love = value }, max: 50 }>>
+			<<numberStepper "<<symbol love>> Winter <<print setup.loveAlias.Winter()>>" `C.npc.Winter.love` { callback: value => { C.npc.Winter.love = value } }>>
+		</div>
+		<div class="settingsToggleItem">
+			<span class="gold">Other Named NPCs</span>
+			<<numberStepper "<<symbol love>> Briar <<print setup.loveAlias.Briar()>>" `C.npc.Briar.love` { callback: value => { C.npc.Briar.love = value } }>>
+			<<numberStepper "<<symbol love>> Charlie <<print setup.loveAlias.Charlie()>>" `C.npc.Charlie.love` { callback: value => { C.npc.Charlie.love = value }, max: 50 }>>
+			<<numberStepper "<<symbol love>> Darryl <<print setup.loveAlias.Darryl()>>" `C.npc.Darryl.love` { callback: value => { C.npc.Darryl.love = value }, max: 50 }>>
+			<<numberStepper "<<symbol love>> Harper <<print setup.loveAlias.Harper()>>" `C.npc.Harper.love` { callback: value => { C.npc.Harper.love = value } }>>
+			<<numberStepper "<<symbol love>> Morgan <<print setup.loveAlias.Morgan()>>" `C.npc.Morgan.love` { callback: value => { C.npc.Morgan.love = value } }>>
+			<<numberStepper "<<symbol love>> Niki <<print setup.loveAlias.Niki()>>" `C.npc.Niki.love` { callback: value => { C.npc.Niki.love = value } }>>
+			<<numberStepper "<<symbol love>> Remy <<print setup.loveAlias.Remy()>>" `C.npc.Remy.love` { callback: value => { C.npc.Remy.love = value } }>>
+			<<numberStepper "<<symbol love>> Sam <<print setup.loveAlias.Sam()>>" `C.npc.Sam.love` { callback: value => { C.npc.Sam.love = value }, max: 50 }>>
+			<<numberStepper "<<symbol love>> Wren <<print setup.loveAlias.Wren()>>" `C.npc.Wren.love` { callback: value => { C.npc.Wren.love = value }, max: 50 }>>
+		</div>
+	</div>
+	<hr>
+	<div class="settingsGrid">
+		<div class="settingsHeader options">Reputation</div>
+		<<if $farm_stage gte 2>>
+			<div class="settingsToggleItem">
+				<<farmicon>><span class="gold">Farm Status</span>
+				<<numberStepper "Steeds' Respect" `V.farm.beasts.horses` { callback: value => { V.farm.beasts.horses = value }, min: -30, max: 30 }>>
+				<<numberStepper "Pigs' Respect" `V.farm.beasts.pigs` { callback: value => { V.farm.beasts.pigs = value }, min: -30, max: 30}>>
+				<<numberStepper "Cattle' Respect" `V.farm.beasts.cattle` { callback: value => { V.farm.beasts.cattle = value }, min: -30, max: 30 }>>
+				<<numberStepper "Dogs' Respect" `V.farm.beasts.dogs` { callback: value => { V.farm.beasts.dogs = value }, min: -30, max: 30 }>>
+			</div>
+			<div class="settingsToggleItem">
+				<<farmicon>><span class="gold">Farm Progress</span>
+				<br>
+				<<if $farm_stage gte 12>>
+					You've cleared <span class="green">all</span> of the fields.
+				<<else>>
+					<span id="farmYard"><<cheatsRep "farm">></span>
+				<</if>>
+				<<if $farm_stage gte 5>>
+					<hr>
+					<<numberStepper "Remy's Encroachment" `V.farm.aggro` { reverse: true, callback: value => { V.farm.aggro = value; Wikifier.wikifyEval("<<replace #farmAggro>><<cheatsRep aggro>><</replace>>") } }>>
+					<span id="farmAggro"><<cheatsRep "aggro">></span>
+				<</if>>
+			</div>
+		<</if>>
+		<div class="settingsToggleItem">
+			<<wolfcaveicon "pup">><span class="gold">Wolf Pack</span>
+			<br>
+			<<if $syndromewolves is 1>>
+				Rank: <span id="wolfpackleader"><<cheatsRep "wolfpackleader">></span>
+			<</if>>
+			<<numberStepper "Trust" $wolfpacktrust "wolfpacktrust" {max: 30}>>
+			<<numberStepper "Fear" $wolfpackfear "wolfpackfear" {max: 30}>>
+			<<if $syndromewolves is 1>>
+				<<numberStepper "Harmony" $wolfpackharmony "wolfpackharmony" {max: 20}>>
+				<<numberStepper "Ferocity" $wolfpackferocity "wolfpackferocity" {max: 20}>>
+			<</if>>
+		</div>
+		<div class="settingsToggleItem">
+			<<schoolicon "building">><span class="gold">School</span>
+			<<numberStepper "Status" $cool "cool" {max: V.coolmax}>>
+			<<numberStepper "Delinquency" $delinquency "delinquency" {max: 1000, reverse: true}>>
+			<hr>
+			<<if $player.penisExist and $player.vaginaExist>>
+				<<numberStepper "Hermaphrodite Fame" $schoolrep.herm { callback: value => {V.schoolrep.herm = value; Wikifier.wikifyEval("<<replace '#repherm'>><<cheatsRep herm>><</replace>>")}, max: 5, step: 1, percentage: false, reverse: true, activeButtons: ["single", "minMax"] }>>
+				<span id="repherm"><<cheatsRep "herm">></span>
+			<<else>>
+				<<numberStepper "Crossdresser Fame" $schoolrep.crossdress { callback: value => {V.schoolrep.crossdress = value; Wikifier.wikifyEval("<<replace '#repcrossdress'>><<cheatsRep crossdress>><</replace>>")}, max: 5, step: 1, percentage: false, reverse: true, activeButtons: ["single", "minMax"] }>>
+				<span id="repcrossdress"><<cheatsRep "crossdress">></span>
+			<</if>>
+		</div>
+		<<if ["asylum", "prison"].includes($location)>>
+			<div class="settingsToggleItem">
+				<<if $location is "asylum">>
+					<<asylumicon "cell">><span class="gold">Asylum</span>
+					<<numberStepper "Status" $asylumstatus "asylumstatus">>
+					<<numberStepper "Suspicion" $asylumsuspicion "asylumsuspicion">>
+				<<elseif $location is "prison">>
+					<<policeicon>><span class="gold">Prison</span>
+					<<numberStepper "Guards" $prison.guards { callback: value => { V.prison.guards = value } }>>
+					<<numberStepper "Inmates" $prison.inmates { callback: value => { V.prison.inmates = value } }>>
+				<</if>>
+			</div>
+		<</if>>
+		<<if $docks.hired>>
+			<div class="settingsToggleItem">
+				<<docksicon>><span class="gold">Docks</span>
+				<<numberStepper "Status" $docks.status { callback: value => { V.docks.status = value } }>>
+			</div>
+		<</if>>
+		<<if $pirate_rank gte 0>>
+			<div class="settingsToggleItem">
+				<<mericon>><span class="gold">Pirates</span>
+				<br>
+				Rank: <span id="pirate_rank"><<cheatsRep "pirate_rank">></span>
+				<<numberStepper "Status" $pirate_status "pirate_status">>
+			</div>
+		<</if>>
+		<<if $pound>>
+			<div class="settingsToggleItem">
+				<<poundicon>><span class="gold">Pound</span>
+				<<numberStepper "Status" $pound.status { callback: value => { V.pound.status = value } }>>
+				<<numberStepper "Stray Contentment" $stray_happiness "stray_happiness">>
+			</div>
+		<</if>>
+		<div class="settingsToggleItem">
+			<<homeicon>><span class="gold">Orphanage</span>
+			<<numberStepper "Hope" $orphan_hope "orphan_hope" {max: 50}>>
+			<<numberStepper "Rebelliousness" $orphan_reb "orphan_reb" {max: 50}>>
+		</div>
+	</div>
+<</widget>>
+
+<<widget "sydneyPurity">>
+	<<if C.npc.Sydney.purity gt 0>>
+		<<numberStepper "<<symbol purity>> Purity" `C.npc.Sydney.purity` {
+			callback: value => {
+				C.npc.Sydney.purity = value;
+				if (value < 0) {
+					C.npc.Sydney.corruption = Math.abs(value);
+					value = 0;
+					Wikifier.wikifyEval("<<replace '#sydneypurity'>><<sydneyPurity>><</replace>>");
+				}
+			},
+			min: -100, max: 100, step: 1, percentage: false,
+			valueFormat: value => `<b>${value}%</b>`
+		}>>
+	<<else>>
+		<<numberStepper "<<symbol corruption>> Corruption" `C.npc.Sydney.corruption` {
+			callback: value => {
+				C.npc.Sydney.corruption = value;
+				if (value < 0) {
+					C.npc.Sydney.purity = Math.abs(value);
+					value = 0;
+					Wikifier.wikifyEval("<<replace '#sydneypurity'>><<sydneyPurity>><</replace>>");
+				}
+			},
+			min: -100, max: 50, step: 1, percentage: false, reverse: true, reverseButtons: true,
+			valueFormat: value => `<b>${value*2}%</b>`
+		}>>
+	<</if>>
+<</widget>>
+
+<<widget "cheatsRep">>
+	<<switch _args[0]>>
+		<<case "aggro">>
+			<<if $farm.aggro gte 100>>
+				<span class="red">Remy's goons operate in the open, sabotaging the farm and its business.</span>
+			<<elseif $farm.aggro gte 60>>
+				<span class="pink">The farm is being sabotaged, day and night.</span>
+			<<elseif $farm.aggro gte 40>>
+				<span class="purple">The farm is being sabotaged at night.</span>
+			<<elseif $farm.aggro gte 20>>
+				<span class="blue">Something is spooking the beasts of the farm.</span>
+			<<elseif $farm.aggro gte 10>>
+				<span class="lblue">Signs of intrusion have been found around the farm.</span>
+			<<elseif $farm.aggro gte 1>>
+				<span class="teal">Strange people have been seen watching the farm.</span>
+			<<else>>
+				<span class="green">The farm is peaceful.</span>
+			<</if>>
+		<<case "farm">>
+			One of the fields is being cleared,
+			<<if $farm.clearing lte 0>>
+				<span class="green">and is ready for planting!</span>
+			<<elseif $farm.clearing lte 20>>
+				<span class="teal">and is almost ready for planting.</span>
+			<<elseif $farm.clearing lte 40>>
+				<span class="lblue">and is starting to look civilised.</span>
+			<<elseif $farm.clearing lte 60>>
+				<span class="blue">and soil has been exposed in places.</span>
+			<<elseif $farm.clearing lte 80>>
+				<span class="purple">but the tangle remains defiant.</span>
+			<<elseif $farm.clearing lte 99>>
+				<span class="pink">but little progress has been made.</span>
+			<<else>>
+				<span class="red">but remains a jungle of weeds.</span>
+			<</if>>
+			<<if $farm.clearing gt 0>>
+				| <<farmicon "clear yard">><<link "Clear field">><<set $farm.clearing to 0>><<replace "#farmYard">><<cheatsRep "farm">><</replace>><</link>>
+			<<else>>
+				<span class="green">Talk to Alex to advance farm progress.</span>
+			<</if>>
+		<<case "crossdress">>
+			<<set _crossdressing to $player.gender isnot $player.sex ? "presumed crossdressing" : "crossdressing">>
+			<<set _knows to $player.gender isnot $player.sex ? "believes it to be true" : "knows">>
+			<<switch $schoolrep.crossdress>>
+				<<case 5>><span class="red">Your _crossdressing has become common knowledge at school. Everyone _knows, including the teachers.</span>
+				<<case 4>><span class="pink">Rumours of your _crossdressing are spreading throughout the school.</span>
+				<<case 3>><span class="purple">Rumours of your _crossdressing are spreading and have become a popular topic of conversation at school.</span>
+				<<case 2>><span class="blue">Whispers of your _crossdressing are spreading through the school.</span>
+				<<case 1>><span class="lblue">A few cliques at school have begun whispering of your _crossdressing.</span>
+				<<default>><span class="green">No one is spreading rumours about you at school.</span>
+			<</switch>>
+		<<case "herm">>
+			<<switch $schoolrep.herm>>
+				<<case 5>><span class="red">Everyone at school has heard of your unique genitalia, including the teachers.</span>
+				<<case 4>><span class="pink">Rumours of your unique genitalia have spread throughout the school.</span>
+				<<case 3>><span class="purple">It sounds far-fetched to many, but the school is rife with gossip about a student with both boy and girl parts.</span>
+				<<case 2>><span class="blue">Rumours of a student with both boy and girl parts are spreading through the school.</span>
+				<<case 1>><span class="lblue">A few cliques at school have begun whispering about a student with both boy and girl parts.</span>
+				<<default>><span class="green">No one is spreading rumours about you at school.</span>
+			<</switch>>
+		<<case "wolfpackleader" "pirate_rank">>
+			<<set _ranks to _args[0] is "pirate_rank" ? {0: "Scum", 1: "Mate"} : {0: "Packmate", 1: "Pack leader"}>>
+			<<capture _i, _ranks>>
+				<<for _i to 0; _i lt Object.keys(_ranks).length; _i++>>
+					<span @class="V[_args[0]] is _i ? 'goldLink' : 'unselected'">
+						<<link _ranks[_i]>>
+							<<set V[_args[0]] to _i>>
+							<<replace `"#" + _args[0]`>><<cheatsRep _args[0]>><</replace>>
+						<</link>>
+					</span>
+					<<= _i < Object.keys(_ranks).length - 1 ? "|" : "">>
+				<</for>>
+			<</capture>>
+		<<default>>
+	<</switch>>
+<</widget>>
+
+<<widget "cheats-teleport">>
+	<div class="settingsGrid">
+		<div class="settingsHeader options">Teleportation</div>
+		<<if ["Clothing Shop", "Forest Shop", "School Library Shop", "Adult Shop Store"].includes($passage)>>
+			<div class="settingsToggleItemWide">
+				<span class="red">Teleporting from a clothing store can break your wardrobe.</span> Please leave the shop before teleporting.
+			</div>
+		<<elseif ["Livestock Field"].includes($passage)>>
+			<div class="settingsToggleItemWide">
+				<span class="red">Teleporting from bad end can lead to various problems.</span> Please escape before teleporting.
+			</div>
+		<<elseif setup.majorAreas.includes($passage) and $event is undefined>>
+			<div class="settingsToggleItemWide">
+			<b>Teleporting from anywhere but the overworld can cause bugs.</b>
+			</div>
+			<div class="settingsToggleItem">
+				<span class="gold">Town Locations</span>
+				<br>
+				<<homeicon>><<link [[Orphanage]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<shopicon>><<link [[Shopping Centre]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<if $dorenintro gte 1 and $exposed lte 0>>
+					<<dooricon "doren">><<link [[Doren's Flat|Doren Entrance]]>><<cheats-teleport-function>><</link>>
+					<br>
+				<</if>>
+				<<if $whitney_home_stage gte 3 and (C.npc.Whitney.state is "active" or C.npc.Whitney.state is "rescued")>>
+					<<dooricon "whitney">><<link [[Whitney's Flat|Whitney Home Knock]]>><<set $daily.whitney.home_dawn to 1>><<cheats-teleport-function>><</link>>
+					<br>
+				<</if>>
+				<<dancestudioicon>><<link [[Dance Studio]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<policeicon>><<link [[Police Station]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<policeicon>><<link [[Police Back Office]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<spaicon>><<link [[Spa]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<if $avery_mansion>>
+					<<if $avery_fate is "fallen" or $avery_fate is "kicked">>
+						<<if $avery_mansion_fire_time gte 1>>
+							<<icon "front-gate.png">><<link [[Avery's mansion|Mansion Fire]]>><<cheats-teleport-function>><</link>>
+							<br>
+						<<else>>
+							<<icon "front-gate.png">><<link [[Avery's mansion|Mansion Ruin]]>><<cheats-teleport-function>><</link>>
+							<br>
+						<</if>>
+					<<else>>
+						<<icon "front-gate.png">><<link [[Avery's mansion|Mansion Enter]]>><<cheats-teleport-function>><</link>>
+						<br>
+					<</if>>
+				<</if>>
+				<<wolficon>><<link [[Temple]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<if $soup_kitchen_known is 1 and $exposed lte 0>>
+					<!-- take passage of time into account -->
+					<<if Time.betweenHours(18, 20, 1)>>
+						<<kitchenicon "soup">><<link [[Soup Kitchen]]>><<cheats-teleport-function>><</link>>
+					<<else>>
+						<<kitchenicon "soup">><<link [[Soup Kitchen|Soup Kitchen Closed]]>><<cheats-teleport-function>><</link>>
+					<</if>>
+					<br>
+				<</if>>
+				<<stripclubicon>><<link [[Strip Club]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<hospitalicon>><<link [[Hospital|Hospital front]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<if $trash_unlocked is 1>>
+					<<landfillicon>><<link [[Landfill|Trash Gate Enter]]>><<cheats-teleport-function>><</link>>
+					<br>
+				<</if>>
+				<<if $compound.card or $farm_stage gte 9>>
+					<<landfillicon>><<link [[Elk Compound]]>><<cheats-teleport-function>><</link>>
+					<br>
+				<</if>>
+				<<museumicon>><<link [[Museum]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<oxfordicon>><<link [[School Front Courtyard]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<brothelicon>><<link [[Brothel]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<pubicon>><<link [[Pub]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<busstationicon>><<link [[Bus Station]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<docksicon>><<link [[Docks]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<beachicon>><<link [[Beach]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<cafeicon>><<link [[Ocean Breeze]]>><<cheats-teleport-function>><</link>>
+				<hr>
+				<span class="gold">Town Outskirts</span>
+				<br>
+				<<foresticon>><<link [[Forest]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<lakeicon>><<link [[Lake|Lake Shore]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<roadicon>><<link [[Farm Road 1]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<farmicon "barn">><<link [[Farmlands|Farmland]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<if $syndromebird is 1>>
+					<<birdicon "tower">><<link [[Bird Tower]]>><<cheats-teleport-function>><</link>>
+					<br>
+				<</if>>
+			</div>
+			<div class="settingsToggleItem">
+				<span class="gold">Town Streets</span>
+				<br>
+				<<domusicon>><<link [[Domus Street]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<danubeicon>><<link [[Danube Street]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<barbicon>><<link [[Barb Street]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<wolficon>><<link [[Wolf Street]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<connudatusicon>><<link [[Connudatus Street]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<nightingaleicon>><<link [[Nightingale Street]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<highicon>><<link [[High Street]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<elkicon>><<link [[Elk Street]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<oxfordicon>><<link [[Oxford Street]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<harvesticon>><<link [[Harvest Street]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<mericon>><<link [[Mer Street]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<starfishicon>><<link [[Starfish Street]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<clifficon>><<link [[Cliff Street]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<alleyicon>><<link [[Commercial Alleyways]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<alleyicon>><<link [[Industrial Alleyways]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<alleyicon>><<link [[Residential Alleyways]]>><<cheats-teleport-function>><</link>>
+				<hr>
+				<span class="gold">Underground</span>
+				<br>
+				<<sewericon>><<link [[Industrial Drain]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<sewericon>><<link [[Commercial Drain]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<sewericon>><<link [[Residential Drain]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<sewericon>><<link [[Drain ocean exit|Drain Exit]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<sewericon>><<link [[Sewers Residential]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<sewericon>><<link [[Sewers Commercial]]>><<cheats-teleport-function>><</link>>
+				<br>
+				<<sewericon>><<link [[Sewers Industrial]]>><<cheats-teleport-function>><</link>>
+			</div>
+		<<else>>
+			<div class="settingsToggleItemWide">
+				<span class="red">You are in an area where teleporting can break your save, or an event is in progress.</span> Return to the overworld before teleporting.
+			</div>
+		<</if>>
+	</div>
+<</widget>>
+
+<<widget "cheats-teleport-function">>
+	<<set _lastBadEnd to $badEndStats.last()>>
+	<<if _lastBadEnd?.trackedStart and _lastBadEnd.trackedEnd is undefined>>
+		<<badEndTrackingEnd _lastBadEnd.source { reason: "teleportCheater" }>>
+	<</if>>
+	<<switch $passage>>
+		<<case "Island">>
+			<<island_end>>
+		<<case "Underground Cell">>
+			<<dungeonescape>>
+		<<case "Asylum" "Asylum Cell">>
+			<<asylumescape>>
+		<<case "Prison Cell">>
+			<<prison_bondage_removal>>
+	<</switch>>
+<</widget>>
+
+<<widget "cheats-other">>
+	<div class="settingsGrid">
+		<div class="settingsHeader options">Time and Weather</div>
+		<div class="settingsToggleItem">
+			<span class="gold">Advance time:</span>
+			<br>
+			<<link [[15 minutes|$passage]]>><<pass 15>><</link>>
+			<br>
+			<<link [[30 minutes|$passage]]>><<pass 30>><</link>>
+			<br>
+			<<for _i, _hr range [1, 2, 3, 6, 8, 12, 16, 24]>>
+				<<capture _hr>>
+					<<= _i gt 0 ? "<br>" : "">>
+					<<set _hours to _i is 0 ? "hour" : "hours">>
+					<<link [[_hr _hours|$passage]]>><<pass _hr hour>><</link>>
+				<</capture>>
+			<</for>>
+			<hr>
+
+			<<foldout false "_cheatsExpiredHistoryFoldout">>
+				<span class="grey">Expired passages:</span>
+				<<set _cheatsHistoryPassageTitles to State.expired>>
+				<<for _i to 0; _i lt _cheatsHistoryPassageTitles.length; _i++>>
+					<<= _i gt 0 ? "<br>" : "">>
+					<<print (_i - _cheatsHistoryPassageTitles.length) + ':\t'>>
+					<span class="grey"><<print _cheatsHistoryPassageTitles[_i]>></span>
+				<</for>>
+			<</foldout>>
+
+			<<foldout false "_cheatsHistoryNavigationFoldout">>
+				<span class="gold">Current passages: """[[""" <<print $passage>> """]]"""</span>
+				<<set _cheatsHistoryPassageTitles to State.history.map((e) => e.title)>>
+				<<for _i to 0; _i lt _cheatsHistoryPassageTitles.length; _i++>>
+					<<= _i gt 0 ? "<br>" : "">>
+					<<print _i + ':\t'>>
+					<<if _i === State.activeIndex>>
+						<span class="gold"><<print _cheatsHistoryPassageTitles[_i]>></span>
+					<<else>>
+						<<capture _i>>
+							<<link _cheatsHistoryPassageTitles[_i]>><<cheatsHistoryNavigation _i true>><</link>>
+						<</capture>>
+					<</if>>
+				<</for>>
+			<</foldout>>
+
+			<<link "Backward">><<cheatsHistoryNavigation `State.activeIndex - 1` true>><</link>> |
+			<<link "Forward">><<cheatsHistoryNavigation `State.activeIndex + 1` true>><</link>>
+		</div>
+		<div class="settingsToggleItem">
+			<span class="gold">Current Weather:</span>
+			<br>
+			<span id="cheatsWeather"><<cheatsWeather>></span>
+			<br>
+			<br>
+			<<numberStepper "Fog" `Weather.FogGeneration.getFog()` {
+				callback: value => {
+					Weather.FogGeneration.setFog(value);
+				},
+				min: 0, max: 1, step: 0.1, colorArr: ["--blue"], percentage: false,
+				valueFormat: value => round(value, 1),
+				activeButtons: ["single", "double"]
+			}>>
+			<span class="description">Changing this setting will change the weather for at least 6 hours, before returning to the original weather simulation.</span>
+		</div>
+		<div class="settingsToggleItemWide">
+			<span class="gold">Temperature</span>
+			<br>
+			<span class="description">Will increase or decrease the base temperature until the next day - then go back to the proper temperature over time.<br>
+			The base temperature will still be modified by other factors such as time of day - and will not be constant throughout the day.</span>
+			<<numberStepper "Outside Temperature" `Weather.toSelected(Weather.temperature)` {
+				callback: value => {
+					Weather.Temperature.set(V.options.fahrenheit ? Weather.Temperature.toCelsius(value) : value);
+					Weather.Temperature.set(V.options.fahrenheit ? Weather.Temperature.toCelsius(value) : value, new DateTime(Time.date).addDays(1));
+				},
+				min: -60, max: 60, step: 0.1, colorArr: ["--blue", "--teal", "--yellow", "--orange", "--red"], percentage: false,
+				valueFormat: value => round(value, 1) + (V.options.fahrenheit ? "°F" : "°C"),
+				activeButtons: ["single", "double", "triple"]
+			}>>
+			<span class="description">Changes will be visible after at least 1 minute of game time passes.</span>
+		</div>
+	</div>
+
+	<hr>
+	<div class="settingsGrid">
+		<div class="settingsHeader options">Pregnancy</div>
+			<<if !$settings.parasitePregnancyEnabled>>
+				<div class="settingsToggleItemWide">
+					<span class="gold">Parasitic Pregnancy</span>
+					<br>
+					You need to enable parasitic pregnancy in the settings to access these cheats.
+				</div>
+			<<else>>
+				<div @class="$player.vaginaExist ? 'settingsToggleItem' : 'settingsToggleItemWide'">
+					<<if $sexStats.anus.pregnancy.type is "parasite" or $sexStats.anus.pregnancy.type is null>>
+						<div id="cheatsParasiteOptions-anus"><<cheatsParasiteOptions "anus">></div>
+					<<else>>
+						<span class="gold">Anal Parasitic Pregnancy</span>
+						<br>
+						You're currently pregnant with <<= $sexStats.anus.pregnancy.type>> children and can't get pregnant with anal parasites.
+					<</if>>
+				</div>
+				<<if $player.vaginaExist>>
+					<div class="settingsToggleItem">
+						<<if ($sexStats.vagina.pregnancy.type is "parasite" or $sexStats.vagina.pregnancy.type is null)>>
+							<div id="cheatsParasiteOptions-vagina"><<cheatsParasiteOptions "vagina">></div>
+						<<elseif !($sexStats.vagina.pregnancy.type is "parasite" or $sexStats.vagina.pregnancy.type is null)>>
+							<span class="gold">Vaginal Parasitic Pregnancy</span>
+							<br>
+							You're currently pregnant with <<= $sexStats.vagina.pregnancy.type>> children and can't get pregnant with vaginal parasites.
+						<</if>>
+					</div>
+				<</if>>
+			<</if>>
+		<<if ($settings.playerPregnancyBeastEnabled or $settings.playerPregnancyHumanEnabled)>>
+			<div class="settingsToggleItem" id="cheatsPregnancyOptions">
+				<<cheatsPregnancyOptions>>
+			</div>
+			<div class="settingsToggleItem" id="cheatsImpregOptions">
+				<<cheatsImpregOptions>>
+			</div>
+		<<else>>
+			<div class="settingsToggleItem">
+				<span class="gold">Non-Parasitic Pregnancy</span>
+				<br>
+				You need to enable pregnancy in the settings to access these cheats.
+			</div>
+			<div class="settingsToggleItem">
+				<span class="gold">Impregnation</span>
+				<br>
+				You need to enable pregnancy in the settings to access these cheats.
+			</div>
+		<</if>>
+	</div>
+<</widget>>
+
+<<widget "cheatsHistoryNavigation">>
+	<<if typeof _args[0] is "number">>
+		<<if !(_args[1] === true) or State.history[_args[0]]?.title === "Start">>
+			<<run Engine.goTo(_args[0])>>
+			<<exit>>
+		<</if>>
+		<<set setup.cheatsHistoryNavigation to {offsetY: $("#customOverlayContent").scrollTop() || 0}>>
+		<<run Engine.goTo(_args[0])>>
+		<<overlayReplace "cheats">>
+		<<replace #cheatsShown>><<cheats-other>><</replace>>
+		<<run $("#customOverlayContent").scrollTop(setup.cheatsHistoryNavigation.offsetY)>>
+		<<set delete setup.cheatsHistoryNavigation>>
+	<</if>>
+<</widget>>
+
+<<widget "cheatsParasiteOptions">>
+	<<capture _args, _anal, _type>>
+		<<set $_pregnancy to $sexStats[_args[0]].pregnancy>>
+		<<set _anal to _args[0] is "anus" ? "anal" : "vaginal">>
+		<<set _slots to maxParasites(_args[0])>>
+		<<set $_aPregnancy to $sexStats[_args[0]].pregnancy>>
+		<<set _parasiteTypes to ["eels", "slimes", "fish", "snake", "worms", "tentacle", "lurker", "wasp", "bee", "squid", "vine", "slug", "maggots", "spiders"]>>
+		<<set $_linkName to "Clear current " + _anal + " pregnancies">>
+
+		<span class="gold"><<= _anal.toUpperFirst()>> Parasitic Pregnancy</span>
+		<br>
+		You can have up to <<number _slots>> _anal <<pluralise _slots "parasite">>.
+		<<if $_pregnancy.fetus.length lt maxParasites(_args[0])>>
+			<br><br>
+			<<if $_aPregnancy.type is "parasite" or $_aPregnancy.type is null>>
+				Get Pregnant with a:
+				<br>
+				<<for _i, _type range _parasiteTypes>>
+					<<set _parasiteName to _type.endsWith('s') ? _type.slice(0, -1).toUpperFirst() : _type.toUpperFirst()>>
+					<<link _parasiteName>>
+						<<impregnateParasite _type true _args[0]>><<cheatsParasite _args[0] _hermaphrodite>>
+						<<set _hermaphrodite to false>>
+					<</link>>
+					<<= _i lt _parasiteTypes.length - 1 ? "|" : "">>
+				<</for>>
+				<br>
+				<<if $_pregnancy.motherStatus lt 2>>
+					<label><<checkbox "_hermaphrodite" false true autocheck>> Hermaphrodite</label>
+				<<else>>
+					You can only have one hermaphrodite parasite in your _args[0] at a time.
+				<</if>>
+			<<else>>
+				You are currently unable to host parasites due to your current _anal pregnancy.
+			<</if>>
+			<br>
+		<<else>>
+			You cannot get <<= _anal + "ly">> pregnant with any more parasites.
+		<</if>>
+		<hr>
+		<<for _i to 0; _i lt maxParasites(_args[0]); _i++>>
+			<<if $_aPregnancy.fetus[_i] isnot undefined>>
+				<<if $_aPregnancy.fetus[_i].fertilised>>
+					<<= _anal.toUpperFirst()>> slot <<=_i+1>> is pregnant with a $_aPregnancy.fetus[_i].stats.gender $_aPregnancy.fetus[_i].creature.
+					<br>
+				<<else>>
+					<<= _anal.toUpperFirst()>> slot <<=_i+1>> has a $_aPregnancy.fetus[_i].stats.gender $_aPregnancy.fetus[_i].creature egg ready to be fertilised.
+					<br>
+				<</if>>
+			<<else>>
+				<<= _anal.toUpperFirst()>> slot <<=_i+1>> is empty.
+				<br>
+			<</if>>
+		<</for>>
+		<<link $_linkName>>
+			<<if $sexStats[_args[0]].pregnancy.type is "parasite">>
+				<<set $sexStats[_args[0]].pregnancy.fetus to []>>
+				<<set $sexStats[_args[0]].pregnancy.type to null>>
+				<<if $sexStats[_args[0]].pregnancy.motherStatus is 2>>
+					<<set $sexStats[_args[0]].pregnancy.motherStatus to 1>>
+				<</if>>
+			<</if>>
+			<<replace `"#cheatsParasiteOptions-" + _args[0]`>><<cheatsParasiteOptions _args[0]>><</replace>>
+		<</link>>
+	<</capture>>
+<</widget>>
+
+<<widget "cheatsParasite">>
+	<<set $_pregnancy to $sexStats[_args[0]].pregnancy>>
+	<<if $pregnancyStats.parasiteDoctorEvents lt 2>>
+		<<set $pregnancyStats.parasiteDoctorEvents to 2>>
+	<</if>>
+
+	<<if _args[1]>>
+		<<set $_pregnancy.motherStatus to 2>>
+		<<set $_pregnancy.fetus.last().stats.gender to "Hermaphrodite">>
+		<<set $_pregnancy.fetus.last().stats.lastEgg to Math.floor($_pregnancy.fetus.last().stats.growth / 3)>>
+	<<else>>
+		<<if $_pregnancy.motherStatus is 0>>
+			<<set $_pregnancy.motherStatus to 1>>
+		<</if>>
+	<</if>>
+	<<fertiliseParasites _args[0]>>
+	<<replace `"#cheatsParasiteOptions-" + _args[0]`>><<cheatsParasiteOptions _args[0]>><</replace>>
+<</widget>>
+
+<<widget "cheatsPregnancyOptions">>
+	<span class="gold">Non-Parasitic Pregnancy</span>
+	<br>
+	<<set _womb to ($player.vaginaExist ? "vagina" : "anus")>>
+	<<set _eligible to ["Avery", "Eden", "Harper", "Kylar", "Morgan", "Robin", "Whitney", "Black Wolf", "Alex", "Wren", "Sydney", "Great Hawk"]>>
+	<<set _impregnatableNPC to []>>
+	<<set _impregnatorNPC to []>>
+	<<set _pregnantNPC to {}>>
+	<<for _pregEnabled range $NPCName.filter(npc => npc.pregnancy and npc.pregnancy.enabled isnot undefined)>>
+		<<if playerPregnancyPossibleWith(_pregEnabled)>>
+			<<set _impregnatorNPC.push($NPCName.indexOf(_pregEnabled))>>
+		<</if>>
+		<<if NPCPregnancyPossibleWithPlayer(_pregEnabled.nam)>>
+			<<set _impregnatableNPC.push($NPCName.indexOf(_pregEnabled))>>
+		<</if>>
+	<</for>>
+	<<if $player.vaginaExist or canBeMPregnant()>>
+		<<set _menstruation to $sexStats.vagina.menstruation>>
+		<<set $_pregnancy to getPregnancyObject()>>
+		<<if !playerIsPregnant()>>
+			You aren't pregnant.
+			<<if $settings.pregnancyType is "realistic">>
+				You have <span id="cheatSpermSources"><span class="gold"><span class="gold">$sexStats[_womb].sperm.length</span></span> <<pluralise $sexStats[_womb].sperm.length "sperm source">></span> contributing to your chances of getting pregnant.
+			<</if>>
+			<br><br>
+			<<if $settings.fertilityCycleEnabled>>
+				Menstruation:
+				<br>
+				<<link "<<">><<set _menstruation.currentDay to Math.clamp(_menstruation.currentDay - 5, 0, _menstruation.currentDaysMax)>><<replace "#cheatMenstruationDay">><<= Math.trunc(_menstruation.currentDay)>><</replace>><</link>> |
+				<<link "<">><<set _menstruation.currentDay to Math.clamp(_menstruation.currentDay - 1, 0, _menstruation.currentDaysMax)>><<replace "#cheatMenstruationDay">><<= Math.trunc(_menstruation.currentDay)>><</replace>><</link>> |
+				Day <span id="cheatMenstruationDay"><<= Math.trunc(_menstruation.currentDay)>></span> of _menstruation.currentDaysMax
+				| <<link "Ovulate">><<set _menstruation.currentDay to _menstruation.stages[2]>><<replace "#cheatMenstruationDay">><<= Math.trunc(_menstruation.currentDay)>><</replace>><</link>>
+				| <<link ">">><<set _menstruation.currentDay to Math.clamp(_menstruation.currentDay + 1, 0, _menstruation.currentDaysMax)>><<replace "#cheatMenstruationDay">><<= Math.trunc(_menstruation.currentDay)>><</replace>><</link>>
+				| <<link ">>">><<set _menstruation.currentDay to Math.clamp(_menstruation.currentDay + 5, 0, _menstruation.currentDaysMax)>><<replace "#cheatMenstruationDay">><<= Math.trunc(_menstruation.currentDay)>><</replace>><</link>>
+				<br><br>
+			<</if>>
+		<</if>>
+		<<if playerIsPregnant()>>
+			You are pregnant.
+			<<set _pregnancyTimer to getPregnancyObject()>>
+			<<numberStepper "Pregnancy progress" _pregnancyTimer.timer {
+				callback: value => {
+					getPregnancyObject().timer = value;
+					Wikifier.wikifyEval("<<updatesidebarimg>>");
+				},
+				min: 0, max: getPregnancyObject().timerEnd - 0.5,
+				colorArr: ["--teal", "--pink"], activeButtons: ["single", "double"]
+			}>>
+			<br><br>
+			<<link [[Clear current pregnancy|$passage]]>>
+				<<set _pregnancyClear to getPregnancyObject()>>
+				<<set _pregnancyClear.type to null>>
+				<<set _pregnancyClear.fetus to []>>
+				<<set _pregnancyClear.waterBreaking to false>>
+				<<set _pregnancyClear.waterBreakingTimer to null>>
+				<<set _pregnancyClear.timer to null>>
+				<<set _pregnancyClear.timerEnd to null>>
+				<<set _pregnancyClear.awareOf to null>>
+				<<set _pregnancyClear.awareOfMultiple to null>>
+				<<set _pregnancyClear.awareOfDetails to null>>
+				<<set _pregnancyClear.potentialFathers to []>>
+				<<set $sexStats[($player.vaginaExist ? "vagina" : "anus")].sperm to []>>
+				<<restartMenstruationCycle>>
+				<<set _menstruation.currentState to "normal">>
+				<<set _menstruation.recoveryTime to null>>
+				<<set _menstruation.recoveryTimeStart to null>>
+				<<set _menstruation.recoveryStage to null>>
+				<<run delete C.npc.Alex.pregnancy.pcKnowledge>>
+				<<run delete C.npc.Alex.pregnancy.test>>
+				<<run delete C.npc.Alex.pregnancy.ultraSound>>
+				<<run delete C.npc.Alex.pregnancy.sample>>
+				<<run delete C.npc.Alex.pregnancy.ultraSoundPics>>
+			<</link>>
+		<<else>>
+			<<if ($settings.playerPregnancyHumanEnabled or $settings.playerPregnancyBeastEnabled) and !playerIsPregnant()>>
+				Get pregnant from:
+				<br>
+				<<if $settings.playerPregnancyHumanEnabled>>
+					<<link [[A random person|$passage]]>> /* checks if males or females have penises, if there is no people with penises a foreigner impregnates PC */
+					<<set _impregnator to either("arbitrary", "aimless", "by-the-way", "casual", "driftless", "hit-or-miss", "fluky", "promiscuous", "slapdash", "irresponsible", "careless", "negligent") + " cheater ">>
+					<<if $settings.femaleNPCPenisChance gt 0 and $settings.maleNPCVaginaChance lt 100>>
+						<<set _impregnator += either("man", "boy", "woman", "girl")>>
+					<<elseif $settings.femaleNPCPenisChance gt 0 and $settings.maleNPCVaginaChance gt 99>>
+						<<set _impregnator += either("woman", "girl")>>
+					<<elseif $settings.femaleNPCPenisChance lt 1 and $settings.maleNPCVaginaChance lt 100>>
+						<<set _impregnator += either("man", "boy")>>
+					<<else>>
+						<<set _impregnator += "foreigner">>
+					<</if>>
+					<<playerPregnancy _impregnator "human" true _womb undefined true>>
+					<</link>>
+				<</if>>
+				<<if $settings.playerPregnancyBeastEnabled>>
+					<<if $settings.playerPregnancyHumanEnabled>>
+						|
+					<</if>>
+					<<link [[A wolf|$passage]]>>
+					<<if $settings.monsterChance gte random(1, 100) and ($hallucinations gte 1 or !$settings.monsterHallucinationsOnly)>>
+						<<if $settings.femaleNPCPenisChance gt 0 and $settings.maleNPCVaginaChance lt 100>>
+							<<set _impregnator to either("cheater wolfboy", "cheater wolfgirl")>>
+						<<elseif $settings.femaleNPCPenisChance gt 0 and $settings.maleNPCVaginaChance gt 99>>
+							<<set _impregnator to "cheater wolfgirl">>
+						<<elseif $settings.femaleNPCPenisChance lt 1 and $settings.maleNPCVaginaChance lt 100>>
+							<<set _impregnator to "cheater wolfboy">>
+						<<else>>
+							<<set _impregnator to "foreign cheater wolfperson">>
+						<</if>>
+						<<if _impregnator is "cheater wolfgirl">><<set _spermType to "wolfgirl">><<else>><<set _spermType to "wolfboy">><</if>>
+					<<else>>
+						<<if beastMaleChance() gt 0>> /* checks if there are male wolves, if not a foreigner wolf impregnates PC */
+							<<set _impregnator to "cheater wolf">>
+						<<else>>
+							<<set _impregnator to "cheater foreign wolf">>
+						<</if>>
+						<<set _spermType to "wolf">>
+					<</if>>
+					<<playerPregnancy _impregnator _spermType true _womb undefined true>>
+					<</link>>
+				<</if>>
+				<<for _pregEnabled range _impregnatorNPC>>
+					<<set _actor to $NPCName[_pregEnabled]>>
+					<<if !_eligible.includes(_actor.nam)>>
+						<<continue>>
+					<</if>>
+					<<switch _actor.nam>>
+						<<case "Black Wolf">>
+							<<if $blackwolfmonster>>
+								<<set _spermType to (C.npc["Black Wolf"].pronoun is "f" ? "wolfgirl" : "wolfboy")>>
+							<<else>>
+								<<set _spermType to "wolf">>
+							<</if>>
+						<<case "Great Hawk">>
+							<<if $greathawkmonster>>
+								<<set _spermType to "harpy">>
+							<<else>>
+								<<set _spermType to "hawk">>
+							<</if>>
+						<<default>><<set _spermType to "human">>
+					<</switch>>
+					<<capture _actor, _spermType, _womb>>
+					| <<link [[_actor.nam|$passage]]>>
+						<<playerPregnancy _actor.nam _spermType true _womb undefined true>>
+					<</link>>
+					<</capture>>
+				<</for>>
+				<<if $player.penisExist>>
+					| <<link [[Yourself|$passage]]>>
+					<<playerPregnancy "pc" "human" true _womb undefined true>>
+					<</link>>
+				<</if>>
+				<br><br>
+				<<if $settings.pregnancyType is "realistic">>
+					Add sperm from:
+					<br>
+					<<if $settings.playerPregnancyHumanEnabled>>
+						<<link "An anonymous donor">> /* The sperm owner is always the same, anonymous donor, so it helps pregnancy from only one source */
+							<<recordSperm `{target: "pc", spermOwner: "anonymous donor", spermType: "human", genital: _womb}`>>
+							<<replace "#cheatSpermSources">><span class="gold">$sexStats[_womb].sperm.length</span> <<pluralise $sexStats[_womb].sperm.length "sperm source">><</replace>>
+						<</link>>
+						| <<link "A random person">> /* checks if males or females have penises, if there is no people with penises a foreigner inseminates PC */
+							<<set _impregnator to either("arbitrary", "aimless", "by-the-way", "casual", "driftless", "hit-or-miss", "fluky", "promiscuous", "slapdash", "irresponsible", "careless", "negligent") + " cheater ">>
+							<<if $settings.femaleNPCPenisChance gt 0 and $settings.maleNPCVaginaChance lt 100>>
+								<<set _impregnator += either("man", "boy", "woman", "girl")>>
+							<<elseif $settings.femaleNPCPenisChance gt 0 and $settings.maleNPCVaginaChance gt 99>>
+								<<set _impregnator += either("woman", "girl")>>
+							<<elseif $settings.femaleNPCPenisChance lt 1 and $settings.maleNPCVaginaChance lt 100>>
+								<<set _impregnator += either("man", "boy")>>
+							<<else>>
+								<<set _impregnator += "foreigner">>
+							<</if>>
+							<<recordSperm `{target: "pc", spermOwner: _impregnator, spermType: "human", genital: _womb}`>>
+							<<replace "#cheatSpermSources">><span class="gold">$sexStats[_womb].sperm.length</span> <<pluralise $sexStats[_womb].sperm.length "sperm source">><</replace>>
+						<</link>>
+					<</if>>
+					<<if $settings.playerPregnancyBeastEnabled>>
+						<<if $settings.playerPregnancyHumanEnabled>>
+							|
+						<</if>>
+						<<link "A wolf">>
+							<<if $settings.monsterChance gte random(1, 100) and ($hallucinations gte 1 or !$settings.monsterHallucinationsOnly)>>
+								<<if $settings.femaleNPCPenisChance gt 0 and $settings.maleNPCVaginaChance lt 100>>
+									<<set _impregnator to either("cheater wolfboy", "cheater wolfgirl")>>
+								<<elseif $settings.femaleNPCPenisChance gt 0 and $settings.maleNPCVaginaChance gt 99>>
+									<<set _impregnator to "cheater wolfgirl">>
+								<<elseif $settings.femaleNPCPenisChance lt 1 and $settings.maleNPCVaginaChance lt 100>>
+									<<set _impregnator to "cheater wolfboy">>
+								<<else>>
+									<<set _impregnator to "foreign cheater wolfperson">>
+								<</if>>
+								<<if _impregnator is "cheater wolfgirl">><<set _spermType to "wolfgirl">><<else>><<set _spermType to "wolfboy">><</if>>
+							<<else>>
+								<<if beastMaleChance() gt 0>> /* checks if there are male wolves, if not a foreigner wolf inseminates PC */
+									<<set _impregnator to "cheater wolf">>
+								<<else>>
+									<<set _impregnator to "foreign cheater wolf">>
+								<</if>>
+								<<set _spermType to "wolf">>
+							<</if>>
+							<<recordSperm `{target: "pc", spermOwner: _impregnator, spermType: _spermType, genital: _womb}`>>
+							<<replace "#cheatSpermSources">><span class="gold">$sexStats[_womb].sperm.length</span> <<pluralise $sexStats[_womb].sperm.length "sperm source">><</replace>>
+						<</link>>
+					<</if>>
+					<<for _pregEnabled range _impregnatorNPC>>
+						<<set _actor to $NPCName[_pregEnabled]>>
+						<<if !_eligible.includes(_actor.nam)>>
+							<<continue>>
+						<</if>>
+						<<switch _actor.nam>>
+							<<case "Black Wolf">>
+								<<if $blackwolfmonster>>
+									<<set _spermType to (C.npc["Black Wolf"].pronoun is "f" ? "wolfgirl" : "wolfboy")>>
+								<<else>>
+									<<set _spermType to "wolf">>
+								<</if>>
+							<<case "Great Hawk">>
+								<<if $greathawkmonster>>
+									<<set _spermType to "harpy">>
+								<<else>>
+									<<set _spermType to "hawk">>
+								<</if>>
+							<<default>><<set _spermType to "human">>
+						<</switch>>
+						<<capture _actor, _spermType, _womb>>
+						| <<link _actor.nam>>
+							<<recordSperm `{target: "pc", spermOwner: _actor.nam, spermType: _spermType, genital: _womb}`>>
+							<<replace "#cheatSpermSources">><span class="gold">$sexStats[_womb].sperm.length</span> <<pluralise $sexStats[_womb].sperm.length "sperm source">><</replace>>
+						<</link>>
+						<</capture>>
+					<</for>>
+					<<if $player.penisExist>>
+						| <<link "Yourself">>
+							<<recordSperm `{target: "pc", spermOwner: "pc", spermType: "human", genital: _womb}`>>
+							<<replace "#cheatSpermSources">><span class="gold">$sexStats[_womb].sperm.length</span> <<pluralise $sexStats[_womb].sperm.length "sperm source">><</replace>>
+						<</link>>
+					<</if>>
+				<</if>>
+			<</if>>
+		<</if>>
+	<<else>>
+		You are unable to get pregnant.
+	<</if>>
+<</widget>>
+
+<<widget "cheatsImpregOptions">>
+	<span class="gold">Impregnation</span>
+	<<if $player.penisExist and _impregnatableNPC.length>>
+		<br>
+		You can impregnate <span class="gold">_impregnatableNPC.length</span> fertile <<pluralise _impregnatableNPC.length "NPC">>.
+		<br><br>
+		<<set _fertileNPC to 0>>
+		<<for _pregEnabled range _impregnatableNPC>>
+			<<set _actor to $NPCName[_pregEnabled]>>
+			<<set _actorNameNoSpace to _actor.nam.replace(" ","")>>
+			<<if !_eligible.includes(_actor.nam) or _actor.pregnancy.fetus.length>>
+				<<continue>>
+			<</if>>
+			<<set _fertileNPC += 1>>
+			<<= _actor.nam>>:
+			<br>
+			<<capture _actor>>
+				<<set _linkText to "Impregnate">>
+				<<link [[_linkText|$passage]]>>
+					<<namedNpcPregnancy _actor.nam "pc" "human" true undefined true>>
+				<</link>>
+				<<if $settings.pregnancyType is "realistic">>
+					<<set _linkText to "Inseminate">>
+					- <<link _linkText>>
+						<<recordSperm `{target: _actor.nam, spermOwner: "pc", spermType: "human", genital: "vagina"}`>>
+						<<replace `"#cheatSpermSources" + _actorNameNoSpace`>>(<<= _actor.pregnancy.sperm.length>> doses)<</replace>>
+					<</link>>
+					<span @id="'cheatSpermSources' + _actorNameNoSpace" class="description">(<<= _actor.pregnancy.sperm.length>> doses)</span>
+				<</if>>
+				<<if $settings.fertilityCycleEnabled>>
+					- <<link [[Set cycle to fertile days|$passage]]>>
+						<<set _actor.pregnancy.cycleDay to _actor.pregnancy.cycleDangerousDay - 1>>
+					<</link>>
+				<</if>>
+			<</capture>>
+			<br>
+		<</for>>
+		<<if !_fertileNPC is 0>>
+			You can't impregnate any other NPCs.
+		<</if>>
+	<<else>>
+		<br>
+		You can't currently impregnate any NPCs<<if !$player.penisExist>>, since you have no penis<</if>>.
+	<</if>>
+
+	<<for _pregEnabled range $NPCName>> /* Checks for any pregnant named NPC. */
+		<<if npcIsPregnant(_pregEnabled.nam) and _pregEnabled.pregnancy.type isnot "parasite">>
+			<<set _pregnantNPC[_pregEnabled.nam] to $NPCName.indexOf(_pregEnabled)>>
+		<</if>>
+	<</for>>
+
+	<<if Object.keys(_pregnantNPC).length>>
+		<hr>
+		<span class="gold">Pregnant NPCs</span>
+		<br>
+		<<listbox "_pregnantNPCId" autoselect>>
+			<<optionsfrom _pregnantNPC>>
+		<</listbox>>
+		<br><br>
+		<div id="cheatPregnancyNPC">
+			<<cheatPregnancyNPC _pregnantNPCId>>
+		</div>
+		<<cheatPregnancyNPCReset>>
+	<</if>>
+<</widget>>
+
+<<widget "cheatPregnancyNPCStepper">>
+<<numberStepper "Pregnancy progress" _pregnancyNPC.timer {
+	callback: (value, arr) => {
+		$NPCName[arr[0]].pregnancy.timer = value;
+		Wikifier.wikifyEval("<<updatesidebarimg>>");
+	},
+	values: [_args[0]],
+	min: 0, max: $NPCName[_args[0]].pregnancy.timerEnd - 0.5,
+	colorArr: ["--teal", "--pink"], activeButtons: ["single", "double"]
+}>>
+<</widget>>
+<<widget "cheatPregnancyNPC">>
+	<<set _pregnancyNPC to $NPCName[_args[0]].pregnancy>>
+	<<set $_fatherName to pregnancyNameCorrection(_pregnancyNPC.fetus[0].father)>>
+	<<= $NPCName[_args[0]].nam>> is pregnant with <<= _pregnancyNPC.type is "wolf" ? "wolve" : _pregnancyNPC.type>>s. <<= $_fatherName === "yourself" ? "You are" : $_fatherName.toUpperFirst() + "is">> the father.
+	<span id="cheatNPCPregnancyProgress">
+		<<cheatPregnancyNPCStepper _args[0]>>
+	</span>
+	<br>
+
+	<<link "1st trimester">>
+		<<set _pregnancyNPC.timer to _pregnancyNPC.timerEnd * .05>>
+		<<replace "#cheatNPCPregnancyProgress">><<cheatPregnancyNPCStepper _args[0]>><</replace>>
+	<</link>> -
+	<<link "2nd trimester">>
+		<<set _pregnancyNPC.timer to _pregnancyNPC.timerEnd * .35>>
+		<<replace "#cheatNPCPregnancyProgress">><<cheatPregnancyNPCStepper _args[0]>><</replace>>
+	<</link>> -
+	<<link "3rd trimester">>
+		<<set _pregnancyNPC.timer to _pregnancyNPC.timerEnd * .7>>
+		<<replace "#cheatNPCPregnancyProgress">><<cheatPregnancyNPCStepper _args[0]>><</replace>>
+	<</link>> -
+	<<link "End of pregnancy">>
+		<<set _pregnancyNPC.timer to _pregnancyNPC.timerEnd>>
+		<<replace "#cheatNPCPregnancyProgress">><<cheatPregnancyNPCStepper _args[0]>><</replace>>
+	<</link>>
+	<br><br>
+
+	<<link [[Clear pregnancy|$passage]]>>
+		<<set _pregnancyNPC.type to null>>
+		<<set _pregnancyNPC.fetus to []>>
+		<<set _pregnancyNPC.waterBreaking to false>>
+		<<set _pregnancyNPC.timer to null>>
+		<<set _pregnancyNPC.timerEnd to null>>
+		<<set _pregnancyNPC.npcAwareOf to null>>
+		<<set _pregnancyNPC.pcAwareOf to null>>
+		<<set _pregnancyNPC.potentialFathers to []>>
+		<<set _pregnancyNPC.sperm to []>>
+		<<set _pregnancyNPC.cycleDay to 1>>
+		<<if _pregnantNPCId is 25>><<run delete C.npc.Alex.pregnancy.selfKnowledge>><</if>>
+	<</link>>
+<</widget>>
+
+<<widget "changeCheatClass">>
+	<<for _class range ["red", "pink", "purple", "blue", "lblue", "teal", "green", "gold"]>>
+		<<removeclass _args[0] _class>>
+	<</for>>
+	<<if _args[1] is "On">><<addclass _args[0] "green">>
+	<<elseif ["Off", "Disabled"].includes(_args[1])>><<addclass _args[0] "red">>
+	<<else>><<addclass _args[0] _statColour>>
+	<</if>>
+<</widget>>
+
+<<widget "cheatsBody">>
+	<<set _bodyTypes to ["masculine", "feminine", "androgynous"]>>
+
+	<<capture _i>>
+		<<for _i = 0; _i < _bodyTypes.length; _i++>>
+			<span @class="$player.gender_body is _bodyTypes[_i].charAt(0) ? 'goldLink' : 'unselected'">
+				<<link _bodyTypes[_i].toUpperFirst()>>
+					<<set $player.gender_body to _bodyTypes[_i].charAt(0)>>
+					<<replace "#statsBodyType">><<cheatsBody>><</replace>><<updatesidebarimg>>
+				<</link>>
+			</span>	<<= _i lt _bodyTypes.length - 1 ? "|" : "">>
+		<</for>>
+	<</capture>>
+<</widget>>
+
+<<widget "cheatsBodySize">>
+	<<set _size = [6000, 9000, 12000, 15000]>>
+	<<set _label = ["Tiny", "Small", "Normal", "Large"]>>
+
+	<<capture _i, _size, _label>>
+		<<for _i = 0; _i < _size.length; _i++>>
+			<span @class="$bodysize is _i ? 'goldLink' : 'link'">
+				<<link _label[_i]>>
+					<<set $bodysize to _i>>
+					<<set _physique_max_old to $physiquesize>>
+					<<set $physiquesize to _size[_i]>>
+					<<set $physique *= $physiquesize / _physique_max_old>>
+					<<replace "#statsBodySize">><<cheatsBodySize>><</replace>>
+				<</link>>
+			</span> <<= _i lt _size.length - 1 ? "|" : "">>
+		<</for>>
+	<</capture>>
+<</widget>>
+<<widget "cheatsBodyShape">>
+	<<capture _i>>
+		<<for _i = 0; _i < setup.bodyShapes.length; _i++>>
+			<span @class="$player.bodyshape is setup.bodyShapes[_i] ? 'goldLink' : 'unselected'">
+				<<link setup.bodyShapes[_i].toUpperFirst()>>
+					<<set $player.bodyshape to setup.bodyShapes[_i]>>
+					<<replace "#statsBodyShape">><<cheatsBodyShape>><</replace>><<updatesidebarimg>>
+				<</link>>
+			</span>	<<= _i lt setup.bodyShapes.length - 1 ? "|" : "">>
+		<</for>>
+	<</capture>>
+<</widget>>
+<<widget "cheatsFaceStyle">>
+	<<set _faceStyles to Object.values(setup.faceStyleOptions)>>
+
+	<<capture _i>>
+		<<for _i = 0; _i < _faceStyles.length; _i++>>
+			<span @class="$facestyle is _faceStyles[_i] ? 'goldLink' : 'unselected'">
+				<<link _faceStyles[_i].toUpperFirst()>>
+					<<set $facestyle to _faceStyles[_i]>>
+					<<set $facevariant to "default">>
+					<<replace "#statsFaceStyle">><<cheatsFaceStyle>><</replace>><<updatesidebarimg>>
+					<<replace "#statsDemeanour">><<cheatsDemeanour>><</replace>><<updatesidebarimg>>
+				<</link>>
+			</span>	<<= _i lt _faceStyles.length - 1 ? "|" : "">>
+		<</for>>
+	<</capture>>
+<</widget>>
+<<widget "cheatsDemeanour">>
+	<<set _faceVariants to Object.values(setup.faceVariantOptions[V.facestyle])>>
+
+	<<capture _i>>
+		<<for _i = 0; _i < _faceVariants.length; _i++>>
+			<span @class="$facevariant is _faceVariants[_i] ? 'goldLink' : 'unselected'">
+				<<link _faceVariants[_i].toUpperFirst()>>
+					<<set $facevariant to _faceVariants[_i]>>
+					<<replace "#statsDemeanour">><<cheatsDemeanour>><</replace>><<updatesidebarimg>>
+				<</link>>
+			</span>	<<= _i lt _faceVariants.length - 1 ? "|" : "">>
+		<</for>>
+	<</capture>>
+<</widget>>
+<<widget "cheatsSpeechAttitude">>
+	<<set _submissiveness = [1500, 1000, 500]>>
+	<<set _attitude = ["meek", "neutral", "bratty"]>>
+
+	<<capture _i, _submissiveness, _attitude>>
+		<<for _i = 0; _i < _attitude.length; _i++>>
+			<span @class="$speech_attitude is _attitude[_i] ? 'goldLink' : 'link'">
+				<<link _attitude[_i].toUpperFirst()>>
+					<<set $speech_attitude to _attitude[_i]>>
+					<<set $submissive to _submissiveness[_i]>>
+					<<replace "#statsSpeechAttitude">><<cheatsSpeechAttitude>><</replace>>
+				<</link>>
+			</span> <<= _i lt _attitude.length - 1 ? "|" : "">>
+		<</for>>
+	<</capture>>
+<</widget>>
+
+<<widget "cheatsWeather">>
+	<<set _weatherTypes to ["clear", "lightClouds", "heavyClouds", "lightPrecipitation", "heavyPrecipitation", "storm", "thunderstorm"]>>
+	<<set _dayState to Weather.bloodMoon ? "blood" : Weather.dayState === "night" ? "night" : "day">>
+	<<capture _i, _weatherState, _dayState, _name, _iconType, _weatherIcon>>
+		<<for _i = 0; _i < _weatherTypes.length; _i++>>
+			<<set _weatherState to _weatherTypes[_i]>>
+			<<set _iconType = resolveValue(setup.WeatherGeneration.weatherTypes.find(w => w.name === _weatherState).iconType, "clear")>>
+
+			<<set _weatherIcon to `<<iconUi 'weather/${_dayState}_${_iconType}.png'>>`>>
+
+			<<set _weatherName to _weatherState.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase().toUpperFirst()>>
+			<<= _weatherIcon.replace("none", "rain")>>
+			<span @class="Weather.name is _weatherState ? 'goldLink' : 'unselected'">
+				<<link _weatherName>>
+					<<set Weather.set(_weatherState, true, 6 * 60)>>
+					<<replace "#cheatsWeather">><<cheatsWeather>><</replace>>
+				<</link>>
+			</span>
+			<<= _i lt _weatherTypes.length - 1 ? "<br>" : "">>
+		<</for>>
+	<</capture>>
+<</widget>>
+
+<<widget "cheatsSex">>
+	<<set _reasons to []>>
+	<<if $sexStats.vagina.menstruation.currentState isnot "normal">><<set _reasons.push($sexStats.vagina.menstruation.currentState is "recovering" ? "you still being in recovery from your last pregnancy" : "your pregnancy")>><</if>>
+	<<if $earSlime.growth gt 50>><<set _reasons.push("your ear slime's current growth")>><</if>>
+	<<if _inWardrobe>>
+		<<if _reasons.length gte 1>>
+			<span class="gold"><<= $player.sex is "m" ? "Penis" : $player.sex is "f" ? "Vagina" : "Hermaphrodite">></span>
+			| This setting cannot be changed due to <<= _reasons.join(" and ")>>.
+		<<else>>
+			<<if $player.sex is "m">>
+				<span class="gold">Penis</span> |
+			<<else>>
+				<<link "Penis">>
+					<<wash>>
+					<<removeparasite clit>>
+					<<removeparasite penis>>
+					<<set $vaginause to "none">>
+					<<set $vaginastate to "none">>
+					<<set $penisuse to 0>>
+					<<set $penisstate to 0>>
+					<<set $player.sex to "m">>
+					<<set $player.ballsExist to true>>
+					<<set $player.penisExist to true>>
+					<<set $player.vaginaExist to false>>
+					<<set $sexStats.vagina.menstruation.running = false>>
+					<<updatesidebarimg>>
+					<<replace "#statsGender">><<cheatsSex>><</replace>>
+				<</link>> |
+			<</if>>
+			<<if $player.sex is "f">>
+				<span class="gold">Vagina</span> |
+			<<else>>
+				<<link "Vagina">>
+					<<wash>>
+					<<removeparasite clit>>
+					<<removeparasite penis>>
+					<<set $vaginause to 0>>
+					<<set $vaginastate to 0>>
+					<<set $penisuse to "none">>
+					<<set $penisstate to "none">>
+					<<set $player.sex to "f">>
+					<<set $player.ballsExist to false>>
+					<<set $player.penisExist to false>>
+					<<set $player.vaginaExist to true>>
+					<<set $sexStats.vagina.menstruation.running = true>>
+					<<updatesidebarimg>>
+					<<replace "#statsGender">><<cheatsSex>><</replace>>
+				<</link>> |
+			<</if>>
+			<<if $player.sex is "h">>
+				<span class="gold">Both</span>
+			<<else>>
+				<<link "Both">>
+					<<wash>>
+					<<removeparasite clit>>
+					<<removeparasite penis>>
+					<<set $vaginause to 0>>
+					<<set $vaginastate to 0>>
+					<<set $penisuse to 0>>
+					<<set $penisstate to 0>>
+					<<set $player.sex to "h">>
+					<<set $player.penisExist to true>>
+					<<set $player.vaginaExist to true>>
+					<<set $sexStats.vagina.menstruation.running = true>>
+					<<updatesidebarimg>>
+					<<replace "#statsGender">><<cheatsSex>><</replace>>
+				<</link>>
+			<</if>>
+		<</if>>
+		<<if $player.sex is "h">>
+			<br>
+			Hermaphrodite Balls: <span id="statsBallsExist"><<= $player.ballsExist ? "Present" : "Disabled">></span> |
+			<<link "Change">>
+				<<set $player.ballsExist to clone(!$player.ballsExist)>>
+				<<updatesidebarimg>>
+				<<replace "#statsGender">><<cheatsSex>><</replace>>
+			<</link>>
+		<</if>>
+	<<else>>
+		<span class="gold"><<= $player.sex is "m" ? "Penis" : $player.sex is "f" ? "Vagina" : "Hermaphrodite">></span> | <<if _reasons.length gte 1>>You cannot change your genitals due to <<= _reasons.join(" and ")>>. Normally, this<<else>>This<</if>> setting can only be changed when accessing your wardrobe.
+	<</if>>
+<</widget>>
+
+<<widget "cheatSection">>
+	<<switch _args[0]>>
+		<<case "state">>
+			<<numberStepper "Pain" $pain { callback: value => { V.pain = value; Wikifier.wikifyEval("<<updatesidebarimg>>") }, max: 200, reverse: true}>>
+			<<numberStepper "Arousal" $arousal { callback: value => { V.arousal = value; Wikifier.wikifyEval("<<updatesidebarimg>>") }, max: 10000, reverse: true}>>
+			<<numberStepper "Fatigue" $tiredness { callback: value => { V.tiredness = value; Wikifier.wikifyEval("<<updatesidebarimg>>") }, max: 2000, reverse: true}>>
+			<<numberStepper "Stress" $stress { callback: value => { V.stress = value; Wikifier.wikifyEval("<<updatesidebarimg>>") }, max: 10000, reverse: true}>>
+			<<numberStepper "Trauma" $trauma { callback: value => { V.trauma = value; Wikifier.wikifyEval("<<updatesidebarimg>>") }, max: 5000, reverse: true}>>
+			<<numberStepper "Control" $control { callback: value => { V.control = value; Wikifier.wikifyEval("<<updatesidebarimg>>") }, max: 1000}>>
+			<<numberStepper "Alcohol" $drunk { callback: value => { V.drunk = value; Wikifier.wikifyEval("<<updatesidebarimg>>") }, max: 1000, reverse: true}>>
+			<<numberStepper "Drugs" $drugged { callback: value => { V.drugged = value; Wikifier.wikifyEval("<<updatesidebarimg>>") }, max: 1000, reverse: true}>>
+			<<numberStepper "Hallucinogens" $hallucinogen { callback: value => { V.hallucinogen = value; Wikifier.wikifyEval("<<updatesidebarimg>>") }, max: 1000, reverse: true}>>
+		<<case "crime">>
+			<<for _cr range Object.keys(setup.crimeNames)>>
+				<<capture _cr>>
+					<<numberStepper toTitleCase(setup.crimeNames[_cr]) $crime[_cr].current { callback: (value, arr) => { V.crime[arr[0]].current = value }, max: 10000, step: 10, reverse: true, percentage: false, values: [_cr]}>>
+				<</capture>>
+			<</for>>
+			<<unset _cr>>
+		<<case "negative">>
+			<<numberStepper "Sex" $fame.sex { callback: value => { V.fame.sex = value }, max: 2000, reverse: true}>>
+			<<numberStepper "Prostitution" $fame.prostitution { callback: value => { V.fame.prostitution = value }, max: 2000, reverse: true}>>
+			<<numberStepper "Rape" $fame.rape { callback: value => { V.fame.rape = value }, max: 2000, reverse: true}>>
+			<<numberStepper "Bestiality" $fame.bestiality { callback: value => { V.fame.bestiality = value }, max: 2000, reverse: true}>>
+			<<numberStepper "Pregnancy" $fame.pregnancy { callback: value => { V.fame.pregnancy = value }, max: Math.clamp(playerNormalPregnancyTotal(),1,8) * 250, step: 2000 / 100, percentage: false, reverse: true, valueFormat: (value) => `<b>${Math.round(((value - 0) / (2000 - 0)) * 100)}%</b>`}>>
+			<<numberStepper "Impregnation" $fame.impreg { callback: value => { V.fame.impreg = value }, max: 2000, reverse: true}>>
+			<<numberStepper "Exhibitionism" $fame.exhibitionism { callback: value => { V.fame.exhibitionism = value }, max: 2000, reverse: true}>>
+			<<if playerNormalPregnancyTotal() lt 8>>
+				<span class="description"><<set _pregsNeeded to Math.trunc(8-playerNormalPregnancyTotal())>>
+				Your pregnancy fame is capped by the amount of pregnancies you've had. You need to get pregnant <span class="gold"><<number _pregsNeeded>></span> more <<pluralise _pregsNeeded "time">> to reach maximum pregnancy fame.</span>
+			<</if>>
+		<<case "positive">>
+			<<numberStepper "Combat" $fame.scrap { callback: value => { V.fame.scrap = value }, max: 2000}>>
+			<<numberStepper "Kindness" $fame.good { callback: value => { V.fame.good = value }, max: 2000}>>
+			<<numberStepper "Business" $fame.business { callback: value => { V.fame.business = value }, max: 2000}>>
+			<<numberStepper "Socialite" $fame.social { callback: value => { V.fame.social = value }, max: 2000}>>
+			<<numberStepper "Model" $fame.model { callback: value => { V.fame.model = value }, max: 2000}>>
+		<<case "skills">>
+			<<numberStepper "Skulduggery" $skulduggery "skulduggery" {max: 1000}>>
+			<<numberStepper "Dance" $danceskill "danceskill" {max: 1000}>>
+			<<numberStepper "Swimming" $swimmingskill "swimmingskill" {max: 1000}>>
+			<<numberStepper "Athletics" $athletics "athletics" {max: 1000}>>
+			<<numberStepper "Tending" $tending "tending" {max: 1000}>>
+			<<numberStepper "Housekeeping" $housekeeping "housekeeping" {max: 1000}>>
+		<<case "school">>
+			/* normally, school traits are adjusted by the widget "school_skill_change" */
+			<<numberStepper "<<scienceicon>> Science" $science "science" {
+				callback: (value) => wikifier('adjust_school_traits'),
+				max: 1000
+			}>>
+			<<numberStepper "<<mathicon>> Maths" $maths "maths" {
+				callback: (value) => wikifier('adjust_school_traits'),
+				max: 1000
+			}>>
+			<<numberStepper "<<englishicon>> English" $english "english" {
+				callback: (value) => wikifier('adjust_school_traits'),
+				max: 1000
+			}>>
+			<<numberStepper "<<historyicon>> History" $history "history" {
+				callback: (value) => wikifier('adjust_school_traits'),
+				max: 1000
+			}>>
+		<<case "characteristics">>
+			<<numberStepper "<<tficon angel>> Purity" $purity "purity" {max: 1000}>>
+			<<numberStepper "<<symbol beauty>> Beauty" $beauty "beauty" {max: 10000}>>
+			<<numberStepper "<<symbol physique>> Physique" $physique "physique" {max: $physiquesize}>>
+			<<numberStepper "<<symbol willpower>> Willpower" $willpower "willpower" {max: 1000}>>
+			<<numberStepper "<<symbol awareness>> Awareness" $awareness "awareness" {min: -200, max: 1000, reverse: true}>>
+			<<numberStepper "<<symbol promiscuity>> Promiscuity" $promiscuity "promiscuity" {reverse: true}>>
+			<<numberStepper "<<symbol exhibitionism>> Exhibitionism" $exhibitionism "exhibitionism" {reverse: true}>>
+			<<numberStepper "<<symbol deviancy>> Deviancy" $deviancy "deviancy" {reverse: true}>>
+			<<if numberOfEarSlime()>>
+				<<numberStepper "<<symbol corruption>> Corruption" $earSlime.corruption { callback: value => {V.earSlime.corruption = value; Wikifier.wikifyEval("<<updatesidebarimg>>")}, reverse: true}>>
+			<</if>>
+		<<case "sex">>
+			<<numberStepper "Seduction" $seductionskill "seductionskill" {max: 1000}>>
+			<<numberStepper "Chest" $chestskill "chestskill" {max: 1000}>>
+			<<numberStepper "Buttocks" $bottomskill "bottomskill" {max: 1000}>>
+			<<if $player.vaginaExist>><<numberStepper "Vaginal" $vaginalskill "vaginalskill" {max: 1000}>><</if>>
+			<<if $player.penisExist>><<numberStepper "Penile" $penileskill "penileskill" {max: 1000}>><</if>>
+			<<numberStepper "Thighs" $thighskill "thighskill" {max: 1000}>>
+			<<numberStepper "Oral" $oralskill "oralskill" {max: 1000}>>
+			<<numberStepper "Hands" $handskill "handskill" {max: 1000}>>
+			<<numberStepper "Anal" $analskill "analskill" {max: 1000}>>
+			<<numberStepper "Feet" $feetskill "feetskill" {max: 1000}>>
+		<<default>>
+			ERROR: Skill issue.
+	<</switch>>
+<</widget>>

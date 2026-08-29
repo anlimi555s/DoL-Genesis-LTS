@@ -1,0 +1,779 @@
+:: Orphanage Loft
+
+<<set $outside to 0>><<set $location to "home">><<effects>>
+You are in the loft above the orphanage. A wide hall runs down the centre. Corridors leading to other rooms line the sides. Dusty boxes pile high.
+<br>
+<<if $loft_kylar>>
+	An acrid smell wafts from one of the rooms.
+	<br>
+<</if>>
+<<if $loft_river is 1>>
+	The smell of warm soup and fresh bread wafts from one of the rooms.
+	<br>
+<</if>>
+<<if $loft_doren is 1>>
+	The comforting scent of books comes from the reading nook.
+	<br>
+<</if>>
+<<if $loft_gh gte 2>>
+	Light filters through the bay window at the far back.
+	<br>
+<</if>>
+<<if $loft_sam is 1>>
+	The scent of coffee wafts through the air.
+	<br>
+<</if>>
+<br>
+<<if $loft_spray isnot 1 and $spray lt $spraymax and $loft_kylar>>
+	<<peppersprayicon>><<link [[Refill pepper spray|Orphanage Loft Spray]]>><<spray 1>><<set $loft_spray to 1>><</link>><<gspray>>
+	<br>
+<</if>>
+<<if $loft_river gte 1>>
+	<<kitchenicon "range">><<link [[Secret kitchen|Orphanage Loft Kitchen]]>><</link>>
+	<br>
+<</if>>
+<<if $loft_doren is 1>>
+	<<schoolicon "library">><<link [[Reading nook|Orphanage Loft Reading Nook]]>><</link>>
+	<br>
+<</if>>
+<<if $loft_gh gte 2>>
+	<<baywindowicon>><<link [[Bay window|Orphanage Loft Bay Window]]>><</link>>
+	<br>
+<</if>>
+<<if $loft_sam is 1>>
+	<<foodicon "coffee">><<link [[Coffee Pot|Orphanage Loft Coffee Pot]]>><</link>>
+	<br>
+<</if>>
+<<main_hall_icon>><<link [[Main hall (0:01)|Orphanage]]>><<pass 1>><</link>>
+<br>
+
+:: Orphanage Loft Spray
+
+<<set $outside to 0>><<set $location to "home">><<effects>><<wearProp "pepper spray">>
+You enter the chemistry lab. Several beakers bubble away. A <<generateyv1>><<person1>><<person>> is running things. <<He>> hands you a freshly-made charge for your pepper spray.
+<br><br>
+<<link [[Next|Orphanage Loft]]>><<endevent>><</link>>
+<br>
+
+:: Orphanage Loft Kitchen
+
+<<set $outside to 0>><<set $location to "home">><<set $bus to "loft_kitchen">><<effects>>
+
+You are in the kitchen in the orphanage loft, hidden away from Bailey.
+<<if Time.dayState is "night">>
+	The orphans left a stew slow cooking overnight.
+<<elseif Time.dayState is "dawn">>
+	Orphans are arriving for breakfast.
+<<elseif Time.dayState is "dusk">>
+	The orphans are tidying up, cleaning pots and wiping away spilled flour.
+<<else>>
+	An orphan stirs a large, sweet-smelling pot, while others knead dough.
+<</if>>
+<br><br>
+
+<<robinorphanagekitchen>>
+
+<<if Object.keys($loftIngredients).length gte 1>>
+	<<for _i range Object.keys($loftIngredients)>>
+		<<if $loftIngredients[_i] lte 0>>
+			<<if $recipeMade and setup.foodstuff[$recipeMade].recipe?.ingredients.includes(_i)>>
+				<span class="red">You used the last of the <<print setup.foodstuff[_i].plural>>.</span>
+				<br>
+			<</if>>
+			<<run delete $loftIngredients[_i]>>
+		<<else>>
+			<span class="green">Some <<print setup.foodstuff[_i].plural>> were delivered here recently.</span> There should be enough for <span class="gold"><<number $loftIngredients[_i]>> <<pluralise $loftIngredients[_i] "meal">></span>.
+			<br>
+		<</if>>
+	<</for>>
+	<br>
+	<<ingredientsSupplied `Object.keys($loftIngredients)`>>
+<<else>>
+	You can cook whatever you like here, but you'll need to supply your own ingredients.
+	<br><br>
+<</if>>
+
+<<allowLewdIngredients>>
+<<kitchenDisplay>>
+
+<<getouticon>><<link [[Leave|Orphanage Loft]]>><<kitchenExit>><</link>>
+<br>
+
+:: Orphanage Loft Reading Nook
+<<effects>>
+You stand before the cosy reading nook, by a window. The shelves are filled with books, newspapers, and magazines. Bookmarks, flash cards, stationery, and craft supplies are stored in the drawers.
+<br><br>
+<<rng 5>>
+<<switch $rng>>
+	<<case 1>>The orphans gather around the reading nook, listening to a <<generatey1>><<person1>><<person>> read.
+	<<case 2>>A <<generatey1>><<person1>><<person>> quizzes a <<generatey2>><<person2>><<person>> with flash cards.
+	<<case 3>>A <<generatey1>><<person1>><<person>> <<= either("quietly","expressively")>> reads in the nook.
+	<<case 4>>A <<generatey1>><<person1>><<person>> falls asleep in the nook.
+	<<default>>A group of orphans are doing arts and crafts.
+<</switch>>
+
+<<endevent>>
+<br><br>
+<<if !$daily.reading_nook>>
+	<<link [[Read a reference book (0:30)|Orphanage Loft Reading Nook 2]]>><<set $phase to "reference">><<pass 30>><</link>><<gtiredness>>
+	<br>
+	<<link [[Read a comic book (0:20)|Orphanage Loft Reading Nook 2]]>><<set $phase to "comic">><<pass 20>><</link>><<gtiredness>><<lstress>>
+	<br>
+	<<link [[Read a novel (0:30)|Orphanage Loft Reading Nook 2]]>><<set $phase to "novel">><<pass 30>><</link>><<gtiredness>><<genglish>>
+	<br>
+	<<link [[Read a newspaper (0:20)|Orphanage Loft Reading Nook 2]]>><<set $phase to "newspaper">><<pass 20>><</link>><<gtiredness>>
+	<br>
+	<<link [[Read a magazine (0:20)|Orphanage Loft Reading Nook 2]]>><<set $phase to "magazine">><<pass 20>><</link>><<gtiredness>>
+	<br>
+	<<link [[Study with the flash cards (0:20)|Orphanage Loft Reading Nook 2]]>><<set $phase to "flashcards">><<pass 20>><</link>><<gtiredness>>
+	<br>
+	<<link [[Do arts and crafts (0:20)|Orphanage Loft Reading Nook 2]]>><<set $phase to "crafts">><<pass 20>><</link>><<lstress>><<ltrauma>><<gtiredness>>
+	<br>
+	<<link [[Practise writing (0:20)|Orphanage Loft Reading Nook 2]]>><<set $phase to "write">><<pass 20>><</link>><<lstress>><<ltrauma>><<gtiredness>><<genglish>>
+	<br>
+	<<if ($worn.lower.name !== "naked" and ($worn.lower.integrity lte (clothingData('lower',$worn.lower,'integrity_max')/5))) or 
+			($worn.upper.name !== "naked" and ($worn.upper.integrity lte (clothingData('upper',$worn.upper,'integrity_max')/5))) or 
+			($worn.under_upper.name !== "naked" and ($worn.under_upper.integrity lte (clothingData('under_upper',$worn.under_upper,'integrity_max')/5))) or 
+			($worn.under_lower.name !== "naked" and ($worn.under_lower.integrity lte (clothingData('under_lower',$worn.under_lower,'integrity_max')/5)))>>
+		<<link [[Fix your clothes|Orphanage Loft Reading Nook 2]]>><<set $phase to "sew">><</link>><<ghousekeeping>>
+		<br>
+	<</if>>
+	<<if $tiredness gte 1700>>
+		<<link [[Take a nap (0:15)|Orphanage Loft Reading Nook 2]]>><<set $phase to "nap">><<pass 15>><</link>><<lstress>><<ltiredness>>
+		<br>
+	<</if>>
+	<br>
+<</if>>
+<<getouticon>><<link [[Leave|Orphanage Loft]]>><<kitchenExit>><</link>>
+
+:: Orphanage Loft Reading Nook 2
+<<effects>>
+<<set $daily.reading_nook to 1>>
+<<if $phase is "reference">>
+	<<tiredness 10>>
+	<<rng 5>>
+	<<switch $rng>>
+		<<case 1>>
+			It's a cookbook that teaches simple recipes.
+			<br><br>
+			<<reading_nook_recipe>>
+		<<case 2>>It's an encyclopedia. You learn something new. <<= either(`<<genglish>><<englishskill>>`, `<<ghistory>><<historyskill>>`, `<<gmaths>><<mathsskill>>`, `<<gscience>><<scienceskill>>`)>>
+		<<case 3>>It's an atlas of world history. You learn something new. <<ghistory>><<historyskill>>
+		<<case 4>>It's a dictionary. You learn something new. <<genglish>><<englishskill>>
+		<<default>>It's an illustrated book on <<= either("zoology", "human evolution", "nature", "biodiversity")>>. You learn something new. <<gscience>><<scienceskill>>
+	<</switch>>
+<<elseif ["novel","comic"].includes($phase)>>
+	<<tiredness 10>>
+	<<if $phase is "novel">>
+		<<englishskill>>
+		<<rng 3>>
+		<<switch $rng>>
+			<<case 1>>It's really hard to get through.
+			<<case 2>><<= either("The prose flows so smoothly", "It's such a page-turner")>> that you don't realise an hour has gone by.<<pass 60>>
+			<<case 3>>It's so immersive that you lose track of time.<<pass 60>>
+			<<default>>It's a light read.
+		<</switch>>
+	<<else>>
+		<<stress -5>>
+		<<rng 6>>
+		<<switch $rng>>
+			<<case 1>>It's really hard to get through.
+			<<case 2>>The use of <<= either("colours", "composition")>> is mind-blowing.
+			<<case 3>>The art style is <<= either("cute", "unique", "eye-catching", "beautiful", "gorgeous")>>.
+			<<case 4>><<= either("The prose flows so smoothly", "It's such a page-turner")>> that you don't realise an hour has gone by.<<pass 60>>
+			<<case 5>>It's so immersive that you lose track of time.<<pass 60>>
+			<<default>>It's a light read.
+		<</switch>>
+	<</if>>
+	<<rng 10>>
+	<<switch $rng>>
+		<<case 1>>It makes you stop and think for a while.<<pass 40>>
+		<<case 2>>It gives you an existential crisis. <<gstress>><<stress 5>>
+		<<case 3>>It makes you appreciate life more. <<lstress>><<stress -5>>
+		<<case 4>>It bores you,<<= either(" but you keep going", "<<set _read_bored to true>> so you stop reading", " so you skim through it")>>.
+		<<case 5>>It entertains you. You have a great time. <<lstress>><<stress -5>>
+		<<case 6>>It cracks you up. You burst out laughing a few times. <<lstress>><<stress -5>>
+		<<case 7>>You're on the edge of your seat the whole time. The plot twist blows your mind.
+		<<case 8>>It's a comforting read. You smile as you imagine yourself living in the book's universe. <<lstress>><<stress -5>>
+		<<case 9>>It's a tear-jerker. You cry as you put yourself in the character's shoes.
+		<<default>>It's so <<= either("dystopian", "terrifying")>>. You feel <<= either("a sense of dread crawling into your skin", "chills running down your spine")>>.
+	<</switch>>
+	<br><br>
+	<<if _read_bored isnot true>>
+		The ending <<= either("is perfect.", "can't be better than this.", "is alright.", "could be better.", "leaves you with more questions than answers.", "is half-baked.", "is a letdown.")>>
+	<<else>>
+		You don't care about the ending.
+	<</if>>
+<<elseif $phase is "newspaper">>
+	<<tiredness 10>>
+	<<rng 4>>
+	<<switch $rng>>
+		<<case 1>>Your reading comprehension strengthens. <<genglish>><<englishskill>>
+		<<case 2>>You feel more informed about the world. <<ghistory>><<historyskill>>
+		<<case 3>>You have a better understanding of social, political, and economic issues. <<gmaths>><<mathsskill>>
+		<<default>>Your scientific literacy improves. <<gscience>><<scienceskill>>
+	<</switch>>
+<<elseif $phase is "magazine">>
+	<<tiredness 10>>
+	<<rng 3>>
+	<<switch $rng>>
+		<<case 1>>There's a cooking recipe being featured on this print. <<reading_nook_recipe>>
+		<<case 2>>You feel more up-to-date with the current <<= either("fashion trends", "popular musicians", "popular artists")>>.
+		<<default>>You read an interview about a <<= either("famous", "popular")>> <<= either("artist", "band", "musician")>>. It's <<= either("entertaining and insightful. <<lstress>><<stress -6>>", "dull and boring.")>>
+	<</switch>>
+<<elseif $phase is "flashcards">>
+	<<tiredness 10>>
+	You study using flash cards. You feel your memorisation is getting better.<<= either(`<<gggenglish>><<englishskill 18>>`, `<<ggghistory>><<historyskill 18>>`, `<<gggmaths>><<mathsskill 18>>`, `<<gggscience>><<scienceskill 18>>`)>>
+<<elseif $phase is "write">>
+	<<tiredness 10>><<englishskill>>
+	You practise writing <<= either("poems","short stories")>>. It turns out <<=("awful","so-so","alright","great","amazing")>>.
+<<elseif $phase is "nap">>
+	<<tiredness -12>>
+	You snuggle up and doze off, giving in to the sleepiness weighing on your eyes. You wake up later feeling refreshed and well-rested. <<lstress>><<stress -5>><<ltrauma>><<trauma -5>>
+	<<if $englishtrait gte 3>>
+		<<cleareventpool>>
+		<<addinlineevent "readingorphans" 1>>
+		<<generatey1>><<generatey2>>
+		<br><br>
+		You notice some orphans gather around you. One of them, a <<person1>><<person>> asks, "Good <<= (Time.hour lt 12 and Time.hour gt 5) ? `morning` : (Time.hour lte 17 and Time.hour gt 12) ? `afternoon` : `evening`>>! We were just wondering if you could read us a book?"
+		<br><br>
+		<<link [[Accept (0:20)|Reading Nook Orphans]]>><<pass 20>><<set $phase to 1>><</link>><<ghope>>
+		<br>
+		<<link [[Refuse|Reading Nook Orphans]]>><<set $phase to 2>><</link>>
+		<<set _hide_links to 1>>
+		<</addinlineevent>>
+		<<runeventpool>>
+	<</if>>
+<<elseif $phase is "crafts">>
+	<<tiredness 10>>
+	Using the supplies in the drawers, you
+	<<rng 4>>
+	<<switch $rng>>
+		<<case 1>>
+			make some <<= either ("crochet crafts", "knit crafts", "bead crafts", "clay crafts", "felt crafts", "charms", "accessories", "pipe cleaner crafts", "papier-mâché crafts")>>.
+		<<case 2>>
+			<<= either(`<<wearProp "paper sheet">>`,`<<wearProp "scissors">>`)>>
+			create some <<= either ("bookmarks", "origami")>>.
+		<<case 3>>
+			<<= either(`<<wearProp "paintbrush">>paint a picture`,`<<wearProp "pencil">>draw a sketch`)>>.
+		<<default>>
+			<<wearProp "rag">>
+			embroider patterns on a piece of fabric.
+	<</switch>>
+		It's therapeutic. <<lstress>><<stress -5>><<ltrauma>><<trauma -5>>
+<<elseif $phase is "sew">>
+	<<housekeeping 5>>
+	<<outfitChecks>>
+
+	<<silently>>
+	<<set _equip to []>>
+	<<for _tatteredOutfit range Object.keys($worn)>>
+		<<if _tatteredOutfit is "genitals" or $worn[_tatteredOutfit].name is "naked" or $worn[_tatteredOutfit].integrity is undefined>>
+			<<continue>>
+		<</if>>
+
+		<<if $worn[_tatteredOutfit].integrity lte clothingData(_tatteredOutfit,$worn[_tatteredOutfit],'integrity_max')/5>>
+			<<run _equip.push(_tatteredOutfit)>>
+		<</if>>
+	<</for>>
+
+	<<set _items to []>>
+	<<for _i to 0; _i lt _equip.length; _i++>>
+		<<run _items.push($worn[_equip[_i]].name)>>
+	<</for>>
+
+	<<set _itemListText to formatList(_items, "and", true)>>
+	<</silently>>
+
+	<<if $housekeeping gte 800>>
+		<<pass 15>>
+		<<for _i to 0; _i lt _equip.length; _i++>>
+			<<set $worn[_equip[_i]].integrity = clothingData(_equip[_i],$worn[_equip[_i]],'integrity_max')>>
+			<<set $_slot to _equip[_i]>>
+		<</for>>
+		<<if _equip.length is 1>>
+			You meticulously sew your tattered _itemListText. Now <<itis $_slot>> good as new.
+		<<else>>
+			You meticulously sew your tattered _itemListText. Now they're good as new.
+		<</if>>
+	<<elseif $housekeeping gte 500>>
+		<<pass 30>>
+		<<for _i to 0; _i lt _equip.length; _i++>>
+			<<set $worn[_equip[_i]].integrity = clothingData(_equip[_i],$worn[_equip[_i]],'integrity_max')>>
+			<<set $_slot to _equip[_i]>>
+		<</for>>
+		<<if _equip.length is 1>>
+			You sew your tattered _itemListText. It takes you some time, but now <<itis $_slot>> good as new.
+		<<else>>
+			You sew your tattered _itemListText. It takes you some time, but now they're good as new.
+		<</if>>
+	<<else>>
+		<<rng 3>>
+		<<switch $rng>>
+			<<case 1>>
+				<<pass 45>>
+				<<for _i to 0; _i lt _equip.length; _i++>>
+					<<set $worn[_equip[_i]].integrity = clothingData(_equip[_i],$worn[_equip[_i]],'integrity_max')>>
+				<</for>>
+
+				You try to sew your tattered _itemListText. It takes you a lot longer than you thought.
+			<<case 2>>
+				<<pass 45>>
+				<<for _i to 0; _i lt _equip.length; _i++>>
+					<<set $worn[_equip[_i]].integrity -= $worn[_equip[_i]].integrity/2>>
+					<<if $worn[_equip[_i]].integrity lt 1>>
+						<<generalRuined _equip[_i]>>
+					<</if>>
+					<<set $_slot to _equip[_i]>>
+				<</for>>
+
+				You try to sew your tattered _itemListText.
+				<<if _equip.length is 1>>
+					Unfortunately, your attempted fix just makes <<it $_slot>> worse. Your _itemListText <<is $_slot>> even more tattered now.
+				<<else>>
+					Unfortunately, your attempted fix just make them worse. Your _itemListText are even more tattered now.
+				<</if>>
+			<<default>>
+				<<pass 15>>
+				<<for _i to 0; _i lt _equip.length; _i++>>
+					<<set $worn[_equip[_i]].integrity = $worn[_equip[_i]].integrity + clothingData(_equip[_i],$worn[_equip[_i]],'integrity_max')/10>>
+				<</for>>
+				You try to fix your _itemListText meticulously. You get a bit done.
+		<</switch>>
+	<</if>>
+<</if>>
+<br><br>
+<<if !_hide_links>>
+	<<link [[Next|Orphanage Loft Reading Nook]]>><</link>>
+<</if>>
+
+:: Reading Nook Orphans
+<<effects>>
+<<if $phase is 1>>
+	<<famegood 10>><<hope 1>>
+	"Thank you!" They smile and sit down, listening to you read. <<= either("Your delivery keeps them hooked and engaged", "You act out the scenes and put on silly voices, entertaining them greatly")>>. After finishing the book, you quiz them about it, and they're happy to participate. You have a great time.<<lstress>><<stress -5>><<gtiredness>><<tiredness 10>>
+<<else>>
+	You shake your head.
+	<br><br>
+	<<if $speech_attitude is "meek">>
+		"Sorry, I'm afraid not."
+	<<elseif $speech_attitude is "bratty">>
+		"No. Sorry not sorry."
+	<<else>>
+		"Sorry, but not today."
+	<</if>>
+	<br><br>
+	The <<person2>><<person>> reassures you. "It's okay. We understand. Have a nice day!"
+	<br><br>
+	"Goodbye," the group unanimously says. They scurry away.
+<</if>>
+
+<br><br>
+<<link [[Next|Orphanage Loft Reading Nook]]>><<endevent>><</link>>
+
+:: Orphanage Loft Bay Window
+<<effects>>
+
+You stand before the bay window. It rises above you. The latch on the central window holds firm.
+<<if $loft_gh is 3>>
+	The quilts, padded by the duvets beneath, look comfy. Cushions and pillows are scattered across the bay. The wind chime sways gently.
+<</if>>
+<br><br>
+<<if Time.hour lte 22>>
+	<<switch random(1,4)>>
+		<<case 1>>A <<generatey1>><<person1>><<person>> watches over the garden below.
+		<<case 2>>A <<generatey1>><<person1>><<person>> chats with a <<generatey2>><<person2>><<person>> while sitting on the window board<<if $loft_gh is 3>>, hugging a pillow in <<person1>><<his>> chest<</if>>.
+		<<case 3>>A <<generatey1>><<person1>><<person>> basks <<= Time.dayState is "night" ? "beneath the moonlight" : "in the sunlight">>, dozing off.
+		<<default>>Some orphans gather near the windows, peering out and pointing excitedly at something in the forest.
+	<</switch>>
+	<br><br>
+<</if>>
+You open the window and perch on the edge of the sill, dangling your feet in the air.
+<br><br>
+
+<<loft_window_options>>
+
+:: Orphanage Loft Bay Window Preen
+<<effects>>
+
+<<if $plucked>>
+	You try to preen your wings, but Gwylan left nothing loose. You're thoroughly plucked already.
+<<elseif $daily.birdSelfPreen is undefined>>
+	<<set $daily.birdSelfPreen to 1>>
+	You preen your wings. It's harder doing this alone.
+	<<set _selfFeatherNum to random(1,2)>>
+	<<switch _selfFeatherNum>>
+		<<case 1>>One of your loose feathers has fallen out. <span class="teal">You take it.</span>
+		<<case 2>>A couple of your loose feathers have fallen out. <span class="teal">You take them.</span>
+	<</switch>>
+	<<set $bird.materials.feathers += _selfFeatherNum>>
+	<<wearProp "pc feather" "hair">>
+<<else>>
+	You preen your wings. There's no more loose feathers to remove for now, but it makes you feel better regardless.
+<</if>>
+<br><br>
+
+<<loft_window_options>>
+
+:: Orphanage Loft Bay Window Sing
+<<effects>>
+
+<<if $harpy gte 6>>
+	<<transform bird 1>>
+	<<print either(
+		"Your powerful, clear voice pierces the air and subdues every creature it can reach, even the most finicky. The forest yields to you.",
+		"Your deep and gentle voice soothes all the sorrows of the world. The forest seems a little more peaceful.",
+		"Your glorious song beckons to a distant land. The trees rattle and the leaves rustle as if heeding your call.",
+		"You hum in the wind, letting it carry your song across the vast expanse of the sky. The trees make way and blossoms bloom even more beautifully wherever it passes.",
+		"Your ballad graces the very air. Nature holds its breath in reverence for you.",
+		"Your melody rides the air as though the sky welcomes it home.",
+		"Your voice drips like honeyed song through the air. Every note pulls at the heart like a siren's call.",
+		"Each note from your throat feels bright enough to stir the skies. Even the breeze seems to dance to your melody."
+	)>><<trauma -6>><<ltrauma>>
+	<br><br>
+	<<cleareventpool>>
+
+	<<addinlineevent "loft_sing_birds" 1>>
+		Your melodic tune attracts <<= Time.dayState is "night" ? "an owl, and it perches beside you on the sill. Its hoot backs your song" : "a flock of songbirds. They gather around you, adding their chirping as accompaniment">>.
+	<</addinlineevent>>
+
+	<<if $seabird_lullaby gte 2 and !$weekly.seabird_sing>>
+		<<addinlineevent "loft_sing_lullaby" .01>>
+			<<set $weekly.seabird_sing to true>>
+			On a whim, you hum the six familiar notes of the <span class="teal">Seabird's Lullaby</span>. Then, words slip from your lips in the most natural way. Everything is silent, except for your voice. <<if Time.hour gte 23>>It drifts through the air, carrying even the weariest of souls to sleep.<</if>>
+			<br><br>
+			A soft singing echoes from the forest.
+			<<if $gwylan.hunting gte 2 and $hypnosis_traits.devotion gt 0 and !isGwylanAbsent()>>
+				<<silently>><<gwylanWillpowerDifficulty>><</silently>>
+				It evokes a strange, compelling feeling, and suddenly, you feel an urge to venture deeper into the forest.
+					<<if $willpowerSuccess>>
+						You shake your head and push the thought aside.
+					<<else>>
+						You sink deeper into the trance. <<hypnosisText "Guilt sets in as you recall the duties you've neglected.">><<trauma 6>><<gtrauma>>
+					<</if>>
+			<<elseif isGwylanAbsent() is "nobody">>
+				It sounds like nobody. You shake your head. You hear nothing.
+			<<else>>
+				It sounds like Gwylan. Your voices join and weave into a duet.
+			<</if>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if Time.hour gte 21>>
+		<<addinlineevent "loft_sing_orphan_lull" .5>>
+			<<generatey1>><<person1>>
+			Another orphan falls asleep nearby. You lower your voice into a soothing coo.
+			<br><br>
+			You wake <<him>> up after a moment and suggest <<he>> go to bed.
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $dissociation gte 1 and $hallucinations gte 2 and Time.dayState is "night">>
+		<<addinlineevent "loft_sing_trauma" 1>>
+			You pour your sorrow and distress into the cold night. Darkness shrouds your lonely tune, seemingly wanting to swallow you whole.
+			<<if Weather.bloodMoon>>
+				For a moment, the red moon looks just like an eye, boring into you with malicious intent. Something is coming for you. <span class="red">You open your mouth, and find yourself unable to sing.</span><<trauma 10>><<ggtrauma>>
+				<<set $daily.no_sing to true>>
+			<</if>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if Weather.bloodMoon and Time.dayState is "night">>
+		<<addinlineevent "loft_sing_blood" .7>>
+			<<set $daily.no_sing to true>>
+			<<set _no_options to true>>
+			The deep red moonlight envelopes you, painting everything in red. Your voice trembles, a feeling of dread filling your chest.
+			<br><br>
+			Something terrible is near.
+			<br><br>
+			It had arrived.
+			<br><br>
+			<span class="red">First, no sound leaves your throat.
+			<br><br>
+			Second, you no longer hear anything at all.
+			<br><br>
+			Third, red swarms your vision, until you can't see anymore. There's so much blood.</span><<trauma 10>><<ggtrauma>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $world_corruption_soft gte 99 and $hallucinations gte 2 and Time.dayState is "night">>
+		<<addinlineevent "loft_sing_snuffed" 1>>
+			Your surroundings suddenly become darker, tendrils of darkness closing on you.
+			<br><br>
+			You no longer hear your own singing. You scream. That is snuffed too. <span class="red">Your voice is stolen from you.</span><<trauma 20>><<gggtrauma>>
+			<br><br>
+			The night is eerily quiet. There's no sound except for your heavy breathing.
+			<<set $daily.no_sing to true>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $loft_gh is 3>>
+		<<addinlineevent "loft_sing_chimes" 1>>
+			The wind gently sways the wind chimes, creating tinkling sounds that blend with your voice, forming a harmonious symphony.
+		<</addinlineevent>>
+	<</if>>
+
+	<<addinlineevent "loft_sing_instrument" .7>>
+		<<generatey1>><<person1>>
+		A <<person>> sits by you, holding
+		<<if random(1,50) is 50>>
+			<<print either("a crwth", "a citole", "a pibgorn", "a cittern", "a concertina", "a bone flute", "a hurdy-gurdy", "an Anglo-Saxon lyre")>> in <<his>> hand.
+			<br><br>
+			You pause your song briefly, and curiously examine <<his>> instrument. It's a rare sight to see one of these.
+		<<else>>
+			<<print either("a harmonica", "a guitar", "a clarinet", "a hand drum", "a violin", "a lyre", "an ukulele", "a kalimba", "a saxophone")>> in <<his>> hand.
+		<</if>>
+		<br><br>
+		<<He>> offers you a smile and wordlessly adds <<his>> music to your singing. <<He>> tries <<his>> best to keep up with you.
+		<br><br>
+		By the end, <<his>> face is flushed with excitement. <<He>> looks at you with admiration, as if you are <<his>> muse.<<stress -6>><<lstress>>
+	<</addinlineevent>>
+
+	<<addinlineevent "loft_sing_wolves" 1>>
+		You can hear howling from afar. <<if $wolfpackleader is 1>> Your legion of wolves sing back to you in their own way.<</if>>
+	<</addinlineevent>>
+
+	<<addinlineevent "loft_sing_longing" 1>>
+		The sky sends forth a powerful gust of wind, as if to express its longing for you. <<if $transformationParts.bird.wings isnot "hidden">>Your wings flutter, each feather caressed by the breeze.<</if>> You yearn to touch the sky again. <<if $plucked>>But your wings cannot carry you into the sky, at least not yet.<</if>>
+	<</addinlineevent>>
+
+	<<addinlineevent "default" 1>>
+		Your song rides the wind, wandering far beyond the skyline.
+	<</addinlineevent>>
+	<<runeventpool>>
+<<else>>
+	You sing to the forest, and it responds in kind with
+	<<if Weather.precipitation isnot "none">>
+		<<if Weather.precipitation is "rain">>
+			a passing breeze that carries the earthy smell of damp woods.
+		<<else>>
+			a gust of wind that lands a snowflake on your nose. You sneeze.
+		<</if>>
+	<<elseif Time.season is "autumn">>
+		a soothing breeze that smells like decaying leaves and ripe fruits.
+	<<elseif Time.season is "summer">>
+		a fresh breeze with a hint of spice and sweetness from the tree resin melted by the sun's sheer intensity.
+	<<else>>
+		a gentle zephyr with the scent of crisp pines and blooming flowers.
+	<</if>>
+	<<stress -6>><<lstress>>
+	<br><br>
+	<<cleareventpool>>
+
+	<<if Time.dayState is "night" and !Weather.bloodMoon and !Weather.isOvercast>>
+		<<addinlineevent "loft_sing_moonlight" 1>>
+			The moon rests high in the night sky, gently casting its silver hue upon you.
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $dissociation gte 1>>
+		<<addinlineevent "loft_sing_sorrow" .7>>
+			<<set $daily.no_sing to true>>
+			Your singing stops abruptly. A lump forms in your throat as the weight of everything has happened crashes down onto you. You cover your face.
+		<</addinlineevent>>
+	<</if>>
+
+	<<if Weather.bloodMoon and Time.dayState is "night">>
+		<<addinlineevent "loft_sing_dread" 1>>
+			<<set $daily.no_sing to true>>
+			You pause, and look up to the sky. The blood moon bears down on you, filling your vision with red.
+			<br><br>
+			<span class="red">Suddenly, you don't want to sing anymore.</span>
+		<</addinlineevent>>
+	<</if>>
+
+	<<addinlineevent "loft_sing_clap" 1>>
+		<<generatey1>><<person1>>
+		A young orphan joins your side. <<He>> claps to your song in encouragement.
+	<</addinlineevent>>
+
+	<<addinlineevent "loft_sing_wave" 1>>
+		Some orphans see you from the garden and wave at you.
+	<</addinlineevent>>
+
+	<<runeventpool>>
+<</if>>
+
+<br><br>
+<<loft_window_options>>
+
+:: Orphanage Loft Bay Window Watch
+<<effects>>
+
+You watch the forest.
+<br><br>
+<<if $transformationParts.traits.sharpEyes isnot "disabled">>
+	With your sharp eyesight, you can see
+	<<switch random(1,13)>>
+		<<case 1>>seasonal flowers in full bloom across the outskirts.
+		<<case 2>>ripe fruits hanging from distant trees.
+		<<case 3>>a fox burying a bird egg in the distance.
+		<<case 4>>a lone wolf running deeper into the forest, until it disappears into a cave.
+		<<case 5>>smoke rising from somewhere deep within the forest.
+		<<case 6>>a lone figure disappearing deeper into the forest.
+		<<case 7>>branches swaying despite the still air.
+		<<case 8>>a rabbit darting through the undergrowth.
+		<<case 9>>a narrow trail winding through the forest.
+		<<case 10>>a squirrel leaping between branches.
+		<<case 11>>a deer grazing near the forest edge.
+		<<case 12>>ripples spreading across a hidden pond.
+		<<default>>a flock of birds circling above the trees.
+	<</switch>>
+	<<stress -6>><<lstress>>
+<<else>>
+	Lush greenery stretches as far as the eye can see. You can spot a corner of the forest lake. You feel at ease.<<stress -3>><<lstress>>
+<</if>>
+<br><br>
+
+<<cleareventpool>>
+
+<<if $transformationParts.traits.sharpEyes isnot "disabled">>
+	<<addinlineevent "forest_watch_shop" .01>>
+		You notice a strange, castle-like shop cradled in the treeline.<<if $forest_shop_intro is 1>> It's the forest shop.<</if>>
+		<br><br>
+		From here, you can peer through the top window of the building. <<= isGwylanAbsent() is "nobody" ? "Nobody is there.": "A silhouette paces back and forth. As if sensing your gaze, it pauses abruptly in front of the window, staring back at you.">>
+		<br><br>
+		You look away.
+	<</addinlineevent>>
+<</if>>
+
+<<addinlineevent "forest_watch_gun" .2>>
+	A distant gunshot rings through the forest. Moments later, a flock of startled birds takes flight above the trees.
+<</addinlineevent>>
+
+<<addinlineevent "forest_watch_misc" 10>>
+	<<switch random(1,7)>>
+		<<case 1>>
+			<<if $loft_gh is 3>>
+				<<print either(
+					"The curtains billow softly beside you.",
+					"The quilts sink comfortably beneath your weight.",
+					"The blankets bunch beneath your shifting weight.",
+					"The curtains flutter softly against the wooden frame.",
+					"Loose fabric rustles quietly in the breeze."
+				)>>
+			<<else>>
+				The scent of evergreen lingers in the air.
+			<</if>>
+		<<case 2>>
+			<<if Weather.name is "thunderstorm">>
+				A cold storm blankets the forest in darkness. You sit alone by the open window, feeling stray droplets patter softly against your legs as lightning splits the sky.
+			<<elseif Weather.precipitation isnot "none">>
+				<<= Weather.precipitation is "rain" ? "Raindrops patter gently against your dangling legs." : "Snow gathers along the window sill.">>
+			<<else>>
+				The <<= Time.dayState is "night" ? "moonlight caresses": Time.dayState is "dusk" ? "sunset washes across" : "sun warms">> your skin as you lean against the open frame.
+			<</if>>
+		<<case 3>>
+			<<if $loft_river is 1>>
+				The smell of soup drifts from the kitchen.
+			<<else>>
+				A calm silence settles over the orphanage.
+			<</if>>
+		<<case 4>>
+			<<if Weather.bloodMoon>>
+				The blood moon dyes the trees red. The forest is eerily silent.
+			<<elseif Time.dayState is "night">>
+				<<print either(
+					"The night forest hums with unseen life.",
+					"The moon hangs silently above the forest.",
+					"Moonlight washes the bay window silver."
+				)>>
+			<<else>>
+				Warm light pools across the loft floor.
+			<</if>>
+		<<case 5>>
+			<<if Time.season is "spring">>
+				Spring flowers visible beyond the trees.
+			<<elseif Time.season is "winter">>
+				Snow gathers upon the evergreen boughs.
+			<<elseif Time.season is "summer">>
+				Cicadas humming outside.
+			<<else>>
+				Fallen leaves blow through the open window.
+			<</if>>
+		<<case 6>>
+			<<if $harpy gte 6 and $transformationParts.bird.wings isnot "hidden">>
+				<<print either(
+					"Your feathers flutter loosely in the breeze.",
+					"A warm breeze slips through your feathers.",
+					"The wind teases through your feathers.",
+					"The open sky stirs a longing within you.",
+					"You stretch your wings."
+				)>>
+			<<else>>
+				Fallen leaves spiral through the forest air.
+			<</if>>
+		<<default>><<print either(
+		"The wind rustles the trees.",
+		"Birds migrating overhead.",
+		"Wolves howling far away.",
+		"The forest canopy sways gently below.",
+		"Birds flit between the tree branches.",
+		"Fallen needles blanket the forest floor beneath the evergreens.",
+		"The orphans chatter quietly around the bay.",
+		"Birdsong echoes from somewhere beyond the trees.",
+		"The forest stretches endlessly beneath the horizon."
+		)>>
+	<</switch>>
+<</addinlineevent>>
+
+<<addinlineevent "forest_watch_idle" 1>>
+	Nothing seems out of the ordinary.
+<</addinlineevent>>
+
+<<runeventpool>>
+<br><br>
+<<loft_window_options>>
+
+:: Orphanage Loft Coffee Pot
+<<effects>>
+
+You walk over to the coffee pot. The rich aroma greets you.
+<br><br>
+<<switch random(1,6)>>
+	<<case 1>>Other orphans are standing around the machine, brewing themself a drink.
+	<<case 2>>A <<generatey1>><<person1>><<person>> is making coffee.
+	<<case 3>>A <<generatey1>><<person1>><<person>> is picking out what to drink.
+	<<case 4>>A <<generatey1>><<person1>><<person>> looks ready to faint, but perks right up after taking a sip of coffee.
+	<<case 5>>A <<generatey1>><<person1>><<person>> is tossing a bunch of sugar in <<his>> coffee, after having a sip, you can tell <<he>> put too much.
+	<<default>>You watch a <<generatey1>><<person1>><<person>> tell off a <<generatey2>><<person2>><<person>> for drinking too much coffee.
+<</switch>>
+<br><br>
+
+<<if $daily.loftcoffee isnot 1>>
+	<<foodicon "coffee">><<link [[Make a cup of coffee|Orphanage Loft Coffee Pot Drink]]>><<endevent>><<set $daily.loftcoffee to 1>><<pass 5>><<stress -3>><<tiredness -4>><</link>><<lstress>><<ltiredness>>
+	<br>
+<<else>>
+	<span class="blue">You've had your fill for today.</span>
+	<br>
+<</if>>
+<<getouticon>><<link [[Leave|Orphanage Loft]]>><<endevent>><</link>>
+
+:: Orphanage Loft Coffee Pot Drink
+<<effects>>
+<<wearProp "coffee">>
+<<set _coffee to either("mocha", "latte", "caramel latte", "white chocolate mocha", "flat white", "caramel iced latte")>>
+You make yourself a _coffee. The scent of freshly brewed coffee fills the air.
+<br><br>
+<<switch random(1,6)>>
+	<<case 1>>It tastes delicious, you can tell Sam picked out some good beans for you.
+	<<case 2>>It's a bit bitter, but you drink it anyway.
+	<<case 3>>You can taste all the different notes in the coffee.
+	<<case 4>>There's a slight fruity flavour to the coffee, it's tasty.
+	<<case 5>>The coffee isn't that strong this time, you wonder if you didn't put enough grounds in the machine.
+	<<default>>You feel a bit jittery. Maybe it wasn't a good idea to make yourself a coffee. At least the taste is good.
+<</switch>>
+<br><br>
+<<if Time.betweenHours(6,11)>>
+	<<set _daytime to "morning">>
+<<elseif Time.betweenHours(12,17)>>
+	<<set _daytime to "afternoon">>
+<<elseif Time.betweenHours(18,20)>>
+	<<set _daytime to "evening">>
+<<else>>
+	<<set _daytime to "nighttime">>
+<</if>>
+You finish the drink, and clean up after yourself. You feel refreshed after the _daytime coffee.
+<br><br>
+
+<<link [[Next|Orphanage Loft Coffee Pot]]>><<endevent>><</link>>

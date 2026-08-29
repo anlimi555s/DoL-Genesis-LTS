@@ -1,0 +1,312 @@
+:: Farmers Centre
+<<set $outside to 0>><<set $location to "factory">><<effects>>
+<<if $farmersProduce is undefined>>
+	<<set $farmersProduce to {
+		selling:{},
+		toSell:{},
+		money:0,
+		sold:0,
+		totalSold:0,
+	}>>
+<</if>>
+
+<<if !$NPCList[0].pronoun>>
+	<<generate1>>
+<</if>>
+<<person1>>
+
+<<if $factory_intro is undefined>>
+	<<set $factory_intro to 1>>
+	You approach the factory, a colossal brick structure at the entrance of town. A <<person>> stands by the gate, waving through a fleet of lorries.
+	<br><br>
+	<<He>> turns to you as the gate clanks shut. "Nothing for you to see here," <<he>> says. "Not unless you have a lot of produce to sell. We could handle that for you. For a cut."
+	<br><br>
+	<<link [[Next|Farmers Centre]]>><</link>>
+	<br>
+<<else>>
+	You are outside a factory on Harvest Street. They'll process and sell produce on your behalf, but only so fast, and won't pay as much as customers at market.
+	<br><br>
+
+	<<if $rng gte 91>>
+		A <<person>> sits in a kiosk outside, thumbing through a magazine.
+	<<elseif $rng gte 81>>
+		A <<person>> leans against the wall, smoking a cigarette.
+	<<elseif $rng gte 71>>
+		A <<person>> sits in a kiosk outside, staring at a small television in the corner.
+	<<elseif $rng gte 61>>
+		A <<person>> sits in a kiosk outside, staring at <<his>> phone.
+	<<elseif $rng gte 51>>
+		A <<person>> waves a fleet of lorries through the gate.
+	<<elseif $rng gte 41>>
+		A <<person>> sits in a kiosk outside, talking on <<his>> phone.
+	<<elseif $rng gte 31>>
+		A <<person>> sits in a kiosk outside, thumbing through paper.
+	<<elseif $rng gte 21>>
+		A <<person>> leans against the wall, watching the traffic pass.
+	<<elseif $rng gte 11>>
+		A <<person>> watches you from a kiosk.
+	<<else>>
+		A <<person>> sits in a kiosk outside, reclining in a chair.
+	<</if>>
+	<br><br>
+
+	<<if $farmersProduce.money gt 10000>>
+		<<highicon>><<link [[Collect money|Farmers Centre Money Collection]]>><</link>>
+		<br>
+	<</if>>
+	<<socialiseicon "ask">><<link [[Enquire about selling produce|Farmers Centre Produce Sale]]>><</link>>
+	<br>
+	<<harvesticon>><<link [[Leave|Harvest Street]]>><<endevent>><</link>>
+
+<</if>>
+
+:: Farmers Centre Money Collection
+
+The <<person>> enters the factory proper, and emerges with a wad of notes. You've made <<printmoney $farmersProduce.money>><<money $farmersProduce.money "factoryProduce">>.
+<<set $farmersProduce.money to 0>>
+<br><br>
+<<getouticon>><<link [[Leave|Farmers Centre]]>><</link>>
+
+:: Farmers Centre Produce Sale
+The <<person>> opens a laptop. "So what do you have for me?"
+<br><br>
+<i>You can collect money from sold produce every day at noon. High business fame helps the factory sell produce faster.</i>
+<br><br>
+<<set $farmersProduce.toSell to {}>>
+<<set _foodstuffKeys to Object.keys($foodstuff)>>
+<<set _foodstuffItems to {}>>
+<<if _foodstuffKeys.length gte 1>>
+	<<for _i to 0; _i lt _foodstuffKeys.length; _i++>>
+		<<if ["produce","vegetable","fruit","mushroom"].includes(setup.foodstuff[_foodstuffKeys[_i]].category)>>
+			<<set _foodstuffItems[_foodstuffKeys[_i]] to clone($foodstuff[_foodstuffKeys[_i]])>>
+		<</if>>
+	<</for>>
+	<div id="supermarketDisplay" class="food_ui no-numberify">
+		<<produceDisplay>>
+	</div>
+<<else>>
+	You don't have any produce.
+	<br>
+<</if>>
+<br>
+<<getouticon>><<link [[Leave|Farmers Centre]]>><<set $farmersProduce.toSell to {}>><</link>>
+
+:: Farmers Centre Produce Sale Confirm
+
+The gate shudders open, and a lorry rumbles out, on its way to collect your produce.
+<br><br>
+<<getouticon>><<link [[Leave|Farmers Centre]]>><</link>>
+
+
+:: Farmers Centre Widgets [widget]
+
+<<widget "produceDisplay">>
+	<div id="mobileHeader">
+		<div class="mobileOnly">
+			<<produceDisplayBasket>>
+		</div>
+	</div>
+	<div id="body">
+		<div id="mainSection">
+			<div id="search">
+				Search: <<textbox "_foodSearch" "">>
+				<<run $(() => {
+					var foodTimer = null;
+					$('#textbox--foodsearch').on('input change keypress', e => {
+						_foodSearch = e.target.value;
+						clearTimeout(foodTimer);
+						foodTimer = setTimeout(updateUI, 300);
+					});
+					var updateUI = () => {
+						Wikifier.wikifyEval('<<replace "#itemList">><<produceDisplayItems>><</replace>>');
+					}
+				})>>
+			</div>
+			<div id="itemList">
+				<<produceDisplayItems>>
+			</div>
+		</div>
+		<div id="altSection" class="mobileHidden">
+			<div id="basket">Selling:</div>
+			<<produceDisplayBasket>>
+		</div>
+		<div id="mobileCloser" class="mobileOnly mobileHidden" onclick="wikifier('addclass', '#altSection', 'mobileHidden'); wikifier('addclass', '#mobileCloser', 'mobileHidden');"></div>
+	</div>
+<</widget>>
+
+
+<<widget "produceDisplayItems">>
+	<<set _keys to [...new Set([...Object.keys(_foodstuffItems), ...Object.keys($farmersProduce.toSell)])]
+	.sort((a, b) => (setup.foodstuff[a]?.plural || setup.foodstuff[a]?.name || a)
+		.localeCompare(setup.foodstuff[b]?.plural || setup.foodstuff[b]?.name || b))>>
+
+	<<set _foodKeys to []>>
+	<<set _foodGroups to []>>
+	<<run Object.values(_keys).forEach(key => {
+		const item = setup.foodstuff[key];
+
+		const filter = _foodSearch ? _foodSearch.toLowerCase().split(/[_ ]/g) : false;
+		if (filter and !filter.find(term =>
+				item.name.includes(term) or
+				item.category.includes(term) or
+				item.plural?.includes(term) or
+				item.singular?.includes(term)
+			)) {
+			return;
+		}
+
+		_foodKeys.pushUnique(key);
+		if (V.foodstuff[key].amount > 250) {
+			_foodGroups.pushUnique("Sellable Produce");
+		} else {
+			_foundSoldOut to true;
+		}
+	})>>
+	<<if _foundSoldOut>><<run _foodGroups.pushUnique("Owned Produce")>><</if>>
+	<<for _category range _foodGroups>>
+		<<set _categoryVar to "_" + _category.replace(" ", "")>>
+		<<set _open to _category is "Sellable Produce" ? true : false>>
+		<<foldout _open _categoryVar>>
+			<span class="gold"><<print _category.toLocaleUpperFirst()>></span>
+			<<set _keys to _foodKeys.filter(key => (_category isnot "Owned Produce" && $foodstuff[key].amount > 250) ||	(_category is "Owned Produce" && ($foodstuff[key] === undefined || V.foodstuff[key].amount <= 250))
+			)>>
+			<<for $_i, $_key range _keys>>
+				<div @id="$_key" class="item"><<produceDisplayItem $_key>></div>
+				<<if $_i lt _keys.length - 1>><hr><</if>>
+			<</for>>
+		<</foldout>>
+	<</for>>
+<</widget>>
+
+<<widget "produceDisplayBasket">>
+	<div id="itemSummary">
+		<<set $_total to 0>>
+		<<for _label, _value range $farmersProduce.toSell>>
+			<<if _value gt 0>>
+				<<set $_total += bulkProduceValue(setup.foodstuff[_label],_value)>>
+			<</if>>
+		<</for>>
+		Total: <<printmoney $_total>>
+		<<if $_total gt 0>>
+			|
+			<<link [[Sell produce|Farmers Centre Produce Sale Confirm]]>>
+				<<for _label, _value range $farmersProduce.toSell>>
+					<<if _value gt 0>>
+						<<if $farmersProduce.selling[_label] is undefined>>
+							<<set $farmersProduce.selling[_label] to _value>>
+						<<else>>
+							<<set $farmersProduce.selling[_label] += _value>>
+						<</if>>
+						<<set $foodstuff[_label].amount -= _value>>
+					<</if>>
+				<</for>>
+				<<set $farmersProduce.toSell to {}>>
+			<</link>>
+		<<else>>
+
+		<</if>>
+	</div>
+<</widget>>
+
+<<widget "produceDisplayItem">>
+	<<if _args[0]>>
+		<<set _item to _args[0]>>
+		<<capture _item>>
+			<div>
+				<<if $farmersProduce.toSell[_item] is undefined>>
+					<<set $farmersProduce.toSell[_item] to 0>>
+				<</if>>
+				<<foodstufficon _item>>
+				<<if $foodstuff[_item] is undefined>>
+					You don't have any <<print setup.foodstuff[_item].plural>> right now.
+				<<elseif $foodstuff[_item].amount lt 250>>
+					<<print setup.foodstuff[_item].plural.toLocaleUpperFirst()>> | Owned: <span class="gold"><<print $foodstuff[_item].amount>></span>
+					<br>
+					Not enough to sell.
+					<<if $farmersProduce.selling[_item]>><br><</if>>
+				<<else>>
+					<<set _max to $foodstuff[_item].amount - ($foodstuff[_item].amount % 250)>>
+					<<set _base to bulkProduceValue(setup.foodstuff[_item])>>
+					<<set _title to setup.foodstuff[_item].plural.toLocaleUpperFirst()>>
+					| Value per 250: <<printmoney _base>>
+					<<numberStepper "_title" 0 {
+						callback: (value, arr) => {
+							V.farmersProduce.toSell[arr[0]] = value;
+							Wikifier.wikifyEval('<<replace "#altSection">><div id="basket">Selling:</div><<produceDisplayBasket>><</replace>>');
+							if (!$('#mobileHeader').hasClass('hidden')) {
+								Wikifier.wikifyEval('<<replace "#mobileHeader">><div class="mobileOnly"><<produceDisplayBasket>></div><</replace>>');
+							};
+						},
+						valueFormat: (value, percentage, values) => {
+							return `${value}/${values[1]}`;
+						},
+						values: [_item, $foodstuff[_item].amount],
+						disableMinMax: false,
+						step: 250,
+						max: _max,
+						colorArr:["--yellow"],
+						percentage: false
+					}>>
+				<</if>>
+				<<if $farmersProduce.selling[_item]>>
+					<span class="teal">They are still processing <<print $farmersProduce.selling[_item]>> <<print setup.foodstuff[_item].plural>>.</span>
+				<</if>>
+			</div>
+		<</capture>>
+	<</if>>
+<</widget>>
+
+<<widget "dailySellProduce">>
+	<<if $farmersProduce is undefined>>
+	<<elseif Object.keys($farmersProduce.selling).length gt 0>>
+		<<set _baseSaleQuantity to 100>>
+		<<if between($fame.business, 1900, 2000)>>
+			<<set _baseSaleQuantity to _baseSaleQuantity * 6>>
+		<<elseif between($fame.business, 1500, 1900)>>
+			<<set _baseSaleQuantity to _baseSaleQuantity * 5>>
+		<<elseif between($fame.business, 1000, 1500)>>
+			<<set _baseSaleQuantity to _baseSaleQuantity * 4>>
+		<<elseif between($fame.business, 500, 1000)>>
+			<<set _baseSaleQuantity to _baseSaleQuantity * 3>>
+		<<elseif between($fame.business, 200, 500)>>
+			<<set _baseSaleQuantity to _baseSaleQuantity * 2>>
+		<</if>>
+		<<set _baseSaleQuantity += 400>>
+		<<if !$farmersProduce.soldData>><<set $farmersProduce.soldData = {}>><</if>>
+		<<for _label, _value range $farmersProduce.selling>>
+			<<set _quantity to clone(_baseSaleQuantity)>>
+			<<if !setup.foodstuff[_label].tending?.seasons?.includes(Time.season)>>
+				<<set _quantity to Math.floor(_quantity * 0.9)>>
+			<</if>>
+			<<set _rng to 800 + Math.floor(currentSkillValue('tending') / 5)>>
+			<<set _quantity to Math.floor(_quantity * (random(_rng,_rng + 400)/1000))>>
+			<<if _value lt _quantity>>
+				<<set _quantity to _value>>
+			<</if>>
+			<<set $farmersProduce.sold += _quantity>>
+			<<set $farmersProduce.totalSold += _quantity>>
+
+			<<set $farmersProduce.money += bulkProduceValue(setup.foodstuff[_label],_quantity)>>
+			<<set $farmersProduce.selling[_label] -= _quantity>>
+
+			<<if !$farmersProduce.soldData[_label]>>
+				<<set $farmersProduce.soldData[_label] to {
+					amount: _quantity,
+					total: bulkProduceValue(setup.foodstuff[_label],_quantity),
+				}>>
+			<<else>>
+				<<set $farmersProduce.soldData[_label].amount += _quantity>>
+				<<set $farmersProduce.soldData[_label].total += bulkProduceValue(setup.foodstuff[_label],_quantity)>>
+			<</if>>
+
+			<<if $farmersProduce.selling[_label] lte 0>>
+				<<run delete $farmersProduce.selling[_label]>>
+			<</if>>
+		<</for>>
+		<<if $farmersProduce.sold gt 5000>>
+			<<set _famebusinessSold to $farmersProduce.sold - ($farmersProduce.sold % 5000)>>
+			<<set $farmersProduce.sold -= _famebusinessSold>>
+			<<famebusiness `Math.floor(_famebusinessSold / 5000)`>>
+		<</if>>
+	<</if>>
+<</widget>>

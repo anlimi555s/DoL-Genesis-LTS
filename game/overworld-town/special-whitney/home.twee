@@ -1,0 +1,4706 @@
+:: Whitney Home Hang
+<<set $outside to 0>><<set $location to "flats">><<effects>>
+
+
+<<whitney_home_events>>
+
+:: Whitney Home Hang Gang
+<<effects>>
+
+
+<<if Time.dayState is "dusk">>
+	Whitney looks up, out the window. "Alright," <<he>> says. "Time to move." <<His>> friends start to move, while Whitney looks at you. "Thanks for the company, slut. Want us to deliver you to the orphanage before we head out?"
+	<br><br>
+
+	<<link [[Ask to go with them|Whitney Home Hang Gang Leave Ask]]>><</link>>
+	<br>
+	<<link [[Ask for company returning to the orphanage (0:07)|Whitney Home Hang Gang Leave Orphanage]]>><<pass 7>><</link>>
+	<br>
+	<<link [[Say you'll be fine on your own (0:02)|Whitney Home Hang Gang Leave]]>><<pass 2>><</link>>
+	<br>
+<<else>>
+
+	<<whitney_home_events_gang>>
+
+<</if>>
+
+
+
+:: Whitney Home Knock
+<<set $outside to 0>><<set $location to "flats">><<effects>>
+
+You enter the block of flats, and climb the stairs to Whitney's abode. You knock on the door.
+<br><br>
+
+<<if Time.dayState is "night">>
+	There's no response.
+	<br><br>
+	<<if !$whitney_night_knock>>
+		<<link [[Knock harder|Whitney Home Knock Harder]]>><<set $whitney_night_knock to 1>><</link>>
+		<br>
+	<</if>>
+	<<link [[Leave (0:02)|Barb Street]]>><<pass 2>><</link>>
+	<br>
+<<elseif Time.dayState is "dawn">>
+	<<npc Whitney>><<person1>>
+	You hear footsteps, then the door swings open, revealing a topless Whitney.
+	<br><br>
+	"Of course it's you," <<he>> says. "Couldn't wait to see me again, could you. What do you want?"
+	<br><br>
+	<<link [[Ask to come in|Whitney Home Knock Dawn]]>><</link>>
+	<br>
+	<<link [[Ask how <<he>> is|Whitney Home Knock Dawn Ask]]>><</link>>
+	<br>
+
+<<elseif Time.dayState is "dusk">>
+	There's no response. Seems like nobody's home.
+	<br><br>
+
+	<<link [[Next|Barb Street]]>><<endevent>><</link>>
+	<br>
+<<else>>
+	<<if Weather.precipitation is "none" and !Time.schoolDay>>
+		<<npc Whitney>><<person1>>
+		You hear footsteps, then the door swings open. It's Whitney. <<He>> smiles when <<he>> sees you.
+		<br><br>
+		<<if [3,6,7].includes(Time.weekDay)>>
+			"It's my slut," <<he>> shouts over <<his>> shoulder, before looking back at you, and opening the door all the way. "Glad you could join us."
+			<br><br>
+
+			<<link [[Enter|Whitney Home Enter Gang]]>><</link>>
+			<br>
+			<<link [[Leave (0:02)|Whitney Home Enter Leave]]>><<pass 2>><</link>>
+			<br>
+		<<else>>
+			"Want me all to yourself?" <<he>> asks, before opening the all the way. "Fine. Come in."
+			<br><br>
+
+			<<link [[Enter|Whitney Home Enter]]>><</link>>
+			<br>
+			<<link [[Leave (0:02)|Whitney Home Enter Leave]]>><<pass 2>><</link>>
+			<br>
+		<</if>>
+
+	<<else>>
+		<<loadNPC 0 "whitney_parent_flat">><<person1>>
+		<<if $daily.whitney.day_knock>>
+			You hear footsteps, then the door swings open. It's Whitney's <<mum>>.
+			<br><br>
+			"What the fuck did I say?" <<he>> says, voice loud enough that you suspect people in other flats can hear. "I'm trying to watch the footie."
+			<br><br>
+			<<He>> slams the door in your face.<<gstress>><<stress 6>>
+			<br><br>
+
+			<<link [[Next|Barb Street]]>><<endevent>><</link>>
+			<br>
+		<<else>>
+			<<set $daily.whitney.day_knock to 1>>
+			You hear footsteps, then the door swings open. It's Whitney's <<mum>>.
+			<br><br>
+			"Oh, it's you," <<he>> says, scratching <<his>> back. "Whitney's not here. Don't ask me where <<nnpc_he "Whitney">> is."
+			<br><br>
+			<<He>> shuts the door before you can respond.
+			<br><br>
+
+			<<link [[Next|Barb Street]]>><<endevent>><</link>>
+			<br>
+		<</if>>
+	<</if>>
+<</if>>
+
+:: Whitney Home Knock Dawn Ask
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I just wanted to check if you were okay," you say.
+<<elseif $speech_attitude is "bratty">>
+	"I just thought I'd drop by and see how you're doing," you say.
+<<else>>
+	"I just wanted to make sure you're well," you say.
+<</if>>
+<br><br>
+
+"You came all the way over here for that?" <<he>> says. Then <<he>> peeks outside <<his>> flat, looking both ways. "My neighbours are kinda fucked. You better get inside before someone tries something."
+<br><br>
+
+<<link [[Enter|Whitney Home Dawn Enter]]>><</link>>
+<br>
+<<link [[Leave|Whitney Home Dawn Leave Entrance]]>><</link>>
+<br>
+
+:: Whitney Home Dawn Leave Entrance
+<<effects>>
+
+"Suit yourself," Whitney says. "Best leave the building quick though." <<He>> shuts the door.
+<br><br>
+
+You climb down the stairs, and leave the building.
+<br><br>
+
+<<link [[Next|Barb Street]]>><<endevent>><<set $eventskip to 1>><</link>>
+<br>
+
+
+:: Whitney Home Knock Dawn
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Is it okay if I come in?" you ask.
+<<elseif $speech_attitude is "bratty">>
+	"You gonna invite me in?" you ask.
+<<else>>
+	"Can I come in?" you ask.
+<</if>>
+<br><br>
+
+<<if $whitney_home_invite is undefined>>
+	<<set $whitney_home_invite to 1>>
+	"Inviting yourself in now," Whitney says. "You're getting too comfortable." <<He>> thinks for a moment, then opens the door all the way.
+<<elseif $whitney_home_invite lte 5>>
+	<<set $whitney_home_invite += 1>>
+	"You can't get enough of me, can you?" <<He>> swings the door open all the way.
+<<else>>
+	<<set $whitney_home_invite += 1>>
+	<<He>> swings the door open all the way.
+<</if>>
+
+<<if Time.hour gte 9>>
+	<<if Time.schoolDay>>
+		"You can help me get ready for school."
+	<<else>>
+		"Make yourself at home, slut."
+	<</if>>
+<<elseif [7,8].includes(Time.hour) and !$daily.whitney.breakfast_done>>
+	"I suppose it's good timing. You can make me breakfast."
+<<elseif Time.hour is 6>>
+	"I'm about to take a shower. You can wash me."
+<</if>>
+<br><br>
+
+<<link [[Next|Whitney Home Dawn Enter]]>><</link>>
+<br>
+
+:: Whitney Home Dawn Enter
+<<effects>>
+
+<<if !$daily.whitney.breakfast_done>>
+	<<loadNPC 1 "whitney_parent_flat">>
+	<<person2>>
+
+	You enter Whitney's flat. <<person1>><<His>> <<person2>><<mum>> sits at the table, warming <<his>> hand on a mug of tea and reading a tabloid. <<He>> doesn't look up.
+	<br><br>
+<<else>>
+	You enter Whitney's flat.
+<</if>>
+<<endevent>>
+<<npc Whitney>><<person1>>
+<<if Time.hour gte 9>>
+	Whitney walks through the kitchen, and into <<person1>><<his>> bedroom.
+<<elseif [7,8].includes(Time.hour) and !$daily.whitney.breakfast_done>>
+	Whitney opens the fridge.
+<<elseif Time.hour is 6>>
+	Whitney walks through the kitchen, into the bathroom.
+<</if>>
+<br><br>
+
+<<if [7,8].includes(Time.hour)and !$daily.whitney.breakfast_done>>
+	<<link [[Next|Whitney Home Dawn Breakfast]]>><<loadNPC 1 "whitney_parent_flat">><<set $daily.whitney.breakfast_done to true>><</link>>
+	<br>
+<<elseif !$daily.whitney.shower_done>>
+	<<link [[Next|Whitney Home Dawn Shower]]>><<set $daily.whitney.shower_done to true>><</link>>
+	<br>
+<<else>>
+	<<link [[Next|Whitney Home Hang]]>><<pass 20>><</link>>
+	<br>
+<</if>>
+
+:: Whitney Home Dawn Breakfast Start
+<<effects>>
+<<npc "Whitney">><<person1>>
+<<loadNPC 1 "whitney_parent_flat">><<person1>>
+You follow Whitney into the kitchen. <<His>> <<person2>><<mum>> doesn't look up from <<his>> newspaper.
+<br><br>
+
+<<link [[Next|Whitney Home Dawn Breakfast]]>><</link>>
+<br>
+
+
+:: Whitney Home Dawn Breakfast
+<<effects>>
+<<person1>>
+<<if $whitney_home_stage is 3 and $whitney_home_timer gte 21>>
+	Whitney stares at the contents of the fridge for a moment, then closes it, and instead walks over to the bread bin. <<person1>><<He>> knocks the table leg as <<he>> passes, spilling <<his>> <<person2>><<mum>>'s tea over <<his>> lap.
+	<br><br>
+
+	"Watch where you're fucking going," <<person1>><<his>> <<person2>><<mum>> says.
+	<br><br>
+
+	Whitney doesn't say anything. <<person1>><<He>> just throws a kitchen roll at <<person1>><<his>> <<person2>><<mum>>. It bounces off the older <<personsimple>>'s head.
+	<br><br>
+
+	"Want some toast?" Whitney asks, turning to you while <span class="red"><<person1>><<his>> <<person2>><<mum>> rises to <<his>> feet.</span><<gstress>><<stress 6>>
+	<br><br>
+
+	<<link [[Accept toast|Whitney Home Dawn Breakfast Anger]]>><<set $whitney_home_stage to 4>><<set $whitney_home_timer to 0>><<set $phase to 0>><</link>>
+	<br>
+	<<link [[Refuse|Whitney Home Dawn Breakfast Anger]]>><<set $whitney_home_stage to 4>><<set $whitney_home_timer to 0>><<set $phase to 1>><</link>>
+	<br>
+	<<link [[Offer to make Whitney breakfast|Whitney Home Dawn Breakfast Anger]]>><<set $whitney_home_stage to 4>><<set $whitney_home_timer to 0>><<set $phase to 2>><</link>>
+	<br>
+	<<link [[Try to calm the situation|Whitney Home Dawn Breakfast Anger]]>><<set $whitney_home_stage to 4>><<set $whitney_home_timer to 0>><<set $phase to 3>><</link>>
+	<br>
+	<<link [[Hide|Whitney Home Dawn Breakfast Anger]]>><<set $whitney_home_stage to 4>><<set $whitney_home_timer to 0>><<set $phase to 2>><<set $phase to 4>><</link>>
+	<br>
+<<else>>
+	Whitney stares at the contents of the fridge for a moment, then closes it, and instead walks over to the bread bin. "Want some toast?" <<person1>><<he>> asks, glancing at you.
+	<br><br>
+
+	<<link [[Accept toast|Whitney Home Dawn Breakfast Toast]]>><<set $whitney_toast to true>><</link>>
+	<br>
+	<<link [[Refuse|Whitney Home Dawn Breakfast Refuse]]>><</link>>
+	<br>
+	<<link [[Offer to make Whitney breakfast|Whitney Home Dawn Breakfast Offer]]>><<npcincr Whitney love 1>><</link>><<glove>>
+	<br>
+<</if>>
+
+:: Whitney Home Dawn Breakfast Anger
+<<effects>>
+
+<<person1>>
+<<if $phase is 0>>
+	You sit at the table as Whitney puts four slices of bread in the toaster, ignoring <<person1>><<his>> <<person2>><<mum>> stepping closer.
+	<br><br>
+	"Turn around," <<person1>><<his>> <<person2>><<mum>> says, anger barely suppressed.
+	<br>
+<<elseif $phase is 1>>
+	You shake your head. Whitney shrugs, and puts two slices of bread in the toaster, ignoring <<person1>><<his>> <<person2>><<mum>> stepping closer.
+	<br><br>
+	"Turn around," <<person1>><<his>> <<person2>><<mum>> says, anger barely suppressed.
+	<br>
+<<elseif $phase is 2>>
+	You walk to the fridge while Whitney steps away from the toaster. <<person1>><<His>> <<person2>><<mum>> grasps <<person1>><<his>> arm as <<he>> passes.
+	<br><br>
+	"Look at me," <<his>> <<person2>><<mum>> says, anger barely suppressed.
+	<br>
+<<elseif $phase is 3>>
+	<<if $speech_attitude is "meek">>
+		"Please don't fight," you say.
+	<<elseif $speech_attitude is "bratty">>
+		"Cool it you two," you say.
+	<<else>>
+		"Let's sit down and talk through this," you say.
+	<</if>>
+	<br><br>
+	They both ignore you. Whitney's <<person2>><<mum>> walks up to <<person1>><<him>>.
+	<br><br>
+	"Turn around," <<his>> <<person2>><<mum>> says, anger barely suppressed.
+	<br>
+<<else>>
+	You rise to your feet and enter the corridor leading to Whitney's room, pulling the door behind you, but leaving it ajar. You peek through the gap.
+	<br><br>
+	"Turn around," <<person1>><<his>> <<person2>><<mum>> says, anger barely suppressed.
+	<br>
+<</if>>
+Whitney does so. <<person1>><<He>> wears a mischievous, challenging smile. "What?"
+<br>
+"You fucking know what. That's my food you're eating. My bed you sleep in. So fucking apologise or you can take your <span class="pink">slut</span> and get the fuck out of my home."
+<br><br>
+
+Whitney's smile broadens during <<his>> <<person2>><<mum>>'s speech, as if <<person1>><<he>> were enjoying it. Until <<he>> hears the word <span class="pink">'slut'</span>. <span class="red">Then <<his>> expression darkens.</span>
+<br><br>
+
+<<link [[Next|Whitney Home Dawn Anger 2]]>><</link>>
+<br>
+
+:: Whitney Home Dawn Anger 2
+<<effects>>
+
+"Never call <<phim>> that again," Whitney says, the ice in <<his>> voice startling even <<his>> <<person2>><<mum>>. The older <<personsimple>> recovers fast however, and dons a mischievous smile of <<his>> own.
+<br>
+
+"Call your slut what?"
+<br><br>
+
+<span class="red">Whitney shoves <<person1>><<his>> <<person2>><<mum>> away from <<person1>><<him>>.</span> With a sneer, the older <<person2>><<personsimple>> grabs the kettle from the counter, and swings it at Whitney. It smacks into <<person1>><<his>> cheek, casting hot water over <<his>> head.<<gstress>><<stress 6>>
+<br><br>
+
+Whitney launches at <<his>> <<person2>><<mum>>, and they crash through the table.<<gstress>><<stress 6>>
+<br><br>
+
+<<link [[Try to separate them|Whitney Home Dawn Anger Separate]]>><<trauma 6>><<stress 6>><</link>><<gtrauma>><<gstress>>
+<br>
+<<link [[Remain still|Whitney Home Dawn Anger Still]]>><</link>>
+<br>
+<<link [[Get help from a neighbour|Whitney Home Dawn Anger Neighbour]]>><</link>>
+<br>
+
+
+:: Whitney Home Dawn Anger Separate
+<<effects>>
+
+You grab Whitney's waist, and try to pull <<person1>><<him>> off <<his>> <<person2>><<mum>>. Someone kicks you away. You fall back and collide with the counter.<<gpain>><<pain 4>>
+<br><br>
+
+Whitney sees you fall, and tears <<person1>><<himself>> away from <<his>> <<person2>><<mum>>. <<person1>><<He>> crouches beside you. "You hurt?"
+<br>
+"Out," says <<his>> <<person2>><<mum>>, while nursing an injury. "Get the fuck out."
+<br><br>
+
+Whitney helps you to your feet, and together you leave the flat.
+<br><br>
+
+<<link [[Next|Whitney Home Dawn Anger 3]]>><</link>>
+<br>
+
+:: Whitney Home Dawn Anger Still
+<<effects>>
+
+You remain still while Whitney and <<person1>><<his>> <<person2>><<mum>> wrestle on the floor. They slam into a cupboard, dislodging an avalanche of pots and pans.
+<br><br>
+
+Whitney's eyes land on you, and <<person1>><<he>> tears <<himself>> away, leaving <<his>> <<person2>><<mum>> to wrestle with the growing pile of implements.
+<br><br>
+
+<<if $phase is 4>>
+	Whitney approaches your hiding place, manages a weak smile, and takes your hand.
+	<br><br>
+<<else>>
+	Whitney manages a weak smile, and takes your hand.
+<</if>>
+<br><br>
+
+"Out," says <<person1>><<his>> <<person2>><<mum>>, while nursing an injury. "Get the fuck out."
+<br><br>
+
+A metal pot smashes into the wall beside your head as you escape the flat.
+<br><br>
+
+<<link [[Next|Whitney Home Dawn Anger 3]]>><</link>>
+<br>
+
+:: Whitney Home Dawn Anger Neighbour
+<<effects>>
+
+<<generate3>><<person3>>
+You rush from the flat, and slam your fists on a neighbour's door. Footsteps, then the door swings open. A <<person>> opens <<his>> mouth to speak, but a shout from Whitney's flat cuts <<him>> off.
+<br><br>
+
+"Oh no," <<he>> says. "I'm not getting involved."
+<br><br>
+
+<<He>> slams the door before you can do more than open your mouth. You're about to try the door opposite, when Whitney emerges. <<person1>><<He>> smiles when <<he>> sees you, and walks in your direction. "Come on, slut."
+<br><br>
+
+<<link [[Next|Whitney Home Dawn Anger 3]]>><</link>>
+<br>
+
+:: Whitney Home Dawn Anger 3
+<<effects>>
+
+<<person1>>
+You walk down the hall with Whitney. <<He>> stops at one of the doors, and knocks. A <<generatey4>><<person4>><<person>> answers. One of <<person1>><<his>> friends.
+<br><br>
+
+"The slut and I are getting breakfast out," Whitney says. "Give us some cash."
+<br><br>
+
+<<His>> friend looks surprised, but nods, and soon produces a handful of bank notes. Whitney gives <<person4>><<him>> a nod, then continues down the corridor.
+<br><br>
+<<person1>>
+Together, you walk down the stairs, to the building's entrance.
+<br><br>
+
+<<link [[Next|Whitney Home Dawn Anger 4]]>><</link>>
+<br>
+
+
+:: Whitney Home Dawn Anger 4
+<<set $location to "town">><<effects>>
+
+<<endevent>>
+<<npc Whitney>><<person1>>
+<<loadNPC 1 "whitney_parent_flat">>
+<<pass 5>>
+Whitney walks fast, each step assured. <<He>> doesn't even slow when <<he>> reaches <<his>> destination. <<He>> storms through the doors of a cafe, and walks towards a small table by the window. <<He>> turns and launches <<himself>> into one of the chairs, almost tipping it over.
+<br><br>
+
+You sit opposite Whitney. Some of the other patrons cast a disapproving look at the two of you. Whitney reaches for the menu, glances at it, then spins it in front of you. "The full breakfast here is nice," <<he>> says.
+<br><br>
+
+There's a mark on <<his>> cheek, where <<his>> <<person2>><<mum>> hit <<person1>><<him>>. You can already tell it'll develop into a bruise.
+<br><br>
+
+<<endevent>>
+<<npc Whitney>><<person1>>
+
+
+<<link [[Ask Whitney if <<hes>> okay|Whitney Home Dawn Anger Cafe Okay]]>><</link>>
+<br>
+<<link [[Order a full breakfast|Whitney Home Dawn Anger Cafe]]>><<set $phase to 1>><<stress -6>><</link>><<lstress>>
+<br>
+<<link [[Don't eat|Whitney Home Dawn Anger Cafe]]>><<set $phase to 0>><</link>>
+<br>
+
+:: Whitney Home Dawn Anger Cafe Okay
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"You're hurt," you say. "We could go to the hospital."
+<<elseif $speech_attitude is "bratty">>
+	"You should get that looked at," you say. "Your face."
+<<else>>
+	"Are you hurt?" you ask. "We should go to the hospital."
+<</if>>
+<br><br>
+
+Whitney smiles, and tries to examine <<his>> reflection in the window. "Does it look that bad?" <<he>> asks. "I'm fine. But it's sweet you care so much."
+<br><br>
+
+<<He>> doesn't seem interested in discussing it further.
+<br><br>
+
+<<link [[Order a full breakfast|Whitney Home Dawn Anger Cafe]]>><<set $phase to 1>><<stress -6>><</link>><<lstress>>
+<br>
+<<link [[Don't eat|Whitney Home Dawn Anger Cafe]]>><<set $phase to 0>><</link>>
+<br>
+
+:: Whitney Home Dawn Anger Cafe
+<<effects>>
+<<pass 10>>
+<<if $phase is 1>>
+	You order a full breakfast. So does Whitney. It doesn't take long to arrive. Eggs, bacon, baked beans, fried mushrooms, and toast.
+
+	<<if $housekeeping gte 400>>
+		It tastes fine, though you think you could do better.
+	<<else>>
+		It tastes nice.
+	<</if>>
+	<br><br>
+
+	Whitney shovels it into <<his>> mouth as if famished.
+<<elseif $phase is 0>>
+	Whitney's food doesn't take long to arrive. Eggs, bacon, baked beans, fried mushrooms, and toast. <<He>> shovels it into <<his>> mouth as if famished. "You should have ordered some," Whitney says once finished. "I'm still hungry."
+<</if>>
+<br><br>
+
+<<link [[Ask what Whitney intends to do now|Whitney Home Dawn Anger Cafe 2]]>><<set $phase to 2>><</link>>
+<br>
+<<link [[Ask if Whitney will be safe returning to the flat|Whitney Home Dawn Anger Cafe 2]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Remain silent|Whitney Home Dawn Anger Cafe 2]]>><<set $phase to 0>><</link>>
+<br>
+
+
+:: Whitney Home Dawn Anger Cafe 2
+<<set $location to "flats">><<effects>>
+<<pass 3>>
+<<if $phase is 2>>
+	"We're going back to the flat," Whitney says. "The old fuck will have gone by now. It'll be fine."
+<<elseif $phase is 1>>
+	Whitney nods. "The old fuck will be gone by now. It'll be fine."
+<<else>>
+	Whitney lets <<his>> cutlery clatter onto <<his>> plate. "Let's go back to the flat. The old fuck will be gone by now."
+<</if>>
+<br><br>
+
+Together you leave the cafe, and head back to the block of flats. You climb the staircase, and arrive at Whitney's home.
+<br><br>
+
+Despite <<his>> words, <<he>> opens the door with some apprehension, becoming more confident only when it's clear the flat is indeed empty.
+<br><br>
+
+<<link [[Next|Whitney Home Hang]]>><<pass 20>><<set $daily.whitney.breakfast_done to true>><</link>>
+<br>
+
+:: Whitney Home Dawn Breakfast Toast
+<<effects>>
+
+You wait by the table while Whitney puts four slices of bread in the toaster. <<He>> turns, then hauls <<himself>> up to sit on the counter.
+<br><br>
+
+<<His>> <<person2>><<mum>> stares at <<person1>><<him>>. "Get the fuck down from there," <<person2>><<he>> says.
+<br>
+
+Whitney stares back, and waits for a moment. Then, with deliberate movements, <<person1>><<he>> drops to the floor and takes a seat at the table. <<He>> pulls the chair next to <<him>> out, for you.
+<br><br>
+
+<<link [[Sit|Whitney Home Dawn Breakfast Table]]>><<pass 2>><<set $phase to 1>><</link>>
+<br>
+<<link [[Remain standing|Whitney Home Dawn Breakfast Table]]>><<pass 2>><<set $phase to 0>><</link>>
+<br>
+
+:: Whitney Home Dawn Breakfast Refuse
+<<effects>>
+
+You shake your head. Whitney shrugs, and puts two slices of bread in the toaster. <<He>> turns, then hauls <<himself>> up to sit on the counter.
+<br><br>
+
+<<His>> <<person2>><<mum>> stares at <<person1>><<him>>. "Get the fuck down from there," <<person2>><<he>> says.
+<br>
+
+Whitney stares back, and waits for a moment. Then, with deliberate movements, <<person1>><<he>> drops to the floor and takes a seat at the table. <<He>> pulls the chair next to <<him>> out, for you.
+<br><br>
+
+<<link [[Sit|Whitney Home Dawn Breakfast Table]]>><<pass 2>><<set $phase to 1>><</link>>
+<br>
+<<link [[Remain standing|Whitney Home Dawn Breakfast Table]]>><<pass 2>><<set $phase to 0>><</link>>
+<br>
+
+:: Whitney Home Dawn Breakfast Table
+<<effects>>
+
+<<if $phase is 1>>
+	You sit beside Whitney. <<He>> spends the next couple of minutes resting one of <<his>> feet on yours, chasing you whenever you move. At one point <<he>> chases with such violence that <<he>> kicks a table leg, making it jolt.
+	<br><br>
+<</if>>
+
+The toast doesn't take long. Whitney rises to fetch it, along with jam and butter, and places the breakfast on the table in front of you and <<him>>. <<He>> sits again, and begins buttering <<his>> slices.
+<br><br>
+
+<<He>> licks both sides of the knife when <<hes>> finished, and hands it to you.
+<br><br>
+
+<<link [[Ask Whitney for another knife (0:05)|Whitney Home Dawn Breakfast Ask]]>><</link>>
+<br>
+<<link [[Find a fresh knife (0:05)|Whitney Home Dawn Breakfast Fresh]]>><</link>>
+<br>
+<<link [[Use it as if nothing were amiss (0:05)|Whitney Home Dawn Breakfast Lick]]>><<npcincr Whitney lust 1>><</link>><<glust>>
+<br>
+
+
+:: Whitney Home Dawn Breakfast Ask
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Could I please have a fresh knife?" you ask.
+<<elseif $speech_attitude is "bratty">>
+	"Get me a fresh one," you say.
+<<else>>
+	"Could I have a fresh knife?" you ask.
+<</if>>
+<br><br>
+
+"What's wrong with this one?" Whitney asks, licking it again and flashing a mischievous smile. But then <<he>> rises, and grabs another from the drying rack by the sink.
+<br><br>
+
+You butter your toast, while Whitney spreads a dollop of jam on <<hers>>.
+<br><br>
+
+<<link [[Next|Whitney Home Dawn Breakfast Toast Eat]]>><</link>>
+<br>
+
+
+:: Whitney Home Dawn Breakfast Lick
+<<effects>>
+
+You take the knife, and use it to butter your toast, wearing a neutral expression the whole time. Whitney watches with amusement, and pays too little attention to <<his>> own knife. <<He>> drops a dollop of jam on the tablecloth.
+<br><br>
+
+"What the fuck's wrong with you," <<his>> <<person2>><<mum>> says. "That'll leave a stain. Clean it up."
+<br><br>
+
+<<link [[Next|Whitney Home Dawn Breakfast Toast Eat]]>><</link>>
+<br>
+
+:: Whitney Home Dawn Breakfast Fresh
+<<effects>>
+
+You fetch another knife from a drawer, and sit down, only to find Whitney using the same knife for the jam as well, until <<his>> <<person2>><<mum>> glares at <<person1>><<him>>.
+<br><br>
+
+You butter your toast.
+<br><br>
+
+<<link [[Next|Whitney Home Dawn Breakfast Toast Eat]]>><</link>>
+<br>
+
+:: Whitney Home Dawn Breakfast Toast Eat
+<<effects>>
+
+You eat your toast. Whitney's <<person2>><<mum>> remains fixated on <<his>> paper, yet you get the feeling <<hes>> examining you somehow.
+<br><br>
+
+Whitney finishes <<person1>><<his>> breakfast fast, then reaches for yours.
+<br><br>
+
+<<link [[Let Whitney eat your toast|Whitney Home Dawn Breakfast Toast Let]]>><</link>>
+<br>
+<<link [[Point out Whitney could just make more|Whitney Home Dawn Breakfast Toast Point]]>><</link>>
+<br>
+<<link [[Slap <<his>> hand away|Whitney Home Dawn Breakfast Toast Slap]]>><</link>>
+<br>
+
+:: Whitney Home Dawn Breakfast Toast Let
+<<effects>>
+
+You let Whitney eat some of your toast. "Thanks, slut."
+<br>
+"Don't talk that way about your <<girlfriend>>."
+<br>
+"Why not? <<pShe>> is a slut."
+<br><br>
+
+Whitney's <<person2>><<mum>> shakes <<his>> head.
+<br><br>
+
+<<link [[Next|Whitney Home Dawn Breakfast End]]>><</link>>
+<br>
+
+
+:: Whitney Home Dawn Breakfast Toast Point
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I can make you more toast if you like," you say.
+<<elseif $speech_attitude is "bratty">>
+	"Get your own," you say.
+<<else>>
+	"You should make more toast if you're still hungry," you point out.
+<</if>>
+<br><br>
+
+"That's not the same," Whitney says, but <<he>> leaves your toast be.
+<br><br>
+
+<<link [[Next|Whitney Home Dawn Breakfast End]]>><</link>>
+<br>
+
+
+:: Whitney Home Dawn Breakfast Toast Slap
+<<effects>>
+
+You slap Whitney's hand away. <<He>> retaliates by reaching behind you, and giving your <<bottom>> a firm pinch. <<He>> leaves your toast be, at least.
+<br><br>
+
+<<link [[Next|Whitney Home Dawn Breakfast End]]>><</link>>
+
+:: Whitney Home Dawn Breakfast Offer
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Would you like me to make you breakfast?" you ask.
+<<elseif $speech_attitude is "bratty">>
+	"I'll make breakfast," you say, opening the fridge.
+<<else>>
+	"I'll make breakfast," you say.
+<</if>>
+<br><br>
+
+"<<if $speech_attitude is "meek">>Hell yeah<<else>>Nice<</if>>." Whitney sits at the table, and doesn't seem interested in suggesting something in particular.
+<br><br>
+
+What shall you make?
+<br><br>
+
+<<link [[Toast with jam (0:05)|Whitney Home Dawn Breakfast Jam]]>><<pass 5>><</link>><<housekeepingdifficulty 1 100>>
+<br>
+<<link [[Toast with fried eggs (0:10)|Whitney Home Dawn Breakfast Eggs]]>><<pass 10>><</link>><<housekeepingdifficulty 1 200>>
+<br>
+
+:: Whitney Home Dawn Breakfast Jam
+<<effects>>
+
+You drop slices of bread into the toaster, and place butter and jam on the table in front of Whitney.
+<<if $housekeepingSuccess>>
+	You notice the dial on the toaster is a little high, <span class="green">but press the stop button before the toast is burned</span>.
+	<br><br>
+
+	You place the toast in front of Whitney. "Thanks slut," <<he>> says, already coating a slice in butter. "I hope you made some for yourself." <<He>> spreads a dollop of jam, and pushes the butter your way.
+	<br><br>
+
+	<<link [[Next|Whitney Home Dawn Breakfast End]]>><</link>>
+<<else>>
+	The toast soon pops from the toaster. <span class="red">Burned and blackened.</span>
+	<br><br>
+
+	<<link [[Serve Whitney the burnt toast|Whitney Home Dawn Breakfast Jam Burnt]]>><</link>>
+	<br>
+	<<link [[Try again (0:10)|Whitney Home Dawn Breakfast Jam Try]]>><<pass 10>><<stress 6>><</link>><<gstress>>
+	<br>
+<</if>>
+
+
+:: Whitney Home Dawn Breakfast Jam Burnt
+<<effects>>
+
+You place the blackened toast in front of Whitney. <<He>> stares at it for a moment. Then <<he>> shrugs, and starts coating one side with butter.
+<br><br>
+
+<<link [[Next|Whitney Home Dawn Breakfast End]]>><</link>>
+<br>
+
+:: Whitney Home Dawn Breakfast Jam Try
+<<effects>>
+
+You dump the ruined toast in the bin, and place more bread in the toaster. This time you turn down the dial, and the result is more appropriate.
+<br><br>
+
+<<link [[Next|Whitney Home Dawn Breakfast Jam 2]]>><</link>>
+<br>
+
+:: Whitney Home Dawn Breakfast Jam 2
+<<effects>>
+
+You place the toast in front of Whitney. "Thanks slut," <<he>> says, already coating a slice in butter. "I hope you made some for yourself." <<He>> spreads a dollop of jam, and pushes the butter your way.
+<br><br>
+
+<<link [[Next|Whitney Home Dawn Breakfast End]]>><</link>>
+<br>
+
+:: Whitney Home Dawn Breakfast Eggs
+<<effects>>
+
+You put bread in the toaster, heat a little oil in a pan, and crack open a couple of eggs.
+<<if $housekeepingSuccess>>
+	The eggs fry nicely, with the deep yellow yolk remaining together. You notice that the bread has been toasting for a little too long, <span class="green">and you manually pop the toast before it burns</span>.
+	<br><br>
+
+	You serve Whitney the fried eggs on toast. <<He>> smiles, and digs in without a word. <<His>> <<person2>><<mum>> casts an envious glance.
+	<br><br>
+
+	<<link [[Next|Whitney Home Dawn Breakfast End]]>><</link>>
+	<br>
+<<else>>
+	The yolk bursts, and they end up more broken than fried. <span class="red">Then you smell burning toast.</span>
+	<br><br>
+
+	<<link [[Serve Whitney the broken eggs and burnt toast|Whitney Home Dawn Breakfast Eggs Burnt]]>><</link>>
+	<br>
+	<<link [[Try again (0:10)|Whitney Home Dawn Breakfast Eggs Try]]>><<pass 10>><<stress 6>><</link>><<gstress>>
+	<br>
+<</if>>
+<br><br>
+
+:: Whitney Home Dawn Breakfast Eggs Burnt
+<<effects>>
+
+You place the burnt toast and broken eggs in front of Whitney. <<He>> stares at it a moment, then tucks in without a word.
+<br><br>
+
+<<link [[Next|Whitney Home Dawn Breakfast End]]>><</link>>
+<br>
+
+:: Whitney Home Dawn Breakfast Eggs Try
+<<effects>>
+
+You turn down the toaster, and try again. This time only one of the eggs breaks, and the toast pops out at the appropriate time.
+<br><br>
+
+You place the egg on toast in front of Whitney. <<He>> smiles, and digs in without a word. <<His>> <<person2>><<mum>> casts an envious glance.
+<br><br>
+
+<<link [[Next|Whitney Home Dawn Breakfast End]]>><</link>>
+<br>
+
+:: Whitney Home Dawn Shower
+<<effects>>
+
+Whitney pulls off <<his>> <<print $NPCList[0].clothes.lower.name>> before even closing the door, and dumps it in a basket beside the sink. <<He>> reaches into the shower, turns it on, then turns to you. "What are you waiting for? You can't wash me while dressed."
+<br><br>
+
+<<if isLoveInterest("Whitney")>>
+	<<link [[Undress|Whitney Home Dawn Shower Undress]]>><<set $phase to 1>><</link>><<exhibitionist1>>
+<<elseif hasSexStat("exhibitionism", 4)>>
+	<<link [[Undress|Whitney Home Dawn Shower Undress]]>><<set $phase to 0>><</link>><<exhibitionist4>>
+<<else>>
+	<span class="blue">You're not exhibitionistic enough to undress!</span>
+<</if>>
+<br>
+<<link [[Say you're too shy|Whitney Home Dawn Shower Shy]]>><</link>>
+<br>
+<<link [[Say you'd rather wait with a towel|Whitney Home Dawn Shower Wait]]>><</link>>
+<br>
+
+:: Whitney Home Dawn Shower Undress
+<<effects>>
+
+<<undress "whitney_shower">>
+
+You undress alongside Whitney, enduring <<his>> ogling the whole time. Once naked, <<he>> reaches in to test the water, then steps inside. You follow <<him>> into the steaming shower.
+
+<<if $phase is 1>>
+	<<exhibitionism1>>
+<<else>>
+	<<exhibitionism4>>
+<</if>>
+
+"The soap's there," <<he>> says, running <<his>> hair under the water, <<his>> back to you.
+<br><br>
+
+
+<<link [[Wash <<him>>|Whitney Home Dawn Shower Wash]]>><</link>>
+<br>
+<<if hasSexStat("promiscuity", 2)>>
+	<<link [[Wash <<him>> assertively|Whitney Home Dawn Shower Assert]]>><</link>><<promiscuous2>>
+	<br>
+<</if>>
+<<link [[Refuse to wash <<him>>|Whitney Home Dawn Shower Refuse]]>><</link>>
+<br>
+
+
+:: Whitney Home Dawn Shower Shy
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I'm sorry," you say. "I'm too shy."
+<<elseif $speech_attitude is "bratty">>
+	"You'd like to ogle me," you say. "Wouldn't you?"
+<<else>>
+	"I'm too shy," you say.
+<</if>>
+<br><br>
+
+"No way a slut like you is too shy. But fine. You can wait outside with a towel." Whitney steps into the shower.
+<br><br>
+
+<<link [[Watch|Whitney Home Dawn Shower Watch]]>><<pass 10>><</link>>
+<br>
+<<link [[Avert your eyes|Whitney Home Dawn Shower Avert]]>><<pass 10>><</link>>
+<br>
+
+
+:: Whitney Home Dawn Shower Wait
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I could wait outside ready to dry you," you say. "If you like."
+<<elseif $speech_attitude is "bratty">>
+	"I'm already clean," you say. "I'll wait outside, and make sure you don't slip."
+<<else>>
+	"I'll wait outside with a towel," you say.
+<</if>>
+<br><br>
+
+"Suit yourself," Whitney says, stepping into the shower.
+<br><br>
+
+<<link [[Watch|Whitney Home Dawn Shower Watch]]>><<pass 5>><<arousal 6>><</link>><<garousal>>
+<br>
+<<link [[Avert your eyes|Whitney Home Dawn Shower Avert]]>><<pass 5>><</link>>
+<br>
+
+:: Whitney Home Dawn Shower Watch
+<<effects>>
+
+You wait outside the shower, and watch as Whitney lathers soap over <<his>> body. <<He>> turns, keeping <<his>> busy hands facing you, showing off <<his>> body. Then <<he>> washes <<his>> hair, and lets the water cascade over <<his>> face.
+<br><br>
+
+"I see you perving, slut," <<he>> says when finished. "Have the towel ready."
+<br><br>
+
+<<He>> turns off the shower.
+<br><br>
+
+<<link [[Dry <<him>>|Whitney Home Dawn Shower Dry]]>><</link>>
+<br>
+<<link [[Let <<him>> dry <<himself>>|Whitney Home Dawn Shower Dry Refuse]]>><<npcincr Whitney love -1>><</link>><<llove>>
+<br>
+
+:: Whitney Home Dawn Shower Avert
+<<effects>>
+
+You avert your eyes as Whitney reaches for the soap. You hear a tap on the shower door a moment later. "Not gonna enjoy the show? You really are precious. Suit yourself. Have the towel ready."
+
+Several minutes pass, then <<he>> turns off the shower.
+<br><br>
+
+<<link [[Dry <<him>>|Whitney Home Dawn Shower Dry]]>><</link>>
+<br>
+<<link [[Let <<him>> dry <<himself>>|Whitney Home Dawn Shower Dry Refuse]]>><<npcincr Whitney love -1>><</link>><<llove>>
+<br>
+
+:: Whitney Home Dawn Shower Dry
+<<effects>>
+
+You hold out the towel for Whitney. <<He>> steps closer, and you wrap it around <<him>>. <<He>> waits as you dry <<his>> skin, arms held a little apart from <<his>> body.
+<br><br>
+
+You kneel to dry <<his>> legs. Whitney looks amused by some private thought. "Make sure to dry my feet too."
+<br><br>
+
+You work your way down <<his>> legs, then back up again, catching any spots you missed.
+<br><br>
+
+
+<<if hasSexStat("promiscuity", 2)>>
+	<<link [[Slap <<his>> arse|Whitney Home Dawn Shower Slap]]>><<npcincr Whitney lust 1>><<def 1>><</link>><<glust>>
+	<br>
+	<<link [[Resist the urge|Whitney Home Dawn Shower Dry 2]]>><<pass 5>><</link>>
+	<br>
+<<else>>
+	<<link [[Next|Whitney Home Dawn Shower Dry 2]]>><<pass 5>><</link>>
+	<br>
+<</if>>
+
+:: Whitney Home Dawn Shower Dry 2
+<<effects>>
+
+Whitney starts acting nonchalant. <<He>> grabs the towel when you're done, and throws it into a laundry bin on the other side of the room. <<He>> dresses fast, then opens the door to the rest of the flat.
+<br><br>
+
+"Thanks, slut," <<he>> says as you make your way to <<his>> room.
+<br><br>
+<<storeon "whitney_shower">>
+<<clotheson "whitney_shower">>
+<<link [[Next|Whitney Home Hang]]>><<pass 20>><</link>>
+<br>
+
+
+
+:: Whitney Home Dawn Shower Slap
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I hope I dried you to your satisfaction,"
+<<elseif $speech_attitude is "bratty">>
+	"Dry as a bone,"
+<<else>>
+	"All dry,"
+<</if>>
+you say, punctuating your words with a sharp slap on <<his>> arse.
+<br><br>
+
+"You cheeky slut," <<he>> says, grabbing your shoulders before you stand, and forcing you onto your back. <<He>> leans above you, keeping <<himself>> aloft with a hand either side of your head. "I should have known you'd take advantage of my vulnerability." <<He>> darts in, and plants a trail of kisses up your neck, across your chin, and towards your lips.
+<br><br>
+
+<<link [[Kiss|Whitney Home Dawn Shower Kiss]]>><</link>><<kissvirginitywarning>><<glove>>
+<br>
+<<link [[Turn away|Whitney Home Dawn Shower Turn]]>><</link>>
+<br>
+
+
+:: Whitney Home Dawn Shower Kiss
+<<effects>>
+
+Whitney plants a deep kiss on your lips, letting <<his>> damp curls frame both your faces.
+<<takeKissVirginity "Whitney" `($whitneyromance is 1?"loveInterest":"romantic")`>>
+<br><br>
+
+<<Hes>> smiling when <<he>> pulls away. "I'm letting you off easy," <<he>> says.
+<br><br>
+
+<<link [[Next|Whitney Home Dawn Shower Dry 2]]>><<pass 5>><</link>>
+<br>
+
+:: Whitney Home Dawn Shower Turn
+<<effects>>
+
+You turn away from Whitney. <<He>> kisses your cheek, then opens <<his>> mouth as if to bite, but refrains. "I'm letting you off easy," <<he>> says.
+<br><br>
+
+<<link [[Next|Whitney Home Dawn Shower Dry 2]]>><<pass 5>><</link>>
+<br>
+
+:: Whitney Home Dawn Shower Dry Refuse
+<<effects>>
+
+Whitney exits the shower, and stares at you. After a moment, <<he>> turns away, and dries <<himself>> without a word.
+<br><br>
+
+<<link [[Next|Whitney Home Dawn Shower Dry 2]]>><<pass 5>><</link>>
+<br>
+
+
+:: Whitney Home Dawn Shower Refuse
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I'm sorry," you say. "But I think it's more proper if you wash yourself."
+	<br><br>
+	"More proper?" Whitney asks. "I'll show you proper."
+<<elseif $speech_attitude is "bratty">>
+	"Wash your own dirty arse," you say.
+	<br><br>
+	"That mouth of yours is gonna get you in trouble," Whitney says. "I'd best teach you a lesson before someone else does."
+<<else>>
+	"You can wash yourself," you say.
+	<br><br>
+	"Guess I need to teach you manners," Whitney says.
+<</if>>
+<<He>> wraps an arm around your waist, and tries to pull you in front of <<him>>.
+<br><br>
+
+<<link [[Resist|Whitney Home Dawn Shower Resist]]>><</link>><<physiquedifficulty 5000 15000>>
+<br>
+<<link [[Allow|Whitney Home Dawn Shower Allow]]>><<arousal 1800>><</link>><<ggarousal>>
+<br>
+<<link [[Pretend to resist|Whitney Home Dawn Shower Pretend]]>><<npcincr Whitney lust 1>><</link>><<glust>>
+<br>
+
+:: Whitney Home Dawn Shower Resist
+<<effects>>
+
+<<if $physiqueSuccess>>
+	You smack away Whitney's arm, and beat back <<his>> renewed attempt well enough that <span class="green"><<he>> gives up</span>. "Careful not to slip," <<he>> says with a smile.
+	<br><br>
+
+	You both wash yourselves. It's a bit of a squeeze and Whitney hogs the soap, but you're able to get clean.
+	<br><br>
+	<<wash>>
+	<<link [[Next|Whitney Home Dawn Shower Dry]]>><<pass 10>><</link>>
+	<br>
+<<else>>
+	Whitney forces you in front of <<him>>, <span class="red"><<his>> strength irresistible</span>. <<He>> reaches for the soap, one arm either side of you, and begins lathering <<his>> hands. Once soapy enough, <<he>> runs <<his>> fingers over your chest and <<bellyDescription>>, paying particular attention to your <<breasts>>.
+	<br><br>
+
+	One hand creeps lower, then slides over your <<genitals>>.
+	<br><br>
+
+	"You like that, slut?"
+	<br><br>
+
+	<<link [[Nod|Whitney Home Dawn Shower Nod]]>><<arousal 1800>><</link>><<ggarousal>>
+	<br>
+	<<link [[Moan|Whitney Home Dawn Shower Moan]]>><<npcincr Whitney lust 1>><<arousal 3600>><</link>><<glust>><<gggarousal>>
+	<br>
+	<<link [[Don't respond|Whitney Home Dawn Shower No]]>><<arousal 600>><</link>><<garousal>>
+	<br>
+<</if>>
+
+:: Whitney Home Dawn Shower Allow
+<<effects>>
+
+You allow Whitney to pull you in front of <<him>>. <<He>> reaches for the soap, one arm either side of you, and begins lathering <<his>> hands. Once soapy enough, <<he>> runs <<his>> fingers over your chest and <<bellyDescription>>, paying particular attention to your <<breasts>>.
+<br><br>
+
+One hand creeps lower, then slides over your <<genitals>>.
+<br><br>
+
+"You like that, slut?"
+<br><br>
+
+<<link [[Nod|Whitney Home Dawn Shower Nod]]>><<arousal 1800>><</link>><<ggarousal>>
+<br>
+<<link [[Moan|Whitney Home Dawn Shower Moan]]>><<npcincr Whitney lust 1>><<arousal 3600>><</link>><<glust>><<gggarousal>>
+<br>
+<<link [[Don't respond|Whitney Home Dawn Shower No]]>><<arousal 600>><</link>><<garousal>>
+<br>
+
+
+:: Whitney Home Dawn Shower Pretend
+<<effects>>
+
+You make a token effort to move away from Whitney, but <<he>> pulls you firm against <<his>> body. <<He>> reaches for the soap, one arm either side of you, and begins lathering <<his>> hands. Once soapy enough, <<he>> runs <<his>> fingers over your chest and <<bellyDescription>>, paying particular attention to your <<breasts>>.
+<br><br>
+
+One hand creeps lower, then slides over your <<genitals>>.
+<br><br>
+
+"You like that, slut?"
+<br><br>
+
+
+<<link [[Nod|Whitney Home Dawn Shower Nod]]>><<arousal 1800>><</link>><<ggarousal>>
+<br>
+<<link [[Moan|Whitney Home Dawn Shower Moan]]>><<npcincr Whitney lust 1>><<arousal 3600>><</link>><<glust>><<gggarousal>>
+<br>
+<<link [[Don't respond|Whitney Home Dawn Shower No]]>><<arousal 600>><</link>><<garousal>>
+<br>
+
+
+:: Whitney Home Dawn Shower Nod
+<<effects>>
+<<wash>>
+You nod, glancing at Whitney over your shoulder.
+<br>
+"Eyes forward."
+<br><br>
+<<He>> clutches your chin with one hand, a finger trailing across your lower lip, while <<his>> other hand
+
+<<if $player.penisExist>>
+	wraps around your <<genitals>>.
+<<else>>
+	presses against your <<genitals>>, one finger against your clit.
+<</if>>
+<br><br>
+
+The soap assists <<him>> as <<he>> molests you. <<His>> hands are gentle, but <<his>> body presses against your back, forcing your <<breasts>> against the glass.
+
+<<if $arousal gte $arousalmax>>
+	You feel your arousal build, until you pass the point of no return. <<orgasm>>
+
+	"Good <<girl>>," <<he>> says as your juices swirl down the drain. "Nice and clean."<<gglust>><<npcincr Whitney lust 3>>
+	<br><br>
+<<else>>
+	<br><br>
+	<<He>> licks your cheek. "There we go," <<he>> says. "Nice and clean."
+	<br><br>
+<</if>>
+
+<<link [[Next|Whitney Home Dawn Shower Dry]]>><</link>>
+<br>
+
+:: Whitney Home Dawn Shower Moan
+<<effects>>
+<<wash>>
+You release a hot moan, echoing within the shower. You think you feel Whitney tremble, but <<he>> moves too fast to be sure, thrusting <<his>> body against yours and pinning you against the glass. <<His>> hands are a whirlwind, sliding fingers over your <<genitals>>, thighs, <<bottom>>, stomach, as if desperate to have every part of you.
+<br><br>
+
+<<if $arousal gte $arousalmax>>
+	<<His>> assault proves too much. You feel the pressure build, passing the point of no return. <<orgasm>>
+
+	Whitney calms a little as <<he>> enjoys the feel of your body shuddering against <<him>>. "Good <<girl>>," <<he>> says. "Nice and clean."<<gglust>><<npcincr Whitney lust 3>>
+	<br><br>
+<<else>>
+	<<He>> calms, and gives you a little space. "There we go," <<he>> says, breathless. "Nice and clean."
+	<br><br>
+<</if>>
+
+<<link [[Next|Whitney Home Dawn Shower Dry]]>><</link>>
+<br>
+
+
+:: Whitney Home Dawn Shower No
+<<effects>>
+<<wash>>
+You don't respond to Whitney's provocation. <<He>> intensifies <<his>> assault, trying to get a rise from you,
+
+<<if $player.penisExist>>
+	grasping your <<genitals>> in one hand.
+<<else>>
+	pressing <<his>> fingers against your <<genitals>>, a finger on your clit.
+<</if>>
+<br><br>
+
+
+<<if $arousal gte $arousalmax>>
+	Despite everything, the arousal continues to build, and soon proves too much. <<orgasm>>
+
+	Whitney releases you with a triumphant smile. "Good <<girl>>," <<he>> says. "Nice and clean."<<gglust>><<npcincr Whitney lust 3>>
+	<br><br>
+<<else>>
+	Whitney licks your cheek, then gives you a little space. "There we go," <<he>> says. "Nice and clean."
+	<br><br>
+<</if>>
+
+<<link [[Next|Whitney Home Dawn Shower Dry]]>><</link>>
+<br>
+
+:: Whitney Home Dawn Shower Assert
+<<effects>>
+
+You throw your arms around Whitney, acting so fast you catch <<him>> by surprise.
+
+<<if $speech_attitude is "meek">>
+	"I'll clean you," you say. "I'm a good <<girlfriend>> after all."
+<<elseif $speech_attitude is "bratty">>
+	"What's the matter?" you say. "You wanted me to wash you. Quit squirming."
+<<else>>
+	"Well well," you say. "You're dirty indeed. Allow me."
+<</if>>
+<br><br>
+
+You reach around <<him>>, and lather your hands in soap. <<He>> waits, expectant and curious.
+<<promiscuity2>>
+
+
+<<link [[Next|Whitney Home Dawn Shower Wash]]>><</link>>
+<br>
+/*
+<<link [[Just clean <<him>>|Whitney Home Dawn Shower Wash]]>><</link>>
+<br>
+<<link [[Play with <<his>> nipples|Whitney Home Dawn Shower Assert Nipples]]>><</link>>
+<br>
+*/
+
+:: Whitney Home Dawn Shower Wash
+<<effects>>
+
+You rub your soapy hands over <<his>>
+
+<<if $NPCList[0].breastsize gte 1>>
+	<<print $NPCList[0].breastdesc>>,
+<<else>>
+	firm chest,
+<</if>>
+
+then work your way around the rest of <<his>> body. <<He>> moves to give you access, like <<hes>> showing off for a camera.
+<br><br>
+
+You kneel to clean <<his>> lower half, including <<his>>
+
+<<if $NPCList[0].penis isnot "none">>
+	<<print $NPCList[0].penisdesc>>. <<He>> soon erects under your touch.
+<<else>>
+	pussy.
+<</if>>
+<br><br>
+"Good thinking," <<he>> says after rinsing off the soap. "But you know what would really get me clean?" <<He>> holds the back of your head, and thrusts <<his>> crotch in your face. <<He>> grins at you from above.
+<br><br>
+
+<<if hasSexStat("promiscuity", 3)>>
+	<<link [[Lick enthusiastically|Whitney Home Dawn Shower Lick Enthusiastic]]>><</link>><<promiscuous3>>
+	<br>
+<</if>>
+<<link [[Lick reluctantly|Whitney Home Dawn Shower Lick Reluctant]]>><</link>><<trauma 6>><<stress 6>><<gtrauma>><<gstress>>
+<br>
+<<link [[Refuse|Whitney Home Dawn Shower Lick Refuse]]>><</link>>
+<br>
+
+
+:: Whitney Home Dawn Shower Lick Enthusiastic
+<<effects>>
+
+You lick Whitney as if driven by a primal hunger, catching <<him>> off guard.
+<<promiscuity3>>
+
+Whitney looks thoughtful for a moment, then <<he>> grabs a bottle of shampoo, and squeezes it over your hair. <<He>> rubs it into your scalp with both hands as you continue to work <<his>>
+
+<<if $NPCList[0].penis isnot "none">>
+	penis.
+<<else>>
+	pussy.
+<</if>>
+<br><br>
+
+<<link [[Make <<him>> cum|Whitney Home Dawn Shower Lick Cum]]>><</link>><<skill_difficulty `currentSkillValue("oralskill")` "Mouth Skill" 1 600>>
+<br>
+<<link [[Go easy|Whitney Home Dawn Shower Lick Easy]]>><</link>>
+<br>
+
+:: Whitney Home Dawn Shower Lick Cum
+<<effects>>
+
+
+<<if currentSkillValue('oralskill') gte random(1, 600)>>
+	<<He>> shifts away a bit, playfully, as if trying to see how far you'll go. You won't let your prey escape, manage to corner <<him>>, and unleash a barrage of kisses and licks that <span class="green">soon has <<him>> squirming</span>, <span class= "lewd"><<if $NPCList[0].penis isnot "none">>semen erupts from <<his>> <<print $NPCList[0].penisdesc>>,<<else>><<his>> juices<</if>> mixing with the soapy water.</span><<glove>><<npcincr Whitney love 1>>
+	<br><br>
+
+	"Good job," <<he>> says, breathless, but trying to assert some control. "Slut."
+	<br><br>
+<<else>>
+	<<He>> shifts away a bit, playfully, as if trying to see how far you'll go. You try to corner <<him>>, <span class="red">but <<he>> stuffs your mouth with a couple of fingers</span>. "You're voracious," <<he>> says. "Slut."
+	<br><br>
+<</if>>
+
+<<link [[Next|Whitney Home Dawn Shower End]]>><</link>>
+<br>
+
+:: Whitney Home Dawn Shower Lick Easy
+<<effects>>
+
+You go easy on Whitney. <<He>> begins massaging your scalp, tilting your head back a little to keep the shampoo from your eyes.
+<br><br>
+
+<<He>> continues for a minute or so, then removes the showerhead from its pedestal, and blasts the water through your hair, rinsing it. Then <<he>> squirts your face for good measure, laughing when you flinch.
+<br><br>
+
+<<link [[Next|Whitney Home Dawn Shower End]]>><</link>>
+<br>
+
+:: Whitney Home Dawn Shower Lick Reluctant
+<<effects>>
+
+You lick Whitney, though with minimal effort, and no haste. <<He>> looks thoughtful for a moment, then <<he>> grabs a bottle of shampoo, and squeezes it over your hair. <<He>> rubs it into your scalp with both hands as you continue to work <<his>>
+
+<<if $NPCList[0].penis isnot "none">>
+	penis.
+<<else>>
+	pussy.
+<</if>>
+<br><br>
+
+<<He>> begins massaging your scalp, tilting your head back a little to keep the shampoo from your eyes.
+<br><br>
+
+<<He>> continues for a minute or so, then removes the showerhead from its pedestal, and blasts the water through your hair, rinsing it. Then <<he>> squirts your face for good measure, laughing when you flinch.
+<br><br>
+
+<<link [[Next|Whitney Home Dawn Shower End]]>><</link>>
+<br>
+
+
+:: Whitney Home Dawn Shower Lick Refuse
+<<effects>>
+
+You refuse to lick Whitney. <<He>> squirts you with the shower head to shower <<his>> displeasure, but doesn't force the matter.
+<br><br>
+
+<<link [[Next|Whitney Home Dawn Shower End]]>><</link>>
+<br>
+
+
+
+:: Whitney Home Dawn Shower End
+<<effects>>
+<<pass 5>>
+<<wash>>
+You step from the shower with Whitney. <<He>> grabs a couple of fresh towels from a hook on the door, and throws one over your head, blinding you. You reach up to remove it, but <<hes>> already stepped forward, and begins drying your hair.
+<br><br>
+
+<<link [[Let Whitney dry you, then return the favour|Whitney Home Dawn Shower Dry Return]]>><<storeon "whitney_shower">><</link>>
+<br>
+<<link [[Let Whitney dry you, then refuse to return the favour|Whitney Home Dawn Shower Dry Refuse 2]]>><<storeon "whitney_shower">><<npcincr Whitney love -1>><</link>><<llove>>
+<br>
+<<link [[Don't let Whitney dry you|Whitney Home Dawn Shower Dry Alone]]>><<storeon "whitney_shower">><</link>>
+<br>
+
+
+:: Whitney Home Dawn Shower Dry Return
+<<effects>>
+
+Whitney is careful with your hair, then <<he>> works down your body, turning you on the spot to better reach different parts. <<He>> doesn't miss the opportunity to grope your <<breasts>>.
+<br><br>
+
+Once your feet are dry, you take the towel on Whitney's shoulder, and return the favour, trying to show <<his>> hair the same care <<he>> showed you, before working down the rest of <<his>> body.
+<br><br>
+
+<<He>> remains silent the whole time, and acts nonchalant. <<He>> grabs the towel when you're done, and throws it into a laundry bin on the other side of the room. <<He>> dresses fast, waits for you to catch up, then opens the door to the rest of the flat.
+<br><br>
+
+"Thanks slut," <<he>> says as you make your way to <<his>> room.
+<br><br>
+<<clotheson "whitney_shower">>
+<<link [[Next|Whitney Home Hang]]>><<pass 20>><</link>>
+<br>
+
+
+
+:: Whitney Home Dawn Shower Dry Refuse 2
+<<effects>>
+
+You start dressing as soon as you're dry. Whitney gives you a level look, but says nothing as <<he>> starts drying <<himself>>.
+<br><br>
+
+<<He>> dresses fast, opens the door, and heads to <<his>> room.
+<br><br>
+<<clotheson "whitney_shower">>
+<<link [[Next|Whitney Home Hang]]>><<pass 20>><</link>>
+<br>
+
+
+:: Whitney Home Dawn Shower Dry Alone
+<<effects>>
+
+You insist on drying yourself. Whitney doesn't protest. <<He>> dries and dresses <<himself>> much faster than you, and waits beside the door until you're done. <<He>> doesn't spare you any ogling.
+<br><br>
+
+Once finished, <<he>> opens the door and heads to <<his>> room.
+<br><br>
+<<clotheson "whitney_shower">>
+<<link [[Next|Whitney Home Hang]]>><<pass 20>><</link>>
+<br>
+
+
+:: Whitney Home Dawn Breakfast End
+<<effects>>
+<<endevent>>
+<<npc Whitney>><<person1>>
+<<unset $whitney_toast>>
+<<if Time.hour is 8>>
+	Whitney glances at the clock on the wall.
+	<<if Time.schoolDay>>
+		"School soon," <<he>> says. "Come on." <<He>> kicks <<himself>> away from the table.
+		<br><br>
+
+		<<link [[Hang out with Whitney (0:20)|Whitney Home Hang]]>><<pass 20>><</link>>/* Future "get ready for the day" event */
+		<br>
+		<<link [[Leave|Whitney Home Dawn Leave]]>><</link>>
+		<br>
+	<<else>>
+		"I'm meeting with my friends soon-ish," <<he>> says. "Come on." <<He>> kicks <<himself>> away from the table.
+		<br><br>
+
+		<<link [[Hang out with Whitney (0:20)|Whitney Home Hang]]>><<pass 20>><</link>>/* Future "get ready for the day" event */
+		<br>
+		<<link [[Leave (0:02)|Whitney Home Dawn Leave]]>><<pass 2>><</link>>
+		<br>
+	<</if>>
+<<else>>
+	Whitney kicks <<himself>> away from the table. "Come on," <<he>> says, rising and heading to <<his>> room.
+	<br><br>
+
+	<<link [[Go with Whitney (0:20)|Whitney Home Hang]]>><<pass 20>><<set $daily.whitney.breakfast_done to true>><</link>>
+	<br>
+	<<link [[Leave (0:02)|Whitney Home Dawn Leave]]>><<pass 2>><</link>>
+	<br>
+<</if>>
+
+
+:: Whitney Home Dawn Leave
+<<effects>>
+
+"Suit yourself, slut," Whitney says. "Try not to get molested on the way out."
+<br><br>
+
+You leave Whitney's flat, and head outside.
+<br><br>
+
+<<link [[Next|Barb Street]]>><<endevent>><</link>>
+<br>
+
+:: Whitney Home Knock Harder
+<<effects>>
+
+<<loadNPC 0 "whitney_parent_flat">><<person1>>
+You knock on the door, harder this time. After a moment, you hear footsteps.
+<br><br>
+
+You hear the lock turn, and the door swings open, revealing Whitney's <<mum>>. <<Hes>> wearing nothing but underwear, and looks half asleep.
+<br><br>
+
+"You? What the fuck do you want?"
+<br><br>
+
+<<link [[Say you want to see Whitney|Whitney Home Knock Night Whitney]]>><</link>>
+<br>
+<<link [[Apologise|Whitney Home Knock Night Apologise]]>><</link>>
+<br>
+
+:: Whitney Home Knock Night Whitney
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Sorry to bother you at such an hour," you say. "But can I see Whitney?"
+<<elseif $speech_attitude is "bratty">>
+	"I'm here for Whitney," you say. "Is <<nnpc_he "Whitney">> in <<nnpc_his "Whitney">> room?"
+<<else>>
+	"Can I see Whitney?" you ask.
+<</if>>
+<br><br>
+
+Whitney's <<mum>> gives you a level stare. "You woke me for that? Piss off." <<He>> slams the door. You hear the lock turn.
+<br><br>
+
+<<link [[Next (0:02)|Barb Street]]>><<pass 2>><<endevent>><</link>>
+<br>
+
+
+:: Whitney Home Knock Night Apologise
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"My deepest apologies," you say. "I didn't mean to wake you."
+<<elseif $speech_attitude is "bratty">>
+	"Sorry," you say. "I didn't know you were asleep."
+<<else>>
+	"I'm sorry," you say. "I thought you or Whitney would be awake."
+<</if>>
+<br><br>
+
+"Whitney sleeps like a lump of iron," <<he>> says. "Wish I did. Don't bother me again." <<He>> slams the door. You hear the lock turn.
+<br><br>
+
+<<link [[Next (0:02)|Barb Street]]>><<pass 2>><<endevent>><</link>>
+<br>
+
+
+:: Whitney Home Intro 1
+<<effects>>
+<<set $bus to "cliff">>
+Whitney takes you through the park, and onto the High Street. <<He>> ignores everyone else, with the exception of a <<generatey2>><<person2>><<person>> you don't recognise, who <<person1>><<he>> makes a detour to shoulder barge.
+<br><br>
+
+You pass the shops, and emerge on Cliff Street.
+<br><br>
+
+<<link [[Ask where you're going|Whitney Home Intro 1 Ask]]>><<pass 5>><</link>>
+<br>
+<<link [[Remain silent|Whitney Home Intro 1 Silent]]>><<pass 5>><</link>>
+<br>
+
+
+:: Whitney Home Intro Refuse
+<<effects>>
+
+You shake off Whitney's hand. <<He>> almost looks hurt for a moment, then shrugs and lights another cigarette. "Suit yourself."
+
+<<whitneyoptions>>
+
+
+:: Whitney Home Intro 1 Ask
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"If it's no trouble," you say. "Can I ask where we're going?"
+<<elseif $speech_attitude is "bratty">>
+	"Where are you dragging me off to?" you ask.
+<<else>>
+	"Where are we going?" you ask.
+<</if>>
+<br><br>
+
+"You'll find out when we get there," Whitney says, halting you as <<he>> looks around a corner. Satisfied with whatever <<he>> sees, <<he>> puts an arm around your waist and pulls you towards Barb Street.
+<br><br>
+
+<<link [[Next|Whitney Home Intro Barb]]>><<pass 5>><</link>>
+<br>
+
+:: Whitney Home Intro 1 Silent
+<<effects>>
+
+You remain silent. Whitney halts you while <<he>> looks around a corner. Satisfied with whatever <<he>> sees, <<he>> puts an arm around your waist and pulls you towards Barb Street.
+<br><br>
+
+<<link [[Next|Whitney Home Intro Barb]]>><<pass 5>><</link>>
+<br>
+
+:: Whitney Home Intro Barb
+<<effects>>
+<<set $bus to "barb">>
+Whitney stops, and stares at a block of flats up ahead. Then a mischievous smile flashes across <<his>> face.
+<br><br>
+
+"What do you think of that building over there? Looks like a shithole, right?"
+<br><br>
+
+<<link [[Agree|Whitney Home Intro Agree]]>><</link>>
+<br>
+<<link [[Say it looks very nice|Whitney Home Intro Nice]]>><</link>>
+<br>
+
+:: Whitney Home Intro Agree
+<<effects>>
+
+You nod. Whitney swivels to face you, a theatric anger playing on <<his>> features. "That's my home you're calling a shithole, slut!" <<He>> presses a hand against your chest and shoves you against the wall. <<He>> leans close. "You better apologise."
+<br><br>
+
+<<link [[Apologise authentically|Whitney Home Intro Authentic]]>><<npcincr Whitney dom 1>><</link>><<gdom>>
+<br>
+<<link [[Apologise sarcastically|Whitney Home Intro Sarcastic]]>><<npcincr Whitney dom -1>><</link>><<ldom>>
+<br>
+<<link [[Kiss Whitney's nose|Whitney Home Intro Kiss]]>><</link>>
+<br>
+<<link [[Stare|Whitney Home Intro Stare]]>><</link>>
+<br>
+
+:: Whitney Home Intro Authentic
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I'm very sorry," you say. "It's a lovely place."
+<<elseif $speech_attitude is "bratty">>
+	"Sorry," you say. "I didn't mean to offend you."
+<<else>>
+	"I'm sorry," you say. "It's very nice."
+<</if>>
+<br><br>
+
+"Don't worry," Whitney says, giving you space. "It is a shithole." <<He>> reaches in <<his>> pocket as if for a cigarette, then stops <<himself>>. "Let's go back to the park."
+<br><br>
+
+<<link [[Ask to visit Whitney's home|Whitney Home Intro Ask]]>><</link>>
+<br>
+<<link [[Remain silent|Whitney Home Intro Return]]>><</link>>
+<br>
+
+:: Whitney Home Intro Sarcastic
+<<effects>>
+
+
+<<if $speech_attitude is "meek">>
+	"I apologise most profusely," you say, bowing your head low. "How can you ever forgive me for insulting your shithole?"
+<<elseif $speech_attitude is "bratty">>
+	"Sorry," you say. "I know you're sensitive. I should be more gentle with you."
+<<else>>
+	"Was that too honest?" you ask. "Sorry."
+<</if>>
+<br><br>
+
+"Careful, slut," Whitney says. <<He>> reaches into <<his>> pocket as if for a cigarette, then stops <<himself>>. "Let's go back to the park."
+<br><br>
+
+<<link [[Ask to visit Whitney's home|Whitney Home Intro Ask]]>><</link>>
+<br>
+<<link [[Remain silent|Whitney Home Intro Return]]>><</link>>
+<br>
+
+:: Whitney Home Intro Kiss
+<<effects>>
+
+You lean forward a tad, and plant a kiss on Whitney's nose. <<His>> brow quivers in surprise for a moment, then <<he>> laughs and releases you. "Don't know what I expected from a slut like you. But yeah, it is a shithole. Don't worry."
+<br><br>
+
+<<He>> reaches into <<his>> pocket as if for a cigarette, then stops <<himself>>. "Let's go back to the park."
+<br><br>
+
+<<link [[Ask to visit Whitney's home|Whitney Home Intro Ask]]>><</link>>
+<br>
+<<link [[Remain silent|Whitney Home Intro Return]]>><</link>>
+<br>
+
+
+:: Whitney Home Intro Stare
+<<effects>>
+
+
+You stare at Whitney, your eyes boring into <<hers>>. <<He>> looks uncomfortable for just a moment, then <<he>> steels <<himself>>, and stares back.
+<br><br>
+
+<<link [[Look away|Whitney Home Intro Stare Away]]>><</link>>
+<br>
+<<link [[Stare|Whitney Home Intro Stare 2]]>><</link>><<willpowerdifficulty 1 200>>
+<br>
+
+:: Whitney Home Intro Stare Away
+<<effects>>
+
+You break eye contact with Whitney. <<He>> gives you space, and gives your <<bottom>> a smug slap. "Don't worry," <<he>> says. "It is a shithole."
+<br><br>
+
+<<He>> reaches into <<his>> pocket as if for a cigarette, then stops <<himself>>. "Let's go back to the park."
+<br><br>
+
+<<link [[Ask to visit Whitney's home|Whitney Home Intro Ask]]>><</link>>
+<br>
+<<link [[Remain silent|Whitney Home Intro Return]]>><</link>>
+<br>
+
+
+:: Whitney Home Intro Stare 2
+<<effects>>
+
+<<if $willpowerSuccess>>
+	Undaunted, <span class="green">you continue to stare into Whitney's eyes</span>. Your challenge sparks something in <<him>>, and <<he>> dons a determined smile.
+	<br><br>
+
+	<<link [[Look away|Whitney Home Intro Stare Away]]>><</link>>
+	<br>
+	<<link [[Stare (0:01)|Whitney Home Intro Stare 3]]>><<pass 1>><</link>><<willpowerdifficulty 1 400>>
+	<br>
+<<else>>
+	You try to continue staring, <span class="red">but the intensity of Whitney's gaze gets to you</span>. You break eye contact.<<gstress>><<gwillpower>><<stress 1>><<willpower 1>>
+	<br><br>
+	Whitney gives your <<bottom>> a smug slap, and reaches into <<his>> pocket as if for a cigarette, but stops <<himself>>. "Let's go back to the park."
+	<br><br>
+
+	<<link [[Ask to visit Whitney's home|Whitney Home Intro Ask]]>><</link>>
+	<br>
+	<<link [[Remain silent|Whitney Home Intro Return]]>><</link>>
+	<br>
+<</if>>
+
+
+:: Whitney Home Intro Stare 3
+<<effects>>
+A minute passes. Your eyes start to sting a little.
+<<if $willpowerSuccess>>
+	Whitney doesn't break, <span class="green">but neither do you</span>. <<He>> leans forward, until the tip of <<his>> nose touches yours.
+	<br><br>
+	<<link [[Look away|Whitney Home Intro Stare Away]]>><</link>>
+	<br>
+	<<link [[Stare (0:01)|Whitney Home Intro Stare 4]]>><<pass 1>><</link>><<willpowerdifficulty 1 600>>
+	<br>
+<<else>>
+	You can't help it. <span class="red">You blink.</span><<gstress>><<gwillpower>><<stress 1>><<willpower 1>>
+	<br><br>
+	Whitney gives your <<bottom>> a smug slap, and reaches into <<his>> pocket as if for a cigarette, but stops <<himself>>. "Let's go back to the park."
+	<br><br>
+
+	<<link [[Ask to visit Whitney's home|Whitney Home Intro Ask]]>><</link>>
+	<br>
+	<<link [[Remain silent|Whitney Home Intro Return]]>><</link>>
+	<br>
+<</if>>
+
+:: Whitney Home Intro Stare 4
+<<effects>>
+
+You continue to stare. Your eyes sting even more. A bead of sweat rolls down the side of Whitney's face.
+<<if $willpowerSuccess>>
+	<span class="green">But you persist.</span>
+	<br><br>
+	A <<generate3>><<person3>><<person>> walks by, and stops, looking at you. "You okay there, <<lass>>? This <<person1>><<personsimple>> bullying you?"
+	<br><br>
+	Whitney spins on the spot. Whatever the <<person3>><<person>> sees on Whitney's face, it makes <<him>> take a step back, then turn and walk away in a hurry.
+	<br><br>
+
+	"Whatever," Whitney says while giving you some space. "I was gonna win, but whatever." <<person1>><<He>> reaches into <<his>> pocket as if for a cigarette, but stops <<himself>>. "Let's go back to the park."
+	<br><br>
+
+	<<link [[Ask to visit Whitney's home|Whitney Home Intro Ask]]>><</link>>
+	<br>
+	<<link [[Remain silent|Whitney Home Intro Return]]>><</link>>
+	<br>
+<<else>>
+	It becomes too much, <span class="red">and you find yourself blinking as your eyes are washed with tears</span>.<<gstress>><<gwillpower>><<stress 1>><<willpower 1>>
+	<br><br>
+
+	Whitney gives your <<bottom>> a smug slap, and reaches into <<his>> pocket as if for a cigarette, but stops <<himself>>. "Let's go back to the park."
+	<br><br>
+
+	<<link [[Ask to visit Whitney's home|Whitney Home Intro Ask]]>><</link>>
+	<br>
+	<<link [[Remain silent|Whitney Home Intro Return]]>><</link>>
+	<br>
+<</if>>
+
+
+
+:: Whitney Home Intro Nice
+<<effects>>
+
+Whitney looks surprised for a moment. Then <<he>> puts an arm around your shoulders. "I live up there. You can see my bedroom window from here. Right there." <<He>> points, but it's impossible to tell which window belongs to <<him>>.
+<br><br>
+<<He>> reaches into <<his>> pocket as if for a cigarette, then stops <<himself>>. "Let's go back to the park."
+<br><br>
+
+<<link [[Ask to visit Whitney's home|Whitney Home Intro Ask]]>><</link>>
+<br>
+<<link [[Remain silent|Whitney Home Intro Return]]>><</link>>
+<br>
+
+:: Whitney Home Intro Ask
+<<effects>>
+
+Whitney shakes <<his>> head. "You're an insatiable slut, aren't you?" <<he>> says. "Another time. Maybe."
+<br><br>
+
+<<link [[Next|Whitney Home Intro Return]]>><</link>>
+<br>
+
+:: Whitney Home Intro Return
+<<effects>>
+<<set $bus to "park">>
+<<pass 15>>
+<<endevent>>
+<<npc Whitney>><<person1>>
+You walk back to the park with Whitney, along a different route passing through the commercial alleys. There's more of a spring in <<his>> step now, as if <<hes>> relieved about something.
+<br><br>
+
+You arrive by the fountain without incident. Only then does <<he>> light up.
+
+<<whitneyoptions>>
+
+
+:: Whitney Home Intro 2
+<<effects>>
+
+Whitney leads you to the edge of the park where <<he>> waves down a bus. The bus driver ignores <<him>>. Whitney reaches for a rock, and hurls it at the back window. The glass resists, but the <<generate2>><<person2>><<person>> behind it jumps in fright.
+<br><br>
+<<person1>>
+"Guess we're walking," Whitney says. "I prefer it anyway."
+<br><br>
+
+You walk towards the coast, then towards Barb Street. The breeze blows Whitney's fringe away from <<his>> eyes, but <<he>> doesn't seem to mind.
+<br><br>
+
+<<link [[Next|Whitney Home Intro 2 2]]>><</link>>
+<br>
+
+:: Whitney Home Intro 2 2
+<<effects>>
+
+You see the block of flats Whitney pointed out before. <<He>> doesn't slow until you reach the entrance, where <<he>> turns to face you.
+<br><br>
+
+"I'm gonna blindfold you," <<he>> says, no hint of a joke in <<his>> voice. "You don't happen to have one on you, do you? Never mind."
+<br><br>
+
+Whitney pulls <<his>> shirt over <<his>> head in one motion, and holds it in front of your face. "Don't worry. I'll hold you like a good <<girlfriend_npc>>."
+<br><br>
+
+<<link [[Ask why this is necessary|Whitney Home Intro 2 Ask]]>><</link>>
+<br>
+<<link [[Wear the blindfold|Whitney Home Intro 2 Accept]]>><</link>>
+<br>
+<<link [[Refuse|Whitney Home Intro 2 Refuse]]>><<npcincr Whitney love -1>><</link>>
+<br>
+
+
+:: Whitney Home Intro 2 Ask
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"This could be scary," you say. "Is it necessary?"
+<<elseif $speech_attitude is "bratty">>
+	"Do you have to humiliate me like this?" you ask.
+<<else>>
+	"Why do I need to be blindfolded?"
+<</if>>
+<br><br>
+
+"Because I say so, slut," <<he>> says. "Any more stupid questions, or are you gonna wear the blindfold?"
+<br><br>
+
+
+<<link [[Wear the blindfold|Whitney Home Intro 2 Accept]]>><</link>>
+<br>
+<<link [[Refuse|Whitney Home Intro 2 Refuse]]>><<npcincr Whitney love -1>><</link>>
+<br>
+
+:: Whitney Home Intro 2 Accept
+<<effects>>
+
+<<faceundress "whitney_home_intro">>
+<<facewear "blindfold">>
+
+You allow Whitney to wrap <<his>> shirt around your head. It smells of cigarettes, and Whitney's deodorant.
+<br><br>
+
+"Comfy, slut?" Whitney asks. "Come on. You can trust me." <<He>> wraps an arm around your waist, and pulls you forward. <<He>> stops to open the door, then you continue inside.
+<br><br>
+
+<<link [[Next|Whitney Home Intro 2 Blindfolded]]>><</link>>
+<br>
+
+
+
+:: Whitney Home Intro 2 Refuse
+<<effects>>
+
+"Suit yourself, slut," Whitney says. "I'll try to be quick, but don't do anything stupid while I'm gone."
+<br><br>
+
+<<He>> opens the door, and marches into the building. You watch as <<he>> walks down the hallway, to the stairwell on the opposite end. <<He>> pauses, turns to face you, and sticks up <<his>> middle finger before ascending.
+<br><br>
+
+<<link [[Wait|Whitney Home Intro 2 Wait]]>><</link>>
+<br>
+<<link [[Follow Whitney's footsteps|Whitney Home Intro 2 Follow]]>><</link>>
+<br>
+<<link [[Just leave|Whitney Home Intro 2 Leave]]>><<npcincr Whitney love -1>><</link>><<llove>>
+<br>
+
+:: Whitney Home Intro 2 Leave
+<<effects>>
+
+You walk away from the block of flats, leaving Whitney to it.
+<br><br>
+
+<<link [[Next|Barb Street]]>><<endevent>><<set $eventskip to 1>><</link>>
+<br>
+
+
+:: Whitney Home Intro 2 Wait
+<<effects>>
+<<pass 5>>
+You wait outside, under the small shelter in front of the building. No one bothers you. A <<generate3>><<person3>><<person>> rushes by, but doesn't acknowledge you.
+<br><br>
+
+<<person1>>Whitney appears at the stairwell, a fresh carton of cigarettes bulging in <<his>> shirt pocket. <<He>> flashes a cheeky smile when <<he>> sees you.
+<br><br>
+
+"Doesn't look like anyone bothered you while you were out here," <<he>> says. "Good. Come on, let's go back to the park."
+<br><br>
+
+<<link [[Next|Whitney Home Intro 2 Return]]>><</link>>
+<br><br>
+
+:: Whitney Home Intro 2 Follow
+<<effects>>
+<<pass 5>>
+You enter the hallway. You hear Whitney's footsteps climb the stairwell. You walk closer, keeping your feet quiet, then climb after <<him>>. You see <<his>> arm on the bannister up above, and for a moment it appears <<he>>'ll look down and discover you. But then <<he>> departs the stairs.
+<br><br>
+
+You climb to where you last saw <<him>>, and peek around the corner of a nearby hallway, just in time to spot <<him>> enter one of the doors set into the white walls.
+<br><br>
+
+You can't see anything interesting at this angle, but you could get closer.
+<br><br>
+
+<<link [[Get closer|Whitney Home Intro 2 Closer]]>><</link>>
+<br>
+<<link [[Return to the entrance|Whitney Home Intro 2 Entrance]]>><</link>>
+<br>
+
+
+:: Whitney Home Intro 2 Closer
+<<effects>>
+<<endevent>><<npc Whitney>>
+<<generate2>><<saveNPC 1 "whitney_parent_flat">><<person2>>
+You walk down the hallway, still keeping your footsteps quiet. You draw close enough to see the number 64 hanging on the door. Then you hear muffled voices. One sounds like Whitney, the other belongs to a <<personsimple>>. They sound heated.
+<br><br>
+
+<span class="red">You hear footsteps approach the door!</span>
+<br><br>
+
+<<link [[Run!|Whitney Home Intro 2 Run]]>><</link>>
+<br>
+<<link [[Stand your ground|Whitney Home Intro 2 Stand]]>><<npcincr Whitney love -1>><</link>><<llove>>
+<br>
+
+:: Whitney Home Intro 2 Run
+<<effects>>
+
+You turn and run the way you came, and fly down the stairwell. You catch sight of Whitney emerging through the door as you descend. You don't think <<person1>><<he>> saw you.
+<br><br>
+
+You make it back to the entrance, and try to calm your breath. Whitney emerges from the stairs as well, a moment later, as if <<he>> were in a hurry too. A fresh packet of cigarettes bulges in <<his>> shirt pocket. <<He>> flashes a cheeky smile when <<he>> sees you.
+<br><br>
+
+"You alright?" <<he>> asks. "Someone bother you?"
+<br><br>
+
+<<link [[Say yes|Whitney Home Intro 2 Yes]]>><</link>>
+<br>
+<<link [[Say no|Whitney Home Intro 2 No]]>><</link>>
+<br><br>
+
+:: Whitney Home Intro 2 Yes
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	You look at your feet. "It's a dangerous town."
+<<elseif $speech_attitude is "bratty">>
+	"Nothing I couldn't handle," you say. "But yes."
+<<else>>
+	You nod. "It's a dangerous town."
+<</if>>
+<br><br>
+
+"That's why I wanted you to come with me," Whitney says. "If we see them on the way back to the park, point them out. I'll fuck them up."
+<br><br>
+
+
+<<link [[Next|Whitney Home Intro 2 Return]]>><</link>>
+<br>
+
+:: Whitney Home Intro 2 No
+<<effects>>
+
+You shake your head. Whitney stares at you a moment. Sensing no lie, <<he>> shrugs, and pats the packet of cigarettes in <<his>> pocket. "Let's go back to the park."
+<br><br>
+
+<<link [[Next|Whitney Home Intro 2 Return]]>><</link>>
+<br>
+
+:: Whitney Home Intro 2 Stand
+<<effects>>
+
+You wait in front of the door. It swings open, revealing an agitated Whitney. <<person1>><<He>> stops a moment, a packet of cigarettes in one hand, looking at you.
+<br><br>
+Then you hear a <<person2>><<personsimple>>'s voice. "Where are you going? I'm not done—"
+<br><br>
+
+Startled back into action, Whitney steps through and slams the door on the voice, before turning to face you.
+<br><br>
+
+"Couldn't manage five minutes without me?" <<person1>><<he>> asks. "Of course you can't. I should have known." <<He>> grasps your arm, and jerks you towards the staircase.
+<br><br>
+
+<<link [[Ask who the voice was|Whitney Home Intro 2 Stand Voice]]>><</link>>
+<br>
+<<link [[Remain silent|Whitney Home Intro 2 Stand Silent]]>><</link>>
+<br>
+
+:: Whitney Home Intro 2 Stand Voice
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I hope it's not rude to ask," you say. "But who did I hear in there?"
+<<elseif $speech_attitude is "bratty">>
+	"So who was that I heard?" you ask. "You didn't introduce us."
+<<else>>
+	"Whose voice was that?" you ask.
+<</if>>
+<br><br>
+
+"You follow me like a sneak," Whitney says. "Now you're asking questions? You really are a dumb slut."
+<br><br>
+
+<<He>> pulls you down the stairs, and back outside. <<He>> calms down as <<he>> puts distance between <<himself>> and the flat. <<He>> seems relieved.
+<br><br>
+
+<<link [[Next|Whitney Home Intro 2 Return]]>><</link>>
+<br>
+
+
+:: Whitney Home Intro 2 Stand Silent
+<<effects>>
+
+You remain silent as Whitney pulls you down the stairs, and back outside. <<He>> calms down as <<he>> puts distance between <<himself>> and the flat. <<He>> seems relieved.
+<br><br>
+
+<<link [[Next|Whitney Home Intro 2 Return]]>><</link>>
+<br>
+
+:: Whitney Home Intro 2 Entrance
+<<effects>>
+
+You walk back down the stairwell and wait for Whitney at the entrance. <<He>> appears at the stairwell soon after, a fresh carton of cigarettes bulging in <<his>> shirt pocket. <<He>> flashes a cheeky smile when <<he>> sees you.
+<br><br>
+
+"Doesn't look like anyone bothered you while you were out here," <<he>> says. "Good. Come on, let's go back to the park."
+<br><br>
+
+<<link [[Next|Whitney Home Intro 2 Return]]>><</link>>
+<br>
+
+:: Whitney Home Intro 2 Blindfolded
+<<effects>>
+<<pass 5>><<endevent>><<npc Whitney>>
+<<generate2>><<saveNPC 1 "whitney_parent_flat">><<person2>>
+Whitney guides you through the building, and warns you when you approach the stairs. You climb several floors, walk a bit further, climb down a flight, then walk some more. It's as if Whitney's trying to confuse you.
+<br><br>
+
+You come to a stop. "We're here," Whitney says. "I'll only be a moment. Don't you dare take off my shirt. I mean the blindfold."
+<br><br>
+
+You hear a door open, then close, followed by the click of a lock. Then you hear a <<personsimple>>'s voice on the other side, followed by Whitney. It sounds heated, but the thick door muffles the sound too much.
+<br><br>
+
+<<link [[Remove your blindfold and take a look around|Whitney Home Intro 2 Blindfolded Look]]>><</link>>
+<br>
+<<link [[Press your ear against the door|Whitney Home Intro 2 Blindfolded Hear]]>><</link>>
+<br>
+<<link [[Just wait|Whitney Home Intro 2 Blindfolded Wait]]>><</link>>
+<br>
+
+
+:: Whitney Home Intro 2 Blindfolded Look
+<<effects>>
+
+You lift part of Whitney's shirt. It looks like a hallway typical of a building like this. White walls, and two rows of identical doors. The number 64 hangs on the door beside you.
+<br><br>
+
+You hear footsteps on the other side, and pull the shirt back over your eye before the door swings open. The <<personsimple>>'s voice is clear now.
+<br><br>
+"Where are you going? I'm not done—"
+<br><br>
+
+The door slams, cutting off the voice. Someone wraps an arm around your waist, making you jump. "It's me you dumb slut," Whitney says. "Come on. I have what I came for." <<person1>><<He>> guides you back into a walk.
+<br><br>
+
+<<link [[Ask who that was|Whitney Home Intro 2 Blindfolded Ask]]>><</link>>
+<br>
+<<link [[Remain silent|Whitney Home Intro 2 Blindfolded Return Silent]]>><</link>>
+<br>
+
+:: Whitney Home Intro 2 Blindfolded Hear
+<<effects>>
+
+You press your ear against the door. The voices remain muffled, but you can tell Whitney and the other person are spitting venom at each other.
+<br><br>
+
+You hear footsteps getting closer, and back away just as the door swings open. The <<personsimple>>'s voice is clear now.
+<br><br>
+"Where are you going? I'm not done—"
+<br><br>
+
+The door slams, cutting off the voice. Someone wraps an arm around your waist, making you jump. "It's me you dumb slut," Whitney says. "Come on. I have what I came for." <<person1>><<He>> guides you back into a walk.
+<br><br>
+
+<<link [[Ask who that was|Whitney Home Intro 2 Blindfolded Ask]]>><</link>>
+<br>
+<<link [[Remain silent|Whitney Home Intro 2 Blindfolded Return Silent]]>><</link>>
+<br>
+
+
+:: Whitney Home Intro 2 Blindfolded Wait
+<<effects>>
+
+You wait. The voices become more intense. Then you hear the door fly open, followed by the <<personsimple>>'s voice.
+<br><br>
+
+"Where are you going? I'm not done—"
+<br><br>
+
+The door slams, cutting off the voice. Someone wraps an arm around your waist, making you jump. "It's me you dumb slut," Whitney says. "Come on. I have what I came for." <<person1>><<He>> guides you back into a walk.
+<br><br>
+
+<<link [[Ask who that was|Whitney Home Intro 2 Blindfolded Ask]]>><</link>>
+<br>
+<<link [[Remain silent|Whitney Home Intro 2 Blindfolded Return Silent]]>><</link>>
+<br>
+
+
+:: Whitney Home Intro 2 Blindfolded Return
+<<effects>>
+
+You hear the door open, and a voice other than Whitney's, a <<personsimple>>'s voice.
+<br><br>
+
+"Where are you going? I'm not done—"
+<br><br>
+
+The door slams, cutting off the voice. Someone wraps an arm around your waist, making you jump. "It's me you dumb slut," Whitney says. "Come on. I have what I came for." <<person1>><<He>> guides you back into a walk.
+<br><br>
+
+<<link [[Ask who that was|Whitney Home Intro 2 Blindfolded Ask]]>><</link>>
+<br>
+<<link [[Remain silent|Whitney Home Intro 2 Blindfolded Return Silent]]>><</link>>
+<br>
+
+
+:: Whitney Home Intro 2 Blindfolded Ask
+<<effects>>
+
+<<set $worn.face.type.push("broken")>>
+<<faceruined>>
+<<storeon "whitney_home_intro">>
+
+<<if $speech_attitude is "meek">>
+	"If it's okay," you say. "Can I know whose voice that was?"
+<<elseif $speech_attitude is "bratty">>
+	"Who were you arguing with?" you ask.
+<<else>>
+	"Who was that?" you ask.
+<</if>>
+<br><br>
+
+There's a pause. "That was my <<person2>><<mum>>." Whitney says. "<<Hes>> a cunt. I didn't think <<he>>'d be in, or I wouldn't have come."
+<br><br>
+
+Whitney guides you through the building, down a flight of stairs, then up, then down again. A <<if Time.season is "summer">>warm<<else>>cool<</if>> breeze brings the smell of car exhausts, and you're back outside.
+<br><br>
+
+Whitney removes <<person1>><<his>> shirt from your head, and puts it back on. <<He>> puts an unopened packet of cigarettes in the pocket. "Right. Let's go."
+<br><br>
+
+<<link [[Next|Whitney Home Intro 2 Return]]>><</link>>
+<br>
+
+
+:: Whitney Home Intro 2 Blindfolded Return Silent
+<<effects>>
+
+<<set $worn.face.type.push("broken")>>
+<<faceruined>>
+<<storeon "whitney_home_intro">>
+
+You remain silent as Whitney guides you through the building, down a flight of stairs, then up, then down again. A <<if Time.season is "summer">>warm<<else>>cool<</if>> breeze brings the smell of car exhausts, and you're back outside.
+<br><br>
+
+Whitney removes <<his>> shirt from your head, and puts it back on. <<He>> puts an unopened packet of cigarettes in the pocket. "Right. Let's go."
+<br><br>
+
+<<link [[Next|Whitney Home Intro 2 Return]]>><</link>>
+<br>
+
+:: Whitney Home Intro 2 Return
+<<effects>>
+<<pass 15>>
+<<endevent>>
+<<npc Whitney>><<person1>>
+You walk back to the park with Whitney. <<He>> stops only once, to check <<his>> hair in the reflection of a window.
+<br><br>
+
+Once back by the fountain, Whitney opens the carton of cigarettes, and lights up.
+
+<<whitneyoptions>>
+
+:: Whitney Home Intro 3
+<<effects>><<set $location to "town">><<set $bus to "cliff">>
+<<if !$per_npc.whitney_parent_flat>>
+	<<generate2>><<saveNPC 1 "whitney_parent_flat">>
+<<else>>
+	<<loadNPC 1 "whitney_parent_flat">>
+<</if>>
+<<person1>>
+You meet Whitney's friends at the edge of the park. They look like they're expecting <<person1>><<him>>, and fall in line behind you without a word. Whitney leads you along the High Street. The crowd parts as <<his>> gang approaches, bunching up on either side of the road to make way.
+<br><br>
+
+You and the gang follow Whitney down an alley, and emerge on Cliff Street.
+<br><br>
+
+<<link [[Next|Whitney Home Intro 3 2]]>><</link>>
+<br>
+
+:: Whitney Home Intro 3 2
+<<effects>><<set $location to "flats">><<set $bus to "barb">>
+
+You soon arrive at Barb Street, and see Whitney's block of flats up ahead. Whitney strides through the front doors without stopping, and the gang follows. This time Whitney makes no attempt to blindfold you.
+<br><br>
+
+You follow <<him>> several stories up the stairs, until <<he>> turns and enters the adjoining corridor. <<He>> stops in front of one of the doors. The number 64 hangs on the front.
+<br><br>
+
+Whitney pulls a key from <<his>> pocket, inserts it in the lock, twists, and shoves the door open.
+<br><br>
+
+<<link [[Next|Whitney Home Intro 3 3]]>><</link>>
+<br>
+
+:: Whitney Home Intro 3 3
+<<effects>>
+
+You follow Whitney inside, through a small antechamber, and into a cluttered kitchen. Whitney doesn't stop, but you glimpse a messy bedroom, and a bathroom, off the corridor to the side.
+<br><br>
+
+The gang crowd into the living room, while their leader dumps <<himself>> on a sofa. Some also sit in chairs, but most just sit on the floor, or lean against a wall. It's a small room for so many people, but they seem used to it.
+<br><br>
+
+The seat beside Whitney is empty.
+<br><br>
+
+<<link [[Sit beside Whitney|Whitney Home Intro 3 Sofa]]>><<npcincr Whitney love 1>><</link>><<glove>>
+<br>
+<<link [[Sit on the floor|Whitney Home Intro 3 Floor]]>><</link>>
+<br>
+<<link [[Ask if you can fetch anyone a drink or snack|Whitney Home Intro 3 Drink]]>><</link>>
+<br>
+
+:: Whitney Home Intro 3 Sofa
+<<effects>>
+
+You sit on the sofa beside Whitney. <<He>> hangs an arm loose around your waist. "Not the usual time, I know," <<he>> says, addressing everyone in the room. "But <<person2>><<mum>>'s out today, and I can't be fucked with the rain for once."
+<br><br>
+
+<<person1>><<He>> reaches behind the sofa, and pulls up a large box of ciders. <<He>> starts passing them out, <span class="red">but is interrupted by the sound of a key turning in the door</span>.
+<br><br>
+
+<<link [[Next|Whitney Home Intro 3 Parent]]>><</link>>
+<br>
+
+:: Whitney Home Intro 3 Floor
+<<effects>>
+
+You sit on the floor. Whitney reclines, and tries to rest <<his>> feet on your head, but you're just out of reach.
+<br><br>
+
+"Not the usual time, I know," <<he>> says, addressing everyone in the room. "But <<person2>><<mum>>'s out today, and I can't be fucked with the rain for once."
+<br><br>
+
+<<person1>><<He>> reaches behind the sofa, and pulls up a large box of ciders. <<He>> starts passing them out, <span class="red">but is interrupted by the sound of a key turning in the door</span>.
+<br><br>
+
+<<link [[Next|Whitney Home Intro 3 Parent]]>><</link>>
+<br>
+
+
+:: Whitney Home Intro 3 Drink
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Can I fetch anyone anything?" you ask. "A drink, or a snack?"
+<<elseif $speech_attitude is "bratty">>
+	"I'm raiding your fridge, Whitney," you say. "Can I get anyone anything?"
+<<else>>
+	"Can I get anyone a drink?" you ask. "Or some snacks?"
+<</if>>
+<br><br>
+
+Whitney's friends hesitate.
+<br><br>
+"You've just arrived and you're already taking my things?" Whitney asks. "Sit down. You can fetch snacks later."
+<br><br>
+
+<<link [[Sit beside Whitney|Whitney Home Intro 3 Sofa]]>><<npcincr Whitney love 1>><</link>><<glove>>
+<br>
+<<link [[Sit on the floor|Whitney Home Intro 3 Floor]]>><</link>>
+<br>
+
+
+:: Whitney Home Intro 3 Parent
+<<effects>>
+
+
+
+A <<person2>><<personsimple>> throws open the door, and steps into the kitchen. <<His>> hair is shorter, but the resemblance is unmistakable. <span class="red">It's Whitney's <<father>>.</span>
+<br><br>
+
+<<He>> pauses by the fridge, <<his>> eyes flickering between Whitney's friends. Whitney glares at <<him>>.
+<br>
+"What the fuck are you doing here?" <<he>> says in a voice like gravel. "Tell your friends to get out. Now."
+
+<br><br>
+Whitney's friends avoid eye contact with both Whitney and <<person1>><<his>> <<person2>><<mum>>, unsure what to do until Whitney rescues them. "Alright. Everyone out. Party's over. You can keep the cider."
+<br><br>
+Whitney clasps <<person1>><<his>> hand over your wrist, holding it down, making it clear <<he>> doesn't mean you. <<His>> friends rise to their feet, and squeeze their way to the exit while <<his>> <<person2>><<mum>> rummages in the fridge.
+<br><br>
+
+<<link [[Next|Whitney Home Intro 3 Parent 2]]>><</link>>
+<br>
+
+:: Whitney Home Intro 3 Parent 2
+<<effects>>
+
+Whitney's <<mum>> cracks open a beer as <<he>> enters the living room, eyes on you. "What's <<pshe>> still doing here?"
+<br>
+"<<pShe>>'s my <<girlfriend>>."
+<br>
+Laughter. "You've not called anyone that before." <<He>> runs <<his>> eyes over your body, a bit too low, for a bit too long. "<<pShe>> looks too sweet for you."
+<br><br>
+
+Whitney rises, pulling you with <<person1>><<him>>. "We're going to my room."
+<br>
+"Suit yourself." Whitney's <<person2>><<mum>> dumps <<himself>> into the chair in front of the television, and starts fishing for the remote.
+<br><br>
+
+<<link [[Next|Whitney Home Intro 3 Bedroom]]>><</link>>
+<br>
+
+:: Whitney Home Intro 3 Bedroom
+<<effects>>
+<<pass 5>>
+<<endevent>>
+<<npc "Whitney">>
+Whitney leads you through the kitchen, and into a corridor. There's a bedroom to the left, and a bathroom to your right, but Whitney leads you straight ahead. You enter <<his>> room.
+<br><br>
+
+Whitney clears a video game controller off the bed, throwing it into a pile of clothes before a cupboard built into the wall. Then <<he>> collapses on <<his>> back. Light streams through the window above the headboard, gilding <<his>> hair with gold.
+<br><br>
+
+<<He>> looks away when you glance at <<him>>. <<Hes>> concerned about what you think.
+<br><br>
+
+<<link [[Say it's very nice (truth)|Whitney Home Intro 3 Bedroom Nice]]>><<npcincr Whitney love 1>><</link>><<glove>>
+<br>
+<<link [[Say it's very nice (lie)|Whitney Home Intro 3 Bedroom Nice]]>><<npcincr Whitney love 1>><</link>><<glove>>
+<br>
+<<link [[Tease Whitney|Whitney Home Intro 3 Bedroom Tease]]>><<npcincr Whitney love -1>><</link>><<llove>>
+<br>
+<<link [[Give nothing away|Whitney Home Intro 3 Bedroom Nothing]]>><</link>>
+<br>
+
+:: Whitney Home Intro 3 Bedroom Nice
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"It's a lovely bedroom," you say. "Thank you for inviting me."
+<<elseif $speech_attitude is "bratty">>
+	"Better than the rooms at the orphanage," you say.
+<<else>>
+	"It's a nice room," you say.
+<</if>>
+<br><br>
+
+"Course it is," Whitney says. <<He>> relaxes, a little, and pats the bed beside <<him>>.
+<br><br>
+
+<<link [[Sit|Whitney Home Intro 3 Bedroom Sit]]>><<npcincr Whitney love 1>><</link>><<glove>>
+<br>
+<<link [[Jump on Whitney|Whitney Home Intro 3 Bedroom Jump]]>><<npcincr Whitney love 1>><<npcincr Whitney lust 1>><</link>><<glust>><<glove>>
+<br>
+<<link [[Remain stood|Whitney Home Intro 3 Bedroom Stand]]>><<npcincr Whitney love -1>><</link>><<llove>>
+<br>
+
+
+:: Whitney Home Intro 3 Bedroom Tease
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I'm sorry you have to live like this," you say.
+<<elseif $speech_attitude is "bratty">>
+	"What a dump," you say.
+<<else>>
+	"It must be rough living here," you say. "Almost as bad as the orphanage."
+<</if>>
+<br><br>
+
+"Shut your mouth, slut," Whitney says, a slight tremble belying <<his>> feelings.
+<<if $whitney_bailey_met>>
+	"As if you can talk. I've seen the sty you live in."
+<<else>>
+	"I bet you live in a mud hole or something."
+<</if>>
+<br><br>
+
+<<link [[Apologise|Whitney Home Intro 3 Bedroom Apologise]]>><<npcincr Whitney love 1>><</link>><<glove>>
+<br>
+<<link [[Jump on Whitney|Whitney Home Intro 3 Bedroom Jump]]>><<npcincr Whitney love 1>><<npcincr Whitney lust 1>><</link>><<glust>><<glove>>
+<br>
+<<link [[Remain stood|Whitney Home Intro 3 Bedroom Stand]]>><<npcincr Whitney love -1>><</link>><<llove>>
+<br>
+
+:: Whitney Home Intro 3 Bedroom Nothing
+<<effects>>
+
+You say nothing. Whitney waits a moment longer, then pats the bed beside <<him>>. "Sit down."
+<br><br>
+
+<<link [[Sit|Whitney Home Intro 3 Bedroom Sit]]>><<npcincr Whitney love 1>><</link>><<glove>>
+<br>
+<<link [[Jump on Whitney|Whitney Home Intro 3 Bedroom Jump]]>><<npcincr Whitney love 1>><<npcincr Whitney lust 1>><</link>><<glust>><<glove>>
+<br>
+<<link [[Remain stood|Whitney Home Intro 3 Bedroom Stand]]>><<npcincr Whitney love -1>><</link>><<llove>>
+<br>
+
+
+:: Whitney Home Intro 3 Bedroom Sit
+<<effects>>
+
+You sit beside Whitney, on <<his>> bed. <<He>> wraps an arm around your waist, and pulls <<himself>> up beside you. <<He>> looks in your eyes, and for an odd moment <<he>> seems different. Peaceful.
+<br><br>
+
+A shout from the living room breaks the spell. "Goal!"
+<br><br>
+
+Whitney casts a frustrated glance at the door, then stands. "Come on," <<he>> says. "Another time. When that old fuck isn't around."
+<br><br>
+
+<<link [[Next|Whitney Home Intro 3 Return]]>><</link>>
+<br>
+
+:: Whitney Home Intro 3 Bedroom Jump
+<<effects>>
+
+You jump atop Whitney. <<He>> catches you, unsurprised, and locks one arm around you while resting the other behind your head. <<He>> looks in your eyes, and for an odd moment <<he>> seems different. Peaceful.
+<br><br>
+
+A shout from the living room breaks the spell. "Goal!"
+<br><br>
+
+Whitney casts a frustrated glance at the door, then stands. "Come on," <<he>> says. "Another time. When that old fuck isn't around."
+<br><br>
+
+<<link [[Next|Whitney Home Intro 3 Return]]>><</link>>
+<br>
+
+:: Whitney Home Intro 3 Bedroom Stand
+<<effects>>
+
+You remain stood. Whitney sits upright. "What's the matter with you?" <<he>> asks. "Say something, slut."
+<br><br>
+
+<<He>> opens <<his>> mouth to continue, but is interrupted by a shout from the living room. "Goal!"
+<br><br>
+
+Whitney shoots a frustrated glance at the door, then stands. "Come on," <<he>> says. "Another time. When that old fuck isn't around."
+<br><br>
+
+<<link [[Next|Whitney Home Intro 3 Return]]>><</link>>
+<br>
+
+
+:: Whitney Home Intro 3 Bedroom Apologise
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I'm sorry," you say. "It was rude to tease you."
+<<elseif $speech_attitude is "bratty">>
+	"Sorry," you say. "I didn't mean to upset you. Much."
+<<else>>
+	"I'm only kidding," you say. "Sorry for winding you up."
+<</if>>
+<br><br>
+
+<<loadNPC 1 "whitney_parent_flat">>
+Whitney's expression softens. "I'm on edge," <<he>> says. "It's my <<person2>><<mum>> showing up."
+<br><br>
+
+Whitney casts a frustrated glance at the door, then stands. "Come on," <<person1>><<he>> says. "Another time. When that old fuck isn't around."
+<br><br>
+
+<<link [[Next|Whitney Home Intro 3 Return]]>><</link>>
+<br>
+
+
+:: Whitney Home Intro 3 Return
+<<effects>>
+<<pass 15>><<set $location to "park">><<set $bus to "park">>
+<<endevent>>
+<<npc "Whitney">><<loadNPC 1 "whitney_parent_flat">>
+
+You leave the flat with Whitney, and head outside the building. "I could use a smoke," <<he>> says. "But let's wait until we're back at the park."
+<br><br>
+
+Whitney is talkative once <<his>> frustration with <<his>> <<person2>><<mum>> simmers down, as if a weight were lifted off <<person1>><<his>> shoulders. "You should drop by my home now and then," <<he>> says at one point. "When it's dry. My <<person2>><<mum>> only works on dry days, and won't be around to bother us."
+<br><br>
+
+<span class="gold">You can now visit Whitney's flat on dry, non-school days.</span>
+<br><br>
+
+You arrive by the fountain in the park. Whitney lights up, and smiles at you.
+<<person1>><<clearsinglenpc 1>>
+<<whitneyoptions>>
+
+
+:: Whitney Home Escort
+<<effects>>
+
+Whitney nods. <<He>> wraps an arm around your waist, and together you walk to Domus Street. No one bothers you. Whitney stops outside the orphanage.
+<br><br>
+
+"Even you could walk the rest without being harassed," <<he>> says. "Go on. I'll watch you enter like a good <<girlfriend_npc>>."
+<br><br>
+
+<<He>> indeed waits until you've entered. You see <<him>> through a window, examining something on the second story, or perhaps even the roof. Then <<he>> departs.
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Whitney Home Escort No
+<<effects>>
+
+Whitney nods. "Try to behave then," <<he>> says. Then <<he>> turns and walks towards the centre of town.
+<br><br>
+
+<<link [[Next|Barb Street]]>><<endevent>><<set $eventskip to 1>><</link>>
+<br>
+
+
+:: Whitney Home Escort Friends
+<<effects>>
+
+Whitney nods. "You guys wait for me there," <<he>> says. Then <<he>> wraps an arm around your waist, and together you walk to Domus Street. No one bothers you. Whitney stops outside the orphanage.
+<br><br>
+
+"Even you could walk the rest without being harassed," <<he>> says. "Go on. I'll watch you enter like a good <<girlfriend_npc>>."
+<br><br>
+
+
+<<He>> indeed waits until you've entered. You see <<him>> through a window, examining something on the second story, or perhaps even the roof. Then <<he>> departs.
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+
+:: Whitney Home Escort No Friends
+<<effects>>
+
+Whitney nods. "Try to behave then," <<he>> says. Then <<he>> turns and walks towards the centre of town with <<his>> friends in tow.
+<br><br>
+
+<<link [[Next|Barb Street]]>><<endevent>><<set $eventskip to 1>><</link>>
+<br>
+
+
+
+:: Whitney Home Dusk Leave Naked
+<<effects>>
+
+You answer the door with Whitney. Three of <<his>> friends wait outside, expecting <<him>>. They leer at your <<lewdness>>, until Whitney interrupts. "You paying for that?" They avert their eyes.
+<<exhibitionism5>>
+
+Together, you walk down the stairs, and exit the building, where yet more of Whitney's friends wait.
+<br><br>
+
+"Later, slut," <<he>> says as you part. "Don't get molested."
+<br><br>
+
+<<link [[Next|Barb Street]]>><<endevent>><<set $eventskip to 1>><</link>>
+<br>
+
+:: Whitney Home Dusk Leave Undies
+<<effects>>
+
+You answer the door with Whitney. Three of <<his>> friends wait outside, expecting <<him>>. They leer at your <<lewdness>>, until Whitney slaps one around the side of the head.
+<<exhibitionism3>>
+
+Together, you walk down the stairs, and exit the building, where yet more of Whitney's friends wait.
+<br><br>
+
+"Later, slut," <<he>> says as you part. "Don't get molested."
+<br><br>
+
+<<link [[Next|Barb Street]]>><<endevent>><<set $eventskip to 1>><</link>>
+<br>
+
+:: Whitney Home Dusk Exposed
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I'd be awfully cold if I went out like this," you say.
+<<elseif $speech_attitude is "bratty">>
+	"Let me get dressed first," you say.
+<<else>>
+	"Can I get some clothes first?" you ask.
+<</if>>
+<br><br>
+
+Whitney examines you, as if only now realising your state of dress, but <<his>> wry smile betrays <<his>> act. "Maybe I want to show you off," <<he>> says. "But it's a rough neighbourhood. Better dress you in something."
+<br><br>
+
+<<towelup>>
+
+<<He>> digs through a pile of freshly cleaned laundry, then throws a towel over your head. "That'll do."
+<br><br>
+
+<<link [[Next|Whitney Home Dusk Leave]]>><</link>>
+<br>
+
+
+:: Whitney Home Dusk Leave
+<<effects>>
+
+You answer the door with Whitney. Three of <<his>> friends wait outside, expecting <<him>>. Together, you walk down the stairs, and exit the building, where yet more of Whitney's friends wait.
+<br><br>
+
+"Later, slut," <<he>> says as you part.
+<br><br>
+
+<<link [[Next|Barb Street]]>><<endevent>><<set $eventskip to 1>><</link>>
+<br>
+
+
+:: Whitney Home Gang Arrive Naked
+<<effects>>
+
+The first of Whitney's gang arrive. Whitney insists on you accompanying <<him>> to answer the door. <<His>> friends' reactions range to dumbstruck awe, to lecherous leers.
+<<exhibitionism5>>
+
+You wait in the kitchen for the others to show. Whitney hangs an arm around your shoulders, observes each newcomer's reaction with amusement, and something more subtle and calculating.
+<br><br>
+
+<<link [[Next|Whitney Home Hang Gang]]>><</link>>
+<br>
+
+
+:: Whitney Home Gang Arrive Undies
+<<effects>>
+
+The first of Whitney's gang arrive. Whitney insists on you accompanying <<him>> to answer the door. Some of <<his>> friends are amused by your state of dress, while others cast an anxious look at Whitney, as if they were walking into a trap.
+<<exhibitionism3>>
+
+You wait in the kitchen for the others to show. Whitney watches the varies expressions of the newcomers with amusement.
+<br><br>
+
+
+
+<<link [[Next|Whitney Home Hang Gang]]>><</link>>
+<br>
+
+:: Whitney Home Gang Arrive Exposed
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Could I have something to wear please?" you ask.
+<<elseif $speech_attitude is "bratty">>
+	"Give me something to throw on," you say.
+<<else>>
+	"Could I have something to wear?" you ask.
+<</if>>
+<br><br>
+
+Whitney gives you a thoughtful look. "Aren't you curious how people will react? Fine." <<He>> digs through a pile of clean laundry, then throws a towel over your head.
+<br><br>
+
+<<towelup>>
+
+<<link [[Next|Whitney Home Gang Arrive]]>><</link>>
+<br>
+
+:: Whitney Home Gang Arrive
+<<effects>>
+
+The first of Whitney's gang arrive. You wait in the kitchen as the others show up. They come in twos or small groups, but never alone.
+<br><br>
+
+<<link [[Next|Whitney Home Hang Gang]]>><</link>>
+<br>
+
+
+:: Whitney Home Hang Gang Leave Ask
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Would it be okay if I came with you?" you ask.
+<<elseif $speech_attitude is "bratty">>
+	"I'm coming, too," you say.
+<<else>>
+	"Can I come with you?" you ask.
+<</if>>
+<br><br>
+
+"No," Whitney says. "I need someone to mourn me if things go wrong." It doesn't sound like <<hes>> joking.
+<br><br>
+
+<<link [[Ask for company returning to the orphanage (0:07)|Whitney Home Hang Gang Leave Orphanage]]>><<pass 7>><</link>>
+<br>
+<<link [[Say you'll be fine on your own (0:02)|Whitney Home Hang Gang Leave]]>><<pass 2>><</link>>
+<br>
+
+:: Whitney Home Hang Gang Leave Orphanage
+<<effects>>
+
+You leave Whitney's flat at <<his>> side, <<his>> friends in tow. One of <<his>> neighbours opens their door, only to slam it shut when they spy the gang.
+<br><br>
+
+You walk down the stairs, leave the building, and head towards Domus Street. Whitney makes sure you enter the orphanage before departing with <<his>> friends.
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Whitney Home Hang Gang Leave
+<<effects>>
+
+You leave Whitney's flat at <<his>> side, <<his>> friends in tow. One of <<his>> neighbours opens their door, only to slam it shut when they spy the gang.
+<br><br>
+
+You walk down the stairs, and leave the building. "Later slut," Whitney says as <<he>> departs. <<His>> gang follows <<him>>.
+<br><br>
+
+<<link [[Next|Barb Street]]>><<endevent>><<set $eventskip to 1>><</link>>
+<br>
+
+:: Whitney Home Park Journey
+<<effects>><<set $location to "town">>
+
+Whitney grabs an umbrella on the way out. You walk with <<him>> through the building, and down the stairs. <<He>> unfurls before stepping outside.
+<br><br>
+
+Whitney shelters you as you walk, most of the time. Now and then <<he>> tilts it away from you, forcing you to step closer, or get wet.
+<br><br>
+
+<<link [[Next|Whitney Home Park]]>><<pass 5>><</link>>
+<br>
+
+:: Whitney Home Park
+<<effects>><<set $location to "park">><<set $bus to "park">>
+
+You arrive at the park without incident. <<He>> lights up.
+
+<<whitneyoptions>>
+
+:: Whitney Home Park Leave
+<<effects>>
+
+Whitney grabs an umbrella on the way out. You walk with <<him>> through the building, and down the stairs. <<He>> unfurls the umbrella, then looks at you.
+<br><br>
+
+"Maybe I should take you back to the orphanage," <<he>> says. "Keep you dry."
+<br><br>
+
+<<link [[Accept (0:05)|Whitney Home Park Leave Orphanage]]>><<pass 5>><</link>>
+<br>
+<<link [[Refuse|Whitney Home Park Leave Refuse]]>><</link>>
+<br>
+
+:: Whitney Home Park Leave Orphanage
+<<effects>>
+
+Whitney nods, and holds the umbrella above your head as you walk onto Barb Street.
+<br><br>
+
+The orphanage isn't far. Whitney accompanies you right up to the building. <<generatey2>><<person2>>A <<person>> opens it, dressed for the weather, and jumps in fright at the sight of the bully, much to <<person1>><<his>> amusement.
+<br><br>
+
+Whitney watches you enter the building, then turns and walks away.
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><<set $eventskip to 1>><</link>>
+<br>
+
+:: Whitney Home Park Leave Refuse
+<<effects>>
+
+Whitney nods. "Go careful." <<He>> steps outside, and heads in the direction of the park.
+<br><br>
+
+<<link [[Next|Barb Street]]>><<endevent>><<set $eventskip to 1>><</link>>
+<br>
+
+
+:: Whitney Home Enter
+<<effects>>
+
+You pass by Whitney and enter the flat. <<He>>
+<<if C.npc.Whitney.lust gte 20>>
+	uses the opportunity to grope you, before following you into <<his>> bedroom.<<garousal>><<arousal 600>>
+	<br><br>
+<<else>>
+	follows you into <<his>> bedroom.
+<</if>>
+
+<<whitneyoptions>>
+
+
+:: Whitney Home Enter Leave
+<<effects>>
+
+"Why'd you come all the way up here then?" <<he>> asks.
+<<if C.npc.Whitney.lust gte 20>>
+	<<He>> observes you for a moment, as if weighing <<his>> options, then shrugs. "You know where to find me when you make up your mind." <<He>> shuts the door.
+<<else>>
+	"Did you get lost?" <<He>> shrugs. "You know where to find me." <<he>> shuts the door.
+<</if>>
+<br><br>
+
+<<link [[Next|Barb Street]]>><<endevent>><</link>>
+<br>
+
+
+:: Whitney Home Enter Gang
+<<effects>>
+
+Whitney gropes you as you pass <<him>>, then follows you into <<his>> bedroom. <<He>> throws a sock at one of <<his>> friends, who makes space for you.
+<br><br>
+
+<<link [[Next|Whitney Home Hang Gang]]>><</link>>
+<br>
+
+:: Whitney Home Gang Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 100>><<promiscuity1>>
+	<<set $audienceforceteen to 1>>
+	Whitney wastes no time, pinning you on your back in front of everyone. "Good <<girl>>."
+	<br><br>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<audience>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if _combatend>>
+	<<set $audienceforceteen to 0>>
+	<span id="next"><<link [[Next|Whitney Home Gang Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Whitney Home Gang Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+
+:: Whitney Home Gang Sex Finish
+<<set $outside to 0>><<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	<<He>> gives you a contented look, then casts a smirk at one who gawked at you earlier. "Enjoy the show?"<<npcincr Whitney lust -20>>
+<<elseif $enemyhealth lte 0>>
+	You shove Whitney away from you. <<His>> friends fall silent. Whitney rights <<himself>>, then glances between them, as if daring them to meet <<his>> gaze. None do.<<llove>><<ldom>><<npcincr Whitney love -1>><<npcincr Whitney dom -1>>
+	<br><br>
+	"You're lucky I'm in a good mood, slut," <<he>> says, leaning back. The tension drops, a little.
+<<else>>
+	"You don't need a lesson after all, slut?" Whitney asks. "We'll see. You better be a good <<girl>>, or I'll punish you double."<<ldom>><<npcincr Whitney dom -1>>
+	<br><br>
+
+	<<He>> leans back. Despite <<his>> words, <<his>> friends seem surprised by <<his>> acceptance.
+<</if>>
+<br><br>
+<<tearful>> you get your bearings.
+<br><br>
+
+<<clotheson>>
+<<endcombat>>
+<<whitney_gang_options>>
+
+
+
+:: Whitney Home Gang Disagree
+<<effects>>
+<<person1>>
+You shake your head. Whitney laughs. "Did I hear that right, slut? You don't need a lesson? We'll see. You better be a good <<girl>>, or I'll punish you double."
+<br><br>
+
+<<He>> leans back. Despite <<his>> words, <<his>> friends seem surprised by <<his>> lack of escalation.
+<br><br>
+
+<<whitney_gang_options>>
+
+
+:: Whitney Home Gang Window Nothing
+<<effects>>
+
+You watch the fight play out. Whitney successfully counters, and follows it up with a super move, resulting in a rather gory death for <<his>> friend's character.
+<br><br>
+<<person1>>
+Whitney holds out <<his>> hand, a triumphant smirk on <<his>> face.
+<br><br>
+"I'll get it for you later."
+<br>
+"You better."
+<br><br>
+
+<<whitney_gang_options>>
+
+:: Whitney Home Gang Window Distract
+<<effects>>
+<<person1>>
+The fight plays out, the two combatants evenly matched.
+<br><br>
+
+"Hey Whitney," you say,
+<<if $worn.upper.type.includes("naked")>>
+	<<if $worn.under_upper.type.includes("naked")>>
+		thrusting your <<breasts>> towards <<him>>.
+	<<else>>
+		pulling your <<print $worn.under_upper.name>> aside in alluring fashion.
+	<</if>>
+<<else>>
+	pulling your <<print $worn.upper.name>> aside in alluring fashion.
+<</if>>
+<<He>> does a double take, torn between <<his>> desire to win, and <<his>> desire to leer.
+<<exhibitionism1>>
+
+<<His>> friend's too good at the game to let this opportunity slide. <<person2>><<He>> smashes Whitney's character into the ground, leaving a crater.
+<br><br>
+
+<<link [[Next|Whitney Home Gang Window]]>><</link>>
+<br>
+
+:: Whitney Home Gang Window
+<<effects>>
+<<person1>>
+Whitney jumps to <<his>> feet, taking <<his>> loss in stride. "Fucking slut," <<he>> says. "See what I have to put up with?"
+<br><br>
+
+<<He>> stands on <<his>> bed, and opens the window. A draught strikes from behind, pulling <<his>> hair in front of <<his>> face. <<He>> grasps your arm as <<he>> steps through, and tries to pulls you with <<him>>.
+<br><br>
+
+<<link [[Climb outside|Whitney Home Gang Window 2]]>><<pass 3>><<stress 6>><</link>><<gstress>>
+<br>
+<<link [[Refuse|Whitney Home Gang Window Refuse]]>><<npcincr Whitney love -1>><</link>><<llove>>
+<br>
+<<link [[Say Whitney shouldn't go|Whitney Home Gang Window Say]]>><</link>>
+<br>
+
+
+:: Whitney Home Gang Window Refuse
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I can't go out there," you say. "I might fall."
+<<elseif $speech_attitude is "bratty">>
+	"You can risk your life for no reason if you want," you say. "I'm staying here."
+<<else>>
+	"I'd rather stay where it's safe," you say.
+<</if>>
+<br><br>
+
+"Suit yourself," Whitney says, releasing your arm. "Stay here and mourn me if I don't make it." <<He>> turns around and hangs from the window, then sidles out of view.
+<br><br>
+
+<<link [[Next|Whitney Home Gang Window Refuse 2]]>><<pass 3>><</link>>
+<br>
+
+:: Whitney Home Gang Window Refuse 2
+<<effects>>
+
+Whitney is gone for a few minutes. <<His>> friends chat amongst themselves, as if <<his>> antics were unpeculiar. <<Hes>> wearing a smirk when <<he>> reappears, and swings <<himself>> into room. <<He>> throws a bottle of strange pills at the <<person2>><<person>>.
+<br><br>
+
+"We're even," <<person1>><<he>> says, taking position on the bed.
+<br><br>
+
+<<whitney_gang_options>>
+
+:: Whitney Home Gang Window Say
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Please don't go," you say. "I don't want to lose you."
+<<elseif $speech_attitude is "bratty">>
+	"An idiot like you might fall," you say. "Better stay inside."
+<<else>>
+	"You should stay inside," you say. "You're risking it all for no reason."
+<</if>>
+<br><br>
+
+"Of course you couldn't cope without me," Whitney says, needing to shout to be heard above the wind. "Which is why we need to go together."
+<br><br>
+
+<<link [[Climb outside|Whitney Home Gang Window 2]]>><<pass 3>><<stress 6>><</link>><<gstress>>
+<br>
+<<link [[Refuse|Whitney Home Gang Window Refuse]]>><</link>>
+<br>
+
+:: Whitney Home Gang Window 2
+<<effects>>
+
+You sidle after Whitney. There's a wide platform around the edge of the building, but the wind whips and whirls around you. It's hard to look down.
+<br><br>
+
+Whitney smiles as <<he>> watches the traffic below. <<He>> looks up, down, and all around, keeping a firm grip on your arm all the while. <<He>> passes a window, then opens it, and gestures for you to go inside.
+<br><br>
+
+You drop into a well-decorated bedroom. A double bed sits opposite, beside a closed door. You hear no movement elsewhere in the flat. Whitney follows, glances around, walks over to a bedside cabinet, and swipes a bottle of pills.
+<br><br>
+
+<<if C.npc.Whitney.lust gte 20>>
+	<<endevent>><<npc Whitney>><<person1>>
+	"This'll do," <<he>> says. "While we're here, let's make the most of the alone time. Get on the bed."
+	<br><br>
+
+	<<link [[Lie on the bed|Whitney Home Gang Window Sex]]>><<set $sexstart to 1>><</link>><<promiscuous1>>
+	<br>
+	<<link [[Refuse|Whitney Home Gang Window Sex Refuse]]>><<pain 4>><<stress 4>><<npcincr Whitney love -1>><</link>><<gpain>><<gstress>><<llove>>
+	<br>
+<<else>>
+	"This'll do," <<he>> says. "Lets get back, or they'll think we fell."
+	<br><br>
+
+	<<link [[Next|Whitney Home Gang Window 3]]>><</link>>
+	<br>
+<</if>>
+
+:: Whitney Home Gang Window Sex Refuse
+<<effects>>
+
+"Afraid they'll think we fell if we take too long?" Whitney asks. "Fine. After you." <<He>> smacks your <<bottom>>, pushing you towards the window.
+<br><br>
+
+Whitney follows you outside, and you sidle back to <<his>> room. <<His>> friends cheer as you land on the bed, and redouble it when Whitney follows, throwing the bottle of pills across the room.
+<br><br>
+
+"Nice to get some fresh air," <<he>> says, sitting on the bed.
+<br><br>
+
+<<whitney_gang_options>>
+
+:: Whitney Home Gang Window Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 100>><<promiscuity1>>
+	You lie on the bed. Whitney is atop you in an instant.
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if _combatend>>
+	<span id="next"><<link [[Next|Whitney Home Gang Window Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Whitney Home Gang Window Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Whitney Home Gang Window Sex Finish
+
+<<set $outside to 0>><<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Whitney rolls away from you, and lies for a moment with <<his>> arms behind <<his>> head, looking content.<<glove>><<llust>><<npcincr Whitney love 1>><<npcincr Whitney lust -20>>
+	<br><br>
+	<<tearful>> you sit upright.
+	<br><br>
+<<elseif $enemyhealth lte 0>>
+	You kick Whitney away from you, and <<he>> rolls off the bed, flashing you a furious look as <<he>> falls.<<llove>><<ldom>><<npcincr Whitney love -1>><<npcincr Whitney dom -1>>
+	<br><br>
+	<<tearful>> you sit upright.
+	<br><br>
+	"Fine," Whitney says.
+<<else>>
+	"Fine," Whitney says, rolling off you.<<llove>><<npcincr Whitney love -1>>
+	<br><br>
+	<<tearful>> you sit upright.
+	<br><br>
+<</if>>
+
+<<clotheson>>
+<<endcombat>>
+
+<<link [[Next|Whitney Home Gang Window 3]]>><<npc Whitney>><<person1>><</link>>
+<br>
+
+:: Whitney Home Gang Window 3
+<<effects>>
+
+Whitney leads you outside, and grasps your arm again. Like before, <<he>> sidles by the window, and lets you enter first. <<His>> friends cheer as you land on the bed, and redouble it when Whitney follows, throwing the bottle of pills across the room.
+<br><br>
+
+"Nice to get some fresh air," <<he>> says, sitting on the bed.
+<br><br>
+
+<<whitney_gang_options>>
+
+:: Whitney Home Leave
+<<effects>>
+
+<<if $exposed gte 1>>
+	<<npc Whitney>><<person1>>
+	Whitney examines you from head to toe. "If you go out like that you'll attract the wrong sort of attention," <<he>> says, searching a pile of fresh clothes for towels. <<He>> throws one over your head. "Be careful on the way out. This building is full of creeps."
+	<br><br>
+
+	<<towelup>>
+
+<<else>>
+	Whitney nods. "Alright. Be careful on the way out. This building is full of creeps."
+	<br><br>
+
+<</if>>
+
+You leave the flat, walks down the stairs, and exit onto Barb Street.
+<br><br>
+
+<<link [[Next|Barb Street]]>><<pass 2>><<endevent>><</link>>
+<br>
+
+
+:: Whitney Home Hang Lap Stroke
+<<effects>>
+
+You run your fingers through Whitney's hair, and massage <<his>> scalp. <<He>> gives no acknowledgement, but <<his>> eyelids begin to droop, and droop, until <<he>> shuts <<his>> eyes, and <<his>> breathing changes. <<Hes>> asleep.
+<br><br>
+
+<<He>> awakens a few moments later, and sits upright.
+<br><br>
+
+<<link [[Tease <<him>>|Whitney Home Hang Lap Tease]]>><</link>>
+<br>
+<<link [[Refrain|Whitney Home Hang Lap Refrain]]>><</link>>
+<br>
+
+:: Whitney Home Hang Lap Tease
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"You were sleeping so peacefully," you say.
+<<elseif $speech_attitude is "bratty">>
+	"You fell asleep in my arms," you say. "Very cute."
+<<else>>
+	"You looked so cute asleep in my arms," you say.
+<</if>>
+<br><br>
+
+A red flush creeps into Whitney's features. "Nice imagination you have," <<he>> says. <<He>> leans back with <<his>> arms resting either side.
+
+<<whitneyoptions>>
+
+:: Whitney Home Hang Lap Refrain
+<<effects>>
+
+You resist the urge to tease <<him>>. <<He>> gives you an odd look. "What's so funny?" <<he>> asks. "Never mind." <<He>> leans back with <<his>> arms resting either side.
+<br><br>
+
+<<whitneyoptions>>
+
+:: Whitney Home Hang Lap Nothing
+<<effects>>
+
+You continue to watch the TV, until Whitney sits upright, and leans back with <<his>> arms resting either side.
+
+<<whitneyoptions>>
+
+:: Whitney Home Hang Lap Tell
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I hope it's no bother," you say, "but could you free my leg?"
+<<elseif $speech_attitude is "bratty">>
+	"I didn't say you could use my lap as a pillow," you say.
+<<else>>
+	"You're crushing my leg," you say.
+<</if>>
+<br><br>
+
+<<He>> sits upright. "Maybe there's another way you can satisfy me," <<he>> says, groping and jabbing different parts of your body. <<He>> doesn't escalate however, and leans back with <<his>> arms resting either side.
+
+<<whitneyoptions>>
+
+:: Whitney Home Hang Sit Put
+<<effects>>
+
+You don't complain. Whitney gets even more comfortable.
+
+<<whitneyoptions>>
+
+:: Whitney Home Hang Sit Complain
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Please move," you say. "You're squishing me."
+<<elseif $speech_attitude is "bratty">>
+	"Get off, you fat fuck," you say.
+<<else>>
+	"I think you're a bit big to be sitting on me," you say.
+<</if>>
+<br><br>
+
+"I don't know what you mean," <<he>> says, wiggling against you as if getting comfortable. "I'm just sitting on my bed. I can't see how you could have a problem with that."
+<br><br>
+
+<<He>> sits atop you for a while longer, before giving your <<bottom>> a grope, shifting away.
+
+<<whitneyoptions>>
+
+:: Whitney Home Hang Sit Throw
+<<effects>>
+
+<<if $physiqueSuccess>>
+	You push your arms against the bed and haul yourself up, <span class="green">sending Whitney sprawling</span>.
+	<br><br>
+
+	<<He>> lies back for a moment, as if defeated, then <<he>> hooks you with <<his>> foot, pulls you atop <<him>>, and clasps <<his>> arms around you. You wrestle against <<him>> for a few moments, and manage to win your freedom.
+
+<<else>>
+	You push your arms against the bed and try to haul yourself up, but Whitney shifts <<his>> weight further up your back, <span class="red">pinning you down</span>. <<He>> tries to maintain a nonchalant expression, but fails.
+
+<</if>>
+
+<br><br>
+<<whitneyoptions>>
+:: Whitney Home Hang Hair Encourage
+<<effects>>
+
+You push your head into Whitney's hands. <<He>> takes your meaning, and begins to massage your scalp. Pleasurable tingles run down across your head, and down your back.
+<br><br>
+
+"You like that?" Whitney asks. <<He>> reaches down to your chin before you can respond, tilts your head up a little, then leans down to kiss your cheek.
+<br><br>
+<<whitneyoptions>>
+
+:: Whitney Home Hang Hair Move
+<<effects>>
+
+You shift your head away from Whitney's hands. <<He>> takes the hint, and stops messing with your hair.
+
+<<whitneyoptions>>
+
+:: Whitney Home Hang Phone Snuggle
+<<effects>>
+
+You snuggle deeper into Whitney's grasp, so you can see the phone better.
+
+<<if C.npc.Whitney.lust gte 20>>
+	<<He>> seems pleased, but spoils the moment a little by thrusting against you.
+<<else>>
+	<<He>> seems pleased, and grips you tight.
+<</if>>
+<br><br>
+<<whitneyoptions>>
+
+:: Whitney Home Hang Phone Pull
+<<effects>>
+
+You pull away from Whitney. <<He>> moves as if to chase you at first, but <<hes>> bluffing.
+
+<<whitneyoptions>>
+
+:: Whitney Home Hang Phone Still
+<<effects>>
+
+You remain in Whitney's embrace as <<he>> continues scrolling through <<his>> social media feed, pausing when amused. <<He>> has a dark sense of humour.
+
+<<whitneyoptions>>
+
+
+:: Whitney Home Hang Guitar Say
+<<effects>>
+
+You tell <<him>> it's very nice, but your voice is drowned out, and <<he>> gives no indication of having heard you.
+<br><br>
+
+<<He>> stops after a while, and puts the guitar away. "The neighbours like to complain about the noise," <<he>> says. "And I'm not in the mood for that."
+<br><br>
+<<whitneyoptions>>
+
+:: Whitney Home Hang Guitar Up
+<<effects>>
+
+You give Whitney a thumbs up. Whitney responds with a triumphant screech.
+<br><br>
+
+Something bangs on the floor above, and Whitney stops. "Always spoiling the fun," <<he>> says. "But I'm not in the mood for their complaints right now." <<He>> puts the guitar away.
+<br><br>
+<<whitneyoptions>>
+
+:: Whitney Home Hang Guitar Down
+<<effects>>
+
+You give Whitney a thumbs down. <<He>> launches <<himself>> at you, pushing you onto your back, then stands above you while unleashing an unholy screech.
+<br><br>
+
+Something bangs on the floor above, and Whitney stops. "Always spoiling the fun," <<he>> says. "But I'm not in the mood for their complaints right now." <<He>> puts the guitar away.
+<br><br>
+<<whitneyoptions>>
+
+:: Whitney Home Hang Talk Disapprove
+<<effects>>
+
+"I didn't ask for your approval," Whitney says. "I wonder if I could bring a gift or something back for you. Would that change your tune?"
+<br><br>
+<<whitneyoptions>>
+
+:: Whitney Home Hang Talk Influences
+<<effects>>
+
+Whitney bursts into laughter. "No one's a worse influence than me," <<he>> says once recovered. "I thought even you knew that."
+<br><br>
+<<whitneyoptions>>
+
+:: Whitney Home Hang Talk Tag
+<<effects>>
+
+Whitney shakes <<his>> head. "Too dangerous," <<he>> says. "I'd rather keep my slut somewhere safe."
+<br><br>
+<<whitneyoptions>>
+
+:: Whitney Home Hang Talk Nothing
+<<effects>>
+
+You remain silent as Whitney continues. It sounds like some of <<his>> friends are more true than others.
+<br><br>
+<<whitneyoptions>>
+
+:: Whitney Home Hang Talk Nice
+<<effects>>
+
+"Thanks," <<he>> says. "Maybe you've some taste." <<He>> puts <<his>> original clothes on, <<his>> mood somewhat elated.
+<br><br>
+
+<<whitneyoptions>>
+
+:: Whitney Home Hang Talk Slut
+<<effects>>
+
+Whitney laughs. "You're the expert," <<he>> says, before strutting across the room. <<He>> puts <<his>> original clothes on, <<his>> mood somewhat elated.
+
+<<whitneyoptions>>
+
+:: Whitney Home Hang Talk Awful
+<<effects>>
+
+"Go fuck yourself," <<he>> says. "Like you know anything." <<He>> puts <<his>> original clothes back on, <<his>> mood somewhat damaged.
+
+<<whitneyoptions>>
+
+:: Whitney Home Gang Snacks Fetch
+<<effects>>
+
+Whitney sends you on your way with a smack to the <<bottom>>. You find the crisps in the cupboard, and the dip, as well as some sweets.
+<br><br>
+
+You load them onto a tray, and return to the living room.
+<br><br>
+
+<<link [[Offer the snacks to Whitney|Whitney Home Gang Snacks Whitney]]>><<npcincr Whitney love 1>><</link>><<glove>>
+<br>
+<<link [[Offer the snacks to everyone except Whitney|Whitney Home Gang Snacks Gang]]>><</link>>
+<br>
+<<link [[Keep the snacks to yourself|Whitney Home Gang Snacks Self]]>><<npcincr Whitney dom -1>><</link>><<ldom>>
+<br>
+
+
+:: Whitney Home Gang Snacks Whitney
+<<effects>>
+
+You walk over to Whitney, and place the tray of snacks on <<his>> lap. "Good slut," <<he>> says, grabbing a crisp and scooping up some dip. "I should make you wear an apron, and nothing else."
+<br><br>
+
+<<whitney_gang_options>>
+
+:: Whitney Home Gang Snacks Gang
+<<effects>>
+
+You walk around the room, offering Whitney's friends snacks in turn, pointedly leaving Whitney out.
+<br><br>
+
+"Oi," <<he>> says, rising to <<his>> feet. "Haven't you forgotten someone?" <<He>> lunges at you from behind, pushing you against the table in the middle of the room and sending the snacks sprawling. <<He>> leans on top of you, and pops one of the rogue sweets into <<his>> mouth.
+<br><br>
+
+"Now look what you've done," <<he>> says. "You gonna apologise for being such a clumsy slut?"
+<br><br>
+
+<<link [[Apologise and clean|Whitney Home Gang Snacks Apologise]]>><<npcincr Whitney dom 1>><</link>><<gdom>>
+<br>
+<<link [[Refuse|Whitney Home Gang Snacks Apologise Refuse]]>><<npcincr Whitney dom -1>><</link>><<ldom>>
+<br>
+
+:: Whitney Home Gang Snacks Apologise
+<<effects>>
+
+Whitney seems satisfied by your apology. <<He>> rests <<his>> feet on your back while you pick up the fallen snacks.
+<br><br>
+
+<<whitney_gang_options>>
+
+:: Whitney Home Gang Snacks Apologise Refuse
+<<effects>>
+
+Whitney looks irritated, but doesn't press the issue. <<He>> instructs one of <<his>> friends to clean up instead.
+<br><br>
+
+<<whitney_gang_options>>
+
+:: Whitney Home Gang Snacks Self
+<<effects>>
+
+You sit with the tray over your lap, and scoop up some dip with a crisp as if nothing were amiss.
+<br><br>
+
+Whitney watches you. <<He>> looks amused. Then <<he>> lunges for the sweets. You wrestle over them for a few moments, until the bag bursts, and they spill out over the floor.
+<br><br>
+
+"Someone clean this up," <<he>> says, seeming oblivious to the consternation on <<his>> friends' faces.
+<br><br>
+
+<<whitney_gang_options>>
+
+:: Whitney Home Gang Snacks Refuse
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I don't want to," you say.
+<<elseif $speech_attitude is "bratty">>
+	"Get your own," you say.
+<<else>>
+	"You can fetch the snacks if you want them," you say.
+<</if>>
+<br><br>
+
+"Fine," Whitney says, reaching around the side of your head and tugging your hair. "You." <<He>> gestures at one of <<his>> friends. "Get me some crisps. I need to teach my slut a lesson in politeness."
+<br><br>
+
+<<He>> continues to torment you while <<his>> friend fetches the snack, placing them on the table in front of <<him>>. Whitney kicks the dip closer, grabbing it out of the air.
+<br><br>
+
+<<whitney_gang_options>>
+
+
+:: Whitney Home Gang Game Best
+<<effects>>
+
+<<if currentSkillValue("handskill") gte random(400, 800)>>
+	You play to the best of your ability, dodging the enemies' attacks, and successfully landing your own. <span class="green">You blaze past Whitney's record, and manage to down a boss.</span> Some of Whitney's friends cheer.<<lstress>><<stress -6>>
+	<br><br>
+
+	"Not bad, slut," Whitney says. "Figures you'd be good with your hands."
+	<br><br>
+<<else>>
+	You play to the best of your ability, but the game proves too challenging. A skeleton rolls into you, knocking you off a ledge. <span class="red">Your character plummets to their death.</span> Some of Whitney's friends laugh.
+	<br><br>
+
+	"<<pShe>> got further than you," Whitney says. "It's a stupid game anyway."
+	<br><br>
+<</if>>
+
+<<whitney_gang_options>>
+
+:: Whitney Home Gang Game Lose
+<<effects>>
+
+You put just enough effort in to make it appear like you're trying, until a skeleton rolls into you, knocking you off a ledge. <span class="red">Your character plummets to their death.</span> Some of Whitney's friends laugh.
+<br><br>
+
+"<<pShe>> got further than you," Whitney says. "It's a stupid game anyway."
+<br><br>
+
+<<whitney_gang_options>>
+
+:: Whitney Home Gang Game Refuse
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I don't think I'd be very good," you say.
+<<elseif $speech_attitude is "bratty">>
+	"This game looks stupid," you say, refusing the controller.
+<<else>>
+	"This isn't my sort of game," you say.
+<</if>>
+<br><br>
+
+The controller is passed around a few more times, until Whitney gets fed up.
+<br><br>
+
+<<whitney_gang_options>>
+
+
+
+:: Whitney Home School Walk
+<<effects>>
+<<if !$npc>>
+	<<npc "Whitney">><<person1>>
+<</if>>
+
+Together you leave the flat. A couple of <<his>> friends are already waiting for <<him>>, and more join as you descend the stairs, and exit the building.
+<br><br>
+
+The gang walks along the coast, before arriving on Oxford Street, and then the school. "See you around, slut," Whitney says, heading into the building with <<his>> gang in tow.
+<br><br>
+
+<<link [[Next|School Front Courtyard]]>><<endevent>><</link>>
+<br>
+
+:: Whitney Home School Walk Uniform
+<<effects>>
+<<if !$npc>>
+	<<npc "Whitney">><<person1>>
+<</if>>
+
+"Leighton hands them out anyway," Whitney says. "You afraid <<nnpc_he Leighton>>'ll give you a
+<<if $player.gender_appearance is "m">>
+	girl's
+<<else>>
+	boy's
+<</if>>
+uniform? Whatever."
+<br><br>
+
+<<if $exposed gte 1>>
+	Whitney fishes towels from <<his>> wardrobe, and drops one on your head. Then <<he>>
+<<else>>
+	Whitney
+<</if>>
+
+throws on <<his>> uniform, and together you leave the flat. A couple of <<his>> friends are already waiting for <<him>>, and more join as you descend the stairs, and exit the building.
+<br><br>
+
+"See you later slut," <<he>> says, swaggering away with <<his>> friends in tow.
+<br><br>
+
+<<link [[Next|Barb Street]]>><<endevent>><<set $eventskip to 1>><</link>>
+<br>
+
+:: Whitney Home School Walk Pick
+<<effects>>
+<<if !$npc>>
+	<<npc "Whitney">><<person1>>
+<</if>>
+
+"You need to grab something slutty, I hope," Whitney says.
+<br><br>
+
+You leave the flat together. A couple of <<his>> friends are already waiting for <<him>>, and more join as you descend the stairs, and exit the building.
+<br><br>
+
+"See you later slut," <<he>> says, swaggering away with <<his>> friends in tow.
+<br><br>
+
+<<link [[Next|Barb Street]]>><<endevent>><<set $eventskip to 1>><</link>>
+
+:: Whitney Flats Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<if $NPCList[0].penis is "none">>
+		<<if random(0, 99) lt $settings.straponChance>>
+			<<npcstrapon 0>>
+		<</if>>
+	<</if>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Whitney Flats Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Whitney Flats Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Whitney Flats Sex Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>><<npcincr Whitney lust -20>>
+
+	<<if C.npc.Whitney.dom gte 10 and $orgasmcurrent is 0 and (($player.penisExist and (!playerChastity("penis") or $worn.genitals.name is "chastity parasite")) or ($player.vaginaExist and !playerChastity("hidden")))>>
+		<<whitneyFinish>>
+	<</if>>
+
+	<<clotheson>>
+	<<tearful>> you get your bearings. Whitney reclines in satisfaction.
+	<<llust>>
+	<br><br>
+
+	<<endcombat>>
+	<<npc Whitney>><<person1>>
+	<<if $exposed gte 1>>
+		<<He>> ogles your <<lewdness>>.
+		<br><br>
+
+		<<whitneyoptions>>
+	<<else>>
+		<br><br>
+		<<whitneyoptions>>
+	<</if>>
+<<elseif $enemyhealth lte 0>>
+	You shove Whitney away from you, and escape the flat. <<tearful>> you look over your shoulder. Whitney isn't following.
+	<<llove>><<ldom>><<npcincr Whitney love -1>><<npcincr Whitney dom -1>>
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<whitneyexit>>
+
+<<else>>
+	"You're such a shitty tease," Whitney mumbles as <<he>> shoves you away.
+	<<llove>><<ldom>><<npcincr Whitney love -1>><<npcincr Whitney dom -1>>
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<tearful>> you get your bearings.
+	<br><br>
+	<<whitneyoptions>>
+
+<</if>>
+
+:: Whitney Milkshake Cherry Flats Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $phase to 0>>
+	Whitney smirks and pushes you down onto the bed, climbing on top of you. "That a <<girl>>. I knew my slut would be good for it."
+	<<promiscuity1>>
+
+	<<enable_rescue>>
+<<elseif $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+	<<set $phase to 1>>
+	Whitney shoves you down onto the bed and climbs on top of you. "A deal's a deal, slut. Shut up and pucker up."
+	<<if !$worn.face.type.includes("face_covering") and !$worn.face.type.includes("gag")>>
+		<<set $mouthuse to "kiss">><<set $mouthstate to "kissentrance">><<set $NPCList[0].mouth to "kissentrance">>
+	<</if>>
+
+/* <<enable_rescue>>*/
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Whitney Milkshake Cherry Flats Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Whitney Milkshake Cherry Flats Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Whitney Milkshake Cherry Flats Sex Finish
+<<effects>>
+
+<<if $enemyhealth lte 0>>
+
+	You manage to throw Whitney off of you.
+	"What the fuck is your problem?" <<he>> shouts as you run through the flat, throw open the door, and escape down the corridor.
+	You don't look back, and Whitney doesn't follow you.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+	<<whitneyexit>>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Whitney sits back with a contented sigh.
+	<<if $consensual is 1>>
+		"Fuck, I needed that."<<npcincr Whitney lust -20>><<llust>>
+		<br><br>
+		<<if C.npc.Whitney.dom gte 10 and $orgasmcurrent is 0 and (($player.penisExist and (!playerChastity("penis") or $worn.genitals.name is "chastity parasite")) or ($player.vaginaExist and !playerChastity("hidden")))>>
+			<<if $player.penisExist and $penisuse isnot 0>>
+				<<set $penisuse to 0>>
+			<</if>>
+			<<He>> runs <<his>> hand through <<his>> fringe. "Can't believe you didn't cum from that." <<He>> sighs and reaches between your legs. "Damn, you're high maintenance."
+			<br><br>
+			<<if $player.penisExist and (!$player.vaginaExist or random(1, 2) is 2) and (!playerChastity("penis") or $worn.genitals.name is "chastity parasite")>>
+				Whitney draws you into another kiss as <<he>> curls <<his>> fingers around your <<= $worn.genitals.name is "chastity parasite" ? "chastity parasite" : "<<penis>>">>. <<He>> <<= $worn.genitals.name is "chastity parasite" ? "squeezes lightly" : "pumps <<his>> fist up and down in long, practised strokes">> before building up the tempo. It doesn't take much more at this pace to send you over the edge.
+			<<else>>
+				Whitney draws you into another kiss as <<he>> stuffs <<his>> fingers in your <<pussy>>. <<He>> uses the heel of <<his>> palm to grind against your swollen <<clit>> while vigorously finger-fucking you to completion.
+			<</if>>
+			<<orgasm>>
+			You feel Whitney's smirk against your lips as
+			<<if ($parasite.penis.name and $parasite.penis.name isnot "parasite") or $worn.genitals.name is "chastity parasite" or ($player.penisExist and $femaleclimax is 1)>>
+				you convulse in orgasmic bliss.
+			<<else>>
+				your fluids gush over <<his>> hand. <<He>> wipes it clean on your <<outfitChecks>><<= !_shirtless ? "_top.name" : "chest">>.
+			<</if>>
+			<br><br>
+		<</if>>
+		<<He>> stands and fixes <<his>> clothes.
+		<br><br>
+		<<clotheson>>
+		<<endcombat>>
+		<<npc Whitney>><<person1>>
+		"Pleasure doing business, slut."
+		<br><br>
+
+		<<whitneyoptions>>
+	<<else>>
+		<<npcincr Whitney lust -20>><<llust>>
+		<br><br>
+		<<clotheson>>
+
+		"There. That wasn't so bad, was it? Don't make deals you don't intend on keeping, <<girl>>. It won't end well for you."
+
+		<<if $exposed gte 1>>
+			<<He>> admires your exposed body for a moment. "Dressing like a slut suits you, but you better cover up."
+			<br><br>
+			<<He>> digs through a pile of clean laundry, and throws a towel over your head.
+			<br><br>
+			<<towelup>>
+		<<else>>
+			<<He>> smacks your <<bottom>>, <<his>> hand lingering a moment to feel you up.
+		<</if>>
+		<br><br>
+		<<endcombat>>
+		<<whitneyexit>>
+	<</if>>
+/*<<elseif $alarm is 1 and $rescue is 1>>
+	Whitney's head snaps up when <<he>> notices a couple of park goers looking in your direction. "Damn, you've got a set of lungs," Whitney grumbles, fixing <<his>> clothes as <<he>> <<= $phase is 0 ? "climbs" : "crawls">> off of you. "You're in for it next time."
+	<<if $location is "park">>
+		<<He>> picks up <<his>> umbrella and makes <<his>> exit from the park without turning back.
+		<br><br>
+
+		<<clotheson>>
+		<<endcombat>>
+		<<whitneyexit>>
+	<<else>>
+		<br><br>
+		<<clotheson>>
+		<<endcombat>>
+		<<npc Whitney>><<person1>>
+		<<whitneyoptions>>
+	<</if>>*/
+<<else>>
+	Whitney rolls <<his>> eyes and climbs off of you. "Fine. See if I ever let you have anything after this." <<He>> fixes <<his>> clothes and sticks an unlit cigarette between <<his>> lips. "You're gonna make it up to me later. Count on it."
+	<<He>> shoves you away from <<him>>.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+	<<npc Whitney>><<person1>>
+	<<whitneyoptions>>
+<</if>>
+<<endcombat>>
+
+:: Whitney Home Hang Kitchen Help
+<<effects>>
+
+You help Whitney clean the dishes. "Thanks slut," <<he>> says.
+<br><br>
+
+<<whitneyoptions>>
+
+
+:: Whitney Home Hang Kitchen Mess
+<<effects>>
+
+You creep behind Whitney. You slide a hand down <<his>> top, and another down <<his>> bottoms.
+<br><br>
+"Can't even get a moment to do the dishes with the slut around," Whitney says. <<He>> continues washing the dishes.
+<br><br>
+
+<<link [[Take it further|Whitney Home Hang Kitchen Further]]>><<npcincr Whitney lust 1>><</link>><<glust>>
+<br>
+<<link [[Stop|Whitney Home Hang Kitchen Stop]]>><</link>>
+<br>
+
+:: Whitney Home Hang Kitchen Further
+<<effects>>
+
+You tease <<his>> nipples and fondle <<his>>
+
+<<if $NPCList[0].penis isnot "none">>
+	<<print $NPCList[0].penisdesc>>
+<<else>>
+	pussy
+<</if>>
+as <<he>> continues washing the dishes. <<He>> tries to hide it, but you're close enough to hear the occasional moan.
+<br><br>
+
+"Fucking perv," <<he>> says as <<he>> moves away from the sink.
+<br><br>
+
+<<whitneyoptions>>
+
+
+:: Whitney Home Hang Kitchen Stop
+<<effects>>
+
+You unhand Whitney, and wait until <<hes>> finished with the dishes.
+<br><br>
+
+<<whitneyoptions>>
+
+:: Whitney Home Hang Kitchen Wait
+<<effects>>
+
+Whitney glances at you. "Just gonna stand there watching my arse?" Whitney asks. "I shouldn't be surprised. You won't miss an opportunity to perv on me."
+<br><br>
+
+<<whitneyoptions>>
+
+:: Whitney Home Hang Masturbation Watch
+<<effects>>
+
+Whitney fucks <<himself>> with <<his>> hand, and you with <<his>> eyes. "Like what you see, slut?" <<he>> asks, breathless, and speeding up. "Course you do."
+<<promiscuity2>>
+
+<<He>> leans against the wall as <<he>> finishes with a moan, ending with a shudder.<<llust>><<npcincr Whitney lust 1>>
+<br><br>
+
+<<He>> throws the slimy towel over your head, then saunters off to get dressed. <<He>> wears a satisfied smile when <<he>> returns.
+<br><br>
+<<endevent>><<npc Whitney>><<person1>>
+<<whitneyoptions>>
+
+:: Whitney Home Hang Masturbation
+<<effects>>
+<<if $masturbationstart is 1>>
+	<<set $masturbationstart to 0>>
+	<<set $masturbationstat += 1>>
+	<<masturbationstart>>
+	<<set $timer to 10>>
+	<<exhibitionism4>>
+<</if>>
+
+Whitney watches you with hungry eyes, timing <<his>> strokes and movements with yours.
+<br><br>
+
+<<masturbationeffects>>
+<<masturbationactions>>
+<<masturbationControls "timer|arousal100">>
+
+:: Whitney Home Hang Masturbation Finish
+<<effects>>
+
+<<if $orgasmcurrent gte 1>>
+	You make eye contact with Whitney as you cum. <<He>> smirks at you, and climaxes at the same moment.
+<<else>>
+	Whitney smirks at you, and moans as <<he>> climaxes.
+<</if>>
+<br><br>
+
+
+<<endmasturbation>>
+<<endcombat>>
+<<clotheson>>
+
+<<npc Whitney>><<person1>><<npcexpose>>
+
+<<link [[Next|Whitney Home Hang Masturbation 2]]>><</link>>
+<br>
+
+:: Whitney Home Hang Masturbation Help
+<<effects>>
+
+You step closer, and reach for <<his>>
+<<if $NPCList[0].penis isnot "none">>
+	<<print $NPCList[0].penisdesc>>.
+<<else>>
+	pussy.
+<</if>>
+<<He>> grasps your wrist as you make contact, and thrusts
+<<if $NPCList[0].penis isnot "none">>
+	into your hand.
+<<else>>
+	against your fingers.
+<</if>>
+<<promiscuity4>>
+
+"Couldn't resist," <<he>> says. "Could you, slut?" <<He>> grasps your other wrist as well, holds your arms above your head, then shoves you onto <<his>> bed.
+<br><br>
+<<endevent>><<npc Whitney>><<person1>><<npcexpose>>
+<<link [[Next|Whitney Home Hang Masturbation 2]]>><</link>>
+<br>
+
+
+:: Whitney Home Hang Masturbation 2
+<<effects>>
+
+A fire alights in Whitney's eyes. <<Hes>> not finished.
+<br><br>
+
+<<He>> advances slowly, as if weighing options internally, or savouring the moment. "This what you wanted?" <<He>> climbs above you, and stops with <<his>> face inches above yours. "You're such a slut."
+<br><br>
+
+<<He>> takes your hand, and guides it down to <<his>>
+<<if $NPCList[0].penis isnot "none">>
+	<<print $NPCList[0].penisdesc>>.
+<<else>>
+	pussy.
+<</if>>
+"Feel that?" <<he>> asks, <<his>> gaze burning into yours. "That's for you. All of it." <<He>> leans even closer. "I've been thinking about this for a while." You feel <<his>> pulse racing against your hand.
+<br><br>
+
+<<He>> releases your hand, slides an arm beneath your thighs, and hoists you into a more appropriate position.
+<br><br>
+
+<<link [[Give in|Whitney Home Hang Masturbation Sex]]>><<set $sexstart to 1>><</link>>
+<br>
+<<link [[Push <<him>> off|Whitney Home Hang Masturbation Push]]>><<def 1>><<npcincr Whitney love -1>><</link>><<llove>>
+<br>
+<<link [[Refuse|Whitney Home Hang Masturbation Refuse]]>><<npcincr Whitney love -1>><</link>><<llove>>
+<br>
+
+:: Whitney Home Hang Masturbation Avert
+<<effects>>
+
+You avert your eyes. "You're awfully bashful," Whitney says. "For a slut. Just hold still. I won't be long."
+<br><br>
+
+You hear Whitney moan a few minutes later. <<He>> throws a slimy towel over your head, then saunters off to get dressed. <<He>> wears a satisfied smile when <<he>> returns.<<llust>><<npcincr Whitney lust -1>>
+<br><br>
+<<endevent>><<npc Whitney>><<person1>>
+<<whitneyoptions>>
+
+:: Whitney Home Hang Masturbation Push
+<<effects>>
+
+You push Whitney away from you. <<He>> lunges in and licks your neck, but then relents. "Whatever," <<he>> says. "You're a real tease. You'll get in trouble one day."
+<br><br>
+<<endevent>><<npc Whitney>><<person1>>
+<<whitneyoptions>>
+
+:: Whitney Home Hang Masturbation Refuse
+<<effects>>
+
+You refuse Whitney's advances. Whitney thinks for a moment, then relents. "Whatever," <<he>> says. "You're a real tease. You'll get in trouble someday."
+<br><br>
+<<endevent>><<npc Whitney>><<person1>>
+<<whitneyoptions>>
+
+
+:: Whitney Home Hang Masturbation Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 100>><<promiscuity1>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if _combatend>>
+	<span id="next"><<link [[Next|Whitney Home Hang Masturbation Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Whitney Home Hang Masturbation Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Whitney Home Hang Masturbation Sex Finish
+
+<<set $outside to 0>><<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Whitney reclines on the bed, satisfied.<<llust>><<npcincr Whitney lust 1>>
+	<br><br>
+<<elseif $enemyhealth lte 0>>
+	Whitney tumbles off the bed.
+	<br><br>
+	"Whatever slut," <<he>> says as <<he>> climbs back up. "Your teasing will get you in trouble someday."
+	<br><br>
+<<else>>
+	"Whatever slut," Whitney says. "Your teasing will get you in trouble someday."
+	<br><br>
+<</if>>
+
+<<tearful>> you sit upright on the bed.
+<br><br>
+
+<<clotheson>>
+<<endcombat>>
+<<npc Whitney>><<person1>>
+<<whitneyoptions>>
+
+:: Whitney Home Gang Hat
+<<effects>>
+
+You put on the hat, and walk to the other side of the room. You turn to find Whitney and <<his>> friends stood, balls in hand. Whitney smiles at you.
+<br><br>
+
+<<link [[Stand still|Whitney Home Gang Still]]>><</link>>
+<br>
+<<link [[Make it easier for them|Whitney Home Gang Easy]]>><</link>>
+<br>
+<<link [[Make it harder for them|Whitney Home Gang Hard]]>><</link>><<dancedifficulty 1 1000>>
+<br>
+
+:: Whitney Home Gang Still
+<<effects>>
+
+You remain still as Whitney's friends take turns throwing balls at you. Some land in the net. Others bounce off your face or chest. They're very light.
+<br><br>
+
+Whitney waits until last. <<His>> friends give <<him>> extra space, then <<he>> swings <<his>> arm back, and throws a ball with all <<his>> strength. It bounces off your forehead, and leaves a slight sting.
+<br><br>
+
+"I missed," Whitney says, <<his>> stance theatric. "Oh well. Two more tries."
+<br><br>
+
+The second and third hit your <<breasts>>, one on each. "I was never going to win," Whitney says. "My slut's too distracting." <<He>> slumps into one of the chairs as you remove the hat.
+<br><br>
+
+<<whitney_gang_options>>
+
+:: Whitney Home Gang Easy
+<<effects>>
+
+You try to intercept the balls thrown your way, bowing your head so the net faces them.
+<br><br>
+
+"You're making it too easy," Whitney says, stepping closer. <<He>> steps behind you, wraps one arm around your waist, and clutches your throat with the other. <<He>> forces your head up. "That's better," <<he>> says.
+<br><br>
+
+<<link [[Shake <<him>> off|Whitney Home Gang Shake]]>><</link>><<physiquedifficulty 9000 16000>>
+<br>
+<<link [[Endure|Whitney Home Gang Endure]]>><<stress 6>><</link>><<gstress>>
+<br>
+
+:: Whitney Home Gang Shake
+<<effects>>
+
+<<if $physiqueSuccess>>
+	<span class="green">You wrench Whitney's arm away from you,</span> then jab <<him>> with your elbow. <<He>> backs away, but recovers fast. "You're lucky I'm in a good mood, slut," <<he>> says, slapping your <<bottom>> before returning to <<his>> friends.<<ldom>>
+	<br><br>
+
+	They finish throwing their balls in the net, though Whitney doesn't bother, instead slumping into a chair.
+	<br><br>
+	<<else>>
+	You try to push Whitney await from you, <span class="red">but <<he>> holds you firm.</span> <<He>> pulls your head even further back, then licks your face.<<gpain>><<gstress>><<pain 4>><<stress 6>>
+	<br><br>
+
+	<<His>> friends throw the remainder of their balls, with a much reduced success rate. Whitney releases you when finished, and slumps into the chair behind <<him>>.
+	<br><br>
+<</if>>
+
+<<whitney_gang_options>>
+
+:: Whitney Home Gang Endure
+<<effects>>
+
+You endure Whitney's harassment. <<His>> friends throw the remainder of their balls, with a much reduced success rate. Whitney releases you when finished, and slumps into the chair behind <<him>>.
+<br><br>
+
+<<whitney_gang_options>>
+
+:: Whitney Home Gang Hard
+<<effects>>
+
+<<if $danceSuccess>>
+	You jump from left to right as the balls arc your way, <span class="green">dodging them.</span> Some almost land, but you tilt your head just so, deflecting them with the frame of the hoop.
+	<br><br>
+
+	Whitney takes <<his>> turn last. <<His>> face is still with concentration. <<He>> throws the first ball all of a sudden, almost catching you out, but it bounces off the hoop. The force carries it back into the kitchen.
+	<br><br>
+
+	Whitney throws the next two balls in quick succession. They both bounce off your chest. Despite <<his>> failure, Whitney seems amused. "I'll get you next time," <<he>> says, slumping into a chair.<<ldom>><<npcincr Whitney dom -1>>
+	<br><br>
+<<else>>
+	You jump from left to right as the balls arc your way, <span class="red">but you're not quick enough.</span> Whitney and <<his>> friends soon find more amusement in throwing the balls at you, and they're not content to stick to their limited ammunition. They roam the living room, search for balls wherever they bounce and rolled off of you, only to chuck them your way once found. They're light, but there are a lot of them.<<gstress>><<stress 6>>
+	<br><br>
+	Whitney fishes one out from beneath the sofa, and bounces it off the wall behind you. "I think the slut's had enough," <<he>> announces. A <<generatey2>><<person2>><<person>> continues, until a glare from Whitney puts a stop to <<his>> assault.
+	<br><br>
+<</if>>
+
+<<whitney_gang_options>>
+
+:: Whitney Home Gang Hat Refuse
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I'm too shy to wear such a flamboyant thing," you say.
+<<elseif $speech_attitude is "bratty">>
+	"I wouldn't be caught dead in that," you say.
+<<else>>
+	"I don't want to wear it," you say.
+<</if>>
+<br><br>
+
+<<generatey2>>
+"Why not?" Whitney asks. "You couldn't look any sillier." <<He>> looks around the room, until <<his>> gaze falls on one of <<his>> friends, a <<person2>><<person>>. "This idiot can wear it instead."
+<br><br>
+
+You take turns throwing balls at the <<person>>. Whitney throws them with considerable force, making <<his>> friend wince. No one keeps track of the score. The <<person>> is relieved when it's over.
+<br><br>
+
+<<endevent>>
+<<npc Whitney>><<person1>>
+
+<<whitney_gang_options>>
+
+
+:: Whitney Home Gang Hat Suggest
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I'd prefer it if you wore it," you say.
+<<elseif $speech_attitude is "bratty">>
+	"You wear it if you're so eager," you say.
+<<else>>
+	"You should wear it," you say.
+<</if>>
+<br><br>
+
+<<if random(1, 2) is 2>>
+	"Alright," Whitney says at once, placing it on <<his>> head. "You lot stand in the kitchen, and take turns throwing the balls through the hoop. Whoever gets the most in wins."
+	<br><br>
+
+	<<link [[Try to win|Whitney Home Gang Hat Win]]>><</link>><<skill_difficulty `currentSkillValue("handskill")` "Hand Skill" 1 500>>
+	<br>
+	<<link [[Make a token effort|Whitney Home Gang Hat Token]]>><</link>>
+	<br>
+	<<link [[Try to hit Whitney's face instead|Whitney Home Gang Hat Whitney]]>><</link>><<skill_difficulty `currentSkillValue("handskill")` "Hand Skill" 200 800>>
+	<br>
+<<else>>
+	<span class="red">"Nice try, slut,"</span> Whitney says. "Now put on the hat."
+	<br><br>
+
+	<<link [[Wear the hat|Whitney Home Gang Hat]]>><</link>>
+	<br>
+	<<link [[Refuse|Whitney Home Gang Hat Refuse]]>><<npcincr Whitney love -1>><</link>><<llove>>
+	<br>
+<</if>>
+
+:: Whitney Home Gang Hat Win
+<<effects>>
+
+Whitney moves around the other side of the room, making the net hard to hit.
+<<if currentSkillValue("handskill") gte random(1, 500)>>
+	<span class="green">You catch Whitney out by aiming at the wall behind <<him>>.</span> The balls bounce of the hard surface, each landing in the net despite Whitney's antics.
+	<br><br>
+
+	Some of <<his>> friends copy your tactic, but none have the coordination.
+	<br><br>
+
+	"My slut wins," Whitney announces. "I counted." <<He>> removes the hat, and wraps an arm around your waist as <<he>> sits, pulling you with <<him>>.<<glove>><<npcincr Whitney love 1>>
+	<br><br>
+
+	<<whitney_gang_options>>
+<<else>>
+	You try to predict where Whitney will move next, <span class="red">none of your balls land.</span> <<His>> friends don't have much more luck.
+	<br><br>
+	"You're all bad at this," Whitney says, removing the hat after the last ball bounces off a vase. <<He>> catches the ball mid-air, and hurls it at no one in particular, making a few of <<his>> friends flinch.
+	<br><br>
+
+	<<whitney_gang_options>>
+<</if>>
+
+
+:: Whitney Home Gang Hat Token
+<<effects>>
+
+Whitney moves around the other side of the room, making the net hard to hit. When it's your turn, you throw the balls in <<his>> general direction. Whitney notices your lack of effort, snatches the last ball from the hair, and hurls it back at you. A couple of <<his>> friends flinch.
+<br><br>
+
+"You're all bad at this," Whitney says as the last ball bounces off a vase.
+<br><br>
+
+<<whitney_gang_options>>
+
+:: Whitney Home Gang Hat Whitney
+<<effects>>
+
+Whitney moves around the other side of the room, making the net hard to hit.
+<<if currentSkillValue("handskill") gte random(200, 800)>>
+	Good thing you're not aiming for the net. You hurl at the ball at <<his>> face. <span class="green">It hits its mark, bouncing off Whitney's nose.</span><<ldom>><<npcincr Whitney dom -1>>
+	<br><br>
+
+	Whitney's on guard for the next two balls, grabbing a cushion to block the first, and throwing it to intercept the second. It sails over your head, and skids across a kitchen counter, sending a drying pan clattering to the floor.
+	<br><br>
+
+	"Whatever," Whitney says, slumping into a chair.
+	<br><br>
+
+	<<whitney_gang_options>>
+<<else>>
+	You try to aim a ball at <<his>> face, <span class="red">but <<he>> jerks away at the last moment.</span>
+	<br><br>
+
+	"You're a shit throw," Whitney says, hurling all three balls back in quick succession, making a couple of <<his>> friends flinch. "Unless you were aiming for my face. But you wouldn't do that, would you? You know what would happen next."<<gstress>><<stress 6>>
+	<br><br>
+
+	<<He>> flashes an innocent grin, then slumps into one of the chairs.
+	<br><br>
+
+	<<whitney_gang_options>>
+<</if>>
+
+:: Whitney Home Hang Window Ask
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Do you see something concerning?" you ask.
+	<br><br>
+
+	"What? No," Whitney says, <<his>> gaze snapping to you, then back to the window.
+<<elseif $speech_attitude is "bratty">>
+	"What could possibly be more interesting than me?" you ask.
+	<br><br>
+
+	"Lots of things," Whitney says. "Just none of them sluts." <<He>> looks back through the window.
+<<else>>
+	"What do you see?" you ask.
+	<br><br>
+
+<</if>>
+"Just the same people, doing the same things every day."
+<br><br>
+
+Whitney turns away from the window, and drops into a chair.
+<br><br>
+
+<<whitneyoptions>>
+
+:: Whitney Home Hang Window Look
+<<effects>>
+
+You climb onto a chair, leaning against the back to look out beside Whitney.
+<br><br>
+<<generate2>><<person2>>
+"See that <<personsimple>>?" <<person1>><<he>> asks, pointing at a <<person2>><<person>>. "<<He>>'s there every day, at the same time. <<He>> does the same things too. <<He>>'ll stop by that bin to adjust <<his>> shoes. Watch."
+<br><br>
+
+The <<person>> indeed stops, and kneels to adjust <<his>> shoes. "Every day."
+<br><br>
+
+<<person1>>Whitney turns away from the window, and drops into a chair.
+<br><br>
+<<endevent>><<npc Whitney>>
+<<whitneyoptions>>
+
+:: Whitney Home Hang Window Leave
+<<effects>>
+
+You leave Whitney to it. <<He>> sneers in disgust after a few moments, turns, and drops into a chair.
+<br><br>
+
+<<whitneyoptions>>
+
+
+
+
+:: Whitney Home Examine Wait
+<<effects>>
+
+You wait for Whitney to sign for the parcel. It doesn't take long. You hear <<him>> close the door, and dump whatever it is on the kitchen table.
+<br><br>
+
+<<He>> returns to find you sat on the bed.
+<br><br>
+<<endevent>><<npc Whitney>><<person1>>
+
+<<whitneyoptions>>
+
+:: Whitney Home Examine Bed
+<<effects>>
+
+You drop to the floor, and peer beneath Whitney's bed. It's cleaner than you expected. There are a few boxes, but you hear Whitney shut the front door, so you rise to your feet before <<he>> returns.
+<br><br>
+
+<<He>> arrives to find you sat upright on the bed.
+<br><br>
+
+<<endevent>><<npc Whitney>><<person1>>
+
+<<whitneyoptions>>
+
+:: Whitney Home Examine Box 1
+<<effects>>
+
+You drop to the floor, and reach for one of the boxes under Whitney's bed. At first glance, it appears to be full of wires. But there are other electronics, and various tools, beneath the tangled mass.
+<br><br>
+
+You hear the front door shut, and rise to your feet before Whitney returns.
+<br><br>
+
+<<He>> arrives to find you sat upright on the bed.
+<br><br>
+
+<<endevent>><<npc Whitney>><<person1>>
+
+<<whitneyoptions>>
+
+:: Whitney Home Examine Box 2
+<<effects>>
+
+You drop to the floor, and reach for the second box under Whitney's bed. It's full of dusty toys. Action figures, cards, space ships. Some of them look chewed.
+<br><br>
+
+You hear the front door shut, and rise to your feet before Whitney returns.
+<br><br>
+
+<<He>> arrives to find you sat upright on the bed.
+<br><br>
+
+<<endevent>><<npc Whitney>><<person1>>
+
+<<whitneyoptions>>
+
+
+:: Whitney Home Examine Box 3
+<<effects>>
+
+You drop to the floor, and reach for the final box under Whitney's bed. It's full of books, arranged in a haphazard way. Some look like school text books. Others are fiction of genres.
+<br><br>
+
+You hear the front door shut, and rise to your feet before Whitney returns.
+<br><br>
+
+<<He>> arrives to find you sat upright on the bed.
+<br><br>
+
+<<endevent>><<npc Whitney>><<person1>>
+
+<<whitneyoptions>>
+
+:: Whitney Home Examine Covers
+<<effects>>
+
+You pull back the covers of Whitney's bed. There's a second, larger pillow hidden beneath, but there's otherwise nothing noteworthy to speak of.
+<br><br>
+
+You hear the front door shut, and restore Whitney's covers before <<he>> returns.
+<br><br>
+
+<<He>> arrives to find you sat upright on the bed.
+<br><br>
+
+<<endevent>><<npc Whitney>><<person1>>
+
+<<whitneyoptions>>
+
+
+:: Whitney Home Examine Cupboard
+<<effects>>
+
+You open the cupboard opposite Whitney's bed. <<His>> guitar lives here, as well as two pairs of shoes on a high shelf, among various knick knacks.
+<br><br>
+
+You hear the front door shut, and close the cupboard before Whitney returns.
+<br><br>
+
+<<He>> arrives to find you wearing an innocent smile.
+<br><br>
+
+<<endevent>><<npc Whitney>><<person1>>
+
+<<whitneyoptions>>
+
+:: Whitney Home Examine Cupboard Under
+<<effects>>
+
+You drop the floor, and peek beneath Whitney's cupboard. There's a lot of dust, a few pen lids, and what looks like a ball of fur.
+<br><br>
+
+You hear the front door shut, and stand up before Whitney returns.
+<br><br>
+
+<<He>> arrives to find you stretching your calf.
+<br><br>
+
+<<endevent>><<npc Whitney>><<person1>>
+
+<<whitneyoptions>>
+
+
+:: Whitney Home Examine Door
+<<effects>>
+
+You swing Whitney's bedroom door away from the wall, revealing the space behind it. There's a coat on a hook, with a bunch of cash sticking out from one of the pockets. Looks like £50.
+<br><br>
+
+<<link [[Take it|Whitney Home Examine Door Take]]>><</link>>
+<br>
+<<link [[Let Whitney know|Whitney Home Examine Door Let]]>><<npcincr Whitney love 1>><</link>><<glove>>
+<br>
+<<link [[Ignore it|Whitney Home Examine Door Ignore]]>><</link>>
+<br>
+
+:: Whitney Home Examine Door Take
+<<effects>>
+
+You snatch the cash as you hear the front door close, and move away from the door before Whitney returns.
+<br><br>
+
+<<He>> arrives to find you looking out the window.
+<br><br>
+
+You gain <<moneyGain 50>>.
+<br><br>
+
+<<endevent>><<npc Whitney>><<person1>>
+
+<<whitneyoptions>>
+
+
+:: Whitney Home Examine Door Let
+<<effects>>
+
+You hear the front door close, and Whitney returns a moment later to find you half standing behind <<his>> bedroom door. "What are you doing?"
+<br><br>
+
+<<if $speech_attitude is "meek">>
+	"I found some money," you say. "I think it's yours."
+<<elseif $speech_attitude is "bratty">>
+	"I found some money I bet you forgot about," you say.
+<<else>>
+	"I found some money in your coat pocket," you say.
+<</if>>
+<br><br>
+
+Whitney joins you behind the door. "Fucking ace," <<he>> says, reaching for the cash. "I wondered what I'd done with this. Thanks slut." <<He>> kisses your temple, then counts the money.
+<br><br>
+
+<<endevent>><<npc Whitney>><<person1>>
+
+<<whitneyoptions>>
+
+:: Whitney Home Examine Door Ignore
+<<effects>>
+
+You move away from Whitney's bedroom door as you hear <<him>> return.
+<br><br>
+
+<<He>> arrives to find you looking out the window.
+<br><br>
+
+<<endevent>><<npc Whitney>><<person1>>
+
+<<whitneyoptions>>
+
+:: Whitney Home Examine Wardrobe
+<<effects>>
+
+You search through the clothes in Whitney's wardrobe. There's quite a variety of current and recent fashion, but nothing unexpected. You examine the back, floor, and ceiling, and find nothing there either.
+<br><br>
+
+You hear the front door shut, and move away from the wardrobe before Whitney returns.
+<br><br>
+
+<<He>> arrives to find you sat on the floor beside <<his>> bed.
+<br><br>
+
+<<endevent>><<npc Whitney>><<person1>>
+
+<<whitneyoptions>>
+
+:: Whitney Home Examine Laundry
+<<effects>>
+
+You search through the pile of Whitney's clothes. Some of this could probably fit in the wardrobe, but it's mostly socks and underwear. There's nothing unusual. It's a mess, but you try to leave it as you find it.
+<br><br>
+
+You hear the front door shut, and step away from the laundry before Whitney returns.
+<br><br>
+
+<<He>> arrives to find you leaning back against the wall.
+<br><br>
+
+<<endevent>><<npc Whitney>><<person1>>
+
+<<whitneyoptions>>
+
+:: Whitney Home Examine Curtains
+<<effects>>
+
+You examine the curtains. They've a red floral pattern, and are thick enough to dim most of the light when drawn. You pull them away from the wall to see if there's anything behind them.
+<br><br>
+
+You look up, and notice a thick string tucked behind the railing. You follow it. Only now do you notice a large square indentation in the ceiling. <span class="green">There's a hatch large enough for a person to fit through.</span>
+<br><br>
+
+You tug the string, and the hatch swings open, revealing a hidden space. There's a large bag inside. One of the straps dangles. You grasp it, <span class="red">just as Whitney appears at the door.</span>
+<br><br>
+
+<<link [[Next|Whitney Home Examine Curtains 2]]>><</link>>
+<br>
+
+:: Whitney Home Examine Curtains 2
+<<effects>>
+
+Whitney's eyes flick between you and the bag, sheer horror contorting <<his>> features. With a sudden lunge, <<he>> tackles you. In that moment you feel the strap wind around your waist, and the weight of the bag as you pull it with you.
+<br><br>
+
+<<link [[Next|Whitney Home Examine Curtains 3]]>><</link>>
+<br>
+
+:: Whitney Home Examine Curtains 3
+<<effects>>
+<<set $whitney_plush to 1>>
+<<earnFeat "Whitney's Secret">>
+An avalanche of plush toys cascades from above, burying Whitney and you both. There's quite the variety. Plush versions of different popular characters, and lots of animals. Including many teddy bears.
+<br><br>
+
+Whitney stares through you, stunned, as if <<his>> lack of motion could convince the world to stop.
+<br><br>
+
+<<link [[Admire Whitney's collection|Whitney Home Hang Toys Admire]]>><</link>>
+<br>
+<<link [[Tease Whitney|Whitney Home Hang Toys Tease]]>><<npcincr Whitney love -1>><</link>><<llove>>
+<br>
+<<link [[Mock Whitney|Whitney Home Hang Toys Mock]]>><<npcincr Whitney love -3>><</link>><<lllove>>
+<br>
+<<link [[Kiss Whitney's forehead|Whitney Home Hang Toys Kiss]]>><</link>>
+<br>
+<<link [[Stare back (0:02)|Whitney Home Hang Toys Stare]]>><<pass 2>><</link>>
+<br>
+
+
+:: Whitney Home Hang Toys Admire
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"This is the best collection I've ever seen," you say.
+<<elseif $speech_attitude is "bratty">>
+	"Not bad," you say. "People would be envious if they knew you had such a collection."
+<<else>>
+	"This is an impressive collection," you say.
+<</if>>
+<br><br>
+
+Your voice breaks the spell, and the usual light returns to Whitney's eyes. "These aren't mine," <<he>> protests. "You must have broken into the flat above."
+<br><br>
+
+<<link [[Nod|Whitney Home Hang Toys Nod]]>><</link>>
+<br>
+<<link [[Laugh|Whitney Home Hang Toys Laugh]]>><<npcincr Whitney love -1>><</link>><<llove>>
+<br>
+<<link [[Point out that one has "I heart Whitney" written on it|Whitney Home Hang Toys Point]]>><</link>>
+<br>
+
+
+:: Whitney Home Hang Toys Tease
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"You're so cute," you say. "Please don't blush."
+<<elseif $speech_attitude is "bratty">>
+	"I had no idea you had such cute hobbies," you say. "You're blushing and everything."
+<<else>>
+	"This is very cute," you say. "There's no need to blush."
+<</if>>
+<br><br>
+
+"Fuck off," Whitney says, the usual light returning to <<his>> eyes at once. "These aren't even mine. You must have broken into the flat above."
+<br><br>
+
+<<link [[Nod|Whitney Home Hang Toys Nod]]>><</link>>
+<br>
+<<link [[Laugh|Whitney Home Hang Toys Laugh]]>><<npcincr Whitney love -1>><</link>><<llove>>
+<br>
+<<link [[Point out that one has "I heart Whitney" written on it|Whitney Home Hang Toys Point]]>><</link>>
+<br>
+
+
+
+:: Whitney Home Hang Toys Mock
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"There are so many," you say. "More than anyone at the orphanage. You're the cutest person I know."
+<<elseif $speech_attitude is "bratty">>
+	"Now I know your weakness," you say. "Such a tough attitude, but you're really very cute."
+<<else>>
+	"Is that why you act so tough?" you ask. "So people don't figure out how cute you are?"
+<</if>>
+<br><br>
+
+Your words break the spell, and the usual light returns to Whitney's eyes. "Fuck off." It takes <<him>> a moment to form the words. "These aren't even mine. You must have broken into the flat above."
+<br><br>
+
+<<link [[Nod|Whitney Home Hang Toys Nod]]>><</link>>
+<br>
+<<link [[Laugh|Whitney Home Hang Toys Laugh]]>><<stress 6>><<pain 4>><<npcincr Whitney love -1>><</link>><<gpain>><<gstress>><<llove>>
+<br>
+<<link [[Point out that one has "I heart Whitney" written on it|Whitney Home Hang Toys Point]]>><</link>>
+<br>
+
+:: Whitney Home Hang Toys Kiss
+<<effects>>
+
+You say nothing, and kiss Whitney's forehead. It breaks the spell, and light returns to <<his>> eyes at once.
+<br><br>
+
+"You stupid slut," <<he>> says. "You must have broken into the flat above, and all their shit is falling down."
+<br><br>
+
+<<link [[Nod|Whitney Home Hang Toys Nod]]>><</link>>
+<br>
+<<link [[Laugh|Whitney Home Hang Toys Laugh]]>><<stress 6>><<pain 4>><<npcincr Whitney love -1>><</link>><<gpain>><<gstress>><<llove>>
+<br>
+<<link [[Point out that one has "I heart Whitney" written on it|Whitney Home Hang Toys Point]]>><</link>>
+<br>
+
+
+:: Whitney Home Hang Toys Stare
+<<effects>>
+
+You stare back at Whitney. <<He>> remains motionless, looking down at you, through you. Time flows on. A horn blares, far below, and a gull squawks somewhere near.
+<br><br>
+
+Whitney's voice is smaller than usual. "These aren't mine."
+<br><br>
+
+<<link [[Nod|Whitney Home Hang Toys Nod]]>><</link>>
+<br>
+<<link [[Laugh|Whitney Home Hang Toys Laugh]]>><<stress 6>><<pain 4>><</link>><<gpain>><<gstress>><<llove>>
+<br>
+<<link [[Point out that one has "I heart Whitney" written on it|Whitney Home Hang Toys Point]]>><</link>>
+<br>
+
+:: Whitney Home Hang Toys Nod
+<<effects>>
+
+You nod. "Fuck," <<he>> says. "Fuck fuck fuck." <<He>> climbs off of you, and sits on <<his>> bed, looking at the pile of toys all around.
+<br><br>
+
+"You know what?" <<he>> says. "Fuck it. These are mine, and so are you. I have the best collection in the world." <<He>> rises, letting the toys on <<his>> back fall.
+<br><br>
+
+
+<<link [[Next|Whitney Home Hang Toys]]>><</link>>
+<br>
+
+:: Whitney Home Hang Toys Laugh
+<<effects>>
+
+You laugh. It comes out a little stronger than you intended. Whitney recoils as if struck, but recovers fast. <<He>> grasps the back of your hair, forces your head back as if to expose your neck, and leans close.
+<br><br>
+
+"You know what?" <<he>> says. "Fuck you. These are mine, and so are you. I have the best collection in the world." <<He>> rises, letting the toys on <<his>> back fall.
+<br><br>
+
+<<link [[Next|Whitney Home Hang Toys]]>><</link>>
+<br>
+
+
+:: Whitney Home Hang Toys Point
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I can't help but notice the 'I heart Whitney' text on that one's shirt," you say.
+<<elseif $speech_attitude is "bratty">>
+	"Nice try," You say. "There's a teddy there with 'I heart Whitney' written on its shirt."
+<<else>>
+	"That one has 'I heart Whitney' written on its shirt," you say.
+<</if>>
+You gesture at a teddy bear beside your head.
+<br><br>
+
+Whitney lifts the offending bear, and turns it around in <<his>> hand. "You know what?" <<he>> says. "Fuck you. These are mine, and so are you. I have the best collection in the world." <<He>> rises, letting the toys on <<his>> back roll off.
+<br><br>
+
+<<link [[Next|Whitney Home Hang Toys]]>><</link>>
+<br>
+
+
+
+:: Whitney Home Hang Toys
+<<effects>>
+
+"Help me put them away," Whitney says looking up at the hatch in the ceiling. "I hope you haven't done any damage."
+<br><br>
+
+You help Whitney puts the plush toys back in the bag, but <<he>> doesn't need help lifting the heavy thing back to the ceiling. The hatch closes with a click, and Whitney conceals the string behind the curtain railing once more.
+<br><br>
+
+Whitney turns to you. "My <<uncle>> buys them," <<he>> says. "Every time <<he>> arrives back in town. <<He>> says <<he>> tries to buy something whenever <<he>> visits somewhere new."
+<br><br>
+<<person1>>
+
+<<He>> stares at you a moment. "Don't you dare tell anyone." <<His>> voice is ice. "I mean it."
+<br><br>
+
+<<link [[Nod|Whitney Home Hang Toys Nod 2]]>><</link>>
+<br>
+<<link [[Stare|Whitney Home Hang Toys Stare 2]]>><</link>>
+<br>
+
+:: Whitney Home Hang Toys Nod 2
+<<effects>>
+
+You nod. Whitney relaxes a little.
+<br><br>
+
+<<endevent>><<npc "Whitney">><<person1>>
+
+<<whitneyoptions>>
+
+
+:: Whitney Home Hang Toys Stare 2
+<<effects>>
+
+You stare at Whitney. <<He>> stares back a moment, then surges forward, and licks your face. "Stupid slut," <<he>> says. "Are you even listening? Whatever."
+<br><br>
+
+<<endevent>><<npc "Whitney">><<person1>>
+
+<<whitneyoptions>>

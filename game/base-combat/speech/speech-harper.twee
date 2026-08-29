@@ -1,0 +1,31 @@
+:: Widgets speech-Harper [widget]
+<<widget "speech-harper">>
+	<<set _npc_speech to true>>
+	<<if $speechpenisvirgin is 1 and $player.virginity.penile is "Harper">>
+		<<He>> smiles. "Hold still. I need to check your blood pressure."
+	<<elseif ($speechvaginavirgin is 1 and $player.virginity.vaginal is "Harper")>>
+		<<He>> smiles. "This will only hurt a bit."
+	<<elseif $speechanusvirgin is 1 and $player.virginity.anal is "Harper">>
+		<<if $player.sex is "f">>
+			<<He>> smiles. "I'm going to administer a suppository. Please, try to relax."
+		<<else>>
+			<<He>> smiles. "You're overdue for a prostate examination. Please, try to relax."
+		<</if>>
+	<<elseif $speechmouthvirgin is 1 and $player.virginity.oral is "Harper">>
+		<<He>> smiles. "Say 'Ahh'..."
+	<<elseif $speechkissvirgin is 1 and $player.virginity.kiss is "Harper">>
+		<<He>> smiles. "How's my bedside manner?"
+	<<elseif $speechnamedrop is 1>>
+		<<set $speechnamedrop to 0>>
+		<<switch _loveInterest>>
+			<<case "Gwylan">>
+				<<He>> speaks. "Interesting. You've a very healthy imagination, to give your hallucination such a name."
+			<<case "Black Wolf" "Great Hawk">>
+				<<He>> shakes <<his>> head. "As I've said, such animals do not exist."
+			<<default>>
+				<<He>> nods. "Prior attachments. Noted."
+		<</switch>>
+	<<else>>
+		<<set _noNameComment to true>>
+	<</if>>
+<</widget>>

@@ -1,0 +1,895 @@
+:: Widgets Ejaculation-GWYLAN [widget]
+
+<<widget "ejaculation-gwylan">>
+	<<run statusCheck("Gwylan")>>
+
+	/* ToDo: Gwylan - Noncon / anger variation, in-heat variation, more hypnosis variation. */
+
+	<!-- Female Gwylan -->
+
+	<<if $NPCList[_nn].vagina isnot "none" and $NPCList[_nn].penis is "none">>
+		<<if $NPCList[_nn].vagina is "mouthentrance" or $NPCList[_nn].vagina is "mouth" or $NPCList[_nn].vagina is "mouthimminent">>
+			<<He>> puts both hands on your head and exhales sharply as <<he>> <<if $NPCList[_nn].vagina is "mouth">>continues grinding<<else>>grinds<</if>> <<his>> <<npcVagina>> against your mouth.
+			<<ejacstat>><<set $hygiene += 500>>
+			<<if $NPCList[_nn].vagina is "mouth">>
+				You taste <<his>> fluids.
+				<<bodyliquid "mouth" "goo">>
+			<<else>>
+				<<bodyliquid "face" "goo">>
+			<</if>>
+
+		<<elseif $NPCList[_nn].vagina is "leftarm" or $NPCList[_nn].vagina is "rightarm">>
+			<<His>> thighs clench together as you continue rubbing <<his>> <<npcVagina>>. <<He>> lets out a few shallow breaths as <<he>> shudders.
+			<<handejacstat>><<ejacstat>><<set $hygiene += 500>>
+			<<if $NPCList[_nn].vagina is "leftarm">><<bodyliquid "leftarm" "goo">><<else>><<bodyliquid "rightarm" "goo">><</if>>
+
+		<<elseif $NPCList[_nn].vagina is "lefthand" or $NPCList[_nn].vagina is "righthand">>
+			<<if _gwylanStatus.includes("heat")>>
+				<<He>> shivers as <<he>> cums. <<He>> leans in and wipes <<his>> juices on your face. "There, I've marked my territory," <<he>> giggles.
+				<<set $hygiene += 500>><<bodyliquid "face" "goo">>
+			<<else>>
+				<<He>> shudders as fluid squirts from <<his>> <<npcVagina>>. <<He>> breathes out heavily a few times, like a dry laugh. "Did you enjoy watching me?"
+				<<if $hypnosis_traits.devotion gte 3>>
+					<<He>> holds <<his>> hand up to your face. <<hypnosisText "<<He>> doesn't even need to say anything. You obediently lick <<his>> fingers clean as <<his>> other hand pats your head.">>
+				<</if>>
+			<</if>>
+
+		<<elseif $NPCList[_nn].vagina is "leftDildo" or $NPCList[_nn].vagina is "rightDildo">>
+			<<He>> lets out a shallow breath as <<his>> body convulses, <<his>> thighs trembling against your $currentSexToyLeft.name. "Oh my," <<he>> says after a moment. "The real thing usually doesn't get me this far, never mind a toy."
+			<<handejacstat>><<ejacstat>><<set $hygiene += 500>>
+			<<if $NPCList[_nn].vagina is "leftDildo">><<bodyliquid "leftarm" "goo">><<else>><<bodyliquid "rightarm" "goo">><</if>>
+			<<if $hypnosis_traits.devotion gte 3>>
+				<<He>> slowly removes it, and holds it up to your face. <<hypnosisText "<<He>> doesn't even need to say anything. You obediently lick it clean as <<his>> other hand pats your head.">>
+			<</if>>
+
+		<<elseif $NPCList[_nn].vagina is "leftDildoAnus" or $NPCList[_nn].vagina is "rightDildoAnus">>
+			<<He>> lets out a shallow breath as <<his>> body convulses, <<his>> thighs trembling against your $currentSexToyLeft.name. "Oh my," <<he>> says after a moment. "Those don't usually work for me."
+			<<handejacstat>><<ejacstat>>
+
+		<<elseif $NPCList[_nn].vagina is "feet">>
+			<<He>> lets out a long breath as <<he>> climaxes and shakes against your foot. "Oh my, how degrading." <<He>> giggles.
+			<<feetejacstat>><<ejacstat>><<set $hygiene += 500>><<bodyliquid "feet" "goo">>
+
+		<<elseif $NPCList[_nn].vagina is "vagina" and playerChastity("vagina")>>
+			<<if $consensual is 0 or _gwylanStatus.includes("heat")>>
+				<<He>> quietly cums against your $worn.genitals.name. "Curse this wretched thing," <<he>> grumbles.
+			<<else>>
+				<<He>> quietly cums against your $worn.genitals.name. "Pesky thing," <<he>> pouts.
+			<</if>>
+			<<if _args[0] isnot "short">><<gwylanChastityRequest $consensual>><</if>>
+
+		<<elseif $NPCList[_nn].vagina is "vagina">>
+			<<if _gwylanStatus.includes("heat")>>
+				<<He>> bites your neck and holds you tightly, grinding down hard on your <<pussy>>.
+				<<if _gwylanTF.fangs is "revealed">>
+					<<He>> pulls away and licks the spot <<he>> bit, before licking <<his>> fangs in turn. <<pain 8>><<ggpain>>
+				<<else>>
+					<<He>> pulls away and kisses the spot <<he>> bit. <<pain 4>><<gpain>>
+				<</if>>
+			<<else>>
+				<<He>> lets out a soft moan as you scissor your pussies together. Ejaculate drenches your crotch as <<he>> squirts.
+			<</if>>
+			<<vaginalentranceejacstat>><<ejacstat>><<set $hygiene += 500>><<bodyliquid "vaginaoutside" "goo">>
+
+		<<elseif $NPCList[_nn].vagina is "othermouth">>
+			<<His>> tongue eagerly laps at your <<pussy>> as <<he>> cums.
+			<<if _gwylanStatus.includes("heat")>>
+				<<He>> nibbles your clit before pulling away.
+			<<else>>
+				<<His>> hot breath makes you shiver as <<he>> pulls away.
+			<</if>>
+			<<He>> pushes a lock of hair away from <<his>> face and smiles at you. "Delicious."
+
+		<<elseif $NPCList[_nn].vagina is "otheranus" and playerHasStrapon()>>
+			<<if _gwylanStatus.includes("heat")>>
+				<<He>> bites your neck and holds you tightly, grinding down hard on your <<penis>>. <<His>> fluids leak onto your thighs.
+				<<if _gwylanTF.fangs is "revealed">>
+					<<He>> pulls away and licks the spot <<he>> bit, before licking <<his>> fangs in turn. <<pain 8>><<ggpain>>
+				<<else>>
+					<<He>> pulls away and kisses the spot <<he>> bit. <<pain 4>><<gpain>>
+				<</if>>
+			<<else>>
+				<<if $position is "missionary">>
+					<<He>> leans back and presses down hard, grinding on your <<penis>> as <<he>> shudders in climax.
+				<<else>>
+					<<He>> presses back against you hard, grinding on your <<penis>> as <<he>> shudders in climax.
+				<</if>>
+				<<His>> fluids leak onto your thighs. "How shameful," <<he>> giggles. "Bested by a mere toy."
+			<</if>>
+			<<thighejacstat>><<ejacstat>><<set $hygiene += 500>><<bodyliquid "thigh" "goo">>
+
+		<<elseif $NPCList[_nn].vagina is "otheranus" and playerChastity("penis")>>
+			<<if $consensual is 0 or _gwylanStatus.includes("heat")>>
+				<<He>> quietly cums against your $worn.genitals.name. "Curse this wretched thing," <<he>> grumbles.
+			<<else>>
+				<<He>> quietly cums against your $worn.genitals.name. "Pesky thing," <<he>> pouts.
+			<</if>>
+			<<if _args[0] isnot "short">><<gwylanChastityRequest $consensual>><</if>>
+
+		<<elseif $NPCList[_nn].vagina is "otheranus">>
+			<<if _gwylanStatus.includes("lust") and ($NPCList[_nn].lefthand is "hypnosis_orgasm" or $NPCList[_nn].righthand is "hypnosis_orgasm" or $combat_hypnosis is "orgasm" or $hypnosis_traits.devotion gte 3)>>
+				<<if $position is "missionary">>
+					<<He>> leans back as <<he>> rides you faster. <<He>> <<if $consensual is 1>>smiles<<else>>glares<</if>> down at you as <<he>> reaches <<his>> peak.
+				<<else>>
+					<<He>> presses back against you harder and faster as <<he>> reaches <<his>> peak. <<He>> looks back to you with a <<if $consensual is 1>>smile<<else>>glare<</if>>.
+				<</if>>
+				"Don't you dare hold back, <<pcpetname "Gwylan">>. Fill me<<if $orgasmcurrent>> again<</if>>." <<He>> snaps <<his>> fingers.
+				<<hypnosisText "A deep yearning blooms, nurtured by your <<if $consensual is 1>>intimate<<else>>carnal<</if>> union. Feelings of arousal overwhelm you.">>
+				<<orgasm>>
+
+				<<He>> shivers in ecstasy, and lets out a <<if $consensual is 1>>soft moan<<else>>huff<</if>> as you cum together. <<His>> fluids leak onto your thighs.
+			<<else>>
+				<<if $position is "missionary">>
+					<<He>> leans back and presses down hard, grinding on your <<penis>> as <<he>> shudders in climax.
+				<<else>>
+					<<He>> presses back against you hard, grinding on your <<penis>> as <<he>> shudders in climax.
+				<</if>>
+				<<His>> fluids leak onto your thighs.
+			<</if>>
+			<<thighejacstat>><<ejacstat>><<set $hygiene += 500>><<bodyliquid "thigh" "goo">>
+
+			/* ToDo: Gwylan - replace with appropriate check and text when TF-based player penises are implemented */
+			<<if $hallucinations gte 2 and ($wolfgirl gte 6 or $fox gte 6) and ($orgasmcurrent or $orgasmdown)>>
+				<br><br>
+
+				<<if $penisaction is "cooperate">>
+					You feel a bulging pressure as you continue to fuck <<him>>. With a final thrust, you feel as though you somehow press even deeper into <<him>>.
+					<<if _gwylanStatus.includes("heat") and _gwylanTF.known>>
+						<<He>> presses back in turn, and yips.
+					<<else>>
+						<<He>> presses back in turn, letting out a low moan.
+					<</if>>
+				<<else>>
+					<<He>> grinds on you for another moment, before pushing even harder. It feels as though you slip even deeper into <<him>> somehow.
+				<</if>>
+				"Oh my." Gwylan looks <<if $position is "missionary">>down<<else>>back<</if>> at you.
+				<<if _gwylanStatus.includes("heat")>>
+					<<He>> pants, and smiles. "You were just as excited as me."
+				<<else>>
+					There's a blush spreading over <<his>> face. "You were excited."
+				<</if>>
+				<br><br>
+
+				You try to withdraw, <span class="pink">but you can't</span>. You look down. Your penis feels strange inside of <<him>>.
+				<span class="lewd">It looks different, like that of a <<if $wolfgirl gte 6>>wolf<<else>>fox<</if>>, complete with a knot. And it's stuck.</span>
+				<br><br>
+
+				<<if _gwylanStatus.includes("heat")>>
+					<<He>> continues grinding against you, whining and chittering with pleasure. <<He>> trembles in bursts, fluids continuing to drool from <<his>> <<npcVagina>>.
+					<<His>> back arches as your knot finally deflates. Finally, it exits with a pop, prompting Gwylan to slowly moan.
+					<<if $internalejac>>
+						Some of your cum spills out.
+					<</if>>
+					<<He>> trembles again as a second orgasm overtakes <<him>>.
+				<<else>>
+					The two of you sit in awkward silence while you wait for your knot to go down. "Don't get me wrong," Gwylan says after a while. "I like it." <<He>> grinds against you again, letting out a soft moan. Finally, it exits <<him>> with a pop.
+					<<if $internalejac>>
+						Some of your cum spills out.
+					<</if>>
+				<</if>>
+
+				<<He>> turns even more red and stays quiet for a moment. You look down again, and your penis looks normal. <<He>> breaks the silence with a giggle.
+				<<if !$gwylanSeen.includes("player_knotted_gwylan")>>
+					"Don't think about it too much."
+				<<else>>
+					"It feels better each time."
+				<</if>>
+				<<set $gwylanSeen.pushUnique("player_knotted_gwylan")>>
+
+			<<elseif _gwylanStatus.includes("heat")>>
+				<<He>> bites your neck and holds you tightly, trembling as orgasmic waves wash over <<him>>.
+				<<if _gwylanTF.fangs is "revealed">>
+					<<He>> pulls away and licks the spot <<he>> bit, before licking <<his>> fangs in turn. <<pain 8>><<ggpain>>
+				<<else>>
+					<<He>> pulls away and kisses the spot <<he>> bit. <<pain 4>><<gpain>>
+				<</if>>
+			<<elseif $consensual is 1>>
+				"I usually prefer the front door, but..." <<he>> giggles. "Variety is the spice of life."
+			<</if>>
+
+		<<elseif $NPCList[_nn].vagina is "penis" and playerHasStrapon()>>
+			<<if _gwylanStatus.includes("heat")>>
+				<<He>> bites your neck and holds you tightly, grinding down hard on your <<penis>>.
+				<<if _gwylanTF.fangs is "revealed">>
+					<<He>> pulls away and licks the spot <<he>> bit, before licking <<his>> fangs in turn. <<pain 8>><<ggpain>>
+				<<else>>
+					<<He>> pulls away and kisses the spot <<he>> bit. <<pain 4>><<gpain>>
+				<</if>>
+			<<else>>
+				<<if $position is "missionary">>
+					<<He>> leans back and presses down hard, grinding on your <<penis>> as <<he>> shudders in climax.
+				<<else>>
+					<<He>> presses back against you hard, grinding on your <<penis>> as <<he>> shudders in climax.
+				<</if>>
+				"How shameful," <<he>> giggles. "Bested by a mere toy."
+			<</if>>
+
+		<<elseif $NPCList[_nn].vagina is "penis">>
+			<<if _gwylanStatus.includes("lust") and ($NPCList[_nn].lefthand is "hypnosis_orgasm" or $NPCList[_nn].righthand is "hypnosis_orgasm" or $combat_hypnosis is "orgasm" or $hypnosis_traits.devotion gte 3)>>
+				<<if $position is "missionary">>
+					<<He>> leans down and wraps <<his>> arms around you tightly as <<he>> rides you faster. <<He>> whispers directly in your ear.
+				<<else>>
+					<<He>> presses back against you harder and faster as <<he>> reaches <<his>> peak. <<He>> looks back to you with a <<if $consensual is 1>>smile<<else>>glare<</if>>.
+				<</if>>
+				<<if _gwylanStatus.includes("heat") and $settings.pregnancySpeechEnabled>>
+					"Don't you dare hold back, <<pcpetname "Gwylan">>. I want you to breed me like a dog." <<He>> snaps <<his>> fingers.
+				<<else>>
+					"Don't you dare hold back, <<pcpetname "Gwylan">>. Fill me<<if $orgasmcurrent>> again<</if>>." <<He>> snaps <<his>> fingers.
+				<</if>>
+				<<hypnosisText "A deep yearning blooms, nurtured by your <<if $consensual is 1>>intimate<<else>>carnal<</if>> union. Feelings of arousal overwhelm you.">>
+				<<orgasm>>
+
+				<<He>> shivers in ecstasy,
+				<<if !$internalejac>>
+					but seems disappointed by your lack of semen.
+				<<else>>
+					and lets out a <<if $consensual is 1>>soft moan<<else>>huff<</if>> as you cum together.
+					<<if $position is "missionary">>
+						<<He>> cups your cheeks and kisses one.
+					<<else>>
+						<<His>> fingers and toes curl in pleasure.
+					<</if>>
+				<</if>>
+			<<else>>
+				<<if $position is "missionary">>
+					<<He>> wraps <<his>> arms around you as <<he>> rides you faster.
+				<<else>>
+					<<He>> presses back against you harder and faster as <<he>> reaches <<his>> peak.
+				<</if>>
+				<<His>> fingers and toes curl in pleasure as <<he>> cums on your <<penis>>.
+			<</if>>
+			<<ejacstat>><<set $hygiene += 500>><<bodyliquid "penis" "goo">>
+
+			/* ToDo: Gwylan - replace with appropriate check and text when TF-based player penises are implemented */
+			<<if $hallucinations gte 2 and ($wolfgirl gte 6 or $fox gte 6) and ($orgasmcurrent or $orgasmdown)>>
+				<br><br>
+
+				<<if $penisaction is "cooperate">>
+					You feel a bulging pressure as you continue to fuck <<him>>. With a final thrust, you feel as though you somehow press even deeper into <<him>>.
+					<<if _gwylanStatus.includes("heat") and _gwylanTF.known>>
+						<<He>> presses back in turn, and yips.
+					<<else>>
+						<<He>> presses back in turn, letting out a low moan.
+					<</if>>
+				<<else>>
+					<<He>> grinds on you for another moment, before pushing even harder. It feels as though you slip even deeper into <<him>> somehow.
+				<</if>>
+				"Oh my." Gwylan looks <<if $position is "missionary">>down<<else>>back<</if>> at you.
+				<<if _gwylanStatus.includes("heat")>>
+					<<He>> pants, and smiles. "You were just as excited as me."
+				<<else>>
+					There's a blush spreading over <<his>> face. "You were excited."
+				<</if>>
+				<br><br>
+
+				You try to withdraw, <span class="pink">but you can't</span>. You look down. Your penis feels strange inside of <<him>>.
+				<span class="lewd">It looks different, like that of a <<if $wolfgirl gte 6>>wolf<<else>>fox<</if>>, complete with a knot. And it's stuck.</span>
+				<br><br>
+
+				<<if _gwylanStatus.includes("wantsPregnancy") and $settings.pregnancySpeechEnabled and !npcIsPregnant("Gwylan") and $internalejac>>
+					/* ToDo: Gwylan - add more pregnancy brainrot here if appropriate for Gwylan's story */
+					<<He>> adjusts <<himself>>, and locks <<his>> legs around you. "Keep it all inside. I want your baby." <<He>> pulls you into a tight embrace.
+					<br><br>
+
+					<<He>> continues to slowly grind <<his>> <<npcVagina>> against you, trilling and whining with pleasure all the while. Several minutes pass like this.
+					<<He>> holds on even tighter as your knot finally deflates. It exits with a pop, prompting Gwylan to slowly moan.
+					<<He>> trembles again as a second orgasm overtakes <<him>>. None of your cum spills out, having been sealed in by your knot.
+				<<elseif _gwylanStatus.includes("heat")>>
+					<<He>> continues grinding against you, whining and chittering with pleasure. <<He>> trembles in bursts, fluids continuing to drool from <<his>> <<npcVagina>>.
+					<<His>> back arches as your knot finally deflates. Finally, it exits with a pop, prompting Gwylan to slowly moan.
+					<<if $internalejac>>
+						Some of your cum spills out.
+					<</if>>
+					<<He>> trembles again as a second orgasm overtakes <<him>>.
+				<<else>>
+					The two of you sit in awkward silence while you wait for your knot to go down. "Don't get me wrong," Gwylan says after a while. "I like it." <<He>> grinds against you again, letting out a soft moan. Finally, it exits <<him>> with a pop.
+					<<if $internalejac>>
+						Some of your cum spills out.
+					<</if>>
+				<</if>>
+				<<He>> turns even more red and stays quiet for a moment. You look down again, and your penis looks normal. <<He>> breaks the silence with a giggle.
+				<<if !$gwylanSeen.includes("player_knotted_gwylan")>>
+					"Don't think about it too much."
+				<<else>>
+					"It feels better each time."
+				<</if>>
+				<<set $gwylanSeen.pushUnique("player_knotted_gwylan")>>
+
+			<<elseif _gwylanStatus.includes("heat")>>
+				<<He>> bites your neck and holds you tightly, trembling as orgasmic waves wash over <<him>>.
+				<<if _gwylanTF.fangs is "revealed">>
+					<<He>> pulls away and licks the spot <<he>> bit, before licking <<his>> fangs in turn. <<pain 8>><<ggpain>>
+				<<else>>
+					<<He>> pulls away and kisses the spot <<he>> bit. <<pain 4>><<gpain>>
+				<</if>>
+			<</if>>
+
+		<<elseif ($NPCList[_nn].vagina is "penisimminent" or $NPCList[_nn].vagina is "penisentrance") and playerChastity("penis")>>
+			<<if $consensual is 0 or _gwylanStatus.includes("heat")>>
+				<<He>> quietly cums against your $worn.genitals.name. "Curse this wretched thing," <<he>> grumbles.
+			<<else>>
+				<<He>> quietly cums against your $worn.genitals.name. "Pesky thing," <<he>> pouts.
+			<</if>>
+			<<if _args[0] isnot "short">><<gwylanChastityRequest $consensual>><</if>>
+
+		<<elseif $NPCList[_nn].vagina is "penisimminent" or $NPCList[_nn].vagina is "penisentrance">>
+			<<He>> lets out a ragged breath and shudders as <<he>> grinds against your <<penis>>.
+			<<if $position is "missionary">>
+				<<He>> leans forward and relaxes against you.
+			<<else>>
+				<<He>> leans forward, worn out.
+			<</if>>
+			"Maybe I'll let you inside, next time."
+			<<ejacstat>><<set $hygiene += 500>><<bodyliquid "penis" "goo">>
+
+		<<elseif ($NPCList[_nn].vagina is "otheranusfrot" or $NPCList[_nn].vagina is "otheranusentrance") and playerChastity("penis")>>
+			<<if $consensual is 0 or _gwylanStatus.includes("heat")>>
+				<<He>> quietly cums against your $worn.genitals.name. "Curse this wretched thing," <<he>> grumbles.
+			<<else>>
+				<<He>> quietly cums against your $worn.genitals.name. "Pesky thing," <<he>> pouts.
+			<</if>>
+			<<if _args[0] isnot "short">><<gwylanChastityRequest $consensual>><</if>>
+
+		<<elseif $NPCList[_nn].vagina is "otheranusfrot" or $NPCList[_nn].vagina is "otheranusentrance">>
+			<<He>> lets out a ragged breath and shudders as <<he>> grinds against your <<penis>>.
+			<<if $position is "missionary">>
+				<<He>> leans forward and relaxes against you.
+			<<else>>
+				<<He>> leans forward, worn out.
+			<</if>>
+			"Maybe I'll let you inside, next time."
+
+		<<elseif $NPCList[_nn].vagina is "frot" and playerChastity("penis")>>
+			<<if $consensual is 0 or _gwylanStatus.includes("heat")>>
+				<<He>> quietly cums against your $worn.genitals.name. "Curse this wretched thing," <<he>> grumbles.
+			<<else>>
+				<<He>> quietly cums against your $worn.genitals.name. "Pesky thing," <<he>> pouts.
+			<</if>>
+			<<if _args[0] isnot "short">><<gwylanChastityRequest $consensual>><</if>>
+
+		<<elseif $NPCList[_nn].vagina is "frot">>
+			<<He>> lets out a ragged breath and shudders as <<he>> grinds against your <<penis>>.
+			<<if $position is "missionary">>
+				<<He>> leans forward and relaxes against you.
+			<<else>>
+				<<He>> leans forward, worn out.
+			<</if>>
+			<<He>> smiles and giggles. "You're a bad <<girl>>, teasing me like that."
+			<<ejacstat>><<set $hygiene += 500>><<bodyliquid "penis" "goo">>
+
+		<<elseif $NPCList[_nn].mouth is "penis" and playerHasStrapon()>>
+			<<He>> shudders as <<he>> takes your <<penis>> all the way in, before releasing it and coming back up for air. "The real thing tastes better," <<he>> grumbles.
+
+		<<elseif $NPCList[_nn].mouth is "penis">>
+			<<switch $player.penissize>>
+				<<case 6>>
+					<<if $orgasmdown or $internalejac>>
+						<<He>> continues holding
+					<<else>>
+						<<He>> expertly holds
+					<</if>>
+					your <<penis>> in <<his>> throat even as <<he>> reaches climax. <<His>> mouth and throat hug you tightly. Finally, <<he>> releases you with a final gasp
+				<<case 5 4 3>>
+					<<if $orgasmdown or $internalejac>>
+						<<He>> continues holding
+					<<else>>
+						<<He>> expertly holds
+					<</if>>
+					your <<penis>> in <<his>> mouth even as <<he>> reaches climax. When <<hes>> done shaking, <<he>> releases you
+				<<default>>
+					<<if $orgasmdown or $internalejac>>
+						<<He>> continues holding
+					<<else>>
+						<<He>> holds
+					<</if>>
+					your <<penis>> in <<his>> mouth even as <<he>> reaches climax, continuing to pleasure your small length. When <<hes>> done shaking, <<he>> releases you
+			<</switch>>
+			<<if $internalejac>>
+				and swallows. "Thanks for the meal."
+			<<else>>
+				and pouts. "Don't hold back next time. I was hungry for you."
+			<</if>>
+
+		<<elseif $NPCList[_nn].vagina is "footjob">>
+			<<He>> lightly shudders as <<he>> presses <<his>> foot down on your <<penis>>. <<His>> toes wiggle.
+
+		<<else>>
+			<<He>> quietly convulses in orgasmic bliss. "You've bested me this time," <<he>> giggles between breaths.
+
+		<</if>>
+		<br><br>
+
+	<</if>>
+
+	<!-- Male Gwylan -->
+	<<if _condomResult is "leaked">>
+		<span class="red">The condom broke.</span>
+	<<elseif _condomResult is "burst">>
+		<span class="red">The tip of the condom bursts and rips, exposing the head of <<his>> penis.</span>
+	<</if>>
+
+	<<if _condomResult is "contained">>
+		<<genericCondomEjaculation>>
+	<<elseif npcHasStrapon(_nn)>>
+		<<He>> moans and shivers in orgasmic bliss, grinding the strap-on against <<his>> genitals. <<He>> huffs in frustration.
+	<<elseif $NPCList[_nn].penis is "idle">>
+		<<He>> covers <<his>> mouth as <<he>> convulses. <<He>> growls. "You couldn't wait for me to get my pants off first?"
+
+	<<elseif $NPCList[_nn].penis is "thighs">>
+		<<He>> grabs your legs, pushing <<his>> crotch hard into yours as <<he>> cums. <<His>> semen streaks onto your tummy.
+		<<tummyejacstat>><<ejacstat>><<set $hygiene += 500>><<bodyliquid "tummy" "semen">>
+
+	<<elseif $NPCList[_nn].penis is "vaginaentrance" and playerChastity("vagina")>>
+		<<if $consensual is 0 or _gwylanStatus.includes("heat")>>
+			<<He>> quietly cums against your $worn.genitals.name. "Curse this wretched thing," <<he>> grumbles.
+		<<else>>
+			<<He>> quietly cums against your $worn.genitals.name. "Pesky thing," <<he>> pouts.
+		<</if>>
+		<<if _args[0] isnot "short">><<gwylanChastityRequest $consensual>><</if>>
+
+	<<elseif $NPCList[_nn].penis is "vaginaentrance">>
+		<<He>> holds you still by the hips with one hand and with the other on <<his>> cock, ejaculates onto your <<pussy>>. Semen coats your outer lips and pools around your legs.
+		<<if $position is "missionary">>
+			<<He>> leans forward and relaxes against you.
+		<<else>>
+			<<He>> leans forward, worn out.
+		<</if>>
+		"Maybe I'll get inside you, next time."
+		<<vaginalentranceejacstat>><<ejacstat>><<set $hygiene += 500>><<bodyliquid "vaginaoutside" "semen">>
+		<<recordSperm `{target: "pc", spermOwner: $NPCList[_nn], spermType: "human", rngModifier: 5, rngType: "canWash"}`>>
+
+	<<elseif $NPCList[_nn].penis is "vaginaimminent" and playerChastity("vagina")>>
+		<<if $consensual is 0 or _gwylanStatus.includes("heat")>>
+			<<He>> quietly cums against your $worn.genitals.name. "Curse this wretched thing," <<he>> grumbles.
+		<<else>>
+			<<He>> quietly cums against your $worn.genitals.name. "Pesky thing," <<he>> pouts.
+		<</if>>
+		<<if _args[0] isnot "short">><<gwylanChastityRequest $consensual>><</if>>
+
+	<<elseif $NPCList[_nn].penis is "vaginaimminent">>
+		<<He>> ejaculates onto your <<pussy>> before <<he>> can penetrate you, sending white streams of semen running down your <<pussy>>. <<He>> looks disappointed.
+		<<if $position is "missionary">>
+			<<He>> leans forward and relaxes against you.
+		<<else>>
+			<<He>> leans forward, worn out.
+		<</if>>
+		"Maybe I'll get inside you, next time."
+		<<vaginalentranceejacstat>><<ejacstat>><<set $hygiene += 500>><<bodyliquid "vaginaoutside" "semen">>
+		<<recordSperm `{target: "pc", spermOwner: $NPCList[_nn], spermType: "human", rngModifier: 15, rngType: "canWash"}`>>
+
+	<<elseif $NPCList[_nn].penis is "vagina">>
+		<<if _gwylanStatus.includes("lust") and ($NPCList[_nn].lefthand is "hypnosis_orgasm" or $NPCList[_nn].righthand is "hypnosis_orgasm" or $combat_hypnosis is "orgasm" or $hypnosis_traits.devotion gte 3)>>
+			<<if $position is "missionary">>
+				<<He>> leans down and wraps <<his>> arms around you tightly as <<he>> thrusts faster. <<He>> whispers directly in your ear.
+			<<else>>
+				<<He>> thrusts into you harder and faster as <<he>> reaches <<his>> peak. <<He>> leans forward and whispers directly in your ear.
+			<</if>>
+			<<if _gwylanStatus.includes("heat") and $settings.pregnancySpeechEnabled>>
+				"I'm going to breed you like a dog, and you're going to climax when I do." <<He>> snaps <<his>> fingers.
+			<<else>>
+				"Don't you dare hold back, <<pcpetname "Gwylan">>. Finish again." <<He>> snaps <<his>> fingers.
+			<</if>>
+			<<hypnosisText "A deep yearning blooms, nurtured by your <<if $consensual is 1>>intimate<<else>>carnal<</if>> union. Feelings of arousal overwhelm you.">>
+			<<orgasm>>
+
+			<<He>> shivers in ecstasy, and lets out a <<if $consensual is 1>>soft moan<<else>>huff<</if>> as you cum together, <<his>> semen filling you.
+		<<else>>
+			<<He>> wraps <<his>> arms around you as <<he>> thrusts faster. <<His>> fingers and toes curl in pleasure as <<he>> cums inside you.
+		<</if>>
+
+		/* ToDo: Gwylan - replace with appropriate check and text when TF-based player penises are implemented */
+		<<if $hallucinations gte 2 and ($orgasmcurrent or $orgasmdown) and _gwylanTF.known>>
+			<br><br>
+
+			<<if $vaginaaction is "cooperate">>
+				You feel a bulging pressure as you press back against <<him>>. With a final thrust, you feel as though <<he>> somehow press even deeper into you. You involuntarily moan.
+				<<if _gwylanStatus.includes("heat") and _gwylanTF.known>>
+					<<He>> thrusts once more in turn, and yips.
+				<<else>>
+					<<He>> thrusts once more in turn, letting out a low moan.
+				<</if>>
+			<<else>>
+				<<He>> thrusts into you for another moment, before pushing even harder. It feels as though <<he>> slips even deeper into you somehow.
+			<</if>>
+			"Oh my." Gwylan looks <<if $position is "missionary">>down<<else>>up<</if>> at you.
+			<<if _gwylanStatus.includes("heat")>>
+				<<He>> pants, and smiles. "I'm sorry, I couldn't hold back."
+			<<else>>
+				There's a blush spreading over <<his>> face. "I'm sorry, you got me excited."
+			<</if>>
+			<br><br>
+
+			You try to withdraw, <span class="pink">but you can't</span>. You look down. <span class="lewd"><<His>> penis looks different, like that of a <<if $wolfgirl gte 6>>wolf<<else>>fox<</if>>, complete with a knot. And it's stuck.</span>
+			<br><br>
+
+			<<if _gwylanStatus.includes("wantsPregnancy") and $settings.pregnancySpeechEnabled and !playerIsPregnant()>>
+				/* ToDo: Gwylan - add more pregnancy brainrot here if appropriate for Gwylan's story */
+				<<He>> hugs you tightly. "Keep it all inside. I want you to have my kits."
+				<br><br>
+
+				<<He>> continues to slowly grind <<his>> penis inside you, trilling and whining with pleasure all the while. Several minutes pass like this.
+				<<He>> holds on even tighter as <<his>> knot finally deflates. It exits with a pop, prompting both of you to slowly moan.
+				None of <<his>> cum spills out, having been sealed in by the knot.
+				<<bodyliquid "vagina" "semen" 2>>
+			<<elseif _gwylanStatus.includes("heat")>>
+				<<He>> continues grinding against you. Each movement makes you whine with pleasure. <<He>> giggles softly. "<<pcPetname "Gwylan" "good">>... you like that, don't you?"
+				Finally, it exits with a pop, prompting you both to slowly moan. Some of <<his>> cum spills out.
+			<<else>>
+				The two of you sit in awkward silence while you wait for <<his>> knot to go down. "I-it's a compliment," Gwylan says after a while. "I liked it a lot." Finally, <<his>> knot exits you with a pop.
+				Some of <<his>> cum spills out.
+			<</if>>
+			<<He>> turns even more red and stays quiet for a moment. You look down again, and <<his>> penis looks normal.
+			<<if !$gwylanSeen.includes("gwylan_knotted_player")>>
+				"Don't think about it too much."
+			<<else>>
+				"It feels better each time."
+			<</if>>
+			<<set $gwylanSeen.pushUnique("gwylan_knotted_player")>>
+		<<elseif _gwylanStatus.includes("heat")>>
+			<<He>> bites your neck and holds you tightly, trembling as orgasmic waves wash over <<him>>.
+			<<if _gwylanTF.fangs is "revealed">>
+				<<He>> pulls away and licks the spot <<he>> bit, before licking <<his>> fangs in turn. <<pain 8>><<ggpain>>
+			<<else>>
+				<<He>> pulls away and kisses the spot <<he>> bit. <<pain 4>><<gpain>>
+			<</if>>
+		<</if>>
+		<<vaginalejacstat>><<ejacstat>><<set $hygiene += 500>><<bodyliquid "vagina" "semen">>
+		<<recordVaginalSperm "pc" $NPCList[_nn] "human">>
+
+	<<elseif $NPCList[_nn].penis is "cheeks" and playerChastity()>>
+		<<if $consensual is 0 or _gwylanStatus.includes("heat")>>
+			<<He>> quietly cums against your $worn.genitals.name. "Curse this wretched thing," <<he>> grumbles.
+		<<else>>
+			<<He>> quietly cums against your $worn.genitals.name. "Pesky thing," <<he>> pouts.
+		<</if>>
+		<<if _args[0] isnot "short">><<gwylanChastityRequest $consensual>><</if>>
+
+	<<elseif $NPCList[_nn].penis is "cheeks">>
+		<<He>> grabs your thighs, pushing <<his>> crotch hard against your ass and ejaculating between your cheeks. <<He>> leans forward and relaxes against you.
+		"Maybe I'll get inside you, next time."
+		<<bottomejacstat>><<ejacstat>><<set $hygiene += 500>><<bodyliquid "bottom" "semen">>
+
+	<<elseif $NPCList[_nn].penis is "anusentrance" and playerChastity("anus")>>
+		<<if $consensual is 0 or _gwylanStatus.includes("heat")>>
+			<<He>> quietly cums against your $worn.genitals.name. "Curse this wretched thing," <<he>> grumbles.
+		<<else>>
+			<<He>> quietly cums against your $worn.genitals.name. "Pesky thing," <<he>> pouts.
+		<</if>>
+		<<if _args[0] isnot "short">><<gwylanChastityRequest $consensual>><</if>>
+
+	<<elseif $NPCList[_nn].penis is "anusentrance">>
+		<<He>> strokes <<his>> cock and quietly ejaculates onto your ass. You feel warm semen dripping down your bottom. <<He>> leans forward and relaxes against you.
+		"Maybe I'll get inside you, next time."
+		<<bottomejacstat>><<ejacstat>><<set $hygiene += 500>><<bodyliquid "bottom" "semen">>
+		<<recordSperm `{genital: "anus", target: "pc", spermOwner: $NPCList[_nn], spermType: "human", rngModifier: 5, rngType: "canWash"}`>>
+
+	<<elseif $NPCList[_nn].penis is "anusimminent" and playerChastity("anus")>>
+		<<if $consensual is 0 or _gwylanStatus.includes("heat")>>
+			<<He>> quietly cums against your $worn.genitals.name. "Curse this wretched thing," <<he>> grumbles.
+		<<else>>
+			<<He>> quietly cums against your $worn.genitals.name. "Pesky thing," <<he>> pouts.
+		<</if>>
+		<<if _args[0] isnot "short">><<gwylanChastityRequest $consensual>><</if>>
+
+	<<elseif $NPCList[_nn].penis is "anusimminent">>
+		<<He>> strokes <<his>> cock and ejaculates onto your ass before <<he>> can penetrate you, sending white streams of semen running down your crack. <<He>> seems upset. <<He>> leans forward and relaxes against you.
+		"Maybe I'll get inside you, next time."
+		<<bottomejacstat>><<ejacstat>><<set $hygiene += 500>><<bodyliquid "bottom" "semen">>
+		<<recordSperm `{genital: "anus", target: "pc", spermOwner: $NPCList[_nn], spermType: "human", rngModifier: 15, rngType: "canWash"}`>>
+
+	<<elseif $NPCList[_nn].penis is "anus">>
+		<<if _gwylanStatus.includes("lust") and ($NPCList[_nn].lefthand is "hypnosis_orgasm" or $NPCList[_nn].righthand is "hypnosis_orgasm" or $combat_hypnosis is "orgasm" or $hypnosis_traits.devotion gte 3)>>
+			<<if $position is "missionary">>
+				<<He>> leans down and wraps <<his>> arms around you tightly as <<he>> thrusts faster. <<He>> whispers directly in your ear.
+			<<else>>
+				<<He>> thrusts into you harder and faster as <<he>> reaches <<his>> peak. <<He>> leans forward and whispers directly in your ear.
+			<</if>>
+			"Don't you dare hold back, <<pcpetname "Gwylan">>. Finish again." <<He>> snaps <<his>> fingers.
+			<<hypnosisText "A deep yearning blooms, nurtured by your <<if $consensual is 1>>intimate<<else>>carnal<</if>> union. Feelings of arousal overwhelm you.">>
+			<<orgasm>>
+
+			<<He>> shivers in ecstasy, and lets out a <<if $consensual is 1>>soft moan<<else>>huff<</if>> as you cum together, <<his>> semen filling you.
+		<<else>>
+			<<He>> wraps <<his>> arms around you as <<he>> thrusts faster. <<His>> fingers and toes curl in pleasure as <<he>> cums inside you.
+		<</if>>
+
+		/* ToDo: Gwylan - replace with appropriate check and text when TF-based player penises are implemented */
+		<<if $hallucinations gte 2 and ($wolfgirl gte 6 or $fox gte 6) and ($orgasmcurrent or $orgasmdown) and _gwylanTF.known>>
+			<br><br>
+
+			<<if $anusaction is "cooperate">>
+				You feel a bulging pressure as you press back against <<him>>. With a final thrust, you feel as though <<he>> somehow press even deeper into you. You involuntarily moan.
+				<<if _gwylanStatus.includes("heat") and _gwylanTF.known>>
+					<<He>> thrusts once more in turn, and yips.
+				<<else>>
+					<<He>> thrusts once more in turn, letting out a low moan.
+				<</if>>
+			<<else>>
+				<<He>> thrusts into you for another moment, before pushing even harder. It feels as though <<he>> slips even deeper into you somehow.
+			<</if>>
+			"Oh my." Gwylan looks <<if $position is "missionary">>down<<else>>up<</if>> at you.
+			<<if _gwylanStatus.includes("heat")>>
+				<<He>> pants, and smiles. "I'm sorry, I couldn't hold back."
+			<<else>>
+				There's a blush spreading over <<his>> face. "I'm sorry, you got me excited."
+			<</if>>
+			<br><br>
+
+			You try to withdraw, <span class="pink">but you can't</span>. You look down. <span class="lewd"><<His>> penis looks different, like that of a <<if $wolfgirl gte 6>>wolf<<else>>fox<</if>>, complete with a knot. And it's stuck.</span>
+			<br><br>
+
+			<<if _gwylanStatus.includes("heat")>>
+				<<He>> continues grinding against you. Each movement makes you whine with pleasure. <<He>> giggles softly. "<<pcPetname "Gwylan" "good">>... you like that, don't you?"
+				Finally, it exits with a pop, prompting you both to slowly moan. Some of <<his>> cum spills out.
+			<<else>>
+				The two of you sit in awkward silence while you wait for <<his>> knot to go down. "I-it's a compliment," Gwylan says after a while. "I liked it a lot." Finally, <<his>> knot exits you with a pop.
+				Some of <<his>> cum spills out.
+			<</if>>
+			<<He>> turns even more red and stays quiet for a moment. You look down again, and <<his>> penis looks normal.
+			<<if !$gwylanSeen.includes("gwylan_knotted_player")>>
+				"Don't think about it too much."
+			<<else>>
+				"It feels better each time."
+			<</if>>
+			<<set $gwylanSeen.pushUnique("gwylan_knotted_player")>>
+
+		<<elseif _gwylanStatus.includes("heat")>>
+			<<He>> bites your neck and holds you tightly, trembling as orgasmic waves wash over <<him>>.
+			<<if _gwylanTF.fangs is "revealed">>
+				<<He>> pulls away and licks the spot <<he>> bit, before licking <<his>> fangs in turn. <<pain 8>><<ggpain>>
+			<<else>>
+				<<He>> pulls away and kisses the spot <<he>> bit. <<pain 4>><<gpain>>
+			<</if>>
+		<</if>>
+		<<analejacstat>><<ejacstat>><<set $hygiene += 500>><<bodyliquid "anus" "semen">>
+		<<recordAnusSperm "pc" $NPCList[_nn] "human">>
+
+	<<elseif $NPCList[_nn].penis is "chest">>
+		<<He>> puts <<his>> hand behind your neck and bears down on your <<breasts>>.
+		Semen shoots between your <<breasts>> and covers your
+		<<if $position is "missionary">>
+			face.<<faceejacstat>><<ejacstat>><<set $hygiene += 500>><<bodyliquid "face" "semen">>
+		<<else>>
+			stomach.<<tummyejacstat>><<ejacstat>><<set $hygiene += 500>><<bodyliquid "tummy" "semen">>
+		<</if>>
+		"My compliments."
+		<<chestejacstat>><<ejacstat>><<set $hygiene += 500>><<bodyliquid "chest" "semen">>
+
+	<<elseif $NPCList[_nn].penis is "mouthentrance" or $NPCList[_nn].penis is "mouthimminent">>
+		<<if $hypnosis_traits.devotion gte 3>>
+			<<He>> presses <<his>> <<npcPenis>> against your lips.
+			"<<gwylanCommand "Open up">>, <<pcpetname "Gwylan">>." <<hypnosisText "Your body obeys <<his>> command.">>
+			Thick ropes of cum shoot into your mouth. <<He>> sighs with relief. You feel warm as <<he>> pets your head. "<<pcPetname "Gwylan" "good">>." <<trauma -1>><<ltrauma>>
+			<<cumswallow `$NPCList[_nn].type` null `npcSemenMod($NPCList[_nn].penissize)`>>
+		<<else>>
+			<<He>> presses <<his>> <<npcPenis>> against your lips, but doesn't push any further. <<He>> pulls back, shooting several thick ropes of cum over your face.
+			<<He>> sighs with relief, and giggles. "Look at what you made me do."
+			<<set $hygiene += 500>><<bodyliquid "face" "semen">>
+		<</if>>
+
+	<<elseif $NPCList[_nn].penis is "mouth">>
+		<<if $hypnosis_traits.devotion gte 3>>
+			<<He>> presses <<his>> <<npcPenis>> all the way into your mouth.
+			"<<gwylanCommand "Swallow it all">>, <<pcpetname "Gwylan">>." <<hypnosisText "Your body obeys <<his>> command.">>
+			Thick ropes of cum shoot into your mouth and throat. You eagerly take it all in as <<he>> sighs with relief. You feel warm as <<he>> pets your head. "<<pcPetname "Gwylan" "good">>." <<trauma -1>><<ltrauma>>
+		<<else>>
+			<<He>> presses <<his>> <<npcPenis>> all the way into your mouth. Thick ropes of cum shoot into your mouth and throat.
+			<<He>> sighs with relief, and giggles. "<<pcPetname "Gwylan" "good">>."
+		<</if>>
+		<<oralejacstat>><<ejacstat>><<cumswallow `$NPCList[_nn].type` null `npcSemenMod($NPCList[_nn].penissize)`>>
+
+	<<elseif $NPCList[_nn].penis is "feet">>
+		<<He>> lets out a long breath as <<he>> climaxes and shakes against your foot. "Oh my, how degrading." <<He>> giggles.
+		<<feetejacstat>><<ejacstat>><<set $hygiene += 500>><<bodyliquid "feet" "semen">>
+
+	<<elseif $NPCList[_nn].penis is "leftarm" and $NPCList[_nn].penis is "rightarm">>
+		<<He>> shakes quietly as you work <<his>> penis with both hands. <<His>> fresh semen covers your hands and wrists.
+		<<if $hypnosis_traits.devotion gte 3>>
+			<<He>> giggles, and raises a finger to your face. "<<gwylanCommand "Clean it up.">>" <<hypnosisText "Your body obeys <<his>> command.">>
+			You hungrily lick up <<his>> semen, and even lick the stray drops from <<his>> <<npcPenis>>. <<He>> smiles down at you and pets your head as you do. <<trauma -1>><<ltrauma>>
+		<<else>>
+			"I'm impressed," <<he>> says with a giggle.
+		<</if>>
+		<<handejacstat>><<ejacstat>><<set $hygiene += 500>><<bodyliquid "leftarm" "semen">><<bodyliquid "rightarm" "semen">>
+
+	<<elseif $NPCList[_nn].penis is "leftarm" or $NPCList[_nn].penis is "rightarm">>
+		<<set $_arm to $NPCList[_nn].penis is "leftarm" ? "left" : "right">>
+		<<He>> shakes quietly as you tease forth fresh cum from <<his>> penis with your $_arm hand.
+		<<if $hypnosis_traits.devotion gte 3>>
+			<<He>> giggles, and raises a finger to your face. "<<gwylanCommand "Clean it up.">>" <<hypnosisText "Your body obeys <<his>> command.">>
+			You hungrily lick up <<his>> semen, and even lick the stray drops from <<his>> <<npcPenis>>. <<He>> smiles down at you and pets your head as you do. <<trauma -1>><<ltrauma>>
+		<<else>>
+			"I'm impressed," <<he>> says with a giggle.
+		<</if>>
+		<<handejacstat>><<ejacstat>><<set $hygiene += 500>><<bodyliquid "leftarm" "semen">>
+
+	<<elseif $NPCList[_nn].penis is 0>>
+		<<He>> covers <<his>> mouth as semen erupts from <<his>> <<npcPenis>>. <<He>> breathes heavily and blushes. "You tease."
+
+	<<elseif $NPCList[_nn].penis is "otheranus">>
+		<<if _gwylanStatus.includes("lust") and ($NPCList[_nn].lefthand is "hypnosis_orgasm" or $NPCList[_nn].righthand is "hypnosis_orgasm" or $combat_hypnosis is "orgasm" or $hypnosis_traits.devotion gte 3)>>
+			<<if $position is "missionary">>
+				<<He>> leans back as <<he>> rides you faster. <<He>> <<if $consensual is 1>>smiles<<else>>glares<</if>> down at you as <<he>> reaches <<his>> peak.
+			<<else>>
+				<<He>> presses back against you harder and faster as <<he>> reaches <<his>> peak. <<He>> looks back to you with a <<if $consensual is 1>>smile<<else>>glare<</if>>.
+			<</if>>
+			"Don't you dare hold back, <<pcpetname "Gwylan">>. Fill me<<if $orgasmcurrent>> again<</if>>." <<He>> snaps <<his>> fingers.
+			<<hypnosisText "A deep yearning blooms, nurtured by your <<if $consensual is 1>>intimate<<else>>carnal<</if>> union. Feelings of arousal overwhelm you.">>
+			<<orgasm>>
+
+			<<He>> shivers in ecstasy, and lets out a <<if $consensual is 1>>soft moan<<else>>huff<</if>> as you cum together.
+		<<else>>
+			<<if $position is "missionary">>
+				<<He>> leans back and presses down hard, grinding on your <<penis>> as <<he>> shudders in climax.
+			<<else>>
+				<<He>> presses back against you hard, grinding on your <<penis>> as <<he>> shudders in climax.
+			<</if>>
+		<</if>>
+
+		/* ToDo: Gwylan - replace with appropriate check and text when TF-based player penises are implemented */
+		<<if $hallucinations gte 2 and ($wolfgirl gte 6 or $fox gte 6) and ($orgasmcurrent or $orgasmdown)>>
+			<br><br>
+
+			<<if $penisaction is "cooperate">>
+				You feel a bulging pressure as you continue to fuck <<him>>. With a final thrust, you feel as though you somehow press even deeper into <<him>>.
+				<<if _gwylanStatus.includes("heat") and _gwylanTF.known>>
+					<<He>> presses back in turn, and yips.
+				<<else>>
+					<<He>> presses back in turn, letting out a low moan.
+				<</if>>
+			<<else>>
+				<<He>> grinds on you for another moment, before pushing even harder. It feels as though you slip even deeper into <<him>> somehow.
+			<</if>>
+			"Oh my." Gwylan looks <<if $position is "missionary">>down<<else>>back<</if>> at you.
+			<<if _gwylanStatus.includes("heat")>>
+				<<He>> pants, and smiles. "You were just as excited as me."
+			<<else>>
+				There's a blush spreading over <<his>> face. "You were excited."
+			<</if>>
+			<br><br>
+
+			You try to withdraw, <span class="pink">but you can't</span>. You look down. Your penis feels strange inside of <<him>>.
+			<span class="lewd">It looks different, like that of a <<if $wolfgirl gte 6>>wolf<<else>>fox<</if>>, complete with a knot. And it's stuck.</span>
+			<br><br>
+
+			<<if _gwylanStatus.includes("heat")>>
+				<<He>> continues grinding against you, whining and chittering with pleasure. <<He>> trembles in bursts, fluids continuing to drool from <<his>> <<npcVagina>>.
+				<<His>> back arches as your knot finally deflates. Finally, it exits with a pop, prompting Gwylan to slowly moan.
+				<<if $internalejac>>
+					Some of your cum spills out.
+				<</if>>
+			<<else>>
+				The two of you sit in awkward silence while you wait for your knot to go down. "Don't get me wrong," Gwylan says after a while. "I like it." <<He>> grinds against you again, letting out a soft moan. Finally, it exits <<him>> with a pop.
+				<<if $internalejac>>
+					Some of your cum spills out.
+				<</if>>
+			<</if>>
+			<<He>> turns even more red and stays quiet for a moment. You look down again, and your penis looks normal. <<He>> breaks the silence with a giggle.
+			<<if !$gwylanSeen.includes("player_knotted_gwylan")>>
+				"Don't think about it too much."
+			<<else>>
+				"It feels better each time."
+			<</if>>
+			<<set $gwylanSeen.pushUnique("player_knotted_gwylan")>>
+
+		<<elseif _gwylanStatus.includes("heat")>>
+			<<He>> bites your neck and holds you tightly, trembling as orgasmic waves wash over <<him>>.
+			<<if _gwylanTF.fangs is "revealed">>
+				<<He>> pulls away and licks the spot <<he>> bit, before licking <<his>> fangs in turn. <<pain 8>><<ggpain>>
+			<<else>>
+				<<He>> pulls away and kisses the spot <<he>> bit. <<pain 4>><<gpain>>
+			<</if>>
+		<</if>>
+
+	<<elseif ($NPCList[_nn].penis is "otheranusfrot" or $NPCList[_nn].penis is "otheranusentrance" or $NPCList[_nn].penis is "otheranusimminent") and playerChastity("penis")>>
+		<<if $consensual is 0 or _gwylanStatus.includes("heat")>>
+			<<He>> quietly cums against your $worn.genitals.name. "Curse this wretched thing," <<he>> grumbles.
+		<<else>>
+			<<He>> quietly cums against your $worn.genitals.name. "Pesky thing," <<he>> pouts.
+		<</if>>
+		<<if _args[0] isnot "short">><<gwylanChastityRequest $consensual>><</if>>
+
+	<<elseif $NPCList[_nn].penis is "otheranusfrot" or $NPCList[_nn].penis is "otheranusentrance" or $NPCList[_nn].penis is "otheranusimminent">>
+		<<He>> lets out a ragged breath and shudders as <<he>> grinds against you <<bottom>>. <<He>> leans forward, worn out. "You're a bad <<girl>>, teasing me like that."
+
+	<<elseif $NPCList[_nn].penis is "penis" and playerChastity("penis")>>
+		<<if $consensual is 0 or _gwylanStatus.includes("heat")>>
+			<<He>> quietly cums against your $worn.genitals.name. "Curse this wretched thing," <<he>> grumbles.
+		<<else>>
+			<<He>> quietly cums against your $worn.genitals.name. "Pesky thing," <<he>> pouts.
+		<</if>>
+		<<if _args[0] isnot "short">><<gwylanChastityRequest $consensual>><</if>>
+
+	<<elseif $NPCList[_nn].penis is "penis">>
+		<<switch random(1, 5)>>
+			<<case 1>>
+				<<He>> cums as you knead your <<penises>> together, shivering with pleasure.
+			<<case 2>>
+				<<He>> cums as you rub your <<penises>> together, shivering with pleasure.
+			<<case 3>>
+				<<He>> cums as you frot your <<penises>> together, shooting <<his>> impressive load over your <<penis>> and stomach.
+			<<case 4>>
+				<<He>> shivers as <<he>> grinds downs hard on your <<penis>> to finish. <<He>> uses the cum as lube, furiously milking out the last of <<his>> cum against your <<penis>>.
+			<<case 5>>
+				<<He>> giggles as <<he>> rubs hard against your <<penis>> to finish. <<He>> uses the cum as lube, furiously milking out the last of <<his>> semen against your <<penis>>.
+		<</switch>>
+		<<tummyejacstat>><<ejacstat>><<set $hygiene += 500>><<bodyliquid "tummy" "semen">>
+
+	<<elseif $NPCList[_nn].penis is "penisentrance" or $NPCList[_nn].penis is "penisimminent">>
+		<<He>> lets out a ragged breath and shudders as <<he>> grinds against you, shooting a load onto your tummy. <<He>> leans forward, worn out. "You're a bad <<girl>>, teasing me like that."
+		<<tummyejacstat>><<ejacstat>><<set $hygiene += 500>><<bodyliquid "tummy" "semen">>
+
+	<<elseif $NPCList[_nn].mouth is "penis" and $NPCList[_nn].vagina is "none" and $NPCList[_nn].penis isnot "none">>
+		<<switch $player.penissize>>
+			<<case 6>>
+				<<if $orgasmdown or $internalejac>>
+					<<He>> continues holding
+				<<else>>
+					<<He>> expertly holds
+				<</if>>
+				your <<penis>> in <<his>> throat even as <<he>> reaches climax. <<His>> mouth and throat hug you tightly. Finally, <<he>> releases you with a final gasp
+			<<case 5 4 3>>
+				<<if $orgasmdown or $internalejac>>
+					<<He>> continues holding
+				<<else>>
+					<<He>> expertly holds
+				<</if>>
+				your <<penis>> in <<his>> mouth even as <<he>> reaches climax. When <<hes>> done shaking, <<he>> releases you
+			<<default>>
+				<<if $orgasmdown or $internalejac>>
+					<<He>> continues holding
+				<<else>>
+					<<He>> holds
+				<</if>>
+				your <<penis>> in <<his>> mouth even as <<he>> reaches climax, continuing to pleasure your small length. When <<hes>> done shaking, <<he>> releases you
+		<</switch>>
+		<<if $internalejac>>
+			and swallows. "Thanks for the meal."
+		<<else>>
+			and pouts. "Don't hold back next time. I was hungry for you."
+		<</if>>
+
+	<<elseif $NPCList[_nn].penis is "othermouth">>
+		<<His>> tongue eagerly laps at you as <<he>> cums.
+		<<if _gwylanStatus.includes("heat")>>
+			<<He>> nibbles you before pulling away.
+		<<else>>
+			<<His>> hot breath makes you shiver as <<he>> pulls away.
+		<</if>>
+		<<He>> pushes a lock of hair away from <<his>> face and smiles at you. "Delicious."
+
+	<</if>>
+
+	<!-- Finishing moves -->
+	<<if _args[0] isnot "short">>
+		<br><br>
+
+		<<if _gwylanTF.known and _gwylanStatus.includes("heat")>>
+			<<if $position is "doggy">>
+				<<if ["penis", "penisentrance", "penisimminent"].includes($NPCList[_nn].vagina) or ["penis", "penisentrance", "penisimminent"].includes($NPCList[_nn].anus)>>
+					<<He>> presses against you, pushing you back until you're sitting, and sits in your lap.
+				<<else>>
+					<<He>> pulls you back until you're sitting on <<his>> lap.
+				<</if>>
+			<<else>>
+				<<He>> lifts you up and sits in your lap with <<his>> legs around you.
+			<</if>>
+			<<He>> nuzzles <<his>> head into your shoulder and hugs you tightly. <<He>> lets out a series of short yips and whines in <<his>> <<if $pronoun is "m">>rut<<else>>heat<</if>>.
+			<<if _gwylanTF.tail isnot "fake">>
+				<<His>> tail flits back and forth as you hold each other.
+			<</if>>
+		<<elseif $consensual is 1 and $orgasmdown and (_gwylanStatus.includes("lust") or $gwylanSeen.includes("partners"))>>
+			<<He>> pushes <<his>> head into the crook of your neck. You sit there for a few minutes as <<he>> plays with your hair, running <<his>> hands through it.
+			"Finishing together always feels so much better," <<he>> whispers. <<trauma -2>><<ltrauma>>
+		<<elseif $consensual is 0 and (_gwylanStatus.includes("lust") or $gwylanSeen.includes("partners"))>>
+			<<He>> pushes <<his>> head into the crook of your neck and holds you in the grass. You sit there for a few minutes as <<he>> plays with your hair, running <<his>> hands through it.
+			"Forgive me for being so assertive. That was nice." Despite the feeling of violation, <<his>> voice calms you. <<stress -3>><<lstress>>
+		<<elseif $consensual is 0>>
+			Once <<his>> shivers subside, <<he>> looks a little guilty. "I'm sorry. I got carried away."
+		<</if>>
+
+	<</if>>
+
+	<<set $daily.gwylan.orgasm to true>>
+
+<</widget>>

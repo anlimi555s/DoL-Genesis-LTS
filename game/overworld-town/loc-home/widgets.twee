@@ -1,0 +1,248 @@
+:: Widgets Home [widget]
+
+<<widget "home_outside">>
+	<<if $exposed gte 1>>
+		<<set _ex to ($exposed >= 2 ? (Time.dayState == "night" ? 4 : 5) : (Time.dayState == "night" ? 2 : 3))>>
+		<<if hasSexStat("exhibitionism", _ex)>>
+			<<if Time.dayState is "night">>
+				<<dooricon "orphanage">><<link [[Sneak outside (0:02)|Home Leave]]>><<pass 2>><</link>>
+			<<else>>
+				<<dooricon "orphanage">><<link [[Sneak outside (0:05)|Home Leave]]>><<pass 5>><</link>>
+			<</if>>
+			<<if $daily.ex.fence isnot 1>>
+				<<switch _ex>>
+					<<case 2>>
+						<<exhibitionist2>>
+					<<case 3>>
+						<<exhibitionist3>>
+					<<case 4>>
+						<<exhibitionist4>>
+					<<case 5>>
+						<<exhibitionist5>>
+				<</switch>>
+			<</if>>
+		<</if>>
+		<br>
+	<<else>>
+		<<if Time.hour gte 18 and Time.hour lte 20 and C.npc.Robin.trauma gte 40 and $robinmissing is 0 and !$robinTraumaVisit>>
+			<<dooricon "orphanage">><<link [[Leave orphanage (0:01)|Robin Trauma Visit]]>><<set $phase to 2>><<pass 1>><</link>>
+		<<elseif $robinpaid gte 1 and Time.isWeekEnd() and $weekly.robinGift isnot 1 and Time.hour gte 7 and Time.hour lt 9 and C.npc.Robin.trauma lt 80 and random(1, 10) lte 3 and $robin.timer.hurt lt 1 and $robinmissing is 0>>
+			<<dooricon "orphanage">><<link [[Leave orphanage (0:01)|Robin Weekend Gift]]>><<pass 1>><<set $weekly.robinGift to 1>><</link>>
+		<<else>>
+			<<dooricon "orphanage">><<link [[Leave orphanage (0:01)|Domus Street]]>><<pass 1>><</link>>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "home_effects">>
+	<<if $hoursGoneFromHome lte 167>>
+		<<set $hoursGoneFromHome to 0>>
+	<</if>>
+<</widget>>
+
+<<widget "slimeWakeBodyliquid">>
+	<<set _liquid to _args[0]>>
+	<<if $player.penisExist and $player.virginity.penile isnot true and !playerChastity("penis")>>
+		<<bodyliquid "penis" _liquid random(1,3)>>
+	<</if>>
+	<<if $player.vaginaExist and $player.virginity.vaginal isnot true and !playerChastity("hidden")>>
+		<<bodyliquid "vagina" _liquid random(1,3)>>
+	<</if>>
+	<<if $player.virginity.anal isnot true and !playerChastity("anus") and $settings.analEnabled>>
+		<<bodyliquid "anus" _liquid random(1,3)>>
+	<</if>>
+	<<if $player.virginity.oral isnot true>>
+		<<bodyliquid "mouth" _liquid random(1,3)>>
+	<</if>>
+	<<bodyliquid "hair" _liquid random(1,3)>>
+	<<bodyliquid "face" _liquid random(1,3)>>
+	<<bodyliquid "neck" _liquid random(1,3)>>
+	<<bodyliquid "chest" _liquid random(1,3)>>
+	<<bodyliquid "leftarm" _liquid random(1,3)>>
+	<<bodyliquid "rightarm" _liquid random(1,3)>>
+	<<bodyliquid "thigh" _liquid random(1,3)>>
+	<<bodyliquid "feet" _liquid random(1,3)>>
+<</widget>>
+
+<<widget "slimeWakeAlleyway">>
+	<<set $earSlime.eventTimer to 3>>
+	<<storeon "bed" "return">>
+	<<storeon "Temple Bunk Bed" "return">>
+	/* effects and sleepeffects requires due to ending sleep and changing location */
+	<<effects>>
+	<<sleepeffects>>
+
+	You wake up in a confused and disoriented state. The last thing you recall is getting into bed <<if $robinbed is "theirs">>with Robin<<else>>like normal<</if>>. However, you're clearly not in it anymore. You have a feeling that the slime in your ear is involved in some way.
+	<br><br>
+	<<if $tutorial or $debug>>
+		<<set _newLocation to ["Residential Alleyways", "Commercial Alleyways", "Park", "Industrial Alleyways"].random()>>
+		<<set $eventskip to 1>>
+
+		<<if random(0,100) gt 80 and (maleChance() lt 100 or $settings.maleNPCVaginaChance gt 0) and $earSlime.deviancy gte 3>>
+			<<set _coveredIn to "slime">>
+			<<slimeWakeBodyliquid "goo">>
+		<</if>>
+		<<if random(0,100) gt 80 and (maleChance() gt 0 or $settings.femaleNPCPenisChance gt 0) and $earSlime.promiscuity gte 3>>
+			<<set _coveredIn to (_coveredIn is "slime" ? "slime and semen" : "semen")>>
+			<<slimeWakeBodyliquid "semen">>
+		<</if>>
+		<<if _coveredIn isnot undefined>>
+			On top of this predicament, you find yourself covered in <<print _coveredIn>>. If this was the slime's doing, it clearly had its fun with your body while you slept.
+			<br><br>
+		<</if>>
+		Having a look round your surroundings, you think that you've somehow been relocated to the <<print _newLocation.toLocaleLowerCase()>>.
+		<br><br>
+		<<link [[Next|_newLocation]]>><</link>>
+	<<else>>
+		<<set $tutorial to 1>>
+		<<generate1>><<person1>>Without warning, a <<person>> passing by bumps into you. <<He>> staggers back and looks at you with anger, but <<his>> rage turns to lechery as <<he>> beholds you. "You're the cutest thing I've seen all week! Come 'ere."
+		<br><br>
+		<<link [[Next|Tutorial]]>><<set $molestationstart to 1>><<set $tutorialExit to "Residential Alleyways">><</link>>
+	<</if>>
+	<<exitAll>>
+<</widget>>
+
+<<widget "slimeWakeMasturbation">>
+	/* To correct for lost hour */
+	<<set $sleephour++>>
+	<<set _slimeWakeMasturbation to 0>>
+	<<set $weekly.slimeWakeMasturbation to true>>
+	<<set _rng to random(0, 100)>>
+	<<set _options to 1>>
+	<<if $player.penisExist and ($worn.genitals.name is "chastity parasite" or !playerChastity("penis"))>><<set _options++>><</if>>
+	<<if $player.vaginaExist and !playerChastity("vagina")>><<set _options++>><</if>>
+	<<if $settings.analEnabled and !playerChastity("anus")>><<set _options++>><</if>>
+
+	<<arousal 10000>>
+	<<drugs 200>>
+	<<silently>><<orgasm>><</silently>>
+	You wake up in a highly aroused and disoriented state. Unable to get up, you look at yourself, only to find that you're unable to stop
+	<<if $player.penisExist and ($worn.genitals.name is "chastity parasite" or !playerChastity("penis"))>>
+		<<if $worn.genitals.name is "chastity parasite">>
+			aggressively squeezing the parasite between your legs. The waves of pleasure flowing through you sends you <<if _deniedOrgasm>>close to the edge<<else>>over the edge<</if>>, immediately followed by a second<<if _deniedOrgasm>> ruined<</if>> orgasm.
+			<br><br>
+			<<orgasm>>
+			<<orgasm>>
+			<<set _multiple to true>>
+		<<else>>
+			aggressively stroking your penis. The pleasure quickly sends you <<if _deniedOrgasm>>close to the edge<<else>>over the edge<</if>>.
+			<br><br>
+			<<orgasm>>
+		<</if>>
+	<<elseif $player.vaginaExist and !playerChastity("vagina") and _rng gte 100 / Math.clamp(_options - 1, 1, Infinity)>>
+		aggressively fingering your pussy. The pleasure quickly sends you <<if _deniedOrgasm>>close to the edge<<else>>over the edge<</if>>.
+		<br><br>
+		<<orgasm>>
+	<<elseif $settings.analEnabled and !playerChastity("anus") and _rng gte 100 / Math.clamp(_options - 2, 1, Infinity)>>
+		aggressively fingering your anus. The pleasure quickly sends you <<if _deniedOrgasm>>close to the edge<<else>>over the edge<</if>>.
+		<br><br>
+		<<orgasm>>
+	<<else>>
+		aggressively pinching your nipples. The pleasure quickly sends you <<if _deniedOrgasm>>close to the edge<<else>>over the edge<</if>>.
+		<br><br>
+		<<orgasm>>
+	<</if>>
+	After the final<<if _deniedOrgasm>> ruined<</if>> orgasm subsides, you regain control over your body. You slowly calm down and attempt to go back to sleep.
+	<br><br>
+	<<link [[Next|$passage]]>><</link>>
+
+	<<exitAll>>
+<</widget>>
+
+<<widget "orphanageWard">>
+	<<if $debug is 1 or $ward_unlocked>>
+		<br>
+		<<if inappropriatePlayerState("clothes")>>
+			<<childicon "blocks">><span class="pink">You're dressed too indecently to enter the youth ward.</span>
+		<<elseif inappropriatePlayerState("fluids")>>
+			<<childicon "blocks">><span class="pink">You should clean yourself before entering the youth ward.</span>
+		<<elseif inappropriatePlayerState("drugs")>>
+			<<childicon "blocks">><span class="pink">You're too intoxicated to enter the youth ward.</span>
+		<<else>>
+			<<if !$orphanageWardIntro>>
+				<<childicon "blocks">><<link [[Ward (0:01)|Orphanage Ward Intro]]>><<pass 1>><</link>>
+			<<elseif !$daily.wardHalloween and $halloween is 1 and Time.hour gte 6 and Time.hour lte 21 and $rng gte 51>>
+				<<childicon "blocks">><<link [[Ward (0:01)|Orphanage Ward Halloween Enter]]>><<pass 1>><</link>>
+			<<else>>
+				<<childicon "blocks">><<link [[Ward (0:01)|Orphanage Ward]]>><<pass 1>><</link>>
+			<</if>>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "orphanageWardOptions">>
+	<<getChildrenIds `{location:"home", father:"Ivory Wraith"}`>><<rngWraith 1 "night">>
+	<<if _childrenIds.length gte 1 and _wraithEvent and !$possessed and !$daily.wraithNursery>>
+		<<childicon "crib">><<link [[Nursery|Orphanage Ward Wraith Sing]]>><<set $exitPassage to $passage>><</link>>
+		<br>
+	<<else>>
+		<<childicon "crib">><<link [[Nursery|Childrens Home]]>><<set $exitPassage to $passage>><</link>>
+		<br>
+	<</if>>
+	<<if $hallucinations gte 2 and $rng is 100>>
+		<<main_hall_icon>><<link [[Main hall|Orphanage Ward Door]]>><</link>>
+		<br>
+	<<else>>
+		<<main_hall_icon>><<link [[Main hall|Orphanage]]>><</link>>
+		<br>
+	<</if>>
+<</widget>>
+
+<<widget "bathroomLink">>
+	<<if getRobinLocation() is "bath" and $halloween isnot 1>>
+		<<if $robinBathKnown>>
+			Robin is in the bath.
+			<br>
+		<</if>>
+		<<bathroomicon>><<link [[Bathroom (0:01)|Robin Bath]]>><<pass 1>><</link>>
+	<<else>>
+		<<if $robinBathKnown>>
+			<<unset $robinBathKnown>>
+		<</if>>
+		<<bathroomicon>><<link [[Bathroom (0:01)|Bathroom]]>><<pass 1>><</link>>
+	<</if>>
+<</widget>>
+
+<<widget "generateSleepLinks">>
+	<<set _sleep_passage to _args[0]>>
+	<<set _maxHours to ($sleeptrouble is 1 and $controlled is 0 and !$hypnosis_traits.slumber) ? 10 : 8>>
+	<<for _i = _maxHours; _i > 0; _i-->>
+		<<if _i is 1>>
+			<<link [[Sleep for 1 hour|_sleep_passage]]>><<set $sleephour to 1>><</link>> &#8194;(<<timeAfterXHours 1>>)<<if $tiredness > 0>><<ltiredness>><</if>>
+		<<else>>
+			<<capture _i>>
+				<<link [["Sleep for " + _i + " hours"|_sleep_passage]]>><<set $sleephour to _i>><</link>> (<<timeAfterXHours _i>>)<<if $tiredness > 0>><<ltiredness>><</if>>
+			<</capture>>
+		<</if>>
+		<br>
+	<</for>>
+	<<if $tiredness > 0>>
+		<<link [[Just sleep|_sleep_passage]]>><<set $sleephour to -1>><</link>> (??:??)<<ltiredness>>
+		<br>
+	<</if>>
+	<br>
+<</widget>>
+
+<<widget "loft_window_options">>
+<<if !_no_options>>
+	<<if $loft_gh is 2 and $money gte 100000 and Time.dayState isnot "night">>
+		<<highicon>><<link [[Buy decorations (0:20)|Bird Loft Decor 1]]>><<money -100000 "BayWindowDecor">><<pass 20>><<endevent>><</link>>
+		<br>
+	<</if>>
+	<<if $daily.no_sing>>
+		<span class="blue">You can't find your voice.</span>
+		<br>
+	<<else>>
+		<<birdicon "sing">><<link [[Sing (0:30)|Orphanage Loft Bay Window Sing]]>><<pass 30>><<endevent>><</link>>
+		<br>
+	<</if>>
+	<<if $harpy gte 6 and $transformationParts.bird.wings isnot "hidden">>
+		<<birdicon "preen_self">><<link [[Preen your wings (0:30)|Orphanage Loft Bay Window Preen]]>><<pass 30>><<stress -2>><<endevent>><</link>><<lstress>>
+		<br>
+	<</if>>
+	<<foresticon>><<link [[Watch the forest (1:00)|Orphanage Loft Bay Window Watch]]>><<pass 60>><<endevent>><</link>>
+	<br>
+<</if>>
+<<getouticon>><<link [[Leave|Orphanage Loft]]>><<endevent>><</link>>
+<br>
+<</widget>>

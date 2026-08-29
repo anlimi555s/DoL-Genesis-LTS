@@ -1,0 +1,214 @@
+:: Widgets Police [widget]
+
+<<widget "police_computer_action">>
+	The police computer gives access to criminal records. Looking at your own, you see that
+
+	<<if crimeSumCurrent() gte 6000>>
+		<span class="red">you are on the "most wanted" list and they plan to punish you severely.</span>
+	<<elseif crimeSumCurrent() gte 4500>>
+		<span class="red">your arrest is a priority and they have enough on you to warrant extreme punishment.</span>
+	<<elseif crimeSumCurrent() gte 4000>>
+		<span class="red">your arrest is being actively sought</span> and they have enough on you to warrant <span class="red">heavy punishment.</span>
+	<<elseif crimeSumCurrent() gte 3000>>
+		<span class="red">an arrest warrant has been issued for you</span> and they have enough to warrant <span class="red">serious punishment.</span>
+	<<elseif crimeSumCurrent() gte 2000>>
+		<span class="red">an arrest warrant has been issued for you</span> and they have enough to warrant significant punishment.
+	<<elseif crimeSumCurrent() gte 1000>>
+		<span class="red">an arrest warrant</span> has been issued for you. They have enough evidence to warrant a punishment.
+	<<elseif crimeSumCurrent() gte 500>>
+		<span class="gold">they may soon have enough on you to issue an arrest warrant.</span>
+	<<else>>
+		<span class="teal">they have nothing significant on you.</span>
+	<</if>>
+
+	<<if crimeSumCurrent() gte 6000>>
+		Options:
+		<br>
+		<span class="teal">Installing a Wiper worm</span> will destroy lots of police records on everyone, including you.
+		<br>
+		<span class="teal">Framing someone</span> will attach all evidence on you to someone else. This should mislead the police.
+		However, you can only attach it to those who already have a record in the system.
+		<br><br>
+		<<if $police_delete gte 5 and random(1,4) is 4>>
+			<<link [[Install Wiper|Police Sneak Caught]]>><</link>>
+			<br>
+			<<if C.npc.Whitney.init is 1 and C.npc.Whitney.state isnot "dungeon" and $framed is 0>>
+				<<link [[Frame Whitney|Police Sneak Caught]]>><</link>>
+				<br>
+			<</if>>
+			<<if $headpolice is 1 and $framed is 0>>
+				<<link [[Frame Leighton|Police Sneak Caught]]>><</link>>
+				<br>
+			<</if>>
+			<<if $framed isnot 0>>
+				<span class="red">You have already framed <<print ($framed.toUpperFirst())>> for your crimes - you cannot do it again until <<nnpc_he $framed.toUpperFirst()>> has paid for your crimes.</span>
+			<</if>>
+		<<else>>
+			<<link [[Install Wiper (0:10)|Police Computer]]>><<pass 10>><<set $phase to 11>><<crimeDown 0.5 "all">><<set _randomCrime to ((random(5,35) + 20)/100)>><<crimeDown _randomCrime "all">><<set $police_delete += 1>><</link>>
+			<!-- Original crime calculation as follows:
+			<<set $crime /= 2>><<set $crime *= (random(5,35)/100)>> -->
+			<br>
+			<<if C.npc.Whitney.init is 1 and C.npc.Whitney.state isnot "dungeon" and $framed is 0>>
+				<<link [[Frame Whitney (0:10)|Police Computer]]>><<pass 10>><<set $phase to 12>><<crimeClear "all">><<set $police_delete += 1>><</link>>
+				<br>
+			<</if>>
+			<<if $headpolice is 1 and $framed is 0>>
+				<<link [[Frame Leighton (0:10)|Police Computer]]>><<pass 10>><<set $phase to 13>><<crimeClear "all">><<set $police_delete += 1>><</link>>
+				<br>
+			<</if>>
+			<<if $framed isnot 0>>
+				<span class="red">You have already framed <<print ($framed.toUpperFirst())>> for your crimes - you cannot do it again until <<nnpc_he $framed.toUpperFirst()>> has paid for your crimes.</span>
+			<</if>>
+		<</if>>
+	<<elseif crimeSumCurrent() gte 1000>>
+		Options:
+		<br>
+		<span class="teal">Deleting electronic evidence</span> will reduce the amount of crime they can pin on you and should not be detected.
+		<br>
+		<span class="teal">Installing a Wiper worm</span> will destroy lots of police records on everyone, including you.
+		<br>
+		<<if $police_delete gte 5 and random(1,4) is 4>>
+			<<link [[Delete evidence|Police Sneak Caught]]>><</link>>
+			<br>
+			<<link [[Install Wiper|Police Sneak Caught]]>><</link>>
+			<br>
+		<<else>>
+			<<link [[Delete evidence (0:15)|Police Computer]]>><<pass 15>><<set $phase to 10>><<set _randomCrime to ((random(5,35) + 20)/100)>><<crimeDown _randomCrime "all">><<set $police_delete += 1>><</link>>
+			<!-- Original crime calculation as follows:
+			<<set $crime -= $crime * ((random(5,35) + 20)/100)>> -->
+			<br>
+			<<link [[Install Wiper (0:10)|Police Computer]]>><<pass 10>><<set $phase to 11>><<crimeDown 0.5 "all">><<set $police_delete += 1>><</link>>
+			<br>
+		<</if>>
+
+	<</if>>
+<</widget>>
+
+<<widget "seize_stolen_goods">>
+	<<outfitChecks>>
+	"Stay still." The <<person>> pats you down.
+	<<if dangerEvent() or $exposed gt 0>>
+		<<His>> hands roughly grope and prod all over your body, first
+		<<if $breastsize gt 0>>
+			squeezing your <<breasts>>
+		<<else>>
+			fondling your <<nipples>>
+		<</if>>
+		before settling on your <<bottom>>. <<He>> pats it a few times, then
+		<<if _bottomless>>
+			spreads your cheeks apart.
+		<<else>>
+			lifts it and lets go.
+			<<if $player.bottomsize gte 7>>
+				<<if $player.bottomsize gte 8 and $rng gte 100>>
+					Your cheeks clap thunderously against each other as they fall, causing the <<person>> to almost fall backwards in shock, but after a moment <<he>> recovers.
+				<<else>>
+					It ripples under its weight, bouncing for a good few seconds before settling.
+				<</if>>
+			<<elseif $player.bottomsize gte 2>>
+				It jiggles for a moment before settling.
+			<<else>>
+				It stays completely firm.
+			<</if>>
+		<</if>>
+		<<He>> hums inquisitively.
+		<<arousal 1600>><<ggarousal>>
+	<<else>>
+		<<His>> hands run down your body like <<hes>> done this a million times before<<if !_fullyNaked>>, lingering on a few bulky spots<</if>>. <<He>> hums inquisitively.
+	<</if>>
+	<<if $blackmoney gt 0>>
+		<br><br>
+		<<set $skulduggerydifficulty to Math.clamp($blackmoney / 5, 0, 10000)>>
+		<<skulduggerycheck>>
+		<<if $skulduggerysuccess>>
+			<<He>> didn't find your stolen valuables. <<stress -1>><<lstress>>
+		<<else>>
+			<<His>> movements suddenly stop. "I knew it." <<He>> tosses a stolen item to the side.<<if _fullyNaked>> You blush and feign ignorance to where it may have come from. <<arousal 400>><<garousal>><</if>><<stress 2>><<gstress>>
+			<<set _seizedAmount to 1000>>
+			<<if $blackmoney gt 1000>>
+				<br><br>
+				<<set $skulduggerydifficulty to Math.clamp(($blackmoney - 1000) / 5, 0, 10000)>>
+				<<skulduggerycheck>>
+				<<if $skulduggerysuccess>>
+					It looks like <<he>> didn't find the rest of your stolen valuables. <<stress -2>><<lstress>>
+				<<else>>
+					<<He>> rummages around a while longer, and some more items join the pile. <<stress 6>><<gstress>>
+					<<set _seizedAmount to 2500>>
+					<<if $blackmoney gt 2500>>
+						<br><br>
+						<<set $skulduggerydifficulty to Math.clamp(($blackmoney - 2500) / 5, 0, 10000)>>
+						<<skulduggerycheck>>
+						<<if $skulduggerysuccess>>
+							It looks like <<he>> didn't find the rest of your stolen valuables. <<stress -4>><<lstress>>
+						<<else>>
+							Digging deeper, <<he>> finds a whole treasure trove of stolen valuables. <<He>> seems surprised, and a bit worried. <<stress 14>><<ggstress>>
+							<<set _seizedAmount to 5000>>
+							<<if $blackmoney gt 5000>>
+								<br><br>
+								<<set $skulduggerydifficulty to Math.clamp(($blackmoney - 5000) / 5, 0, 10000)>>
+								<<skulduggerycheck>>
+								<<if $skulduggerysuccess>>
+									It looks like <<he>> didn't find the rest of your stolen valuables. <<stress -6>><<lstress>>
+								<<else>>
+									The prodding continues, and <<his>> eyes suddenly go wide. "Holy shit, <<girl>>, are you hiding the wealth of a small nation in here?" <<He>> adds to the pile until it reaches about knee-length off the ground. <<stress 24>><<gggstress>>
+									<<set _seizedAmount to 0>><<set $blackmoney to 0>>
+								<</if>>
+							<</if>>
+						<</if>>
+					<</if>>
+				<</if>>
+			<</if>>
+			<<set $blackmoney -= Math.clamp(_seizedAmount, 0, $blackmoney)>><<set _blackmoneySeized to true>>
+		<</if>>
+	<</if>>
+	<br><br>
+
+	A few more minutes pass, until <<hes>> satisfied with the search.
+
+	<<if ($studyBooks and $studyBooks?.rented isnot "none" and (_args[0] is "all" or $bookOverdue gte 7)) or $studyBooks?.stolen isnot "none">>
+		<br><br>
+		<<if $studyBooks.rented isnot "none" and (_args[0] is "all" or $bookOverdue gte 7)>>
+			<<if $studyBooks.rented is "Pinch">>
+				<<if $per_npc.pinch isnot undefined>>
+					<<set _book to "copy of How <<= $per_npc.pinch.pronoun is 'm' ? 'Mr' : 'Ms'>> Pinch Groped Christmas">>
+				<<else>>
+					<<set _book to "olive-coloured book">>
+				<</if>>
+			<<elseif $studyBooks.rented is "Raul and Janet">>
+				<<set _book to "copy of 'Raul and Janet'">>
+			<<else>>
+				<<set _book to $studyBooks.rented + " textbook">>
+			<</if>>
+			<<if _blackmoneySeized>>"Ah, and the<<else>>"The<</if>>
+			local school will want this back<<if $book_rent_timer gte 0>> soon<</if>>," <<he>> says, <span class="purple">seizing your _book</span>, "so we'll just return it for you." <<He>> smirks.
+			<<set $studyBooks.rented to "none">><<unset $bookOverdue>><<set $book_rent_timer to 0>><<set _bookSeized to true>>
+		<</if>>
+		<<if $studyBooks.stolen isnot "none">>
+			<<set $skulduggerydifficulty to _bookSeized ? 600 : 300>>
+			<<skulduggerycheck>>
+			<<if $skulduggerysuccess>>
+				Seems <<he>> didn't find your stolen book<<if _bookSeized>>, at least. <<stress -2>><<lstress>><<else>>. <<stress -5>><<lstress>><</if>>
+			<<else>>
+				<<if $studyBooks.stolen is "Pinch">>
+					<<if $per_npc.pinch isnot undefined>>
+						<<set _book to "copy of 'How <<= $per_npc.pinch.pronoun is 'm' ? 'Mr' : 'Ms'>> Pinch Groped Christmas'">>
+					<<else>>
+						<<set _book to "olive-coloured book">>
+					<</if>>
+				<<elseif $studyBooks.stolen is "Raul and Janet">>
+					<<set _book to "copy of Raul and Janet">>
+				<<else>>
+					<<set _book to $studyBooks.stolen + " textbook">>
+				<</if>>
+				<<if _bookSeized>>"I also believe this was reported as stolen," <<he>> continues,<<else>>"I believe this was reported as stolen," <<he>> says,<</if>>
+				<span class="purple">holding up <<a _book>></span>. <<He>> leans in. "<<if $studyBooks.stolen is "Pinch" and $per_npc.pinch isnot undefined>><<= $per_npc.pinch.pronoun is 'm' ? 'Mr' : 'Ms'>> Pinch, eh? Makes sense you'd like that story. Criminal<<else>>Thank you sooo kindly for turning it in<</if>>."
+				<<if _bookSeized>><<stress 10>><<ggstress>><<else>><<stress 5>><<gstress>><</if>>
+				<<set $studyBooks.stolen to "none">><<set $bookStolenPolice to true>><<set _bookSeized to true>>
+			<</if>>
+		<</if>>
+	<</if>>
+	<<if !_blackmoneySeized and !_bookSeized>>
+		<br><br>
+		"Nothing, huh. I find that hard to believe," <<he>> huffs. "No matter."
+	<</if>>
+<</widget>>

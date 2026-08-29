@@ -1,0 +1,39 @@
+:: Widgets speech-Leighton [widget]
+<<widget "speech-leighton">>
+	<<set _npc_speech to true>>
+	<<if ($speechpenisvirgin is 1 and $player.virginity.penile is "Leighton") or ($speechvaginavirgin is 1 and $player.virginity.vaginal is "Leighton")>>
+		<<He>> smirks. "Far from satisfactory. Come see me again for further improvement."
+	<<elseif $speechanusvirgin is 1 and $player.virginity.anal is "Leighton">>
+		<<He>> smirks. "You'll need plenty of training."
+	<<elseif $speechmouthvirgin is 1 and $player.virginity.oral is "Leighton">>
+		<<He>> smirks. "You lack skill... For now."
+	<<elseif $speechkissvirgin is 1 and $player.virginity.kiss is "Leighton">>
+		<<He>> smirks. "Not terrible for a first time."
+	<<elseif $speechnamedrop is 1>>
+		<<set $speechnamedrop to 0>>
+		<<switch _loveInterest>>
+			<<case "Robin">>
+				<<He>> smirks. "Another student? Perhaps I should invite <<nnpc_him "Robin">> to my office."
+			<<case "Kylar">>
+				<<He>> frowns. "Kylar? That explains a lot of things."
+			<<case "Whitney">>
+				<<He>> frowns. "You and that delinquent? I'm not surprised."
+			<<case "Sydney">>
+				<<if $sydneySeen.includes("spank")>>
+					<<He>> smirks. "Sydney? We could do <<nnpc_his "Sydney">> punishment in my office next time."
+				<<else>>
+					<<He>> smirks. "Sydney? I plan to have <<nnpc_him "Sydney">> in my office soon."
+				<</if>>
+			<<case "Black Wolf" "Great Hawk">>
+				<<He>> frowns. "An animal? This requires extra discipline."
+			<<default>>
+				<<He>> smirks. "I'm not familiar. This is a private matter, anyway."
+		<</switch>>
+	<<elseif $speechsextoy is 1>>
+		<<set $speechsextoy to 0>>
+		<<set $_sexToy to ($rightarm is "heldSexToy" and $leftarm is "heldSexToy" ? "sex toys" : "sex toy")>>
+		<<He>> looks at your $_sexToy and smirks. "I can teach you a thing or two with that."
+	<<else>>
+		<<set _noNameComment to true>>
+	<</if>>
+<</widget>>

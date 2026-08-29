@@ -1,0 +1,178 @@
+:: Widgets EffectsOld [widget]
+
+<<widget "effectswaterold">>
+	<<set $wetintro to 0>>
+
+	<<if $squidcount is 1>>
+		<span class="purple">You feel the squid tease your <<genitals>>.</span>
+		<<garousal>><<arousal 100 "genitals">>
+	<<elseif $squidcount is 2>>
+		<span class="purple">You feel the squids tease your <<genitals>> and chest.</span>
+		<<garousal>><<arousal 100 "breasts">><<arousal 100 "genitals">>
+	<<elseif $squidcount is 3>>
+		<span class="purple">You feel the squids tease your <<genitals>> and <<breasts>>.</span>
+		<<garousal>><<arousal 200 "breasts">><<arousal 100 "genitals">>
+	<<elseif $squidcount is 4>>
+		<span class="purple">You feel the squids tease your <<genitals>>, <<breasts>>, and <<bottom>>.</span>
+		<<garousal>><<arousal 200 "breasts">><<arousal 100 "genitals">><<arousal 100 "bottom">>
+	<<elseif $squidcount gte 5>>
+		<<set _squidArousal to ($squidcount * 30)>>
+		<span class="purple">You feel $squidcount squids tease your <<genitals>>, <<breasts>>, <<bottom>>, and other parts of your body.</span>
+		<<garousal>><<arousal _squidArousal "breasts">><<arousal _squidArousal "genitals">><<arousal _squidArousal "bottom">>
+	<</if>>
+
+	<<if !$worn.upper.type.includes("naked") and !waterproofCheck($worn.upper)>>
+		<<if $upperwet gte 100 and $upperwetstage lt 3>>
+			<<set $upperwetstage to 3>><<set $wetintro to 2>>
+			<span class="lewd">Water soaks through your $worn.upper.name, exposing your <<undertop>>. </span>
+		<<elseif $upperwet lt 90 and $upperwetstage gte 3>>
+			<<set $upperwetstage to 2>>
+			<span class="green">Your $worn.upper.name <<upperhas>> dried, concealing your <<undertop>>. </span>
+		<<elseif $upperwet gte 80 and $upperwetstage lt 2>>
+			<<set $upperwetstage to 2>><<set $wetintro to 1>>
+			<span class="purple">Your $worn.upper.name <<upperplural>> wet. </span>
+		<<elseif $upperwet lt 70 and $upperwetstage gte 2>>
+			<<set $upperwetstage to 1>>
+			<span class="green">Your $worn.upper.name <<upperplural>> drying out. </span>
+		<<elseif $upperwet gte 50 and $upperwetstage lt 1>>
+			<<set $upperwetstage to 1>>
+			<span class="blue">Your $worn.upper.name <<upperplural>> damp. </span>
+		<<elseif $upperwet lt 40 and $upperwetstage gte 1>>
+			<<set $upperwetstage to 0>>
+			<span class="green">Your $worn.upper.name <<upperplural>> dry. </span>
+		<</if>>
+	<</if>>
+
+	<<if !$worn.lower.type.includes("naked") and !waterproofCheck($worn.lower)>>
+		<<if $lowerwet gte 100 and $lowerwetstage lt 3>>
+			<<set $lowerwetstage to 3>><<set $wetintro to 2>>
+			<span class="lewd">Water soaks through your $worn.lower.name, exposing your <<undies>>. </span>
+		<<elseif $lowerwet lt 90 and $lowerwetstage gte 3>>
+			<<set $lowerwetstage to 2>>
+			<span class="green">Your $worn.lower.name <<lowerhas>> dried, concealing your <<undies>>. </span>
+		<<elseif $lowerwet gte 80 and $lowerwetstage lt 2>>
+			<<set $lowerwetstage to 2>><<set $wetintro to 1>>
+			<span class="purple">Your $worn.lower.name <<lowerplural>> wet. </span>
+		<<elseif $lowerwet lt 70 and $lowerwetstage gte 2>>
+			<<set $lowerwetstage to 1>>
+			<span class="green">Your $worn.lower.name <<lowerplural>> drying out. </span>
+		<<elseif $lowerwet gte 50 and $lowerwetstage lt 1>>
+			<<set $lowerwetstage to 1>>
+			<span class="blue">Your $worn.lower.name <<lowerplural>> damp. </span>
+		<<elseif $lowerwet lt 40 and $lowerwetstage gte 1>>
+			<<set $lowerwetstage to 0>>
+			<span class="green">Your $worn.lower.name <<lowerplural>> dry. </span>
+		<</if>>
+	<</if>>
+
+	<<if !$worn.under_lower.type.includes("naked") and !playerChastity() and !waterproofCheck($worn.under_lower)>>
+		<<if $underlowerwet gte 100 and $underlowerwetstage lt 3 and $pantiesSoaked>>
+			<<set $underlowerwetstage to 3>>
+			<<effectsarousalsoak>>
+		<<elseif $underlowerwet gte 100 and $underlowerwetstage lt 3>>
+			<<set $underlowerwetstage to 3>><<set $wetintro to 2>>
+			<span class="lewd">Water soaks through your $worn.under_lower.name, exposing your <<genitals>>. </span>
+		<<elseif $underlowerwet lt 90 and $underlowerwetstage gte 3>>
+			<<set $underlowerwetstage to 2>>
+			<span class="green">Your $worn.under_lower.name <<underlowerhas>> dried, concealing your <<genitals>>. </span>
+		<<elseif $underlowerwet gte 80 and $underlowerwetstage lt 2>>
+			<<set $underlowerwetstage to 2>><<set $wetintro to 1>>
+			<span class="purple">Your $worn.under_lower.name <<underlowerplural>> wet. </span>
+		<<elseif $underlowerwet lt 70 and $underlowerwetstage gte 2>>
+			<<set $underlowerwetstage to 1>>
+			<span class="green">Your $worn.under_lower.name <<underlowerplural>> drying out. </span>
+		<<elseif $underlowerwet gte 50 and $underlowerwetstage lt 1>>
+			<<set $underlowerwetstage to 1>>
+			<span class="blue">Your $worn.under_lower.name <<underlowerplural>> damp. </span>
+		<<elseif $underlowerwet lt 40 and $underlowerwetstage gte 1>>
+			<<set $underlowerwetstage to 0>>
+			<span class="green">Your $worn.under_lower.name <<underlowerplural>> dry. </span>
+		<</if>>
+	<</if>>
+
+	<<if !$worn.under_upper.type.includes("naked") and !$worn.under_upper.type.includes("chastity") and !waterproofCheck($worn.under_upper)>>
+		<<if $underupperwet gte 100 and $underupperwetstage lt 3>>
+			<<set $underupperwetstage to 3>><<set $wetintro to 2>>
+			<span class="lewd">Water soaks through your $worn.under_upper.name, exposing your <<breasts>>. </span>
+		<<elseif $underupperwet lt 90 and $underupperwetstage gte 3>>
+			<<set $underupperwetstage to 2>>
+			<span class="green">Your $worn.under_upper.name <<underupperhas>> dried, concealing your <<breasts>>. </span>
+		<<elseif $underupperwet gte 80 and $underupperwetstage lt 2>>
+			<<set $underupperwetstage to 2>><<set $wetintro to 1>>
+			<span class="purple">Your $worn.under_upper.name <<underupperplural>> wet. </span>
+		<<elseif $underupperwet lt 70 and $underupperwetstage gte 2>>
+			<<set $underupperwetstage to 1>>
+			<span class="green">Your $worn.under_upper.name <<underupperplural>> drying out. </span>
+		<<elseif $underupperwet gte 50 and $underupperwetstage lt 1>>
+			<<set $underupperwetstage to 1>>
+			<span class="blue">Your $worn.under_upper.name <<underupperplural>> damp. </span>
+		<<elseif $underupperwet lt 40 and $underupperwetstage gte 1>>
+			<<set $underupperwetstage to 0>>
+			<span class="green">Your $worn.under_upper.name <<underupperplural>> dry. </span>
+		<</if>>
+	<</if>>
+
+	<<if $wetintro gte 2 and !$possessed>>
+		<<exposure>>
+		<<if hasSexStat("exhibitionism", 4)>>
+			<<if !$worn.face.type.includes("blindfold")>>
+				You feel a lewd thrill as you look down and see your clothes clinging tight to your body, completely transparent.
+			<<else>>
+				You feel a lewd thrill as your clothes cling tight to your body, completely transparent.
+			<</if>>
+		<<else>>
+			<<if !$worn.face.type.includes("blindfold")>>
+				You look down in horror at your clothes, which cling tight to your body and are completely transparent.
+			<<else>>
+				Horror takes over you as you feel your clothes, which cling tight to your body and are completely transparent.
+			<</if>>
+		<</if>>
+		<<covered>>
+		<br><br>
+	<<elseif $wetintro gte 1 and !$possessed>>
+		<<if hasSexStat("exhibitionism", 3)>>
+			<<if !$worn.face.type.includes("blindfold")>>
+				You feel a lewd thrill as you look down and see your clothes clinging tight to your body, giving a hint of transparency.
+			<<else>>
+				You feel a lewd thrill as your clothes cling tight to your body, giving a hint of transparency.
+			<</if>>
+		<<else>>
+			<<if !$worn.face.type.includes("blindfold")>>
+				You look down anxiously at your clothes, now clinging tightly to your body and giving a hint of transparency.
+			<<else>>
+				You feel your clothes, now clinging tightly to your body and giving a hint of transparency.
+			<</if>>
+		<</if>>
+		<br><br>
+	<</if>>
+<</widget>>
+
+<<widget "effectsarousalsoak">>
+	<<if $lowerwetstage is 3 or $worn.lower.type.includes("naked")>>
+		<!-- If clothing above underwear is also wet, or missing -->
+		<<set $wetintro to 2>>
+		<span class="lewd">Your bodily fluids soak through your $worn.under_lower.name, exposing your <<genitals>>. </span>
+	<<elseif setup.clothes.lower[clothesIndex('lower', $worn.lower)].skirt is 1>>
+		<span class="lewd">Your bodily fluids soak through your $worn.under_lower.name, exposing your <<genitals>> to the air under your $worn.lower.name. </span>
+	<<else>>
+		<span class="lewd">Your bodily fluids soak through your $worn.under_lower.name. </span>
+	<</if>>
+	<<if $wetintro is 0 and $underupperwet lt 100>>
+		<<if !hasSexStat("exhibitionism", 4)>>
+			You hope nobody notices.
+		<<else>>
+			You hope somebody notices.
+		<</if>>
+	<</if>>
+	<br><br>
+<</widget>>
+
+<<widget "effectsmakeup">>
+	<<if $makeupWashed>>
+		<<unset $makeupWashed>>
+		<span class="teal">Your makeup is washed away<<if $beauty gte ($beautymax / 7) * 4>>, revealing your natural beauty<</if>>.</span><br>
+	<</if>>
+	<<if $makeup.mascara and $makeup.mascara_running lt painToTearsLvl($pain) and !$makeup.mascara.includes("waterproof")>>
+		<<set $makeup.mascara_running to painToTearsLvl($pain)>>
+	<</if>>
+<</widget>>

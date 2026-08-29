@@ -1,0 +1,1283 @@
+:: Doctor Harper's Office
+<<set $outside to 0>>
+<<set $location to "hospital">>
+<<effects>>
+<<npc Harper>><<person1>>
+
+<<set $sexStats.pills["pills"]["Dr Harper\'s prescription"].owned to 14>>
+<<if $asyluminnocence is 1>>
+	<<set $sexStats.pills["pills"]["asylum\'s prescription"].owned to 14>>
+<</if>>
+<<if $schoolPsych>>
+	<<set $harper_appointments.enabled to true>><<unset $schoolPsych>>
+<</if>>
+
+You knock on the door, and hear <<if !$harperSeen.includes("hospital")>>a <<personsimple>><<else>>Harper<</if>>'s voice on the other side. "Come in." You enter.
+<br><br>
+
+<<if !$harper_appointments.hypnosis_intro>>
+	<<include "Doctor Harper's Office Intro">>
+<<else>>
+	<<cleareventpool>>
+
+	<<if $harper_appointments.last isnot "hypnosis">>
+		<<addinlineevent "harper hypnosis">>
+			<<set $harper_appointments.last to "hypnosis">>
+			<<include "Doctor Harper's Office Hypnosis">>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $harper_appointments.exam is 3>>
+		<<set _weight to (1/3)>>
+	<<else>>
+		<<set _weight to 1>>
+	<</if>>
+	<<if ($harper_appointments.exam is 0 or $harper_appointments.exam is 3) and $harper_appointments.last isnot "exam">>
+		<<addinlineevent "harper exam 1" _weight>>
+			<<set $harper_appointments.last to "exam">>
+			<<include "Doctor Harper's Office Exam 1">>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if ($harper_appointments.exam is 1 or $harper_appointments.exam is 3) and $harper_appointments.last isnot "exam">>
+		<<addinlineevent "harper exam 2" _weight>>
+			<<set $harper_appointments.last to "exam">>
+			<<include "Doctor Harper's Office Exam 2">>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if ($harper_appointments.exam is 2 or $harper_appointments.exam is 3) and $harper_appointments.last isnot "exam">>
+		<<addinlineevent "harper exam 3" _weight>>
+			<<set $harper_appointments.last to "exam">>
+			<<include "Doctor Harper's Office Exam 3">>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if isBeastSceneAllowed() and $harper_appointments.last isnot "dog">>
+		<<addinlineevent "harper dog">>
+			<<set $harper_appointments.last to "dog">>
+			<<include "Doctor Harper's Office Dog">>
+		<</addinlineevent>>
+	<</if>>
+
+	<<runeventpool>>
+<</if>>
+
+:: Doctor Harper's Office Intro
+<<set $harper_appointments.hypnosis_intro to true>>
+
+<<He>> sits at <<his>> desk in front of a computer.
+<<if !$harperSeen.includes("hospital")>>
+	<<if $harperSeen.includes("livestock")>>
+		It's the doctor from the farm. The one who experimented on you.
+	<<elseif $harperSeen.includes("party")>>
+		It's the doctor from Avery's party. The one with the pink powder.
+	<<else>>
+		<<He>> glances up as you enter, pulling <<his>> blond fringe away from <<his>> eyes. <<He>> looks young for a doctor, can't be older than 25.
+	<</if>>
+
+	"Hello, I'm Doctor Harper. Please, sit," <<he>> says.
+
+	<<if $harperSeen.includes("livestock")>>
+		There's no recognition on <<his>> face. You hesitate, but take a seat regardless. You're in a busy hospital now, not an isolated farm.
+	<<else>>
+		You do so.
+	<</if>>
+	<br><br>
+
+	"I've been expecting you. A panic attack at school, I've been told?" You nod. Without looking, <<he>> nods back.
+	<<set $harperSeen.pushUnique("hospital")>>
+<<else>>
+	<<He>> looks away from the screen, "It's good that you've come." <<He>> motions for you to take a seat, you do so. "Don't worry, we won't be doing anything too invasive today."
+	<br><br>
+
+	You wonder what <<he>> means by "invasive". <<He>> interrupts your musing.
+<</if>>
+
+"<span class="gold">I'd just like to prescribe some medication. I'll have it sent to your home</span>." <<He>> starts filling out a form, but doesn't stop speaking.
+
+"There's something else I'd like to try. Please, sit back and relax."
+<br><br>
+
+<<He>> puts down the paper and swivels to face you. <<His>> voice has taken on a soothing quality. "I want you to breathe deeply." <<He>> holds up <<his>> pen. "Focus on the pen. There's nothing in the universe except this pen, my voice, and your own breath."
+<br><br>
+
+This continues for several minutes. Harper somehow picks up on whenever your mind starts to wander, and brings you back to focus. You start to feel something shift in your consciousness, as if you're entering a trance.
+<br><br>
+
+<<link [[This feels nice (0:10)|Doctor Harper's Office Trance]]>><<npcincr Harper dom 5>><<control 25>><<trauma -6>><<stress -12>><<awareness -10>><</link>><<ggcontrol>><<llawareness>><<ltrauma>><<lstress>>
+<br>
+<<link [[Resist|Doctor Harper's Office Trance Resist]]>><<set $phase to 0>><</link>><<willpowerdifficulty 1 `200 * ($hypnosis_traits.suggestion || 1)`>>
+
+:: Doctor Harper's Office Hypnosis
+"Please, sit down and relax." You do so, and <<he>> swivels to face you. <<His>> voice takes on a soothing quality. "I want you to breathe deeply." <<He>> holds up <<his>> pen. "Focus on the pen. There's nothing in the universe except this pen, my voice, and your own breath."
+<br><br>
+
+This continues for several minutes. Harper somehow picks up on whenever your mind starts to wander, and brings you back to focus. You start to feel something shift in your consciousness, as if you're entering a trance.
+<br><br>
+
+<<link [[This feels nice (0:10)|Doctor Harper's Office Trance]]>><<npcincr Harper dom 5>><<control 25>><<trauma -6>><<stress -12>><<awareness -10>><</link>><<ggcontrol>><<llawareness>><<ltrauma>><<lstress>>
+<br>
+<<link [[Resist|Doctor Harper's Office Trance Resist]]>><<set $phase to 0>><</link>><<willpowerdifficulty 1 `200 * ($hypnosis_traits.suggestion || 1)`>>
+
+:: Doctor Harper's Office Exam 1
+<<if $harper_appointments.exam is 0>>
+	<<set $harper_appointments.exam to 1>>
+<</if>>
+<<upperstrip>><<lowerstrip>>
+
+<<if !$worn.under_lower.type.includes("naked")>>
+	"Please strip down to your underwear and lie down on the bed." You hesitate. <<He>> notices your trepidation and smiles at you. "Don't worry, it's normal to be embarrassed, but there's no reason to be." Despite your anxiety, you remove your clothes and lie on the bed. Harper rolls <<his>> chair over to your side. "I'm going to examine you, just relax." <<He>> smiles. "I promise I'll be gentle."
+	<br><br>
+<<else>>
+	"Please strip down to your underwear and lie down on the bed." You hesitate. <<He>> notices your trepidation and smiles at you. "Don't worry, it's normal to be embarrassed, but there's no reason to be." You can't help but feel conscious of your lack of underwear.
+	<br><br>
+
+	Harper looks about to speak again when you blurt out.
+	<<if $worn.genitals.type.includes("naked")>>
+		"I'm not wearing anything underneath this!"
+	<<else>>
+		"I've only got a $worn.genitals.name underneath this!"
+	<</if>>
+	<br><br>
+
+	<<He>> looks at you blankly for a moment, then laughs. "I didn't realise you were that sort of person." You shift uncomfortably. "It's okay though, you need to get used to your doctor seeing those parts of you anyway. Come on, don't be shy."
+	<br><br>
+
+	You remove your clothing with shaking fingers, then lie on the bed with your hands covering your <<genitals>>. Harper rolls <<his>> chair over to your side. "I'm going to examine you, just relax." <<He>> smiles. "I promise I'll be gentle."
+	<br><br>
+<</if>>
+
+<<He>> rubs <<his>> fingers against your shoulders, slowly working <<his>> way down your chest. <<He>> gives your <<nipples>> extra attention for some reason. It's hard not to squirm at the sensation.
+<br><br>
+
+<<He>> continues further down your body, inching closer to <<if !$worn.under_lower.type.includes("naked")>>your $worn.under_lower.name.<<elseif playerChastity()>>your $worn.genitals.name.<<else>>where your hands protect your <<genitals 1>>. <<He>> looks at you and asks. "Could you move your hands for me? It's important I check beneath them." You move your hands aside, exposing yourself. You stare at the ceiling and try to stay calm.<</if>>
+<br><br>
+
+<<link [[Next|Doctor Harper's Office Exam]]>><<set $phase to 1>><</link>>
+
+:: Doctor Harper's Office Exam 2
+<<if $harper_appointments.exam is 1>>
+	<<set $harper_appointments.exam to 2>>
+<</if>>
+<<strip>>
+
+"I need to be more thorough this time. Please remove your clothing and lie down on the bed." You hesitate. All your clothing? <<He>> notices your trepidation and smiles at you. "Don't worry, it's normal to be embarrassed, but there's really no reason to be."
+<br><br>
+
+You remove your clothing with shaking fingers, then lie on the bed with your hands covering your <<genitals>>. Harper rolls <<his>> chair over to your side. "I'm going to examine you, just relax." <<He>> smiles. "I promise I'll be gentle."
+<br><br>
+
+<<He>> rubs <<his>> fingers against your shoulders, slowly working <<his>> way down your chest. <<He>> gives your <<nipples>> extra attention for some reason. It's hard not to squirm at the sensation.
+<br><br>
+
+<<He>> continues further down your body, inching closer to where your hands protect your <<genitals>>. <<He>> looks at you and asks. "Could you move your hands for me? It's important I check beneath them." You move your hands aside, exposing yourself. You stare at the ceiling and try to stay calm.
+<br><br>
+
+<<link [[Next|Doctor Harper's Office Exam]]>><<set $phase to 1>><</link>>
+
+:: Doctor Harper's Office Exam 3
+<<if $harper_appointments.exam is 2>>
+	<<set $harper_appointments.exam to 3>>
+<</if>>
+<<strip>>
+
+<<generate2>>You and the doctor aren't alone. A young <<person2>><<person>> sits in the corner of the room, looking slightly nervous. Harper introduces <<him>>. "This is a med student, <<he>> will be helping me today."
+<br><br>
+
+Harper doesn't wait for a response. "Please remove your clothing and lie down on the bed." You feel embarrassed to be undressing in front of two people, but you assure yourself that it's fine. This is a medical check-up after all.
+<br><br>
+
+<<person1>>You remove your clothing with shaking fingers, then lie on the bed with your hands covering your <<genitals>>. Harper rolls <<his>> chair over to your side. "I'm going to examine you, just relax." <<He>> smiles. "I promise I'll be gentle." You can feel the <<person2>><<person>> staring at your exposed skin.
+<br><br>
+
+<<person1>>Harper commences <<his>> usual probing. As <<he>> reaches your pelvis, <<he>> asks, "Could you move your hands for me?" You move your hands aside, exposing yourself. You stare at the ceiling and try to stay calm.
+<br><br>
+
+<<link [[Next|Doctor Harper's Office Exam]]>><<set $phase to 2>><</link>>
+
+:: Doctor Harper's Office Dog
+<<generate2>>
+<<if V.settings.bestialityEnabled>>
+	<<generateBEAST 3 dog>>
+<<else>>
+	<<generateBEAST 3 dog undefined undefined "monster">>
+<</if>>
+
+<<if !$harper_appointments.dog_intro>>
+	"Please, sit down and meet your new friend," <<he>> says.
+<<else>>
+	"Please, sit down. We have another new friend for you to meet today."
+<</if>>
+
+You do so, as Harper indicates an overexcited <<beasttype 2>> and <<person3>><<bhis>> owner, a nervous looking <<person2>><<personsimple>>.<<person3>>
+<<if !$harper_appointments.dog_intro>>
+	<<set $harper_appointments.dog_intro to true>>
+	"<<Hes>> a therapy dog meant to help with anxiety."
+<<elseif $harper_appointments.scold>>
+	<<unset $harper_appointments.scold>>
+	"<<Hes>> a therapy dog meant to help with anxiety. <span class="red">Not for intimacy.</span>"
+<</if>>
+
+<<if $NPCList[2].monster is "monster">>
+	<br><br>
+	"Friend, friend, friend!" the <<beasttype 2>> says
+<<else>>
+	The <<beasttype 2>> whines
+<</if>>
+as <<bhe>> strains against <<bhis>> owner's leash. <<bHis>> tail never stops wagging.
+<br><br>
+
+"Go ahead and give <<him>> a pat. You'll feel better," says Harper. <<person1>><<He>> signals for the <<person2>><<personsimple>> to move closer, and the <<person3>><<beasttype 2>> eagerly places <<bhis>> head in your lap.
+
+<br><br>
+<<if $speech_attitude is "meek">>
+	"G-good <<beastgender 2>>," you say, tentatively patting the <<beasttype 2>>.
+<<elseif $speech_attitude is "bratty">>
+	"Who's a good <<beastgender 2>>?" you say, ruffling the <<beasttype 2>>'s ears.
+<<else>>
+	"Good <<beastgender 2>>," you say as you pet the <<beasttype 2>>.
+<</if>>
+
+<<if $NPCList[2].monster is "monster">>
+	"You're nice. I like you," the <<beasttype 2>> replies,
+<<else>>
+	The <<beasttype 2>> closes <<bhis>> eyes,
+<</if>>
+<<bhis>> tail still wagging.
+<br><br>
+
+<<person1>>"There we go. Feel better?" asks Harper.
+
+<<He>> does not wait for a response and swivels to face you. <<His>> voice takes on a soothing quality. "Now I want you to relax with your new friend and breathe deeply." <<He>> holds up <<his>> pen. "Focus on the pen. There's nothing in the universe except this pen, my voice, and your own breath."
+<br><br>
+
+This continues for several minutes. Harper somehow picks up on whenever your mind starts to wander, and brings you back to focus. You start to feel something shift in your consciousness, as if you're entering a trance.
+<br><br>
+
+<<link [[This feels nice (0:10)|Doctor Harper's Office Trance Dog]]>><<npcincr Harper dom 5>><<control 25>><<trauma -6>><<stress -12>><<awareness -10>><</link>><<ggcontrol>><<llawareness>><<ltrauma>><<lstress>>
+<br>
+<<link [[Resist|Doctor Harper's Office Trance Resist]]>><<set $phase to 1>><</link>><<willpowerdifficulty 1 `200 * ($hypnosis_traits.deviancy || 1)`>>
+
+:: Doctor Harper's Office Trance Resist
+<<effects>>
+
+<<if $willpowerSuccess>>
+	<<npcincr Harper dom -5>>
+
+	<span class="green">You shake yourself free of the effect.</span> The effort leaves you a bit strained. <<stress 6>><<gstress>>
+	<br><br>
+
+	Harper doesn't change the tone of <<his>> voice. "That's enough for today. Remember, don't be afraid to relax." <<He>> holds open the door for you. "Same time next week. Be well."
+	<br><br>
+
+	<<link [[Leave office|Hospital Foyer]]>><<endevent>><</link>>
+<<else>>
+	<<if $phase is 0>>
+		<<include "Doctor Harper's Office Trance">>
+	<<elseif $phase is 1>>
+		<<include "Doctor Harper's Office Trance Dog">>
+	<</if>>
+<</if>>
+
+:: Doctor Harper's Office Trance
+<<effects>>
+<<pass 10>>
+<<hypnotised 1>>
+<<set $trance to 1>>
+
+You slip deeper into the trance. <span class="green"><<if $harper_appointments.hypnosis is 0 and $harper_appointments.dog is 0>>You don't remember ever feeling so tranquil.<<else>>You return to the familiar state of tranquillity.<</if>></span> You hear Harper's voice drifting toward you.
+<<if $hypnosis_traits.devotion gte 5>>
+	"That's very good. Now, the next time you feel overwhelmed by it all..." <span class="purple"><<his>> voice fades away, along with the rest of the room. Someone is standing where Harper just was.</span>
+	<br><br>
+
+	<span class="forest-green">It's Gwylan. <<nnpc_He "Gwylan">> takes a step towards you, smiling, and cups your cheeks. No words leave <<nnpc_his "Gwylan">> lips, but they move regardless.</span>
+	<br><br>
+
+	<<nnpc_He "Gwylan">> brings <<nnpc_his "Gwylan">> face closer to yours. Finally, you can hear <<nnpc_his "Gwylan">> voice.
+	<br><br>
+
+	"<span class="witch"><<He>> can't have you.</span>"
+	<br><br>
+
+	You're brought back to the room as you hear something drop to the ground. Harper's hand is on <<his>> head.
+	"I'm sorry, I seem to be getting a migraine. I believe today was a success. Well done." <<He>> holds open the door for you. "Same time next week. Be well."
+	<br><br>
+
+	<<link [[Leave office|Hospital Foyer]]>><<set $trance to 0>><<endevent>><</link>>
+<<else>>
+	"That's very good. Now, the next time you feel overwhelmed by it all, I want you to remember this feeling, and..." <<He>> gives you instructions. "...you won't remember this."
+	<br><br>
+
+	<span class="pink">You feel something shift in your consciousness.</span>
+	<<if $hypnosis_traits.devotion gte 4 and random(0, 1)>>
+		Only to be put back into place a moment later. <span class="forest-green">The sting of a rose's thorn keeps you just focused enough to subtly shake it off.</span>
+		Your thoughts remain clear, for the moment.
+	<<elseif !$hypnosis_traits.suggestion>>
+		<<set $hypnosis_traits.suggestion to 1>>
+		You've gained the <span class="pink">Hypnotic Suggestion</span> trait.
+	<<elseif $hypnosis_traits.suggestion lt 5>>
+		<<set $hypnosis_traits.suggestion += 1>>
+		Your hypnotic suggestion has strengthened.
+	<</if>>
+	<br><br>
+
+	<<cleareventpool>>
+
+	<<if $harper_appointments.hypnosis is 0>>
+		<<addinlineevent "harper trance 0 implant idea">>
+			<<if $harper_appointments.hypnosis is 0>>
+				<<set $harper_appointments.hypnosis to 1>>
+			<</if>>
+
+			"When I drop this pen, you will awaken."
+			<br><br>
+
+			The pen clatters to the floor. You blink. You're back in reality, but feeling better than you were before you entered the office. You recall Harper talking to you while you were entranced, but can't recall what was said.
+			<br><br>
+
+			<<He>> smiles at you. "Today was a success. Well done." <<He>> holds open the door for you. "Same time next week. Be well."
+			<br><br>
+			<<link [[Leave office|Hospital Foyer]]>><<set $trance to 0>><<endevent>><</link>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $harper_appointments.hypnosis is 1 or $harper_appointments.hypnosis is 5>>
+		<<addinlineevent "harper trance 1 nude model">>
+			<<He>> rummages through the drawer on <<his>> desk and produces a camera. "Now, take off your clothes."
+			<br><br>
+
+			<<link [[Take off your clothes (0:20)|Doctor Harper's Office Camera]]>><<npcincr Harper dom 5>><</link>>
+			<br>
+			<<link [[Resist|Doctor Harper's Office Camera Resist]]>><<set $phase to 1>><</link>><<willpowerdifficulty 1 `200 * ($hypnosis_traits.suggestion || 1)`>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $harper_appointments.hypnosis is 2 or $harper_appointments.hypnosis is 5>>
+		<<addinlineevent "harper trance 2 nude pose">>
+			<<He>> walks briskly over to the window. <<He>> opens it, and a <<generate2>><<person2>><<person>> climbs through, carrying a large camera and tripod.
+			<br><br>
+
+			While <<he>> sets it up, <<person1>>Harper turns to you and softly speaks. "Take off your clothes."
+			<br><br>
+
+			<<link [[Take off your clothes (0:20)|Doctor Harper's Office Camera2]]>><<npcincr Harper dom 5>><</link>>
+			<br>
+			<<link [[Resist|Doctor Harper's Office Camera Resist]]>><<set $phase to 2>><</link>><<willpowerdifficulty 1 `200 * ($hypnosis_traits.suggestion || 1)`>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $harper_appointments.hypnosis gte 3>>
+		<<set _weight to Math.clamp($harper_appointments.hypnosis - 2, 1, 2)>>
+		<<addinlineevent "harper trance 3 and 4 larger audience" _weight>>
+			<<He>> walks briskly over to the window. <<He>> opens it, and a <<generate2>><<person2>><<person>> climbs through, carrying a large camera and tripod. <<generate3>><<generate4>><<generate5>><<generate6>><<He>> is closely followed by four others, a <<person3>><<person>>, a <<person4>><<person>>, a <<person5>><<person>> and a <<person6>><<person>>.
+			<br><br>
+
+			<<person2>>While the <<person>> sets up the camera, the other four start handing Harper money.<<person1>> <<He>> counts it, then hides it away in <<his>> drawer before turning to face you. "Take off your clothes," <<he>> says softly.
+			<br><br>
+
+			<<if $harper_appointments.hypnosis lte 4>>
+				<<set $phase2 to ($harper_appointments.hypnosis - 3)>>
+			<<else>>
+				<<set $phase2 to random(0, 1)>>
+			<</if>>
+
+			<<link [[Take off your clothes (0:20)|Doctor Harper's Office Camera3]]>><<npcincr Harper dom 5>><</link>>
+			<br>
+			<<link [[Resist|Doctor Harper's Office Camera Resist]]>><<set $phase to 3>><</link>><<willpowerdifficulty 1 `200 * ($hypnosis_traits.suggestion || 1)`>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<runeventpool>>
+<</if>>
+
+:: Doctor Harper's Office Trance Dog
+<<effects>>
+<<pass 10>>
+<<hypnotised 1>>
+<<set $trance to 1>>
+
+You slip deeper into the trance. <span class="green"><<if $harper_appointments.hypnosis is 0 and $harper_appointments.dog is 0>>You don't remember ever feeling so tranquil.<<else>>You return to the familiar state of tranquillity.<</if>></span> You hear Harper's voice drifting toward you.
+<<if $hypnosis_traits.devotion gte 5>>
+	"That's very good. Now, the next time you feel overwhelmed by it all..." <span class="purple"><<his>> voice fades away, along with the rest of the room. Someone is standing where Harper just was.</span>
+	<br><br>
+
+	<span class="forest-green">It's Gwylan. <<nnpc_He "Gwylan">> takes a step towards you, smiling, and cups your cheeks. No words leave <<nnpc_his "Gwylan">> lips, but they move regardless.</span>
+	<br><br>
+
+	A line of green light extends from <<nnpc_his "Gwylan">> hand, gently wrapping around your neck with a click. <<nnpc_He "Gwylan">> brings <<nnpc_his "Gwylan">> face closer to yours. Finally, you can hear <<nnpc_his "Gwylan">> voice.
+	<br><br>
+
+	"<span class="witch">You act like a pet for me, and me alone.</span>"
+	<br><br>
+
+	You're brought back to the room as you hear something drop to the ground. Harper's hand is on <<his>> head.
+	"I'm sorry, I seem to be getting a migraine. I believe today was a success. Well done." <<He>> lets you pat the <<beasttype 2>> a few more times before <<he>> holds open the door for you. "Same time next week. Be well."
+	<br><br>
+
+	<<link [[Leave office|Hospital Foyer]]>><<set $trance to 0>><<endevent>><</link>>
+<<else>>
+	"That's very good. Now, the next time you feel overwhelmed by it all, I want you to remember this feeling, and..." <<He>> gives you instructions. "...you won't remember this."
+	<br><br>
+
+	<span class="pink">You feel something shift in your consciousness.</span>
+	<<if $hypnosis_traits.devotion gte 4 and random(0, 1)>>
+		Only to be put back into place a moment later. <span class="forest-green">The sting of a rose's thorn keeps you just focused enough to subtly shake it off.</span>
+		Your thoughts remain clear, for the moment.
+	<<elseif !$hypnosis_traits.deviancy>>
+		<<set $hypnosis_traits.deviancy to 1>>
+		You've gained the <span class="pink">Hypnotic Deviancy</span> trait.
+	<<elseif $hypnosis_traits.deviancy lt 5>>
+		<<set $hypnosis_traits.deviancy += 1>>
+		Your hypnotic deviancy has strengthened.
+	<</if>>
+	<br><br>
+
+	<<cleareventpool>>
+
+	<<if $harper_appointments.dog is 0>>
+		<<addinlineevent "harper dog 0 - lewd thoughts">>
+			<<set $harper_appointments.dog to 1>>
+
+			"When I drop this pen, you will awaken."
+			<br><br>
+
+			The pen clatters to the floor. You blink. You're back in reality, but feeling better than you were before you entered the office. You absentmindedly continue to pat the <<beasttype 2>>. A desire to pet <<person3>><<bhim>> in a lewder manner crosses your mind. You recall Harper talking to you while you were entranced, but can't recall what was said.
+			<br><br>
+
+			<<person1>><<He>> smiles at you. "Today was a success. Well done." <<He>> lets you pat the <<beasttype 2>> a few more times before <<he>> holds open the door for you. "Same time next week. Be well."
+			<br><br>
+			<<link [[Leave office|Hospital Foyer]]>><<set $trance to 0>><<endevent>><</link>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $harper_appointments.dog is 1 or $harper_appointments.dog is 5>>
+		<<addinlineevent "harper dog 1 - handjob intro">>
+			<<He>> gestures to the <<person2>><<personsimple>>, who almost drops the leash as <<he>> pulls out <<his>> phone. "Now rub <<person3>><<his>> <<npcGenitals 2 "simple">>. You want to make <<him>> happy."
+			<br><br>
+
+			<<link [[Make <<him>> happy (0:10)|Doctor Harper's Office Dog Happy]]>><<npcincr Harper dom 5>><</link>>
+			<br>
+			<<link [[Resist|Doctor Harper's Office Trance Dog Resist]]>><<set $phase to 0>><</link>><<willpowerdifficulty 1 `200 * ($hypnosis_traits.deviancy || 1)`>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $harper_appointments.dog gte 2>>
+		<<set _weight to Math.clamp($harper_appointments.dog - 1, 1, 3)>>
+		<<addinlineevent "harper dog progress 2 plus" _weight>>
+			<<He>> gestures to the <<person2>><<personsimple>>, who almost drops the leash as <<he>> pulls out <<his>> phone. Harper rummages through the drawer on <<person1>><<his>> desk and produces a camera of <<his>> own. "Now take off your clothes."
+			<br><br>
+
+			<<if $harper_appointments.dog lte 4>>
+				<<set $phase2 to $harper_appointments.dog - 2>>
+			<<else>>
+				<<set $phase2 to random(0, 2)>>
+			<</if>>
+			<<link [[Take off your clothes (0:10)|Doctor Harper's Office Dog Strip]]>><<npcincr Harper dom 5>><</link>>
+			<br>
+			<<link [[Resist|Doctor Harper's Office Trance Dog Resist]]>><<set $phase to 1>><</link>><<willpowerdifficulty 1 `200 * ($hypnosis_traits.deviancy || 1)`>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<runeventpool>>
+<</if>>
+
+:: Doctor Harper's Office Trance Dog Resist
+<<effects>>
+
+<<if $willpowerSuccess or $hypnosis_traits.devotion gte 5>>
+	<<npcincr Harper dom -5>>
+
+	<span class="green">You shake yourself free of the effect.</span>
+	<br><br>
+
+	<<if $phase is 1>>
+		Harper quickly hides the camera behind <<person1>><<his>> back.
+	<</if>>
+
+	The <<person2>><<personsimple>> does not notice the change in time and drops <<his>> phone with <<his>> hands still occupied with a leash.
+	<br><br>
+
+	Harper doesn't change the tone of <<person1>><<his>> voice. "That's enough for today." <<He>> lets you pet the <<beasttype 2>> a few more times. "Remember, <<person3>><<he>> is here to help you. Not for intimacy." <<person1>><<He>> holds open the door for you. "Same time next week. Be well."
+	<br><br>
+
+	<<link [[Leave office|Hospital Foyer]]>><<set $trance to 0>><<endevent>><</link>>
+<<else>>
+	<<if $phase is 0>>
+		<<include "Doctor Harper's Office Dog Happy">>
+	<<elseif $phase is 1>>
+		<<include "Doctor Harper's Office Dog Strip">>
+	<</if>>
+<</if>>
+
+:: Doctor Harper's Office Dog Happy
+<<effects>>
+<<pass 10>>
+<<hypnotised 1>>
+<<if $harper_appointments.dog is 1>>
+	<<set $harper_appointments.dog to 2>>
+<</if>>
+<<famebestiality 5 "vid">>
+
+Your hand moves lower and lower until you reach the <<beasttype 2>>'s <<npcGenitals 2 "simple">>. <<person3>><<bHe>> begins licking your face as <<bhe>> becomes more aroused. Soon <<bhis>> <<npcGenitals 2>> <<if $NPCList[2].penis is "none">>is dripping wet.<<else>>is fully erect.<</if>> "Very good. Now, finish <<bhim>> off."
+<br><br>
+
+For the next several minutes, the <<person2>><<personsimple>> records from <<his>> phone as you lewdly pleasure the <<beasttype 2>>. At one point the <<beasttype 2>> growls with lust and tries to mount you. <<person3>><<bHe>> almost succeeds, until <<bhis>> owner pulls <<bhim>> off.
+<br><br>
+
+Not long after, the <<beasttype 2>> cums in your hand.
+<<if $NPCList[2].monster is "monster">>
+	"Best... friend," the <<beasttype 2>> moans.
+<<else>>
+	<<bHe>> growls softly in delight.
+<</if>>
+<<ejacstat>>
+<<handstat>>
+<<handejacstat>>
+<<if $NPCList[2].penis is "none">><<set _ejactype to "goo">><<else>><<set _ejactype to "semen">><</if>>
+<<if random(0, 1)>><<set _arm to "rightarm">><<else>><<set _arm to "leftarm">><</if>>
+<<bodyliquid _arm _ejactype>>
+<<ghandskill>>
+<<handskill 1>>
+<br><br>
+
+<<bHe>> pants, tongue lolling out of <<bhis>> mouth as <<bhe>> gives a final few twitches. The <<person2>><<personsimple>> puts <<his>> phone away and tugs the excited <<beasttype 2>> backward, settling it a few steps from you. Harper drops <<person1>><<his>> pen on the ground and brings you back to reality.
+<br><br>
+
+<<He>> smiles at you. "Today was a success. Well done." <<He>> lets you pat the <<beasttype 2>> a few more times before <<he>> holds open the door for you. "Same time next week. Be well."
+<br><br>
+
+<<link [[Leave office|Hospital Foyer]]>><<set $trance to 0>><<endevent>><</link>>
+
+:: Doctor Harper's Office Dog Strip
+<<effects>>
+<<pass 10>>
+<<hypnotised 1>>
+<<clothesstrip>>
+<<set $harper_appointments.uncomfortable to $uncomfortable.nude>>
+<<set $uncomfortable.nude to false>>
+<<set _famegain to (15 + $phase2 * 15)>>
+<<famebestiality _famegain "vid">>
+<<fameexhibitionism _famegain "vid">>
+
+You take off your clothes and sit back down on the lounge chair. The <<beasttype 2>> barks with excitement, but you remain entranced.
+
+<<if $phase2 is 0>>
+	<<if $harper_appointments.dog is 2>>
+		<<set $harper_appointments.dog to 3>>
+	<</if>>
+
+	<<include "Doctor Harper's Office Dog Strip Licking">>
+
+	The <<beasttype 2>> suddenly attempts to mount you, but Harper signals for the <<person2>><<personsimple>> to rein <<person3>><<bhim>> in. With a great deal of effort, the <<person2>><<personsimple>> manages to tug the <<beasttype 2>> away from you, much to <<person3>><<bhis>> disappointment.
+
+	<<if $NPCList[2].monster is "monster">>
+		"Friend wants to mate," whines the <<beasttype 2>>.
+	<<else>>
+		The <<beasttype 2>> whines.
+	<</if>>
+	<br><br>
+
+	After the <<person2>><<personsimple>> settles <<his>> <<beasttype 2>>, <<he>> takes a few more pictures of your naked body.
+<</if>>
+
+<<if $phase2 is 1>>
+	<<if $harper_appointments.dog is 3>>
+		<<set $harper_appointments.dog to 4>>
+	<</if>>
+
+	<<if $harper_appointments.hypnosis is 4 and $NPCList[2].penis isnot "none">><span class="blue">You vaguely notice <<bhis>> <<npcGenitals 2>>.</span><</if>> Once you're settled, Harper speaks. "Very good. Now grab <<person3>><<his>> <<npcGenitals 2 "simple">> and then use your tongue to make <<him>> happy." As if given a command, the <<beasttype 2>> rolls over, giving you a good view of <<bhis>> <<npcGenitals 2>>.
+	<br><br>
+
+	You get on your knees and position yourself over <<bhis>> <<npcGenitals 2 "simple">>. The <<beasttype 2>> is very excited, but once your fingers touch <<bhis>> <<npcGenitals 2 "simple">>, <<bhe>> quickly settles down. <<if $NPCList[2].penis isnot "none">>Taking hold of <<bhis>> <<npcGenitals 2 "simple">>, you start delicately licking along the full length.<<else>>You start delicately licking <<bhis>> <<npcGenitals 2 "simple">> as you part <<bhis>> lips with your tongue.<</if>>
+	<br><br>
+
+	For the next several minutes the <<person2>><<personsimple>> records from <<his>> phone as you lewdly pleasure the <<beasttype 2>>.
+	<br><br>
+
+	<<person3>><<bHe>> starts breathing faster as <<bhis>> <<npcGenitals 2 "simple">> <<if $NPCList[2].penis is "none">>quivers with every lick.<<else>>twitches against your tongue.<</if>>
+	<<if $NPCList[2].monster is "monster">>
+		"Best... friend," the <<beasttype 2>> moans
+	<<else>>
+		<<bHe>> growls softly in delight
+	<</if>>
+	as <<if $NPCList[2].penis is "none">>lewd fluids spatter on your face.<<else>>spurts of semen land on your face.<</if>>
+	<<ejacstat>>
+	<<oralstat>>
+	<<oralejacstat>>
+	<<if $NPCList[2].penis is "none">><<bodyliquid "face" "goo">><<else>><<bodyliquid "face" "semen">><</if>>
+	<<goralskill>>
+	<<oralskill 1>>
+	<br><br>
+
+	<<bHe>> pants, tongue lolling out of <<bhis>> mouth as <<bhe>> gives a final few twitches. The <<person2>><<personsimple>> puts <<his>> phone away and pulls the excited <<beasttype 2>> upright, settling it a few steps from you.
+<</if>>
+
+<<if $phase2 lte 1>>
+	<<person1>>Harper puts away <<his>> camera and turns back to you. "Put on your clothes." You dress yourself with robotic motions while Harper watches. When you are finished, <<he>> drops <<his>> pen on the ground and brings you back to reality.
+	<br><br>
+
+	<<He>> smiles at you. "Today was a success. Well done." <<He>> lets you pat the <<beasttype 2>> a few more times before <<he>> holds open the door for you. "Same time next week. Be well."
+	<br><br>
+
+	<<link [[Leave office|Hospital Foyer]]>>
+		<<set $trance to 0>>
+		<<set $uncomfortable.nude to $harper_appointments.uncomfortable>>
+		<<unset $harper_appointments.uncomfortable>>
+		<<clotheson>><<endevent>>
+	<</link>>
+<</if>>
+
+<<if $phase2 is 2>>
+	<<if $harper_appointments.dog is 4>>
+		<<set $harper_appointments.dog to 5>>
+	<</if>>
+
+	<<include "Doctor Harper's Office Dog Strip Licking">>
+
+	<<set $phase to random(0,1)>>
+	<<if $NPCList[2].monster is "monster">>
+		"Friend wants to mate," says the <<beasttype 2>>. <<bHe>>
+	<<else>>
+		The <<beasttype 2>> rushes forward and
+	<</if>>
+	starts pushing and prodding until you slide down the chair. <<if $phase is 0>><<bHe>> moves in position while you lie down on your back.<<else>><<bHe>> nudges your side. You allow yourself to be rolled over, then push yourself up on all fours.<</if>>
+	<br><br>
+
+	<<link [[Next|Doctor Harper's Office Dog Molestation]]>><<set $molestationstart to 1>><</link>>
+<</if>>
+
+:: Doctor Harper's Office Dog Strip Licking
+Once you're settled, Harper speaks. "Very good. Now spread your legs for your friend."
+<br><br>
+
+You spread your legs without hesitation. No further encouragement is needed for the <<beasttype 2>>.
+<br><br>
+
+<<person3>><<bHe>> begins
+<<if playerChastity()>>
+	<<set _break to $worn.genitals.name>>
+	<<set $worn.genitals.integrity -= 85>>
+	<<integritycheck no_text>>
+	gnawing at your _break in an effort to remove it.
+<</if>>
+
+<<if !playerChastity()>>
+	<<if _break>>
+		The <<beasttype 2>> efforts are rewarded as your _break breaks and falls to the floor. <<pain 2>><<gpain>><br><br>
+	<<else>>
+		licking your <<genitals>>, <<bhis>> tongue exploring every last bit.
+	<</if>>
+	<<arousal 1200>><<garousal>>
+	<br><br>
+
+	<<if $arousal gte $arousalmax>>
+		Allowed free access to your <<genitals>>, the <<beasttype 2>> pushes you over the edge.
+		<br><br>
+		<<orgasm>>
+	<</if>>
+
+	<<if _semen_released>>
+		After lapping up your cum<<if _lube_released>> and juices<</if>>,
+	<<elseif _lube_released>>
+		After lapping up your juices,
+	<<else>>
+		After giving you a final lick,
+	<</if>>
+<<else>>
+	Allowed free access to your $worn.genitals.name, the <<beasttype 2>> does a lot of damage, but <<bhe>> ultimately becomes frustrated and gives up. <<pain 2>><<gpain>><br><br>
+
+	Even still,
+<</if>>
+<span class="red"><<bhe>> is ready for <<bhis>> turn.</span>
+
+:: Doctor Harper's Office Dog Molestation
+<<if $molestationstart is 1>>
+	<<saveNPC 1 "harper_npc">>
+	<<saveNPC 2 "harper_dog">>
+	<<clearsinglenpc 0>>
+	<<clearsinglenpc 1>>
+	<<clearsinglenpc 2>>
+	<<loadNPC 0 "harper_dog">>
+	<<set $orgasmdown to 0>>
+	<<set $molestationstart to 0>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<set $consensual to 0>>
+	<<beastCombatInit>>
+	<<set $timer to 5>>
+	<<set $enemyarousal += random(100, 225)>>
+	<<set $position to ["missionary", "doggy"][$phase]>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<br>
+<<beast $enemyno>>
+<br><br>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if $player.virginity.vaginal is true and $NPCList[0].penis is "vaginaimminent">>
+	<<set $timer to 0>>
+<</if>>
+<<if $player.virginity.anal is true and $NPCList[0].penis is "anusimminent">>
+	<<set $timer to 0>>
+<</if>>
+<<if $player.virginity.penile is true and ($NPCList[0].vagina is "penisimminent" or $NPCList[0].anus is "penisimminent")>>
+	<<set $timer to 0>>
+<</if>>
+<<if $player.virginity.oral is true and $NPCList[0].penis is "mouthimminent">>
+	<<set $timer to 0>>
+<</if>>
+
+<<if _combatend or $timer lte 0 or $orgasmdown gte 1>>
+	<<set $trance to 0>>
+	<span id="next"><<link [[Next|Doctor Harper's Office Dog Molestation Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Doctor Harper's Office Dog Molestation]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Doctor Harper's Office Dog Molestation Finish
+<<effects>>
+<<famebestiality 10>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<beastejaculation knot>>
+	<<set _cum to 1>>
+<</if>>
+
+<<endcombat>>
+
+<<npc Harper>>
+<<loadNPC 1 "harper_npc">>
+<<loadNPC 2 "harper_dog">>
+<<clearNPC "harper_npc">>
+<<clearNPC "harper_dog">>
+
+<<if _knotted>>
+	<<set $harper_appointments.knottarget to _knotted>>
+
+	Harper looks on in a mix of shock and awe. "Pull <<person3>><<him>> away," <<person1>><<he>> calmly says after a few moments. The <<person2>><<personsimple>> rashly attempts to pull the <<beasttype 2>> away from you. However, <span class="red">you and the <<beasttype 2>> are firmly knotted together.</span>
+	<br><br>
+
+	The <<person2>><<persons>> eyes widen, a mix of horror and excitement as the <<beasttype 2>> continues to hump you. "Try harder," Harper says, <<person1>><<his>> voice stern. Flustered, the <<person2>><<personsimple>> tugs harder, to no avail. The <<beasttype 2>> lets out a growl and you involuntarily yelp with pain. Your trance begins to fade.<<arousal 120>><<pain 3>><<ggarousal>><<gpain>>
+	<br><br>
+
+	Taking note of your increasing alertness, Harper grabs <<person1>><<his>> pen. "Focus on the pen," <<he>> says. "There's nothing in the universe except this pen, my voice, and your own breath."
+	<br><br>
+
+	<<link [[This feels nice|Doctor Harper's Office Dog Focus]]>><<trauma -6>><<stress -12>><<hypnotised 1>><<set $phase to 0>><</link>><<ltrauma>><<lstress>>
+	<br>
+	<<link [[Resist|Doctor Harper's Office Dog Focus]]>><<set $phase to 1>><</link>><<willpowerdifficulty 1 `200 * ($hypnosis_traits.deviancy || 1)`>>
+<<else>>
+	"That's enough," Harper says. <<person3>>"<<bHe>> can't overdo it." The <<person2>><<personsimple>> reluctantly pulls <<his>> <<beasttype 2>> off you.
+	<br><br>
+
+	After a good deal of effort, the <<personsimple>> settles <<his>> <<beasttype 2>> enough to satisfy Harper. After a nod of approval and a few more pictures<<if _cum>> of your lewd display<</if>>, Harper tells you to put on your clothes. You dress yourself with robotic motions while Harper and the <<personsimple>> watch. When you are finished, <<person1>><<he>> drops <<his>> pen on the ground and brings you back to reality.
+	<br><br>
+
+	<<He>> smiles at you, <<his>> face blushing. "Today was a success. Well done." <<He>> lets you pat the <<beasttype 2>> a few more times before <<he>> holds open the door for you. "Same time next week. Be well."
+	<br><br>
+
+	<<link [[Leave office|Hospital Foyer]]>>
+		<<set $trance to 0>>
+		<<set $uncomfortable.nude to $harper_appointments.uncomfortable>>
+		<<unset $harper_appointments.uncomfortable>>
+		<<clotheson>><<endevent>>
+	<</link>>
+<</if>>
+
+:: Doctor Harper's Office Dog Focus
+<<effects>>
+
+<<if $phase is 1>>
+	You try to focus on what's happening to you.
+	<<if $willpowerSuccess>>
+		You are overwhelmed by stimuli as you break free from the effect. <<stress 8>><<trauma 4>><<pain 4>><<arousal 1400>><<ggstress>><<gtrauma>><<ggpain>><<gggarousal>>
+	<<else>>
+		The pen seems a lot more interesting right now. <<pain -4>><<lpain>><<stress -4>><<lstress>><<trauma -4>><<ltrauma>>
+	<</if>>
+	<br><br>
+<</if>>
+
+<<if $phase is 1 and $willpowerSuccess>>
+	<<set $trance to 0>>
+	<<set $uncomfortable.nude to $harper_appointments.uncomfortable>>
+	<<unset $harper_appointments.uncomfortable>>
+
+	Doctor Harper panics as <<person1>><<he>> watches you rouse from your trance.
+	<br><br>
+
+	The <<beasttype 2>> whines above you, tugging on you as <<person3>><<bhe>> tries to wriggle <<bhis>> <<npcPenis>> free. <<arousal 900>><<ggarousal>>
+	<<if $arousal gte $arousalmax>>
+		It's enough to push you over the edge.
+		<br><br>
+		<<orgasm>>
+	<<else>>
+		<br><br>
+	<</if>>
+
+	Harper speaks, sounding shocked. "What are you doing to that poor <<beasttype 2>>?" The <<person2>><<person>> watches you, mouth agape.
+	<br><br>
+
+	It takes Harper's prompting before <<he>> says anything. "O-oh, yeah! What are you doing to my <<beasttype 2>>?" <<His>> response comes far too late to be convincing.
+	<br><br>
+
+	<<link [[Apologise|Doctor Harper's Office Dog Wake]]>><<set $phase to 0>><<stress 4>><<trauma 2>><<awareness -2>><</link>><<gstress>><<gtrauma>><<lawareness>>
+	<br>
+	<<link [[Deny|Doctor Harper's Office Dog Wake]]>><<set $phase to 1>><<stress 8>><<trauma 8>><</link>><<ggstress>><<ggtrauma>>
+	<br>
+	<<link [[Flaunt|Doctor Harper's Office Dog Wake]]>><<set $phase to 2>><<stress -8>><<trauma -8>><</link>><<deviant5>><<llstress>><<lltrauma>>
+<<else>>
+	<<set $trance to 1>>
+	<<hypnotised 1>>
+
+	It is difficult to focus on the pen with the knot inside your <<if $harper_appointments.knottarget is "vagina">><<pussy>><<elseif $harper_appointments.knottarget is "anus">><<bottom>><<else>>mouth<</if>>, but with the Doctor's prompting, you slip back into your trance.
+	<br><br>
+
+	Harper works to maintain your trance for several minutes while waiting for the knot to shrink. <<person1>><<He>> somehow picks up on whenever your mind starts to wander and brings you back to focus. Eventually, the knot shrinks enough for the <<beasttype 2>> to pull out. <<if $harper_appointments.knottarget is "mouth">>You cough, and a bit of cum dribbles down your chin<<else>>A small stream of cum leaks from your <<if $harper_appointments.knottarget is "vagina">><<pussy>><<else>><<bottom>><</if>><</if>>.
+	<br><br>
+
+	After the <<person2>><<personsimple>> settles <<his>> <<beasttype 2>>, <<he>> takes a few pictures of the cum dripping <<if $harper_appointments.knottarget is "mouth">>from your mouth and chin<<else>>out of your <<if $harper_appointments.knottarget is "vagina">><<pussy>><<else>><<bottom>><</if>><</if>>. Harper does the same, then puts the camera away and tells you to put on your clothes. You dress yourself with robotic motions while Harper and the <<person2>><<personsimple>> watch. When you are finished, Harper<<person1>> drops <<his>> pen on the ground and brings you back to reality.
+	<br><br>
+
+	<<He>> smiles at you, <<his>> face blushing. "Today was a success. Well done." <<He>> lets you pat the <<beasttype 2>> a few more times before <<he>> holds open the door for you. "Same time next week. Be well." You feel strangely drained.
+	<br><br>
+
+	<<link [[Leave office|Hospital Foyer]]>>
+		<<set $uncomfortable.nude to $harper_appointments.uncomfortable>>
+		<<unset $harper_appointments.uncomfortable>>
+		<<unset $harper_appointments.knottarget>>
+		<<set $trance to 0>>
+		<<clotheson>>
+		<<endevent>>
+	<</link>>
+<</if>>
+
+:: Doctor Harper's Office Dog Wake
+<<effects>>
+<<person3>>
+<<if $phase is 0>>
+	<<if $harper_appointments.knottarget is "mouth">>
+		You are unable to speak or look away with the <<beasttype 2>>'s <<npcGenitals 2 "simple">> your mouth. You try keeping your eyes closed, too humiliated to look at them.
+	<<elseif $speech_attitude is "meek">>
+		"I'm sorry. I didn't mean to," you say as you turn away in shame.
+	<<elseif $speech_attitude is "bratty">>
+		"Not sure what happened," you say, looking away.
+	<<else>>
+		"Sorry, I don't know what came over me," you say, avoiding eye contact.
+	<</if>>
+<<elseif $phase is 1>>
+	<<if $harper_appointments.knottarget is "mouth">>
+		You are unable to speak with the <<beasttype 2>>'s <<npcGenitals 2 "simple">> in your mouth. All you can do is glare back at them.
+	<<elseif $speech_attitude is "meek">>
+		"I promise, I didn't," you say quietly.
+	<<elseif $speech_attitude is "bratty">>
+		"There's no way this is my fault," you say, voice heated.
+	<<else>>
+		"I didn't do this," you say, raising your chin.
+	<</if>>
+<<else>>
+	<<person3>>
+	<<if $harper_appointments.knottarget is "mouth">>
+		You are unable to speak with the <<beasttype 2>>'s <<npcGenitals 2 "simple">> in your mouth but it does not stop you from humming a happy tune while you wait.
+	<<elseif $speech_attitude is "meek">>
+		"I'm making <<bhim>> very happy," you say with a blush.
+	<<elseif $speech_attitude is "bratty">>
+		"I'm fucking <<bhim>>, can't you tell?" you say with a grin.
+	<<else>>
+		"Just having some fun," you say with a smile.
+	<</if>>
+	<br><br>
+
+	<<deviancy5>>
+<</if>>
+
+<<if $phase isnot 2>>
+	<<set $harper_appointments.scold to true>>
+	The <<person2>><<personsimple>> attempts to pull the <<beasttype 2>> off you, but you remain locked together.
+	<<if $phase is 0>>
+		You feel ashamed for forcing yourself on the <<beasttype 2>> and getting off on it.
+	<<else>>
+		You feel humiliated.
+	<</if>>
+	<br><br>
+
+	A tense and awkward five minutes pass while Harper takes notes on <<person1>><<his>> clipboard.
+
+	<<if $phase is 0>>
+		<<He>> tries to help by providing constructive criticism on your recent behaviour. You are only half listening as you try to work yourself free.
+	<<else>>
+		"I can't help you if you can't admit you have a problem," <<he>> tells you. You ignore <<him>> and concentrate on working yourself free.
+	<</if>>
+	<br><br>
+
+	Finally, the <<beasttype 2>>'s cock slips out with a plop, and <<if $harper_appointments.knottarget is "mouth">>you cough up some cum<<else>>semen oozes out of your <<if $harper_appointments.knottarget is "vagina">><<pussy>><<else>><<bottom>><</if>><</if>>.
+	<br><br>
+
+	"Put on your clothes," says Harper. You do not need <<his>> prompting and quickly fix your clothes. "That'll be all for today. Same time next week." <<He>> hurries you from the room and promptly closes the door behind you.
+<<else>>
+	Harper and the <<person2>><<personsimple>> stare at you. Harper is first to recover and begins taking frantic notes on <<person1>><<his>> clipboard.
+	<br><br>
+
+	A thrilling five minutes pass while Harper provides constructive criticism on your recent behaviour, but can hardly find fault with you. You nod and smile<<if $harper_appointments.knottarget is "mouth">> as best you can<</if>> as you try to work yourself free.
+	<br><br>
+
+	Finally, the <<beasttype 2>>'s <<npcGenitals 2 "simple">> slips out<<if $harper_appointments.knottarget isnot "mouth">> with a plop<</if>>, and <<if $harper_appointments.knottarget is "mouth">>you cough up some cum, then lick your lips<<else>>semen oozes out of your <<if $harper_appointments.knottarget is "vagina">><<pussy>><<else>><<bottom>><</if>><</if>>.
+	<br><br>
+
+	"Put on your clothes," says Harper. You take your time fixing your clothes. <<He>> smiles at you, <<his>> face blushing. "Today was a..." <<He>> pauses to consider before finishing. "...a success. Well done." <<He>> lets you pat the <<beasttype 2>> a few more times before <<he>> holds open the door for you. "Same time next week. Be well."
+<</if>>
+<br><br>
+
+<<unset $harper_appointments.knottarget>>
+<<link [[Leave office|Hospital Foyer]]>><<set $trance to 0>><<clotheson>><<endevent>><</link>>
+
+:: Doctor Harper's Office Camera Resist
+<<effects>>
+
+<<if $willpowerSuccess>>
+	<<npcincr Harper dom -5>>
+
+	<<if $phase is 1>>
+		You shake yourself free of the effect. Harper quickly hides the camera behind <<his>> back. "That's enough for today. Remember, don't be afraid to relax." <<He>> holds open the door for you. "Same time next week. Be well."
+	<<elseif $phase is 2>>
+		You shake yourself free of the effect. The <<person2>><<person>> doesn't notice, but Harper jumps to action.<<person1>> <<He>> addresses the <<person2>><<person>>.<<person1>> "Now's not the time for maintenance! Can't you see I have a patient?"
+		<br><br>
+
+		<<person2>>The <<person>> looks at Harper blankly for a moment, before realisation dawns on <<his>> face. <<He>> grabs the tripod and leaves via the window. Harper turns to you. "I don't know why <<he>> didn't just use the door. <<person1>>Never mind, that's enough for today. Remember, don't be afraid to relax." <<He>> holds open the door for you. "Same time next week. Be well."
+	<<elseif $phase is 3>>
+		You shake yourself free of the effect. The atmosphere of the room becomes tense and awkward.<<person1>> Harper speaks, sounding exasperated. "Thank you for letting these students observe the examination. That'll be all for today. Same time next week." <<He>> hurries you from the room and promptly closes the door behind you.
+	<</if>>
+	<br><br>
+
+	<<link [[Leave office|Hospital Foyer]]>><<set $trance to 0>><<endevent>><</link>>
+<<else>>
+	<<if $phase is 1>>
+		<<include "Doctor Harper's Office Camera">>
+	<<elseif $phase is 2>>
+		<<include "Doctor Harper's Office Camera2">>
+	<<elseif $phase is 3>>
+		<<include "Doctor Harper's Office Camera3">>
+	<</if>>
+<</if>>
+
+:: Doctor Harper's Office Camera
+<<effects>>
+<<pass 20>>
+<<hypnotised 1>>
+<<strip>>
+<<if $harper_appointments.hypnosis is 1>>
+	<<set $harper_appointments.hypnosis to 2>>
+<</if>>
+
+You remove your clothing, the flicker of resistance unable to break through the haze. "Very good," Harper says. The softness in <<his>> voice is still present, but there is now also a distinct quavering. "Just keep focusing on your breath." <<He>> starts circling you with the camera, which produces a clicking sound whenever <<he>> momentarily stops.
+<<fameexhibitionism 10 "pic">>
+<br><br>
+
+This continues for several minutes. <<He>> places the camera back in the drawer. "Put your clothes back on," <<he>> says, as <<he>> sits back down and sighs. You dress yourself with robotic motions while Harper watches. After, <<he>> drops <<his>> pen on the ground and brings you back to reality.
+<br><br>
+
+<<He>> smiles at you, <<his>> face blushing. "Today was a success. Well done." <<He>> holds open the door for you. "Same time next week. Be well."
+<br><br>
+
+<<link [[Leave office|Hospital Foyer]]>><<set $trance to 0>><<clotheson>><<endevent>><</link>>
+
+:: Doctor Harper's Office Camera2
+<<effects>>
+<<pass 20>>
+<<hypnotised 1>>
+<<strip>>
+<<if $harper_appointments.hypnosis is 2>>
+	<<set $harper_appointments.hypnosis to 3>>
+<</if>>
+
+You take off your clothes. As you do so, a green light winks into existence on the front of the camera. Once completely nude, Harper speaks. "Very good. Next, I want you to twirl on the spot..."
+<br><br>
+
+For the next several minutes you obey Harper's instructions. You turn, bend over, and strike numerous poses for the lens of the camera, leaving no inch of your skin unexplored.
+<<fameexhibitionism 50 "vid">>
+<br><br>
+
+<<person2>>The <<person>> exchanges a look with Harper, then the green light flickers out. <<He>> begins dismantling the apparatus while Harper <<person1>>retrieves <<his>> own camera and starts snapping pictures.
+<br><br>
+
+<<person2>>When done, the <<person>> leaves via the window. <<person1>>Harper puts away <<his>> camera and turns back to you. "Put on your clothes." You dress yourself with robotic motions while Harper watches. When you are finished, <<he>> drops <<his>> pen on the ground and brings you back to reality.
+<br><br>
+
+<<He>> smiles at you, <<his>> face blushing. "Today was a success. Well done." <<He>> holds open the door for you. "Same time next week. Be well."
+<br><br>
+
+<<link [[Leave office|Hospital Foyer]]>><<set $trance to 0>><<clotheson>><<endevent>><</link>>
+
+:: Doctor Harper's Office Camera3
+<<effects>>
+<<pass 20>>
+<<hypnotised 1>>
+<<strip>>
+
+<<if $phase2 is 0>>
+	<<if $harper_appointments.hypnosis is 3>>
+		<<set $harper_appointments.hypnosis to 4>>
+	<</if>>
+
+	You take off your clothes. As you do so, a green light winks into existence on the front of the camera. Once completely nude, Harper speaks. "Very good. Next, I want you to twirl on the spot..."
+	<br><br>
+
+	For the next several minutes you obey Harper's instructions. You turn, bend over, and strike numerous poses for the lens of the camera, leaving no inch of your skin unexplored. The audience watches intently, looking increasingly flustered. The <<person3>><<person>> gets <<his>> phone out and starts filming.<<fameexhibitionism 50 "vid">>
+	<br><br>
+
+	<<person2>>The <<person>> exchanges a look with Harper, then the green light flickers out. <<He>> begins dismantling the apparatus while Harper <<person1>>retrieves <<his>> own camera and starts snapping pictures.
+	<br><br>
+
+	When done, the group leaves via the window. <<person1>>Harper puts away <<his>> camera and turns back to you. "Put on your clothes." You dress yourself with robotic motions while Harper watches. When you are finished, <<he>> drops <<his>> pen on the ground and brings you back to reality.
+	<br><br>
+
+	<<He>> smiles at you, <<his>> face blushing. "Today was a success. Well done." <<He>> holds open the door for you. "Same time next week. Be well."
+	<br><br>
+
+	<<link [[Leave office|Hospital Foyer]]>><<set $trance to 0>><<clotheson>><<endevent>><</link>>
+<</if>>
+
+<<if $phase2 is 1>>
+	<<if $harper_appointments.hypnosis is 4>>
+		<<set $harper_appointments.hypnosis to 5>>
+	<</if>>
+
+	You take off your clothes. As you do so, a green light winks into existence on the front of the camera. Once completely nude, Harper speaks. "Very good. Next, I want you to twirl on the spot..."
+	<br><br>
+
+	For the next several minutes you obey Harper's instructions. You turn, bend over, and strike numerous poses for the lens of the camera, leaving no inch of your skin unexplored. The audience watches intently, looking increasingly flustered. The <<person3>><<person>> gets <<his>> phone out and starts filming.<<fameexhibitionism 50 "vid">>
+	<br><br>
+
+	<<person2>>The <<person>> exchanges a look with Harper, then the green light flickers out. <<He>> begins dismantling the apparatus while Harper <<person1>>retrieves <<his>> own camera and starts snapping pictures.
+	<br><br>
+
+	You hear the <<person3>><<person>> say something, but you can't make it out. <<person1>>Everyone looks at Harper expectantly. <<He>> pauses for a moment, then nods. Immediately, a salacious feeling fills the room, and the audience moves closer.
+	<br><br>
+
+	<<link [[Next|Doctor Harper's Office Camera Molestation]]>><<set $molestationstart to 1>><</link>>
+<</if>>
+
+:: Doctor Harper's Office Camera Molestation
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>><<npcstrip>>
+	<<if ($player.virginity.vaginal isnot true or $player.virginity.penile isnot true) and $templePromised is "">>
+	<<else>>
+		<<npcidlegenitals>>
+	<</if>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend or $orgasmdown gte 1>>
+	<span id="next"><<link [[Next|Doctor Harper's Office Camera Molestation Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Doctor Harper's Office Camera Molestation]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Doctor Harper's Office Camera Molestation Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+<<elseif $enemyhealth lte 0>>
+	<<famescrap 6>>
+	The audience backs away from you, surprised by your aggression.
+	<br><br>
+<</if>>
+"That's enough," Harper announces. "We can't overdo it. Everyone back off." The audience does so, albeit reluctantly. They watch you spasm on the floor, until your orgasm recedes completely.
+<br><br>
+
+The group soon leaves via the window. <<person1>> Harper closes it then turns to face you. "Put on your clothes." You dress yourself with robotic motions while Harper watches. When you are finished, <<he>> drops <<his>> pen on the ground and brings you back to reality.
+<br><br>
+
+<<clotheson>>
+
+<<He>> smiles at you, <<his>> face blushing. "Today was a success. Well done." <<He>> holds open the door for you. "Same time next week. Be well." You feel strangely drained.
+<br><br>
+
+<<endcombat>>
+
+<<link [[Leave office|Hospital Foyer]]>><<set $trance to 0>><<clotheson>><</link>>
+
+:: Doctor Harper's Office Exam
+<<effects>>
+<<if $phase is 1>>
+	<<He>> gently probes your <<genitals>> with <<his>> fingers.
+	<<if $worn.genitals.type.includes("naked") and setup.bodyliquid.combined("vagina") gte 2>>
+		Cum and other lewd fluids
+		<<if setup.bodyliquid.combined("vagina") gte 4>>
+			gush
+		<<else>>
+			dribble
+		<</if>>
+		out <<if $player.penisExist>>of your pussy <</if>>and Harper's hands snap back.
+		<br><br>
+		"Sexual activity is perfectly normal, but it is crucial to look after your hygiene," Harper rebukes.
+		<br>
+		Harper grabs a glass beaker from a nearby cupboard and holds it under your butt. With the other hand <<he>> holds open your vagina,
+		allowing the lewd fluids to drain out into the beaker.
+		<br>
+		<<if setup.bodyliquid.combined("vagina") gte 4>>
+			"There's still more," Harper says. A moment later, a finger is pushed deep inside your vagina. A final wave of fluids run out.
+			<br>
+		<</if>>
+		<<bodyliquid "vagina" "all" -5>>
+		"There," <<he>> says. "I'll take this away for... for testing. Now let's resume."
+		<br><br>
+		Harper resumes the exam.
+	<</if>>
+	Almost as soon as <<he>> touches you, you feel a distinct warmth spread through your groin. You try to resist, but you don't have any control over it.
+	<<if $player.penisExist and $worn.genitals.type.includes("naked")>>
+		Your penis soon stands conspicuously erect. Harper continues as if nothing is amiss.
+	<<elseif $player.penisExist>>
+		Your penis soon attempts to form an erection despite the lack of space. Harper continues as if nothing is amiss.
+	<<else>>
+		You can feel the fluid leaking from your slit. Harper lifts <<his>> hand up to <<his>> eyes, and you see the liquid drip from <<his>> fingers.
+	<</if>>
+
+	<br><br>
+
+	"There's no need to be ashamed. This is a perfectly natural and normal response," <<he>> says in a dry tone.
+	<<He>> continues <<his>> systematic investigation of your <<genitals 1>>.
+	<<arousal 2000 "genitals">>
+	<br><br>
+
+	<<if $arousal gte $arousalmax>><<arousal -8000>><<set $stress -= 200>>
+		The warmth within you continues to build, but Harper shows no sign of letting up. You feel yourself pass the point of no return, and you whimper softly.
+		"Please, no." Harper is looking at you puzzled when it hits you. The orgasm emerges and your back immediately arcs.
+		Uncontrollable moans escape your lips and you grip the side of the bed to stop your arms flailing.
+		<<orgasmstat>><<orgasmcount 1>>
+		<br><br>
+
+		<<if $player.penisExist and $orgasmcount lte 23 and !$femaleclimax and !_deniedOrgasm>>
+			<<if !$worn.genitals.type.includes("naked")>>
+				You ejaculate, generating a large wet patch and filling the inside of your $worn.genitals.name with your fluids.
+			<<elseif !$worn.under_lower.type.includes("naked")>>
+				You ejaculate, generating a large wet patch and filling the inside of your $worn.under_lower.name with your fluids.
+			<<else>>
+				Semen spurts from the tip of your penis, rising into the air and splattering all over your thighs and torso.
+			<</if>>
+		<</if>>
+
+		Despite it all, Harper continues as if absolutely nothing is amiss. You lie there, spent and humiliated, as <<he>> finishes <<his>> examination. Finally, <<he>> grabs some paper towels and starts cleaning you up. You pretend to be elsewhere.
+		<br><br>
+	<</if>>
+
+	"There we go, all done." <<He>> pushes <<his>> chair back over to <<his>> desk and starts typing something. "You can put your clothes back on." You do so without delay. "You seem to be perfectly healthy." <<He>> shows you to the door as soon as you're dressed. "Same time next week. Be well."
+	<br><br>
+
+	<<link [[Leave office|Hospital Foyer]]>><<clotheson>><<endevent>><</link>>
+<<elseif $phase is 2>>
+	<<person1>><<He>> gently probes your <<genitals>> with <<his>> fingers.
+	<<if $worn.genitals.type.includes("naked") and setup.bodyliquid.combined("vagina") gte 2>>
+		Cum and other lewd fluids
+		<<if setup.bodyliquid.combined("vagina") gte 4>>
+			gush
+		<<else>>
+			leak
+		<</if>>
+		out <<if $player.penisExist>>of your pussy<</if>>.
+		Harper's hands snap back and you hear the <<person2>><<person>> gasp.
+		<br>
+		"Sexual activity is perfectly normal, but it is crucial to look after your hygiene," Harper rebukes. "Hey you, uhh... Student. Bring over a beaker. No, a beaker. The glass thing in that cupboard there. There! That's it."
+		<br>
+		The <<person>> walks over with a glass beaker.
+		<br><br>
+		"Hold it here," Harper indicates just under your pussy. You feel the cold glass press against your butt.
+		<br>
+		"Good," Harper puts two fingers in your <<pussy>> and spreads, allowing the lewd fluids to drain out into the beaker.
+		<br>
+		<<arousal 500 "genitals">>
+		<<if setup.bodyliquid.combined("vagina") gte 4>>
+			"I can still see more," the <<person>> says.
+			<br>
+			"Go on then."
+			<br>
+			A moment later, a finger is pushed deep inside your vagina.
+			<<arousal 1000 "genitals">>
+			A final wave of fluids run out.
+			<br>
+			"Good work, that's it,"
+		<<else>>
+			"That's it,"
+		<</if>>
+		<<bodyliquid "vagina" "all" -5>>
+		Harper says. "Put the beaker over there for later. For testing that is. Let's resume."
+		<br><br>
+		<<person1>>Harper resumes the exam.
+	<</if>>
+	Almost as soon as <<he>> touches you, you feel a distinct warmth spread through your groin. You try to resist, but you don't have any control over it.
+	<<if $player.penisExist and $worn.genitals.type.includes("naked")>>
+		Your penis soon stands conspicuously erect. Harper continues as if nothing is amiss.
+	<<elseif $player.penisExist>>
+		Your penis soon attempts to grow erect despite the lack of space. Harper continues as if nothing is amiss.
+	<<else>>
+		You can feel the fluid leaking from your slit. Harper lifts <<his>> hand up to <<his>> eyes, and you see the liquid drip from <<his>> fingers.
+	<</if>>
+	<br><br>
+
+	"There's no need to be ashamed. This is a perfectly natural and normal response," <<he>> says in a dry tone. "Student, come give me a hand." <<person2>>The <<person>> arrives at your side, looking nervous but eager.<<person1>> Together, they continue the systematic investigation of your <<genitals 1>>.
+	<<arousal 2000 "genitals">>
+	<br><br>
+
+	<<if $arousal gte $arousalmax>><<arousal -8000>><<set $stress -= 200>>
+		The warmth within you continues to build, but Harper and the <<person2>><<person>> show no sign of letting up. You feel yourself pass the point of no return, and you whimper softly. "Please, no." Harper is looking at you puzzled when it hits you. The orgasm emerges and your back immediately arcs. Uncontrollable moans escape your lips and you grip the side of the bed to stop your arms flailing. The <<person>> gasps.<<person1>>
+		<<orgasmstat>><<orgasmcount 1>>
+		<br><br>
+
+		<<if $player.penisExist and $orgasmcount lte 23 and !$femaleclimax and !_deniedOrgasm>>
+			<<if !$worn.genitals.type.includes("naked")>>
+				You ejaculate, generating a large wet patch and filling the inside of your $worn.genitals.name with your fluids.
+			<<elseif !$worn.under_lower.type.includes("naked")>>
+				You ejaculate, generating a large wet patch and filling the inside of your $worn.under_lower.name with your fluids.
+			<<else>>
+				Semen spurts from the tip of your penis, rising into the air and splattering all over your thighs and torso.
+			<</if>>
+		<</if>>
+
+		Despite it all, Harper continues as if absolutely nothing is amiss. You lie there, spent and humiliated, as <<he>> finishes <<his>> examination. Finally, <<he>> grabs some paper towels and starts cleaning you up. You pretend to be elsewhere.
+		<br><br>
+	<</if>>
+
+	"There we go, all done." <<He>> pushes <<his>> chair back over to <<his>> desk and starts typing something. "You can put your clothes back on." You do so without delay. "You seem to be perfectly healthy." <<He>> shows you to the door as soon as you're dressed. "Same time next week. Be well."
+	<br><br>
+
+	<<link [[Leave office|Hospital Foyer]]>><<clotheson>><<endevent>><</link>>
+<</if>>
+
+:: Doctor Harper's Office School
+<<set $outside to 0>><<set $location to "hospital">><<effects>>
+
+You approach the front desk, holding out the card the school nurse gave you.
+<<if Time.weekDay is 6>>
+	The receptionist examines it from across the counter, then points to a sign.
+	<<pass 10>>
+	<br><br>
+
+	You follow the sign's direction until you arrive at a dark door in a quiet section of the hospital. The same name on the card is imposed on a metallic plate: Doctor Harper.
+	<br><br>
+
+	<<link [[Next|Doctor Harper's Office]]>><<set $daily.harperVisit to 1>><</link>>
+	<br>
+<<else>>
+	The receptionist examines it from across the counter.
+	<br><br>
+
+	"The doctor isn't taking patients today," you're told. <span class="gold">"Come back on Friday."</span>
+	<br><br>
+
+	<<link [[Leave office|Hospital Foyer]]>><</link>>
+<</if>>

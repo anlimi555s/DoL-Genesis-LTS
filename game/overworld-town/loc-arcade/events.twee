@@ -1,0 +1,485 @@
+:: Arcade fighting cabinet
+<<set $outside to 0>><<set $location to "arcade">><<effects>>
+<<if maleChance() gte random(1,100)>>
+	<<set _characterGender to "m">>
+<<else>>
+	<<set _characterGender to "f">>
+<</if>>
+<<switch $arcadeCharacter>>
+	<<case "villainous">>
+		You choose the villainous-looking one in the long coat. <<print (_characterGender is "m"?"He":"She")>> gives off a menacing look.
+	<<case "spiky hair">>
+		You choose the one with the spiky hair. <<print (_characterGender is "m"?"He":"She")>> raises <<print (_characterGender is "m"?"his":"her")>> fists up, and strikes a pose at you.
+	<<case "scantily-clad">>
+		You choose the scantily clad one. <<print (_characterGender is "m"?"His":"Her")>> clothes leave little to the imagination as <<print (_characterGender is "m"?"he":"she")>> gives a suggestive wink to you.
+	<<case "muscular">>
+		You choose the very muscular one. <<print (_characterGender is "m"?"He":"She")>> flexes <<print (_characterGender is "m"?"his":"her")>> muscles at you.
+<</switch>>
+<<rng>>
+<<if $rng gte 51>>
+	No one occupies the "Player 2" spot, so you're left to play alone.
+	<br><br>
+	<<set _chance to random(1, 100)>>
+	<<set _chance += Math.floor(currentSkillValue("handskill") / 25)>>
+	<<if _chance gte 90>>
+		You easily win, landing a satisfyingly tough combo. <<stress -4>><<lstress>>
+	<<elseif _chance gte 75>>
+		You barely win, resorting to button mashing to beat the computer.
+	<<else>>
+		You lose handily. You wonder if the computer is cheating.
+	<</if>>
+	<br><br>
+	<<arcadeEndLink>>
+<<else>>
+	<<generatey1>><<person1>>
+	A <<person>> steps up to the "Player 2" spot.
+	<<set _chance to random(1, 100)>>
+	<<if _chance gte 90>>
+		You easily beat the <<person>>.
+		<br><br>
+		<<switch random(1,3)>>
+			<<case 1>><<He>> throws up <<his>> hands in frustration and walks away.
+			<<case 2>><<He>> angrily accuses you of being a bad player/cheater before sulking off.
+			<<case 3>><<He>> congratulates you on the win, before heading off to play on another cabinet. <<stress -4>><<lstress>>
+		<</switch>>
+		<br><br>
+		<<arcadeEndLink>>
+	<<elseif _chance gte 75>>
+		You barely beat the <<person>>, drawing the game out to the final match.
+		<br><br>
+		<<switch random(1,3)>>
+			<<case 1>><<He>> slaps <<his>> hand against the cabinet before storming away.
+			<<case 2>><<He>> colourfully insults you as <<he>> walks away.
+			<<case 3>><<He>> laughs and compliments your moves. <<stress -2>><<lstress>>
+		<</switch>>
+		<br><br>
+		<<arcadeEndLink>>
+	<<elseif _chance gte 25>>
+		You begin to play against the <<person>>, but quickly find yourself falling behind. You wonder if there is a way to tilt the odds back in your favour.
+		<br><br>
+		<<if ($worn.under_upper.name isnot "naked" or !$worn.under_upper.type.includes("naked")) and hasSexStat("exhibitionism", 2)>>
+			<<link [[Tease|Arcade fighting cabinet Rigging]]>><<set $phase to 1>><</link>><<exhibitionist2>>
+			<br>
+		<<elseif hasSexStat("exhibitionism", 4)>>
+			<<link [[Tease|Arcade fighting cabinet Rigging]]>><<set $phase to 2>><</link>><<exhibitionist4>>
+			<br>
+		<</if>>
+		<<link [[Sabotage|Arcade fighting cabinet Rigging]]>><<set $phase to 3>><</link>>
+		<br>
+		<<link [[Play fairly|Arcade fighting cabinet Rigging]]>><<set $phase to 4>><</link>>
+	<<else>>
+		You lose to the <<person>> by a wide margin, it seems you were no match for <<him>>.
+		<<switch random(1,3)>>
+			<<case 1>><<He>> walks away without a word.
+			<<case 2>><<He>> makes a snide comment as <<he>> swaggers off.
+			<<case 3>><<He>> gracefully accepts victory and offers you some pointers on how to play the game better.
+		<</switch>>
+		<br><br>
+		<<arcadeEndLink>>
+	<</if>>
+<</if>>
+
+:: Arcade fighting cabinet Rigging
+<<set $outside to 0>><<set $location to "arcade">><<effects>>
+<<rng>>
+<<if $phase is 1>>
+	<<if ($rng gte 51 and (!$worn.under_upper.type.includes("naked") and $worn.under_upper.type.includes("lower_covering"))) or $worn.under_lower.name is "naked">>
+		You shift your <<allTops>> down slightly, revealing more of your $worn.under_upper.name to the <<person>>. <<He>> occasionally glances at you during the match, allowing you to easily beat <<him>>.
+	<<elseif $worn.under_lower.name isnot "naked">>
+		You shift your <<allBottoms>> down slightly, revealing more of your $worn.under_lower.name to the <<person>>. <<He>> frequently sneaks peeks, giving you an easy win.
+	<</if>>
+	<<exhibitionism2>>
+
+	<<if dangerEvent() and $eventskip is 0>>
+		The <<person>> approaches you as you leave the cabinet. "I saw what you were doing back there," <<he>> says. "How about you and I found a quiet place and spar some?"
+		<br><br>
+		<<link [[Next|Arcade Watched Rape]]>><<set $molestationstart to 1>><</link>>
+	<<else>>
+		<<arcadeEndLink>>
+	<</if>>
+<<elseif $phase is 2>>
+	<<if $rng gte 51>>
+		You shift your <<allTops>> down slightly, revealing your <<breasts>> to the <<person>>. <<He>> occasionally glances at you during the match, allowing you to easily beat <<him>>.
+	<<else>>
+		You shift your <<allBottoms>> down slightly, revealing your <<genitals>> to the <<person>>. <<He>> frequently sneaks peeks, giving you an easy win.
+	<</if>>
+	<<exhibitionism4>>
+
+	<<if dangerEvent() and $eventskip is 0>>
+		The <<person>> approaches you as you leave the cabinet. "I saw what you were doing back there," <<he>> says. "How about you and I found a quiet place and spar some?"
+		<br><br>
+		<<link [[Next|Arcade Watched Rape]]>><<set $molestationstart to 1>><</link>>
+	<<else>>
+		<br><br>
+		<<arcadeEndLink>>
+	<</if>>
+<<elseif $phase is 3>>
+	You notice a token placed above the opponent's controls. <<He>> must have placed it there. You continue to play, now slapping your hands against the controls with greater force. Shaken by the force you used, the coin slips free and slides down the cabinet, lodging itself in the stick of the opponent.
+	<br><br>
+	<<His>> stick now jammed, you easily finish <<him>> off.
+
+	<<if dangerEvent() and $eventskip is 0>>
+		<br><br>
+		The <<person>> approaches you as you leave the cabinet. "I saw what you were doing back there," <<he>> says. "How about you and I found a quiet place and spar some?"
+		<br><br>
+		<<link [[Next|Arcade Watched Rape]]>><<set $molestationstart to 1>><</link>>
+	<<else>>
+		<br><br>
+		<<arcadeEndLink>>
+	<</if>>
+<<elseif $phase is 4>>
+	You focus on playing to the best of your abilities, but can't catch up. The <<person>> wins with a decisive blow.
+	<br><br>
+	<<arcadeEndLink>>
+<</if>>
+
+:: Arcade Classmate Braggart
+<<set $outside to 0>><<set $location to "arcade">><<effects>>
+<<if $phase is 1>>
+	You take a step back from the cabinet, never taking your hands off the controls. In one smooth motion, you lash out with your foot and plant a kick in the <<persons>> stomach. <<He>> doubles over as you finish the level. The bystanders that were close to you laugh. <<status 1>><<gcool>>
+<<elseif $phase is 2>>
+	You step away from the cabinet before your turn ends, allowing the <<person>> to take your place. "Good. Now stop wasting our time," <<he>> says as <<he>> inserts <<his>> own coin.
+<<elseif $phase is 3>>
+	You ignore the <<person>>, focusing instead on doing your best to beat the boss that showed up.
+	<br><br>
+	A small crowd begins to form, and the constant jeering distracts you.
+	<<rng>>
+	<<if $rng gte 140 - Math.floor(currentSkillValue("handskill") / 10)>>
+		You end up winning the final stage with ease, drawing loud cheers from the crowd. The <<person>> stares at the screen as you walk away. <<status 2>><<gcool>>
+	<<elseif $rng gte 100 - Math.floor(currentSkillValue("handskill") / 10)>>
+		You somehow end up winning the final stage, drawing some cheers from the crowd.
+		<br><br>
+		"You just got lucky, that's all." <<He>> whispers to you as you walk away.
+	<<else>>
+		You end up losing at the final stage, drawing cheers from the crowd. The <<person>> laughs the loudest at you as you walk away. <<status -5>><<lcool>>
+	<</if>>
+<</if>>
+<br><br>
+<<arcadeEndLink>>
+
+:: Arcade Popular Gamer
+<<set $outside to 0>><<set $location to "arcade">><<effects>>
+<<if $phase is 1>>
+	You agree to face the <<person>>. You each take your spot, the small crowd cheering <<him>> on as you begin to play. <<He>> is good, and you soon find yourself falling behind in points.
+	<br><br>
+	<<link [[Focus on gaining points safely|Arcade Popular Gamer 2]]>><<set $phase to 1>><</link>>
+	<br>
+	<<link [[Risk going for high point enemies|Arcade Popular Gamer 2]]>><<set $phase to 2>><</link>>
+<<else>>
+	You step away from the cabinet, refusing the <<persons>> offer.
+	<br><br>
+	<<switch random(1,2)>>
+		<<case 1>>"Yeah, I knew you weren't worth shit." <<He>> laughs with the crowd as you walk away.
+		<<case 2>>"That's no problem, keep practising and you'll get there." The crowd applauds the <<persons>> kindness.
+	<</switch>>
+	<br><br>
+	<<arcadeEndLink>>
+<</if>>
+
+:: Arcade Popular Gamer 2
+<<set $outside to 0>><<set $location to "arcade">><<effects>>
+<<rng>>
+<<if $phase is 1>>
+	<<if $rng gt 40 + Math.floor(currentSkillValue("handskill") / 40)>>
+		You decide to focus on the safe targets, hoping that your opponent will slip up. However, your opponent soon catches on and also plays safe, keeping <<his>> points above yours with easy hits.
+		<br><br>
+		You lose in the end by a wide margin. You hear whispers among the crowd about your poor gameplay. <<status -5>><<lcool>>
+	<<else>>
+		You decide to focus on the safe targets, hoping that your opponent will slip up. Your opponent, seeing an opportunity, begins to aim for riskier plays to gain a lead.
+		<br><br>
+		After taking multiple hits, they fall behind you on the final wave. You hear whispers among the crowd about your superior gameplay. <<status 1>><<gcool>><<set _win to true>>
+	<</if>>
+<<else>>
+	<<if $rng gt Math.floor(currentSkillValue("handskill") / 10)>>
+		You decide to risk it, aiming for high value targets. You take down as many as you can, but take several hits as a result.
+		<br><br>
+		In the end you lose more points than you gain, costing you the match. You hear whispers among the crowd about your reckless gameplay. <<status -5>><<lcool>>
+	<<else>>
+		You decide to risk it, aiming for high value targets. You play dangerously, just narrowly avoiding hits as you blast away the important enemies.
+		<br><br>
+		In the end, your efforts pay off and you win by a hefty amount. You hear whispers among the crowd about your daring gameplay. <<status 1>><<gcool>><<set _win to true>>
+	<</if>>
+<</if>>
+<br><br>
+<<if _win is true>>
+	<<switch random(1,2)>>
+		<<case 1>>
+			"I-I only lost cause this machine is busted. You're still a chump." The <<person>> stomps away, muttering curses. The crowd chuckles at <<his>> reaction.
+		<<case 2>>
+			"That was some good gameplay! Keep it up, and you could enter some tournaments!" the <<person>> says, resting <<his>> hand on your shoulder. The crowd applauds <<his>> graciousness. <<stress -2>><<lstress>>
+	<</switch>>
+<<else>>
+	<<switch random(1,2)>>
+		<<case 1>>
+			"I knew you were trash. Get the hell outta here." The <<person>> raises <<his>> arms to the scattered applause of the crowd.
+		<<case 2>>
+			"We all lose from time to time," <<he>> says. "You tried your best." The <<person>> gives you a wide smile as the crowd applauds <<his>> cordiality.
+	<</switch>>
+<</if>>
+<br><br>
+<<arcadeEndLink>>
+
+
+:: Arcade Watch High Score
+<<set $outside to 0>><<set $location to "arcade">><<effects>>
+<<if $phase is 1>>
+	You decide to join the crowd and watch the <<person>>. You see sweat dripping down <<his>> face as <<his>> hands blur over the controls. With a shout, <<he>> raises <<his>> arms. Looking at the cabinet, you can see <<he>> beat the high score by a huge margin.
+	<br><br>
+	The crowd erupts into cheers, lifting <<him>> up. You join in. The crowd sets the <<person>> back down, and begin to chat amongst themselves.<<trauma -6>><<ltrauma>>
+	<br><br>
+	<<arcadeEndLink>>
+<<else>>
+
+	<<if dangerEvent() and $eventskip is 0>>
+		<<generate1>><<person1>>
+		You decide to focus on your own game instead. A <<person>> approaches you however. "Everyone's busy watching that loser. How about you and I have some fun?" <<He>> grabs you.
+		<br><br>
+		<<link [[Next|Arcade Watched Rape]]>><<set $molestationstart to 1>><</link>>
+	<<else>>
+		You decide to focus on your own game instead. After a while, the crowd begins to disperse.
+		<br><br>
+		<<arcadeEndLink>>
+	<</if>>
+<</if>>
+
+
+:: Arcade Journey
+<<effects>>
+
+<<if $cool gte 40>>
+	<<if $cool gte 160>>
+		They're eager to have you along. They form around you and vie for your attention. The town is relatively safe during the day, but it's still comforting to travel in a group.
+	<<else>>
+		They're happy to have you along. The town is relatively safe during the day, but it's still comforting to travel in a group.
+	<</if>>
+	<<status 1>><<gcool>>
+	<br><br>
+	You arrive at the arcade without a problem.
+	<br><br>
+
+	<<link [[Next|Arcade]]>><<set $bus to "starfish">><<pass 10>><</link>>
+	<br>
+<<else>>
+	They look at each other and smirk at your request. They agree, but demand money for games in return.
+	<br><br>
+
+	<<if $money gte 2000>>
+		<<link [[Give (£20)|Arcade Fare]]>><<set $phase to 0>><<money -2000>><</link>>
+	<<else>>
+		<span class="blue">You don't have £20.</span>
+	<</if>>
+	<br>
+	<<link [[Decline|Arcade Fare]]>><<set $phase to 1>><</link>>
+	<br>
+<</if>>
+
+:: Arcade Fare
+<<effects>>
+
+<<if $phase is 0>>
+	You hand over £20.
+	<br><br>
+	<<if $rng gte 51>>
+		Someone happily takes it from you just before another shoves you to the ground. The group laughs and leaves without you.<<stress 6>><<trauma 6>><<gstress>><<gtrauma>>
+		<br><br>
+
+		<<link [[Next|Oxford Street]]>><</link>>
+		<br>
+	<<else>>
+		Money in hand, they allow you to come along. The town is relatively safe during the day, but it's still comforting to travel in a group.<<status 1>><<gcool>>
+		<br><br>
+		You arrive at the arcade without a problem.
+		<br><br>
+
+		<<link [[Next|Arcade]]>><<set $bus to "starfish">><<pass 10>><</link>>
+		<br>
+	<</if>>
+<<else>>
+	You decline. The group seems relieved and quickly leaves without you.
+	<br><br>
+
+	<<link [[Next|Oxford Street]]>><</link>>
+	<br>
+<</if>>
+
+:: Arcade Dance Off
+<<effects>>
+
+<<if $phase is 0>> /* Accept */
+	<<if $speech_attitude is "meek">>
+		<<if $cool gte 160>>
+			You want to give it a go, but you confide in your peers that you're nervous. They are quick to encourage you and nudge you forward. "<<pShe>> wants to try!" one of them says.<<stress 6>><<status 1>><<gstress>><<gcool>>
+		<<else>>
+			You gulp nervously, but step forward. "C-can I try?"
+		<</if>>
+	<<elseif $speech_attitude is "bratty">>
+		You confidently step up to the stage. "You're on!"
+		<<if $cool gte 160>>
+			The students give you a round of encouraging applause as you take your place.
+		<</if>>
+	<<else>>
+		You take a step forward from the crowd. "I'll give it a go," you say.
+	<</if>>
+	<br><br>
+	The <<person>> pays for the next round and selects a song <<= either ("you don't recognise","in another language","you think you've heard before")>>.
+	<br><br>
+	<<if currentSkillValue('danceskill') gte 800>>
+		The beat is fast and loud, but it's easy to settle into the rhythm. You show off with a few extra flourishes of your hands and hips.
+		<<if $cool gte 160>>
+			The crowd starts to chant your name!
+		<<elseif $cool gte 40>>
+			The crowd goes mad.
+		<<else>>
+			The crowd murmurs among themselves, impressed by your moves.
+		<</if>>
+		<br><br>
+		Even though you <<= either ("lose by a thin margin,","end up beating <<his>> score,")>> the <<person>> seems just as impressed as everyone else. You return to the lounge with several students jostling to ask <<= either ("where you learned to dance like that","for pointers on how to dance like that")>>.<<stress -6>><<lstress>><<status 5>><<gcool>>
+	<<elseif currentSkillValue('danceskill') gte 400>>
+		The song is loud and fast. You're <<= currentSkillValue('danceskill') gte 600 ? "good" : "alright">>, but the <<person>> is much better. Unsurprisingly, <<he>> gets a higher score than you. You have fun in any case.<<stress -6>><<lstress>>
+	<<else>>
+		The song is way too fast for you. You trip over your own feet trying to step on the correct arrow pads. You feel less like a dancer and more like a fumbling oaf. The surrounding students laugh at you.<<stress 6>><<trauma 6>><<status -5>><<gstress>><<gtrauma>><<lcool>>
+	<</if>>
+<<elseif $phase is 1>> /* arm is bound */
+	Even though you'll be at a disadvantage without full use of both arms, you accept the challenge. The <<person1>><<person>> gives you a dubious look, but shrugs and selects a song.
+	<br><br>
+	As to be expected, you make a fool of yourself. With your sense of balance severely hindered, you focus on brutishly stomping at the arrow pads without any thought to rhythm or beat.
+	<br><br>
+	The <<person>> gets distracted by your performance and struggles to control <<his>> laughter. <<He>> ends up botching <<his>> victory.
+	<br><br>
+	You may have won the match, but the snickering students around you don't seem to care.<<stress 6>><<status -1>><<gstress>><<lcool>>
+<<else>> /* Stay quiet */
+	You decide to sit this one out. A <<person2>><<person>> accepts the challenge with a <<= either ("bit of goading from <<his>> mates","confident swagger onto the stage")>>.
+	<br><br>
+	<<if $rng gte 91>>
+		The challenger ends up being just as good if not better. The duo dance in tandem to the high tempo beat. They end up having so much fun that they ignore their scores, calling it a tie.
+	<<elseif $rng gte 46>>
+		The challenger does <<his>> best to keep up with the <<person1>><<person>>, but <<he>> is still leaps and bounds above the challenger. They finish the song breathless and smiling, and even shake hands.
+	<<else>>
+		The song selected is considered an easier one, but it is still fast-paced. The challenger's confidence quickly dwindles with every missed step. <<person2>><<He>> sheepishly admits defeat within the first 60 seconds.
+	<</if>>
+<</if>>
+<br><br>
+
+<<arcadehangoptions>>
+
+:: Arcade Hang Bang
+<<effects>>
+
+<<if $phase is 0>> /* Accept */
+	<<generatey2>><<generatey3>><<person1>>
+	<<if $speech_attitude is "meek">>
+		"Oh, um... O-okay..." You blush demurely at the proposition, but you're happy to have the attention. "Where are we going?"
+	<<elseif $speech_attitude is "bratty">>
+		"Good. I can show you what they're missing out on," you wink at <<him>>. "Lead the way."
+	<<else>>
+		You hesitate at <<his>> frankness, but the offer is appealing. "Sure," you say. "Let's go."
+	<</if>>
+	<<promiscuity2>>
+
+	The <<person>> leads you to the <<personsimple>>s' toilets where a <<person2>><<person>> and <<person3>><<person>> wait for you. "Holy shit," the <<person2>><<person>> says. "Can't believe <<pshe>> actually agreed to it."
+	<br><br>
+	"If they're desperate enough for attention, they'll do anything for it." The <<person1>><<persons>> smile turns wolfish as <<he>> locks the door behind <<him>>. "Let's give it to <<phim>>."
+	<br><br>
+
+	<<link [[Next|Arcade Hang Bang Sex]]>><<set $sexstart to 1>><</link>>
+	<br>
+<<else>> /* Decline */
+	<<if $rng gte 61>>
+		You slap <<his>> hand off your thigh. <<He>> sneers and clasps it over your mouth instead. "Fucking <<bitch>>. Not like you have better things to do, loser."
+		<br><br>
+		<<set _kylarLocation to getKylarLocation()>>
+		<<if _kylarLocation.area is "arcade">>
+			<<He>> starts to haul you away to the <<personsimple>>s' toilets, but someone blocks the way. It's Kylar. <<npc Kylar 2>><<person2>><<He>> shakily brandishes a knife at the <<person1>><<person>>. "L-let <<phim>> go!" <<person2>><<he>> demands.
+			<br><br>
+			The <<person1>><<personsimple>> gasps and releases you. "You're fucking insane, freak!" <<he>> says before scurrying off.
+			<br><br>
+			Kylar tucks the knife away. "Are you okay? Did that filthy <<= $NPCList[0].pronoun is "m" ? "cretin" : "slut">> hurt you?"
+			<br><br>
+			You manage to assure Kylar that you're fine and return to the arcade lobby.
+			<br><br>
+
+			<<link [[Next|Arcade]]>><<endevent>><</link>>
+			<br>
+		<<else>>
+			<<generatey2>><<generatey3>><<person1>>
+			<<He>> hauls you away to the <<personsimple>>s' toilets. If any of your peers notice, they don't make any effort to help you.
+			<br><br>
+			The <<person>> throws you into the toilets and locks the door behind <<him>>. A <<person2>><<person>> and <<person3>><<person>> wait for you there.
+			<br><br>
+
+			<<link [[Next|Arcade Hang Bang Sex]]>><<set $molestationstart to 1>><</link>>
+			<br>
+		<</if>>
+	<<else>>
+		You slap <<his>> hand off your thigh. "Fucking <<bitch>>," <<he>> says. "Was trying to be nice. No wonder they don't fucking like you." <<He>> grumbles a few more insults under <<his>> breath, but takes the hint and leaves you be.
+		<br><br>
+
+		<<arcadehangoptions>>
+	<</if>>
+<</if>>
+
+:: Arcade Hang Bang Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 100>>
+	<<enable_rescue>>
+<</if>>
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<set $consensual to 0>>
+	<<neutral 1>>
+	<<controlloss>>
+	<<molested>>
+	<<maninit>>
+	<<enable_rescue>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Arcade Hang Bang Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Arcade Hang Bang Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Arcade Hang Bang Sex Finish
+<<effects>>
+
+<<if $enemyhealth lte 0>>
+	The trio groan in pain. <<tearful>> you bolt for the bathroom door while they're dazed.
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+
+	<<if $consensual is 1>>
+		All three wear a look of bliss as they lie on the floor. <<tearful>> you climb to your feet and make your leave.
+	<<else>>
+		The <<person1>><<person>> shoves you against the ground. "Losers like you are only good for one thing." <<He>> collects <<his>> friends and leaves you lying there. The sound of their laughter soon gets drowned out by the noise of the arcade.
+		<br><br>
+		<<tearful>> you struggle to your feet.
+	<</if>>
+<<elseif $rescue is 1 and $alarm is 1>>
+	Your assailants startle when an arcade employee unlocks the door and barges in. "What the fuck is going on in here?"
+	<br><br>
+	<<tearful>> you take advantage of the confusion and bolt past the employee, fleeing into the arcade.
+<<else>>
+	The <<person1>><<person>> grimaces, but releases you. "Fine. We'll just find another loser to fuck." <<He>> collects <<his>> friends and leaves the toilets in a huff.
+	<br><br>
+	<<tearful>> you climb to your feet.
+<</if>>
+<br><br>
+
+<<clotheson>>
+<<endcombat>>
+
+<<link [[Next|Arcade]]>><</link>>

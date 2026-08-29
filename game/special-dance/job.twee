@@ -1,0 +1,65 @@
+:: Widgets Job [widget]
+<<widget "dance_job_init">>
+	/*First argument is how long the job should last in minutes. Second argument is the starting interest of the audience, out of 100. Higher is easier. */
+
+	/* Temporary danceStudio.job object, cleared in dance_job_end */
+	<<set $danceStudio.job to {
+		interest: _args[1] ? _args[1] : 50,
+		stage: false,
+		stageExplore: 0,
+		bunny: false,
+		exhibitionism: false,
+		exposed: false,
+	}>>
+	<<if Time.hour gte 20>>
+		<<set $danceStudio.job.time to 1>>
+	<<elseif _args[0]>>
+		<<set $danceStudio.job.time to $timeStamp + (_args[0] * 60)>>
+	<<else>>
+		<<set $danceStudio.job.time to $timeStamp + (180 * 60)>>
+	<</if>>
+<</widget>>
+
+<<widget "dance_job_end">>
+	<<unset $danceStudio.job>>
+	<<set $weekly.danceJob to "done">>
+	<<timeTrackingEndDanceJobs>>
+<</widget>>
+
+<<widget "dance_job_text">>
+	The audience seems
+	<<if $danceStudio.job.interest gte 100>>
+		<span class="green">enthralled.</span>
+	<<elseif $danceStudio.job.interest gte 80>>
+		<span class="teal">captivated.</span>
+	<<elseif $danceStudio.job.interest gte 60>>
+		<span class="lblue">eager.</span>
+	<<elseif $danceStudio.job.interest gte 40>>
+		<span class="blue">interested.</span>
+	<<elseif $danceStudio.job.interest gte 20>>
+		<span class="purple">bored.</span>
+	<<elseif $danceStudio.job.interest gte 1>>
+		<span class="pink">upset.</span>
+	<<else>>
+		<span class="red">angry.</span>
+	<</if>>
+	<br><br>
+<</widget>>
+
+<<widget "dance_job_interest">>
+	<<if _args[0]>>
+		<<set $danceStudio.job.interest += _args[0]>>
+	<</if>>
+<</widget>>
+
+<<widget "timeTrackingStartDanceJobs">>
+	<<if _args[0]>>
+		<<timeTrackingStart "danceJobs">><<timeTrackingStart `_args[0] + "DanceJob"`>><<timeTrackingStart `_args[0] + "DanceTips"`>>
+	<</if>>
+<</widget>>
+
+<<widget "timeTrackingEndDanceJobs">>
+	<<timeTrackingEnd "danceJobs">>
+	<<timeTrackingEnd "partyDanceJob">><<timeTrackingEnd "docksDanceJob">><<timeTrackingEnd "danubeDanceJob">>
+	<<timeTrackingEnd "partyDanceTips">><<timeTrackingEnd "docksDanceTips">><<timeTrackingEnd "danubeDanceTips">>
+<</widget>>

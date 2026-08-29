@@ -1,0 +1,615 @@
+:: StoryCaption
+<div @class="(Errors.log.length==0?'hidden':'') + ' error-reporter-btn'" onclick="Errors.Reporter.toggle()"></div>
+<<run T.buttons = new window.Tab("overlayButtons", "macro-button-selected")>>
+
+<<if $intro is 0>>
+	<<if $options.weatherUpdate && $options.images>>
+		<<skybox>>
+	<<else>>
+		<<weatherdisplay>>
+	<</if>>
+
+	<<if $gamemode is "soft">>
+		<<set $pain to 0>>
+	<</if>>
+	<<if $options.images is 1>>
+		<<addclass body has-images>>
+		<<removeclass body no-images>>
+		<div id="sidebar-img-container">
+			<<img>>
+		</div>
+	<<else>>
+		<<removeclass body has-images>>
+		<<addclass body no-images>>
+	<</if>>
+	<<combateffects>>
+	<div id="storyCaptionDiv" @class="($extendedStats ? 'statsExtended' : '')">
+	<div id="debugWindow"></div>
+	<<if $options.images is 1>>
+		<div id="stats" onclick="extendStats()">
+			<<statsCaption>>
+		</div>
+	<</if>>
+	<div id="storyCaptionContent">
+		<<if $options.numpad is true>>
+			<style>
+				.mob-btn-group{
+					position: fixed;
+					top: 100px;
+					right: 0;
+					display: flex;
+					align-items: end;
+					flex-direction: column;
+					cursor: pointer;
+					color: #fff;
+				}
+				.mob-btn-group>div{
+					padding: 10px;
+					background-color: var(--850);
+					border: 1px solid var(--750);
+					border-radius: 5px 0 0 5px;
+				}
+				.mob-btn-group>div:hover{
+					background-color: var(--800);
+				}
+			</style>
+			<div class="mob-btn-group unstowable">
+				<div class="mob-btn-h" onclick="mobBtnShow()" style="display:none;"></div>
+				<div class="mob-btn" onclick="mobBtnHide()"></div>
+				<div @class="'mob-btn' + (Links.currentLinks.length < 1 ? ' red' : '')" onclick="mobClick(1)">1</div>
+				<div @class="'mob-btn' + (Links.currentLinks.length < 2 ? ' link-disabled' : '')" onclick="mobClick(2)">2</div>
+				<div @class="'mob-btn' + (Links.currentLinks.length < 3 ? ' link-disabled' : '')" onclick="mobClick(3)">3</div>
+				<div @class="'mob-btn' + (Links.currentLinks.length < 4 ? ' link-disabled' : '')" onclick="mobClick(4)">4</div>
+				<div @class="'mob-btn' + (Links.currentLinks.length < 5 ? ' link-disabled' : '')" onclick="mobClick(5)">5</div>
+				<div @class="'mob-btn' + (Links.currentLinks.length < 6 ? ' link-disabled' : '')" onclick="mobClick(6)">6</div>
+				<div @class="'mob-btn' + (Links.currentLinks.length < 7 ? ' link-disabled' : '')" onclick="mobClick(7)">7</div>
+				<div @class="'mob-btn' + (Links.currentLinks.length < 8 ? ' link-disabled' : '')" onclick="mobClick(8)">8</div>
+				<div @class="'mob-btn' + (Links.currentLinks.length < 9 ? ' link-disabled' : '')" onclick="mobClick(9)">9</div>
+				<div @class="'mob-btn' + (Links.currentLinks.length < 10 ? ' link-disabled' : '')" onclick="mobClick(10)">0</div>
+			</div>
+		<</if>>
+		<<if $endeventerror isnot undefined>>
+			<<if $options.debugdisable is "f">>
+				<<if $options.images is 1>><img class="layer-sexmouth" src="img/ui/sym-awareness.png"><</if>><span class="red"><<print StartConfig.version>> Error: An NPC generated on the "$endeventerror" passage broke free. Please inform Vrelnir. <<if $cheatsEnabled is true>>Disregard this if you've just used a cheat.<</if>></span>
+				<br><br>
+			<</if>>
+			<<unset $endeventerror>>
+		<</if>>
+
+		<<if $physiquechange is 1>><<set $physiquechange to 0>>
+			<<if $physiqueuse gte $physique / 1000>>
+				<span class="gold"><<possessedWord 'Your' 'gold'>> physique is improving due to all the exercise <<possessedWord 'you' 'gold'>> are getting.</span>
+				<<set $physiqueuse to 0>>
+				<br><br>
+			<<else>>
+				<span class="pink"><<possessedWord 'You' 'pink'>> didn't get enough exercise yesterday, <<possessedWord 'your' 'pink'>> physique has deteriorated slightly as a result.</span>
+				<<set $physiqueuse to 0>>
+				<br><br>
+			<</if>>
+		<</if>>
+		<<if !$lessonmissedtext>>
+		<<else>>
+			<<if $lessonmissedtext is 1>>
+				<span class="pink"><<possessedWord 'You' 'pink'>> missed a lesson yesterday.</span>
+			<<elseif $lessonmissedtext gte 2>>
+				<span class="pink"><<possessedWord 'You' 'pink'>> missed $lessonmissedtext lessons yesterday.</span>
+			<</if>>
+			/* give players a grace period of 2 weeks worth of skipped lessons before penalising them for not attending the school in case they're stuck in a bad end, and wait a weak before doing that again */
+			<<if $lessonmissed gte 50 && !$truancytimer>>
+				<span class="red"><<possessedWord "You've" 'red'>> missed many lessons. <<possessedWord 'Your' 'red'>> reputation has taken a hit.</span>
+				<<delinquency 50>><<gggdelinquency>><<status -5>><<lcool>>
+				<<set $truancytimer to 7>>
+			<<elseif $truancytimer>>
+				<<set $truancytimer-->>
+			<</if>>
+			/* don't let $lessonmissed get out of control */
+			<<set $lessonmissed to Math.clamp($lessonmissed, 0, 75)>>
+			<<set $lessonmissedtext to 0>>
+			<br>
+		<</if>>
+		<<if $options.images is 0>>
+			<div id="money-noimg">
+				<<possessedWord 'You'>> have <<printmoney $money true>><br>
+			</div>
+			<br>
+
+			It is <<sidebarTime "desktop">>.
+			<br>
+			It is <<print Time.weekDayName>>.
+			<br>
+		<</if>>
+		<<questmarker>>
+		<<if $options.clothingCaption or !$options.images>>
+			<div id="sidebar-look-description">
+				<<clothingCaptionText>>
+			</div>
+			<br>
+		<</if>>
+
+		<<caption_clamp>>
+
+		<<calculateallure>>
+		<<rng>>
+
+		<<if $worn.neck.collared gte 1 and $worn.neck.cursed is 1>>
+			<<if $worn.neck.name is "familiar collar" and $hypnosis_traits.devotion gte 4>>
+				<span class="pink"><<possessedWord 'Your' 'pink'>> <<if $worn.neck.type.includes("leash")>>leashed<</if>> familiar collar protects <<possessedWord 'your' 'pink'>> neck.</span>
+			<<else>>
+				<span class="red">A <<if $worn.neck.type.includes("leash")>>leashed<</if>> collar encases <<possessedWord 'your' 'red'>> neck.</span>
+			<</if>>
+			<br>
+		<</if>>
+
+		<<if $penilechastityparasite isnot 0>>
+			<span class="pink"><<possessedWord 'You' 'pink'>> feel $penilechastityparasite squirming around <<possessedWord 'your' 'pink'>> penis.</span>
+			<br>
+		<</if>>
+		<<if $vaginalchastityparasite isnot 0 and $vaginalchastityparasite eq $analchastityparasite>>
+			<span class="pink"><<possessedWord 'You' 'pink'>> feel $vaginalchastityparasite squirming inside <<possessedWord 'your' 'pink'>> vagina and lower intestine.</span>
+			<br>
+		<<else>>
+			<<if $vaginalchastityparasite isnot 0>>
+				<span class="pink"><<possessedWord 'You' 'pink'>> feel $vaginalchastityparasite squirming inside <<possessedWord 'your' 'pink'>> vagina.</span>
+				<br>
+			<</if>>
+			<<if $analchastityparasite isnot 0>>
+				<span class="pink"><<possessedWord 'You' 'pink'>> feel $analchastityparasite squirming inside <<possessedWord 'your' 'pink'>> lower intestine.</span>
+				<br>
+			<</if>>
+		<</if>>
+
+		<<for _type range $parasite.types>>
+			<<switch $parasite[_type].length>>
+			<<case 0>>
+			<<case 1>>
+				<<if $parasite[_type][0] is "nipples">>
+					<span class="pink">The _type parasites clinging to <<possessedWord 'your' 'pink'>> <<print $parasite[_type][0]>> suck and massage <<possessedWord 'you' 'pink'>>.</span>
+				<<else>>
+					<span class="pink">The _type parasite clinging to <<possessedWord 'your' 'pink'>> <<print $parasite[_type][0]>> sucks and massages <<possessedWord 'you' 'pink'>>.</span>
+				<</if>>
+				<br>
+			<<case 2>>
+				<span class="pink">The _type parasites clinging to <<possessedWord 'your' 'pink'>> <<print $parasite[_type][0]>> and <<print $parasite[_type][1]>> suck and massage <<possessedWord 'you' 'pink'>>.</span>
+				<br>
+			<<default>>
+				<<set _pstring to $parasite[_type][0]>>
+				<<for _i to 1; _i lt $parasite[_type].length - 1; _i++>>
+					<<set _pstring += ", " + $parasite[_type][_i]>>
+				<</for>>
+				<<set _pstring += ", and " + $parasite[_type][_i]>>
+				<span class="pink">The _type parasites clinging to <<possessedWord 'your' 'pink'>> _pstring suck and massage <<possessedWord 'you' 'pink'>>.</span>
+				<br>
+			<</switch>>
+		<</for>>
+
+		<<if !$hypnosis_traits.silence>>
+			<<if $worn.genitals.name isnot "chastity parasite">>
+				<<if $parasite.penis.name and $parasite.penis.name is "parasite">>
+					<<if $earSlime.defyCooldown>>
+						<span class="red">The parasite compresses <<possessedWord 'your' 'red'>> <<if $player.ballsExist>>balls<<else>>penis<</if>>.</span>
+					<<elseif $earSlime.vibration and $earSlime.vibration lte 20>>
+						<span class="pink">The parasite pulsates around <<possessedWord 'your' 'pink'>> penis.</span>
+					<<elseif $earSlime.vibration>>
+						<span class="pink">The parasite vibrates around <<possessedWord 'your' 'pink'>> penis.</span>
+					<</if>>
+				<<elseif $parasite.clit.name and $parasite.clit.name is "parasite">>
+					<<if $earSlime.defyCooldown>>
+						<span class="red">The parasite<<if $earSlime.focus isnot "pregnancy">> penis<</if>> compresses <<possessedWord 'your' 'red'>> clit.</span>
+					<<elseif $earSlime.vibration and $earSlime.vibration lte 20>>
+						<span class="pink">The parasite<<if $earSlime.focus isnot "pregnancy">> penis<</if>> pulsates around <<possessedWord 'your' 'pink'>> clit.</span>
+					<<elseif $earSlime.vibration>>
+						<span class="pink">The parasite<<if $earSlime.focus isnot "pregnancy">> penis<</if>> vibrates around <<possessedWord 'your' 'pink'>> clit.</span>
+					<</if>>
+				<</if>>
+			<</if>>
+
+			<<if $parasite.left_ear.name and $parasite.left_ear.name eq $parasite.right_ear.name>>
+				<<if $parasite.left_ear.name is "slime">>
+					<span class="lewd">The $parasite.left_ear.name in each ear influences <<possessedWord 'your' 'lewd'>> thoughts<<if $earSlime.growth gte 100>> and actions<</if>>.</span>
+					<br>
+				<</if>>
+			<<else>>
+				<<if $parasite.left_ear.name is "slime">>
+					<span class="lewd">The $parasite.left_ear.name in <<possessedWord 'your' 'lewd'>> left ear influences <<possessedWord 'your' 'lewd'>> thoughts.</span>
+					<br>
+				<</if>>
+				<<if $parasite.right_ear.name is "slime">>
+					<span class="lewd">The $parasite.right_ear.name in <<possessedWord 'your' 'lewd'>> right ear influences <<possessedWord 'your' 'lewd'>> thoughts.</span>
+					<br>
+				<</if>>
+			<</if>>
+		<</if>>
+
+		<<switch pcGetArmsBound()>>
+			<<case "both">>
+				<span class="pink"><<possessedWord 'Your' 'pink'>> arms are bound.</span>
+				<br>
+			<<case "left">>
+				<span class="purple"><<possessedWord 'Your' 'purple'>> left arm is bound.</span>
+				<br>
+			<<case "right">>
+				<span class="purple"><<possessedWord 'Your' 'purple'>> right arm is bound.</span>
+				<br>
+		<</switch>>
+		<<if $feetuse is "bound" or $worn.feet.type.includes("shackle")>>
+			<span class="pink"><<possessedWord 'Your' 'pink'>> legs are bound.</span>
+			<br>
+		<</if>>
+		<<goo>>
+
+		<div id="statmeters" @class="($options.showCaptionText is true ? '' : 'condensed')">
+			<<if $gamemode isnot "soft">>
+				<<paincaption>>
+			<</if>>
+			<<arousalcaption>>
+			<<tirednesscaption>>
+			<<stresscaption>>
+			<<if $innocencestate is 1>>
+				<<innocencecaption>>
+			<<else>>
+				<<traumacaption>>
+			<</if>>
+			<<if $gamemode isnot "soft">>
+				<<controlcaption>>
+			<</if>>
+			<<allurecaption>>
+			<<if $underwater is 1>>
+				<<oxygencaption true>>
+			<</if>>
+			<<drunkcaption>><<druggedcaption>><<hallucinogencaption>>
+		</div>
+		<br>
+
+		<<if $options.tipdisable is "f" and (!$statFreeze or $hc)>>
+			<span class="gold">Tip:</span> <<tips>>
+			<br><br>
+		<</if>>
+
+		<div id="overlayButtons">
+			<<button CHARACTERISTICS>>
+				<<overlayReplace "characteristics">>
+			<</button>>
+			<<button SOCIAL>>
+				<<overlayReplace "social">>
+			<</button>>
+			<div class="sidebarButtonSplit">
+				<<button TRAITS>>
+					<<overlayReplace "traits">>
+				<</button>>
+				<<button JOURNAL>>
+					<<overlayReplace "journal">>
+				<</button>>
+			</div>
+			<div class="sidebarButtonSplit">
+				<<button STATS>>
+					<<overlayReplace "statistics">>
+				<</button>>
+				<<button FEATS>>
+					<<overlayReplace "gameFeats">>
+				<</button>>
+			</div>
+			<br>
+			<div class="sidebarButtonSplit">
+				<<if $dancing is 0 and $combat is 0 and $passage isnot "Start2" and $cheatsEnabled is true or $debug is 1>>
+					<<button CHEATS>>
+						<<overlayReplace "cheats">>
+					<</button>>
+				<</if>>
+				<<if $debug is 1>>
+					<<debug>>
+				<</if>>
+			</div>
+			<!-- Event debug button - Shows an overlay stored in debug-events.twee. -->
+			<<if $event isnot undefined and $options.debugdisable is "f">>
+				<!-- Default _temp to what we should people regularly if an event active. -->
+				<<set _temp to "<span class='yellow'>SHOW EVENT INFO</span>">>
+				<!-- Prepare for cases where we want to update the button view. -->
+				<<if EventSystem.any()>>
+					<<if !EventSystem.validate()>>
+						<!-- Could not validate the NPC list with event data. -->
+						<<set _temp to "<span class='red'>EVENT ERROR</span>">>
+					<<elseif EventSystem.has(0) and EventSystem.get(0).area[0] is $passage>>
+						<<set _eventAlertMajorArea to false>>
+						<<set _temp to "<span class='green'>EVENT ACTIVE</span>">>
+					<<elseif setup.majorAreas.includes($passage)>>
+						<<set _eventAlertMajorArea to true>>
+						<<set _temp to "<span class='red'>EVENT ACTIVE</span>">>
+					<<elseif $event.buffer.map(e => e.area[0]).length is 1 and EventSystem.has(0) and ["Forest Cabin", "Eden Cabin", "Eden Clearing"].includes(EventSystem.get(0).area[0])>>
+						<<set _temp to "<span class='green'>EVENT ACTIVE</span>">>
+					<</if>>
+				<</if>>
+				<<button _temp>><<overlayReplace "eventExtraInfo">><</button>>
+				<<unset _temp>>
+			<</if>>
+			<<if $options.showDebugRenderer>>
+				<<button "DEBUG RENDERER">><<overlayReplace "canvasModel">><</button>>
+			<</if>>
+			<div class="sidebarButtonSplit">
+				<<button OPTIONS>>
+					<<overlayReplace "options">>
+				<</button>>
+				<<button SAVES>>
+					<<overlayReplace "saves">>
+				<</button>>
+			</div>
+		</div>
+	</div>
+</div>
+	<<if $passage isnot "Start" and $passage isnot "Start2">>
+		<div id="mobileStats">
+			<<if $options.sidebarStats is "all">>
+				<div class="weatherIcon">
+					<<weatherIcon>>
+				</div>
+			<</if>>
+			<<if $options.sidebarTime is "top">>
+				<<mobileStatsTime>>
+			<</if>>
+			<<if $options.sidebarStats isnot "disabled">>
+				<<mobileStats>>
+			<</if>>
+			<<if $options.sidebarTime is "bottom">>
+				<<mobileStatsTime>>
+			<</if>>
+		</div>
+	<</if>>
+<<else>>
+	<<run T.buttons = new window.Tab("startCaption", "macro-button-selected")>>
+	<<if StartConfig.enableImages is true>>
+		<div id="startingPlayerImage" class="hidden"></div>
+	<</if>>
+	<div id="startCaption">
+		<<startCaption>>
+	</div>
+<</if>>
+
+<br>
+
+<<unset _currentOverlay>>
+
+
+:: Widgets Clothing Caption [widget]
+<<widget "startCaption">>
+	<<versioninfo>>
+
+	<div class="my-4">
+		<<linkinformation>>
+	</div>
+
+	<<button SAVES>>
+		<<overlayReplace "saves">>
+	<</button>>
+	<div class="sidebarButtonSplit">
+		<<button OPTIONS>>
+			<<overlayReplace "options">>
+		<</button>>
+		<<button FEATS>>
+			<<overlayReplace "startFeats">>
+		<</button>>
+	</div>
+<</widget>>
+
+<<widget "statsCaption">>
+	<<set $_icon to $outside ? "sidebar-open.png" : "sidebar-closed.png">>
+	<<set _message to $outside ? "<<possessedWord 'You'>> are outside." : "<<possessedWord 'You'>> are inside.">>
+	<<if $extendedStats>>
+		<div class="left-fixed expanded" tooltip="_message">
+			<img class="icon_ui" @src="'img/ui/' + $_icon">
+		</div>
+	<</if>>
+	<div class="content">
+		<div class="first-row">
+			<div class="centered-elements">
+				<<if !$extendedStats>>
+					<div tooltip="_message">
+						<img class="icon_ui" @src="'img/ui/' + $_icon">
+					</div>
+				<</if>>
+				<div>
+					<span class="true">
+						<<printmoney $money true>>
+					</span>
+				</div>
+				<div>
+					<<sidebarTime "stats">>
+				</div>
+				<<if !$extendedStats>>
+					<div>
+						<img class="icon_ui" src="img/ui/sidebar-day.png">
+						<<print Time.weekDayName.slice(0, 3)>>
+					</div>
+				<</if>>
+			</div>
+		</div>
+		<<if $extendedStats>>
+			<div class="second-row">
+				<div>
+					<img class="icon_ui" src="img/ui/sidebar-day.png">
+					<<print Time.weekDayName.slice(0, 3)>>
+					<<print getShortFormattedDate(Time.date)>>
+				</div>
+			</div>
+		<</if>>
+	</div>
+<</widget>>
+
+<<widget "startingPlayerImage">>
+	<<set $naturalhaircolour to $hairselect>>
+	<<set _filters to {
+		"body": Skin.cssColorFilter(Skin.color.natural),
+		"breasts": Skin.cssColorFilter(Skin.color.natural),
+		"penis": Skin.cssColorFilter(Skin.color.natural),
+		"mouth": Skin.cssColorFilter(Skin.color.natural),
+	}>>
+	<<if $hairlength gte 900>>
+		<<set _hairlengthstage to "feet">>
+	<<elseif $hairlength gte 700>>
+		<<set _hairlengthstage to "thighs">>
+	<<elseif $hairlength gte 600>>
+		<<set _hairlengthstage to "navel">>
+	<<elseif $hairlength gte 400>>
+		<<set _hairlengthstage to "chest">>
+	<<elseif $hairlength gte 200>>
+		<<set _hairlengthstage to "shoulder">>
+	<<else>>
+		<<set _hairlengthstage to "short">>
+	<</if>>
+
+	<<set _fringelengthstage to "short">>
+	<<if _showClothes is undefined>>
+		<<set _showClothes to true>>
+	<</if>>
+
+	<<if $player.gender is "m">>
+		<<set _clothesType to "male">>
+	<<elseif $player.gender is "f">>
+		<<set _clothesType to "female">>
+	<<else>>
+		<<if $player.gender_body is "m" or ($player.gender_body is "a" and $player.breastsize lte 3)>>
+			<<set _clothesType to "male">>
+		<<else>> <!-- if $player.gender_body is "f" or ($player.gender_body is "a" and $player.breastsize gt 3)) -->
+			<<set _clothesType to "female">>
+		<</if>>
+	<</if>>
+
+	<<if $background is "crossdresser">>
+		<<set _clothesType to ($player.sex is "m" ? "female" : "male")>>
+	<</if>>
+
+	<div id="startImg" @class="'hair-'+ $hairselect + ' noAnimations'">
+		/*Prep for image checks*/
+		<<switch $player.breastsize>>
+		<<case 12>>
+			<<set _breastSize to 6>>
+		<<case 8 9 10 11>>
+			<<set _breastSize to 5>>
+		<<case 6 7>>
+			<<set _breastSize to 4>>
+		<<case 4 5>>
+			<<set _breastSize to 3>>
+		<<case 3>>
+			<<set _breastSize to 2>>
+		<<case 1 2>>
+			<<set _breastSize to 1>>
+		<<default>>
+			<<set _breastSize to 0>>
+		<</switch>>
+		<<if $player.sex is "m" or $player.sex is "h">>
+			<<set _penisSize to $player.penissize>>
+		<<else>>
+			<<unset _penisSize>>
+		<</if>>
+		<<set _disabled to ["disabled","hidden"]>>
+
+		<<selectmodel "lighting" "sidebar">>
+		<<set _modeloptions.lights.gradient.enabled = false>>
+		<<set _modeloptions.lights.flat.enabled = false>>
+		<<rendermodel "lighting">>
+
+		<<selectmodel "main" "sidebar">> <!-- reuse sidebar cache slot -->
+		<<twinescript>>
+			_modeloptions.body_type = $player.bodyshape;
+			_modeloptions.breast_size = _breastSize;
+			_modeloptions.breasts = (!_showUnderwear && !_showClothes) ? "default" : "cleavage";
+			if (_penisSize isnot undefined) {
+				_modeloptions.penis_size = _penisSize;
+				_modeloptions.balls = $player.sex is "h" ? $player.ballsExist : true;
+				_modeloptions.penis = (_flaccidPenis ? "soft" : "hard") + ($player.virginity.penile ? "-virgin-" : "") + _modeloptions.penis_size;
+			}
+
+			_modeloptions.skin_type = Skin.color.natural;
+			_modeloptions.skin_tone = Skin.color.tan;
+
+			_modeloptions.hair_colour = $hairselect;
+			_modeloptions.hair_fringe_colour = $hairselect;
+			_modeloptions.hair_sides_position = $hairposition;
+			_modeloptions.hair_sides_length = _hairlengthstage;
+			_modeloptions.hair_fringe_length = _hairlengthstage;
+
+			_modeloptions.facestyle = $facestyle;
+			_modeloptions.facevariant = $facevariant;
+			_modeloptions.left_eye = $eyeselect;
+			_modeloptions.right_eye = $eyeselect;
+			_modeloptions.mouth = "smile";
+			_modeloptions.freckles = $player.freckles is true;
+			_modeloptions.toast = _toast is true;
+
+			_modeloptions.demon_wings_type = $transformationParts.demon.wings;
+			_modeloptions.angel_wings_type = $transformationParts.angel.wings;
+			_modeloptions.fallen_wings_type = $transformationParts.fallenAngel.wings;
+
+			_modeloptions.worn = {};
+			if (_clothesType is "male") {
+				if (_showClothes) {
+					_modeloptions.worn = {
+						upper: {
+							index: 4, /* t-shirt */
+							colour: "tangerine",
+						},
+						lower: {
+							index: 5, /* shorts */
+							colour: "blue",
+						},
+						legs: {
+							index: 2 /* boysgymsocks */
+						},
+						feet: {
+							index: 1 /* schoolshoes */
+						},
+					};
+				}
+				if (_showUnderwear) {
+					_modeloptions.worn.under_lower = {
+						index: 4, /* briefs */
+						colour: "black",
+					};
+				}
+			} else if (_clothesType is "female") {
+				if (_showClothes) {
+					_modeloptions.worn = {
+						upper: {
+							index: 1, /* sundress */
+							colour: "white",
+						},
+						lower: {
+							index: 1, /* sundress */
+							colour: "white",
+						},
+						legs: {
+							index: 3 /* girlsgymsocks */
+						},
+						feet: {
+							index: 1 /* schoolshoes */
+						},
+					};
+				}
+				if (_showUnderwear) {
+					if ($player.breastsize > 3) {
+						_modeloptions.worn.under_upper = {
+							index: 12, /* plainbra */
+							colour: "pale white",
+						};
+					}
+					_modeloptions.worn.under_lower = {
+						index: 1, /* plainpanties */
+						colour: "pale white",
+					};
+				}
+			}
+			_modeloptions.crotch_visible = !_showClothes && !_showUnderwear;
+		<</twinescript>>
+		<<rendermodel>>
+	</div>
+<</widget>>
+
+<<widget "startingPlayerImageUpdate">>
+	<<if $passage is "Start" and StartConfig.enableImages is true>>
+		<<replace #startingPlayerImage>>
+			<<startingPlayerImage>>
+		<</replace>>
+	<</if>>
+<</widget>>
+
+:: StoryRightSidebar
+
+Testing

@@ -1,0 +1,3305 @@
+:: Skyscraper
+<<set $location to "avery_skyscraper">><<set $outside to 1>><<effects>>
+
+You approach Avery's skyscraper.
+<<if Time.dayState is "night">>
+	<<nnpc_His Avery>> construction staff are gone for the night, but the site remains lit.
+<<else>>
+	<<nnpc_His Avery>> staff are hard at work.
+<</if>>
+<<gtowerprogress>>
+<br><br>
+<<set $avery_tower.progress to Math.clamp($avery_tower.progress, 0, 100)>>
+<<if $avery_tower.progress gte 100>>
+	The building towers above you. It looks <span class="green">100%</span> done. The opening ceremony will be soon.
+<<elseif $avery_tower.progress gte 80>>
+	The building's skeleton appears finished, but the windowpanes and other details are missing. It looks <span class="teal"><<print $avery_tower.progress>>%</span> done.
+<<elseif $avery_tower.progress gte 60>>
+	The building already rises above its neighbours, exposed steel jutting towards the sky. It looks <span class="blue"><<print $avery_tower.progress>>%</span> done.
+<<elseif $avery_tower.progress gte 40>>
+	Work has begun on the building proper. It looks <span class="blue"><<print $avery_tower.progress>>%</span> done.
+<<elseif $avery_tower.progress gte 20>>
+	The foundations are in place. It looks <span class="purple"><<print $avery_tower.progress>>%</span> done.
+<<else>>
+	The ground is being dug out, and the foundations laid. It looks <span class="pink"><<print $avery_tower.progress>>%</span> done.
+<</if>>
+<br><br>
+<<if Time.dayState isnot "night">>
+	<<if $avery_tower.effects.includes("temple")>>
+		A group of <<monks_and_nuns>> kneel in the car park, grovelling and preaching at anyone who enters.<<ltowerprogress>>
+		<br>
+	<</if>>
+	<<if $avery_tower.effects.includes("mayor")>>
+		The staff look tired, and aren't wearing hard hats.<<gtowerprogress>>
+		<br>
+	<</if>>
+	<<if $avery_tower.effects.includes("Remy")>>
+		Some of the parked vans look like they're from outside town.<<gtowerprogress>>
+		<br>
+	<</if>>
+	<<if $avery_tower.effects.includes("Harper")>>
+		A temporary clinic has been set up across the street. Fumes rise from a nearby grate.<<gtowerprogress>>
+		<br>
+	<</if>>
+<<else>>
+	<<if $avery_tower.effects.includes("temple")>>
+		A group of <<monks_and_nuns>> kneel in the car park, in vigil.<<ltowerprogress>>
+		<br>
+	<</if>>
+	<<if $avery_tower.effects.includes("mayor")>>
+		Empty booze bottles litter the site.<<gtowerprogress>>
+		<br>
+	<</if>>
+	<<if $avery_tower.effects.includes("Remy")>>
+		A sickly sweet smell lingers in the air.<<gtowerprogress>>
+		<br>
+	<</if>>
+	<<if $avery_tower.effects.includes("Harper")>>
+		A temporary clinic has been set up across the street. It's closed for now, but fumes rise from a nearby grate.<<gtowerprogress>>
+		<br>
+	<</if>>
+<</if>>
+<<if $avery_tower.effects.includes("theft")>>
+	Construction materials are kept behind a metal fence. It's covered with signs, warning thieves of prosecution.
+	<<if currentSkillValue('skulduggery') gte 400>>
+		The lock on the gates wouldn't stop anyone serious.
+	<</if>>
+	<<ltowerprogress>>
+	<br>
+<</if>>
+<br>
+
+<<avery_mansion_skyscraper_calc>>
+
+Weekly Progress:
+<<if ($avery_tower.progress + _tower_progress) lt 0>>
+	<<set _tower_progress to -$avery_tower.progress>>
+<<elseif ($avery_tower.progress + _tower_progress) gt 100>>
+	<<set _tower_progress to 100 - $avery_tower.progress>>
+<</if>>
+<<print _tower_progress>>%
+<br><br>
+
+<<link [[Leave (0:01)|Elk Street]]>><</link>>
+<br>
+
+:: Skyscraper Ruin
+<<set $location to "avery_skyscraper">><<effects>>
+
+You approach the remains of Avery's skyscraper. A wall has been built around it, covered with signs warning of potential collapse.
+<br><br>
+
+<<link [[Leave (0:01)|Elk Street]]>><<pass 1>><</link>>
+<br>
+
+:: Skyscraper Fire
+<<set $location to "avery_skyscraper">><<effects>>
+
+You approach Avery's flaming skyscraper. The fire hasn't spread, but the surrounding buildings have been evacuated. Firefighters battle the flames, struggling to keep it contained until the building burns out.
+<br><br>
+
+<<link [[Leave (0:01)|Elk Street]]>><<pass 1>><</link>>
+<br>
+
+:: Skyscraper Party
+<<effects>><<set $silenceNotifications to true>><<set $outside to 0>>
+
+<<npc "Remy" 2>><<npc "Harper" 3>>
+You walk with Avery through the mansion, and down the stairs to the atrium. <<person1>><<He>> strides towards the doors, and throws them open.
+<br><br>
+
+"Avery," says Remy, wearing the finest attire you've ever seen. Beside <<person2>><<him>> stands Harper, also dressed for an important occasion.
+<<if $exposed gte 1>>
+	Neither seem perturbed by your state of dress.
+<</if>>
+<br>
+"Remy. I'm glad you could both make it."
+<br>
+"I wouldn't miss it," Harper says, giving you a small bow. "I'm eager to see the stones."
+<br>
+"Of course. I think you'll agree I hid them well. This way."
+<br><br>
+
+Avery links <<person1>><<his>> arm with yours, and leads you all to the study. <<He>> stops outside the door, and produces the key from <<his>> pocket.
+<br><br>
+
+<<if $avery_mansion.study_secret>>
+	<<link [[Open the way to the dungeon|Skyscraper Party Open]]>><</link>>
+	<br>
+	<<link [[Wait|Skyscraper Party Wait]]>><</link>>
+	<br>
+<<else>>
+	<<link [[Next|Skyscraper Party Wait]]>><</link>>
+	<br>
+<</if>>
+
+
+:: Skyscraper Party Open
+<<effects>>
+
+Avery starts to move, but you cut <<him>> off, and stride into the room yourself. You take the right book from the shelf, and open it to reveal the remote. You move to push the button, but Avery snatches the book from you, and pushes it <<himself>>.
+<br><br>
+
+You hear the mechanical whirring, and the desk opens to reveal the hidden staircase.
+<br><br>
+Harper applauds, though Remy seems less impressed.
+<br>
+"I bet your manor is full of secrets," Avery says. "An old building like that." Remy stiffens. "Come, it's not a long climb."
+<br><br>
+
+<<link [[Next|Skyscraper Party 2]]>><</link>>
+<br>
+
+
+
+:: Skyscraper Party Wait
+<<effects>>
+
+<<if $avery_mansion.study_secret>>
+	Avery strides in, no longer interested in hiding anything. <<He>> removes the hidden remote from the corner, points it at the desk, and presses the button. You hear the mechanical whirring, and the desk opens to reveal the hidden staircase.
+<<elseif $avery_mansion.jobs.includes("dungeon")>>
+	<<set $avery_mansion.study_secret to 1>>
+	Avery strides in, no longer interested in hiding anything. <<He>> lifts, points it at the desk, and presses the button. You hear the mechanical whirring, and the desk opens to reveal the hidden staircase.
+<<else>>
+	<<set $avery_mansion.study_secret to 1>>
+	Avery strides in, and walks to the corner, where <<he>> lifts a leather-bound book. <<He>> opens it, revealing a rectangle cut into the pages. A remote with a single large button is hidden within. <<He>> presses it.
+	<br><br>
+	You hear a mechanical whirring, and the desk opens to reveal a staircase.
+<</if>>
+<br><br>
+
+Harper applauds, though Remy seems less impressed.
+<br>
+"I bet your manor is full of secrets like this," Avery says. "An old building like that." Remy stiffens. "Come, it's not a long climb."
+<br><br>
+
+<<link [[Next|Skyscraper Party 2]]>><</link>>
+<br>
+
+
+:: Skyscraper Party 2
+<<effects>>
+
+<<if $avery_mansion.jobs.includes("dungeon")>>
+	You walk down the staircase, and arrive at the hall of red light. "I've only shown this place to two others," Avery says. "The <<girl>> here, and another, softer sort." <<He>> pushes the door open, and reveals the dungeon.
+	<br><br>
+<<else>>
+	<<set $avery_mansion.jobs.pushUnique("dungeon")>>
+	You walk down the staircase. It spirals downwards, far enough that you must be underground. Remy and Harper follow close behind Avery, the latter's grin lit by the fell light.
+	<br><br>
+	The staircase emerges in a straight hallway. Red lights line the stone walls. At the far end stands an ornate door. "I've only shown this place to one other," Avery says, striding ahead. "I might have been too hasty. They didn't last much longer." <<He>> pushes the door open with one hand.
+	<br><br>
+	Beyond is a wide room. In the centre stands two wooden boards, crossing each other in the shape of an X. Ropes hang and coil from the ends. A table sits beside it, holding a candle, various striking implements including a whip, and a bottle of red wine.
+	<br><br>
+	There's another hallway leading away from this room, <span class="blue">with a large metal door at the far end.</span> It looks like the entrance of a vault. You spy a keypad beside it.
+	<br><br>
+<</if>>
+Remy and Harper admire the torture implements, so much that it takes them a moment to notice the vault at the far end. Avery strides ahead.
+<br><br>
+
+<<link [[Next|Skyscraper Party 3]]>><</link>>
+<br>
+
+
+:: Skyscraper Party 3
+<<effects>>
+
+Avery taps in the code, and the vault doors open. A purple smoke billows out. It clears enough to see a plinth, with a purple cushion on top. Sat on the cushion, <span @class="$fake_artefact is 'Avery' ? 'gold' : 'pink'">a white so pale.</span>
+<br><br>
+
+Avery approaches it, but Remy intervenes. <<person2>><<He>> snaps <<his>> glove into place, and appraises the wishing stones.
+<br><br>
+"Everything is in order," Avery says. "I trust?"
+<br>
+Remy nods. <<He>> produces a small purple box, places the wishing stones inside, and snaps it shut.
+<br><br>
+<<if $fake_artefact is "Avery">>
+	<span class="green">They haven't realised the stones are fake.</span>
+	<br><br>
+<</if>>
+
+<<link [[Next|Skyscraper Party 4]]>><<pass 3>><</link>>
+<br>
+
+
+:: Skyscraper Party 4
+<<effects>><<set $outside to 1>>
+
+You emerge outside the mansion, where a servant washes mud off the wheels.
+<br><br>
+
+You climb in after Avery. There are two long sofas, and a table bathed in purple light. The windows are tinted and impenetrable.
+<br><br>
+
+<<if $fake_artefact is "Avery" and $avery_mansion.fox.known>>
+	Just before you're enclosed, <span class="blue">you see <<say_brown_fox>> climbing onto the mansion's roof,</span> unseen by the others.
+	<br><br>
+
+	You expect to see a signal, or a glance, but receive nothing. As if your presence isn't known.
+	<br><br>
+<</if>>
+
+Once sat, Remy signals the driver, and the vehicle rolls forward.
+<br><br>
+
+<<link [[Next|Skyscraper Party 5]]>><<pass 3>><</link>>
+<br>
+
+:: Skyscraper Party 5
+<<set $location to "town">><<set $bus to "danube">><<effects>><<set $outside to 0>>
+
+"It's a short journey from here," Harper says. "I don't know how familiar you are with the town's layout."
+<br>
+"It's not my first time in town," Remy says. <<person2>><<He>> taps the back of the driver's compartment. "Make it quick. We spent too long admiring Avery's furniture."
+<br><br>
+
+You can't see through the tainted windows, but you hear a commotion outside. Shouting. Threats. The driver accelerates, and the limousine lurches.
+<br><br>
+
+
+<<link [[Next|Skyscraper Party 6]]>><<famesocial 50>><</link>>
+<br>
+
+:: Skyscraper Party 6
+<<set $location to "avery_skyscraper">><<effects>><<set $outside to 1>>
+
+<<npc "Quinn" 4>><<generate5>><<generate6>>
+The commotion fades, but you still hear voices. These sound less angry, more excited.
+<br><br>
+
+The limousine stops. Avery combs <<person1>><<his>> hair in a hurry, then takes your arm. The doors open, and you step out together.
+<br><br>
+
+You're in front of Avery's building. The large lights surrounding it are lit up, bathing the building in light. A red carpet leads from here to the building's entrance. Many <<people>> with cameras line the sides, already snapping away.
+<<if $exposed gte 1>>
+	Your state of dress sends them into a frenzy.
+<</if>>
+<br><br>
+
+"Shall we?"
+<br><br>
+
+<<link [[Act sophisticated|Skyscraper Party Sophisticated]]>><</link>>
+<br>
+<<link [[Act cute|Skyscraper Party Cute]]>><</link>>
+<br>
+<<if $exposed gte 2>>
+	<<link [[Flaunt|Skyscraper Party Flaunt Naked]]>><<fameexhibitionism 5>><</link>><<exhibitionist5>>
+	<br>
+<<elseif $exposed gte 1>>
+	<<link [[Flaunt|Skyscraper Party Flaunt Undies]]>><<fameexhibitionism 2>><</link>><<exhibitionist3>>
+	<br>
+<</if>>
+
+:: Skyscraper Party Sophisticated
+<<effects>>
+
+You walk down the red carpet with Avery, stopping when <<he>> does, and striking an appropriate pose. This is often; it takes you a while to work your way to the building proper. Remy is not far behind you, but Harper is nowhere to be seen.
+<br><br>
+
+At last, you reach the tall front doors, and enter Avery's skyscraper.
+<br><br>
+
+
+<<link [[Next|Skyscraper Party 7]]>><</link>>
+<br>
+
+:: Skyscraper Party Cute
+<<effects>>
+
+You hang off Avery's arm as <<he>> walks down the red carpet. <<He>> stops for cameras a lot. You smile at them, as if shy, shrinking behind Avery a little so <<he>> remains the centre of any photographs. Remy is not far behind you, but Harper is nowhere to be seen.
+<br><br>
+
+You reach the tall front doors, and enter Avery's skyscraper.
+<br><br>
+
+<<link [[Next|Skyscraper Party 7]]>><</link>>
+<br>
+
+
+:: Skyscraper Party Flaunt Naked
+<<effects>>
+
+You walk down the red carpet with Avery, and hold nothing back, baring everything to the onlookers. You bend forward, sticking your <<bottom>> out at one line of cameras, and blow a kiss at the other. Avery looks amused.
+<<exhibitionism5>>
+
+Remy follows behind, doing <<person2>><<his>> best to ignore your antics, but Harper is nowhere to be seen.
+<br><br>
+
+You reach the tall front doors, and enter Avery's skyscraper.
+<br><br>
+
+<<link [[Next|Skyscraper Party 7]]>><</link>>
+<br>
+
+
+:: Skyscraper Party Flaunt Undies
+<<effects>>
+
+You walk down the red carpet with Avery. <<He>> stops for the cameras, and so do you. You bend forward, sticking your <<bottom>> out at one line of cameras, and blow a kiss at the other. Avery looks amused.
+<<exhibitionism3>>
+
+Remy follows behind, doing <<person2>><<his>> best to ignore your antics, but Harper is nowhere to be seen.
+<br><br>
+
+You reach the tall front doors, and enter Avery's skyscraper.
+<br><br>
+
+<<link [[Next|Skyscraper Party 7]]>><</link>>
+<br>
+
+
+:: Skyscraper Party 7
+<<effects>><<set $outside to 0>>
+
+The room is gigantic, awash with light, the ceiling held aloft by marble pillars. It's already full of guests, and polite chatter. Servants rush about, making sure the guests are fed and entertained. It doesn't take long for Avery's arrival to be noticed. A rippling murmur erupts, spreading through the room. Soon, all are facing <<him>>, and applauding.
+<br><br>
+Avery waves thanks to many of them, until Quinn breaks rank, hands outstretched. <<He>> grasps Avery's in both.
+<br><br>
+
+"Well done my friend," Quinn says. "Well done. Glad I got to say it before everyone swarms you. Alas, here they come!" Quinn steps away, and others indeed surge forward. It seems everyone's eager to be seen with Avery. They jostle each other, and you.
+<br><br>
+
+<<link [[Cling to Avery's arm|Skyscraper Party Cling]]>><</link>>
+<br>
+<<link [[Jostle harder|Skyscraper Party Jostle]]>><</link>>
+<br>
+<<link [[Leave Avery for now|Skyscraper Party Leave]]>><</link>>
+<br>
+<<if $fame.social gte 400>>
+	<<link [[Remind them who you are|Skyscraper Party Remind]]>><</link>>
+	<br>
+<</if>>
+
+
+:: Skyscraper Party Cling
+<<effects>>
+
+You cling to Avery's arm. <<He>> takes note, and wraps an arm around your waist, ensuring you're not separated.
+<br><br>
+
+<<link [[Next|Skyscraper Party 8]]>><<pass 20>><</link>>
+<br>
+
+
+
+:: Skyscraper Party Jostle
+<<effects>>
+
+You shove anyone who tries to get between you and Avery. They soon take the hint, and give you a wide berth.
+<br><br>
+
+
+<<link [[Next|Skyscraper Party 8]]>><<pass 20>><</link>>
+<br>
+
+
+:: Skyscraper Party Remind
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Forgive me," you say to the worst offender, a <<person5>><<person>> who tried to take your place beside Avery. "You must have forgotten who I am."
+<<elseif $speech_attitude is "bratty">>
+	"Who the fuck do you think you are?" you say.
+<<else>>
+	"You must have confused me with someone of little import," you say.
+<</if>>
+<br><br>
+
+<<He>> looks at you, irritated, but <<his>> irritation soon turns to embarrassment. "Ah, no, I'm sorry," <<he>> says. "I slipped, that's all."
+<br>
+Avery gives <<him>> a dismissive glance. The rest take the hint.
+<br><br>
+
+
+<<link [[Next|Skyscraper Party 8]]>><<pass 20>><</link>>
+<br>
+
+
+:: Skyscraper Party Leave
+<<effects>>
+
+You allow yourself to be separated from Avery. <<He>> gives you an apologetic look, then returns to entertaining the many surrounding <<him>>.
+<br><br>
+
+
+<<link [[Next|Skyscraper Party 8]]>><<pass 20>><</link>>
+<br>
+
+
+:: Skyscraper Party 8
+<<effects>>
+<<person1>>
+Avery shakes hand after hand, but there's no end. <<He>> soon looks bored, and casts the occasional glance at the transparent lift in the corner. <<Hes>> eager and anxious about something.
+<br><br>
+
+The swarm is only cleared by the tap of a microphone. Quinn stands on a raised platform on the far side of the room. A red ribbon hangs in front of <<person4>><<him>>, suspended between two poles. "Testing. Testing. Thank you. Yes." <<He>> clears <<his>> throat. "Thank you for inviting me, Avery. If I could have a moment of your time. We've a ribbon to cut."
+<br><br>
+Avery makes some apologetic noises as <<person1>><<he>> pushes through the crowd, and strides towards the platform.
+<br><br>
+"We usually do this outside," Quinn says. "But there are temple protestors. You might have seen them on the way in. Nothing to be concerned with. It's climate controlled in here. Much better."
+<br><br>
+
+Avery arrives at the platform, and climbs the steps.
+<br><br>
+
+<<link [["Join " + $NPCList[0].pronouns.him + " on the stage"|Skyscraper Party Join]]>><<famesocial 10>><</link>>
+<br>
+<<link [[Just watch|Skyscraper Party Watch]]>><</link>>
+<br>
+
+:: Skyscraper Party Join
+<<effects>>
+
+You climb the stage with Avery. It's you, Avery, and Quinn on the stage, with a sea of heads beneath you.
+<br><br>
+
+Avery stands in front of the microphone. "Thank you," <<person1>><<he>> says. "Thank you all for joining me. I recognise many of you from outside town. It's a strange place, isn't it? I remember how I felt when I arrived ten years ago, I thought I'd made a mistake." <<He>> pauses for laughter. "But I made my fortune here. And there's more to be had. Much more."
+<br>
+
+"Here's to the future." The audience applaud.
+<br><br>
+
+Quinn claps too, then reaches into the crowd. <<person4>><<He>> returns with a pair of oversized scissors. "Avery, my friend," <<he>> says. "Let's do this together."
+<br><br>
+
+Avery steps forward, and holds one half of the scissors. Quinn nods at the photographers, who are just getting into place.
+<br><br>
+
+<<link [[Muscle out Quinn, and cut the ribbon with Avery|Skyscraper Party Ribbon]]>><<famesocial 10>><</link>>
+<br>
+<<link [[Watch|Skyscraper Party Ribbon Watch]]>><</link>>
+<br>
+
+:: Skyscraper Party Ribbon
+<<effects>>
+
+You take hold of Quinn's half of the scissors. <<person4>><<He>> resists, and gives the audience an embarrassed smile as they laugh, but relents when it's clear you won't back down.
+<br><br>
+
+You cut the ribbon with Avery, amid the clicking of cameras. A cheer goes up.
+<br><br>
+
+<<link [[Next|Skyscraper Party 9]]>><<pass 30>><</link>>
+<br>
+
+:: Skyscraper Party Ribbon Watch
+<<effects>>
+
+You observe as Avery and Quinn cut the ribbon, amid the clicking of cameras. A cheer goes up.
+<br><br>
+
+<<link [[Next|Skyscraper Party 9]]>><<pass 30>><</link>>
+<br>
+
+:: Skyscraper Party Watch
+<<effects>>
+
+Avery stands in front of the microphone. "Thank you," <<person1>><<he>> says. "Thank you all for joining me. I recognise many of you from outside town. It's a strange place, isn't it? I remember how I felt when I arrived ten years ago, I thought I'd made a mistake." <<He>> pauses for laughter. "But I made my fortune here. And there's more to be had. Much more."
+<br>
+
+"Here's to the future." The audience applaud.
+<br><br>
+
+Quinn claps too, then reaches into the crowd. <<person4>><<He>> returns with a pair of oversized scissors. "Avery, my friend," <<he>> says. "Let's do this together."
+<br><br>
+
+Avery steps forward, and holds one half of the scissors. Quinn nods at the photographers, who are just getting into place. A moment later, Avery and Quinn cut the ribbon, amid the clicking of cameras. A cheer goes up.
+<br><br>
+
+<<link [[Next|Skyscraper Party 9]]>><<pass 30>><</link>>
+<br>
+
+:: Skyscraper Party 9
+<<effects>>
+
+The party continues. The guests give Avery a little more space, but not much. More wine is brought out, and more food. Servants begin offering guests tours of the building, but you notice none use the lift in the corner.
+<br><br>
+
+You hear a commotion towards the front of the room. A <<person5>><<person>>, dressed in rags and toilet paper, swings one of the temple's holy symbols around on a chain, and stares at the guests with crazed eyes.
+<br><br>
+
+"You are all sinners," <<he>> screams. "And you." <<He>> points at Avery. "Are the greatest sinner of all. A pillar of fire will seize this tower, this abomination, and drag it to hell." Security push through the clicking photographers, and restrain <<him>> with surprising ease. "A pillar of fire. I foresee it." <<He>> kicks the air as security drag <<him>> from the building.
+<br><br>
+
+<<if currentSkillValue("skulduggery") gte 600>>
+	That was a theatrical performance. Avery, or perhaps Remy, hired <<him>> to discredit the temple's protest. You suspect it was Avery, given <<person1>><<his>> satisfied smile.
+	<br><br>
+	<<link [[Confront Avery|Skyscraper Party Confront]]>><</link>>
+	<br>
+	<<link [[Ignore|Skyscraper Party 10]]>><<pass 20>><</link>>
+	<br>
+<<elseif $temple_rank>>
+	You didn't recognise <<him>> from the temple. Avery wears a satisfied smile.
+	<br><br>
+	<<link [[Confront Avery|Skyscraper Party Confront]]>><</link>>
+	<br>
+	<<link [[Ignore|Skyscraper Party 10]]>><<pass 20>><</link>>
+	<br>
+<<else>>
+	<<link [[Next|Skyscraper Party 10]]>><<pass 20>><</link>>
+	<br>
+<</if>>
+
+:: Skyscraper Party Confront
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"That <<person5>><<personsimple>> wasn't from the temple," you say. "Was <<he>>."
+<<elseif $speech_attitude is "bratty">>
+	"You set that up," you say.
+<<else>>
+	"That was an actor," you say.
+<</if>>
+<br><br>
+
+Avery nods. "We've lots of security outside, so it's not like someone could slip through. The temple wants to make the news? They will. On my terms."
+<br><br>
+
+<<link [[Next|Skyscraper Party 10]]>><<pass 20>><</link>>
+<br>
+
+
+:: Skyscraper Party 10
+<<effects>>
+
+Quinn stands on the platform again, and taps the microphone. "It's me again," <<person4>><<he>> says. "For most of us, it's time to wrap things up. Avery will be having a party upstairs, for friends and family. Those involved know who you are. The rest of us, it's time to move out." <<He>> climbs from the platform.
+<br><br>
+
+Most of the guests meander towards the exit. Perhaps a quarter to a third remain where they are. Quinn is the last to leave. <<He>> pulls the doors shut behind <<him>>.
+<br><br>
+
+The remaining guests turn their heads in unison, as the lift arrives from above, carrying two figures. Remy and Harper.
+<br><br>
+
+<<link [[Next|Skyscraper Party 11]]>><<pass 10>><</link>>
+<br>
+
+:: Skyscraper Party 11
+<<effects>>
+
+<<person2>>
+"It's time," Remy says. "If you please. In order." <<He>> steps back into the lift. Six others enter with <<him>>. The lift climbs.
+<br><br>
+It disappears above, and floats back down. Another seven guests step inside. Then another seven. Avery arrives beside you. "We go last," <<person1>><<he>> says.
+<br><br>
+"You're part of the ceremony too," says Harper behind you, <<person3>><<his>> voice hushed. "Don't worry. It's straightforward. I'll explain on the way up."
+<br><br>
+
+The guests clear the room, group by group, until the three of you are stood alone.
+<br><br>
+
+<<link [[Next|Skyscraper Party 12]]>><</link>>
+<br>
+
+:: Skyscraper Party 12
+<<effects>>
+
+The lift returns. Even this close, you hear no sound as it opens. Avery steps inside, then you, then Harper. The doors close.
+<br><br>
+
+Harper produces two fox masks. One larger, the ears tipped with silver. <<person3>><<He>> hands the smaller one to you.
+<br><br>
+<<facewear "fox mask">>
+"There's usually only one fox," <<he>> says. "There was a hiccup. Something that shouldn't have happened. I looked long and hard, and found a precedent."
+<br><br>
+
+<<link [[Ask if Avery gets a mask|Skyscraper Party Mask]]>><</link>>
+<br>
+<<link [[Remain silent|Skyscraper Party 13]]>><</link>>
+<br>
+
+:: Skyscraper Party Mask
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I hope it's not a rude question," you say. "But does Avery get a mask?"
+<<elseif $speech_attitude is "bratty">>
+	"Does Avery go maskless?" you ask.
+<<else>>
+	"Does Avery get a mask?" you ask.
+<</if>>
+<br><br>
+
+"As part of the ceremony," Harper says. <<person1>>"<<He>> must remain maskless for now."
+<br><br>
+
+<<link [[Next|Skyscraper Party 13]]>><</link>>
+<br>
+
+:: Skyscraper Party 13
+<<effects>>
+
+The lift arrives at the top. The doors open.
+<br><br>
+
+Beyond is a room, large, but smaller than the one below. An array of tall windows sits opposite the lift, giving a good view of the town. A huge skylight hangs above. There's no artificial light at all. It's not needed. The room is bathed in the red of the moon.
+<br><br>
+
+The guests are here, wearing elk masks. All are kneeling, except Remy, who stands beneath the skylight, beside a table, holding a knife aloft. "You who would complete our triumvirate," <<person2>><<he>> says. "Must lose that which binds you." <<His>> voice sounds amplified. "Step forward."
+<br><br>
+Avery does so. Harper holds your arm to make sure you don't follow. "You've another role," <<person3>><<he>> whispers. <<He>> produces the purple box from <<his>> coat, and clicks it open. The wishing stones are still within. "When Remy calls for the stones, you must present this to Avery, then remain beneath the skylight until the ritual is done." <<He>> pushes the box into your hands. "No matter what happens."
+<br><br>
+
+<<link [[Next|Skyscraper Party 14]]>><</link>>
+<br>
+
+
+:: Skyscraper Party 14
+<<effects>>
+
+Avery strides towards Remy. The elks begin an alien chant, rising in volume as Avery draws close. Remy points the knife at <<person1>><<him>>, then points at the ground to <<person2>><<his>> side. Avery stands beside Remy, and turns to face you.
+<br><br>
+Harper springs into motion, and hastens after Avery, stopping on Remy's other side. There's a mask in <<person3>><<his>> hands, in the shape of a hound's face.
+<br><br>
+Remy points the knife at you. "The stones."
+<br><br>
+You follow between the chanting elks, until you arrive before Avery, Remy and Harper.
+<br><br>
+
+<<link [[Stand still|Skyscraper Party 15]]>><<set $phase to 0>><</link>>
+<br>
+<<link [[Kneel|Skyscraper Party 15]]>><<set $phase to 1>><</link>>
+<br>
+
+:: Skyscraper Party 15
+<<effects>>
+
+<<if $phase is 0>>
+	You remain still.
+<<else>>
+	You kneel, and hold the box aloft.
+<</if>>
+The wishing stones glisten in the red moonlight. Avery reaches forward, takes the box, and removes the stones. <<person1>><<He>> casts the box aside, where a deft elk catches it.
+<br><br>
+
+Remy turns to Avery, and points the knife at <<person1>><<him>>. It almost kisses <<his>> throat. Then, Remy flicks <<person2>><<his>> wrist, spinning the knife and grasping it by the blade.
+<br><br>
+
+Avery takes the knife by the handle. As <<person1>><<he>> does, Harper puts the mask over <<his>> face. Everyone looks at Avery, but <<his>> fierce eyes are only for you.
+<br><br>
+
+Remy clicks <<person2>><<his>> fingers, and the elks rise into motion. They grasp your arms, legs, hips, shoulders, neck, and try to pull you onto the table.<<gstress>><<stress 6>>
+<br><br>
+
+<<link [[Struggle|Skyscraper Party Struggle]]>><<def 1>><</link>>
+<br>
+<<link [[Allow it|Skyscraper Party Allow]]>><<sub 1>><</link>>
+<br>
+
+
+:: Skyscraper Party Struggle
+<<effects>>
+
+You try to resist, but the elks are too numerous, too forceful, as if desperate. They push you to the table, and hold you down by your limbs. They don't stop chanting. You stare above. <span class="red">The moon fills the entire skylight,</span> somehow magnified.
+<br><br>
+
+Avery peers down at you through the holes in <<person1>><<his>> mask, a knife in one hand, the wishing stones in the other. Beside <<him>>, a handful of elks are bringing incense burners to Harper. <<person3>><<He>> produces a phial of purple flakes, adds it to the burner, and lights it. A sweet sickness fills the air.<<garousal>><<arousal 600>>
+<br><br>
+
+Incense burners prepared, the elks form a ring around the table, most of the other elks behind them, still kneeling, and chanting.
+<br>
+"Begin."
+<br>
+Without breaking eye contact, Avery presses the point of the knife against your throat.
+<br><br>
+
+<<link [[Smile at Avery|Skyscraper Party 16]]>><<set $phase to 0>><</link>>
+<br>
+<<link [[Remain still and silent|Skyscraper Party 16]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Plead with Avery|Skyscraper Party 16]]>><<set $phase to 2>><</link>>
+<br>
+<<link [[Try to escape|Skyscraper Party 16]]>><<set $phase to 3>><</link>>
+<br>
+
+
+:: Skyscraper Party Allow
+<<effects>>
+
+You climb onto the table with the elks' help, where they hold you down by your limbs. They don't stop chanting. You stare above. <span class="red">The blood moon fills the entire skylight,</span> somehow magnified.
+<br><br>
+
+Avery peers down at you through the holes in <<person1>><<his>> mask, a knife in one hand, the wishing stones in the other. Beside <<him>>, a handful of elks are bringing incense burners to Harper. <<person3>><<He>> produces a phial of purple flakes, adds it to the burner, and lights it. A sweet sickness fills the air.<<garousal>><<arousal 600>>
+<br><br>
+
+Incense burners prepared, the elks form a ring around the table.
+<br>
+"Begin."
+<br>
+Without breaking eye contact, Avery presses the point of the knife against your throat.<<ggstress>><<stress 12>>
+<br><br>
+
+<<link [[Smile at Avery|Skyscraper Party 16]]>><<set $phase to 0>><</link>>
+<br>
+<<link [[Remain still and silent|Skyscraper Party 16]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Plead with Avery|Skyscraper Party 16]]>><<set $phase to 2>><</link>>
+<br>
+<<link [[Try to escape|Skyscraper Party 16]]>><<set $phase to 3>><</link>>
+<br>
+
+:: Skyscraper Party 16
+<<effects>>
+
+<<person1>>
+<<if $phase is 0>>
+	You smile at Avery, as if you trust <<him>>, as <<he>> moves the tip of the blade down your chest.
+<<elseif $phase is 1>>
+	You remain still as Avery moves the tip of the blade down your chest.
+<<elseif $phase is 2>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"Please don't hurt me," you say. "I'm your partner."
+	<<elseif $speech_attitude is "bratty">>
+		"Your intentions had better be good," you say.
+	<<else>>
+		"You're not going to hurt me?" you ask. "Are you?"
+	<</if>>
+	An elk gags you with a hand, and Avery moves the blade down your chest.
+<<else>>
+	You struggle to break free, but the elks are too numerous. Avery moves the blade down your chest.
+<</if>>
+<<if !$worn.upper.type.includes("naked") and !$worn.under_upper.type.includes("naked")>>
+	<<He>> presses it against your bare skin, not hard enough to break it, but hard enough to slice through your <<print $worn.upper.name>> and <<print $worn.under_upper.name>>.
+	<<upperruined>>
+	<<underupperruined>>
+<<elseif !$worn.upper.type.includes("naked")>>
+	<<He>> presses it against your bare skin, not hard enough to break it, but hard enough to slice through your <<print $worn.upper.name>>.
+	<<upperruined>>
+<<elseif !$worn.under_upper.type.includes("naked")>>
+	<<He>> presses it against your bare skin, not hard enough to break it, but hard enough to slice through your <<print $worn.under_upper.name>>.
+	<<underupperruined>>
+<<else>>
+	<<He>> presses it against your bare skin, not hard enough to break it.
+<</if>>
+<br><br>
+
+<<if $fake_artefact is "Avery">>
+	Avery holds the blade over your heart, point facing down. <<He>> takes a deep breath, summoning strength. The chanting reaches an inhuman pitch, <span class="red">and you hear a growing hiss beneath it,</span> but none of it seems real. It's just you and Avery, eyes locked, alone within the madness.
+	<br><br>
+	<<link [[Next|Skyscraper Dream]]>><<pass 1>><</link>>
+	<br>
+<<else>>
+	Avery holds the blade over your heart, point facing down. <<He>> takes a deep breath, summoning strength. The chanting reaches an inhuman pitch, but none of it seems real. It's just you and Avery, eyes locked, alone within the madness.
+	<br><br>
+	<<link [[Next|Skyscraper Dream]]>><<pass 1>><</link>>
+	<br>
+<</if>>
+
+:: Skyscraper Dream
+<<set $location to "moor">><<effects>>
+
+The chanting fades, the room twists and warps. You're lying on a bed instead of the table. Avery still stands above you, <<his>> mask, and the knife, gone. <<He>> looks around, bewildered, seeing what you're seeing.
+<br><br>
+
+You're in a well-decorated interior, lying on a long chair. Two doors stand open, revealing a balcony. On it are two children, one helping the other climb up.
+<br><br>
+
+"Are you sure I won't get in trouble?" asks the second child as <<pshe>> stumbles onto the floor.
+<br>
+"Mum and Dad are out," says the first. <<His>> voice sends a shiver up your spine. "I visited your house. It's only fair you visit mine." <span class="red"><<He>> looks like Avery.</span> Neither <<he>> nor <<his>> friend pay you or Avery the slightest attention, as if you're not there.
+<br><br>
+
+<<link [[Next|Skyscraper Dream 2]]>><</link>>
+<br>
+
+
+:: Skyscraper Dream 2
+<<effects>>
+
+"Here," says the Avery child. <<He>> produces a binder full of cards from a once-popular trading card game, and points at one in particular. "See?"
+<br>
+"Woah."
+<br>
+"I told you I wasn't lying. I didn't want to take it out because I'm afraid of losing it."
+<br><br>
+
+<<Hes>> interrupted by the main door swinging open. A servant enters, carrying cleaning tools. <<person6>><<He>> drops them in alarm when <<he>> notices the second child.
+<br><br>
+"How did you get in?" <<he>> asks. "Stay away from the young <<person1>><<master>>!"
+<br><br>
+The second child looks terrified, close to tears. <<pShe>> runs for the balcony. Child Avery tries to stop <<phim>>, but <<pshe>> loses <<pher>> footing on the railing, and falls.
+<br><br>
+
+<<link [[Next|Skyscraper Dream 3]]>><</link>>
+<br>
+
+:: Skyscraper Dream 3
+<<effects>>
+
+The room distorts again, reforming into another with similar decor. Avery still stands beside you. Child Avery is here too, crying. In front of <<person1>><<him>> is an adult. For a moment you think it's another Avery, but they're not identical. <span class="red"><<He>> looks like Avery's <<father>>.</span>
+<br><br>
+
+"Why are you still snivelling?" <<he>> asks.
+<br>
+"I-is," child Avery says. "Is <<pshe>> okay?"
+<br><br>
+"Don't you dare spare a thought for that vermin," Avery's <<father>> says. "You can't invite scum like that here as if they're your equal."
+<br><br>
+
+Avery, your Avery, steps towards <<his>> <<father>>, <<his>> face impassive. Then <<he>> throws a sudden punch at <<his>> <<father>>'s head. It passes through, as if <<his>> <<father>> weren't there. <<He>> throws another, and another, hard and fast enough that <<he>> pants from exertion.
+<br><br>
+
+<<link [[Next|Skyscraper Dream 4]]>><</link>>
+<br>
+
+:: Skyscraper Dream 4
+<<effects>>
+
+<<if $fake_artefact is "Avery">>
+	The room distorts again, leaving Avery punching the empty air. You're outside, in the garden of a fancy-looking manor. Avery is still with you, but the child is gone. In <<his>> place is another Avery, about your age. <<He>> and <<his>> greying <<father>> glare at each other. Behind them, <span class="red">a gardener chases a small brown fox.</span>
+	<br><br>
+	"What the fuck do you mean?" young Avery says. "You always said I was better than them. Why can't I take what I want?"
+	<br>
+	<<His>> <<father>> takes a step closer. "That's your excuse? You bring such awful attention to our family, and that's what you have to say for yourself?"
+	<br><br>
+	The gardener and small brown fox stop in unison, turn, and look right at you. <span class="red">The gardener looks like Landry.</span> <<nnpc_He Landry>> raises a finger to <<nnpc_his Landry>> lips in a "hush" gesture, then extends two more fingers.
+	<br>
+	<span class="purple"><i>Three.</i></span>
+	<br><br>
+	"You always take what you want," Avery continues. "From servants. From me."
+	<br>
+	"You think I take from you? Fine. I'm done protecting you. I disown you. Get the fuck off my property."
+	<br>
+	"I'll rise higher than you ever could."
+	<br>
+	"Out!"
+	<br>
+	<span class="pink"><i>Two.</i></span>
+	<br>
+	Young Avery turns and storms away. Reality bleeds in.
+	<br><br>
+<<else>>
+	The room distorts again, leaving Avery punching the empty air. You're outside, in the garden of a fancy-looking manor. Avery is still with you, but the child is gone. In <<his>> place is another Avery, about your age. <<He>> and <<his>> greying <<father>> glare at each other. Behind them, a gardener works with their back to you, swinging a sickle through tall grass.
+	<br><br>
+	"What the fuck do you mean?" Young Avery says. "You always said I was better than them. Why can't I take what I want?"
+	<br>
+	<<His>> <<father>> takes a step closer. "That's your excuse? You bring such awful attention to our family, and that's what you have to say for yourself?"
+	<br>
+	"You always take what you want. From servants. From me."
+	<br>
+	"You think I take from you? Fine. I'm done protecting you. I disown you. Get the fuck off my property."
+	<br>
+	"I'll rise higher than you ever could."
+	<br>
+	"Out!"
+	<br><br>
+
+	Young Avery turns and storms away as reality bleeds in.
+	<br><br>
+<</if>>
+
+<<if $fake_artefact is "Avery">>
+	<<link [[Next|Skyscraper Fall]]>><<world_corruption "hard" -1>><</link>>
+	<br>
+<<else>>
+	<<link [[Next|Skyscraper Ascend]]>><<world_corruption "hard" 1>><</link>>
+	<br>
+<</if>>
+
+:: Skyscraper Ascend
+<<set $location to "avery_skyscraper">><<effects>>
+<<set $avery_fate to "ascended">>
+<<set C.npc.Avery.title to "crimson hound">>
+<<set C.npc.Harper.title to "silver fox">>
+<<set C.npc.Remy.title to "high elk">>
+<<set $auriga_scar++>>
+<<gwylanNobody>>
+<<if $gwylan>>
+	<<set $gwylan.wary += 3>>
+<</if>>
+Avery jerks, breaking the moment. <<He>> throws <<his>> head back and trembles, dropping the knife, but not the wishing stones. <<He>> stares at the moon, trembling all over, as <<he>> falls to <<his>> knees.
+<br><br>
+
+You feel it more than see it. An eye opens, and gazes down at you, and at Avery. <<His>> head jerks back, then again, with such violence that you worry it'll snap. The elks continue their chanting. You think Harper and Remy have joined.
+<br><br>
+
+Your heart pounds as it's exposed to red moonlight through a vibrant, boiling hole in the world. <span class="red">You are changed. An invisible wound has been inflicted.</span>
+<br><br>
+
+Avery falls limp, like <<his>> strings were cut. The elks fall silent. Then Avery pushes <<himself>> to <<his>> knees, then feet. Shaking, <<he>> rises.
+<br><br>
+The elks around you release your limbs, and kneel, facing Avery. All the elks are kneeling now, foreheads pressed against the ground.
+<br><br>
+
+<<link [[Kneel|Skyscraper Ascend Kneel]]>><<sub 1>><</link>>
+<br>
+<<link [[Stand|Skyscraper Ascend Stand]]>><<def 1>><</link>>
+<br>
+
+:: Skyscraper Ascend Kneel
+<<effects>>
+
+You join the kneelers. Avery looks at <<his>> arms and hands, as if unsure of who <<he>> is.
+<br><br>
+"We are complete," Remy says. "Now, the world shall tremble."
+<br><br>
+Avery takes a sudden step toward you, grasps you by the waist, lifts <<his>> mask to reveal <<his>> face, and pulls you into a kiss. You hear the thud of feet as the elks rise, and cheer.<<takeKissVirginity "Avery" `($auriga_artefact?"loveInterest":"romantic")`>>
+<br><br>
+<<link [[Next|Skyscraper Ascend 2]]>><<pass 30>><</link>>
+<br>
+
+:: Skyscraper Ascend Stand
+<<effects>>
+
+You remain stood. No one seems to care. Avery looks at <<his>> arms and hands, as if unsure of who <<he>> is.
+<br><br>
+"We are complete," Remy says. "Now, the world shall tremble."
+<br><br>
+Avery takes a sudden step toward you, grasps you by the waist, lifts <<his>> mask to reveal <<his>> face, and pulls you into a kiss. You hear the thud of feet as the elks rise, and cheer.<<takeKissVirginity "Avery" `($auriga_artefact?"loveInterest":"romantic")`>>
+<br><br>
+<<link [[Next|Skyscraper Ascend 2]]>><<pass 30>><</link>>
+<br>
+
+
+:: Skyscraper Ascend 2
+<<effects>>
+
+The elks take turns congratulating Avery, shaking <<his>> hand, suggesting how useful they'll be. They also show you a new deference, bowing after they finish addressing Avery. It's a less formal affair, and there's a lot of chatter among them. No food or drink. There are no servants to bear them.
+<br><br>
+
+"I think," Remy says after a time. "We'd best give Avery some space. This is <<his>> office we're stood in, you know. Or will be once the furniture is here. Come."
+<br><br>
+
+The elks make their way to the staircase. None use the lift now. Remy and Harper stop to give Avery a final bow, then they too descend.
+<br><br>
+
+<<link [[Next|Skyscraper Ascend 3]]>><</link>>
+<br>
+
+:: Skyscraper Ascend 3
+<<effects>>
+<<earnFeat "Pride Cometh">>
+Avery walks to the windows, and peers out at the sea, or perhaps the town's rooftops. Even the flats on Barb Street are dwarfed.
+<br><br>
+
+"The only way is up," Avery says. "Death surrounds me. I can make no misstep." <<He>> takes a deep breath, then turns to you and holds out <<his>> hand.
+<br><br>
+
+"Shall we?"
+<br><br>
+
+<<link [[Next|Skyscraper Ascend 4]]>><</link>>
+<br>
+
+:: Skyscraper Ascend 4
+<<set $location to "avery_mansion">><<effects>>
+
+A different limousine awaits Avery and you at the base of the skyscraper. The journey is short, and without trouble. The temple's protest has dispersed. Avery doesn't speak, and wears a small smile the whole way.
+<br><br>
+
+"I don't feel like I could ever sleep again," Avery says once back in the mansion. "I suppose I should try."
+<br><br>
+
+<<link [[Next|Mansion Lounge]]>><<endevent>><<unset $silenceNotifications>><</link>>
+<br>
+
+:: Skyscraper Fall
+<<set $location to "avery_skyscraper">><<effects>>
+
+You're back in the skyscraper, with Avery's knife above your heart. The hissing is louder now, drowning out the chanting. Harper looks around, then, with a panicked start, <<person3>><<he>> runs towards the lift.
+<br><br>
+Remy watches Harper close the doors behind <<him>>. The elks holding you share an uncertain glance. Avery looks at Remy, waiting for something, but Remy only stares after Harper. That wasn't part of the ritual.
+<br><br>
+<span class="red"><i>One.</i></span>
+<br><br>
+With a grunt of pain, Avery drops the wishing stones. Smoke trails after it. <<person1>><<He>> moves the knife away, and clutches <<his>> wrist as if in pain. Remy crouches to observe the smoking, hissing stones. <<person2>><<His>> features contort in horror. Too late.
+<br><br>
+
+<<if $hallucinations gte 2>>
+	For a moment, the space around the stones becomes empty. No air, no sound. The moment passes.
+<</if>>
+<span class="red">The world screams.</span>
+<br><br>
+
+<<link [[Next|Skyscraper Fall 2]]>><</link>>
+<br>
+
+
+:: Skyscraper Fall 2
+<<effects>><<set $fire to 2>>
+<<set $avery_skyscraper_fire_time to 3>>
+<<set $worn.lower.integrity -= 50>>
+<<set $worn.under_upper.integrity -= 50>>
+<<set $worn.under_lower.integrity -= 50>>
+<<faceruined true>>
+
+You find yourself on your back, several feet from the table, your ears ringing. The windows are shattered, expensive furnishings are in tatters, or lie broken on the ground.
+<<if $worn.handheld.name isnot "naked">>
+	Your $worn.handheld.name is nowhere to be found, and your
+	<<handheldruined>>
+<<else>>
+	Your
+<</if>>
+fox mask lies halfway across the room, split in two down the middle.
+
+A fire spreads with alarming speed, meandering across the room like a den of snakes.<<gggpain>><<pain 12>>
+<br><br>
+The guests are in flight. They run towards the staircase, tripping over each other as the flames catch up with them. Others bang on the lift, as if that would summon it.
+<br><br>
+
+<<if $farm?.aggro>><<farm_aggro -50>><</if>><<set C.npc.Remy.title to "scarred">>
+You're safe from the fire. For now. You look around for Avery, and see a figure crawling away, shielding <<person2>><<his>> face. You struggle to your feet, then hear Avery's voice. <<person1>><<He>> calls your name.
+<br><br>
+
+You peer through the rising smoke. Avery hangs from the ruined window, off the edge of the building, keeping <<himself>> aloft with one arm. The other hangs limp, as if injured. "Get the fuck over here." <<He>> sounds normal, despite everything. The building shakes, and <<he>> slips a few inches.
+<br><br>
+
+The floor between you and <<him>> has been rent away, exposing naked steel. It looks treacherous, even without the flames, but no one else is concerned about <<him>>.
+<br><br>
+
+<span class="red">If you don't save Avery, no one will.</span>
+<br><br>
+
+<<link [[Save Avery|Skyscraper Save]]>><<set $avery_fate to "saved">><</link>>
+<br>
+<<link [[Save yourself|Skyscraper Run]]>><<set $avery_fate to "fallen">><<dismissAvery "hard">><</link>>
+<br>
+<<link [[Kick Avery off the building|Skyscraper Kick]]>><<def 30>><<famescrap 30>><<set $avery_fate to "kicked">><<dismissAvery "hard">><</link>>
+<br>
+
+:: Skyscraper Save
+<<effects>>
+<<earnFeat "Pride Cometh">>
+You cover your face, and work your way towards Avery. Breathing gets easier as you approach the window, but your footing is less sure. You can't tell if the building is swaying, or you.
+<br><br>
+
+You reach Avery, and hold onto a nearby girder for purchase. Up close, you can see <<his>> clothes are in tatters, <<his>> once-immaculate hair singed. <<He>> smiles through gritted teeth.
+<br><br>
+
+"I'm going to find out who fucking did this," <<he>> says. "What are you waiting for? Help me up."
+<br><br>
+
+<<if $averySeen.includes("meetPark")>>
+	<<link [[Remind Avery of your first meeting in the park|Skyscraper Save 2]]>><<set $phase to 1>><</link>>
+	<br>
+	<<link [[Just help Avery up|Skyscraper Save 2]]>><<set $phase to 0>><</link>>
+	<br>
+<<else>>
+	<<link [[Next|Skyscraper Save 2]]>><<set $phase to 0>><</link>>
+	<br>
+<</if>>
+
+:: Skyscraper Save 2
+<<effects>>
+
+<<if $phase is 1>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"Were you looking for lichen?" you ask with a smile. "Remember when we first met, you helped me climb the statue in the park. I'm glad I can help you too."
+	<<elseif $speech_attitude is "bratty">>
+		"Were you looking for lichen?" you ask with a smile. "Remember when we first met, you helped me climb the statue in the park. Now we're even."
+	<<else>>
+		"Were you looking for lichen?" you ask with a smile. "Remember when we first met, you helped me climb the statue in the park."
+	<</if>>
+	<br><br>
+	"Funny," Avery says. You kneel down and grasp Avery by the waist. Together, you've strength enough to haul <<him>> from immediate danger.
+	<br><br>
+<<else>>
+	You kneel down and grasp Avery by the waist. Together, you've strength enough to haul <<him>> from immediate danger.
+	<br><br>
+<</if>>
+
+<<He>> stares up at you, panting. <<He>> looks unsure of <<himself>>, like <<hes>> dreaming. Then a loud crack startles <<him>> to attention. The ceiling is collapsing.
+<br><br>
+
+You help Avery to <<his>> feet, mindful of <<his>> injured arm. The guests have all fled, even the crawling figure.
+<br><br>
+
+<<if $angel gte 6>>
+	<<link [[Leap from the building|Skyscraper Save Angel]]>><</link>><<angel>>
+	<br>
+<<elseif $demon gte 6>>
+	<<link [[Leap from the building|Skyscraper Save Demon]]>><</link>><<demon>>
+	<br>
+<<elseif $fallenangel gte 2>>
+	<<link [[Leap from the building|Skyscraper Save Fallen]]>><</link>><<fallenangel>>
+	<br>
+<<elseif $harpy gte 6>>
+	<<link [[Leap from the building|Skyscraper Save Harpy]]>><</link>><<harpy>>
+	<br>
+<</if>>
+
+<<link [[Run to the stairs|Skyscraper Save 3]]>><</link>>
+<br>
+
+:: Skyscraper Save Angel
+<<effects>><<set $outside to 1>>
+
+Whatever presence you felt above the skylight has fled. You feel a light beam down on you instead, filling you with strength enough to lift Avery in your arms.
+<br><br>
+"What are you doing?" <<he>> asks as you step towards the precipice. <<He>> struggles in your iron grasp, but can do little with <<his>> injury. "Let me down at once!"
+<br><br>
+You unfurl your wings, and leap from the skyscraper. Avery screams.
+<br><br>
+
+<<link [[Next|Skyscraper Save Angel 2]]>><</link>>
+<br>
+
+:: Skyscraper Save Angel 2
+<<effects>><<unset $fire>>
+
+You plummet through the smoke, and the ground rushes to meet you. Then you seize the wind, and glide, spiralling round the outside of the skyscraper before taking off in the direction of the hospital.
+<br><br>
+You soar above the rooftops, above the wailing sirens, a white light in the sky. You no longer hold Avery so tight. <<He>> clings for dear life.
+<br><br>
+
+<<link [[Next|Skyscraper Save Fly]]>><</link>>
+<br>
+
+:: Skyscraper Save Demon
+<<effects>><<set $outside to 1>>
+
+The presence you felt above the skylight is gone, its place usurped by something darker, but more familiar. A strength entwines with your limbs, and a mischievous thought burrows into your mind.
+<br><br>
+
+You trip Avery with your tail, and <<he>> falls into your arms. "What are you doing?" <<he>> asks as you step towards the precipice. <<He>> tries to break free, but your strength is too much for <<his>> injury.
+<br><br>
+
+You unfurl your wings, and leap from the skyscraper. Avery screams.
+<br><br>
+
+<<link [[Next|Skyscraper Save Demon 2]]>><</link>>
+<br>
+
+
+:: Skyscraper Save Demon 2
+<<effects>><<unset $fire>>
+
+You plummet through the smoke, and the ground rushes to meet you. Then you seize the wind, and glide, spiralling round the outside of the skyscraper before taking off in the direction of the hospital.
+<br><br>
+
+You soar above the rooftops, above the wailing sirens, a dark sprite against the backdrop of smoke. Avery clings for dear life. You wrap your tail around <<him>>, but no more.
+<br><br>
+
+<<link [[Next|Skyscraper Save Fly]]>><</link>>
+<br>
+
+:: Skyscraper Save Fallen
+<<effects>><<set $outside to 1>>
+
+The presence you felt above the skylight is gone, chased away. You're alone up here with Avery, and <<hes>> in no condition to be useful. Strength fills you.
+<br><br>
+You seize Avery in your arms, then step towards the precipice. "What are you doing?" <<he>> asks, struggling to break free. <<Hes>> too injured. "Let me down!"
+<br><br>
+You unfurl your broken wings, and leap from the skyscraper. Avery screams.
+<br><br>
+
+<<link [[Next|Skyscraper Save Fallen 2]]>><</link>>
+<br>
+
+:: Skyscraper Save Fallen 2
+<<effects>><<unset $fire>>
+
+You plummet through the smoke, and the ground rushes to meet you. You twist your body against the wind, and glide in the direction of the hospital.
+<br><br>
+You soar above the rooftops, above the wailing sirens. You doubt any can see you against the dark, smokey sky. Avery clings for dear life. You no longer need to hold <<him>>.
+<br><br>
+
+<<link [[Next|Skyscraper Save Fly]]>><</link>>
+<br>
+
+:: Skyscraper Save Harpy
+<<effects>><<set $outside to 1>>
+
+The building trembles, and adrenaline courses through you. You seize Avery in your arms. "What are you doing?" <<he>> asks as you step towards the precipice. <<He>> tries to struggle, but <<his>> injuries are too much. "Let me down!"
+<br><br>
+
+You stretch your wings, and feel the wind. This will work. You launch yourself from the skyscraper. Avery screams.
+<br><br>
+
+<<link [[Next|Skyscraper Save Harpy 2]]>><</link>>
+<br>
+
+
+:: Skyscraper Save Harpy 2
+<<effects>><<unset $fire>>
+
+You plummet through the smoke, building the momentum you need. You turn into the wind, and glide towards the hospital.
+<br><br>
+
+You soar above the rooftops, above the wailing sirens. The light catches on your feathers. You must look a glorious sight to anyone watching below. Avery clings for dear life. You hold <<him>> tighter. It's not necessary, but it might comfort <<him>>.
+<br><br>
+
+<<link [[Next|Skyscraper Save Fly]]>><</link>>
+<br>
+
+:: Skyscraper Save 3
+<<effects>>
+
+You make it to the stairs. There's another floor here, and a bar, though the fire has already claimed it. Bottles burst with the heat.
+You reach the stairs on the opposite end of the room, and run down as fast as you can. You pass discarded masks, and injured guests, on your way down. Avery winces in pain, but doesn't say a word.
+<br><br>
+
+The stairs down the building are long. Smoke rushes into the stairwell from open doors, as if the whole building were ablaze.
+<br><br>
+
+You cough, and nearly fall to your knees. Avery keeps you held up, and you hold <<him>> up in turn, but there's only so much strength between the two of you.
+Your vision blurs as the air is depleted by the blaze. Your skin feels hot.
+<br><br>
+
+You and Avery collapse. A crashing sound resonates down the staircase. <span class="red">A piece of flaming debris bounces between railings, hurtling towards you.</span>
+<br><br>
+
+You close your eyes. The deafening roar of flame surrounds you.
+<br><br>
+
+<<link [[Next|Skyscraper Save Rescue]]>><<endevent>><</link>>
+<br>
+
+:: Skyscraper Save Rescue
+<<effects>><<unset $fire>>
+<<if isGwylanAbsent()>>
+	<<set $avery_mansion.fox.nobody to true>>
+<<else>>
+	<<set $avery_mansion.fox.saved to true>>
+<</if>>
+<<npc Avery 1>><<summon_brown_fox 2>><<person2>>
+You feel something crash into you. From the front.
+<br><br>
+
+It isn't the rapidly-heating floor you feel beneath you anymore. Your legs rest on damp grass.<br>
+When your senses return, it isn't the smell of smoke and flame that hits you. It's the smell of roses.<br>
+When your eyes open, it isn't flaming ruin crashing down on you that you see.<br>
+<<if $avery_mansion.fox.nobody>>
+	<br>
+	You see a space where someone should be, or where someone once was. It's nobody. <span class="purple">Nobody is here to save you. Nobody shelters you and Avery from the raining debris.
+	Nobody whispers into your ear, saying you'll be alright. Nobody's antlers shine in the light of the fire. Nobody smiles at you sadly.</span> <<awareness -20>><<llawareness>>
+<<else>>
+	It's a <<personsimple>> in a brown fox mask and green cloak, embracing you and Avery.
+<</if>>
+<br><br>
+
+A dome of green, like the hills outside the moor, surrounds you. Perhaps it's just <<his>> cloak.
+Or perhaps it's the lack of fresh air, but even the red moonlight appears green for a fleeting moment.
+<br><br>
+
+The debris have fallen all around you, not a single piece touching any of you.
+<br><br>
+
+Avery's eyes slowly open, too. <<person1>><<He>> pants, looking down at
+<<if $avery_mansion.fox.nobody>>
+	nobody with confusion. <span class="purple">Nobody pulls away. Nobody tells Avery that <<hes>> a very lucky <<personsimple>>, because someone decided that <<hes>> worth saving. Nobody smiles.</span>
+<<else>>
+	<<say_brown_fox>> with confusion. <<person2>><<He>> pulls away.
+	"You're a very lucky <<person1>><<personsimple>>, Avery. Someone decided that you're worth saving." <<say_brown_fox "cap">> smiles at you.
+<</if>>
+<br><br>
+
+There's still the problem of the debris. You're surrounded.
+<br><br>
+
+<<link [[Call out for help|Skyscraper Save Rescue 2]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Try moving the debris|Skyscraper Save Rescue 2]]>><<set $phase to 2>><</link>>
+<br>
+
+:: Skyscraper Save Rescue 2
+<<effects>><<set $fire to 2>>
+<<if C.npc.Doren.state is "active">>
+	<<set $dorenSeen.pushUnique("avery_skyscraper_rescue")>>
+	<<npcincr Doren dom 10>>
+	<<npc Doren 4>>
+<</if>>
+<<if $robinmissing is 0>>
+	<<if C.npc.Robin.init is 0>>
+		<<set $robindebt to 0>><<set $robindebtlimit to 5>>
+		<<set $robinInit to 1>>
+	<</if>>
+	<<npc Robin 3>>
+	<<set $robinSeen.pushUnique("avery_skyscraper_rescue")>>
+<<elseif C.npc.Sirris.state is "active">>
+	<<npc Sirris 3>>
+<</if>>
+<<person1>>
+<<if $phase is 1>>
+	You open your mouth to call out for help, and get a lungful of fresh smoke. You cough. Avery pats your back with <<his>> good arm.
+	<br><br>
+
+	<<if !$avery_mansion.fox.nobody>>
+		"Save your breath." <<say_brown_fox>> pulls off <<person2>><<his>> cloak, and wraps it around yours and Avery's mouths. "Come on, push."
+	<</if>>
+	The three of you push against the debris, Avery doing all <<person1>><<he>> can with only one arm. <span class="red">It barely moves.</span>
+<<else>>
+	You waste no time, moving to the edge of the debris and pushing. Avery does <<his>> best with <<his>> one good arm<<if !$avery_mansion.fox.nobody>>, and <<say_brown_fox>> joins in<</if>>. <span class="red">It barely moves.</span>
+<</if>>
+<br><br>
+
+Before you can think about a different way out, some of it moves out of place from the other side.<br>
+<<if $robinSeen?.includes("avery_skyscraper_rescue")>>
+	"I found <<phim>>! <<pShes>> here!" <<if $robinInit>><span class="green">You recognise the voice. It's Robin. <<Hes>> another resident at the orphanage.</span><<unset $robinInit>><<else>><span class="green">It sounds like Robin.</span><</if>>
+	<br><br>
+
+	"You're brave, <<nnpc_lass "Robin">>, but that was reckless," says another voice. "Come on, move!" <<if $dorenSeen.includes("avery_skyscraper_rescue")>><span class="green">It sounds like Doren.</span> <</if>>You don't recognise the others. The head of an axe crashes through the debris.
+<<elseif C.npc.Doren.state is "active">>
+	"I found them!" <span class="green">It sounds like Doren.</span> "Stand back! We're coming in!"
+	The head of an axe crashes through the debris.
+<<elseif C.npc.Sirris.state is "active">>
+	"Hold on! We're coming!" <span class="green">It sounds like Sirris.</span>
+	<br><br>
+
+	"You're not authorised to—"<br>
+	"Authorised my arse, start chopping!"<br>
+	You hear a few more voices, <<if $dorenSeen.includes("avery_skyscraper_rescue")>><span class="green">one of them sounds like Doren</span>, <</if>>and the head of an axe crashes through the debris.
+<<else>>
+	"Over here! Survivors!" comes a deep voice. It's joined by others. The head of an axe crashes through the debris.
+<</if>>
+<br><br>
+
+Together, you manage to make the debris pile yield.
+<<if $robinSeen?.includes("avery_skyscraper_rescue")>>
+	Robin's hands grasp and pull yours, dragging you and Avery out of the fire and ruin.
+<<else>>
+	Eager, grasping hands grab hold of you, dragging you and Avery out of the fire and ruin.
+<</if>>
+<br><br>
+
+You arrive in the large room with the marble pillars. Firefighters are already here, helping injured guests through the doors. They wave you through. <<if $exposed gte 1>>One hands you towels as you pass.<<towelup>><</if>>
+<br><br>
+
+You leave the burning building behind you.
+<br><br>
+
+<<link [[Next|Skyscraper Save Rescue 3]]>><</link>>
+<br>
+
+:: Skyscraper Save Rescue 3
+<<effects>><<unset $fire>>
+
+Your lungs hungrily take in fresh air, although it's still marred with the stench of flame. Avery coughs, and you sit each other down on the curb.
+<br><br>
+
+<<if $robinSeen?.includes("avery_skyscraper_rescue")>>
+	Robin runs up to you, as if <<person3>><<hes>> about to hug you, but hesitates upon getting close. <<He>> gives Avery a wary glance, which only prompts <<person1>><<him>> to weakly nod.
+	Robin wraps <<person3>><<his>> arms around you. "Bailey brought me. I saw the firefighters, and, and—" <<He>> starts to choke up. "I couldn't stop myself. I just ran in."
+	<br><br>
+
+	<<Hes>> pulled away by a firefighter. "Alright, hero, give them some breathing room." <<if $dorenSeen.includes("avery_skyscraper_rescue")>><span class="green"><<nnpc_He Doren>> sounds like Doren.</span> <</if>> Robin stubbornly clings to you for another moment, but relents.
+	"I'll see you at h—" <<he>> stops <<himself>>, looking at Avery. <<He>> closes <<his>> eyes, and yells. "I'll see you at home!" <<He>> wears a hopeful smile.
+	It looks like <<hes>> staying to help. <<npcincr Robin dom 10>><<ggdom "Robin">>
+<<elseif C.npc.Doren.state is "active">>
+	<<person4>>
+	Doren approaches you. <<He>> <<if C.npc.Doren.love gte 75>>pulls you into a hug<<else>>pats your shoulder<</if>>. "I'm so glad you're alright."<<ggdom "Doren">>
+	<br>
+	<<He>> turns to Avery, concerned. "Shall we get you to the hospital?"
+	<br>
+	"No," says Avery.
+	<br>
+	Doren pauses, as if expecting more, then nods. "Alright. Let me know if you need anything." <<He>> moves to assist others.
+<<elseif C.npc.Sirris.state is "active">>
+	Sirris walks up to the two of you. "Sydney will be happy that you're alright." <<person3>><<He>> kneels down, and ruffles your hair. "And how are you, Avery?"
+	<br><br>
+
+	Avery only huffs in response, prompting Sirris to frown. "I saw the blaze from home. I was only coming to make sure the shop was alright, but then I heard in passing that you were inside."
+	<<He>> scoffs. "Fire crew needed a little kick in the pants to get moving." <<He>> stands. "Get this prick to the hospital in one piece for me, alright? I'll see you at school." <<He>> mutters something else under <<his>> breath,
+	along the lines of something being 'too good for Avery.'
+<</if>>
+<br><br>
+
+The sounds of chaos surround you, the rhythm of the sirens assailing your mind, keeping it alert through the exhaustion creeping over you.
+Avery sighs deeply. You take one last look towards the building.
+<<if $brownFoxRevealed>>
+	<<if $avery_mansion.fox.nobody>>
+		<span class="purple">Nobody emerges. Nobody smiles at you one last time before vanishing into the night.</span>
+	<<else>>
+		<span class="green">You see <<say_brown_fox>> emerge,</span> <<person2>><<his>> cloak now lightly burnt. <<He>> smiles and nods at you, before vanishing into the night.
+	<</if>>
+<<else>>
+	<span class="red">You never saw <<say_brown_fox>> leave.</span>
+<</if>>
+<<person1>>
+You help Avery stand.
+<br><br>
+
+<<link [[Next|Skyscraper Save 4]]>><</link>>
+<br><br>
+
+:: Skyscraper Save 4
+<<effects>><<set $outside to 1>>
+<<endevent>>
+<<npc Avery>><<npc Bailey 2>>
+You spot Bailey, calm within the pandemonium, leaning against <<person2>><<his>> car. <<He>> stares at Avery as you approach, as if taking your presence for granted.
+<br><br>
+
+"You need medical attention," <<he>> says. "I'll drive you to the hospital."
+<br>
+"I'll walk," says Avery through gritted teeth.
+<br><br>
+
+<<link [[Insist Avery allow Bailey to drive (0:01)|Skyscraper Save Insist]]>><<pass 1>><</link>>
+<br>
+<<link [[Walk to the hospital (0:10)|Skyscraper Save Walk]]>><<pass 10>><</link>>
+<br>
+
+:: Skyscraper Save Insist
+<<effects>><<set $outside to 0>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Please don't put yourself in danger," you say. "You need a doctor."
+<<elseif $speech_attitude is "bratty">>
+	"I'm not hauling your ass all that way," you say. "Get in the car."
+<<else>>
+	"It'll be dangerous for you to waste more time," you say. "We don't know how injured you are."
+<</if>>
+<br><br>
+
+Avery grits <<person1>><<his>> teeth, but nods.
+<br><br>
+
+You make sure Avery is sat in Bailey's car, seatbelt on, then climb in the other side. Bailey drives past the wailing sirens of emergency vehicles, towards Nightingale Street.
+<br><br>
+
+<<link [[Next|Skyscraper Save Insist 2]]>><</link>>
+<br>
+
+
+:: Skyscraper Save Insist 2
+<<set $location to "hospital">><<effects>>
+
+<<endevent>>
+<<npc Avery>><<person1>><<generate2>>
+Bailey doesn't enter with you. The hospital foyer is alive with activity, but there's no sign of Harper. All hands seem busy, but they make time for Avery.
+<br><br>
+
+"Broken," a doctor says. "You'll be in a cast for a while. The burns are superficial, so that's good news. I've seen much worse today."
+<br><br>
+
+"Do what you need to," Avery says, looking out the window at the smoke flowing across the sky. <<He>> sounds defeated.<<lllarage>><<npcincr Avery rage -30>>
+<br><br>
+
+<<link [[Comfort|Skyscraper Save Comfort]]>><<npcincr Avery love 1>><</link>><<glove>>
+<br>
+<<link [[Mock|Skyscraper Save Mock]]>><<npcincr Avery love -1>><</link>><<llove>>
+<br>
+<<link [[Remain silent|Skyscraper Save Silent]]>><</link>>
+<br>
+
+:: Skyscraper Save Fly
+<<set $location to "hospital">><<effects>><<set $outside to 0>>
+
+<<endevent>>
+<<npc Avery>><<person1>><<generate2>><<generate3>>
+You land in front of the hospital on Nightingale street. Avery staggers as you put <<him>> down. A hurried paramedic spares you a confused glance, but <<person3>><<hes>> too busy to question you.<<person1>>
+<br><br>
+The foyer is alive with activity. There's no sign of Harper, and all hands seem busy, but they make time for Avery.
+<br><br>
+
+"Broken," a doctor says. "You'll be in a cast for a while. The burns are superficial, so that's good news. I've seen much worse today."
+<br><br>
+
+"Do what you need to," Avery says, looking out the window at the smoke flowing across the sky. <<He>> sounds defeated.<<lllarage>><<npcincr Avery rage -30>>
+<br><br>
+
+<<link [[Comfort|Skyscraper Save Comfort]]>><<npcincr Avery love 1>><</link>><<glove>>
+<br>
+<<link [[Mock|Skyscraper Save Mock]]>><<npcincr Avery love -1>><</link>><<llove>>
+<br>
+<<link [[Remain silent|Skyscraper Save Silent]]>><</link>>
+<br>
+
+
+:: Skyscraper Save Walk
+<<set $location to "hospital">><<effects>><<set $outside to 0>>
+
+<<endevent>>
+<<npc Avery>><<person1>><<generate2>>
+You help Avery walk to the hospital on Nightingale street. The foyer is alive with activity, but there's no sign of Harper. All hands seem busy, but they make time for Avery.
+<br><br>
+
+"Broken," a doctor says. "You'll be in a cast for a while. The burns are superficial, so that's good news. I've seen much worse today."
+<br><br>
+
+"Do what you need to," Avery says, looking out the window at the smoke flowing across the sky. <<He>> sounds defeated.<<lllarage>><<npcincr Avery rage -30>>
+<br><br>
+
+<<link [[Comfort|Skyscraper Save Comfort]]>><<npcincr Avery love 1>><</link>><<glove>>
+<br>
+<<link [[Mock|Skyscraper Save Mock]]>><<npcincr Avery love -1>><</link>><<llove>>
+<br>
+<<link [[Remain silent|Skyscraper Save Silent]]>><</link>>
+<br>
+
+:: Skyscraper Save Comfort
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I'm sorry about your building," you say. "But I'm glad you're safe."
+<<elseif $speech_attitude is "bratty">>
+	"At least you still have a nice house," you say. "And me."
+<<else>>
+	"You haven't lost everything," you say. "You still have me."
+<</if>>
+<br><br>
+
+Avery nods, then looks at <<his>> hands while the doctor fusses with <<his>> burns. "You should have yourself looked at," <<he>> says. "Maybe get some proper clothes. I might be here a while."
+<br><br>
+
+<<link [[Next|Skyscraper Save 5]]>><<pass 10>><</link>>
+<br>
+
+
+:: Skyscraper Save Mock
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I know what it's like to be weak," you say. "It's okay."
+<<elseif $speech_attitude is "bratty">>
+	"Someone really fucked you over," you say. "Must be a rare experience for you."
+<<else>>
+	"Are you feeling unwell?" you ask. "It's okay."
+<</if>>
+<br><br>
+
+Avery tenses, and winces in pain. "Try to relax," the doctor says, fussing with Avery's burns.
+<br><br>
+"Go have yourself looked at," Avery says. "Maybe get some proper clothes. Go."
+<br><br>
+
+<<link [[Next|Skyscraper Save 5]]>><<pass 10>><</link>>
+<br>
+
+:: Skyscraper Save Silent
+<<effects>>
+
+You remain silent. Avery looks at <<his>> hands while the doctor fusses with <<his>> burns. "Get yourself looked at," <<he>> says. "Maybe get some proper clothes. I might be here a while."
+<br><br>
+
+<<link [[Next|Skyscraper Save 5]]>><<pass 10>><</link>>
+<br>
+
+
+:: Skyscraper Save 5
+<<effects>>
+
+<<if $exposed gte 1>>
+	A doctor patches you up, and gives you some clothes.
+	<<if $player.sex is "m" and $backgroundTraits.includes("crossdresser")>>
+		<<set $clothingselector to "f">><!-- PCs with Crossdresser trait are only PC type with a specific known clothing preference and can presumably ask for it here -->
+	<<elseif $player.sex is "f" and $backgroundTraits.includes("crossdresser")>>
+		<<set $clothingselector to "m">>
+	<<else>>
+		<<set $clothingselector to $player.gender_appearance>>
+	<</if>>
+	<<if $clothingselector is "m">>
+		<<underlowerwear "briefs">>
+		<<upperwear "t-shirt">>
+		<<lowerwear "shorts">>
+	<<else>>
+		<<upperwear "sundress">>
+		<<underlowerwear "plain panties">>
+	<</if>>
+<<else>>
+	A doctor patches you up.
+<</if>>
+
+Your injuries aren't serious. The foyer is even more crowded when you exit. You recognise many of the injured as guests from the party, but they look different now. Deflated.
+<br><br>
+The room you left Avery in is occupied by another. You search for Avery, and find the doctor that tended to <<him>>.
+<br><br>
+"Your friend is in orthopaedics," <<he>> says. <<person1>>"<<He>> doesn't want any visitors, and will be there a while. Best head home."
+<br><br>
+
+<<link [[Next|Skyscraper Save 6]]>><</link>>
+<br>
+
+
+:: Skyscraper Save 6
+<<effects>><<set $outside to 1>>
+
+You walk outside. Fire engines drive by, mud coating their windows. You can see Avery's building, looming and ablaze.
+<br><br>
+
+<<set $avery_mansion.schedule to "away">>
+<<set $avery_injury to true>>
+<<link [[Next|Nightingale Street]]>><<endevent>><<set $eventskip to 1>><<unset $silenceNotifications>><</link>>
+<br>
+
+:: Skyscraper Run
+<<effects>>
+<<earnFeat "Pride Cometh">>
+
+You join the guests in their crazed rush for the staircase, and rush downstairs. There's another floor here, and a bar, though the fire has already claimed it. Bottles burst with the heat.
+<br><br>
+
+<<if $avery_fate is "fallen">>
+	You reach the stairs on the opposite end of the room. <span class="black">An Avery-shaped shadow falls by the window.</span>
+	<br><br>
+<<else>>
+	You reach the stairs on the opposite end of the room, and run down as fast as you can.
+	<br><br>
+<</if>>
+
+<<link [[Next|Skyscraper Run 2]]>><</link>>
+<br>
+
+:: Skyscraper Run 2
+<<effects>>
+
+The stairs down the building are long. You pass several discarded elk masks, and several injured elks. Smoke rushes into the stairwell from open doors, as if the whole building were ablaze.
+<br><br>
+
+You cough, and fall to your knees. You're not so sure how much further you have to go. Your vision blurs as the air is depleted by the blaze. Your skin feels hot.
+<br><br>
+
+A crashing sound resonates down the staircase. <span class="red">A piece of flaming debris bounces between railings, hurtling towards you.</span>
+<br><br>
+
+You close your eyes. The deafening roar of flame surrounds you.
+<br><br>
+
+<<link [[Next|Skyscraper Run Rescue]]>><<endevent>><</link>>
+<br>
+
+:: Skyscraper Run Rescue
+<<effects>>
+<<set _robin to statusCheck("Robin")>><<unset $fire>>
+<<endevent>>
+<<if C.npc.Robin.init is 0>>
+	<<set $robindebt to 0>><<set $robindebtlimit to 5>>
+	<<set $robinInit to 1>>
+<</if>>
+<<npc "Bailey">><<npc "Robin" 2>><<generate3>><<generate4>><<summon_brown_fox 5>><<person5>>
+<<if isGwylanAbsent()>>
+	<<set $avery_mansion.fox.nobody to true>>
+<<else>>
+	<<set $avery_mansion.fox.saved to true>>
+<</if>>
+You feel something crash into you. From the front.
+<br><br>
+
+It isn't the rapidly-heating floor you feel beneath you anymore. Your legs rest on damp grass.<br>
+When your senses return, it isn't the smell of smoke and flame that hits you. It's the smell of roses.<br>
+When your eyes open, it isn't flaming ruin crashing down on you that you see.<br>
+<<if $avery_mansion.fox.nobody>>
+	<br>
+	You see a space where someone should be, or where someone once was. It's nobody. <span class="purple">Nobody holds you close, sheltering you from falling debris. Nobody whispers into your ear, saying you'll be alright.
+	Nobody's antlers shine in the light of the fire. Nobody smiles at you sadly.</span> <<awareness -20>><<llawareness>>
+<<elseif $brownFoxRevealed and $hypnosis_traits.devotion gte 5>>
+	You only see <<say_brown_fox>>, keeping you sheltered and safe as <<he>> always does.
+<<else>>
+	It's a <<personsimple>> in a brown fox mask and green cloak, embracing you. Sheltering you.
+<</if>>
+<br><br>
+
+A dome of green, like the hills outside the moor, surrounds you. Perhaps it's just <<his>> cloak.
+Or perhaps it's the lack of fresh air, but even the red moonlight appears green for a fleeting moment.
+<br><br>
+
+The debris have fallen all around you, not a single piece touching either of you.
+<br><br>
+
+<<if !$avery_mansion.fox.nobody>>
+	<<say_brown_fox "cap">> pulls away, and smiles. "You weren't at the mansion. I knew something was wrong, I—" <<Hes>> silenced by the sound of more debris. You're still trapped.
+<</if>>
+<br><br>
+
+<<link [[Call out for help|Skyscraper Run Rescue 2]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Try moving the debris|Skyscraper Run Rescue 2]]>><<set $phase to 2>><</link>>
+<br>
+
+:: Skyscraper Run Rescue 2
+<<effects>><<set $fire to 2>>
+<<set _robin to statusCheck("Robin")>>
+<<if $phase is 1>>
+	You open your mouth to call out for help, and get a lungful of fresh smoke. You cough.
+	<br><br>
+
+	<<if !$avery_mansion.fox.nobody>>
+		"Save your breath." <<say_brown_fox "cap">> pulls off <<person5>><<his>> cloak, and wraps it around your mouths. "Come on, push."
+	<</if>>
+	The two of you push against the debris. <span class="red">It barely moves.</span>
+<<else>>
+	You waste no time, moving to the edge of the debris and pushing<<if !$avery_mansion.fox.nobody>> alongside <<say_brown_fox>><</if>>. <span class="red">It barely moves.</span>
+<</if>>
+<br><br>
+
+<<set $robinSeen?.pushUnique("avery_skyscraper_rescue")>>
+Before you can think about a different way out, some of it moves out of place from the other side.<br>
+"I found <<phim>>! <<pShes>> here!" <<if $robinInit>><span class="green">You recognise the voice. It's Robin. <<Hes>> another resident at the orphanage.</span><<unset $robinInit>><<else>><span class="green">It sounds like Robin.</span><</if>>
+<br><br>
+
+"You're brave, kid, but that was reckless." Another voice. "Come on, move!" You don't recognise the others. The head of an axe crashes through the debris.
+<br><br>
+
+<<person2>>
+Together, you make the debris wall yield.
+<<if _robin.trauma gte 20>>
+	Without a word, Robin tries to lift you in <<his>> arms as you collapse forward.
+<<else>>
+	You collapse forward into Robin's arms. "It's not far. Let me help." <<He>> tries to lift you.
+<</if>>
+<br><br>
+
+<<link [[Let Robin carry you|Skyscraper Run Carry]]>><</link>>
+<br>
+<<link [[Struggle to your feet|Skyscraper Run Struggle]]>><</link>>
+<br>
+
+:: Skyscraper Run Carry
+<<effects>><<set $outside to 1>><<unset $fire>>
+
+Robin lifts you in <<his>> arms. You bounce as <<he>> carries you down the stairs, seeming inexhaustible. You look back.
+<<if $avery_mansion.fox.nobody>>
+	<span class="purple">Nobody is right behind you.</span>
+<<elseif $brownFoxRevealed>>
+	<<say_brown_fox "cap">> is right behind you two.
+<<else>>
+	<span class="red">You don't see <<say_brown_fox>>.</span>
+<</if>>
+<br><br>
+
+The smoke thins, but you can't stop coughing. Robin reaches the bottom of the stairwell, and enters the large room where the function was held. Firefighters are already here, helping the injured escape. <<if $exposed gte 1>>One hands you towels as you pass.<<towelup>><</if>>
+<br><br>
+
+Robin exits the building. Above you, the fire roars against the sky. The top half of the building looks engulfed, and it's spreading.
+<br><br>
+
+<<person1>>
+"There you are," says a familiar voice. It's Bailey. <<He>> leans on <<his>> car, immune to the pandemonium.
+<br><br>
+
+"Put <<phim>> in."
+<br><br>
+
+<<link [[Get in|Skyscraper Run 3]]>><<set $phase to 0>><</link>>
+<br>
+<<if $avery_mansion.fox.nobody>>
+	<<link [[Tell <<him>> to wait for nobody|Skyscraper Run Wait]]>><<set $phase to 0>><</link>>
+<<elseif !$brownFoxRevealed>>
+	<<link [[Tell <<him>> to wait for the brown fox|Skyscraper Run Wait]]>><<set $phase to 0>><</link>>
+<</if>>
+
+:: Skyscraper Run Struggle
+<<effects>><<set $outside to 1>><<unset $fire>>
+
+You struggle to your feet. Realising your intent, Robin supports your weight. <<He>> keeps an arm around your waist as you continue the journey down the stairwell. You look back.
+<<if $avery_mansion.fox.nobody>>
+	<span class="purple">Nobody is right behind you.</span>
+<<elseif $brownFoxRevealed>>
+	<<say_brown_fox "cap">> is right behind you two.
+<<else>>
+	<span class="red">You don't see <<say_brown_fox>>.</span>
+<</if>>
+<br><br>
+
+The smoke thins, but you can't stop coughing. You try to keep your focus on your footing, and let Robin worry about the direction. You reach the bottom of the stairwell, and enter the large room where the function was held. Firefighters are already here, helping the injured escape. <<if $exposed gte 1>>One hands you towels as you pass.<<towelup>><</if>>
+<br><br>
+You reach the cool night air, and spare a glance at the building behind you. The top half is in flames, and it's spreading.
+<br><br>
+
+<<person1>>
+"There you are," says a familiar voice. It's Bailey. <<He>> leans on <<his>> car, immune to the pandemonium.
+<br><br>
+
+"Get in."
+<br><br>
+
+<<link [[Get in|Skyscraper Run 3]]>><<set $phase to 1>><</link>>
+<br>
+<<if $avery_mansion.fox.nobody>>
+	<<link [[Tell <<him>> to wait for nobody|Skyscraper Run Wait]]>><<set $phase to 1>><</link>>
+<<elseif !$brownFoxRevealed>>
+	<<link [[Tell <<him>> to wait for the brown fox|Skyscraper Run Wait]]>><<set $phase to 1>><</link>>
+<</if>>
+
+:: Skyscraper Run Wait
+<<effects>>
+<<if $avery_mansion.fox.nobody>>
+	You tell Bailey to wait for nobody.
+	<br><br>
+
+	<<He>> puts a hand on <<his>> head, as if <<he>> suddenly had a headache.
+	<br><br>
+
+	Robin looks nauseous, but shakes it off. <<grtrauma>>
+<<else>>
+	<<if $speech_attitude is "meek">>
+		"M-my—" you cough. "My friend is still in there."
+	<<elseif $speech_attitude is "bratty">>
+		"Wait, wait! What about the fox?"
+	<<else>>
+		"Why didn't you pull <<person5>><<him>> out with me?"
+	<</if>>
+	<br><br>
+
+	Robin gives you a confused look. "Who are you talking about? There wasn't anyone else trapped in there with you."
+	<br><br>
+
+	Bailey scoffs.
+<</if>>
+<br><br>
+
+<<link [[Get in|Skyscraper Run 3]]>><</link>>
+<br>
+
+:: Skyscraper Run 3
+<<set $location to "town">><<set $bus to "danube">><<effects>><<set $outside to 0>>
+<<set _robin to statusCheck("Robin")>>
+<<if $phase is 0>>
+	Robin places you in the back of Bailey's car, and climbs in beside you.
+<<else>>
+	You climb in the back of Bailey's car. Robin climbs in beside you.
+<</if>>
+<<person2>>
+<<if _robin.trauma gte 20>>
+	<<He>> says nothing, and the way the fire dances in <<his>> eyes is terrifying. You've not seen <<him>> like this before.<<gggdom Robin>><<npcincr Robin dom 15>>
+<<else>>
+	<<He>> takes your hand, and smiles at you. The fire dancing in <<his>> eyes feels appropriate. You've not seen <<him>> like this before.<<gggdom Robin>><<npcincr Robin dom 15>>
+<</if>>
+<br><br>
+
+<<if $brownFoxRevealed and !$avery_mansion.fox.nobody>>
+	<<say_brown_fox "cap">> hops into the front passenger seat and adjusts <<person5>><<his>> mask. Bailey glares at <<him>>. "I didn't offer you a ride."
+	<br><br>
+
+	<<say_brown_fox "cap">> smiles back at <<person1>><<him>>. "I didn't ask for one, yet here we are." Bailey simply glares at <<person5>><<him>>, but doesn't protest further.
+	<br><br>
+<</if>>
+
+<<person1>>
+Bailey wears a small smile as <<he>> drives. "We're taking a detour."
+<br><br>
+You arrive at Danube Street. Bailey veers off, onto the boulevard, towards Avery's mansion. There are cars parked outside. One of <<his>> goons leans on one, and another loads a boot with a pile of books. Bailey pulls to a stop, and opens the window as the first goon approaches.
+<br><br>
+"Great haul," <<person3>><<he>> says, excited. "We've rigged the place. Just need your confirmation."
+<br><br>
+
+<<link [[Next|Skyscraper Run 4]]>><</link>>
+<br>
+
+:: Skyscraper Run 4
+<<set $location to "avery_mansion">><<effects>><<set $outside to 1>>
+<<person1>>
+Bailey climbs from the car, and gestures for
+<<if $brownFoxRevealed and !$avery_mansion.fox.nobody>>
+	you, Robin and <<say_brown_fox>>
+<<else>>
+	you and Robin
+<</if>>
+to do likewise. You step through Avery's gates. More of Bailey's goons are here. Having a smoke, chatting, giving the mansion proper a wide berth.
+<br><br>
+
+One of the goons hands Bailey a remote, then hides behind a statue. Bailey considers a moment, then holds the device out to you. There's a single red button on it.
+<br><br>
+
+<<link [[Tell Bailey you have an expensive wardrobe inside|Skyscraper Run Wardrobe]]>><</link>>
+<br>
+<<link [[Destroy Avery's mansion|Skyscraper Run Destroy]]>><</link>>
+<br>
+<<link [[Let Bailey do it|Skyscraper Run Let]]>><</link>>
+<br>
+<<link [[Let Robin do it|Skyscraper Run Let Robin]]>><<npcincr Robin dom 5>><</link>><<gdom "Robin">>
+<br>
+<<if $brownFoxRevealed>>
+	<<if $avery_mansion.fox.nobody>>
+		<<link [[Let nobody do it|Skyscraper Run Let Fox]]>><</link>>
+	<<else>>
+		<<link [[Let <<say_brown_fox>> do it|Skyscraper Run Let Fox]]>><</link>>
+	<</if>>
+	<br>
+<</if>>
+
+:: Skyscraper Run Wardrobe
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"But my clothes are in there!"
+<<elseif $speech_attitude is "bratty">>
+	"I hope you don't intend to burn my wardrobe too," you say.
+<<else>>
+	"Are my clothes still in there?" you ask.
+<</if>>
+<br><br>
+One of the goons stifles a laugh. "They're safe," Bailey says. "I moved them to a storage unit behind the orphanage. Number 22 is yours." <<He>> throws you a key. "Don't tell the others. They'll all want one."
+<br><br>
+
+<<if $brownFoxRevealed>>
+	<<if $avery_mansion.fox.nobody>>
+		Nobody crosses their arms as they stare at Bailey. Bailey shifts side to side uncomfortably.
+	<<else>>
+		<<say_brown_fox "cap">> crosses <<person5>><<his>> arms as <<he>> stares at Bailey. "Would they be wrong for wanting one?" Bailey doesn't respond.
+	<</if>>
+	<br><br>
+<</if>>
+
+<<set $wardrobe_residential_alleys to 1>>
+<<link [[Destroy Avery's mansion|Skyscraper Run Destroy]]>><</link>>
+<br>
+<<link [[Let Bailey do it|Skyscraper Run Let]]>><</link>>
+<br>
+<<link [[Let Robin do it|Skyscraper Run Let Robin]]>><<npcincr Robin dom 5>><</link>><<gdom "Robin">>
+<br>
+<<if $brownFoxRevealed and !$avery_mansion.fox.offer>>
+	<<if $avery_mansion.fox.nobody>>
+		<<link [[Let nobody do it|Skyscraper Run Let Fox]]>><</link>>
+	<<else>>
+		<<link [[Let <<say_brown_fox>> do it|Skyscraper Run Let Fox]]>><</link>>
+	<</if>>
+	<br>
+<</if>>
+
+:: Skyscraper Run Destroy
+<<effects>>
+<<set $avery_mansion_fire_time to 3>>
+You take the remote, point it at Avery's mansion, and press the button. A bright flash lights up the interior. A moment later, you hear a crackle, and see an orange glow through the windows.
+<br><br>
+
+Bailey and <<his>> goons watch the fire grow for a minute. Then they turn, and leave the building to ruin.
+<br><br>
+
+<<link [[Next|Skyscraper Run 5]]>><</link>>
+<br>
+
+:: Skyscraper Run Let
+<<effects>>
+<<set $avery_mansion_fire_time to 3>>
+Bailey points the remote at Avery's mansion, and presses the button. A bright flash lights up the interior. A moment later, you hear a crackle, and see an orange glow through the windows.
+<br><br>
+
+Bailey and <<his>> goons watch the fire grow for a minute. Then they turn, and leave the building to ruin.
+<br><br>
+
+<<link [[Next|Skyscraper Run 5]]>><</link>>
+<br>
+
+:: Skyscraper Run Let Robin
+<<effects>>
+<<set $avery_mansion_fire_time to 3>>
+<<person2>>
+You give the remote to Robin. <<He>> points it at Avery's mansion, squints, and presses the button. A bright flash lights up the interior. A moment later, you hear a crackle, and see an orange glow through the windows.
+<br><br>
+
+Bailey and <<his>> goons watch the fire grow for a minute. Then they turn, and leave the building to ruin.
+<br><br>
+
+<<link [[Next|Skyscraper Run 5]]>><</link>>
+<br>
+
+:: Skyscraper Run Let Fox
+<<effects>>
+<<person5>>
+<<if $avery_mansion.fox.nobody>>
+	You hold the remote out to nobody. Nobody gently pushes it back into your hands. Nobody smiles. Robin gives you a strange look, before <<person2>><<his>> eyes fix on nobody for a moment. <<He>> shakes <<his>> head. <<grtrauma>>
+<<else>>
+	You hold the remote out to <<say_brown_fox>>. <<He>> holds up <<his>> palm towards it, gently pushing it back into your hands and holding them with <<his>> own for a moment. "This was your victory, dear."
+<</if>>
+<br><br>
+
+<<set $avery_mansion.fox.offer to true>>
+<<if !$wardrobe_residential_alleys>>
+	<<link [[Tell Bailey you have an expensive wardrobe inside|Skyscraper Run Wardrobe]]>><</link>>
+	<br>
+<</if>>
+<<link [[Destroy Avery's mansion|Skyscraper Run Destroy]]>><</link>>
+<br>
+<<link [[Let Bailey do it|Skyscraper Run Let]]>><</link>>
+<br>
+<<link [[Let Robin do it|Skyscraper Run Let Robin]]>><</link>>
+<br>
+
+:: Skyscraper Run 5
+<<effects>><<set $outside to 0>>
+<<set _robin to statusCheck("Robin")>>
+<<person2>>
+You climb into Bailey's car. Robin tries to follow, but Bailey catches <<his>> shoulder. "You're injured." Robin examines <<his>> arm, as if it were news to <<him>>.
+<br><br>
+Robin hesitates, as if to argue, then <<he>> nods.
+<<if _robin.trauma gte 20>>
+	<<He>> gives you one last look, then walks away.
+<<else>>
+	<<He>> gives you a reassuring smile, then walks away.
+<</if>>
+<br><br>
+
+<<if $brownFoxRevealed>>
+	<<if $avery_mansion.fox.nobody>>
+		Nobody sits down under a nearby tree, and continues to watch the mansion burn.
+	<<else>>
+		<<say_brown_fox "cap">> sits down under a nearby tree, and continues to watch the mansion burn.
+	<</if>>
+	<br><br>
+<</if>>
+
+The goons climb into the other cars as Bailey climbs into <<person1>> <<hers>>. "Good work," <<he>> says. <<He>> sits behind the wheel as the others drive away. <<Hes>> in no rush.
+<br><br>
+
+<<link [["Ask why " + $NPCList[0].pronouns.he + " sent Robin into the skyscraper"|Skyscraper Run Robin Ask]]>><</link>>
+<br>
+<<link [[Remain silent|Skyscraper Run Robin Silent]]>><</link>>
+<br>
+
+:: Skyscraper Run Robin Ask
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Robin was very brave," you say. "It would have been safer for you."
+<<elseif $speech_attitude is "bratty">>
+	"Why'd you send Robin into the burning building?" you ask. "Too scared to do it yourself?"
+<<else>>
+	"Why did you send Robin into the burning building?" you ask. "It was dangerous."
+<</if>>
+<br><br>
+<<person2>>
+"<<He>> insisted," Bailey says. "I could've restrained <<him>>, but the adrenaline will do <<him>> good."
+
+<<person1>>
+<<if !$wardrobe_residential_alleys>>
+	<br><br>
+	<<set $wardrobe_residential_alleys to 1>>
+	Bailey glances to <<his>> side, then pulls something from <<his>> pocket. "We moved your belongings to a storage unit near the orphanage," <<he>> says, handing you a key. "In the alleyways behind it. Number 22 is yours. Don't tell the others. They'll all want one."
+<</if>>
+<<gglove>><<npcincr Bailey love 3>>
+<br><br>
+
+Bailey starts the engine, and drives onto the boulevard.
+<br><br>
+
+<<link [[Next|Skyscraper Run 6]]>><</link>>
+<br>
+
+:: Skyscraper Run Robin Silent
+<<effects>>
+<<person1>>
+<<if !$wardrobe_residential_alleys>>
+	<<set $wardrobe_residential_alleys to 1>>
+	"We moved your belongings to a storage unit near the orphanage," Bailey says, handing you a key. "In the alleyways behind it. Number 22 is yours. Don't tell the others. They'll all want one."
+<</if>>
+
+Bailey starts the engine, and drives onto the boulevard.
+<<gglove>><<npcincr Bailey love 3>>
+<br><br>
+
+<<link [[Next|Skyscraper Run 6]]>><</link>>
+<br>
+
+:: Skyscraper Run 6
+<<set $location to "town">><<set $bus to "domus">><<effects>>
+
+Bailey drives to Domus Street, and stops outside the orphanage. <<He>> climbs out, waits for you to do likewise, then leads you into the building.
+<br><br>
+
+"Welcome home."
+<br><br>
+<<avery_antiques_end>>
+<<link [[Next|Orphanage]]>><<endevent>><<unset $silenceNotifications>><</link>>
+<br>
+
+:: Skyscraper Kick
+<<effects>>
+<<earnFeat "Pride Cometh">>
+You cover your face, and work your way towards Avery. You can breathe easier as you approach the windows, but your footing becomes less sure. You can't tell if the building is swaying, or you.
+<br><br>
+
+You reach Avery, and hold onto a nearby girder for purchase. Up close, you can see <<his>> clothes are in tatters, <<his>> once-immaculate hair singed. <<He>> smiles through gritted teeth.
+<br><br>
+
+"What are you waiting for?" <<he>> asks, then <<his>> demeanour changes. <<He>> sees something in your face and, for the first time, you see fear in Avery's eyes. You stare, then kick <<his>> arm away.
+<br><br>
+
+<span class="black">Avery falls. The smoke envelops <<him>>.</span>
+<br><br>
+
+<<link [[Next|Skyscraper Run]]>><</link>>
+<br>
+
+
+:: Skyscraper Foundation Refuse
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Forgive me," you say. "I don't want to visit the project."
+<<elseif $speech_attitude is "bratty">>
+	"Not now," you say. "Show me a photo or something."
+<<else>>
+	"I don't need to see it now," you say. "It'll be more impressive when it's done."
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+	"I'm not in the mood to argue," <<he>> says. "You're coming." <<He>> steps closer.<<garage>><<npcincr Avery rage 1>><<gtrauma>><<gstress>><<trauma 6>><<stress 6>>
+	<br><br>
+
+	<<link [[Fight|Skyscraper Foundation Fight]]>><<set $fightstart to 1>><</link>>
+	<br>
+	<<if $exposed gte 2>>
+		<<link [[Go with Avery|Skyscraper Foundation Naked]]>><</link>>
+		<br>
+	<<elseif $exposed gte 1>>
+		<<link [[Go with Avery|Skyscraper Foundation Undies]]>><</link>>
+		<br>
+	<<else>>
+		<<link [[Go with Avery|Skyscraper Foundation]]>><</link>>
+		<br>
+	<</if>>
+<<else>>
+	"Suit yourself," Avery says. "Though I hope you'll be more inclined to humour me in the future." <<He>> walks away.<<garage>>
+	<br><br>
+
+	<<endevent>>
+	<<avery_mansion_end_links>>
+<</if>>
+
+:: Skyscraper Foundation Fight
+<<if $fightstart is 1>>
+	<<set $fightstart to 0>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust -= 100>>
+	<<set $enemyanger += 200>>
+	<<npcidlegenitals>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend or ($pain gte 100 and $willpowerpain is 0)>>
+	<span id="next"><<link [[Next|Skyscraper Foundation Fight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Skyscraper Foundation Fight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Skyscraper Foundation Fight Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Avery tries to lean on the wall for support, but slumps to <<his>> arse instead. <<tearful>> you step away from <<him>>.
+	<br><br>
+	<<He>> pushes <<himself>> to <<his>> feet, regards you a moment, then walks away.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<avery_mansion_end_links>>
+
+<<elseif $enemyhealth lte 0>>
+	You smack Avery away from you. <<He>> collides with the wall, and slumps onto <<his>> arse. <<tearful>> you step away from <<him>>.
+	<br><br>
+	<<He>> pushes <<himself>> to <<his>> feet, regards you a moment, then walks away.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<avery_mansion_end_links>>
+
+<<else>>
+	<<tearful>> you fall to the ground. You're too hurt to continue fighting.
+	<br><br>
+	Avery hauls you to your feet, and pushes you ahead of <<him>>.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<npc Avery>><<person1>>
+	<<link [[Next|Skyscraper Foundation]]>><</link>>
+<</if>>
+
+
+
+
+:: Skyscraper Foundation Naked
+<<effects>>
+
+Avery examines your body. <<covered>>
+<br><br>
+"We'll get you some towels on the way to the garage. I'm too excited to wait for you to dress."
+<br><br>
+
+<<if hasSexStat("exhibitionism", 5)>>
+	<<link [[Say you'll go as you are|Skyscraper Foundation Naked Exhibitionist]]>><</link>><<exhibitionist5>>
+	<br>
+<</if>>
+<<link [[Grab some towels on the way|Skyscraper Foundation]]>><<towelup>><</link>>
+<br>
+
+
+:: Skyscraper Foundation Naked Exhibitionist
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Oh?" you ask. "Don't you want to show me off?"
+<<elseif $speech_attitude is "bratty">>
+	"I'll dress when I feel like it," you say. "Just show the way."
+<<else>>
+	"I'd rather stay like this," you say.
+<</if>>
+<br><br>
+Avery smiles. "As you wish. Just stay close to me."
+<<exhibitionism5>>
+<br><br>
+
+<<link [[Next|Skyscraper Foundation]]>><</link>>
+<br>
+
+
+
+:: Skyscraper Foundation Undies
+<<effects>>
+
+Avery examines your body. <<covered>>
+<br><br>
+"We'll get you some towels on the way to the garage. I'm too excited to wait for you to dress."
+<br><br>
+
+<<if hasSexStat("exhibitionism", 3)>>
+	<<link [[Say you'll go as you are|Skyscraper Foundation Naked Exhibitionist]]>><</link>><<exhibitionist3>>
+	<br>
+<</if>>
+<<link [[Grab some towels on the way|Skyscraper Foundation]]>><<towelup>><</link>>
+<br>
+
+
+:: Skyscraper Foundation Undies Exhibitionist
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Can't I go like this?" you ask. "Pretty please?"
+<<elseif $speech_attitude is "bratty">>
+	"I'm good like this," you say. "No one will try anything."
+<<else>>
+	"I'd rather dress like this," you say.
+<</if>>
+<br><br>
+Avery smiles. "As you wish."
+<<exhibitionism3>>
+
+<<link [[Next|Skyscraper Foundation]]>><</link>>
+<br>
+
+
+:: Skyscraper Foundation
+<<set $location to "avery_skyscraper">><<effects>>
+
+You follow Avery to the garage, and climb into the sports car beside <<him>>. <<He>> ignites the engine, and drives onto Danube boulevard.
+<br><br>
+
+<<pass 5>>
+You see the cranes before you arrive, though they don't seem to be in use at the moment. Avery stops close to the site, and you both climb outside.
+<<if $avery_tower.effects.includes("temple")>>
+	<<He>> kicks away a temple protestor. The others give you both a wide berth.
+<</if>>
+<br><br>
+
+There's now a rectangular pit where the building will stand. It goes deep, with tunnels leading away at the bottom.
+<br><br>
+
+"Already impressive, isn't it," Avery says.
+<br><br>
+
+<<link [[Insult it|Skyscraper Foundation Insult]]>><<npcincr Avery rage 1>><<npcincr Avery love -1>><</link>><<garage>><<llove>>
+<br>
+<<link [[Say it's very nice|Skyscraper Foundation Nice]]>><<npcincr Avery love 1>><</link>><<glove>>
+<br>
+<<link [[Remain silent|Skyscraper Foundation Silent]]>><<npcincr Avery love -1>><</link>><<llove>>
+<br>
+
+:: Skyscraper Foundation Insult
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Forgive me my candour," you say. "But it just looks like a hole to me."
+<<elseif $speech_attitude is "bratty">>
+	"It's just a pit," you say. "What's so impressive about it?"
+<<else>>
+	"It's just a hole," you say.
+<</if>>
+<br><br>
+
+Avery raises <<his>> nose, indignant. "No other building in town has a foundation like this. But perhaps you'll appreciate it more when it's taller."
+<br><br>
+
+<<He>> turns back to <<his>> car.
+<br><br>
+
+<<link [[Next|Skyscraper Foundation 2]]>><</link>>
+<br>
+
+
+:: Skyscraper Foundation Nice
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"It's very nice," you say.
+<<elseif $speech_attitude is "bratty">>
+	"Pretty cool," you say. "Think you could hide a body down there?"
+<<else>>
+	"It's very cool," you say.
+<</if>>
+<br><br>
+
+"Just you wait until it's finished," <<he>> says, staring at the sky as if <<he>> can already see it.
+<br><br>
+
+<<He>> turns back to <<his>> car.
+<br><br>
+
+<<link [[Next|Skyscraper Foundation 2]]>><</link>>
+<br>
+
+:: Skyscraper Foundation Silent
+<<effects>>
+
+You remain silent. "Speechless?" <<he>> asks. "This is just the beginning."
+<br><br>
+
+<<He>> turns back to <<his>> car.
+<br><br>
+
+<<link [[Next|Skyscraper Foundation 2]]>><</link>>
+<br>
+
+:: Skyscraper Foundation 2
+<<effects>>
+
+<<generate2>><<generate3>>
+You hear footsteps behind you. Avery turns. A <<person2>><<person>> in a construction worker's outfit approaches, looking harried.
+<br><br>
+<<person1>>"<<Sir>>," <<person2>><<he>> says. "There's a problem."
+<br>
+"Spit it out."
+<br>
+The <<person>> glances at you. "There's someone in the tunnels. They're causing a scene."
+<br>
+"There must be someone else who can deal with this," Avery says, irritated.
+<br>
+The <<person>> shakes <<his>> head. "Not unless you want to involve the police."
+<br><br>
+Avery considers a moment. "Fine. Lead the way."
+<br><br>
+
+<<link [[Next|Skyscraper Foundation 3]]>><<pass 5>><</link>>
+<br>
+
+:: Skyscraper Foundation 3
+<<effects>>
+
+You follow Avery and the <<person>> down the side of the pit, to the rocky floor below. You can see down the tunnels now. They're well-lit, and snake away. The <<person>> walks straight towards one in particular.
+<br><br>
+
+The tunnel winds into the earth, until it opens into a wide chamber, held up by pillars and stacked with crates.
+<br><br>
+
+<<person3>>"<<Hes>> in here," says the <<person2>><<person>>. "Somewhere."
+<br>
+"Is <<person3>><<he>> dangerous?"
+<br>
+"I don't know."
+<br><br>
+
+Avery notices you're still with <<person1>><<him>>. "Wait here."
+<br><br>
+
+<<He>> and the <<person2>><<person>> disappear into the maze of crates.
+<br><br>
+
+<<link [[Next|Skyscraper Foundation 4]]>><</link>>
+<br>
+
+:: Skyscraper Foundation 4
+<<effects>>
+
+"Who are you?" says a <<person3>><<personssimple>> voice to your side. You turn. A <<person>> stands there, with ragged clothes and crazed eyes. <<He>> glances around you, anxious. "Avery's here isn't <<person1>><<he>>? Tell me!"
+<br><br>
+
+<span class="red"><<person3>><<He>> pulls out a knife.</span><<ggtrauma>><<ggstress>><<trauma 12>><<stress 12>>
+<br><br>
+
+<<link [[Say yes|Skyscraper Foundation Yes]]>><</link>>
+<br>
+<<link [[Say no|Skyscraper Foundation No]]>><</link>>
+<br>
+<<link [[Remain silent|Skyscraper Foundation Silent 2]]>><</link>>
+<br>
+<<link [[Tackle|Skyscraper Foundation Tackle]]>><</link>><<physiquedifficulty 1 15000>>
+<br>
+
+:: Skyscraper Foundation Yes
+<<effects>>
+
+<<person1>>
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Yes," you say. "Please don't hurt <<him>>."
+<<elseif $speech_attitude is "bratty">>
+	"Yes," you say. "You better run while you can."
+<<else>>
+	"Yes," you say. "<<Hes>> here somewhere."
+<</if>>
+<br><br>
+
+
+The <<person3>><<person>> takes a step closer. "Oh? How about you take me to <<person1>><<him>>?"
+<br><br>
+
+"Stop," says Avery, emerging from the crates. "Not another step."
+<br>
+The <<person3>><<person>> turns on Avery. "I've found you. At last."
+<br>
+"Found me? Who the fuck do you think you are?"
+<br>
+"You don't remember? You took everything from me. Now it's my turn." With a scream, <<he>> charges at Avery.
+<br><br>
+
+<<link [[Next|Skyscraper Foundation Avery]]>><</link>>
+<br>
+
+:: Skyscraper Foundation No
+<<effects>>
+
+<<person1>>
+<<if $speech_attitude is "meek">>
+	"<<Hes>> not here," you say. "Please stop, you're scaring me."
+<<elseif $speech_attitude is "bratty">>
+	"<<Hes>> not here," you say. "Are you gonna put the knife down, or am I gonna make you?"
+<<else>>
+	"<<Hes>> not here," you say. "Put the knife down."
+<</if>>
+<br><br>
+
+"Liar!" the <<person3>><<person>> says. <<He>> takes a step closer. "I bet if I make you squeal, Avery will come."
+<br><br>
+
+
+"Stop," says Avery, emerging from the crates. "Not another step."
+<br>
+The <<person>> turns on Avery. "I've found you. At last."
+<br>
+"Found me? Who the fuck do you think you are?"
+<br>
+"You don't remember? You took everything from me. Now it's my turn." With a scream, <<he>> charges at Avery.
+<br><br>
+
+<<link [[Next|Skyscraper Foundation Avery]]>><</link>>
+<br>
+
+
+
+:: Skyscraper Foundation Silent 2
+<<effects>>
+
+You remain silent. "Nothing to say for yourself?" the <<person3>><<person>> says. <<He>> takes a step closer. "Fine, I'll make you squeal, and see if Avery shows."
+<br><br>
+
+"Stop," says Avery, emerging from the crates. "Not another step."
+<br>
+The <<person>> turns on Avery. "I've found you. At last."
+<br>
+"Found me? Who the fuck do you think you are?"
+<br>
+"You don't remember? You took everything from me. Now it's my turn." With a scream, <<he>> charges at Avery.
+<br><br>
+
+<<link [[Next|Skyscraper Foundation Avery]]>><</link>>
+<br>
+
+:: Skyscraper Foundation Tackle
+<<effects>>
+
+<<if $physiqueSuccess>>
+	Without a word, you charge the <<person3>><<person>>. <span class="green"><<He>> drops the knife in shock as you collide with <<him>>, and tackle <<him>> to the ground.</span><<gglove>><<npcincr Avery love 3>>
+	<br><br>
+
+	"Nice work," Avery says. <<person1>><<He>> walks over, and kneels beside the <<person3>><<person>>. "Just who the fuck do you think you are?"
+	<br>
+	"You don't remember," says the <<person>>. "You took everything from me!"
+	<br>
+	"Everything? I can take so much more." <<person1>><<He>> stands upright as several people dressed as construction workers arrive in a hurry. Avery gestures at them, and they step closer.
+	<br><br>
+
+	<<link [[Next|Skyscraper Foundation 5]]>><</link>>
+	<br>
+
+<<else>>
+	Without a word, you charge the <<person3>><<person>>, <span class="red">only to bounce off <<him>>, and fall to the ground.</span><<gpain>><<gstress>><<pain 4>><<stress 6>>
+	<br><br>
+
+	"Don't you dare," says Avery, emerging from the crates. "Put the fucking knife down."
+	<br><br>
+	The <<person>> turns on Avery. "I've found you. At last."
+	<br>
+	"Found me? Who the fuck do you think you are?"
+	<br>
+	"You don't remember? You took everything from me. Now it's my turn." With a scream, <<he>> charges at Avery.
+	<br><br>
+
+	<<link [[Next|Skyscraper Foundation Avery]]>><</link>>
+	<br>
+<</if>>
+
+
+:: Skyscraper Foundation Avery
+<<effects>>
+
+Avery dodges the <<person3>><<persons>> knife, then delivers a punch to <<his>> gut, forcing <<him>> to keel over. A second punch to <<his>> face leaves <<him>> sprawled on the ground.
+<br><br>
+
+A number of people dressed as construction workers arrive. Avery gestures at them, and they step closer.
+<br><br>
+
+<<link [[Next|Skyscraper Foundation 5]]>><</link>>
+<br>
+
+
+:: Skyscraper Foundation 5
+<<effects>>
+<<pass 3>>
+The <<person2>><<person>> apologises to Avery, again and again, on the way back to the car. "I didn't know <<person3>><<he>> was dangerous, I swear."
+<br>
+Avery seems more pleased with <<person1>><<himself>> than anything, and stops responding to the <<person2>><<person>> after a point. <<person1>><<He>> opens the car door for you, then climbs in <<himself>>. <<He>> ignites the engine.
+<br><br>
+
+<<link [[Ask if Avery remembers the knife-wielder|Skyscraper Foundation Remember]]>><</link>>
+<br>
+<<link [[Ask what will happen to the knife-wielder|Skyscraper Foundation Happen]]>><</link>>
+<br>
+<<link [[Remain silent|Skyscraper Foundation Silent 3]]>><</link>>
+<br>
+
+:: Skyscraper Foundation Remember
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Is it true that you don't remember the <<person3>><<personsimple>>?" you ask.
+<<elseif $speech_attitude is "bratty">>
+	"You said you don't remember the <<person3>><<personsimple>>," you say. "Were you just winding <<him>> up?"
+<<else>>
+	"Do you really not remember the <<person3>><<personsimple>>?" you ask.
+<</if>>
+<br><br>
+
+Avery squeezes your hand. "I only remember the important things."
+<br><br>
+
+The trip back to the mansion is uneventful. Avery kills the engine, and steps outside.
+<br><br>
+
+<<link [[Next|Mansion Garage]]>><<endevent>><</link>>
+<br>
+
+:: Skyscraper Foundation Happen
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Will that <<person3>><<personsimple>> be okay?" you ask.
+<<elseif $speech_attitude is "bratty">>
+	"What will you do to the <<person3>><<personsimple>>?" you ask.
+<<else>>
+	"What will happen to the <<person3>><<personsimple>>?" you ask.
+<</if>>
+<br><br>
+
+"Hmm?" Avery asks as <<person1>><<he>> pulls onto Elk Street. "Oh. I'll have <<person3>><<him>> killed." <<person1>><<He>> smiles. "I'm joking. Don't worry. <<person3>><<He>> threatened my <<girl>> with a knife. There's much worse awaiting <<him>>."
+<br><br>
+
+The trip back to the mansion is uneventful. Avery kills the engine, and steps outside.
+<br><br>
+
+<<link [[Next|Mansion Garage]]>><<endevent>><</link>>
+<br>
+
+:: Skyscraper Foundation Silent 3
+<<effects>>
+
+You remain silent as Avery drives. The trip back to the mansion is uneventful. Avery kills the engine, and steps outside.
+<br><br>
+
+<<link [[Next|Mansion Garage]]>><<endevent>><</link>>
+<br>
+
+:: Skyscraper Structure Refuse
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I'm sorry," you say. "But I'd rather stay here."
+<<elseif $speech_attitude is "bratty">>
+	"I'm sure your building project will continue just fine without my eyes on it," you say.
+<<else>>
+	"I'm not in the mood," you say.
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte random(20, 100) and $avery_rage_revealed gte 1>>
+	"You forget yourself," Avery says. "Come. Or do I have to drag you?"
+	<br><br>
+
+	<<link [[Fight|Skyscraper Structure Fight]]>><<set $fightstart to 1>><</link>>
+	<br>
+	<<if $exposed gte 2>>
+		<<link [[Go with Avery|Skyscraper Structure Naked]]>><</link>>
+		<br>
+	<<elseif $exposed gte 1>>
+		<<link [[Go with Avery|Skyscraper Structure Undies]]>><</link>>
+		<br>
+	<<else>>
+		<<link [[Go with Avery|Skyscraper Structure]]>><</link>>
+		<br>
+	<</if>>
+<<else>>
+	"Fine," Avery says. "But you're missing out." <<He>> walks away.
+	<br><br>
+	<<endevent>>
+	<<avery_mansion_end_links>>
+<</if>>
+
+
+:: Skyscraper Structure Fight
+<<if $fightstart is 1>>
+	<<set $fightstart to 0>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust -= 100>>
+	<<set $enemyanger += 200>>
+	<<npcidlegenitals>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+
+
+<<if _combatend or ($pain gte 100 and $willpowerpain is 0)>>
+	<span id="next"><<link [[Next|Skyscraper Structure Fight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Skyscraper Structure Fight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Skyscraper Structure Fight Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Avery staggers away from you, struggling to stay upright. <<tearful>> you keep your distance.
+	<br><br>
+	<<He>> glares at you, considering, while catching <<his>> breath. Then <<he>> stands upright, and walks away.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<avery_mansion_end_links>>
+
+<<elseif $enemyhealth lte 0>>
+	You shove Avery away from you. <<He>> staggers, struggling to stay upright. <<tearful>> you keep your distance.
+	<br><br>
+	<<He>> glares at you, considering, while catching <<his>> breath. Then <<he>> stands upright, and walks away.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<avery_mansion_end_links>>
+
+<<else>>
+	<<tearful>> you fall to the ground, too hurt to keep fighting.
+	<br><br>
+	Avery stands over you a moment, then hauls you to your feet, and shoves you ahead of <<him>>.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<npc Avery>><<person1>>
+	<<link [[Next|Skyscraper Structure]]>><</link>>
+
+<</if>>
+
+
+
+:: Skyscraper Structure Naked
+<<effects>>
+
+Avery examines your body for a moment. "You'd best put something on first," <<he>> says.
+<br><br>
+
+<<if hasSexStat("exhibitionism", 5)>>
+	<<link [[Say you'll go as you are|Skyscraper Foundation Naked Exhibitionist]]>><</link>><<exhibitionist5>>
+	<br>
+<</if>>
+<<link [[Grab some towels on the way|Skyscraper Foundation]]>><<towelup>><</link>>
+<br>
+
+:: Skyscraper Structure Naked Exhibitionist
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I'd like to go like this," you say. "Unless you think it's dangerous?"
+<<elseif $speech_attitude is "bratty">>
+	"Nah," you say. "I'll go like this. Give people something to write home about."
+<<else>>
+	"You sure I couldn't give people a show?" you ask. "Would it distract them?"
+<</if>>
+<br><br>
+
+Avery smiles. "Why not. Let's give people a treat."
+<<exhibitionism5>>
+
+<<link [[Next|Skyscraper Structure]]>><</link>>
+<br>
+
+
+:: Skyscraper Structure Undies
+<<effects>>
+
+Avery examines your body for a moment. "You'd best put something on first," <<he>> says.
+<br><br>
+
+<<if hasSexStat("exhibitionism", 3)>>
+	<<link [[Say you'll go as you are|Skyscraper Foundation Naked Exhibitionist]]>><</link>><<exhibitionist3>>
+	<br>
+<</if>>
+<<link [[Grab some towels on the way|Skyscraper Foundation]]>><<towelup>><</link>>
+<br>
+
+:: Skyscraper Structure Undies Exhibitionist
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Do I have to wear more?" you ask. "You can protect me."
+<<elseif $speech_attitude is "bratty">>
+	"Nah," you say. "I'd rather catch attention."
+<<else>>
+	"I'm fine dressed like this," you say.
+<</if>>
+<br><br>
+
+Avery smiles. "Fine by me. Come."
+<<exhibitionism3>>
+
+<<link [[Next|Skyscraper Structure]]>><</link>>
+<br>
+
+:: Skyscraper Structure
+<<set $location to "avery_skyscraper">><<effects>>
+
+The journey to Avery's skyscraper isn't long. You see the building looming above the others before you arrive.
+
+<<if $avery_tower.effects.includes("temple")>>
+	People from the temple have formed a blockade in front of the car park, arms linked. Avery accelerates as <<he>> approaches, forcing them to jump aside.
+<</if>>
+<br><br>
+
+Avery climbs out, and walks around the bonnet to open your door.
+<br><br>
+
+"Impressive, isn't it?" Avery says, hands on hips. The building already rises above its neighbours, with exposed steel jutting yet higher.
+<br><br>
+
+
+<<link [[Say it's impressive|Skyscraper Structure Impressive]]>><<npcincr Avery love 1>><</link>><<glove>>
+<br>
+<<link [[Say it's stupid|Skyscraper Structure Stupid]]>><<npcincr Avery love -1>><</link>><<llove>>
+<br>
+<<link [[Say nothing|Skyscraper Structure Silent]]>><</link>>
+<br>
+
+
+:: Skyscraper Structure Impressive
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"It's very impressive," you say. "Almost as impressive as you."
+<<elseif $speech_attitude is "bratty">>
+	"It puts the rest of town to shame," you say.
+<<else>>
+	"It's already the most impressive building in town," you say.
+<</if>>
+<br><br>
+
+"Few could have built this," Avery says. "Not here. I've worked so hard, and it'll soon be worthwhile."
+<br><br>
+
+<<link [[Next|Skyscraper Structure 2]]>><</link>>
+<br>
+
+:: Skyscraper Structure Stupid
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"It looks a bit silly," you say. "It's so much taller than the other buildings."
+<<elseif $speech_attitude is "bratty">>
+	"It looks ridiculous," you say.
+<<else>>
+	"It looks stupid," you say. "It doesn't fit."
+<</if>>
+<br><br>
+
+Avery draws <<himself>> up, indignant. "Watch that tongue of yours," <<he>> says. "You'll eat your words when it's finished."
+<br><br>
+
+<<link [[Next|Skyscraper Structure 2]]>><</link>>
+<br>
+
+:: Skyscraper Structure Silent
+<<effects>>
+
+You remain silent. Avery doesn't seem to notice, as if <<he>> were talking to <<himself>>.
+<br><br>
+
+<<link [[Next|Skyscraper Structure 2]]>><</link>>
+<br>
+
+
+:: Skyscraper Structure 2
+<<effects>>
+
+<<if C.npc.Whitney.init is 1 and C.npc.Whitney.state isnot "dungeon">>
+	<<npc Whitney 2>><<person1>>
+	Avery turns back to <<his>> car, and finds a gang of delinquents climbing inside. <span class="blue">Whitney</span> sits in the driver's seat, one hand on the steering wheel, a grin on <<person2>><<his>> face.
+	<br><br>
+
+	"Nice car," Whitney says. "Mind if I give it a spin?" <<His>> friends laugh. Avery strides forward, consumed by a wordless rage. Whitney salutes Avery, winks at you, then accelerates, letting the force shut the door.
+	<br><br>
+
+	<<link [[Next|Skyscraper Whitney]]>><</link>>
+	<br>
+<<else>>
+	Avery turns back to <<his>> car, and finds a gang of delinquents stood around it, peering inside.
+	<br><br>
+	"Piss off before I call the police," Avery says. The delinquents share a glance, before swaggering away.
+	<br><br>
+
+	<<link [[Next|Skyscraper Structure End]]>><</link>>
+	<br>
+<</if>>
+
+:: Skyscraper Whitney
+<<set $location to "town">><<effects>>
+<<person1>>
+Avery runs after the car for a moment, as Whitney smashes through a fence to escape onto the road. Avery comes to <<his>> senses, grabs your arm, and rushes for the nearest vehicle. A van, just emptied.
+<br><br>
+
+The driver hands over the key to Avery without resistance, and Avery jumps into the driver's seat, pulling you with then over <<him>>. <<He>> ignites the engine, and tears after Whitney.
+<br><br>
+
+<<link [[Tell Avery to be more sensible|Skyscraper Whitney Sensible]]>><</link>>
+<br>
+<<link [[Suggest Avery be strategic|Skyscraper Whitney Strategic]]>><<npcincr Avery love 1>><</link>><<glove>>
+<br>
+<<link [[Egg Avery on|Skyscraper Whitney Egg]]>><<npcincr Avery love 1>><</link>><<glove>>
+<br>
+
+:: Skyscraper Whitney Sensible
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Please don't be angry," you say. "Let <<person2>><<him>> go. This van is too slow to keep up, and you can just buy another car."
+<<elseif $speech_attitude is "bratty">>
+	"You're not going to go chasing that idiot across town are you?" you ask. "In this? You can afford another car."
+<<else>>
+	"You can buy another car," you point out. "Chasing <<person2>><<him>> isn't worth it."
+<</if>>
+<br><br>
+<<person1>>
+If Avery heard you, <<he>> gives no indication. Whitney disappears around a bend up ahead. Avery cuts the corner by driving over the pavement. The vehicle jolts as <<he>> runs down a sign post.
+<br><br>
+
+<<link [[Next|Skyscraper Whitney 2]]>><</link>>
+<br>
+
+:: Skyscraper Whitney Strategic
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"You shouldn't just chase <<person2>><<him>>," you say. "We might get hurt, and you'll never catch up in this."
+<<elseif $speech_attitude is "bratty">>
+	"Are you seriously gonna chase <<person2>><<him>>?" you ask. "In this? You should work out where <<hes>> going, and cut <<him>> off."
+<<else>>
+	"I don't think we can catch <<person2>><<him>> in this," you say. "We should work out where <<hes>> going, then cut <<him>> off."
+<</if>>
+<br><br>
+
+Avery smiles through gritted teeth. "We don't know where <<hes>> going," <<person1>><<he>> says. "But that doesn't mean we can't cut <<person2>><<him>> off."
+<br><br>
+
+Whitney disappears around a bend up ahead. Avery cuts the corner by driving over the pavement. The vehicle jolts as <<person1>><<he>> runs down a sign post.
+<br><br>
+
+<<link [[Next|Skyscraper Whitney 2]]>><</link>>
+<br>
+
+:: Skyscraper Whitney Egg
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"You can catch <<person2>><<him>>," you say. "I believe in you."
+<<elseif $speech_attitude is "bratty">>
+	"We can't let that idiot get away with this," you say. "Put your foot down."
+<<else>>
+	"Put your foot down," you say. "We can catch that loser."
+<</if>>
+<br><br>
+<<person1>>
+Avery smiles through gritted teeth. "I'll dig a hole for each of them," <<he>> says. "Just you fucking wait."
+<br><br>
+
+Whitney disappears around a bend up ahead. Avery cuts the corner by driving over the pavement. The vehicle jolts as <<he>> runs down a sign post.
+<br><br>
+
+<<link [[Next|Skyscraper Whitney 2]]>><</link>>
+<br>
+
+:: Skyscraper Whitney 2
+<<set $bus to "park">><<effects>>
+<<pass 5>>
+Whitney gives no heed to the speed limit. <<person2>><<He>> veers from one side of the road to the other, dodging other cars and forcing them to a calamitous stop. Avery's knuckles are white above the steering wheel, but with the roads clear <<person1>><<hes>> able to drive much straighter.
+<br><br>
+
+Whitney heads north through the industrial alleyways. You lose sight of <<person2>><<him>>, but the devastation left in <<his>> wake is a convenient trail. Avery catches up, only to lose sight of <<him>> again. At one point you get so close you can see one of Whitney's friends through the back window, laughing.
+<br><br>
+
+You come to a fork in the road. A dumpster lies on its side to your right, but Avery turns left, emerging from the alleyways. <<person1>><<He>> thunders across the road, into the park.
+<br><br>
+
+"I know where they're going."
+<br><br>
+
+<<link [[Next|Skyscraper Whitney 3]]>><</link>>
+<br>
+
+:: Skyscraper Whitney 3
+<<set $bus to "mer">><<effects>>
+
+Avery drives through the park, crushing flower beds beneath <<his>> wheels. Heads turn and stare as Avery thunders across a thin bridge.
+<br><br>
+
+Avery arrives on Mer Street, and drives towards the docks. Whitney emerges from the alleyways up ahead, heading in the same direction. <<person2>><<He>> slows, and one of the passenger doors opens, as if <<his>> friends are about to disembark. Then Whitney notices the van, and accelerates, forcing <<his>> friends back in their seats.
+<br><br>
+
+Avery and Whitney both accelerate towards the docks, and the water. Avery no longer seems angry. <<person1>><<He>> looks determined to win, like this is a game.
+<br><br>
+<<set $averySeen.pushUnique("whitney_crash")>>
+<<if $cat gte 6>>
+	<<link [[Jump out|Skyscraper Whitney Jump]]>><<set $phase to 1>><</link>><<cat>>
+<<else>>
+	<<link [[Jump out|Skyscraper Whitney Jump]]>><<set $phase to 0>><<pain 8>><<stress 12>><</link>><<ggpain>><<ggstress>>
+<</if>>
+<br>
+<<link [[Stay seated|Skyscraper Whitney Stay]]>><</link>>
+<br>
+
+:: Skyscraper Whitney Jump
+<<effects>>
+
+<<if $cat gte 6>>
+	You undo your seatbelt, open the door, and leap from the moving vehicle. You land on your feet, and skid to a halt, unharmed.
+	<br><br>
+<<else>>
+	You undo your seatbelt, open the door, and leap from the moving vehicle onto a patch of long grass. The force sends you rolling, but you come to a stop at the edge of the road, shaken but uninjured. Avery continues ahead.
+	<br><br>
+<</if>>
+
+Whitney's friends have the same idea as you, and leap from the moving car. It's moving faster than the van, and their landings aren't so graceful.
+<br><br>
+
+Avery arrives first, and screeches to a halt. Whitney doesn't slow. They stare at each other a moment. Then, at the same time, they leap from their vehicles. Whitney lands in the water, Avery on the pier. <<person1>><<He>> remains down, and covers <<his>> head with <<his>> arms.
+<br><br>
+
+The car crashes into the side of the van. The dull thud reverberates across the street, along with the sound of shattering glass. The force scrunches up the front of the car, and shunts the van away, leaving it teetering on the edge of the pier. The teeter becomes a tip, then it plunges into the water.
+<br><br>
+
+<<link [[Next|Skyscraper Whitney Jump 2]]>><</link>>
+<br>
+
+:: Skyscraper Whitney Jump 2
+<<effects>>
+<<person1>>
+Avery stares at the spot where Whitney vanished beneath the waves. <<Hes>> still waiting when you arrive. A satisfied smile flashes across <<his>> face, then <<he>> turns to <<his>> car.
+<br><br>
+"I think it'll still work," <<he>> says, pacing around it. <<He>> climbs in the driver's seat, puts the key in the ignition, and turns it. "Get in."
+<br><br>
+
+<<link [[Next|Skyscraper Whitney Jump 3]]>><</link>>
+<br>
+
+:: Skyscraper Whitney Jump 3
+<<effects>>
+<<pass 5>>
+The car rattles as Avery puts <<his>> foot down. You notice Whitney's friends stood on a distant pier, watching something in the water. Whitney's blonde head appears. <<person2>><<He>> shakes <<his>> hair free of <<his>> eyes, as <<his>> friends throw <<him>> a rope.
+<br><br>
+
+Avery seems oddly energised. <<person1>><<He>> glances at you. "They were going to drown it," <<person1>><<he>> says. "The car. I just needed to give that idiot a more enticing target." <<He>> smiles.
+<br><br>
+
+You arrive back at the mansion. The passenger door falls off when Avery tries to open it.
+<br><br>
+
+<<link [[Next|Mansion Garage]]>><<endevent>><</link>>
+<br>
+
+:: Skyscraper Whitney Stay
+<<effects>>
+
+You remain seated as Avery accelerates towards the docks. Whitney's friends open the passenger doors, and leap from the car, despite the high speed. They land and roll along a patch of grass, graceless, but uninjured. Avery remains in the driver's seat. <<person1>><<Hes>> now so close you can see the mad look in <<his>> eyes.
+<br><br>
+
+Avery arrives first. The seatbelt pulls tight against you as <<he>> screeches to a halt. Whitney isn't stopping. <<person2>><<He>> and Avery stare at each other a moment. Then, at the same instant, Whitney kicks the door and leaps from the moving car as Avery grabs your arm, and pulls you outside.
+<br><br>
+
+You land with Avery on the pier, but the edge is close. Avery tries to hold onto you, but the momentum carries you off the edge. You notice Whitney also falling in some distance from you. Then you hear a dull thud, and the shattering of glass, as the car collides with the van. You plunge into the water, muffling the sound.
+<br><br>
+
+<<link [[Next|Skyscraper Whitney Stay 2]]>><</link>>
+<br>
+
+:: Skyscraper Whitney Stay 2
+<<water>><<waterbr 2>><<effects>>
+
+You sink deep enough that your feet touch the ground. A moment later, a huge mass plunges after you, just several metres away. It's the van. The force pushes you back, and disorients you.
+<br><br>
+
+A pair of hands grasp your shoulders. A figure kicks against the water, and carries you to the surface.
+<br><br>
+<<if C.npc.Avery.love gte (C.npc.Whitney.love * 4)>>
+	You blink away the salty water. Avery paddles next to you, watching the surface some distance away, where Whitney fell. <<person1>><<He>> waits a minute, keeping a firm grasp on your arm, then swims towards a nearby ladder.
+	<br><br>
+
+	<<link [[Next|Skyscraper Whitney Stay Avery]]>><</link>>
+	<br>
+<<else>>
+	You blink away the salty water. Whitney paddles next to you, wearing a smile. You hear Avery pace on the pier above.
+	<br><br>
+	Whitney holds a finger up to <<person2>><<his>> lips, then grasps your arm. <<He>> pulls you with <<him>> away from the pier, towards another some distance away. You look over your shoulder. Avery is too busy fussing over <<person1>><<his>> car to notice you.
+	<br><br>
+
+	<<link [[Next|Skyscraper Whitney Stay Whitney]]>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Skyscraper Whitney Stay Whitney
+<<effects>>
+
+<<npc Whitney>><<person1>>
+Whitney's friends arrive at the distant pier, and let a rope down into the water. Whitney ties it around your waist, then grasps it <<himself>>. Together, <<his>> friends haul you both from the water.
+<br><br>
+
+<<if $exposed gte 1>>
+	You lie on the pier. Whitney leers at your exposed body. <<covered>> Though Whitney's state of dress isn't any better.<<gstress>><<stress 6>>
+	<br><br>
+<<else>>
+	You lie on the pier. Whitney's clothes are transparent, but <<he>> doesn't seem to care.
+	<br><br>
+<</if>>
+
+<<link [[Leer back|Skyscraper Whitney Leer]]>><</link>><<promiscuous1>>
+<br>
+<<link [[Just stand up|Skyscraper Whitney Stand]]>><</link>>
+<br>
+
+:: Skyscraper Whitney Leer
+<<effects>>
+
+You leer at Whitney. <<His>> friends laugh. Whitney puts <<his>> hands behind <<his>> head and reclines. "Like what you see, slut?" <<he>> says. "Of course you do."
+<br><br>
+
+Avery manages to get the car working, and drives off the pier. "I think your sugar<<nnpc_mummy "Avery">> forgot about you." <<He>> jumps to <<his>> feet, and holds out <<his>> arm. "Let's go get dry."
+<br><br>
+
+<<link [[Next|Skyscraper Whitney Fire]]>><</link>>
+<br>
+
+:: Skyscraper Whitney Stand
+<<effects>>
+
+You rise to your feet. Whitney leans back, as if to observe you from a better angle, then joins you.
+<br><br>
+
+Avery manages to get the car working, and drives off the pier. "I think your sugar<<nnpc_mummy "Avery">> forgot about you." <<He>> jumps to <<his>> feet, and holds out <<his>> arm. "Let's go get dry."
+<br><br>
+
+<<link [[Next|Skyscraper Whitney Fire]]>><</link>>
+<br>
+
+:: Skyscraper Whitney Fire
+<<effects>>
+
+Getting dry involves lighting a fire beneath a pier, on the shell-filled sand. Whitney's friends soon have it lit, while Whitney peels off <<his>> wet clothes without shame.
+<br><br>
+
+<<if $exposed gte 1>>
+	<<set $phase to 1>>
+	"Need a hand undressing?" Whitney asks. <<His>> friends grin at you. "You're not shy, are you? We can already see everything."
+	<br><br>
+
+	<<if hasSexStat("exhibitionism", 3)>>
+		<<link [[Nod|Skyscraper Whitney Fire Nod]]>><<npcincr Whitney love 1>><</link>><<exhibitionist3>><<glove>>
+		<br>
+		<<link [[Undress alone|Skyscraper Whitney Fire Alone]]>><</link>><<exhibitionist3>>
+		<br>
+		<<link [[Refuse to undress|Skyscraper Whitney Fire Refuse]]>><</link>>
+		<br>
+	<<else>>
+		<span class="blue">You're not exhibitionist enough to remove even transparent clothes in front of people!</span>
+		<br><br>
+
+		<<link [[Refuse to undress|Skyscraper Whitney Fire Refuse]]>><</link>>
+		<br>
+	<</if>>
+<<else>>
+	<<set $phase to 0>>
+	"Need a hand undressing?" Whitney asks. <<His>> friends grin at you.
+	<br><br>
+
+	<<if hasSexStat("exhibitionism", 5)>>
+		<<link [[Nod|Skyscraper Whitney Fire Nod]]>><<npcincr Whitney love 1>><</link>><<exhibitionist5>><<glove>>
+		<br>
+		<<link [[Undress alone|Skyscraper Whitney Fire Alone]]>><</link>><<exhibitionist5>>
+		<br>
+		<<link [[Refuse to undress|Skyscraper Whitney Fire Refuse]]>><</link>>
+		<br>
+	<<else>>
+		<span class="blue">You're not exhibitionist enough to undress in front of people!</span>
+		<br><br>
+
+		<<link [[Refuse to undress|Skyscraper Whitney Fire Refuse]]>><</link>>
+		<br>
+	<</if>>
+<</if>>
+
+
+:: Skyscraper Whitney Fire Nod
+<<effects>>
+<<clothesstrip>>
+<<dry_full>>
+
+Whitney wastes no time, and soon has you stripped to your skin. <<covered>> <<He>> rests a hand beneath <<his>> chin and examines you.
+<<if $phase is 1>>
+	<<exhibitionism3>>
+<<else>>
+	<<exhibitionism5>>
+<</if>>
+
+"Someone dry these," <<he>> says, stepping closer. "I'll keep the slut warm."
+<br><br>
+
+<<link [[Let Whitney "keep you warm"|Skyscraper Whitney Fire Sex]]>><<set $sexstart to 1>><</link>><<promiscuous1>>
+<br>
+<<link [[Refuse|Skyscraper Whitney Fire Sex Refuse]]>><</link>>
+<br>
+
+:: Skyscraper Whitney Fire Alone
+<<effects>>
+
+You keep Whitney at arm's length, and undress yourself. <<He>> and <<his>> friends don't take their eyes off you.
+<br><br>
+
+"Someone dry <<pher>> clothes," Whitney says, stepping forward. "I'll keep the slut warm."
+<br><br>
+
+<<link [[Let Whitney "keep you warm"|Skyscraper Whitney Fire Sex]]>><<set $sexstart to 1>><</link>><<promiscuous1>>
+<br>
+<<link [[Refuse|Skyscraper Whitney Fire Sex Refuse]]>><</link>>
+<br>
+
+
+:: Skyscraper Whitney Fire Refuse
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I'm too shy to undress," you say.
+<<elseif $speech_attitude is "bratty">>
+	"Yeah right," you say. "I can dry just fine without undressing."
+<<else>>
+	"I'd rather keep my clothes on," you say.
+<</if>>
+<br><br>
+
+"Suit yourself," Whitney says, walking towards the fire and crouching beside it.
+<br><br>
+
+<<pass 10>>
+<<dry_full>>
+You stand near the fire, opposite Whitney, close enough that the heat dries out your clothes. Whitney's friends joke around, but Whitney stares into the fire, lost in thought.
+<br><br>
+After several minutes, Whitney rises and kicks sand over the fire. "That's enough. See you around, slut. Say hi to your sugar<<nnpc_mummy "Avery">> for me." <<He>> and <<his>> friends walk away.
+<br><br>
+
+<<link [[Next|Mer Street]]>><<set $eventskip to 1>><<endevent>><</link>>
+<br>
+
+:: Skyscraper Whitney Fire Sex Refuse
+<<effects>>
+
+You step away from Whitney. <<His>> friends laugh. "What do you think?" Whitney asks them. "Shall I give <<phim>> a break?" The response is a clear no, but Whitney shakes <<his>> head. "I think I should. It's not every day your sugar<<nnpc_mummy "Avery">> proves they care more about their car than you." <<He>> walks towards the fire, and crouches beside it.
+<<pass 10>>
+<<dry_full>>
+<br><br>
+You stand near the fire, opposite Whitney. <<He>> plants sticks around it, and suspends your clothes on them. They dry fast. Whitney's friends joke around, but Whitney stares into the fire, lost in thought.
+<br><br>
+After several minutes, Whitney rises and kicks sand over the fire. "That's enough. See you around, slut. Say hi to your sugar<<nnpc_mummy "Avery">> for me." <<He>> and <<his>> friends walk away.
+<br><br>
+
+<<link [[Next|Mer Street]]>><<clotheson>><<set $eventskip to 1>><<endevent>><</link>>
+<br>
+
+:: Skyscraper Whitney Fire Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 100>><<promiscuity1>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<audience>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if _combatend>>
+	<span id="next"><<link [[Next|Skyscraper Whitney Fire Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Skyscraper Whitney Fire Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Skyscraper Whitney Fire Sex Finish
+<<set $outside to 0>><<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Whitney walks towards the fire, and crouches beside it. <<tearful>> you follow suit.
+	<br><br>
+<<elseif $enemyhealth lte 0>>
+	Whitney walks towards the fire, and crouches beside it. <<tearful>> you follow suit.
+	<br><br>
+<<else>>
+	"Suit yourself," Whitney says. "Slut."
+	<br><br>
+	<<He>> walks towards the fire, and crouches beside it. <<tearful>> you follow suit.
+	<br><br>
+<</if>>
+
+<<endcombat>>
+<<npc Whitney>><<person1>>
+<<link [[Next|Skyscraper Whitney Fire Sex End]]>><</link>>
+<br>
+
+:: Skyscraper Whitney Fire Sex End
+<<effects>>
+
+<<pass 10>>
+<<dry_full>>
+You stand near the fire, opposite Whitney. <<He>> plants sticks around it, and suspends your clothes on them. They dry fast. Whitney's friends joke around, but Whitney stares into the fire, lost in thought.
+<br><br>
+After several minutes, Whitney rises and smothers the flame with a footfull of sand. "That's enough. See you around, slut. Say hi to your sugar<<nnpc_mummy "Avery">> for me." <<He>> and <<his>> friends walk away.
+<br><br>
+
+<<link [[Next|Mer Street]]>><<clotheson>><<set $eventskip to 1>><<endevent>><</link>>
+<br>
+
+:: Skyscraper Whitney Stay Avery
+<<effects>>
+
+You climb after Avery. <<His>> clothes are transparent, but <<he>> doesn't seem to care. <<Hes>> more interested in <<his>> car.
+<br><br>
+"I think it still works," <<he>> says, pacing around it. <<He>> climbs in the driver's seat, puts the key in the ignition, and turns it. "Get in."
+<br><br>
+
+<<link [[Next|Skyscraper Whitney Jump 3]]>><</link>>
+<br>
+
+:: Skyscraper Structure End
+<<effects>>
+
+Avery drives you back to the mansion, looking satisfied with <<himself>>. <<He>> climbs from the car, walks around the bonnet, and opens your door.
+<br><br>
+
+<<link [[Next|Mansion Garage]]>><<endevent>><</link>>
+<br>

@@ -1,0 +1,35 @@
+{
+ "name": "ModLoader DoL ImageLoaderHook",
+ "version": "2.101.0",
+ "alias": [
+  "ImageLoaderHook",
+  "ImageLoaderHookCore"
+ ],
+ "styleFileList": [],
+ "scriptFileList_earlyload": [],
+ "scriptFileList_inject_early": [
+  "dist/ImageLoaderHook.mod.js"
+ ],
+ "scriptFileList_preload": [
+  "dist/preload/preload.js"
+ ],
+ "scriptFileList": [
+  "dist/js/installLoaderHook.js"
+ ],
+ "tweeFileList": [],
+ "imgFileList": [],
+ "imgFileReplaceList": [],
+ "additionFile": [
+  "README.md"
+ ],
+ "dependenceInfo": [
+  {
+   "modName": "ModLoader",
+   "version": "^2.100.0"
+  },
+  {
+   "modName": "GameVersion",
+   "version": ">=0.5.6"
+  }
+ ]
+}

@@ -1,0 +1,573 @@
+:: Mansion Intro Orphanage
+<<effects>>
+
+"Sorry to trouble you," says Avery. <<person1>><<He>> glances at the orphans peeking around the reception door. "Can we have a word in private?"
+<br><br>
+Bailey doesn't wear <<person2>><<his>> best smile. "Of course. Come in." <<He>> turns towards <<his>> office. Avery follows, making a detour to grasp your arm. <<person1>><<He>> pulls you after <<him>>.
+<br><br>
+
+<<link [[Protest|Mansion Intro Orphanage Protest]]>><</link>>
+<br>
+<<link [[Go quietly|Mansion Intro Orphanage Quiet]]>><</link>>
+<br>
+
+:: Mansion Intro Orphanage Protest
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Do you have to tug me so hard?" you ask.
+<<elseif $speech_attitude is "bratty">>
+	"Could you ask before dragging me somewhere?" you say.
+<<else>>
+	"It's rude to barge in and yank me around like this," you say.
+<</if>>
+<br><br>
+
+"Not now," Avery says, unbothered and undeterred by your words. "Just be quiet."
+<br><br>
+
+<<person1>><<He>> closes the office door behind <<him>>, while Bailey takes a seat at <<person2>><<his>> desk. Avery looks around for another chair, but there's none to be found.
+<br><br>
+
+<<link [[Next|Mansion Intro Orphanage 2]]>><</link>>
+<br>
+
+:: Mansion Intro Orphanage Quiet
+<<effects>>
+
+You remain silent while Avery closes the office door, and Bailey takes a seat at <<person2>><<his>> desk. Avery looks around for another chair, but there's none to be found.
+<br><br>
+
+<<link [[Next|Mansion Intro Orphanage 2]]>><</link>>
+<br>
+
+:: Mansion Intro Orphanage 2
+<<effects>>
+
+"I know why you're here," Bailey says, running a hand through <<person2>><<his>> hair. "You want custody of this one."
+<br>
+"Correct," Avery says. "I'm suitable. A member of the community in good standing."
+<br>
+"It takes more than that to adopt one of mine."
+<br>
+"Of course. I'm sure there are background checks." Avery smiles. "But that's not the only reason I'm here. I'd also like to make a donation. To support the good work you do."
+<br>
+Bailey looks unimpressed. Avery retrieves a slip of paper from <<person1>><<his>> pocket, and slides it across the desk. It's blank, on this side. Bailey lifts a corner. <<person2>><<He>> peeks beneath.
+<br><br>
+
+<<link [[Next|Mansion Intro Orphanage 3]]>><</link>>
+<br>
+
+
+:: Mansion Intro Orphanage 3
+<<effects>>
+
+Whatever <<person2>><<he>> sees, Bailey considers the slip of paper for a good while. The room is silent, except the tick of a clock, and the occasional thump from someone trying to eavesdrop outside.
+<br><br>
+<span class="red">"Done."</span> Bailey pokes the slip into <<his>> pocket, and reaches across the desk. Avery takes <<his>> hand, and they shake. Bailey looks at you. "You're under Avery's protection now. <span class="red"><<person1>><<He>>'ll cover your debt.</span>"
+<br><br>
+
+<<link [[Ask how much you cost|Mansion Intro Orphanage Cost]]>><</link>>
+<br>
+<<link [[Thank Avery|Mansion Intro Orphanage Avery]]>><<npcincr Avery love 1>><</link>><<glove>>
+<br>
+<<link [[Thank Bailey|Mansion Intro Orphanage Bailey]]>><</link>>
+<br>
+<<link [[Remain silent|Mansion Intro Orphanage Silent]]>><</link>>
+<br>
+
+
+
+:: Mansion Intro Orphanage Cost
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I hope I didn't cost too much," you say.
+<<elseif $speech_attitude is "bratty">>
+	"I hope you got a good price," you say, looking at Bailey.
+<<else>>
+	"How much did you get for me?" you ask Bailey.
+<</if>>
+<br><br>
+
+"You've a quick mouth," Avery says. "It's not about the money."
+<br>
+"We're done here," interrupts Bailey.
+<br>
+Avery takes your hand, and smiles at Bailey. "Can I invite you over for a drink?
+<br>
+"I'm busy," Bailey replies, rising to <<person2>><<his>> feet.
+<br>
+"<<if Time.weekDay is 7>>Tomorrow<<elseif Time.weekDay is 1>>Next Sunday<<else>>This Sunday<</if>> then. I'm throwing a party. It would be good for both of us to be seen together."
+<br>
+"Fine." Bailey opens the office door. A gaggle of orphans disperse.
+<br><br>
+
+<<link [[Ask if you can say goodbye to the other residents|Mansion Intro Orphanage Goodbye]]>><<hope 1>><</link>><<ghope>>
+<br>
+<<link [[Remain silent|Mansion Intro Orphanage Silent 2]]>><</link>>
+<br>
+
+
+:: Mansion Intro Orphanage Avery
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Thank you so much, Avery!" you say. "I knew you cared for me."
+<<elseif $speech_attitude is "bratty">>
+	"Thanks, Avery," you say. "I bet your place is much nicer than the orphanage."
+<<else>>
+	"Thank you, Avery," you say. "This means a lot to me."
+<</if>>
+<br><br>
+
+Avery takes your hand, smiles at you, then at Bailey. "Can I invite you over for a drink?
+<br>
+"I'm busy," Bailey replies, rising to <<person2>><<his>> feet.
+<br>
+"<<if Time.weekDay is 7>>Tomorrow<<elseif Time.weekDay is 1>>Next Sunday<<else>>This Sunday<</if>> then. I'm throwing a party. It would be good for both of us to be seen together."
+<br>
+"Fine." Bailey opens the office door. A gaggle of orphans disperse.
+<br><br>
+
+
+<<link [[Ask if you can say goodbye to the other residents|Mansion Intro Orphanage Goodbye]]>><<hope 1>><</link>><<ghope>>
+<br>
+<<link [[Remain silent|Mansion Intro Orphanage Silent 2]]>><</link>>
+<br>
+
+
+:: Mansion Intro Orphanage Bailey
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Thank you for letting me go, Bailey," you say. "This means a lot to me."
+<<elseif $speech_attitude is "bratty">>
+	"Thanks for letting me off the leash, Bailey," you say. "Took you long enough, mind."
+<<else>>
+	"Thank you, Bailey," you say. "I knew you cared about me."
+<</if>>
+<br><br>
+Avery takes your hand, and smiles. "I second <<pher>> thanks. Can I invite you over for a drink?
+<br>
+"I'm busy," Bailey replies, rising to <<person2>><<his>> feet.
+<br>
+"<<if Time.weekDay is 7>>Tomorrow<<elseif Time.weekDay is 1>>Next Sunday<<else>>This Sunday<</if>> then. I'm throwing a party. It would be good for both of us to be seen together."
+<br>
+"Fine." Bailey opens the office door. A gaggle of orphans disperse.<<llhope>><<hope -3>>
+<br><br>
+
+<<link [[Ask if you can say goodbye to the other residents|Mansion Intro Orphanage Goodbye]]>><<hope 1>><</link>><<ghope>>
+<br>
+<<link [[Remain silent|Mansion Intro Orphanage Silent 2]]>><</link>>
+<br>
+
+
+:: Mansion Intro Orphanage Silent
+<<effects>>
+
+Avery takes your hand, and smiles at Bailey. "Can I invite you over for a drink?
+<br>
+"I'm busy," Bailey replies, rising to <<person2>><<his>> feet.
+<br>
+"<<if Time.weekDay is 7>>Tomorrow<<elseif Time.weekDay is 1>>Next Sunday<<else>>This Sunday<</if>> then. I'm throwing a party. It would be good for both of us to be seen together."
+<br>
+"Fine." Bailey opens the office door. A gaggle of orphans disperse.<<llhope>><<hope -3>>
+<br><br>
+
+<<link [[Ask if you can say goodbye to the other residents|Mansion Intro Orphanage Goodbye]]>><<hope 1>><</link>><<ghope>>
+<br>
+<<link [[Remain silent|Mansion Intro Orphanage Silent 2]]>><</link>>
+<br>
+
+:: Mansion Intro Orphanage Goodbye
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Will you let me say goodbye to my friends?" you ask.
+<<elseif $speech_attitude is "bratty">>
+	"Give me a moment to say goodbye to my friends," you say.
+<<else>>
+	"Can I say goodbye to my friends?" you ask.
+<</if>>
+<br><br>
+
+Avery frowns in confusion for a moment, then glances at the orphans. "Best you no longer associate with those people."
+<br><br>
+
+<<person1>><<He>> pulls you through the orphanage doors, and towards <<his>> waiting car.
+<br><br>
+
+<<link [[Next|Mansion Intro]]>><<endevent>><</link>>
+<br>
+
+:: Mansion Intro Orphanage Silent 2
+<<effects>>
+
+You remain silent as Avery pulls you through the orphanage doors, and towards <<person1>><<his>> waiting car.
+<br><br>
+
+<<link [[Next|Mansion Intro]]>><<endevent>><</link>>
+<br>
+
+:: Mansion Intro
+<<avery_mansion_init>>
+<<set $location to "avery_mansion">><<set $outside to 0>><<effects>>
+
+<<npc "Avery">><<person1>>
+<<earnFeat "Kept">>
+
+Avery turns off Danube Street, and drives down a well-tended boulevard. The tall spruces are of a different species to those found in the nearby forest. They flit past the window, obscuring the unique homes behind them as the road twists up a hill.
+<br><br>
+
+Avery's mansion waits at the top. <<He>> doesn't slow as the filigree gates open, and drives into a tasteful garden, surrounded by tall walls. <<He>> continues into a garage, and parks beside a second car.
+<br><br>
+
+<<He>> kills the engine, and steps outside.
+<br><br>
+
+<<link [[Wait|Mansion Intro Wait]]>><</link>>
+<br>
+<<link [[Climb out|Mansion Intro Climb]]>><<npcincr Avery dom 1>><</link>><<gdom>>
+<br>
+
+:: Mansion Intro Wait
+<<effects>>
+
+You remain seated. Avery steps around the front bonnet, opens your door, and offers <<his>> arm.
+<br><br>
+
+<<link [[Next|Mansion Intro 2]]>><</link>>
+<br>
+
+:: Mansion Intro Climb
+<<effects>>
+
+You try to open the door, but it's locked. Avery flashes a smile as <<he>> steps around the front bonnet, opens your door, and offers <<his>> arm.
+<br><br>
+
+<<link [[Next|Mansion Intro 2]]>><</link>>
+<br>
+
+:: Mansion Intro 2
+<<effects>>
+
+You step out of the car. "I hope you liked the drive here," <<he>> says. "It's a pleasant neighbourhood. You won't have to worry about being harassed outside. Come, let me show you around."
+<br><br>
+<<He>> shuts the garage door as <<he>> walks towards the entrance, an uncharacteristic spring in <<his>> step.
+<<npcincr Avery rage -10>><<lllarage>><<set C.npc.Avery.rage to Math.clamp(C.npc.Avery.rage, 0, 50)>>
+<br><br>
+
+<<link [[Next|Mansion Intro 3]]>><</link>>
+<br>
+
+:: Mansion Intro 3
+<<effects>>
+
+The door opens onto a spacious kitchen. Avery gestures as <<he>> gives you a breakdown of where to find each appliance. The surfaces are spotless, the machines state-of-the-art.
+<br><br>
+
+"The dining room is through here," <<he>> says, leading you beneath a wide arch. A row of tall windows dominate the far wall, letting ample natural light fall over a long dining table. You count eighteen seats.
+<br><br>
+
+<<link [[Ask if Avery has guests often|Mansion Intro 3 Ask]]>><</link>>
+<br>
+<<link [[Remain quiet|Mansion Intro 3 Quiet]]>><</link>>
+<br>
+
+:: Mansion Intro 3 Ask
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"There's a lot of chairs here," you say. "Will I be meeting lots of guests?"
+<<elseif $speech_attitude is "bratty">>
+	"You must be popular," you say, waving a hand at the chairs. "To need seating for so many guests."
+<<else>>
+	"Do you have a lot of guests?" you ask.
+<</if>>
+<br><br>
+
+Avery nods. "I like to throw parties," <<he>> says. "I get temporary help for cooking and such, on those occasions. Come, let me show you the lounge."
+<br><br>
+
+<<link [[Next|Mansion Intro 4]]>><</link>>
+<br>
+
+
+:: Mansion Intro 3 Quiet
+<<effects>>
+
+You remain quiet. Avery pauses by the head of the table, and points at the far end. "That's your seat," <<he>> says. "Except when we have guests. Then it's here," <<he>> rests a hand on the chair beside <<him>>.
+<br><br>
+
+"Come, let me show you the lounge."
+<br><br>
+
+<<link [[Next|Mansion Intro 4]]>><</link>>
+<br>
+
+:: Mansion Intro 4
+<<effects>>
+
+The lounge is even more well-lit than the dining room, more spacious than the kitchen. Modern furniture and decorations are arranged in a tasteful, fashionable way, centred on a large screen hanging from one wall.
+<br><br>
+
+A sleek black piano sits tucked away in the corner of the room.
+<<if $hallucinations gte 1>>
+	Its ivory keys contrast against its body like bright teeth, flashing you an inviting smile. <<stress 2>><<gstress>>
+<<else>>
+	It's freshly dusted, but looks like it hasn't seen use in a long time.
+<</if>>
+<br><br>
+
+"This is where I relax," Avery says, reclining on a sofa. "A rare event." <<He>> stands, and strides over to a cabinet across the room. "Can I offer you a drink?"
+<br><br>
+
+<<if playerIsPregnant() and playerAwareTheyArePregnant()>>
+	<span class="blue">You can't bring yourself to drink while you know you're with child.</span>
+<<else>>
+	<<link [[Nod|Mansion Intro 4 Drink]]>><<alcohol 60>><</link>><<galcohol>>
+<</if>>
+<br>
+<<link [[Refuse|Mansion Intro 4 Refuse]]>><</link>>
+<br>
+
+:: Mansion Intro 4 Drink
+<<effects>><<wearProp "fizzy drink">>
+
+Avery opens the cabinet, then a colourful bottle, and pours into two thimble-sized glasses. <<He>> hands one to you.
+<br><br>
+
+The drink is as colourful as the bottle, and smells strong. "Just a little," <<he>> says, before downing <<his>> glass. <<He>> examines the empty vessel. "I'd like you to remember the tour."
+<br><br>
+
+You swallow the drink. It's stronger than it smells. You shudder. Avery watches with amusement.
+<br><br>
+
+<<link [[Let <<him>> continue|Mansion Intro 5]]>><</link>>
+<br>
+<<link [[Ask about the piano|Mansion Intro Piano]]>><</link>>
+<br>
+
+:: Mansion Intro 4 Refuse
+<<effects>>
+
+Avery opens the cabin, opens a colourful bottle, and pours into a thimble-sized glass. <<He>> looks out the window as <<he>> sips it.
+<br><br>
+
+<<link [[Let <<him>> continue|Mansion Intro 5]]>><</link>>
+<br>
+<<link [[Ask about the piano|Mansion Intro Piano]]>><</link>>
+<br>
+
+:: Mansion Intro Piano
+<<effects>>
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"That piano is gorgeous," you say with a hint of awe. "How often do you play it?"
+<<elseif $speech_attitude is "bratty">>
+	"Nice piano," you say. "Do you play?"
+<<else>>
+	"That's a really nice piano," you say. "How often do you play it?"
+<</if>>
+<br><br>
+
+Avery frowns, but it's brief. "I don't." <<He>> pauses. "Anymore. I've been meaning to get rid of it."
+<br><br>
+
+<<He>> stares at the piano as if it were about to come alive, but manages to tear <<his>> eyes away. <<He>> gestures at a door opposite the dining room.
+"Through there is the display room." The interior is dark, but you spy a statuette on a plinth. "I keep valuable antiques there. Don't enter without a reason." <<He>> waves <<his>> hand, as if dismissing the room as unimportant.
+<br><br>
+
+"Let me show you our bedroom." <<He>> leads you into an atrium, lit by a skylight far above. An ornate staircase leads to the second storey, which forks left and right. Avery turns left.
+<br><br>
+
+<<link [[Next|Mansion Intro 6]]>><</link>>
+<br>
+
+:: Mansion Intro 5
+<<effects>>
+
+"Through there is the display room," Avery says, gesturing at a door opposite the dining room. The interior is dark, but you spy a statuette on a plinth. "I keep valuable antiques there. Don't enter without a reason." <<He>> waves <<his>> hand, as if dismissing the room as unimportant.
+<br><br>
+
+"Let me show you our bedroom." <<He>> leads you into an atrium, lit by a skylight far above. An ornate staircase leads to the second storey, which forks left and right. Avery turns left.
+<br><br>
+
+<<link [[Next|Mansion Intro 6]]>><</link>>
+<br>
+
+:: Mansion Intro 6
+<<effects>>
+
+"Guest rooms," Avery says as you pass by a succession of closed doors. "Mostly. Some are storage." <<He>> stops in front of an ornate wood door, and reaches into <<his>> pocket.
+<br><br>
+"Here." <<He>> holds out a key. "I had a second made. Go on, open it."
+<br><br>
+
+You open the door, revealing a large bedroom. A four-poster bed stands in the corner. Beside it is a glass door, leading onto a balcony. There's a hot tub on the other side. Opposite the bed are two more doors.
+<br><br>
+
+<<link [[Next|Mansion Intro 7]]>><</link>>
+<br>
+
+
+:: Mansion Intro 7
+<<effects>>
+
+"This is my room," Avery says. "Our room." <<He>> strides through, and opens one of the doors. Inside is a bathroom, with a large bath. Avery moves to the next, revealing a walk-in cupboard.
+<<if $pronoun is "m">>
+	Dozens of expensive suits hang inside, alongside rows of shoes.
+<<else>>
+	Dozens of expensive suits and dresses hang inside, alongside rows of shoes.
+<</if>>
+<br><br>
+
+"Plenty of space," <<he>> says. "Should you want a large wardrobe. Come. Let me show you my study."
+<br><br>
+
+<span class="gold">Some fancy clothes have been added to your wardrobe.</span>
+<br><br>
+
+<<link [[Next|Mansion Intro 8]]>><</link>>
+<br>
+
+
+:: Mansion Intro 8
+<<effects>>
+
+Avery's study is on the third storey, and locked as well, but <<he>> doesn't offer you a key. The interior is small. A single desk, chair, and computer, surrounded by bookshelves on all sides. You follow Avery inside. You feel as if the tall, laden shelves are about to fall and crush you.
+<br><br>
+
+You're struck by an odd discrepancy between rooms. Most are modern, spacious and well-lit. Others, like this study, feel older, and enclosed. Small spaces tucked away, easily missed.
+<br><br>
+
+"I keep it locked for security," Avery says. "Some of the books have value. Just ask me if you want to read anything. I'll let you in."
+<br><br>
+
+<<link [[Next|Mansion Intro 9]]>><</link>>
+<br>
+
+:: Mansion Intro 9
+<<effects>>
+
+Avery leads you back downstairs, through the lounge, and a door leading outside.
+<br><br>
+
+"The pool," Avery says, letting it speak for itself. It's almost as big as the one at school.
+<br><br>
+
+<<He>> looks out at the pool, garden, and the far wall beyond. "It's almost a shame I work so much. I'm not here to enjoy it enough. <span class="gold">Could you be sure to greet me when I get home?</span> I finish at <<ampm 21 00>> weekdays and <<ampm 17 00>> Sunday."
+<br><br>
+
+<<link [[Next|Mansion Intro 9 Dinner]]>><</link>>
+
+:: Mansion Intro 9 Dinner
+<<effects>>
+
+"<span class="gold">Have dinner ready for me too.</span> I think I'd like a <span class="gold">hamburger</span>, to start with. I'm sure you can manage that." <<He>> pauses, then adds, "Broadly speaking, if you can't prepare what I've asked of you, <span class="purple">know that I'll always prefer that you serve something rather than nothing</span>."
+<br><br>
+
+<<if !$foodstuff.hamburger.knows_recipe and !$foodstuff.bread.knows_recipe>>
+	<<link [[Say you don't know how to make hamburgers or bread|Mansion Intro 9 Recipe]]>><</link>>
+<<elseif !$foodstuff.hamburger.knows_recipe>>
+	<<link [[Say you don't know how to make hamburgers|Mansion Intro 9 Recipe]]>><</link>>
+<<elseif !$foodstuff.bread.knows_recipe>>
+	<<link [[Say you don't know how to make bread|Mansion Intro 9 Recipe]]>><</link>>
+<<else>>
+	Avery then turns to you with a smile and gestures to the mansion. "So, what do you think?"
+	<br><br>
+
+	<<link [[Say it's impressive|Mansion Intro 9 Impressive]]>><<npcincr Avery love 1>><</link>><<glove>>
+	<br>
+	<<link [[Say it's disappointing|Mansion Intro 9 Disappointing]]>><<npcincr Avery love -1>><</link>><<llove>>
+	<br>
+
+	/*
+	<<link [[Push Avery into the pool|Mansion Intro 9 Push]]>><<npcincr Avery love -3>><<npcincr Avery dom -1>><<npcincr Avery rage 1>><</link>><<garage>><<lllove>><<ldom>>
+	<br>
+	*/
+<</if>>
+
+:: Mansion Intro 9 Recipe
+<<effects>>
+<<set $avery_mansion.study_unlocked to 1>><<set $daily.averyIntroRecipe to true>>
+<<if !$foodstuff.hamburger.knows_recipe and !$foodstuff.bread.knows_recipe>>
+	<<set _food to "hamburgers. Or bread, for the burgers">>
+	<<set $avery_mansion.recipe.pushUnique("hamburger")>><<set $avery_mansion.recipe.pushUnique("bread")>>
+<<elseif !$foodstuff.hamburger.knows_recipe>>
+	<<set _food to "hamburgers">>
+	<<set $avery_mansion.recipe.pushUnique("hamburger")>>
+<<else>>
+	<<set _food to "bread">>
+	<<set $avery_mansion.recipe.pushUnique("bread")>>
+<</if>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I... I don't actually know how to make _food," you admit, looking away.
+<<elseif $speech_attitude is "bratty">>
+	"Hamburger's gonna be a problem," you say. "I don't know how to make _food."
+<<else>>
+	"I'm afraid I'm not sure how to make _food," you say.
+<</if>>
+<br><br>
+
+Avery frowns. "Oh dear. What <i>are</i> they teaching you?" <<He>> produces a key, the same key <<he>> showed you previously, and gives it to you. "This goes to my study. Third storey, remember? I'm sure you'll find what you're looking for."
+<br><br>
+
+Once you've taken the key, <<he>> gestures to the mansion with a smile. "So, what do you think?"
+<br><br>
+
+<<link [[Say it's impressive|Mansion Intro 9 Impressive]]>><<npcincr Avery love 1>><</link>><<glove>>
+<br>
+<<link [[Say it's disappointing|Mansion Intro 9 Disappointing]]>><<npcincr Avery love -1>><</link>><<llove>>
+<br>
+
+/*
+<<link [[Push Avery into the pool|Mansion Intro 9 Push]]>><<npcincr Avery love -3>><<npcincr Avery dom -1>><<npcincr Avery rage 1>><</link>><<garage>><<lllove>><<ldom>>
+<br>
+*/
+
+:: Mansion Intro 9 Impressive
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"It's the most wonderful place I've ever seen," you say.
+<<elseif $speech_attitude is "bratty">>
+	"It's pretty nice," you say.
+<<else>>
+	"It's very impressive," you say.
+<</if>>
+<br><br>
+
+Avery nods. "I'm glad you think so. It's your new home, after all. If you'll excuse me, I have some business to take care of."
+<br><br>
+
+<<He>> produces a phone from <<his>> pocket, and walks away while dialling.
+<br><br>
+
+<<link [[Next|Mansion Pool]]>><<endevent>><</link>>
+<br>
+
+:: Mansion Intro 9 Disappointing
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"It might be too posh for me," you say.
+	<br><br>
+	"Nonsense," Avery replies. "Don't act like an urchin I dragged in off the street. We'll have guests, and you'll need to show proper form."
+<<elseif $speech_attitude is "bratty">>
+	"I was expecting something bigger," you say.
+	<br><br>
+	Avery draws <<himself>> up. <<He>> opens <<his>> mouth to reply, then reconsiders before speaking. "This is one of the finest mansions in town," <<he>> says. "If this doesn't suit you, then nowhere will."
+<<else>>
+	"It's a bit disappointing," you say.
+	<br><br>
+	"You'd better show more tact," Avery replies. "We'll have guests, and a mouth like that will reflect badly on us both."
+<</if>>
+<br><br>
+
+"If you've no questions, I've business to take care of." <<He>> walks away before you can respond.
+<br><br>
+
+<<link [[Next|Mansion Pool]]>><<endevent>><</link>>
+<br>

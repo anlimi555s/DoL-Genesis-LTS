@@ -1,0 +1,1660 @@
+:: Mansion Chase Run
+<<effects>>
+
+You twist your arm free from Avery, and run. "Where the fuck do you think you're going?" Avery shouts behind you. "You can't escape."
+<br><br>
+
+
+<<avery_mansion_chase_run>>
+<br>
+
+:: Mansion Chase Apologise
+<<effects>>
+
+<<if $avery_mansion.chase.victory gte 1>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"Please don't hurt me," you say. "I'm sorry!"
+	<<elseif $speech_attitude is "bratty">>
+		"Chill out," you say. "I didn't mean to upset you. I'm sorry."
+	<<else>>
+		"I'm sorry," you say. "I'll be good from now on."
+	<</if>>
+	<br><br>
+
+	"You will be fucking sorry when I'm through with you," Avery says, closing in.
+	<br><br>
+
+
+<<else>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"I'm so sorry," you say. "It won't happen again."
+	<<elseif $speech_attitude is "bratty">>
+		"Sorry about that," you say. "Things have just been so busy."
+	<<else>>
+		"I'm sorry," you say. "I didn't mean to make you upset."
+	<</if>>
+	<br><br>
+
+	"Sorry?" Avery asks, pulling you closer. "I'll make you fucking sorry."
+	<br><br>
+<</if>>
+
+<<link [[Next|Mansion Chase Fight]]>><<set $fightstart to 1>><</link>>
+<br>
+
+:: Mansion Chase Brace
+<<effects>>
+
+<<if $avery_mansion.chase.victory gte 1>>
+	You brace yourself as Avery steps closer, malice in <<his>> eyes.
+<<else>>
+	You brace yourself as Avery pulls you closer, malice in <<his>> eyes.
+<</if>>
+<br><br>
+
+<<link [[Next|Mansion Chase Fight]]>><<set $fightstart to 1>><</link>>
+<br>
+
+:: Mansion Chase Fight
+<<if $fightstart is 1>>
+	<<set $fightstart to 0>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust -= 100>>
+	<<set $enemyanger += 200>>
+	<<npcidlegenitals>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend or ($pain gte 100 and $willpowerpain is 0)>>
+	<span id="next"><<link [[Next|Mansion Chase Fight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Chase Fight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Chase Fight Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Avery collapses, but <<his>> eyes remain full of malice. <<tearful>> you turn and run before <<he>> can recover.
+	<<avery_mansion_victory>><<ggfrustration>><<larage>><<npcincr Avery rage -1>>
+	<<set $avery_mansion.chase.victory += 1>>
+	<<set $avery_mansion.chase.health -= 2>>
+	<br><br>
+	<<if $avery_mansion.chase.health lte 0>>
+
+		<<clotheson>>
+		<<endcombat>>
+		<<npc "Avery">><<person1>>
+		<<link [[Next|Mansion Chase Victory]]>><</link>>
+		<br>
+	<<else>>
+		<<clotheson>>
+		<<endcombat>>
+		<<npc "Avery">><<person1>>
+		<<avery_mansion_chase_run>>
+		<br>
+
+	<</if>>
+<<elseif $enemyhealth lte 0>>
+	Avery collapses, but <<his>> eyes remain full of malice. <<tearful>> you turn and run before <<he>> can recover.
+	<<avery_mansion_victory>><<ggfrustration>><<garage>><<ldom>><<npcincr Avery rage 1>><<npcincr Avery dom -1>>
+	<<set $avery_mansion.chase.victory += 1>>
+	<<set $avery_mansion.chase.health -= 2>>
+	<br><br>
+	<<if $avery_mansion.chase.health lte 0>>
+		<<clotheson>>
+		<<endcombat>>
+		<<npc "Avery">><<person1>>
+		<<link [[Next|Mansion Chase Victory]]>><</link>>
+		<br>
+	<<else>>
+		<<clotheson>>
+		<<endcombat>>
+		<<npc "Avery">><<person1>>
+		<<avery_mansion_chase_run>>
+		<br>
+
+	<</if>>
+
+<<else>>
+	<<tearful>> you fall to the ground. You're too hurt to continue fighting.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<link [[Next|Mansion Chase Defeat]]>><</link>>
+	<br>
+<</if>>
+
+
+
+:: Mansion Chase Defeat
+<<effects>><<avery_mansion>>
+
+<<npc "Avery">><<person1>>
+Avery's rage overflows. <<He>>
+<<if playerIsPregnant() and playerAwareTheyArePregnant()>>
+	moves to kick you in the <<bellyDescription "pc">>, prompting you to instinctively cover it. <<He>> takes the opening and kicks you in the face instead. <<He>> then
+<<else>>
+	kicks you in the stomach, jabs you in the ribs,
+<</if>>
+pulls your hair, and spits on you. <<He>> pauses to catch <<his>> breath, then pulls you to your feet.<<ggtrauma>><<ggstress>><<gggpain>><<trauma 12>><<stress 12>><<pain 12>>
+<br><br>
+
+<<if $avery_mansion.schedule is "party_prepare" or $avery_mansion.schedule is "party">>
+	"You're lucky I need you for the party," <<he>> spits.
+	<br><br>
+	<<endevent>>
+	<<avery_mansion_chase_end>>
+	<<avery_mansion_end_links>>
+<<else>>
+	<<set $avery_mansion.away_timer to 24>>
+	<<set $avery_mansion.schedule to "away">>
+	<<endevent>>
+	<<avery_mansion_chase_end>>
+	<<npc Avery>><<person1>>
+	"I know how you could make it up to me," <<he>> says, hot anger replaced with cold malice, at least for now.
+	<<if $avery_mansion.jobs.includes("dungeon")>>
+		"Time for discipline."
+		<br><br>
+		<<if $bus is "avery_dungeon">>
+			<<link [[Next|Mansion Dungeon Intro 2]]>><<set $phase to 1>><</link>>
+			<br>
+		<<else>>
+			<<link [[Next|Mansion Dungeon Intro]]>><</link>>
+			<br>
+		<</if>>
+	<<else>>
+		"I've something to show you. There's a room you haven't seen yet."
+		<br><br>
+		<<link [[Next|Mansion Return Dungeon]]>><<set $avery_mansion.jobs.pushUnique("dungeon")>><</link>>
+		<br>
+	<</if>>
+
+<</if>>
+
+
+
+
+:: Mansion Chase Victory
+<<effects>>
+<<endevent>>
+<<npc "Avery">><<person1>>
+You escape from Avery again. <<He>> doesn't follow this time.
+<br><br>
+You hear the rumble of an engine, the rattle of the front gates, and the screech of Avery's tyres as <<he>> leaves the mansion.
+<br><br>
+
+<span class="green">You're safe, for now.</span>
+<br><br>
+<<set $avery_mansion.away_timer to 7>>
+<<set $avery_mansion.schedule to "away">>
+<<endevent>>
+<<avery_mansion_chase_end>>
+<<avery_mansion_end_links>>
+
+:: Mansion Chase Victory Escape
+<<effects>>
+<<endevent>>
+<<npc "Avery">><<person1>>
+You escape through the front gate, leaving the mansion and Avery behind. A minute later you hear a screech of tyres, coming up behind you. You take cover behind a tree.
+<br><br>
+
+Avery drives by, breaking the speed limit. <<He>> almost collides with a wall as <<he>> rounds the corner.
+<br><br>
+
+<span class="green">You're safe, for now.</span>
+<br><br>
+
+<<set $avery_mansion.away_timer to 7>>
+<<set $avery_mansion.schedule to "away">>
+<<endevent>>
+<<avery_mansion_chase_end>>
+
+<<link [[Next|Danube Street]]>><<set $eventskip to 1>><</link>>
+<br>
+
+:: Mansion Chase Lounge
+<<set $outside to 0>><<effects>>
+
+<<set $avery_mansion.chase.bus to "lounge">>
+You are in the lounge in Avery's mansion.
+
+<<avery_mansion_chase_state>>
+<<switch $avery_mansion.chase.state>>
+	<<case "victory">>
+		<<avery_mansion_trap_victory>>
+	<<case "caught">>
+		<<avery_mansion_chase_caught>>
+	<<default>>
+		<<avery_mansion_chase>>
+
+		<<if !$avery_mansion.chase.key_checked.includes("lounge") and $avery_mansion.chase.key is false>>
+			<<ind>><<link [[Search for the key (0:01)|Mansion Chase Lounge Key]]>><<set $avery_mansion.chase.key_checked.push("lounge")>><<pass 1>><<avery_mansion_chase_location>><</link>>
+			<br>
+		<</if>>
+		<<if !$avery_mansion.chase.gear.includes("marbles")>>
+			<<ind>><<link [[Grab some marbles (0:01)|Mansion Chase Lounge Marbles]]>><<set $avery_mansion.chase.gear.push("marbles")>><<pass 1>><<avery_mansion_chase_location>><</link>>
+			<br>
+		<</if>>
+
+		<<ind>><<link [[Hide under the table (0:01)|Mansion Chase Lounge Table]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<ind>><<link [[Hide behind the sofa (0:01)|Mansion Chase Lounge Sofa]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br><br>
+		<<icon "avery-display.png">><<link [[Display room (0:01)|Mansion Chase Display]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<icon "avery-hallway.png">><<link [[Hallway (0:01)|Mansion Chase Hallway 1 W]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+<</switch>>
+
+:: Mansion Chase Lounge Marbles
+<<effects>>
+
+You search for marbles in the cabinets. You find several bags, enough to cause a suitable disruption.
+<br><br>
+
+<<link [[Next|Mansion Chase Lounge]]>><</link>>
+<br>
+
+:: Mansion Chase Lounge Key
+<<effects>>
+
+You search the lounge for the key, scanning surfaces and checking the grooves of chairs.
+<<avery_housework_change "lounge" 1>>
+<<if $avery_mansion.chase.key_location is "lounge">>
+
+	<span class="green">You find it in the sofa,</span> fallen down the side of an arm.
+	<br><br>
+	<<link [[Next|Mansion Chase Lounge]]>><<set $avery_mansion.chase.key to true>><</link>>
+<<else>>
+	<span class="red">It's not here.</span>
+	<br><br>
+
+	<<link [[Next|Mansion Chase Lounge]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Chase Lounge Table
+<<effects>>
+
+
+<<if $avery_mansion.chase.avery_bus is "lounge">>
+	You scurry beneath the table in the middle of the lounge, right before Avery bursts through the door.
+	<<He>> scans the room,
+	<<if random(1, 3) is 3>>
+		<<rng 2>>
+		<<if $rng is 2>>
+			<span class="red">then lunges straight at your hiding place.</span> <<He>> grasps your hair, and hauls you from beneath the table.<<gpain>><<pain 4>>
+			<br><br>
+			<<avery_mansion_chase_caught>>
+		<<else>>
+			then almost throws the sofa aside in <<his>> haste to search behind it. <<He>> stares at the empty space a moment, <span class="green">then leaves the room.</span>
+			<br><br>
+
+			The coast clear, you crawl back out from beneath the table.
+			<br><br>
+
+			<<link [[Next|Mansion Chase Lounge]]>><<avery_mansion_chase_location "hallway_1_e">><</link>>
+			<br>
+		<</if>>
+	<<else>>
+		<span class="green">then leaves the room.</span>
+		<br><br>
+
+		The coast clear, you crawl back out from beneath the table.
+		<br><br>
+
+		<<link [[Next|Mansion Chase Lounge]]>><<avery_mansion_chase_location "hallway_1_e">><</link>>
+		<br>
+	<</if>>
+<<else>>
+	You scurry beneath the table in the middle of the lounge, and listen for Avery.
+
+	<<avery_mansion_chase>>
+
+	The coast clear, you crawl back out from beneath the table.
+	<br><br>
+	<<link [[Next|Mansion Chase Lounge]]>><</link>>
+	<br>
+<</if>>
+
+
+:: Mansion Chase Lounge Sofa
+<<effects>>
+
+<<if $avery_mansion.chase.avery_bus is "lounge">>
+	You dip beneath the sofa, and hear Avery throw open the lounge door a moment later.
+	You don't hear anything further, but you don't want to risk looking.
+	<<if random(1, 3) is 3>>
+		<<rng 2>>
+		<<if $rng is 2>>
+			<span class="red">Then the sofa moves away from you, revealing Avery's glare.</span> <<He>> grasps your hair and hauls you from beneath it.<<gpain>><<pain 4>>
+			<br><br>
+			<<avery_mansion_chase_caught>>
+		<<else>>
+			You hear a couple of footsteps, then another pause, then more footsteps as <span class="green">Avery leaves the room.</span>
+			<br><br>
+
+			The coast clear, you emerge from behind the sofa.
+			<br><br>
+
+			<<link [[Next|Mansion Chase Lounge]]>><<avery_mansion_chase_location "hallway_1_e">><</link>>
+			<br>
+		<</if>>
+	<<else>>
+		You hear the nothing for a moment. Then you hear <<his>> footsteps as <span class="green"><<he>> leaves the room.</span>
+		<br><br>
+
+		The coast clear, you crawl back out from beneath the sofa.
+		<br><br>
+
+		<<link [[Next|Mansion Chase Lounge]]>><<avery_mansion_chase_location "hallway_1_e">><</link>>
+		<br>
+	<</if>>
+<<else>>
+	You dip beneath the sofa, and listen for Avery.
+
+	<<avery_mansion_chase>>
+
+	The coast clear, you emerge from behind the sofa.
+	<br><br>
+	<<link [[Next|Mansion Chase Lounge]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Chase Dining
+<<set $outside to 0>><<effects>>
+
+<<set $avery_mansion.chase.bus to "dining">>
+You are in the dining room in Avery's mansion.
+
+<<avery_mansion_chase_state>>
+<<switch $avery_mansion.chase.state>>
+	<<case "victory">>
+		<<avery_mansion_trap_victory>>
+	<<case "caught">>
+		<<avery_mansion_chase_caught>>
+	<<default>>
+		<<avery_mansion_chase>>
+
+		<<ind>><<link [[Hide beneath the table (0:01)|Mansion Chase Dining Table]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<ind>><<link [[Hide behind the curtains (0:01)|Mansion Chase Dining Curtains]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br><br>
+		<<icon "avery-kitchen.png">><<link [[Kitchen (0:01)|Mansion Chase Kitchen]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<icon "avery-hallway.png">><<link [[Hallway (0:01)|Mansion Chase Hallway 1 E]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+<</switch>>
+
+:: Mansion Chase Dining Table
+<<effects>>
+
+<<if $avery_mansion.chase.avery_bus is "dining">>
+	You hide beneath the table, crawling between two chairs. There's a lot of space down here. You see Avery's feet enter the room. You watch as <<he>> paces down the room's length, closer, until <<his>> feet are inches from you. <<He>> passes by.
+	<br><br>
+	<<if random(1, 3) is 3>>
+		<<rng 2>>
+		<<if $rng is 2>>
+			It looks like <<hes>> about to leave the room, but then <<he>> turns and walks your way. <<He>> reaches beneath the table, <span class="red">and grasps your arm.</span> <<He>> pulls you from your hiding place.<<gpain>><<pain 4>>
+			<br><br>
+			<<avery_mansion_chase_caught>>
+		<<else>>
+			<<He>> reaches the other side of the room, pauses a moment, then tears away the curtains. Finding nothing, <span class="green"><<he>> continues to the next room.</span>
+			<br><br>
+
+			The coast clear, you crawl out from beneath the table.
+			<br><br>
+
+			<<link [[Next|Mansion Chase Dining]]>><<avery_mansion_chase_location "hallway_1_w">><</link>>
+			<br>
+		<</if>>
+	<<else>>
+		<<He>> reaches the other side of the room, turns for a moment, <span class="green">then leaves.</span>
+		<br><br>
+
+		The coast clear, you crawl out from beneath the table.
+		<br><br>
+
+		<<link [[Next|Mansion Chase Dining]]>><<avery_mansion_chase_location "hallway_1_w">><</link>>
+		<br>
+	<</if>>
+<<else>>
+	You hide beneath the table, crawling between two chairs. You listen for Avery.
+
+	<<avery_mansion_chase>>
+
+	The coast clear, you crawl out from beneath the table.
+	<br><br>
+	<<link [[Next|Mansion Chase Dining]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Chase Dining Curtains
+<<effects>>
+
+<<if $avery_mansion.chase.avery_bus is "dining">>
+	You hide behind the curtains. They're tall and voluminous enough to conceal you. You hope. You hear Avery enter the room. <<He>> moves without slowing, until <<hes>> inches from your hiding place.
+	<br><br>
+	<<if random(1, 3) is 3>>
+		<<rng 2>>
+		<<if $rng is 2>>
+			<<He>> stops, <span class="red">then tears away the curtains, revealing you.</span>
+			<br><br>
+			<<avery_mansion_chase_caught>>
+		<<else>>
+			<<He>> stops for a moment, then you hear <<his>> fist slam into the table. <span class="green"><<He>> leaves the room.</span>
+			<br><br>
+
+			The coast clear, you emerge from behind the curtains.
+			<br><br>
+
+			<<link [[Next|Mansion Chase Dining]]>><<avery_mansion_chase_location "hallway_1_w">><</link>>
+			<br>
+		<</if>>
+	<<else>>
+		<<He>> continues past you, <span class="green">and into another room.</span>
+		<br><br>
+
+		The coast clear, you emerge from behind the curtains.
+		<br><br>
+
+		<<link [[Next|Mansion Chase Dining]]>><<avery_mansion_chase_location "hallway_1_w">><</link>>
+		<br>
+	<</if>>
+<<else>>
+	You hide behind the curtains. They're tall and voluminous enough to conceal you. You hope.
+
+	<<avery_mansion_chase>>
+
+	The coast clear, you emerge from behind the curtains.
+	<br><br>
+	<<link [[Next|Mansion Chase Dining]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Chase Kitchen
+<<set $outside to 0>><<effects>>
+
+<<set $avery_mansion.chase.bus to "kitchen">>
+You are in the kitchen in Avery's mansion.
+
+<<avery_mansion_chase_state>>
+<<switch $avery_mansion.chase.state>>
+	<<case "victory">>
+		<<avery_mansion_trap_victory>>
+	<<case "caught">>
+		<<avery_mansion_chase_caught>>
+	<<default>>
+		<<avery_mansion_chase>>
+
+		<<if !$avery_mansion.chase.gear.includes("oil")>>
+			<<ind>><<link [[Grab some oil|Mansion Chase Kitchen Oil]]>><<set $avery_mansion.chase.gear.push("oil")>><<pass 1>><<avery_mansion_chase_location>><</link>>
+			<br>
+		<</if>>
+		<<ind>><<link [[Hide in a cupboard (0:01)|Mansion Chase Kitchen Cupboard]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<ind>><<link [[Hide in the freezer (0:01)|Mansion Chase Kitchen Freezer]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br><br>
+		<<icon "avery-dining.png">><<link [[Dining room (0:01)|Mansion Chase Dining]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<icon "avery-garage.png">><<link [[Garage (0:01)|Mansion Chase Garage]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<icon "avery-hallway.png">><<link [[Hallway (0:01)|Mansion Chase Hallway 1 E]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+<</switch>>
+
+:: Mansion Chase Kitchen Oil
+<<effects>>
+
+You grab a full bottle of cooking oil from one of the higher cupboards.
+<br><br>
+
+<<link [[Next|Mansion Chase Kitchen]]>><</link>>
+<br>
+
+:: Mansion Chase Kitchen Cupboard
+<<effects>>
+
+<<if $avery_mansion.chase.avery_bus is "kitchen">>
+	You crouch and hide within one of the cupboards beneath a counter. It doesn't quite shut properly, letting you see out, and see Avery enter the room.
+	<br><br>
+	<<if random(1, 3) is 3>>
+		<<rng 2>>
+		<<if $rng is 2>>
+			<<He>> starts throwing open cupboards in a haphazard way, missing most of them. <span class="red"><<He>> doesn't miss yours.</span> <<He>> grasps your shoulders and pulls you onto the kitchen floor. <<gpain>><<pain 4>>
+			<br><br>
+			<<avery_mansion_chase_caught>>
+		<<else>>
+			<<He>> starts throwing open cupboards in a haphazard way, until <<he>> reaches the freezer. <<He>> stares at the interior, as if <<he>> could make you appear there through sheer force of will, then slams it shut and <span class="green">continues to the next room.</span>
+			<br><br>
+
+			The coast clear, you emerge from the cupboard.
+			<br><br>
+
+			<<link [[Next|Mansion Chase Kitchen]]>><<avery_mansion_chase_location "hallway_1_w">><</link>>
+			<br>
+		<</if>>
+	<<else>>
+		Avery takes out some of <<his>> anger by opening and slamming some drawers, before <span class="green">continuing to the next room.</span>
+		<br><br>
+
+		The coast clear, you emerge from the cupboard.
+		<br><br>
+
+		<<link [[Next|Mansion Chase Kitchen]]>><<avery_mansion_chase_location "hallway_1_w">><</link>>
+		<br>
+	<</if>>
+<<else>>
+	You crouch and hide within one of the cupboards beneath a counter. It doesn't quite shut properly, letting you see through the slit.
+
+	<<avery_mansion_chase>>
+
+	The coast clear, you emerge from the cupboard.
+	<br><br>
+	<<link [[Next|Mansion Chase Kitchen]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Chase Kitchen Freezer
+<<effects>>
+
+<<if $avery_mansion.chase.avery_bus is "kitchen">>
+	You throw open the freezer, and step inside. The cold feels refreshing, for now. You hear Avery enter a moment later.
+	<br><br>
+	<<if random(1, 3) is 3>>
+		<<rng 2>>
+		<<if $rng is 2>>
+			You hear <<him>> opening cupboards in a haphazard way. <span class="red">Then <<he>> opens the freezer.</span> <<His>> smile is terrible. <<He>> grasps your arm, and pulls you out. <<gpain>><<pain 4>>
+			<br><br>
+			<<avery_mansion_chase_caught>>
+		<<else>>
+			You hear <<him>> opening cupboards in a haphazard way, before <span class="green">leaving the room.</span>
+			<br><br>
+
+			The coast clear, you emerge from the freezer just as you start to shiver.
+			<br><br>
+
+			<<link [[Next|Mansion Chase Kitchen]]>><<avery_mansion_chase_location "hallway_1_w">><</link>>
+			<br>
+		<</if>>
+	<<else>>
+		You hear <<his>> foosteps. <<He>> walks into the centre of the room, pauses a moment, <span class="green">then continues on to the next.</span>
+		<br><br>
+
+		The coast clear, you emerge from the freezer, just as you were starting to shiver.
+		<br><br>
+
+		<<link [[Next|Mansion Chase Kitchen]]>><<avery_mansion_chase_location "hallway_1_w">><</link>>
+		<br>
+	<</if>>
+<<else>>
+	You throw open the freezer, and step inside. The cold feels refreshing, for now.
+
+	<<avery_mansion_chase>>
+
+	The coast clear, you emerge from the freezer, just as you were starting to shiver.
+	<br><br>
+	<<link [[Next|Mansion Chase Kitchen]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Chase Display
+<<set $outside to 0>><<effects>>
+
+<<set $avery_mansion.chase.bus to "display">>
+You are in the display room in Avery's mansion.
+
+<<avery_mansion_chase_state>>
+<<switch $avery_mansion.chase.state>>
+	<<case "victory">>
+		<<avery_mansion_trap_victory>>
+	<<case "caught">>
+		<<avery_mansion_chase_caught>>
+	<<default>>
+		<<avery_mansion_chase>>
+
+		<<ind>><<link [[Hide behind largest display (0:01)|Mansion Chase Display Hide]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br><br>
+		<<icon "avery-lounge.png">><<link [[Lounge (0:01)|Mansion Chase Lounge]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<icon "avery-hallway.png">><<link [[Hallway (0:01)|Mansion Chase Hallway 1 W]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+<</switch>>
+
+
+:: Mansion Chase Display Hide
+<<effects>>
+
+<<if $avery_mansion.chase.avery_bus is "display">>
+	You hide behind one of the larger displays. It conceals you from both entrances, but you still feel exposed.
+	<br><br>
+	<<if random(1, 3) is 3>>
+		You hear Avery enter a moment later. <<He>> roams between the displays. You try to keep the display between you and Avery, <span class="red">but it's no use.</span> <<He>> hears your feet, and corners you at the edge of the room.
+		<br><br>
+		<<avery_mansion_chase_caught>>
+	<<else>>
+		You hear Avery enter a moment later, <span class="green">but <<he>> doesn't stop.</span> <<He>> continues on to the next room.
+		<br><br>
+
+		The coast clear, you step out into the open.
+		<br><br>
+
+		<<link [[Next|Mansion Chase Display]]>><<avery_mansion_chase_location "hallway_1_e">><</link>>
+		<br>
+	<</if>>
+<<else>>
+	You hide behind one of the larger displays. It conceals you from both entrances, but you still feel rather exposed.
+
+	<<avery_mansion_chase>>
+
+	The coast clear, you step out into the open.
+	<br><br>
+	<<link [[Next|Mansion Chase Display]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Chase Garage
+<<set $outside to 0>><<effects>>
+
+<<set $avery_mansion.chase.bus to "garage">>
+You are in the garage in Avery's mansion.
+
+<<avery_mansion_chase_state>>
+<<switch $avery_mansion.chase.state>>
+	<<case "victory">>
+		<<avery_mansion_trap_victory>>
+	<<case "caught">>
+		<<avery_mansion_chase_caught>>
+	<<case "trap">>
+		<<He>> freezes as <<he>> notices the scratches on <<his>> cars. <<He>> forgets you a moment, and presses <<his>> hands against the damage as if trying to stem a flow of blood.<<gfrustration>><<set $avery_mansion.chase.health -= 1>>
+		<br><br>
+
+		You escape before <<he>> directs <<his>> ire your way.
+		<br><br>
+		<<avery_mansion_chase_run>>
+	<<default>>
+		<<avery_mansion_chase>>
+
+		<<if !$avery_mansion.chase.key_checked.includes("garage") and $avery_mansion.chase.key is false>>
+			<<ind>><<link [[Search for the key (0:01)|Mansion Chase Garage Key]]>><<set $avery_mansion.chase.key_checked.push("garage")>><<pass 1>><<avery_mansion_chase_location>><</link>>
+			<br>
+		<</if>>
+
+		<<if $avery_mansion.chase.key is true and !$avery_mansion.chase.trap_done.includes("garage")>>
+			<<ind>><<link [[Scratch up Avery's cars (0:01)|Mansion Chase Garage Scratch]]>><<pass 1>><<control 10>><<stress -6>><<avery_mansion_chase_location>><<avery_mansion_chase_trap "garage">><</link>><<gcontrol>><<lstress>>
+			<br>
+		<</if>>
+
+		<<ind>><<link [[Hide beneath the everyday car (0:01)|Mansion Chase Garage Everyday]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<ind>><<link [[Hide behind the sports car (0:01)|Mansion Chase Garage Sports]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br><br>
+		<<icon "avery-kitchen.png">><<link [[Kitchen (0:01)|Mansion Chase Kitchen]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<icon "avery-garden.gif">><<link [[Garden (0:01)|Mansion Chase Garden]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+<</switch>>
+
+:: Mansion Chase Garage Key
+<<effects>>
+
+You search the garage for the key, peering through the car windows.
+<<if $avery_mansion.chase.key_location is "garage">>
+
+	<span class="green">You spy it on a counter,</span> half-hidden by a pair of gloves.
+	<br><br>
+	<<link [[Next|Mansion Chase Garage]]>><<set $avery_mansion.chase.key to true>><</link>>
+<<else>>
+	<span class="red">It's not here.</span>
+	<br><br>
+
+	<<link [[Next|Mansion Chase Garage]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Chase Garage Scratch
+<<effects>>
+
+You press the key to the front gate against Avery's everyday car, and walk around it, leaving a noticeable scrape in the paint all around it. You repeat the same for the sports car, and step back to admire your handiwork.
+<br><br>
+
+<<link [[Next|Mansion Chase Garage]]>><</link>>
+<br>
+
+:: Mansion Chase Garage Everyday
+<<effects>>
+
+
+<<if $avery_mansion.chase.avery_bus is "garage">>
+	You hide beneath Avery's everyday car. You see Avery's feet as <<he>> steps into the room.
+	<br><br>
+	<<if $avery_mansion.chase.trap.includes("garage")>>
+		<<He>> freezes as <<he>> notices the scratches on <<his>> cars. <<He>> forgets you a moment, and presses <<his>> hands against the damage as if trying to stem a flow of blood.<<gfrustration>><<set $avery_mansion.chase.health -= 1>>
+		<br><br>
+
+		You escape before <<he>> directs <<his>> ire your way.
+		<<set $avery_mansion.chase.trap.delete("garage")>>
+		<br><br>
+		<<avery_mansion_chase_run>>
+	<<elseif random(1, 3) is 3>>
+		<<rng 2>>
+		<<if $rng is 2>>
+			<<He>> walks around each car, showing neither any of the wrath <<he>> gives to <<his>> other possessions. Then <<his>> face appears, <span class="red">staring straight at you.</span> <<He>> pulls you into the open. <<gpain>><<pain 4>>
+			<br><br>
+			<<avery_mansion_chase_caught>>
+		<<else>>
+			<<He>> walks around each car, showing neither any of the wrath <<he>> gives to <<his>> other possessions. You see the back of <<his>> head as <<he>> searches beneath the sports car, but <<he>> doesn't turn around. <span class="green"><<He>> leaves the room.</span>
+			<br><br>
+
+			The coast clear, you emerge from beneath the car.
+			<br><br>
+
+			<<link [[Next|Mansion Chase Garage]]>><<avery_mansion_chase_location "hallway_1_w">><</link>>
+			<br>
+		<</if>>
+	<<else>>
+		<<He>> pauses, then <span class="green">continues to the next room</span> without stopping again.
+		<br><br>
+
+		The coast clear, you emerge from beneath the car.
+		<br><br>
+
+		<<link [[Next|Mansion Chase Garage]]>><<avery_mansion_chase_location "hallway_1_w">><</link>>
+		<br>
+	<</if>>
+<<else>>
+	You hide beneath Avery's everyday car.
+
+	<<avery_mansion_chase>>
+
+	The coast clear, you emerge from beneath the car.
+	<br><br>
+	<<link [[Next|Mansion Chase Garage]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Chase Garage Sports
+<<effects>>
+
+<<if $avery_mansion.chase.avery_bus is "garage">>
+	You drop the ground and hide beneath Avery's sports car. You see Avery's feet appear at the room's entrance a moment later.
+	<br><br>
+	<<if $avery_mansion.chase.trap.includes("garage")>>
+		<<He>> freezes as <<he>> notices the scratches on <<his>> cars. <<He>> forgets you a moment, and presses <<his>> hands against the damage as if trying to stem a flow of blood.<<gfrustration>><<set $avery_mansion.chase.health -= 1>>
+		<br><br>
+
+		You escape before <<he>> directs <<his>> ire your way.
+		<<set $avery_mansion.chase.trap.delete("garage")>>
+		<br><br>
+		<<avery_mansion_chase_run>>
+	<<elseif random(1, 3) is 3>>
+		<<rng 2>>
+		<<if $rng is 2>>
+			<<He>> walks around each car, showing them none of the wrath reserved for <<his>> other possessions. Then <<he>> drops to <<his>> knees, and looks under the sports car, <span class="red">staring right at you.</span> <<He>> pulls you from your hiding place.<<gpain>><<pain 4>>
+			<br><br>
+			<<avery_mansion_chase_caught>>
+		<<else>>
+			<<He>> walks around each car, showing them none of the wrath reserved for <<his>> other possessions. Then <<he>> drops to <<his>> knees to look under <<his>> everyday car. <<He>> doesn't turn. <<He>> climbs to <<his>> feet, <span class="green">and leaves the room.</span>
+			<br><br>
+
+			The coast clear, you emerge from your hiding place.
+			<br><br>
+
+			<<link [[Next|Mansion Chase Garage]]>><<avery_mansion_chase_location "hallway_1_w">><</link>>
+			<br>
+		<</if>>
+	<<else>>
+		<span class="green"><<He>> passes through without stopping.</span>
+		<br><br>
+
+		The coast clear, you crawl out from beneath the car.
+		<br><br>
+
+		<<link [[Next|Mansion Chase Garage]]>><<avery_mansion_chase_location "hallway_1_w">><</link>>
+		<br>
+	<</if>>
+<<else>>
+	You drop to the ground and hide beneath Avery's sports car.
+
+	<<avery_mansion_chase>>
+
+	The coast clear, you crawl out from beneath the car.
+	<br><br>
+	<<link [[Next|Mansion Chase Garage]]>><</link>>
+	<br>
+<</if>>
+
+
+:: Mansion Chase Garden
+<<set $outside to 1>><<effects>>
+
+<<set $avery_mansion.chase.bus to "garden">>
+You are in the garden outside Avery's mansion.
+
+<<avery_mansion_chase_state>>
+<<switch $avery_mansion.chase.state>>
+	<<case "victory">>
+		<<avery_mansion_trap_victory>>
+	<<case "caught">>
+		<<avery_mansion_chase_caught>>
+	<<default>>
+		<<avery_mansion_chase>>
+
+		<<ind>><<link [[Hide in a bush (0:01)|Mansion Chase Garden Bush]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<ind>><<link [[Hide behind a statue (0:01)|Mansion Chase Garden Statue]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br><br>
+		<<icon "front-gate.png">><<link [[Check front gate (0:01)|Mansion Chase Gate]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<icon "avery-atrium.png">><<link [[Atrium (0:01)|Mansion Chase Hallway 1]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<icon "avery-garage.png">><<link [[Garage (0:01)|Mansion Chase Garage]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<icon "avery-pool.png">><<link [[Pool (0:01)|Mansion Chase Pool]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+<</switch>>
+
+
+:: Mansion Chase Gate
+<<effects>>
+
+The front gate stands before you, barbed and imposing.
+
+<<if $avery_mansion.chase.key is true>>
+	You insert the key, <span class="green">and it opens.</span> You're free to escape.
+	<br><br>
+	<<link [[Escape (0:03)|Mansion Chase Victory Escape]]>><<pass 3>><</link>>
+	<br>
+	<<link [[Return to the garden|Mansion Chase Garden]]>><</link>>
+	<br>
+<<else>>
+	You try to open it, but it's locked. <span class="purple">You'll need a key.</span> It'll be somewhere in the mansion.
+	<br><br>
+
+	<<link [[Next|Mansion Chase Garden]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Chase Garden Bush
+<<effects>>
+
+<<if $avery_mansion.chase.avery_bus is "garden">>
+	You hide behind a bush at the corner of Avery's garden, out of the way. You peer between the branches, and see Avery emerge outside.
+	<br><br>
+	<<if random(1, 3) is 3>>
+		<<rng 2>>
+		<<if $rng is 2>>
+			<<He>> roams between the plants, treading on flowers and ripping branches. <<He>> steps beside your hiding place, and parts the bush with both hands, <span class="red">revealing you.</span>
+			<br><br>
+			<<avery_mansion_chase_caught>>
+		<<else>>
+			<<He>> roams between the plants, treading on flowers, ripping branches, and toppling a statue. <span class="green"><<He>> moves on,</span> taking <<his>> terror elsewhere.
+			<br><br>
+
+			The coast clear, you step out into the open.
+			<br><br>
+
+			<<link [[Next|Mansion Chase Garden]]>><<avery_mansion_chase_location "lounge">><</link>>
+			<br>
+		<</if>>
+	<<else>>
+		Avery roams between the plants, treading on flowers and ripping branches. <span class="green"><<He>> moves on.</span> Taking <<his>> terror elsewhere.
+		<br><br>
+
+		The coast clear, you step out into the open.
+		<br><br>
+
+		<<link [[Next|Mansion Chase Garden]]>><<avery_mansion_chase_location "lounge">><</link>>
+		<br>
+	<</if>>
+<<else>>
+	You hide behind a bush at the corner of Avery's garden, out of the way.
+
+	<<avery_mansion_chase>>
+
+	The coast clear, you step out into the open.
+	<br><br>
+	<<link [[Next|Mansion Chase Garden]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Chase Garden Statue
+<<effects>>
+
+<<if $avery_mansion.chase.avery_bus is "garden">>
+	You behind a statue in the corner of the garden. You peer between its limbs, and see Avery emerge outside.
+	<br><br>
+	<<if random(1, 3) is 3>>
+		<<rng 2>>
+		<<if $rng is 2>>
+			<<He>> roams through the garden, trampling flowers and ripping off branches. When <<he>> reaches the statue, <<he>> gives is a shove, forcing you to step away, <span class="red">into the open.</span>
+			<br><br>
+			<<avery_mansion_chase_caught>>
+		<<else>>
+			<<He>> roams through the garden, trampling flowers and ripping the branches off bushes to see behind them. <span class="green"><<He>> storms away,</span> taking <<his>> terror elsewhere.
+			<br><br>
+
+			The coast clear, you step out from behind the statue.
+			<br><br>
+
+			<<link [[Next|Mansion Chase Garden]]>><<avery_mansion_chase_location "lounge">><</link>>
+			<br>
+		<</if>>
+	<<else>>
+		<<He>> glares at the garden, <span class="green">but doesn't stop here.</span>
+		<br><br>
+
+		The coast clear, you step out from behind the statue.
+		<br><br>
+
+		<<link [[Next|Mansion Chase Garden]]>><<avery_mansion_chase_location "lounge">><</link>>
+		<br>
+	<</if>>
+<<else>>
+	You hide behind a statue in the corner of the garden.
+
+	<<avery_mansion_chase>>
+
+	The coast clear, you step out from behind the statue.
+	<br><br>
+	<<link [[Next|Mansion Chase Garden]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Chase Pool
+<<set $outside to 1>><<effects>>
+
+<<set $avery_mansion.chase.bus to "pool">>
+You are by the pool outside Avery's mansion.
+
+<<if $avery_mansion.chase.trap.includes("pool")>>
+	You walk around the spilled oil.
+<</if>>
+<br><br>
+
+<<avery_mansion_chase_state>>
+<<switch $avery_mansion.chase.state>>
+	<<case "victory">>
+		<<avery_mansion_trap_victory>>
+	<<case "caught">>
+		<<avery_mansion_chase_caught>>
+	<<case "trap">>
+		<<He>> makes it three metres from you. Then <<he>> slips on the oil. One leg sprawls, <<his>> face contorts in shock, and <<he>> falls into the pool.<<gfrustration>><<set $avery_mansion.chase.health -= 1>>
+		<br><br>
+
+		You escape before <<he>> can climb out.
+		<br><br>
+		<<avery_mansion_chase_run>>
+	<<default>>
+		<<avery_mansion_chase>>
+
+		<<if !$avery_mansion.chase.trap.includes("pool") and $avery_mansion.chase.gear.includes("oil")>>
+			<<ind>><<link [[Squirt cooking oil around the edge of the pool (0:01)|Mansion Chase Pool Trap]]>><<pass 1>><<avery_mansion_chase_location>><<avery_mansion_chase_trap "pool">><<set $avery_mansion.chase.gear.delete("oil")>><</link>>
+			<br>
+		<</if>>
+		<<icon "avery-pool.png">><<link [[Hide in the pool (0:01)|Mansion Chase Pool Hide]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br><br>
+		<<icon "avery-hallway.png">><<link [[Go inside (0:01)|Mansion Chase Hallway 1 W]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<icon "avery-garden.gif">><<link [[Garden (0:01)|Mansion Chase Garden]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+<</switch>>
+
+:: Mansion Chase Pool Trap
+<<effects>>
+
+You empty the bottle of cooking oil over the path around the pool, making it a dangerous hazard.
+<br><br>
+
+<<link [[Next|Mansion Chase Pool]]>><</link>>
+<br>
+
+:: Mansion Chase Pool Hide
+<<water>><<waterbr 2>><<effects>>
+
+<<if $avery_mansion.chase.avery_bus is "pool">>
+	You take a deep breath and slip into the pool, keeping the splash to a minimum.
+	<br><br>
+	<<if random(1, 3) is 3>>
+		You look up, and see Avery step to the edge of the pool. <<His>> gaze travels above it, scanning the far wall. <span class="red">Then <<his>> attention snaps downwards,</span> and <<he>> looks right at you. <<He>> grasps your shoulders, and pulls you onto dry land.<<gpain>><<pain 4>>
+		<br><br>
+		<<avery_mansion_chase_caught>>
+	<<else>>
+		You look up, and see Avery step to the edge of the pool. <<His>> gaze travels above it, scanning the far wall. <span class="green">then <<he>> walks away.</span>
+		<br><br>
+
+		You peek above the edge of the pool to make sure <<hes>> gone, then climb out.
+		<br><br>
+
+		<<link [[Next|Mansion Chase Pool]]>><<avery_mansion_chase_location "hallway_1">><</link>>
+		<br>
+	<</if>>
+<<else>>
+	You take a deep breath and slip into the pool, keeping the splash to a minimum.
+
+	<<avery_mansion_chase>>
+
+	You peek above the edge to make sure <<hes>> really elsewhere, then climb out.
+	<br><br>
+	<<link [[Next|Mansion Chase Pool]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Chase Bedroom
+<<set $outside to 0>><<effects>>
+
+<<set $avery_mansion.chase.bus to "bedroom">>
+You are in Avery's bedroom.
+
+<<avery_mansion_chase_state>>
+<<switch $avery_mansion.chase.state>>
+	<<case "victory">>
+		<<avery_mansion_trap_victory>>
+	<<case "caught">>
+		<<avery_mansion_chase_caught>>
+	<<default>>
+		<<avery_mansion_chase>>
+
+		<<if !$avery_mansion.chase.key_checked.includes("bedroom") and $avery_mansion.chase.key is false>>
+			<<ind>><<link [[Search for the key (0:01)|Mansion Chase Bedroom Key]]>><<set $avery_mansion.chase.key_checked.push("bedroom")>><<pass 1>><<avery_mansion_chase_location>><</link>>
+			<br>
+		<</if>>
+
+		<<ind>><<link [[Hide under the bed (0:01)|Mansion Chase Bedroom Bed]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<ind>><<link [[Hide in the hot tub (0:01)|Mansion Chase Bedroom Tub]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<ind>><<link [[Hide in the wardrobe (0:01)|Mansion Chase Bedroom Wardrobe]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br><br>
+		<<icon "avery-bathroom.png">><<link [[Bathroom (0:01)|Mansion Chase Bathroom]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<icon "avery-hallway.png">><<link [[Hallway (0:01)|Mansion Chase Hallway 2 W]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+<</switch>>
+
+:: Mansion Chase Bedroom Key
+<<effects>>
+
+You search the bedroom for the key, even checking in the pockets of clothes Avery has recently worn.
+<<avery_housework_change "bedroom" 1>>
+<<if $avery_mansion.chase.key_location is "bedroom">>
+
+	<span class="green">You find it in the bedside cabinet,</span> on Avery's side of the bed.
+	<br><br>
+	<<link [[Next|Mansion Chase Bedroom]]>><<set $avery_mansion.chase.key to true>><</link>>
+<<else>>
+	<span class="red">It's not here.</span>
+	<br><br>
+
+	<<link [[Next|Mansion Chase Bedroom]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Chase Bedroom Bed
+<<effects>>
+
+<<if $avery_mansion.chase.avery_bus is "bedroom">>
+	You drop prone and wiggle beneath the bed. You can see a sliver of the room from here. Avery's feet enter the room. You assume the rest of <<him>> is also present.
+	<br><br>
+	<<if random(1, 3) is 3>>
+		<<rng 3>>
+		<<if $rng is 3>>
+			<<He>> steps through the room, <<his>> pace slow, until <<he>> stands right beside the bed. Then <<he>> shoves it several feet to the side, <span class="red">revealing you.</span>
+			<<avery_housework_change "bedroom" 1>>
+			<br><br>
+			<<avery_mansion_chase_caught>>
+		<<elseif $rng is 2>>
+			<<He>> walks through the bedroom, to the balcony. <<He>> stops there a moment, <span class="green">then leaves the room.</span>
+			<br><br>
+
+			The coast clear, you crawl out from beneath the bed.
+			<br><br>
+
+			<<link [[Next|Mansion Chase Bedroom]]>><<avery_mansion_chase_location "hallway_2">><</link>>
+			<br>
+		<<else>>
+			<<He>> walks through the bedroom, and disappears into the wardrobe. <<He>> steps out a moment later, <span class="green">and leaves the room.</span>
+			<br><br>
+
+			The coast clear, you crawl out from your hiding place.
+			<br><br>
+
+			<<link [[Next|Mansion Chase Bedroom]]>><<avery_mansion_chase_location "hallway_2">><</link>>
+			<br>
+		<</if>>
+	<<else>>
+		Avery steps by, slowly, as if scanning the bedroom. <span class="green"><<His>> feet vanish into the next room.</span>
+		<br><br>
+
+		The coast clear, you crawl out from beneath the bed.
+		<br><br>
+
+		<<link [[Next|Mansion Chase Bedroom]]>><<avery_mansion_chase_location "hallway_2">><</link>>
+		<br>
+	<</if>>
+<<else>>
+	You drop prone and wiggle beneath the bed. You see a sliver of the room from here.
+
+	<<avery_mansion_chase>>
+
+	The coast clear, you crawl out from beneath the bed.
+	<br><br>
+	<<link [[Next|Mansion Chase Bedroom]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Chase Bedroom Tub
+<<effects>>
+
+<<if $avery_mansion.chase.avery_bus is "bedroom">>
+	You step out onto the balcony, and climb into the hot tub, keeping low. You hear Avery's footsteps enter the bedroom.
+	<br><br>
+	<<if random(1, 3) is 3>>
+		<<rng 3>>
+		<<if $rng is 3>>
+			You hear <<him>> walk, closer, until <<he>> appears above, <span class="red">staring straight at you.</span> <<He>> pulls you from the hot tub.<<gpain>><<pain 4>>
+			<br><br>
+			<<avery_mansion_chase_caught>>
+		<<elseif $rng is 2>>
+			You hear the bed scrape against the floor as Avery moves it. There's a pause, <span class="green">then <<he>> leaves the room.</span>
+			<<avery_housework_change "bedroom" 1>>
+			<br><br>
+
+			The coast clear, you climb from the hot tub, and step back into the bedroom.
+			<br><br>
+
+			<<link [[Next|Mansion Chase Bedroom]]>><<avery_mansion_chase_location "hallway_2">><</link>>
+			<br>
+		<<else>>
+			You hear <<him>> walk across the room, followed by silence. You almost rise from your hiding place, but then you hear <<him>> again. <<He>> leaves the room. You wait a moment, then peek above the hot tub to make sure <<hes>> gone.
+			<br><br>
+
+			The coast clear, you climb out, and step back into the bedroom.
+			<br><br>
+
+			<<link [[Next|Mansion Chase Bedroom]]>><<avery_mansion_chase_location "hallway_2">><</link>>
+			<br>
+		<</if>>
+	<<else>>
+		You hear <<him>> walk through the room without stopping.
+		<br><br>
+
+		The coast clear, you climb from the hot tub, and step back into the bedroom.
+		<br><br>
+
+		<<link [[Next|Mansion Chase Bedroom]]>><<avery_mansion_chase_location "hallway_2">><</link>>
+		<br>
+	<</if>>
+<<else>>
+	You step out onto the balcony, and climb into the hot tub, keeping low.
+
+	<<avery_mansion_chase>>
+
+	The coast clear, you climb from the hot tub, and step back into the bedroom.
+	<br><br>
+	<<link [[Next|Mansion Chase Bedroom]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Chase Bedroom Wardrobe
+<<effects>>
+
+<<if $avery_mansion.chase.avery_bus is "bedroom">>
+	You hide in the walk-in wardrobe, leaving the door ajar, so you can peek through. Avery enters the bedroom a moment later, and stops to scan the room.
+	<br><br>
+	<<if random(1, 3) is 3>>
+		<<rng 3>>
+		<<if $rng is 3>>
+			<<He>> walks towards the wardrobe. You step back, further into the dark, but Avery's mouth twists into a smile. <<He>> throws open the door, <span class="red">revealing you.</span>
+			<br><br>
+			<<avery_mansion_chase_caught>>
+		<<elseif $rng is 2>>
+			You watch as <<he>> walks to the bed, and shoves it aside. <<He>> pauses for a moment, as if surprised to not find you there, <span class="green">then leaves the room.</span>
+			<<avery_housework_change "bedroom" 1>>
+			<br><br>
+
+			The coast clear, you open the door and step out into the bedroom.
+			<br><br>
+
+			<<link [[Next|Mansion Chase Bedroom]]>><<avery_mansion_chase_location "hallway_2">><</link>>
+			<br>
+		<<else>>
+			<<He>> walks onto the balcony, and peers into the hot tub. <<He>> spins, and scans the room again. <<His>> eyes linger on your hiding place, <span class="green">then <<he>> leaves the room.</span>
+			<br><br>
+
+			The coast clear, you open the door and step out into the bedroom.
+			<br><br>
+
+			<<link [[Next|Mansion Chase Bedroom]]>><<avery_mansion_chase_location "hallway_2">><</link>>
+			<br>
+		<</if>>
+	<<else>>
+		Avery only waits a moment, <span class="green">before continuing to the next room.</span>
+		<br><br>
+
+		The coast clear, you open the door and step out into the bedroom.
+		<br><br>
+
+		<<link [[Next|Mansion Chase Bedroom]]>><<avery_mansion_chase_location "hallway_2">><</link>>
+		<br>
+	<</if>>
+<<else>>
+	You hide in the walk-in wardrobe, leaving the door ajar so you can peek through.
+
+	<<avery_mansion_chase>>
+
+	The coast clear, you open the door and step out into the bedroom.
+	<br><br>
+	<<link [[Next|Mansion Chase Bedroom]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Chase Bathroom
+<<set $outside to 0>><<effects>>
+
+<<set $avery_mansion.chase.bus to "bathroom">>
+You are in Avery's bathroom.
+
+<<avery_mansion_chase_state>>
+<<switch $avery_mansion.chase.state>>
+	<<case "victory">>
+		<<avery_mansion_trap_victory>>
+	<<case "caught">>
+		<<avery_mansion_chase_caught>>
+	<<default>>
+		<<avery_mansion_chase>>
+
+		<<if !$avery_mansion.chase.key_checked.includes("bathroom") and $avery_mansion.chase.key is false>>
+			<<ind>><<link [[Search for the key (0:01)|Mansion Chase Bathroom Key]]>><<set $avery_mansion.chase.key_checked.push("bathroom")>><<pass 1>><<avery_mansion_chase_location>><</link>>
+			<br>
+		<</if>>
+
+		<<ind>><<link [[Hide in the bath (0:01)|Mansion Chase Bathroom Bath]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<icon "avery-bedroom.png">><<link [[Bedroom (0:01)|Mansion Chase Bedroom]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+<</switch>>
+
+:: Mansion Chase Bathroom Key
+<<effects>>
+
+You search the bathroom for the key, checking the medicine cupboard, and anywhere it might have been deposited in haste.
+<<avery_housework_change "bathroom" 1>>
+<<if $avery_mansion.chase.key_location is "bathroom">>
+	<span class="green">You find it by Avery's toothbrush.</span>
+	<br><br>
+	<<link [[Next|Mansion Chase Bathroom]]>><<set $avery_mansion.chase.key to true>><</link>>
+<<else>>
+	<span class="red">It's not here.</span>
+	<br><br>
+
+	<<link [[Next|Mansion Chase Bathroom]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Chase Bathroom Bath
+<<effects>>
+
+<<if $avery_mansion.chase.avery_bus is "bathroom">>
+	You climb into the bath, and lie low. Avery enters the room. Close enough to hear <<his>> breath.
+	<br><br>
+	<<if random(1, 3) is 3>>
+		<<He>> steps closer, and glances down. That's all it takes. <span class="red"><<He>> glares at you,</span> then pulls you from the bath.<<gpain>><<pain 4>>
+		<br><br>
+		<<avery_mansion_chase_caught>>
+	<<else>>
+		You hear <<him>> take another step, then <<he>> stands still. <<He>> takes three breaths. <span class="green">Then <<he>> turns and leaves.</span>
+		<br><br>
+
+		The coast clear, you climb out the bath.
+		<br><br>
+
+		<<link [[Next|Mansion Chase Bathroom]]>><<avery_mansion_chase_location "hallway_2">><</link>>
+		<br>
+	<</if>>
+<<else>>
+	You climb into the bath, and lie low.
+
+	<<avery_mansion_chase>>
+
+	The coast clear, you climb out the bath.
+	<br><br>
+	<<link [[Next|Mansion Chase Bathroom]]>><</link>>
+	<br>
+<</if>>
+
+
+:: Mansion Chase Study
+<<set $outside to 0>><<effects>>
+
+<<set $avery_mansion.chase.bus to "study">>
+You are in the study in Avery's mansion.
+
+<<avery_mansion_chase_state>>
+<<switch $avery_mansion.chase.state>>
+	<<case "victory">>
+		<<avery_mansion_trap_victory>>
+	<<case "caught">>
+		<<avery_mansion_chase_caught>>
+	<<default>>
+		<<avery_mansion_chase>>
+
+		<<if !$avery_mansion.chase.key_checked.includes("study") and $avery_mansion.chase.key is false>>
+			<<ind>><<link [[Search for the key (0:01)|Mansion Chase Study Key]]>><<set $avery_mansion.chase.key_checked.push("study")>><<pass 1>><<avery_mansion_chase_location>><</link>>
+			<br>
+		<</if>>
+
+		<<ind>><<link [[Hide beneath the desk (0:01)|Mansion Chase Study Desk]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<icon "avery-hallway.png">><<link [[Hallway (0:01)|Mansion Chase Hallway 3]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+<</switch>>
+
+:: Mansion Chase Study Key
+<<effects>>
+
+You search the study for the key, in and around the desk, hoping there's no secret hideaway within the books.
+<<avery_housework_change "study" 1>>
+<<if $avery_mansion.chase.key_location is "study">>
+
+	<span class="green">You find it in a drawer,</span> beside an exotic lighter.
+	<br><br>
+	<<link [[Next|Mansion Chase Study]]>><<set $avery_mansion.chase.key to true>><</link>>
+<<else>>
+	<span class="red">It's not here.</span>
+	<br><br>
+
+	<<link [[Next|Mansion Chase Study]]>><</link>>
+	<br>
+<</if>>
+
+
+:: Mansion Chase Study Desk
+<<effects>>
+
+<<if $avery_mansion.chase.avery_bus is "study">>
+	You drop to all fours and hide under the desk. Avery enters a moment later. You can only see <<his>> feet.
+	<br><br>
+	<<if random(1, 3) is 3>>
+		<<He>> marches closer, and leans down, <span class="red">piercing you with <<his>> gaze.</span> <<He>> grasps your shoulders, and pulls you from your hiding place.<<gpain>><<pain 4>>
+		<br><br>
+		<<avery_mansion_chase_caught>>
+	<<else>>
+		<<He>> turns and leaves the way <<he>> came.
+		<br><br>
+
+		The coast clear, you crawl out from beneath the desk.
+		<br><br>
+
+		<<link [[Next|Mansion Chase Study]]>><<avery_mansion_chase_location "hallway_2">><</link>>
+		<br>
+	<</if>>
+<<else>>
+	You drop to all fours and hide under the desk.
+
+	<<avery_mansion_chase>>
+
+	The coast clear, you crawl out from beneath the desk.
+	<br><br>
+	<<link [[Next|Mansion Chase Study]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Chase Hallway 1
+<<set $outside to 0>><<effects>>
+
+<<if $phase is 1>>
+	The stairs creak as you climb. <span class="red">Avery will have heard.</span>
+	<br><br>
+<</if>>
+<<set $avery_mansion.chase.bus to "hallway_1">>
+You are in the atrium of Avery's mansion. A staircase leads to the second floor.
+
+<<avery_mansion_chase_state>>
+<<if $avery_mansion.chase.state is "chase" and $avery_mansion.chase.avery_bus is "hallway_2" and $avery_mansion.chase.trap.includes("hallway_2")>>
+	<<set $avery_mansion.chase.state to "trap">>
+	<<set $avery_mansion.chase.trap.delete("hallway_2")>>
+<</if>>
+<<switch $avery_mansion.chase.state>>
+	<<case "victory">>
+		<<avery_mansion_trap_victory>>
+	<<case "caught">>
+		<<avery_mansion_chase_caught>>
+	<<case "trap">>
+		You hear a cry of surprise from the landing above. Avery slips on the marbles, and tumbles down the stairs, coming to a stop by your feet.<<gfrustration>><<set $avery_mansion.chase.health -= 1>>
+		<<set $avery_mansion.chase.avery_bus to "hallway_1">>
+		<br><br>
+
+		You escape before <<he>> can recover.
+		<br><br>
+		<<avery_mansion_chase_run>>
+	<<default>>
+		<<avery_mansion_chase>>
+		<<if $phase is 1>>
+			<<icon "avery-atrium.png">><<link [[Upstairs (0:01)|Mansion Chase Hallway 2]]>><<pass 1>><<avery_mansion_chase_location "sound_stairs_1">><<set $phase to 1>><</link>>
+			<br>
+			<<icon "avery-hallway.png">><<link [[West hallway (0:01)|Mansion Chase Hallway 1 W]]>><<pass 1>><<avery_mansion_chase_location "sound_stairs_1">><</link>>
+			<br>
+			<<icon "avery-hallway.png">><<link [[East hallway (0:01)|Mansion Chase Hallway 1 E]]>><<pass 1>><<avery_mansion_chase_location "sound_stairs_1">><</link>>
+			<br>
+			<<icon "avery-garden.gif">><<link [[Garden (0:01)|Mansion Chase Garden]]>><<pass 1>><<avery_mansion_chase_location "sound_stairs_1">><</link>>
+			<br>
+		<<else>>
+			<<icon "avery-atrium.png">><<link [[Upstairs (0:01)|Mansion Chase Hallway 2]]>><<pass 1>><<avery_mansion_chase_location>><<set $phase to 1>><</link>>
+			<br>
+			<<icon "avery-hallway.png">><<link [[West hallway (0:01)|Mansion Chase Hallway 1 W]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+			<br>
+			<<icon "avery-hallway.png">><<link [[East hallway (0:01)|Mansion Chase Hallway 1 E]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+			<br>
+			<<icon "avery-garden.gif">><<link [[Garden (0:01)|Mansion Chase Garden]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+			<br>
+		<</if>>
+<</switch>>
+<<set $phase to 0>>
+
+:: Mansion Chase Hallway 1 W
+<<set $outside to 0>><<effects>>
+
+<<set $avery_mansion.chase.bus to "hallway_1_w">>
+You are in the western ground floor of Avery's mansion.
+
+<<avery_mansion_chase_state>>
+<<switch $avery_mansion.chase.state>>
+	<<case "victory">>
+		<<avery_mansion_trap_victory>>
+	<<case "caught">>
+		<<avery_mansion_chase_caught>>
+	<<default>>
+		<<avery_mansion_chase>>
+
+		<<icon "avery-lounge.png">><<link [[Lounge (0:01)|Mansion Chase Lounge]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<icon "avery-display.png">><<link [[Display room (0:01)|Mansion Chase Display]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<icon "avery-atrium.png">><<link [[Atrium (0:01)|Mansion Chase Hallway 1]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<icon "avery-hallway.png">><<link [[East hallway (0:01)|Mansion Chase Hallway 1 E]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+<</switch>>
+
+:: Mansion Chase Hallway 1 E
+<<set $outside to 0>><<effects>>
+
+<<set $avery_mansion.chase.bus to "hallway_1_e">>
+You are in the eastern ground floor of Avery's mansion.
+
+<<avery_mansion_chase_state>>
+<<switch $avery_mansion.chase.state>>
+	<<case "victory">>
+		<<avery_mansion_trap_victory>>
+	<<case "caught">>
+		<<avery_mansion_chase_caught>>
+	<<default>>
+		<<avery_mansion_chase>>
+
+		<<icon "avery-dining.png">><<link [[Dining room (0:01)|Mansion Chase Dining]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<icon "avery-kitchen.png">><<link [[Kitchen (0:01)|Mansion Chase Kitchen]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<icon "avery-atrium.png">><<link [[Atrium (0:01)|Mansion Chase Hallway 1]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<icon "avery-hallway.png">><<link [[West hallway (0:01)|Mansion Chase Hallway 1 W]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+<</switch>>
+
+:: Mansion Chase Hallway 2
+<<set $outside to 0>><<effects>>
+
+<<if $phase is 1>>
+	The stairs creak as you climb. <span class="red">Avery will have heard.</span>
+	<br><br>
+<</if>>
+
+<<set $avery_mansion.chase.bus to "hallway_2">>
+You are on the second storey landing of Avery's mansion.
+
+<<if $avery_mansion.chase.trap.includes("hallway_2")>>
+	You tiptoe across the field of marbles.
+<</if>>
+
+<<avery_mansion_chase_state>>
+<<switch $avery_mansion.chase.state>>
+	<<case "victory">>
+		<<avery_mansion_trap_victory>>
+	<<case "caught">>
+		<<avery_mansion_chase_caught>>
+	<<case "trap">>
+		<<His>> eyes widen in shock as <<he>> slips on the marbles. <<He>> grasps at you, but the momentum carries <<him>> away, and <<he>> tumbles down the stairs.<<gfrustration>><<set $avery_mansion.chase.health -= 1>>
+		<<set $avery_mansion.chase.avery_bus to "hallway_1">>
+		<br><br>
+
+		You escape before <<he>> can recover.
+		<br><br>
+		<<avery_mansion_chase_run>>
+	<<default>>
+		<<avery_mansion_chase>>
+
+		<<if $phase is 1>>
+			<<if $avery_mansion.chase.gear.includes("marbles") and !$avery_mansion.chase.trap.includes("hallway_2")>>
+				<<link [[Empty the marbles over the floor|Mansion Chase Hallway 2 Marbles]]>><<pass 1>><<avery_mansion_chase_location "sound_stairs_1">><<avery_mansion_chase_trap "hallway_2">><<set $avery_mansion.chase.gear.delete("marbles")>><</link>>
+				<br>
+			<</if>>
+			<<icon "avery-hallway.png">><<link [[West hallway (0:01)|Mansion Chase Hallway 2 W]]>><<pass 1>><<avery_mansion_chase_location "sound_stairs_1">><</link>>
+			<br>
+			<<icon "avery-hallway.png">><<link [[East hallway (0:01)|Mansion Chase Hallway 2 E]]>><<pass 1>><<avery_mansion_chase_location "sound_stairs_1">><</link>>
+			<br>
+			<<icon "avery-atrium.png">><<link [[Downstairs (0:01)|Mansion Chase Hallway 1]]>><<pass 1>><<avery_mansion_chase_location "sound_stairs_1">><<set $phase to 1>><</link>>
+			<br>
+		<<else>>
+			<<if $avery_mansion.chase.gear.includes("marbles") and !$avery_mansion.chase.trap.includes("hallway_2")>>
+				<<link [[Empty the marbles over the floor|Mansion Chase Hallway 2 Marbles]]>><<pass 1>><<avery_mansion_chase_location>><<avery_mansion_chase_trap "hallway_2">><<set $avery_mansion.chase.gear.delete("marbles")>><</link>>
+				<br>
+			<</if>>
+			<<icon "avery-hallway.png">><<link [[West hallway (0:01)|Mansion Chase Hallway 2 W]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+			<br>
+			<<icon "avery-hallway.png">><<link [[East hallway (0:01)|Mansion Chase Hallway 2 E]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+			<br>
+			<<icon "avery-atrium.png">><<link [[Downstairs (0:01)|Mansion Chase Hallway 1]]>><<pass 1>><<avery_mansion_chase_location>><<set $phase to 1>><</link>>
+			<br>
+		<</if>>
+<</switch>>
+<<set $phase to 0>>
+
+:: Mansion Chase Hallway 2 Marbles
+<<effects>>
+
+You empty the bags of marbles over the floor near the top of the stairs. Anyone who steps on them without looking will risk a nasty fall.
+<br><br>
+
+<<link [[Next|Mansion Chase Hallway 2]]>><</link>>
+<br>
+
+:: Mansion Chase Hallway 2 W
+<<set $outside to 0>><<effects>>
+
+<<set $avery_mansion.chase.bus to "hallway_2_w">>
+You are in the western hallway on the second floor of Avery's mansion.
+
+<<avery_mansion_chase_state>>
+<<switch $avery_mansion.chase.state>>
+	<<case "victory">>
+		<<avery_mansion_trap_victory>>
+	<<case "caught">>
+		<<avery_mansion_chase_caught>>
+	<<default>>
+		<<avery_mansion_chase>>
+
+		<<icon "avery-bedroom.png">><<link [[Bedroom (0:01)|Mansion Chase Bedroom]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+		<<icon "avery-hallway.png">><<link [[Landing (0:01)|Mansion Chase Hallway 2]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+<</switch>>
+
+:: Mansion Chase Hallway 2 E
+<<set $outside to 0>><<effects>>
+
+<<set $avery_mansion.chase.bus to "hallway_2_e">>
+You are in the eastern hallway on the second floor of Avery's mansion.
+
+<<avery_mansion_chase_state>>
+<<switch $avery_mansion.chase.state>>
+	<<case "victory">>
+		<<avery_mansion_trap_victory>>
+	<<case "caught">>
+		<<avery_mansion_chase_caught>>
+	<<default>>
+		<<avery_mansion_chase>>
+
+		<<icon "avery-hallway.png">><<link [[Upstairs (0:01)|Mansion Chase Hallway 3]]>><<pass 1>><<avery_mansion_chase_location>><<set $phase to 1>><</link>>
+		<br>
+		<<icon "avery-hallway.png">><<link [[Landing (0:01)|Mansion Chase Hallway 2]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+		<br>
+<</switch>>
+
+:: Mansion Chase Hallway 3
+<<set $outside to 0>><<effects>>
+
+<<if $phase is 1>>
+	The stairs creak as you climb. <span class="red">Avery will have heard.</span>
+	<br><br>
+<</if>>
+
+<<set $avery_mansion.chase.bus to "hallway_3">>
+You are on the third floor of Avery's mansion, in a long corridor leading to <<his>> study.
+
+<<avery_mansion_chase_state>>
+<<switch $avery_mansion.chase.state>>
+	<<case "victory">>
+		<<avery_mansion_trap_victory>>
+	<<case "caught">>
+		<<avery_mansion_chase_caught>>
+	<<default>>
+		<<avery_mansion_chase>>
+
+		<<if $phase is 1>>
+			<<icon "avery-hallway.png">><<link [[Downstairs (0:01)|Mansion Chase Hallway 2 E]]>><<pass 1>><<avery_mansion_chase_location "sound_stairs_2">><</link>>
+			<br>
+			<<icon "avery-study.png">><<link [[Study (0:01)|Mansion Chase Study]]>><<pass 1>><<avery_mansion_chase_location "sound_stairs_2">><</link>>
+			<br>
+		<<else>>
+			<<icon "avery-hallway.png">><<link [[Downstairs (0:01)|Mansion Chase Hallway 2 E]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+			<br>
+			<<icon "avery-study.png">><<link [[Study (0:01)|Mansion Chase Study]]>><<pass 1>><<avery_mansion_chase_location>><</link>>
+			<br>
+		<</if>>
+<</switch>>
+
+<<set $phase to 0>>
+
+
+
+
+

@@ -1,0 +1,2202 @@
+:: Passout alley
+
+You've pushed yourself too much.
+<br><br>
+<<passout>>
+
+<<if dangerEvent()>>
+	<<switch random(1, 3)>>
+		<<case 3>>
+			<<link [[Wake up|Abduction]]>><<set $molestationstart to 1>><</link>>
+		<<case 2>>
+			<<link [[Wake up|Street Wake]]>><</link>>
+		<<case 1>>
+			<<link [[Wake up|Molestation alley]]>><<set $molestationstart to 1>><</link>>
+	<</switch>>
+<<else>>
+		<<ambulance>>
+<</if>>
+
+<<pass 1 hour>>
+<<trauma 6>><<set $stress -= 2000>>
+
+:: Molestation Industrial
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+
+	<<strangeman2init>>
+<</if>>
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if $alarm is 1>>
+	<<set $alarm to 0>>
+	<br><br>
+	<<if $enemyarousal gte $enemyarousalmax>>
+		<span id="next"><<link [[Next|Industrial Ejaculation]]>><</link>></span><<nexttext>>
+	<<elseif $enemyhealth lte 0>>
+		<span id="next"><<link [[Next|Industrial Escape]]>><</link>></span><<nexttext>>
+	<<else>>
+		<span id="next"><<link [[Next|Molestation Industrial]]>><</link>></span><<nexttext>>
+	<</if>>
+
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<span id="next"><<link [[Next|Industrial Ejaculation]]>><</link>></span><<nexttext>>
+<<elseif $enemyhealth lte 0>>
+	<span id="next"><<link [[Next|Industrial Escape]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Molestation Industrial]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Industrial Ejaculation
+
+<<effects>>
+<<ejaculation>>
+<<if $enemyanger gte ($enemyangermax / 5) * 3>>
+	<<He>> gives you one last smack to the face, then leaves you lying on the ground.
+	<<violence 3>>
+	<br><br>
+	<<elseif $enemyanger gte 1>>
+	Without a word, <<he>> gets up and leaves you lying on the ground.
+	<br><br>
+<<else>>
+	Smiling, <<he>> kisses you on the cheek. "This is for you." <<He>> gets up and leaves you lying on the ground.
+	<br><br>
+	You've gained <<printmoney 500>><<money 500 "prostitution">>.
+	<br><br>
+<</if>>
+<<stealclothes>>
+<br><br>
+<<tearful>> you rise to your feet.
+<br><br>
+<<clotheson>>
+<<endcombat>>
+<<industrialeventend>>
+
+:: Industrial Escape
+
+<<effects>>
+<<He>> recoils in pain, giving you the chance you need to escape. <<tearful>> you keep running until your legs give out and you collapse in a heap.
+<<clotheson>>
+<<endcombat>>
+<<industrialeventend>>
+
+:: Molestation alley
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<generate1>><<strangeman2init>><<set $enemyanger += 60>>
+	You awaken to find yourself being dragged behind a dumpster by a strange <<person1>><<person>>.
+<</if>>
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if $alarm is 1>>
+	<<set $alarm to 0>>
+	<br><br>
+	<<if $enemyarousal gte $enemyarousalmax>>
+		<span id="next"><<link [[Next|Alley Ejaculation]]>><</link>></span><<nexttext>>
+	<<elseif $enemyhealth lte 0>>
+		<span id="next"><<link [[Next|Alley Escape]]>><</link>></span><<nexttext>>
+	<<else>>
+		<span id="next"><<link [[Next|Molestation alley]]>><</link>></span><<nexttext>>
+	<</if>>
+
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<span id="next"><<link [[Next|Alley Ejaculation]]>><</link>></span><<nexttext>>
+<<elseif $enemyhealth lte 0>>
+	<span id="next"><<link [[Next|Alley Escape]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Molestation alley]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Molestation Commercial
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<strangewoman1init>><<set $enemyanger += 60>><<set $NPCList[0].lefthand to "hair">>
+<</if>>
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if $alarm is 1>>
+	<<set $alarm to 0>>
+	<br><br>
+	<<if $enemyarousal gte $enemyarousalmax>>
+		<span id="next"><<link [[Next|Commercial Ejaculation]]>><</link>></span><<nexttext>>
+	<<elseif $enemyhealth lte 0>>
+		<span id="next"><<link [[Next|Commercial Escape]]>><</link>></span><<nexttext>>
+	<<else>>
+		<span id="next"><<link [[Next|Molestation Commercial]]>><</link>></span><<nexttext>>
+	<</if>>
+
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<span id="next"><<link [[Next|Commercial Ejaculation]]>><</link>></span><<nexttext>>
+<<elseif $enemyhealth lte 0>>
+	<span id="next"><<link [[Next|Commercial Escape]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Molestation Commercial]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Commercial Ejaculation
+
+<<effects>>
+<<He>> tenses and presses <<his>> mouth against your neck to muffle the sound of <<his>> climax.
+<br><br>
+<<ejaculation>>
+<<if $enemyanger gte ($enemyangermax / 5) * 3>>
+	<<He>> gives you a hard bite then leaves you without a word<<violence 3>>
+	<br><br>
+	<<elseif $enemyanger gte 1>>
+	Without a word, <<he>> gets up and leaves you lying on the grass.
+	<br><br>
+<<else>>
+	Smiling, <<he>> kisses you on the cheek. "This is for you." <<He>> leaves you lying on the grass.
+	<br>
+	You've gained <<printmoney 500>><<money 500 "prostitution">>.
+	<br><br>
+<</if>>
+<<tearful>> you struggle to your feet.
+<br><br>
+<<clotheson>>
+<<endcombat>>
+<<commercialeventend>>
+
+:: Commercial Escape
+
+<<effects>>
+<<He>> recoils in pain, giving you the chance you need to escape. <<tearful>> you run round several corners before hiding behind a crate of fruit. No one follows you.
+<br><br>
+<<clotheson>>
+<<endcombat>>
+<<commercialeventend>>
+
+:: Molestation Residential
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<strangeman2init>>
+<</if>>
+<<if $phase is 1>><<enable_rescue>><</if>>
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if $alarm is 1>>
+	<<if $rescue is 1>>
+		<span id="next"><<link [[Next|Residential Alarm]]>><</link>></span><<nexttext>>
+	<<else>>
+		<<set $alarm to 0>>
+		<br><br>
+		<<if $enemyarousal gte $enemyarousalmax>>
+			<span id="next"><<link [[Next|Residential Ejaculation]]>><</link>></span><<nexttext>>
+		<<elseif $enemyhealth lte 0>>
+			<span id="next"><<link [[Next|Residential Escape]]>><</link>></span><<nexttext>>
+		<<else>>
+			<span id="next"><<link [[Next|Molestation Residential]]>><</link>></span><<nexttext>>
+		<</if>>
+	<</if>>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<span id="next"><<link [[Next|Residential Ejaculation]]>><</link>></span><<nexttext>>
+<<elseif $enemyhealth lte 0>>
+	<span id="next"><<link [[Next|Residential Escape]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Molestation Residential]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Residential Alarm
+
+<<effects>><<set $rescued += 1>>
+The dumpster opens fully, someone heard your cry. <<generate2>><<generate3>>A <<person2>><<person>> and <<person3>><<person>> grab your shoulders and haul you out, slamming it shut behind you.
+<br><br>
+<<clothesontowel>>
+The <<person1>><<person>> looks concerned. "Good thing we heard you. Are you okay?" <<tearful>> you nod and thank them for the rescue, before parting ways.
+<br><br>
+<<endcombat>>
+<<residentialeventend>>
+
+:: Residential Ejaculation
+
+<<ejaculation>>
+<<if $enemyanger gte ($enemyangermax / 5) * 3>>
+	<<He>> bashes your head against the side of the dumpster, then drops you outside.
+	<<violence 3>>
+	<br><br>
+<<elseif $enemyanger gte 1>>
+	Without a word, <<he>> pushes you outside the dumpster.
+	<br><br>
+<<else>>
+	<<He>> kisses you on the cheek, then lifts you out of the dumpster.
+	<br><br>
+<</if>>
+<<tearful>> you gather yourself.
+<br><br>
+<<stealclothes>>
+<br><br>
+<<clotheson>>
+<<endcombat>>
+<<residentialeventend>>
+
+:: Residential Escape
+
+<<effects>>
+<<if $phase is 0>>
+	<<He>> recoils in pain, giving you the chance you need to escape. You push the lid with all your might, creating an opening. <<He>> recovers before you're able to make good on your escape however, and pulls you back down.
+	<br><br>
+	<<link [[Next|Molestation Residential]]>><<set $phase to 1>><</link>>
+	<<set $enemyhealth to $enemyhealthmax>>
+<<else>>
+	<<He>> recoils in pain again. With the dumpster already ajar, you are able to climb out and escape. <<tearful>> you flee around the corner.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<residentialeventend>>
+<</if>>
+
+:: Home Fence
+
+<<set $outside to 1>><<effects>>
+<<if $stress gte $stressmax>>
+	<<passoutalley>>
+<<else>>
+	<<if $exposed gte 1>>
+		You peek over the fence, making sure there's no one in the garden behind the orphanage. Once sure the coast is clear, you hoist yourself over, mindful of your <<lewdness>> as you keep yourself low and out of sight.
+	<<elseif $cat gte 6>>
+		You hop over the fence with unmatched elegance, landing on all fours in the garden behind the orphanage.
+	<<else>>
+		You climb over the fence into the garden behind the orphanage.
+	<</if>>
+	<br><br>
+
+	<<link [[Next|Garden]]>><</link>>
+	<br>
+<</if>>
+
+:: Industrial rooftops
+
+<<set $outside to 1>><<set $location to "town">><<effects>>
+You are on the rooftop of an industrial building. Plumes of smoke rise all around you. Buildings are closely packed, crossing between them should be no problem.
+<br><br>
+<<if $stress gte $stressmax>>
+	<<passoutalley>>
+<<else>>
+	<<if $exposed gte 1>>
+		<<exhibitionismroof>>
+		There is an industrial chute leading into the park which would allow you to avoid the road.
+		<br><br>
+		<<laddericon>><<link [[Climb down the ladder (0:02)|Industrial Alleyways]]>><<pass 2>><</link>>
+		<br>
+		<<getouticon "hole">><<link [[Climb in the chute (0:02)|Chute]]>><<pass 2>><</link>>
+		<br><br>
+	<<else>>
+		There is an industrial chute leading into the park.
+		<br><br>
+		<<laddericon>><<link [[Climb down the ladder (0:02)|Industrial Alleyways]]>><<pass 2>><</link>>
+		<br>
+		<<getouticon "hole">><<link [[Climb in the chute (0:02)|Chute]]>><<pass 2>><</link>>
+		<br><br>
+	<</if>>
+<</if>>
+
+:: Chute
+
+<<set $outside to 0>><<effects>>
+You slide down the chute to the park.
+<br><br>
+<<if $worn.over_upper.name isnot "naked">>
+	<<set $worn.over_upper.integrity -= 20>>
+	<<set _damage to true>>
+<<elseif $worn.upper.name isnot "naked">>
+	<<set $worn.upper.integrity -= 20>>
+	<<set _damage to true>>
+<</if>>
+<<if $worn.over_lower.name isnot "naked">>
+	<<if $worn.lower.name isnot "naked">>
+		<<set $worn.lower.integrity -= 20>>
+	<</if>>
+	<<set $worn.over_lower.integrity -= 20>>
+	<<set _damage to true>>
+<<elseif $worn.lower.name isnot "naked">>
+	<<if $worn.under_lower.name isnot "naked">>
+		<<set $worn.under_lower.integrity -= 20>>
+	<</if>>
+	<<set $worn.lower.integrity -= 20>>
+	<<set _damage to true>>
+<</if>>
+<<if _damage>>
+	Your clothing snags on a rut.
+	<br><br>
+<</if>>
+
+<<if dangerEvent(3)>>
+	As the chute exit comes into view you see someone has left a cement mixer in front of it!
+	<br><br>
+	<<link [[Dodge it at any cost!|Molestation Chute]]>><<set $molestationstart to 1>><</link>>
+	<br>
+	<<link [[Brace for impact|Cement Mixer]]>><</link>>
+	<br><br>
+<<else>>
+	<<parkquick>>
+<</if>>
+
+:: Molestation Chute
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<generate1>><<spankmaninit>>
+	<<person1>>You avoid landing in the mixer, but collide with the edge and knock it over. It shatters against the ground.
+	<br><br>
+	As you try to recover, a <<person>> storms over. "I'll show you what happens when you break things that aren't yours!" <<He>> grabs you by the arms, hauls you over to a chair and bends you over <<his>> lap.
+	<br><br>
+<</if>>
+<<effects>>
+<<effectsman>><<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if $enemyanger lte 0>>
+	<span id="next"><<link [[Next|Chute Done]]>><</link>></span><<nexttext>>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<span id="next"><<link [[Next|Chute Ejaculation]]>><</link>></span><<nexttext>>
+<<elseif $enemyhealth lte 0>>
+	<span id="next"><<link [[Next|Chute Escape]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Molestation Chute]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Cement Mixer
+
+<<set $outside to 1>><<effects>>
+You curl up and slam into the mixer. Fortunately, the cement cushions your blow. Unfortunately, it's cement. You manage to struggle free,
+<<outfitChecks>>
+<<if _bottomless>>
+	stumbling away without attracting notice.
+	<br><br>
+<<else>>
+	but lose your clothes in the process.
+	<br><br>
+	<<underruined>>
+	<<lowerruined>>
+	<<upperruined>>
+<</if>>
+<<parkquick>>
+
+:: Chute Done
+
+<<effects>>
+"I think you've had enough." <<He>> releases you and you slip to the ground in a heap.
+<br><br>
+<<He>> leaves you to sob.
+<br><br>
+<<clotheson>>
+<<endcombat>>
+<<parkquick>>
+
+:: Chute Ejaculation
+
+<<ejaculation>>
+<<if $enemyanger gte ($enemyangermax / 5) * 3>>
+	<<He>> gives you one last spank, then leaves you lying on the ground.
+	<<violence 3>>
+	<br><br>
+<<elseif $enemyanger gte 20>>
+	Without a word, <<he>> gets up and leaves you lying on the ground.
+	<br><br>
+<<else>>
+	"I think you've learnt your lesson." <<He>> gets up and leaves you lying on the ground.
+	<br><br>
+<</if>>
+<<tearful>> you rise to your feet.
+<br><br>
+<<clotheson>>
+<<endcombat>>
+<<parkquick>>
+
+:: Chute Escape
+
+<<effects>>
+<<He>> recoils in pain. You take the opportunity to squirm free and bolt away. <<tearful>> you run into an area dense with foliage.
+<br><br>
+<<clotheson>>
+<<endcombat>>
+<<parkquick>>
+
+:: Commercial rooftops
+
+<<set $outside to 1>><<effects>>
+You are on the rooftop of a commercial building. You can access the shopping centre from here. Buildings are closely packed, crossing between them should be no problem.
+<br><br>
+<<if $stress gte $stressmax>>
+	<<passoutalley>>
+<<else>>
+	<<if $exposed gte 1>>
+		<<exhibitionismroof>>
+		<<laddericon>><<link [[Climb down the ladder (0:02)|Commercial Alleyways]]>><<pass 2>><</link>>
+		<br>
+		<<if $harpy gte 6 or $angel gte 6 or $demon gte 6 or $fallenangel gte 2>>
+			<<glideicon>><<link [[Glide down|Commercial Alleyways]]>><<set $eventskip to 1>><</link>><<flight_text>><<noharass>>
+			<br>
+		<</if>>
+		<<shopicon>><<link [[Shopping centre (0:02)|Shopping Centre Top]]>><<pass 2>><</link>>
+		<br><br>
+	<<else>>
+		<<laddericon>><<link [[Climb down the ladder (0:02)|Commercial Alleyways]]>><<pass 2>><</link>>
+		<br>
+		<<if $harpy gte 6 or $angel gte 6 or $demon gte 6 or $fallenangel gte 2>>
+			<<glideicon>><<link [[Glide down|Commercial Alleyways]]>><<set $eventskip to 1>><</link>><<flight_text>><<noharass>>
+			<br>
+		<</if>>
+		<<shopicon>><<link [[Shopping centre (0:02)|Shopping Centre Top]]>><<pass 2>><</link>>
+		<br><br>
+	<</if>>
+<</if>>
+
+:: Alley Ejaculation
+
+<<effects>>
+<<ejaculation>>
+<<if $enemyanger gte ($enemyangermax / 5) * 3>>
+	<<He>> gives you one last smack to the face, then leaves you lying on the hard concrete.
+	<<violence 3>>
+	<br><br>
+<<elseif $enemyanger gte 1>>
+	Without a word, <<he>> gets up and leaves you lying on the hard concrete.
+	<br><br>
+<<else>>
+	Smiling, <<he>> kisses you on the cheek. "This is for you." <<He>> gets up and leaves you lying on the hard concrete.
+	<br>
+	You've gained <<printmoney 500>><<money 500 "prostitution">>.
+	<br><br>
+<</if>>
+<<underlowersteal>>
+<<tearful>> you rise to your feet.
+<br><br>
+<<clotheson>>
+<<endcombat>>
+<<set $stress -= 1000>><<set $eventskip to 1>>
+<<destination>>
+
+:: Alley Escape
+
+<<effects>>
+<<He>> falls to the ground, giving you the chance you need to escape. <<tearful>> you run round a few bends and take cover in a shadowed alcove.
+<br><br>
+<<clotheson>>
+<<endcombat>>
+<<set $stress -= 1000>><<set $eventskip to 1>>
+<<destination>>
+
+:: Residential Dog
+
+<<effects>>
+<<if $noise is 2 and $combat is 0>>
+	<span class="red">The youths are wondering aloud why the <<beasttype>> is so agitated. They'll find you soon if you don't do something!</span>
+	<br><br>
+<</if>>
+<<if $timer is 1 and $combat is 0>>
+	You hear the youths move away from the alley.
+	<<if $combat is 0>>
+		You take a peek and see that they are indeed gone. The <<beasttype>> looks dejected as you walk away.
+		<br><br>
+		<<endevent>>
+		<<residentialeventend>>
+	<<else>>
+		You try to take a peek but the <<beasttype>> tackles you to the ground.
+		<br><br>
+		<<set $rescue to 0>>
+		<<link [[Next|Residential Dog]]>><</link>><<nexttext>>
+	<</if>>
+	<br><br>
+<<elseif $noise gte 3>>
+	Fed up with the racket, the pair make their way over.
+	<br><br>
+	<<link [[Next|Residential Dog Alarm]]>><</link>><<nexttext>>
+<<else>>
+	<<switch $phase>>
+		<<case 1>>
+			<<bHe>> continues barking. You're afraid the youths will investigate if this continues.
+			<br><br>
+			<<link [[Quietly tell <<bhim>> to shut up|Residential Dog]]>><<set $noise += 1>><</link>>
+			<br>
+
+			<<link [[Stroke <<bhis>> head|Residential Dog]]>><<set $phase to 2>><</link>>
+			<br><br>
+		<<case 2>>
+			<<bHe>> quiets at your touch, runs in a small circle, then walks right up to you. You notice <<bhis>> <<npcGenitals 0 "simple">> is ready and waiting. <<bHe>> looks at you expectantly.
+			<br><br>
+			<<link [[Just keep stroking <<bhis>> head|Residential Dog]]>><<set $noise += 1>><<set $phase to 3>><</link>>
+			<br>
+			<span class="sub"><<link [[Reach for <<bhis>> <<npcGenitals 0 "simple">>|Residential Dog]]>><<handskilluse>><<handstat>><<set $phase to 4>><</link>></span>
+			<br><br>
+		<<case 3>>
+			You continue to stroke <<bhis>> head, but <<bhe>> doesn't seem pleased and barks again.
+			<br><br>
+			<<link [[Just keep stroking <<bhis>> head|Residential Dog]]>><<set $noise += 1>><<set $phase to 3>><</link>>
+			<br>
+			<<link [[Reach for <<bhis>> <<npcGenitals 0 "simple">>|Residential Dog]]>><<set $phase to 4>><<handskilluse>><<handstat>><</link>>
+			<br><br>
+		<<case 4>>
+			<<set $molestationstart to 1>><<set $phase to 6>>
+			You reach out and touch <<bhis>> <<npcGenitals 0 "simple">> with your hand. <<bHe>> starts humping against your fingers.
+			<br><br>
+			<<link [[Next|Residential Dog]]>><</link>><<nexttext>>
+			<br><br>
+		<<case 5>>
+			<<set $phase to 6>>
+			The <<beasttype>>, still agitated, jumps up against your body.
+			Your bindings leave you unable to keep yourself upright. You fall on your face. <<gpain>>
+			<br><br>
+			As you regain your bearings, you notice the <<beasttype>> preparing to mount from behind you.
+			<br><br>
+			<<if hasSexStat("deviancy", 3)>>
+				<<link [[Goad the <<beasttype>>|Residential Dog]]>><<set $sexstart to 1>><</link>><<deviant3>>
+				<br>
+			<</if>>
+			<<link [[Endure|Residential Dog]]>><<set $molestationstart to 1>><<set $noHand to 1>><</link>>
+		<<case 6>>
+			<<if $sexstart is 1>>
+				<<set $sexstart to 0>>
+				<<consensual>>
+				<<set $consensual to 1>>
+				<<neutral 1>>
+				<<deviancy3>>
+				<<beastCombatInit>>
+				<<npc_attempt_sex>>
+			<<elseif $molestationstart is 1>>
+				<<set $molestationstart to 0>>
+				<<controlloss>>
+				<<violence 1>>
+				<<neutral 1>>
+				<<molested>>
+				<<beastCombatInit>>
+				<<if $noHand is 1>><<unset $noHand>><<else>><<npchand>><</if>>
+			<</if>>
+			<<if $timer gte 1>><<enable_rescue>><</if>>
+			<<effectsman>>
+			<<alarmstate>>
+			<br>
+			<<beast $enemyno>>
+			<br>
+			<<stateman>>
+			<br><br>
+			<<actionsman>>
+
+			<<if $alarm is 1>>
+				<<if $rescue is 1>>
+					<span id="next"><<link [[Next|Residential Dog Alarm]]>><</link>></span><<nexttext>>
+				<<else>>
+					<<set $alarm to 0>>
+					<<if $enemyarousal gte $enemyarousalmax>>
+						<span id="next"><<link [[Next|Residential Dog Ejaculation]]>><</link>></span><<nexttext>>
+					<<elseif $enemyhealth lte 0>>
+						<span id="next"><<link [[Next|Residential Dog Escape]]>><</link>></span><<nexttext>>
+					<<else>>
+						<span id="next"><<link [[Next|Residential Dog]]>><</link>></span><<nexttext>>
+					<</if>>
+				<</if>>
+			<<elseif $enemyarousal gte $enemyarousalmax>>
+				<span id="next"><<link [[Next|Residential Dog Ejaculation]]>><</link>></span><<nexttext>>
+			<<elseif $enemyhealth lte 0>>
+				<span id="next"><<link [[Next|Residential Dog Escape]]>><</link>></span><<nexttext>>
+			<<else>>
+				<span id="next"><<link [[Next|Residential Dog]]>><</link>></span><<nexttext>>
+			<</if>>
+	<</switch>>
+<</if>>
+
+:: Residential Dog Alarm
+
+<<effects>>
+<<if $alarm is 1>>
+	Your scream alerts the pair.
+	<br><br>
+<</if>>
+At the sound of their approach, the <<beasttype>> ceases <<bhis>> adventure and bounds away.
+<br><br>
+<<endcombat>>
+<<generatey1>><<generatey2>>Before you can recover, you are discovered by a <<fullGroup>>.
+<br><br>
+<<if dangerEvent(3)>>
+	They take advantage of your vulnerability.
+	<br><br>
+
+	<<link [[Next|Residential Pair]]>><<set $molestationstart to 1>><</link>>
+	<br>
+<<else>>
+	Seeing you in distress, the <<fullGroup>> help you to your feet.
+	<br><br>
+	<<set $rescued += 1>>
+	<<clothesontowel>>
+	The <<person1>><<person>> looks concerned. "Are you okay?" <<tearful>> you nod and thank them for their concern, before parting ways.
+	<br><br>
+	<<residentialeventend>>
+<</if>>
+
+:: Residential Dog Ejaculation
+
+<<beastejaculation>>
+<<if $enemyanger gte ($enemyangermax / 5) * 3>>
+	<<bHe>> bites you on the thigh, then leaves you lying on the ground.
+	<<violence 3>>
+	<br><br>
+<<elseif $enemyanger gte 1>>
+	<<bHe>> barks then leaves you lying on the ground.
+	<br><br>
+<<else>>
+	<<bHe>> licks your <<genitals>> then darts away.
+	<<neutral 5>>
+	<br><br>
+<</if>>
+<<if $timer gte 1>>
+	The youths leave shortly after.
+	<br><br>
+<</if>>
+<<tearful>> you rise to your feet.
+<br><br>
+<<clotheson>>
+<<endcombat>>
+<<residentialeventend>>
+
+:: Residential Dog Escape
+
+<<effects>>
+Finally taking the hint, <<bhe>> whimpers and flees the alley.
+<<if $timer gte 1>>After a short while the youths also leave.<</if>> <<tearful>> you rise to your feet.
+<br><br>
+<<clotheson>>
+<<endcombat>>
+<<residentialeventend>>
+
+:: Residential Pair
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+<</if>>
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if $alarm is 1>>
+	<<if $rescue is 0>>
+		<<set $alarm to 0>>
+		<br><br>
+		<<if $enemyarousal gte $enemyarousalmax>>
+			<span id="next"><<link [[Next|Residential Pair Ejaculation]]>><</link>></span><<nexttext>>
+		<<elseif $enemyhealth lte 0>>
+			<span id="next"><<link [[Next|Residential Pair Escape]]>><</link>></span><<nexttext>>
+		<<else>>
+			<span id="next"><<link [[Next|Residential Pair]]>><</link>></span><<nexttext>>
+		<</if>>
+	<</if>>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<span id="next"><<link [[Next|Residential Pair Ejaculation]]>><</link>></span><<nexttext>>
+<<elseif $enemyhealth lte 0>>
+	<span id="next"><<link [[Next|Residential Pair Escape]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Residential Pair]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Residential Pair Ejaculation
+
+<<effects>>
+<<ejaculation>>
+<<if $enemyanger gte ($enemyangermax / 5) * 3>>
+	They bash you against the pavement, then leave.
+	<<violence 3>>
+	<br><br>
+<<elseif $enemyanger gte 1>>
+	Without a word, they saunter off.
+	<br><br>
+<<else>>
+	<<person2>>The <<person>> kisses you on the cheek, they then saunter off.
+	<br><br>
+<</if>>
+<<underlowersteal>>
+<<tearful>> you rise to your feet.
+<br><br>
+<<clotheson>>
+<<endcombat>>
+<<destinationeventend>>
+
+:: Residential Pair Escape
+
+<<effects>>
+The <<person1>><<person>> recoils in pain, giving you the chance you need to escape. <<tearful>> you keep running until your legs give out and you collapse against a wall.
+<<clotheson>>
+<<endcombat>>
+<<destinationeventend>>
+
+:: Residential Kick
+<<effects>>
+
+<<if $athleticsSuccess>>
+	You kick the ball, <span class="green">and it arcs over the fence.</span> No one sends thanks, but they don't peek over either. <<tearful>> you continue.
+	<br><br>
+	<<endevent>>
+	<<destinationeventend>>
+<<else>>
+	<<if random(1, 2) gte 2>>
+		You kick the ball, <span class="red">but it bounces off the fence with a thud.</span>
+	<<else>>
+		You try to kick the ball, <span class="red">but miss.</span> You lose your balance and fall to the ground.
+		<<gpain>><<pain 6>>
+	<</if>>
+	<br><br>
+	A <<person2>><<persons>> head peeks over before you can try again. <<covered>> <<He>> stares at you, astonished.
+	<<gtrauma>><<gstress>><<trauma 6>><<stress 6>><<fameexhibitionism 1>>
+	<br><br>
+
+	<<link [[Ask for help|Residential Kick Help]]>><</link>>
+	<br>
+	<<link [[Run|Residential Kick Run]]>><</link>>
+	<br>
+<</if>>
+
+:: Residential Kick Help
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"P-please help me," you say, bowing your head.
+<<elseif $speech_attitude is "bratty">>
+	"Don't just stand there," you say. "Get me something to wear."
+<<else>>
+	"Could you help me please?" you say.
+<</if>>
+<br><br>
+
+<<if random(1, 2) is 2>>
+	The <<person>> drops back beneath the fence. A few moments pass, <span class="green">then a towel flies over.</span>
+	<<lstress>><<towelup>>
+	<br><br>
+<<else>>
+	The <<person>> drops back beneath the fence. A few moments pass, then <<he>> reappears. <span class="red">A <<person1>><<person>> appears next to <<him>>, along with several others.</span>
+	<<fameexhibitionism 9>>
+	<br><br>
+	They burst into excitement as you turn and run.
+	<<gstress>><<stress 6>>
+	<br><br>
+	"I told you there was a naked <<girl>>."
+	<br>
+	<<if random(1, 2) is 2>>
+		"Hot."
+	<<else>>
+		"I can see everything."
+	<</if>>
+	<br>
+	<<if random(1, 2) is 2>>
+		"Is <<pshe>> a pervert?"
+	<<else>>
+		"What is <<pshe>> thinking?"
+	<</if>>
+	<br>
+	<<if random(1, 2) is 2>>
+		"I'm gonna tell everyone."
+	<<else>>
+		"Wait until the others hear."
+	<</if>>
+	<br>
+	<<if $worn.face.type.includes("mask")>>
+		"I wonder who <<pshe>> is."
+	<<else>>
+		"I think I recognise <<phim>> from school."
+	<</if>>
+	<br><br>
+
+	Their voices fade behind you.
+	<br><br>
+<</if>>
+
+<<endevent>>
+<<destinationeventend>>
+
+:: Residential Kick Run
+<<effects>>
+
+<<fameexhibitionism 4>>
+<<tearful>> you turn and run. "There's a naked <<girl>> over here!" you hear the <<person>> shout behind you. Several others stick their heads above the fence just as you round the corner, where you lean against a wall and pant.
+<br><br>
+
+<<endevent>>
+<<destinationeventend>>
+
+:: Residential Fence
+<<effects>>
+
+You clamber over a fence opposite. There's no time to check what's on the other side first. You land in a garden, and a moment later hear someone land in the alley.
+<br><br>
+
+<<if random(1, 5) is 5>><<fameexhibitionism 1>>
+	<<generate3>><<person3>>You look around, and your heart sinks. A <<person>> stands near a bed of flowers, holding a camera. <<Hes>> staring at you, surprise on <<his>> face. <<He>> recovers quick, and points the camera in your direction.
+	<<gstress>><<stress 6>>
+	<br><br>
+
+	<<link [[Ask for help|Residential Fence Garden Ask]]>><</link>>
+	<br>
+	<<link [[Escape|Residential Fence Garden Escape]]>><</link>>
+	<br>
+	<<if $submissive gte 1500>>
+		<<link [[Beg|Residential Fence Garden Beg]]>><<sub 1>><</link>><<submissivetext>>
+		<br>
+	<</if>>
+<<else>>
+	You look around. The garden appears typical, and empty. You listen for the person you narrowly escaped to return to their own garden, then climb back over the fence.
+	<<lstress>><<stress -6>>
+	<br><br>
+
+	<<endevent>>
+	<<destinationeventend>>
+<</if>>
+
+:: Residential Fence Garden Ask
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"P-please don't take any pictures," you say. "I need help."
+<<elseif $speech_attitude is "bratty">>
+	"Don't you dare," you warn. "Give me something to cover with."
+<<else>>
+	"Please," you say. "I need help."
+<</if>>
+<br><br>
+
+<<if random(1, 2) is 2>>
+	"I got a towel for ya," <<he>> says as <<his>> camera clicks. "Just want some souvenirs. Not every day a cute <<girl>> drops into my lap."
+	<<fameexhibitionism 7>>
+	<br><br>
+
+	<<He>> takes a few more pictures before throwing you a towel, and showing you to the gate.
+
+<<else>>
+	<<He>> pauses a moment, then lowers the camera.
+	<<lstress>><<stress -6>>
+	<br><br>
+
+	<<He>> hands you a towel before showing you to the gate.
+
+<</if>>
+<br><br>
+<<towelup>>
+<<endevent>>
+<<destinationeventend>>
+
+:: Residential Fence Garden Escape
+<<effects>>
+
+<<fameexhibitionism 4>>
+You climb back over the fence as the camera clicks behind you. A <<person2>><<person>> stands in the alley. <<He>> drops the football when <<he>> sees you.
+<br><br>
+<<tearful>> you run for safety. You round the corner just as the <<person3>><<person>> makes it to the fence, near where the <<person2>><<person>> remains stood, astonished.
+<br><br>
+
+<<endevent>>
+<<destinationeventend>>
+
+:: Residential Fence Garden Beg
+<<effects>>
+
+You drop to your knees and prostrate yourself on the grass. "P-please help," you begin, before explaining your situation within a broken stream of sobs.
+<br><br>
+
+The <<person>> hesitates, but lowers the camera. "Don't cry <<girl>>," <<he>> says. "I was only joking."
+<br><br>
+
+<<He>> gives you a towel to cover with, and shows you to the gate.
+<<lstress>><<stress -6>>
+<br><br>
+<<towelup>>
+<<endevent>>
+<<destinationeventend>>
+
+:: Industrial Ladder
+<<effects>>
+
+You search the alleyways for something you could prop up under Briar's window.
+<<if $rng gte 71>>
+	<<generate1>><<generate2>>
+	<span class="green">You find a stepladder lying on its side.</span> A <<fullGroup>> are sitting on it, chatting. They turn to look at you. "What do you want, <<girl>>?"
+	<br><br>
+
+	<<if $speech_attitude is "meek">>
+		"Could I use that ladder, please?" you ask. "If you're not busy with it."
+	<<elseif $speech_attitude is "bratty">>
+		"Clear out," you say, waving your arms. "I need the ladder."
+	<<else>>
+		"I'd like that ladder," you say. "Could you move somewhere else?"
+	<</if>>
+	<br><br>
+
+	"Stepladder," the <<person2>><<person>> responds automatically. "And what's in it for us?"
+	<br><br>
+
+	<<if $money gte 10000>>
+		<<link [[Pay them to move (£100)|Industrial Ladder Pay]]>><<money -10000 "bribe">><</link>>
+	<<else>>
+		<span class="blue">You don't think you have enough money to satisfy them.</span>
+	<</if>>
+	<br>
+	<<if hasSexStat("promiscuity", 3)>>
+		<<link [[Seduce|Industrial Ladder Seduce]]>><</link>><<promiscuous2>>
+	<<else>>
+		<<insufficientStat "promiscuity" "to seduce them">>
+	<</if>>
+	<br>
+	<<if $submissive gte 1500>>
+		<<link [[Beg|Industrial Ladder Beg]]>><</link>>
+		<br>
+	<</if>>
+	<<link [[Leave|Industrial Alleyways]]>><<endevent>><</link>>
+<<else>>
+	<span class="red">You can't find anything of use.</span>
+	<br><br>
+
+	<<rng>>
+	<<if (dangerEvent() or $eventforced) and $eventskip is 0>>
+		<<eventsstreet>>
+	<<else>>
+		<<link [[Keep looking|Industrial Ladder]]>><</link>>
+		<br>
+		<<link [[Give up|Industrial Alleyways]]>><</link>>
+	<</if>>
+<</if>>
+
+:: Industrial Ladder Pay
+<<effects>><<set $pubfame.briar.escape to 2>>
+You hand them a wad of cash, and they blink. The <<person2>><<person>> quickly pockets it and stands up, tugging the <<person1>><<person>> to <<his>> feet and ignoring <<his>> protests.
+<br><br>
+
+The stepladder is a little unwieldy, but you manage to set it up under Briar's office window without making too much sound. It shouldn't be visible from the window itself unless Briar looks directly down, which you hope <<nnpc_he "Briar">> won't do. A few passers-by give you odd looks, but they don't question anything. <span class="green">You now have an escape route.</span>
+<br><br>
+
+<<if $combat is 1>><<endcombat>><</if>>
+<<destinationeventend>>
+
+:: Industrial Ladder Seduce
+<<effects>>
+
+<<set $seductiondifficulty to 6000>>
+<<seductioncheck>>
+<<seductionskilluptext>>
+<<seductionskilluse>>
+
+You glance between the two of them, and lick your lips. "If you let me have the ladder... I'll let you have me."
+<<promiscuity2>>
+
+<<if $seductionrating gte $seductionrequired>>
+	The <<person1>><<person>> looks at the <<person2>><<person>>, who nods. Together, they stand up and walk toward you.
+	<br><br>
+
+	<<link [[Next|Industrial Ladder Sex]]>><<set $sexstart to 1>><</link>>
+	<br>
+
+<<else>>
+	The <<person1>><<person>> looks over at the <<person2>><<person>>, who shakes <<his>> head. "No way I'm touching a <<girl>> who doesn't know the difference between a ladder and a stepladder."
+	<br><br>
+
+	The <<person1>><<person>> slaps <<his>> face into <<his>> hands, then shrugs and looks at you helplessly.
+	<br><br>
+
+	<<if $money gte 10000>>
+		<<link [[Pay them to move (£100)|Industrial Ladder Pay]]>><<money -10000 "bribe">><</link>>
+	<<else>>
+		<span class="blue">You don't think you have enough money to satisfy them.</span>
+	<</if>>
+	<br>
+	<<if $submissive gte 1500>>
+		<<link [[Beg|Industrial Ladder Beg]]>><</link>>
+		<br>
+	<</if>>
+	<<link [[Leave|Industrial Alleyways]]>><<endevent>><</link>>
+<</if>>
+
+:: Industrial Ladder Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 50>>
+<</if>>
+
+<<effects>>
+<<effectsman>><<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Industrial Ladder Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Industrial Ladder Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Industrial Ladder Sex Finish
+<<effects>>
+
+<<if $enemyhealth lte 0>>
+	<<set $pubfame.briar.escape to 2>>
+	The <<person2>><<person>> staggers back and falls over the stepladder. "Fuck this," <<he>> grumbles. <<He>> grabs the <<person1>><<persons>> arm and drags <<him>> out of the alleyway.
+	<br><br>
+
+	The stepladder is a little unwieldy, but you manage to set it up under Briar's office window without making too much sound. It shouldn't be visible from the window itself unless Briar looks directly down, which you hope <<nnpc_he "Briar">> won't do. A few passers-by give you odd looks, but they don't question anything. <span class="green">You now have an escape route.</span>
+	<br><br>
+
+	<<endcombat>><<clotheson>>
+	<<destinationeventend>>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<<set $pubfame.briar.escape to 2>>
+	<<ejaculation>>
+
+	"Thanks for the free fuck," the <<person1>><<person>> snickers. "That ladder isn't even ours."
+	<br><br>
+
+	"Stepladder," the <<person2>><<person>> snaps, dragging <<person1>><<him>> out of the alleyway.
+	<br><br>
+
+	The stepladder is a little unwieldy, but you manage to set it up under Briar's office window without making too much sound. It shouldn't be visible from the window itself unless Briar looks directly down, which you hope <<nnpc_he "Briar">> won't do. A few passers-by give you odd looks, but they don't question anything. <span class="green">You now have an escape route.</span>
+	<br><br>
+
+	<<endcombat>><<clotheson>>
+	<<destinationeventend>>
+<<else>>
+	The <<person2>><<person>> backs off and sits down in a huff. "Well, fuck you too then. We're not moving."
+	<br><br>
+
+	"We're not?" the <<person1>><<person>> asks. A stern glance from <<his>> partner has <<him>> sitting down on the ladder as well.
+	<br><br>
+
+	<<clotheson>>
+	<<if $money gte 10000>>
+		<<link [[Pay them to move (£100)|Industrial Ladder Pay]]>><<money -10000 "bribe">><</link>>
+	<<else>>
+		<span class="blue">You don't think you have enough money to satisfy them.</span>
+	<</if>>
+	<br>
+	<<if $submissive gte 1500>>
+		<<link [[Beg|Industrial Ladder Beg]]>><</link>>
+		<br>
+	<</if>>
+	<<link [[Leave|Industrial Alleyways]]>><<endcombat>><</link>>
+<</if>>
+
+:: Industrial Ladder Beg
+<<effects>><<set $pubfame.briar.escape to 2>>
+"Please," you say, clasping your hands together. "Please, I really need it. Can't you please let me have that ladder?"
+<br><br>
+
+The <<person2>><<person>> almost gets up, but gives you a sceptical look. You smile hopefully. "Stepladder?" you try. That satisfies <<him>>, and <<he>> drags the <<person1>><<person>> out of the alleyway.
+<br><br>
+
+The stepladder is a little unwieldy, but you manage to set it up under Briar's office window without making too much sound. It shouldn't be visible from the window itself unless Briar looks directly down, which you hope <<nnpc_he "Briar">> won't do. A few passers-by give you odd looks, but they don't question anything. <span class="green">You now have an escape route.</span>
+<br><br>
+
+<<if $combat is 1>><<endcombat>><</if>>
+<<destinationeventend>>
+
+:: Alleyways Rescue
+<<effects>>
+
+You find the building. An ominous thing, it appears to lean forward, as if it might fall and crush you at any moment. There's a dirty door at the base of a small staircase.
+<br><br>
+
+<span class="red">This could be dangerous.</span>
+<br><br>
+
+<<link [[Enter|Alleyways Rescue Enter]]>><<famegood 10>><<alleyways_rescue_start>><</link>>
+<br>
+<<link [[Leave|Alleyways Rescue Leave]]>><</link>>
+<br>
+
+
+:: Alleyways Rescue Leave
+<<effects>>
+
+You turn away from the ominous building.
+<br><br>
+
+<<destinationeventend>>
+
+
+:: Alleyways Rescue Enter
+<<effects>>
+
+The door is unlocked. You enter the dingy building. The breeze jostles a dangling light in the middle of a corridor. At the far end are more lights, rotating through the colours of the rainbow.
+<br><br>
+
+
+You hear a sharp smack, followed by a scream, then mirthful laughter.
+<br><br>
+
+"I'm surprised <<person4>><<hes>> still conscious," a <<person1>><<personsimple>> says.
+<br>
+"If you can call it that," a <<person2>><<personsimple>> replies. "The light left <<person4>><<his>> eyes hours ago."
+<br><br>
+
+<<link [[Next|Alleyways Rescue 2]]>><</link>>
+<br>
+
+
+:: Alleyways Rescue 2
+<<effects>>
+
+You enter the next room. Strapped down in the centre of the room is a <<person4>><<person>>. <<Hes>> naked, <<his>> eyes are vacant, and bruises cover <<his>> body. It takes you a second to recognise <<him>>. <<Hes>> a resident of the orphanage. <<Hes>> been missing for some time.
+<br><br>
+
+Three <<person1>><<people>> stand around <<person4>><<him>>. A <<person1>><<person>>, <<person2>><<person>>, and <<person3>><<person>>. They watch your arrival with curiosity.
+<br><br>
+
+"It's rare that the prey comes to us," the <<person1>><<person>> says.
+<br>
+"Not unless they're carried," the <<person2>><<person>> adds.
+<br>
+"Just in time too," the <<person3>><<person>> says. "This one's all used up."
+<br><br>
+
+
+<<set $skulduggerydifficulty to 1000>>
+<<link [[Trick them|Alleyways Rescue Trick]]>><</link>><<skulduggerydifficulty>>
+<br>
+<<link [[Fight them|Alleyways Rescue Attack]]>><</link>>
+<br>
+<<link [[Say you'll be their prisoner if you let their other victim go|Alleyways Rescue Victim]]>><</link>>
+<br>
+<<if $fame.scrap gte 800>>
+	<<link [[Threaten|Alleyways Rescue Threaten]]>><</link>><<note "Combat Fame" "Green">>
+	<br>
+<</if>>
+
+:: Alleyways Rescue Victim
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I'll be your prisoner," you say. "Just let <<person4>><<him>> go."
+<<elseif $speech_attitude is "bratty">>
+	"Let <<person4>><<<him>> go," you say. "I'll take over."
+<<else>>
+	"I'll be your prisoner if you let <<person4>><<him>> go," you say.
+<</if>>
+<br><br>
+
+"Suits us," the <<person1>><<person>> says. "We'd keep you both, but we don't have the equipment." <<He>> motions to the <<person2>><<person>>, who removes the straps tying down the <<person4>><<person>>. The <<person3>><<person>>, meanwhile, grabs your arms from behind and shoves you forward.
+<br><br>
+
+The <<person4>><<persons>> legs give way as soon as they put weight on them, making the three laugh. <<He>> carefully rises to <<his>> feet, then staggers the way you came.
+<br><br>
+
+<<link [[Next|Alleyways Capture]]>><</link>>
+<br>
+
+:: Alleyways Rescue Trick
+<<effects>>
+
+
+<<skulduggerycheck>>
+<<if $skulduggerysuccess is 1>>
+
+	<<if $speech_attitude is "meek">>
+		"I'm sorry to bother you," you say. "But Bailey wants <<nnpc_his Bailey>> property back. Says you've gone overtime."
+		<br><br>
+
+		<span class="green">All three look aghast.</span> "There's a time limit?" the <<person1>><<person>> asks. "Tell Bailey we're sorry, we didn't know. We're done with <<person4>><<him>> anyway.
+	<<elseif $speech_attitude is "bratty">>
+		"Bailey sent me," you say. "Bailey wants <<nnpc_his Bailey>> property back, or <<nnpc_he Bailey>>'ll charge extra. Maybe take one of your heads."
+		<br><br>
+
+		<span class="green">All three look aghast.</span> "Bailey doesn't take heads," the <<person1>><<person>> says. "Does <<he>>?" No one responds. "Fine. Take the <<person4>><<personsimple>>. We're done with <<him>> anyway.
+	<<else>>
+		"Bailey sent me," you say. "Says you've held onto <<nnpc_his Bailey>> property too long, and wants it back.
+		<br><br>
+
+		<span class="green">All three look aghast.</span> "There's a time limit?" the <<person1>><<person>> asks. "Tell Bailey we're sorry, we didn't know. We're done with <<person4>><<him>> anyway.
+	<</if>>
+	<br><br>
+
+	<<skulduggeryuse>>
+
+	<<link [[Next|Alleyways Rescue Escape]]>><</link>>
+	<br>
+
+<<else>>
+
+	<<if $speech_attitude is "meek">>
+		"I've come to help you," you say. "The police are on their way. You should escape while you can."
+	<<elseif $speech_attitude is "bratty">>
+		"The police know what you're up to," you say. "Consider yourselves warned."
+	<<else>>
+		"The police are on the way," you say. "You should escape while you can."
+	<</if>>
+	<br><br>
+
+	<<skulduggeryuse>>
+	The three share a glance, <span class="red">then burst into laughter.</span> "Nice try," the <<person1>><<person>> says. "As if we'd fall for that one. Now shut the fuck up, and come here."
+	<br><br>
+	<<link [[Fight them|Alleyways Rescue Attack]]>><</link>>
+	<br>
+	<<person4>>
+	<<link [[Let yourself be captured in return for letting the <<person>> go|Alleyways Rescue Victim]]>><</link>>
+	<br>
+	<<if $fame.scrap gte 800>>
+		<<link [[Threaten|Alleyways Rescue Threaten]]>><</link>><<note "Combat Fame" "Green">>
+		<br>
+	<</if>>
+
+<</if>>
+
+
+:: Alleyways Rescue Threaten
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"How rude of me," you say. "Let me introduce myself. You might know me as <<underworld_nickname>>. Please, let me leave with the <<person4>><<personsimple>>. I think that would be best for everyone."
+<<elseif $speech_attitude is "bratty">>
+	"Let's skip the preamble," you say. "I'm <<underworld_nickname>>. Give up the <<person4>><<personsimple>>, or I'll show you how I earned that name."
+<<else>>
+	"You might know me as <<underworld_nickname>>," you say. "I'm taking the <<person4>><<personsimple>>. I trust there'll be no objection?"
+<</if>>
+<br><br>
+
+The <<person1>><<person>> looks amused, but the <<person2>><<person>> and <<person3>><<person>> share a worried glance.
+<br>
+"I thought you'd be," the <<person2>><<person>> says. "I mean, I thought you'd look more intimidating."
+<br>
+"We're done with the <<person4>><<personsimple>> anyway," the <<person3>><<person>> says.
+<br><br>
+
+The <<person1>><<person>> casts an exasperated glance glance at <<his>> colleagues, but something in their eyes makes <<him>> relent. "Fine," <<he>> says. "Take the <<person4>><<personsimple>> and fuck off."
+<br><br>
+
+<<link [[Next|Alleyways Rescue Escape]]>><</link>>
+<br>
+
+
+:: Alleyways Rescue Escape
+<<effects>>
+
+
+The <<person3>><<person>> removes the <<person4>><<person>>'s bindings. <<His>> legs give way, and <<he>> falls to the ground. <<His>> expression is blank. You help <<him>> to <<his>> feet, and support <<his>> weight as you guide <<him>> to the exit.
+<br><br>
+
+You convince the trio to give you something to cover their victim, and together you leave the ominous building.
+<br><br>
+
+<<link [[Next|Alleyways Rescue Escape 2]]>><<pass 30>><</link>>
+<br>
+
+
+:: Alleyways Rescue Escape 2
+<<set $location to "orphanage">><<set $outside to 0>><<effects>>
+
+<<endevent>>
+<<loadNPC 0 "alleyways_rescue_victim">><<person1>>
+
+The <<person>>'s balance soon returns to <<him>>, but <<he>> says nothing on the way back to the orphanage. <<He>> keeps <<his>> arms tight around <<his>> body, keeping the towels close.
+<br><br>
+
+<<He>> looks at you as you walk through the orphanage doors, and says two words. "Thank you."<<ghope>><<hope 1>>
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><<alleyways_rescue_end>><</link>>
+<br>
+
+
+:: Alleyways Rescue Attack
+<<effects>>
+
+You launch yourself at the <<person1>><<person>>, catching <<him>> off guard. "Fuck," <<he>> growls. "Don't just stand there you fuckers, help me."
+<br><br>
+
+<<endevent>>
+<<loadNPC 0 "alleyways_rescue_1">>
+<<loadNPC 1 "alleyways_rescue_2">>
+<<loadNPC 2 "alleyways_rescue_3">>
+<<person1>>
+
+<<link [[Next|Alleyways Rescue Fight]]>><<set $fightstart to 1>><</link>>
+<br>
+
+:: Alleyways Rescue Fight
+<<if $fightstart is 1>>
+	<<set $fightstart to 0>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust -= 100>>
+	<<set $enemyanger += 200>>
+	<<set $enemyhealth -= 50>>
+	<<npcidlegenitals>>
+<</if>>
+
+<<if $enemyhealth lte ($enemyhealthmax / 2) and $alleyways_rescue_npc_1 is "confident">>
+	<<set $alleyways_rescue_npc_1 to "unnerved">>
+	<span class="green">The <<person1>><<person>> cries out in pain, and backs away from you.</span>
+	<br><br>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend or ($pain gte 100 and $willpowerpain is 0)>>
+	<span id="next"><<link [[Next|Alleyways Rescue Fight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Alleyways Rescue Fight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Alleyways Rescue Fight Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	The trio collapse around you, overcome by orgasmic bliss.
+	<br><br>
+	<<endcombat>>
+	<<clotheson>>
+	<<loadNPC 0 "alleyways_rescue_1">>
+	<<loadNPC 1 "alleyways_rescue_2">>
+	<<loadNPC 2 "alleyways_rescue_3">>
+	<<loadNPC 3 "alleyways_rescue_victim">><<person4>>
+	<<tearful>> you seize the opportunity. You remove the <<person>>'s bindings, and support their weight as you guide them to the exit, stopping only to
+
+	<<exposure>>
+	<<if $exposed gte 1>>
+		grab some towels for the both of you.
+	<<else>>
+		grab some towels.
+	<</if>>
+	<br><br>
+
+	<<link [[Next|Alleyways Rescue Escape]]>><</link>>
+	<br>
+
+<<elseif $enemyhealth lte 0>>
+	The <<person1>><<person>> steps back, and catches their foot in a grate. With a howl of pain, <<he>> collapses, distracting the <<person2>><<person>> and <<person3>><<person>>
+	<br><br>
+	<<endcombat>>
+	<<clotheson>>
+	<<loadNPC 0 "alleyways_rescue_1">>
+	<<loadNPC 1 "alleyways_rescue_2">>
+	<<loadNPC 2 "alleyways_rescue_3">>
+	<<loadNPC 3 "alleyways_rescue_victim">><<person4>>
+	<<tearful>> you seize the opportunity. You remove the <<person>>'s bindings, and support their weight as you guide them to the exit, stopping only to
+
+	<<exposure>>
+	<<if $exposed gte 1>>
+		grab some towels for the both of you.
+	<<else>>
+		grab some towels.
+	<</if>>
+	<br><br>
+
+	<<link [[Next|Alleyways Rescue Escape]]>><</link>>
+	<br>
+<<else>>
+	<<tearful>> you fall to the ground. You're too hurt to continue fighting.
+	<br><br>
+	"At last," the <<person1>><<person>> says. "Fresh meat."
+	<br><br>
+	<<endcombat>>
+	<<link [[Next|Alleyways Capture]]>><<clotheson>><</link>>
+
+<</if>>
+
+:: Alleyways Capture
+<<effects>>
+<<pass 2>>
+<<endevent>>
+<<loadNPC 0 "alleyways_rescue_1">>
+<<loadNPC 1 "alleyways_rescue_2">>
+<<loadNPC 2 "alleyways_rescue_3">>
+<<loadNPC 3 "alleyways_rescue_victim">>
+<<bindtemp>>
+
+The <<person2>><<person>> removes the <<person4>><<person>>'s bindings. <<He>> collapses as soon as <<he>> puts weight on <<his>> legs, eliciting laughter from the trio. <<He>> pushes <<himself>> to <<his>> feet, and staggers towards the exit, <<his>> blank expression unchanging.
+<br><br>
+
+Meanwhile, the <<person3>><<person>> shoves you towards the table in the centre of the room, beneath the source of the rotating lights. <<He>> forces you over it, and the <<person1>><<person>> ties you down, the bindings digging into you. They grin the whole time.<<gtrauma>><<gstress>><<trauma 6>><<stress 6>>
+<br><br>
+
+<<link [[Next|Alleyways Capture 2]]>><</link>>
+
+
+:: Alleyways Capture 2
+<<effects>>
+<<pass 2>>
+<<endevent>>
+<<loadNPC 0 "alleyways_rescue_1">>
+<<loadNPC 1 "alleyways_rescue_2">>
+<<loadNPC 2 "alleyways_rescue_3">>
+
+<<alleyways_capture_text>>
+
+You notice the holy symbol of the temple dangling around the <<person3>><<person>>'s neck as <<he>> pulls away.
+<br><br>
+
+The <<person1>><<person>> kicks open a cabinet, revealing an array of torture implements. There's a brown paper bag in the corner that seems to glow with a pink light. The <<person1>><<person>> grabs a whip. "Do scream," <<person1>><<he>> says. "The walls are thick. Don't worry about disturbing the neighbours."
+<br><br>
+
+<<He>> walks behind you, raises the whip, and brings it down hard on your <<bottom>>.<<ggpain>><<gtrauma>><<gstress>><<pain 8>><<trauma 6>><<stress 6>>
+<br><br>
+
+<<link [[Scream|Alleyways Capture 2 Scream]]>><</link>>
+<br>
+<<link [[Resist|Alleyways Capture 2 Resist]]>><</link>><<willpowerdifficulty 1 1000>>
+<br>
+
+:: Alleyways Capture 2 Scream
+<<effects>>
+
+You scream. It seems to satisfy the trio. <<person2>>"<<pShe>>'s a howler," the <<person2>><<person>> says. "Give me a go."
+<br><br>
+
+"Alright," the <<person1>><<person>> says. "But go easy. We broke the last one too quickly." <<He>> hands over the whip.
+<br><br>
+
+<<link [[Next|Alleyways Capture 3]]>><</link>>
+<br>
+
+
+
+:: Alleyways Capture 2 Resist
+<<effects>>
+
+<<if $willpowerSuccess>>
+	You grit your teeth and bear it. You feel the tears roll down your cheeks, <span class="green">but you utter no sound.</span>
+	<br><br>
+
+	The <<person3>><<person>> leans close. "What's the matter?" <<he>> asks. "You're not broken already are you?"
+	<br><br>
+
+	<<link [[Spit|Alleyways Capture 2 Spit]]>><<stress -6>><<def 1>><</link>><<lstress>>
+	<br>
+	<<link [[Stare|Alleyways Capture 2 Stare]]>><</link>>
+	<br>
+	<<if $angel gte 6>>
+		<<link [[Forgive|Alleyways Capture 2 Forgive]]>><<set $alleyways_rescue_npc_3 to "unnerved">><</link>><<angel>>
+		<br>
+	<</if>>
+<<else>>
+	You try to resist, but that pain is too much. <span class="red">You scream.</span> It seems to satisfy the trio. <<person2>>"<<pShe>>'s a howler," the <<person2>><<person>> says. "Give me a go."<<ggstress>><<stress 12>><<gwillpower>><<willpower 1>>
+	<br><br>
+
+	"Alright," the <<person1>><<person>> says. "But go easy. We broke the last one too quickly." <<He>> hands over the whip.
+	<br><br>
+
+	<<link [[Next|Alleyways Capture 3]]>><</link>>
+	<br>
+<</if>>
+
+:: Alleyways Capture 2 Spit
+<<effects>>
+
+You spit in the <<person3>><<persons>> face. The <<person2>><<person>> almost fall over each other laughing. "Can't wait to break this one."
+<br><br>
+
+<<link [[Next|Alleyways Capture 3]]>><</link>>
+<br>
+
+:: Alleyways Capture 2 Stare
+<<effects>>
+
+You stare at the <<person3>><<person>>. <<He>> laughs a little, unnerved. "Maybe there is something wrong with <<phim>>."
+<br><br>
+
+The <<person2>><<person>> gropes your <<bottom>>. "It feels alright to me."
+<br><br>
+
+<<link [[Next|Alleyways Capture 3]]>><</link>>
+<br>
+
+:: Alleyways Capture 2 Forgive
+<<effects>>
+
+You whisper a prayer, just low enough that only the <<person3>><<person>> can hear.
+<<if $speech_attitude is "meek">>
+	You ask that the <<persons>> sins be forgiven, and to relieve the pain that drives <<him>>.
+<<elseif $speech_attitude is "bratty">>
+	You ask that the <<person>> meet their just reward.
+<<else>>
+	You ask that the <<persons>> sins be forgiven, that <<he>> knows not what <<he>> does.
+<</if>>
+<br><br>
+
+Fear wipes the smile from <<person3>>the <<persons>> face. <<He>> raises <<his>> hand, as if reaching for the holy symbol around <<his>> neck, but then <<he>> glances at the <<person2>><<person>>, and lets <<person3>><<his>> hand drop.
+<br><br>
+
+"What's the matter?" the <<person1>><<person>> asks. "Does <<pshe>> smell funny?" The <<person3>><<person>> just shakes <<his>> head.
+<br><br>
+
+<<link [[Next|Alleyways Capture 3]]>><</link>>
+<br>
+
+:: Alleyways Capture 3
+<<effects>>
+<<pass 2>>
+<<alleyways_capture_text>>
+
+The <<person1>><<person>> gives the <<person2>><<person>> the whip, then walks towards the cabinet. The <<person>> raises stands in <<his>> colleague's old spot. <<He>> raises the whip, and brings it down on your <<bottom>>.
+<br><br>
+
+It stings, but nowhere near as much as the last blow. <<He>> makes up for the lack of efficacy by striking multiple times.<<gpain>><<gtrauma>><<gstress>><<pain 4>><<trauma 6>><<stress 6>>
+<br><br>
+
+The <<person1>><<person>> puts the bag into <<his>> palm, and gives it a small shake. Four pills pop out. <<He>> pops one in <<his>> mouth, shivers, then crouches in front of you. "Here's a little something. Our treat." <<He>> pushes the pill against your lip with <<his>> thumb.
+<br><br>
+
+<<link [[Swallow the pill|Alleyways Capture 3 Swallow]]>><<arousal 600>><<drugs 10>><<set $phase to 0>><</link>><<gdrugged>><<garousal>>
+<br>
+<<link [[Pretend to swallow the pill, and hide it in your mouth|Alleyways Capture 3 Pretend]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Spit it out|Alleyways Capture 3 Spit]]>><<def 1>><<set $phase to 0>><</link>>
+<br>
+<<link [[Bite|Alleyways Capture 3 Bite]]>><<def 2>><<pain 8>><<set $alleyways_rescue_npc_1 to "unnerved">><<set $phase to 0>><</link>><<ggpain>>
+<br>
+
+:: Alleyways Capture 3 Swallow
+<<effects>>
+
+You swallow the sweet pill. A sickly warmth spreads from your abdomen, heating your limbs and sending a shiver up your spine.
+<br><br>
+
+"Good, isn't it?" the <<person1>><<person>> says. <<He>> throws a pill to each of <<his>> colleagues. They shiver after swallowing.
+<br><br>
+
+<<link [[Next|Alleyways Capture 4]]>><</link>>
+<br>
+
+:: Alleyways Capture 3 Pretend
+<<effects>>
+
+You take the pill into your mouth, hide it under your tongue, and mimic the <<person1>><<persons>> shiver. <<He>> seems satisfied.
+<br><br>
+
+"Good, isn't it?" the <<person1>><<person>> says. <<He>> throws a pill to each of <<his>> colleagues. They shiver after swallowing.
+<br><br>
+
+<<link [[Next|Alleyways Capture 4]]>><</link>>
+<br>
+
+
+
+:: Alleyways Capture 3 Spit
+<<effects>>
+
+You spit the pill in the <<person1>><<persons>> face at once. <<He>> winces as it bounces off <<his>> nose, and starts looking for where it fell.
+<<if $alleyways_rescue_npc_3 is "unnerved">>
+	The <<person2>><<person>> laughs, though the <<person3>><<person>> seems too distracted by <<his>> own thoughts.
+<<else>>
+	<<His>> colleagues laugh.
+<</if>>
+<br><br>
+
+"Shut the fuck up and help me find it," <<he>> says. "Or you're getting none. These are expensive."
+<br><br>
+
+Once found, the <<person>> throws a pill to each of <<his>> colleagues. They shiver after swallowing.
+<br><br>
+
+<<link [[Next|Alleyways Capture 4]]>><</link>>
+<br>
+
+:: Alleyways Capture 3 Bite
+<<effects>>
+
+You clamp down on the <<persons>> intruding digit, and hold on as <<he>> screams. <<He>> smacks at your with <<his>> other hand and backs away, sucking <<his>> thumb.
+<br><br>
+
+<<if $alleyways_rescue_npc_3 is "unnerved">>
+	"You crazy fuck," <<he>> says, less amused than the <<person2>><<person>>, who almost chokes with laughter. The <<person3>><<person>> stares at the corner, distracted by <<his>> own thoughts.
+<<else>>
+	"You crazy fuck," <<he>> says, less amused than <<his>> colleagues, who almost choke with laughter. "You two can shut the fuck up, or you're getting nothing." That silences them.
+<</if>>
+<br><br>
+
+The <<person1>><<person>> throws a pill to each of <<his>> colleagues. They shiver after swallowing.
+<br><br>
+
+<<link [[Next|Alleyways Capture 4]]>><</link>>
+<br>
+
+:: Alleyways Capture 4
+<<effects>>
+<<pass 2>>
+<<alleyways_capture_text>>
+
+The <<person2>><<person>> puts the whip down, and crouches in front of you. <<He>> opens <<his>> mouth to speak, but the rotating lights flicker a moment, and <<he>> waits for them to return to full function before continuing.
+<br><br>
+
+"How's about a kiss love?" <<he>> muses. "Might incline me to go easy on you."
+<br><br>
+
+<<if $alleyways_rescue_npc_1 is "unnerved">>
+	"Why the fuck are you asking for permission?" the <<person1>><<person>> asks.
+	<br>
+	"I just want it to be all romantic and proper."
+	<br>
+	"You tied <<phim>> to a fucking table. Stop playing make believe."
+	<br><br>
+<<else>>
+	"Just take a kiss from <<phim>>," the <<person1>><<person>> says.
+	<br>
+	"I want it to be romantic and proper though."
+	<br>
+	"You're weird sometimes."
+	<br><br>
+<</if>>
+<<person2>>
+<<link [[Kiss|Alleyways Capture 4 Kiss]]>><</link>><<kissvirginitywarning>>
+<br>
+<<if $phase is 1>>
+	<<link [[Kiss, and push the hidden pill into <<his>> mouth|Alleyways Capture 4 Pill]]>><<set $alleyways_rescue_npc_2 to "unnerved">><</link>><<kissvirginitywarning>>
+	<br>
+<</if>>
+<<link [[Refuse|Alleyways Capture 4 Refuse]]>><</link>>
+<br>
+<<link [[Glare|Alleyways Capture 4 Glare]]>><<stress -6>><</link>><<lstress>>
+<br>
+
+
+:: Alleyways Capture 4 Kiss
+<<effects>>
+
+You nod, and the <<person2>><<person>> smothers you with a wet and clumsy kiss. <<takeKissVirginity $NPCList[1] "rape">>
+<br><br>
+A bridge of drool connects you for a moment when <<he>> pulls away. <<He>> looks satisfied.
+<br><br>
+
+<<link [[Next|Alleyways Capture 5]]>><</link>>
+<br>
+
+:: Alleyways Capture 4 Pill
+<<effects>>
+
+You nod, and the <<person2>><<person>> smothers you with a wet and clumsy kiss. <<takeKissVirginity $NPCList[1] "rape">><<takeKissVirginity $NPCList[1] "rape">>
+<br><br>
+You push your tongue into <<his>> mouth, slow and coy at first, then you thrust the pill deep. <<His>> reflex kicks in and <<he>> swallows, then backs away.
+<br><br>
+
+"What was that?" <<he>> asks, holding <<his>> hand beneath <<his>> mouth as if expecting the pill to jump back out.
+<<if $alleyways_rescue_npc_3 is "unnerved">>
+	The <<person1>><<person>> looks confused, then the <<person2>><<person>> shivers, and drops to <<his>> knees. Realisation dawns on the <<person1>><<persons>> face.
+<<else>>
+	The <<person1>><<person>> and <<person3>><<person>> look confused, then the <<person2>><<person>> shivers, and drops to <<his>> knees. Realisation dawns on <<his>> colleagues faces.
+<</if>>
+<br><br>
+
+<<link [[Next|Alleyways Capture 5]]>><</link>>
+<br>
+
+:: Alleyways Capture 4 Refuse
+<<effects>>
+
+"Not my lucky day I guess," the <<person2>><<person>> says with a laugh. "Oh well."
+<br><br>
+
+<<link [[Next|Alleyways Capture 5]]>><</link>>
+<br>
+
+:: Alleyways Capture 4 Glare
+<<effects>>
+
+You glare at the <<person2>><<person>>. <<He>> averts <<his>> eyes, but saves face with a laugh.
+<br><br>
+
+<<link [[Next|Alleyways Capture 5]]>><</link>>
+<br>
+
+:: Alleyways Capture 5
+<<effects>>
+
+<<alleyways_capture_text>>
+The rotating lights flicker.
+<br><br>
+
+<<if $alleyways_rescue_npc_1 is "unnerved">>
+	<<if $alleyways_rescue_npc_2 is "unnerved">>
+		<<if $alleyways_rescue_npc_3 is "unnerved">>
+			The <<person2>><<person>> drops to all fours, and retches. <span class="pink">Something dark and wet leaps from <<his>> mouth, and skitters across the ground.</span> The <<person3>><<person>> reaches for <<his>> holy symbol, <span class="red">then the lights die.</span>
+			<br><br>
+
+			The <<person1>><<person>> releases a strange, choking scream. <<His>> leg catches on the table leg as <<he>> scrambles away, throwing it, and you, onto the floor.<<gpain>><<gstress>><<gawareness>><<pain 4>><<stress 6>><<awareness 1>>
+			<br><br>
+
+			<<link [[Next|Alleyways Capture 1 1 1]]>><</link>>
+			<br>
+		<<else>>
+			The <<person2>><<person>> drops to all fours, and retches. <span class="pink">Something dark and wet leaps from <<his>> mouth, and skitters across the ground.</span>
+			<br><br>
+			The <<person1>><<person>> recoils in horror, but the <<person3>><<person>> rushes forward, and shoves the table aside, with you on it.<<gstress>><<gpain>><<stress 6>><<pain 4>>
+			<br><br>
+
+			<<link [[Next|Alleyways Capture 1 1 0]]>><</link>>
+			<br>
+		<</if>>
+	<<else>>
+		The <<person2>><<person>> looks up. "Why are they doing that?"
+		<br>
+		"Who gives a flying fuck," the <<person1>><<person>> says. "I should tear your fucking lights down."
+		<br>
+		"What's gotten into you?"
+		<br><br>
+		<<if $alleyways_rescue_npc_3 is "unnerved">>
+			The <<person1>><<person>> storms out. The <<person3>><<person>> doesn't seem to notice. <<He>> mutters something under <<his>> breath. It sounds like a prayer. <<He>> pays no attention to the world around <<him>>, then <<he>> drops to <<his>> knees in front of you
+			<br><br>
+			"I'm sorry," <<he>> says. "I'm so so sorry." Tears wet <<his>> cheeks, and <<he>> raises trembling fingers to your bindings, and starts to undo them.
+			<br><br>
+			"What are you doing?" the <<person2>><<person>> asks, rushing over and attempting to wrestle the <<person3>><<person>> away from you.
+			<br><br>
+			<<link [[Next|Alleyways Capture 1 0 1]]>><</link>>
+			<br>
+		<<else>>
+			"I think we're all just a bit tense," the <<person3>><<person>> interjects. "Something wrong with the power I reckon."
+			<br><br>
+			This seems to satisfy the <<person2>><<person>>, but not the <<person1>><<person>>. "You're always taking <<person2>><<his>> side," <<he>> fumes. "You know what? Fuck you both." <<He>> storms towards the exit.
+			<br><br>
+
+			<<link [[Next|Alleyways Capture 1 0 0]]>><</link>>
+			<br>
+		<</if>>
+	<</if>>
+<<else>>
+	<<if $alleyways_rescue_npc_2 is "unnerved">>
+		<<if $alleyways_rescue_npc_3 is "unnerved">>
+			The <<person2>><<person>> drops to all fours, and retches. <span class="pink">Something dark and wet leaps from <<his>> mouth, and skitters across the ground.</span> The <<person3>><<persons>> prayer reaches a fever pitch, while the <<person1>><<person>> snaps a leg off the table, sending it, and you, toppling to the floor. You feel your bonds loosen.
+			<br><br>
+
+			<<link [[Next|Alleyways Capture 0 1 1]]>><</link>>
+			<br>
+		<<else>>
+			The <<person2>><<person>> drops to all fours, and retches. <span class="pink">Something dark and wet leaps from <<his>> mouth, and skitters across the ground.</span>
+			<br><br>
+			The <<person1>><<person>> and <<person3>><<person>> chase the creature, and corner it, where the <<person1>><<person>> crushes it underfoot.
+			<br><br>
+			<<link [[Next|Alleyways Capture 0 1 0]]>><</link>>
+			<br>
+		<</if>>
+	<<else>>
+		The <<person2>><<person>> looks up. "Why are they doing that?"
+		<br>
+		"Who cares," the <<person1>><<person>> says. "I don't understand why you insist on these dumb lights."
+		<br>
+		"They keep our prey pacified. They weren't cheap either. You're the one always going on about counting pennies."
+		<br>
+		"You got scammed. Lights like that don't exist."
+		<br>
+		"Yes they do."
+		<br><br>
+		<<if $alleyways_rescue_npc_3 is "unnerved">>
+			The <<person3>><<person>> drops to <<his>> knees, holy symbol between <<his>> palms, <<his>> lips racing in incessant prayer. The <<person1>><<person>> and <<person2>><<person>> drop their argument, and share a worried look.
+			<br><br>
+
+			<<link [[Next|Alleyways Capture 0 0 1]]>><</link>>
+			<br>
+		<<else>>
+			"I think we're all just a bit tense," the <<person3>><<person>> interjects. "Something wrong with the power I reckon." <<His>> words seem to tease the tension.
+			<br><br>
+
+			<<link [[Next|Alleyways Capture 0 0 0]]>><</link>>
+			<br>
+		<</if>>
+	<</if>>
+<</if>>
+
+
+:: Alleyways Capture 0 0 0
+<<effects>>
+
+<<endevent>>
+<<loadNPC 0 "alleyways_rescue_1">>
+<<loadNPC 1 "alleyways_rescue_2">>
+<<loadNPC 2 "alleyways_rescue_3">>
+
+"You know what would improve my mood?" the <<person1>><<person>> asks. "Taking this slut from all directions."
+<br>
+"Hear hear."
+<br><br>
+The three advance on you.
+<br><br>
+
+<<link [[Next|Alleyways Capture Rape]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Alleyways Capture 0 0 1
+<<effects>>
+
+With a cry of anguish, the <<person3>><<person>> bolts to <<his>> feet and flees the room. You hear the front door slam.
+<br><br>
+
+The <<person1>><<person>> and <<person2>><<person>> stare after their departed colleague, then the <<person1>><<person>> shrugs. "I always knew <<person3>><<he>>'d lose it someday."
+<br><br>
+
+"You know what would cheer us up?" the <<person2>><<person>> asks. The <<person1>><<person>> follows <<person2>><<his>> gaze, to you. They grin as they approach.
+<br><br>
+
+<<endevent>>
+<<loadNPC 0 "alleyways_rescue_1">>
+<<loadNPC 1 "alleyways_rescue_2">>
+<<person1>>
+
+<<link [[Next|Alleyways Capture Rape]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Alleyways Capture 0 1 0
+<<effects>>
+
+
+"What was it?" the <<person3>><<person>> asks.
+<br>
+"No idea." They both glance at their limp colleague. "But I need unwind."
+<br>
+"I know just the thing."
+<br><br>
+They grin as they advance on you.
+<br><br>
+
+<<endevent>>
+<<loadNPC 0 "alleyways_rescue_1">>
+<<loadNPC 1 "alleyways_rescue_3">>
+
+<<link [[Next|Alleyways Capture Rape]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Alleyways Capture 0 1 1
+<<effects>>
+
+The <<person2>><<person>> lies limp, and the <<person3>><<person>> is hunched over in prayer, while the <<person1>><<person>> chases the skittering creature around the room, whacking at it with the table leg.
+<br><br>
+Meanwhile, you free yourself from what remains of the bindings, and crawl towards the entrance. You reach the gap in the wall, and see the front door up ahead, when you hear a squelch behind you.
+<br><br>
+"Got the blighter," the <<person1>><<person>> says. "Where's the <<girl>>?"
+<br><br>
+
+You barge through the front door, and escape into daylight.
+<br><br>
+
+<<alleyways_rescue_end>>
+<<destinationeventend>>
+
+
+:: Alleyways Capture 1 0 0
+<<effects>>
+
+<<endevent>>
+<<loadNPC 0 "alleyways_rescue_2">>
+<<loadNPC 1 "alleyways_rescue_3">>
+"More for us," the <<person1>><<person>> shrugs. "Speaking of," <<he>> turns <<his>> lecherous gaze back to you. "Time for our fun."
+<br><br>
+
+<<link [[Next|Alleyways Capture Rape]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+
+
+:: Alleyways Capture 1 0 1
+<<effects>>
+
+With surprising strength, the <<person3><<person>> hurls the <<person2>><<person>> away from you, and finishes removing your bindings.<<unbind>>
+<br><br>
+
+<<He>> takes your hand, and together you escape the building, stopping only to grab some towels.
+<br><br>
+
+<<link [[Next|Alleyways Capture 1 0 1 2]]>><<clothesontowel>><<pass 5>><</link>>
+<br>
+
+:: Alleyways Capture 1 0 1 2
+<<effects>>
+
+The <<person3>><<person>> stops and turns to you once you're several alleys away from the building.
+<br><br>
+
+"I've made a decision," <<he>> says. "I'm turning myself in. Not to the police. To the temple. I might find salvation there, if I am worthy." <<He>> bends to kiss both your fingers and <<his>> holy symbol at the same time, then departs in the direction of Wolf Street.
+<br><br>
+
+<<alleyways_rescue_end>>
+<<destinationeventend>>
+
+:: Alleyways Capture 1 1 0
+<<effects>>
+
+<<unbind>>
+The <<person3>><<person>> chases the creature around the room, trying to crush it underfoot, while <<person1>><<person>> cowers, and you squirm from your bonds. Free of bondage, crawl towards the entrance.
+<br><br>
+
+You hear a squelch as the <<person3>><<person>> crushes the creature.
+<br><br>
+
+"What the fuck was that," the <<person1>><<person>> says, panic in <<his>> voice.
+<br>
+"Haven't a clue," the <<person3>><<person>> replies, as you feel out the gap in the wall, and enter the corridor leading away. "Where's the <<girl>>?"
+<br><br>
+
+You barge into the door, and escape into daylight.
+<br><br>
+
+<<alleyways_rescue_end>>
+<<destinationeventend>>
+
+:: Alleyways Capture 1 1 1
+<<effects>>
+
+<<unbind>>
+Your limbs feel more loose. You're able to pull yourself free of the bindings, and rise to your feet.
+<br><br>
+
+You stagger in the direction of the exit, almost tripping over a body-sized bulk. You find the gap in the wall, and tear down the corridor, slamming into the door and half running, half falling into daylight.
+<br><br>
+
+The door slams shut behind you.
+<br><br>
+
+<<alleyways_rescue_end>>
+<<destinationeventend>>
+
+
+
+:: Alleyways Capture Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Alleyways Capture Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Alleyways Capture Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Alleyways Capture Rape Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	<br><br>
+	<<tearful>> await further torment.
+	<br><br>
+	<<endcombat>>
+
+<<else>>
+	You drive your captors back. You're still strapped to the table, but you've gained some breathing space.
+	<br><br>
+	<<tearful>> you await further torment.
+	<br><br>
+	<<endcombat>>
+<</if>>
+
+<<link [[Next|Alleyways Capture Rescue]]>><</link>>
+<br>
+
+:: Alleyways Capture Rescue
+<<effects>>
+
+
+The lights go out, plunging the room into darkness. A moment later you hear a thud, followed by another. A pair of hands tug at your bindings, removing them. Whoever is responsible wraps a towel around your shoulders, before helping you to your feet.
+<br><br>
+
+They take your hand, and lead you from the building.
+<br><br>
+
+<<if random(1, 2) is 2>>
+	<<link [[Next|Alleyways Capture Rescue Victim]]>><</link>>
+	<br>
+<<else>>
+	<<link [[Next|Alleyways Capture Rescue Goons]]>><</link>>
+	<br>
+<</if>>
+
+
+
+:: Alleyways Capture Rescue Victim
+<<effects>>
+
+<<loadNPC 0 "alleyways_rescue_victim">><<person1>>
+Your eyes adjust to the daylight, and you behold your rescuer. It's the <<person>> you saved. <<Hes>> still bruised and haggard looking, but a fire has returned to <<his>> eyes.
+<br><br>
+
+"I'm sorry," <<he>> says. "They should never have caught me. I was careless, passed out, and when I awoke they had me strapped to that table." <<He>> grimaces as an injury troubles <<him>>. "Thank you for finding me."
+<br><br>
+
+<<link [[Hug|Alleyways Capture Rescue Hug]]>><<hope 1>><</link>><<ghope>>
+<br>
+<<link [[Say orphans need to stick together|Alleyways Capture Rescue Stick]]>><<reb 1>><</link>><<greb>>
+<br>
+
+:: Alleyways Capture Rescue Hug
+<<effects>>
+
+You step closer to hug the <<person>>. <<He>> seems surprised, but welcomes it with a firm squeeze in return.
+<br><br>
+
+"Thanks again," <<he>> says. "Excuse me, but I'm not quite done here. See you at the orphanage. Go careful." <<He>> steps away.
+<br><br>
+
+<<alleyways_rescue_end>>
+<<destinationeventend>>
+
+:: Alleyways Capture Rescue Stick
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I needed you as much as you needed me," you say. "We need to look after each other. All of us."
+<<elseif $speech_attitude is "bratty">>
+	"We're stronger together," you say. "One day, we'll be the strongest."
+<<else>>
+	"We need to stick together," you say. "All of us."
+<</if>>
+<br><br>
+You don't specify that you mean the other residents of the orphanage, but you don't have to. <<He>> nods. "You're right. Speaking of which, I'm not quite done here. Go careful."
+<br><br>
+
+<<He>> steps away.
+<br><br>
+
+<<alleyways_rescue_end>>
+<<destinationeventend>>
+
+:: Alleyways Capture Rescue Goons
+<<effects>>
+
+<<generate1>><<generate2>><<person1>><<loadNPC 2 "alleyways_rescue_victim">>
+Your eyes adjust to the daylight, and you behold your rescuers. A <<person>> and <<person2>><<person>>. You recognise them. They work for Bailey.
+<br><br>
+
+"A sorry state you got yourself in," the <<person1>><<person>> says. "That <<person3>><<personsimple>> you rescued showed up in a right state."
+<br>
+"A cup of tea does wonders," the <<person2>><<person>> continues. "Told us about you as soon as <<person3>><<he>> could speak."
+<br><br>
+
+<<link [[Thank them|Alleyways Capture Rescue Thank]]>><</link>>
+<br>
+<<link [[Tell them they took their time|Alleyways Capture Rescue Time]]>><</link>>
+<br>
+<<link [[Tell them you didn't need help|Alleyways Capture Rescue Help]]>><</link>>
+<br>
+<<link [[Remain silent|Alleyways Capture Rescue Silent]]>><</link>>
+<br>
+
+:: Alleyways Capture Rescue Thank
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Thank you for saving me," you say with a small bow.
+<<elseif $speech_attitude is "bratty">>
+	"You weren't bad in there," you say. "Thanks."
+<<else>>
+	"Thanks for the rescue," You say.
+<</if>>
+<br><br>
+
+"Don't mention it," the <<person1>><<person>> says. "Just be more careful in the future." The pair walk away.
+<br><br>
+
+<<alleyways_rescue_end>>
+<<destinationeventend>>
+
+:: Alleyways Capture Rescue Time
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I'm glad you came," you say. "But I wish you had come sooner."
+<<elseif $speech_attitude is "bratty">>
+	"Took your time," you say. "Did you stop at a pub?"
+<<else>>
+	"You could have been quicker," you say.
+<</if>>
+<br><br>
+
+The <<person1>><<person>> laughs. "The mouth on this one. I hope you know to stow it when Bailey's around. Be more careful in the future."
+<br><br>
+
+The pair walk away.
+<br><br>
+
+<<alleyways_rescue_end>>
+<<destinationeventend>>
+
+
+:: Alleyways Capture Rescue Help
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"You shouldn't have worried about me," you say.
+<<elseif $speech_attitude is "bratty">>
+	"I had it under control," you say.
+<<else>>
+	"You didn't need to help me," you say.
+<</if>>
+<br><br>
+
+"Good thing it wasn't up to you then," the <<person1>><<person>> says. "Be more careful in the future." The pair walk away.
+<br><br>
+
+<<alleyways_rescue_end>>
+<<destinationeventend>>
+
+:: Alleyways Capture Rescue Silent
+<<effects>>
+
+You remain silent. The <<person1>><<person>> clicks beneath your face. "Something wrong?" the <<person1>><<person>> asks.
+<br>
+"Maybe <<pshe>> thinks saying nothing makes <<phim>> look cool."
+<br>
+The <<person1>><<person>> shrugs. "Just be more careful in the future."" The pair walk away.
+<br><br>
+
+<<alleyways_rescue_end>>
+<<destinationeventend>>

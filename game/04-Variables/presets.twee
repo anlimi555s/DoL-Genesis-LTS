@@ -1,0 +1,512 @@
+:: Widgets presets [widget]
+<!--Needs to be json strings, not json objects-->
+<<widget "presets">>
+	<<unset _preset>>
+	<<unset _presetName>>
+	<<if _args[0]>>
+		<<switch _args[0]>>
+			<<case "femaleWaif">>
+				<<set _preset to '{"starting":{"player":{"gender":"f","gender_body":"f","bodyshape":"curvy","ballsExist":false,"freckles":false,"breastsize":3,"penissize":1,"bottomsize":0},"skinColor":{"natural":"light","range":0},"bodysize":3,"breastsensitivity":1,"genitalsensitivity":1,"alcoholMod":1,"eyeselect":"purple","hairselect":"red","hairlength":200,"awareselect":"innocent","background":"waif"}}'>>
+			<<case "maleWaif">>
+				<<set _preset to '{"starting":{"player":{"gender":"m","gender_body":"m","bodyshape":"classic","ballsExist":false,"freckles":false,"breastsize":3,"penissize":1,"bottomsize":0},"skinColor":{"natural":"light","range":0},"bodysize":3,"breastsensitivity":1,"genitalsensitivity":1,"alcoholMod":1,"eyeselect":"purple","hairselect":"brown","hairlength":0,"awareselect":"innocent","background":"waif"}}'>>
+			<<case "hermaphroditeWaif">>
+				<<set _preset to '{"starting":{"player":{"gender":"h","gender_body":"a","bodyshape":"slender","ballsExist":true,"freckles":false,"breastsize":3,"penissize":1,"bottomsize":0},"skinColor":{"natural":"light","range":0},"bodysize":3,"breastsensitivity":3,"genitalsensitivity":3,"alcoholMod":1,"eyeselect":"purple","hairselect":"red","hairlength":200,"awareselect":"innocent","background":"waif"}}'>>
+			<<case "vrel">>
+				<<set _preset to '{"starting":{"player":{"gender":"f","gender_body":"f","bodyshape":"curvy","ballsExist":false,"freckles":false,"breastsize":0,"penissize":0,"bottomsize":0},"skinColor":{"natural":"light","range":0},"bodysize":3,"breastsensitivity":5,"genitalsensitivity":3,"alcoholMod":1,"eyeselect":"purple","hairselect":"burntorange","hairlength":400,"awareselect":"knowledgeable","background":"beautiful"}}'>>
+			<<case "crossdresser">>
+				<<set _preset to '{"starting":{"player":{"gender":"m","gender_body":"f","bodyshape":"curvy","ballsExist":false,"freckles":false,"breastsize":2,"penissize":0,"bottomsize":0},"skinColor":{"natural":"light","range":0},"bodysize":0,"breastsensitivity":3,"genitalsensitivity":1,"alcoholMod":1,"eyeselect":"light blue","hairselect":"blond","hairlength":400,"awareselect":"innocent","background":"crossdresser"}}'>>
+			<<case "toughGuy">>
+				<<set _preset to '{"starting":{"player":{"gender":"m","gender_body":"m","bodyshape":"classic","ballsExist":false,"freckles":false,"breastsize":0,"penissize":3,"bottomsize":0},"skinColor":{"natural":"light","range":50},"bodysize":2,"breastsensitivity":1,"genitalsensitivity":1,"alcoholMod":1,"eyeselect":"light blue","hairselect":"brown","hairlength":0,"awareselect":"knowledgeable","background":"athlete"}}'>>
+			<<case "genericNpcDefaultGender">>
+				<<set _preset to '{"general":{"settings":{"maleChanceMale":50,"maleChanceFemale":50,"malevictimchance":50}}}'>>
+			<<case "genericNpcAllMaleGender">>
+				<<set _preset to '{"general":{"settings":{"maleChanceMale":100,"maleChanceFemale":100,"malevictimchance":100}}}'>>
+			<<case "genericNpc75MaleGender">>
+				<<set _preset to '{"general":{"settings":{"maleChanceMale":75,"maleChanceFemale":75,"malevictimchance":75}}}'>>
+			<<case "genericNpcAllFemaleGender">>
+				<<set _preset to '{"general":{"settings":{"maleChanceMale":0,"maleChanceFemale":0,"malevictimchance":0}}}'>>
+			<<case "genericNpc75FemaleGender">>
+				<<set _preset to '{"general":{"settings":{"maleChanceMale":25,"maleChanceFemale":25,"malevictimchance":25}}}'>>
+			<<case "beastDefaultGenders">>
+				<<set _preset to '{"general":{"settings":{"beastMaleChanceMale":50,"beastMaleChanceFemale":50,"bestialityEnabled":true}}}'>>
+			<<case "beastMaleGenders">>
+				<<set _preset to '{"general":{"settings":{"beastMaleChanceMale":100,"beastMaleChanceFemale":100,"bestialityEnabled":true}}}'>>
+			<<case "beast75MaleGenders">>
+				<<set _preset to '{"general":{"settings":{"beastMaleChanceMale":75,"beastMaleChanceFemale":75,"bestialityEnabled":true}}}'>>
+			<<case "beastFemaleGenders">>
+				<<set _preset to '{"general":{"settings":{"beastMaleChanceMale":0,"beastMaleChanceFemale":0,"bestialityEnabled":true}}}'>>
+			<<case "beast75FemaleGenders">>
+				<<set _preset to '{"general":{"settings":{"beastMaleChanceMale":25,"beastMaleChanceFemale":25,"bestialityEnabled":true}}}'>>
+			<<case "beastDisable">>
+				<<set _preset to '{"general":{"settings":{"bestialityEnabled":false}}}'>>
+			<<case _kinkPreset>>
+				<<switch _kinkPreset>>
+					<<case "kinkDefault">>
+						<<set _preset to '{"general":{"settings":{"bestialityEnabled":true,"swarmsEnabled":true,"slimesEnabled":true,"voreEnabled":true,"tentaclesEnabled":true,"plantsEnabled":true,"analEnabled":true,"analDoubleEnabled":true,"footFetishEnabled":true,"analingusGivingEnabled":true,"analingusReceivingEnabled":true,"vaginalDoubleEnabled":true,"transformAnimalEnabled":true,"transformDivineEnabled":true,"breastFeedingEnabled":true,"parasitePregnancyEnabled":true,"watersportsEnabled":false,"facesitEnabled":true,"spidersEnabled":true,"bodyWritingLevel":3,"parasitesEnabled":true,"slugsEnabled":true,"waspsEnabled":true,"lurkersEnabled":true,"beesEnabled":true,"horsesEnabled":true,"pregnancySpeechEnabled":true,"toyDildoEnabled":true,"toyWhipEnabled":true,"playerPregnancyHumanEnabled":true,"playerPregnancyBeastEnabled":true,"playerPregnancyEggLayingEnabled":true,"hypnosisEnabled":true}}}'>>
+					<<case "kinkVanilla">>
+						<<set _preset to '{"general":{"settings":{"bestialityEnabled":false,"swarmsEnabled":false,"slimesEnabled":false,"voreEnabled":false,"tentaclesEnabled":false,"plantsEnabled":false,"analEnabled":true,"analDoubleEnabled":false,"footFetishEnabled":true,"analingusGivingEnabled":true,"analingusReceivingEnabled":true,"vaginalDoubleEnabled":false,"transformAnimalEnabled":true,"transformDivineEnabled":true,"breastFeedingEnabled":false,"parasitePregnancyEnabled":false,"watersportsEnabled":false,"facesitEnabled":false,"spidersEnabled":false,"bodyWritingLevel":2,"parasitesEnabled":false, "slugsEnabled":false,"waspsEnabled":false,"lurkersEnabled":false,"beesEnabled":false,"horsesEnabled":false,"pregnancySpeechEnabled":true,"toyDildoEnabled":true,"toyWhipEnabled":true,"playerPregnancyHumanEnabled":true,"playerPregnancyBeastEnabled":false,"playerPregnancyEggLayingEnabled":false,"hypnosisEnabled":true}}}'>>
+					<<case "kinkNoBeasts">>
+						<<set _preset to '{"general":{"settings":{"bestialityEnabled":false,"swarmsEnabled":false,"slimesEnabled":true,"voreEnabled":false,"tentaclesEnabled":true,"plantsEnabled":true,"analEnabled":true,"analDoubleEnabled":true,"footFetishEnabled":true,"analingusGivingEnabled":true,"analingusReceivingEnabled":true,"vaginalDoubleEnabled":true,"transformAnimalEnabled":true,"transformDivineEnabled":true,"breastFeedingEnabled":true,"parasitePregnancyEnabled":false,"watersportsEnabled":false,"facesitEnabled":true,"spidersEnabled":false,"bodyWritingLevel":3,"parasitesEnabled":false,"slugsEnabled":false,"waspsEnabled":false,"lurkersEnabled":false,"beesEnabled":false,"horsesEnabled":false,"pregnancySpeechEnabled":true,"toyDildoEnabled":true,"toyWhipEnabled":true,"playerPregnancyHumanEnabled":true,"playerPregnancyBeastEnabled":false,"playerPregnancyEggLayingEnabled":false,"hypnosisEnabled":true}}}'>>
+					<<case "kinkEverything">>
+						<<set _preset to '{"general":{"settings":{"bestialityEnabled":true,"swarmsEnabled":true,"slimesEnabled":true,"voreEnabled":true,"tentaclesEnabled":true,"plantsEnabled":true,"analEnabled":true,"analDoubleEnabled":true,"footFetishEnabled":true,"analingusGivingEnabled":true,"analingusReceivingEnabled":true,"vaginalDoubleEnabled":true,"transformAnimalEnabled":true,"transformDivineEnabled":true,"breastFeedingEnabled":true,"parasitePregnancyEnabled":true,"watersportsdisable":"f","facesitEnabled":true,"spidersEnabled":true,"bodyWritingLevel":3,"parasitesEnabled":true,"slugsEnabled":true,"waspsEnabled":true,"lurkersEnabled":true,"beesEnabled":true,"horsesEnabled":true,"pregnancySpeechEnabled":true,"toyDildoEnabled":true,"toyWhipEnabled":true,"playerPregnancyHumanEnabled":true,"playerPregnancyBeastEnabled":true,"playerPregnancyEggLayingEnabled":true,"hypnosisEnabled":true}}}'>>
+					<<default>>
+						<<set _preset to '{"general":{"settings":{"bestialityEnabled":true,"swarmsEnabled":true,"slimesEnabled":true,"voreEnabled":true,"tentaclesEnabled":true,"plantsEnabled":true,"analEnabled":true,"analDoubleEnabled":true,"footFetishEnabled":true,"analingusGivingEnabled":true,"analingusReceivingEnabled":true,"vaginalDoubleEnabled":true,"transformAnimalEnabled":true,"transformDivineEnabled":true,"breastFeedingEnabled":true,"parasitePregnancyEnabled":true,"watersportsEnabled":false,"facesitEnabled":true,"spidersEnabled":true,"bodyWritingLevel":3,"parasitesEnabled":true,"slugsEnabled":true,"waspsEnabled":true,"lurkersEnabled":true,"beesEnabled":true,"horsesEnabled":true,"pregnancySpeechEnabled":true,"toyDildoEnabled":true,"toyWhipEnabled":true,"playerPregnancyHumanEnabled":true,"playerPregnancyBeastEnabled":true,"playerPregnancyEggLayingEnabled":true,"hypnosisEnabled":true}}}'>>
+				<</switch>>
+			<<case _namedNpcPreset>>
+				<<set _npcs to { npc: {} }>>
+				<<switch _namedNpcPreset>>
+					<<case "namedNpcAllMaleGender">>
+						<<set _pronoun to "m">>
+						<<set _gender to "m">>
+					<<case "namedNpcAllFemaleGender">>
+						<<set _pronoun to "f">>
+						<<set _gender to "f">>
+					<<default>>
+						<<set _pronoun to "none">>
+						<<set _gender to "none">>
+				<</switch>>
+				<<for _name range setup.NPCNameList>>
+					<<if _name is "Ivory Wraith">>
+						<<continue>>
+					<<else>>
+						<<set _npcs.npc[_name] to {
+							pronoun: _pronoun,
+							gender: _gender,
+							skincolour: "none"
+						}>>
+					<</if>>
+				<</for>>
+				<<set _preset to JSON.stringify(_npcs)>>
+			<<case _monstersPreset>>
+				<<switch _monstersPreset>>
+					<<case "monstersDefault">>
+						<<set _preset to '{"general":{"settings":{"monsterChance":20,"monsterHallucinationsOnly":true},"blackwolfmonster":0,"greathawkmonster":0,"nightmonstermonster":0}}'>>
+					<<case "monstersNone">>
+						<<set _preset to '{"general":{"settings":{"monsterChance":0,"monsterHallucinationsOnly":false},"blackwolfmonster":0,"greathawkmonster":0,"nightmonstermonster":0}}'>>
+					<<case "monstersAll">>
+						<<set _preset to '{"general":{"settings":{"monsterChance":100,"monsterHallucinationsOnly":false},"blackwolfmonster":2,"greathawkmonster":2,"nightmonstermonster":2}}'>>
+					<<default>>
+						<<set _preset to '{"general":{"settings":{"monsterChance":20,"monsterHallucinationsOnly":true},"blackwolfmonster":0,"greathawkmonster":0,"nightmonstermonster":0}}'>>
+				<</switch>>
+			<<case "randomize">>
+				<<set _preset to _args[2]>>
+		<</switch>>
+		<<set _presetName to _args[0]>>
+	<</if>>
+	<<if _args[1]>>
+		<<set _presetPage to _args[1]>>
+	<<else>>
+		<<set _presetPage to "characterSettings">>
+	<</if>>
+	<<run importSettings(_preset, "function")>><<if StartConfig.enableImages is true and $passage is "Start" and _presetPage is "characterSettings">><<startingPlayerImageUpdate>><<removeclass #startingPlayerImage "hidden">><</if>>
+	<<if _args[1] isnot "save">>
+		<<displaySettings _presetPage>>
+	<</if>>
+<</widget>>
+
+<<widget "presetConfirmDetails">>
+	<<set _presetObject to JSON.parse(_preset)>>
+	<div style="padding:5px 0px 0px 10px">
+		<span class="green">Change the below settings?</span><br>
+		<div class="presetButtons">
+			<<button "Yes">><<run importSettings(_preset, "function")>><<displaySettings "quickStart">><<if StartConfig.enableImages is true and $passage is "Start">><<startingPlayerImageUpdate>><<removeclass #startingPlayerImage "hidden">><</if>><</button>>
+			<<button "No">><<displaySettings "quickStart">><</button>>
+		</div>
+	</div>
+	<<importDetailsDisplay _presetObject>>
+<</widget>>
+
+<<widget "importConfirmDetails">>
+	<<if isJsonString($importString)>>
+		<div style="padding:5px 0px 0px 10px">
+			<span class="green">Change the below settings?</span><br>
+			<div class="presetButtons">
+				<<button "Yes">><<run importSettings($importString, "function")>><<displaySettings "exportsettings">><<if StartConfig.enableImages is true and $passage is "Start">><<startingPlayerImageUpdate>><<startingPlayerImageUpdate>><</if>><</button>>
+				<<button "No">><<displaySettings "exportsettings">><<unset $importString>><</button>>
+			</div>
+		</div>
+		<<importDetailsDisplay `JSON.parse($importString)`>>
+	<<else>>
+		<<link "Back">><<displaySettings "exportsettings">><</link>>
+		<br><br>
+		<span class="red">Settings import is invalid</span>. Please double check the settings import string before importing again. <i><<link "Were you trying to import a save instead of a settings preset?">><<overlayReplace "export">><</link>></i> 
+	<</if>>
+<</widget>>
+
+<<widget "importDetailsDisplay">>
+	<<if _args[0]>>
+		<div class="presetConfirm settingsGrid">
+			<<if _args[0].starting isnot undefined>>
+				<div class="settingsHeader">
+					Imported Settings
+				</div>
+				<div class="settingsToggleItem">
+					<span class="gold">Base:</span>
+					<<set _validatorObject to settingsObjects("starting")>>
+					<<presetConfirm _args[0].starting>>
+				</div>
+				<<if _args[0].starting.player isnot undefined>>
+					<div class="settingsToggleItem">
+						<span class="gold">Player:</span>
+						<<set _validatorObject to settingsObjects("starting")>>
+						<<presetConfirm _args[0].starting.player>>
+						<<if _args[0].starting.skinColor isnot undefined>>
+							<hr style="border-top:1px solid var(--700)">
+							<span class="gold">Skin Colour:</span>
+							<<set _validatorObject to settingsObjects("starting")>>
+							<<presetConfirm _args[0].starting.skinColor>>
+						<</if>>
+					</div>
+				<</if>>
+			<</if>>
+
+			<<if _args[0].general isnot undefined>>
+				<div class="settingsToggleItem">
+					<<if _args[0].general.settings isnot undefined>>
+						<span class="gold">Settings:</span>
+						<<set _validatorObject to settingsObjects("general")>>
+						<<presetConfirm _args[0].general.settings>>
+					<</if>>
+				</div>
+				<div class="settingsToggleItem">
+					<<if _args[0].general.options isnot undefined>>
+						<span class="gold">Options:</span>
+						<<set _validatorObject to settingsObjects("general")>>
+						<<presetConfirm _args[0].general.options>>
+					<</if>>
+				</div>
+				<div class="settingsToggleItem">
+					<span class="gold">General Settings:</span>
+					<<set _validatorObject to settingsObjects("general")>>
+					<<presetConfirm _args[0].general>>
+					<<silently>>
+						<<if _args[0].general.skinColor isnot undefined>>
+							<span class="gold">Skin Colour:</span>
+							<<set _validatorObject to settingsObjects("general")>>
+							<<presetConfirm _args[0].general.skinColor>>
+						<</if>>
+						<<if _args[0].general.map isnot undefined>>
+							<span class="gold">Map Settings:</span>
+							<<set _validatorObject to settingsObjects("general")>>
+							<<presetConfirm _args[0].general.map>>
+						<</if>>
+						<<if _args[0].general.shopDefaults isnot undefined>>
+							<span class="gold">Shop Settings:</span>
+							<<set _validatorObject to settingsObjects("general")>>
+							<<presetConfirm _args[0].general.shopDefaults>>
+						<</if>>
+						<<if _args[0].general.wardrobeDefaults isnot undefined>>
+							<span class="gold">Wardrobe Settings:</span>
+							<<set _validatorObject to settingsObjects("general")>>
+							<<presetConfirm _args[0].general.wardrobeDefaults>>
+						<</if>>
+					<</silently>>
+				</div>
+			<</if>>
+
+			<<if _args[0].npc isnot undefined>>
+				<div class="settingsHeader">
+					Imported NPCs
+					<<set _validatorObject to settingsObjects("npc")>>
+				</div>
+				<<for $_label, $_value range _args[0].npc>>
+					<<if $_label is "Ivory Wraith">>
+						<<continue>>
+					<<else>>
+						<div class="settingsToggleItem">
+							<span class="gold"><<print $_label>>:</span>
+							<<presetConfirm $_value $_label>>
+						</div>
+					<</if>>
+				<</for>>
+			<</if>>
+		</div>
+	<</if>>
+<</widget>>
+
+<<widget "presetConfirm">>
+	<<if _args[0]>>
+		<<if _args[0].breastsizemin gt _args[0].breastsizemax>>
+			<<set _temp to _args[0].breastsizemin>>
+			<<set _args[0].breastsizemin to _args[0].breastsizemax>>
+			<<set _args[0].breastsizemax to _temp>>
+		<</if>>
+		<<if _args[0].penissizemin gt _args[0].penissizemax>>
+			<<set _temp to _args[0].penissizemin>>
+			<<set _args[0].penissizemin to _args[0].penissizemax>>
+			<<set _args[0].penissizemax to _temp>>
+		<</if>>
+		<ul>
+			<<for $_label, $_value range _args[0]>>
+				<<unset _altValue>>
+				<<unset _altValue2>>
+				<<if ["player","skinColor","map","shopDefaults","settings","options", "wardrobeDefaults"].includes($_label)>>
+					<<continue>>
+				<</if>>
+				<<unset _object>>
+				<<unset _valid>>
+				<<set _object to _validatorObject[$_label]>>
+				<<if _object isnot undefined>>
+					<<set _valid to validateValue(_object, $_value)>>
+					<<if Object.keys(_object).includes("boolLetter")>>
+						<<set _oldValue to V[$_label]>>
+						<<if _oldValue is "t">>
+							<<set _altValue to "True">>
+						<<elseif _oldValue is "f">>
+							<<set _altValue to "False">>
+						<</if>>
+						<<if $_value is "t">>
+							<<set _altValue2 to "True">>
+						<<elseif $_value is "f">>
+							<<set _altValue2 to "False">>
+						<</if>>
+					<</if>>
+				<</if>>
+				<li>
+					<<switch $_label>>
+						<<case "numberify_enabled">>
+							<<set _object to _validatorObject["options"][$_label]>>
+							<<if _object isnot undefined>>
+								<<set _valid to validateValue(_object, $_value)>>
+							<</if>>
+							Numbered link navigation: <span class="green"><<print (_altValue2 isnot undefined ? _altValue2 : $_value) is false ? "Disabled" : "Enabled">></span>
+						<<case "maleChance" "maleChanceMale" "maleChanceFemale" "femaleNPCPenisChance" "maleNPCVaginaChance" "maleVictimChance" "npcVirginChanceStudent" "npcVirginChanceAdult" "straponChance" "darkSkinChance" "beastMaleChance" "beastMaleChanceMale" "beastMaleChanceFemale" "monsterChance">>
+							<<set _object to _validatorObject["settings"][$_label]>>
+							<<if _object isnot undefined>>
+								<<set _valid to validateValue(_object, $_value)>>
+							<</if>>
+							<<set _displayName to _validatorObject["settings"][$_label]["displayName"]>>
+							<<print _displayName>> <span class="green"><<print (_altValue2 isnot undefined ? _altValue2 : $_value) + "%">></span>
+						<<case "eyeselect" "hairselect" "awareselect" "background" "gamemode">>
+							<<set _object to _validatorObject[$_label]>>
+							<<if _object isnot undefined>>
+								<<set _valid to validateValue(_object, $_value)>>
+							<</if>>
+							<<set _displayName to _validatorObject[$_label]["displayName"]>>
+							<<set _currentValue to (_altValue2 isnot undefined ? _altValue2 : $_value)>>
+							<<print _displayName>> <span class="green"><<print _currentValue .toString().toUpperFirst()>></span>
+						<<case "bodysize" "breastsensitivity" "genitalsensitivity" "mouthsensitivity" "bottomsensitivity" "alcoholMod" "facevariant">>
+							<<set _object to _validatorObject[$_label]>>
+							<<if _object isnot undefined>>
+								<<set _valid to validateValue(_object, $_value)>>
+							<</if>>
+							<<set _displayName to _validatorObject[$_label]["displayName"]>>
+							<<set _currentValue to (_altValue2 isnot undefined ? _validatorObject[$_label]["textMap"][_altValue2] : _validatorObject[$_label]["textMap"][$_value])>>
+							<<print _displayName>> <span class="green"><<print _currentValue .toString().toUpperFirst()>></span>
+						<<case "hairlength">>
+							<<set _displayName to _validatorObject[$_label]["displayName"]>>
+							<<print _displayName>> <span class="green"><<print (_altValue2 isnot undefined ? _altValue2 : $_value) gte 400 ? "Chest" : (_altValue2 isnot undefined ? _altValue2 : $_value) gte 200 ? "Neck" : "Ear">></span>
+						<<case "ironmanmode">>
+							Ironman Mode: <span class="green"><<print (_altValue2 isnot undefined ? _altValue2 : $_value) is false ? "Disabled" : "Enabled">></span>
+						<<case "timestyle">>
+							<<set _object to _validatorObject["options"][$_label]>>
+							<<if _object isnot undefined>>
+								<<set _valid to validateValue(_object, $_value)>>
+							<</if>>
+							<<set _displayName to _validatorObject["options"][$_label]["displayName"]>>
+							<<set _currentValue to (_altValue2 isnot undefined ? _altValue2 : $_value) is "military" ? "Military (24-Hour)" : "AM/PM (12-Hour)">>
+							<<print _displayName>> <span class="green"><<print _currentValue .toString().toUpperFirst()>></span>
+						<<case "images" "combatImages" "bodywritingImages" "silhouetteEnabled" "characterLightEnabled" "halfClosedEnabled" "combatAnimations" "blinkingEnabled" "sidebarAnimations" "dateFormat" "historyControls" "clothingCaption">>
+							<<set _object to _validatorObject["options"][$_label]>>
+							<<if _object isnot undefined>>
+								<<set _valid to validateValue(_object, $_value)>>
+							<</if>>
+							<<set _displayName to _validatorObject["options"][$_label]["displayName"]>>
+							<<set _currentValue to (_altValue2 isnot undefined ? _altValue2 : $_value) is 1 ? "Enabled" : (_altValue2 isnot undefined ? _altValue2 : $_value) is true ? "Enabled" : "Disabled">>
+							<<print _displayName>> <span class="green"><<print _currentValue .toString().toUpperFirst()>></span>
+						<<case "basePlayerPregnancyChance" "baseNpcPregnancyChance">>
+							<<set _object to _validatorObject["settings"][$_label]>>
+							<<if _object isnot undefined>>
+								<<set _valid to validateValue(_object, $_value)>>
+							<</if>>
+							<<set _displayName to _validatorObject["settings"][$_label]["displayName"]>>
+							<<set _previousValue to _validatorObject["settings"][$_label]>>
+							<<set _changedValue to (_altValue2 isnot undefined ? _validatorObject["settings"][$_label][_altValue2] : _validatorObject["settings"][$_label][$_value])>>
+							<<if $_label is "basePlayerPregnancyChance">>
+								<<print _displayName>> <span class="green"><<print "1 in "+(100-(_altValue2 isnot undefined ? _altValue2 : $_value))>></span>
+							<<else>>
+								<<print _displayName>> <span class="green"><<print "1 in "+(20-(_altValue2 isnot undefined ? _altValue2 : $_value))>></span>
+							<</if>>
+						<<case "humanPregnancyMonths">>
+							<<set _object to _validatorObject["settings"][$_label]>>
+							<<if _object isnot undefined>>
+								<<set _valid to validateValue(_object, $_value)>>
+							<</if>>
+							<<set _displayName to _validatorObject["settings"][$_label]["displayName"]>>
+							<<set _currentValue to (_altValue2 isnot undefined ? _altValue2 : $_value)>>
+							<<print _displayName>> <span class="green"><<print _currentValue .toString().toUpperFirst() + " months">></span>
+						<<case "wolfPregnancyWeeks">>
+							<<set _object to _validatorObject["settings"][$_label]>>
+							<<if _object isnot undefined>>
+								<<set _valid to validateValue(_object, $_value)>>
+							<</if>>
+							<<set _displayName to _validatorObject["settings"][$_label]["displayName"]>>
+							<<set _currentValue to (_altValue2 isnot undefined ? _altValue2 : $_value)>>
+							<<print _displayName>> <span class="green"><<print _currentValue .toString().toUpperFirst() + " weeks">></span>
+						<<case "alwaysBackToShopButton" "color" "colourItems" "compactMode" "disableReturn" "highContrast" "mannequinGender" "mannequinGenderFromClothes" "noHelp" "noTraits" "secColor">>
+							<<set _object to _validatorObject["shopDefaults"][$_label]>>
+							<<if _object isnot undefined>>
+								<<set _valid to validateValue(_object, $_value)>>
+							<</if>>
+							Changes <<print $_label>> from <span class="green"><<print `$shopDefaults.`+$_label>></span> to <span class="green"><<print (_altValue2 isnot undefined ? _altValue2 : $_value)>></span>
+						<<case "neverNudeMenus" "showCaptionText" "clothingReplacementWarning" "sidebarStats" "sidebarTime" "combatControls" "mapMovement" "mapTop" "mapMarkers" "images" "combatImages" "bodywritingImages" "silhouetteEnabled" "images" "sidebarAnimations" "blinkingEnabled" "combatAnimations" "halfClosedEnabled" "characterLightEnabled" "lightSpotlight" "lightGradient" "lightGlow" "lightFlat" "lightTFColor" "combatLightEnabled" "combatLightSpotlight" "combatLightSpotlightX" "combatLightSpotlightY" "combatLightOffsetY" "combatLightGradient" "combatLightGlow" "combatLightFlat" "combatLightTFColor" "maxStates" "useNarrowMarket" "skipStatisticsConfirmation" "passageCount" "playtime" "pepperSprayDisplay" "condomsDisplay" "closeButtonMobile" "showDebugRenderer" "showCombatTools" "numpad" "traitOverlayFormat" "font" "passageLineHeight" "overlayLineHeight" "sidebarLineHeight" "passageFontSize" "overlayFontSize" "sidebarFontSize">>
+							<<set _object to _validatorObject["options"][$_label]>>
+							<<if _object isnot undefined>>
+								<<set _valid to validateValue(_object, $_value)>>
+							<</if>>
+							<<set _displayName to _validatorObject["options"][$_label]["displayName"]>>
+							<<set _currentValue to (_altValue2 isnot undefined ? _altValue2 : $_value)>>
+							<<print _displayName>> <span class="green"><<print _currentValue .toString().toUpperFirst()>></span>
+						<<case "skillCheckStyle" "breastModifier" "allureModifier" "multipleWardrobes" "pregnancyType" "penisModifier">>
+							<<set _object to _validatorObject["settings"][$_label]>>
+							<<if _object isnot undefined>>
+								<<set _valid to validateValue(_object, $_value)>>
+							<</if>>
+							<<set _displayName to _validatorObject["settings"][$_label]["displayName"]>>
+							<<set _currentValue to (_altValue2 isnot undefined ? _altValue2 : $_value)>>
+							<<print _displayName>> <span class="green"><<print _currentValue .toString().toUpperFirst()>></span>
+						<<case "tipdisable">>
+							<<set _object to _validatorObject["options"][$_label]>>
+							<<if _object isnot undefined>>
+								<<set _valid to validateValue(_object, $_value)>>
+							<</if>>
+							<<set _displayName to _validatorObject["options"][$_label]["displayName"]>>
+							<<set _currentValue to (_altValue2 isnot undefined ? _altValue2 : $_value) is false ? "Enabled" : "Disabled">>
+							<<print _displayName>> <span class="green"><<print _currentValue .toString().toUpperFirst()>></span>
+						<<case "skin">>
+							<<set _object to _validatorObject.player.skin>>
+							<<if _object isnot undefined>>
+								<<set _valid to validateValue(_object.color, $_value.color)>>
+							<</if>>
+							<<set _displayName to "Skin colour">>
+							<<set _currentValue to (_altValue2 isnot undefined ? _altValue2 : $_value.color)>>
+							<<print _displayName>> <span class="green"><<print _currentValue.toString().toUpperFirst()>></span>
+						<<case "movement" "top" "markers">>
+							<<set _valid to false>>
+							<<if _object isnot undefined>>
+								<<set _valid to validateValue(_object, $_value)>>
+							<</if>>
+							<<set _displayName to _validatorObject[$_label]["displayName"]>>
+							<<set _currentValue to (_altValue2 isnot undefined ? _altValue2 : $_value)>>
+							<<print _displayName>> <span class="green"><<print _currentValue .toString().toUpperFirst()>></span>
+						<<case "blindStatsEnabled" "monsterHallucinationsOnly" "beastMaleChanceSplit" "maleChanceSplit" "bestialityEnabled" "slimesEnabled" "voreEnabled" "tentaclesEnabled" "analEnabled" "analDoubleEnabled" "analingusGivingEnabled" "analingusReceivingEnabled" "vaginalDoubleEnabled" "transformAnimalEnabled" "transformDivineEnabled" "pubicHairEnabled" "breastFeedingEnabled" "parasitePregnancyEnabled" "watersportsEnabled" "spidersEnabled" "facesitEnabled" "parasitesEnabled" "swarmsEnabled" "slugsEnabled" "waspsEnabled" "beesEnabled" "lurkersEnabled" "horsesEnabled" "pregnancySpeechEnabled" "plantsEnabled" "footFetishEnabled" "toyDildoEnabled" "toyWhipEnabled" "toyMultiplePenetrationEnabled" "hypnosisEnabled" "forcedCrossdressingEnabled" "playerPregnancyEggLayingEnabled" "playerPregnancyHumanEnabled" "playerPregnancyBeastEnabled" "playerPregnancyEggLayingEnabled" "npcPregnancyEnabled" "incompletePregnancyEnabled" "fertilityCycleEnabled" "cheatsEnabledToggle" "ruinedOrgasmEnabled">>
+							<<set _object to _validatorObject["settings"][$_label]>>
+							<<if _object isnot undefined>>
+								<<set _valid to validateValue(_object, $_value)>>
+							<</if>>
+							<<set _displayName to _validatorObject["settings"][$_label]["displayName"]>>
+							<<set _currentValue to (_altValue2 isnot undefined ? _altValue2 : $_value)>>
+							<<print _displayName>> <span class="green"><<print _currentValue .toString().toUpperFirst()>></span>
+						<<case "breastsizemin" "breastsizemax" "penissizemin" "penissizemax" "bottomsizemin" "bottomsizemax" "blackwolfmonster" "greathawkmonster" "nightmonstermonster">>
+							<<set _object to _validatorObject[$_label]>>
+							<<if _object isnot undefined>>
+								<<set _valid to validateValue(_object, $_value)>>
+							<</if>>
+							<<set _displayName to _validatorObject[$_label]["displayName"]>>
+							<<set _currentValue to (_altValue2 isnot undefined ? _validatorObject[$_label]["textMap"][_altValue2] : _validatorObject[$_label]["textMap"][$_value])>>
+
+							<<if $_label is "penissizemin" or $_label is "penissizemax">>
+								<<if $_currentSex is "Female">>
+									<<print _displayName>> <span class="green">Not Applicable</span> /*Don't show min/max penis size for players without a penis*/
+								<<else>>
+									<<print _displayName>> <span class="green"><<print _currentValue>></span>
+								<</if>>
+							<<else>>
+								<<print _displayName>> <span class="green"><<print _currentValue>></span>
+							<</if>>
+						<<case "bodyWritingLevel" "asphyxiaLevel" "nudeGenderPerception" "condomLevel">>
+							<<set _object to _validatorObject["settings"][$_label]>>
+							<<if _object isnot undefined>>
+								<<set _valid to validateValue(_object, $_value)>>
+							<</if>>
+							<<set _displayName to _validatorObject["settings"][$_label]["displayName"]>>
+							<<set _currentValue to (_altValue2 isnot undefined ? _validatorObject["settings"][$_label]["textMap"][_altValue2] : _validatorObject["settings"][$_label]["textMap"][$_value])>>
+							<<print _displayName>> <span class="green"><<print _currentValue>></span>
+						<<case "underwearCostModifier" "schoolClothingCostModifier" "lewdClothingCostModifier" "furnitureCostModifier" "clothingCostModifier" "rentCostModifier" "tendingYieldModifier">>
+							<<set _object to _validatorObject["settings"][$_label]>>
+							<<if _object isnot undefined>>
+								<<set _valid to validateValue(_object, $_value)>>
+							<</if>>
+							<<set _displayName to _validatorObject["settings"][$_label]["displayName"]>>
+							<<set _currentValue to (_altValue2 isnot undefined ? _altValue2 : $_value)>>
+							<<print _displayName>> <span class="green"><<print _currentValue * 100 + "%">></span>
+						<<case "pronoun" "sex" "gender" "skincolour" "penissize" "breastsize" "bottomsize" "gender_body" "ballsExist" "freckles" "bodyshape">>
+							<<if _args[1]>>
+								<<set _object to _validatorObject[$_label]>>
+								<<set _displayName to _validatorObject[$_label]["displayName"]>>
+								<<set _currentValue to (_altValue2 isnot undefined ? _validatorObject[$_label]["textMap"][_altValue2] : _validatorObject[$_label]["textMap"][$_value])>>
+
+								<<if $_label is "pronoun">>
+									<<set $_npcGender to _currentValue>>
+								<</if>>
+
+								<<if $_npcGender is "N/A">>
+									<<print _displayName>><span class="green"><<print "N/A">></span>
+								<<else>>
+									<<print _displayName>><span class="green"><<print _currentValue>></span>
+								<</if>>
+								<<if $_value is "none" and $passage is "Start">>
+									<<set _valid to true>>
+								<</if>>
+							<<elseif $_label is "sex">>
+								<<set _object to _validatorObject["player"][$_label]>>
+								<<if _object isnot undefined>>
+									<<set _valid to validateValue(_object, $_value)>>
+								<</if>>
+								<<set _displayName to _validatorObject["player"][$_label]["displayName"]>>
+								<<set $_currentSex to (_altValue2 isnot undefined ? _validatorObject["player"][$_label]["textMap"][_altValue2] : _validatorObject["player"][$_label]["textMap"][$_value])>>
+								<<print _displayName>> <span class="green"><<print $_currentSex>></span>
+							<<elseif $_label is "penissize">>
+								<<set _object to _validatorObject["player"][$_label]>>
+								<<if _object isnot undefined>>
+									<<set _valid to validateValue(_object, $_value)>>
+								<</if>>
+								<<set _displayName to _validatorObject["player"][$_label]["displayName"]>>
+								<<set _currentValue to (_altValue2 isnot undefined ? _validatorObject["player"][$_label]["textMap"][_altValue2] : _validatorObject["player"][$_label]["textMap"][$_value])>>
+								<<if $_currentSex is "Female">>
+									<<print _displayName>> <span class="green">None</span> /*Don't show penis size for players without a penis*/
+								<<else>>
+									<<print _displayName>> <span class="green"><<print _currentValue .toString().toUpperFirst()>></span>
+								<</if>>
+							<<elseif $_label is "ballsExist">>
+								<<set _object to _validatorObject["player"][$_label]>>
+								<<if _object isnot undefined>>
+									<<set _valid to validateValue(_object, $_value)>>
+								<</if>>
+								<<set _displayName to _validatorObject["player"][$_label]["displayName"]>>
+								<<set _currentValue to (_altValue2 isnot undefined ? _validatorObject["player"][$_label]["textMap"][_altValue2] : _validatorObject["player"][$_label]["textMap"][$_value])>>
+								<<if $_currentSex is "Male">>
+									<<print _displayName>> <span class="green">Existent</span> /*Don't show 'nonexistent' for players who have a penis*/
+								<<else>>
+									<<print _displayName>> <span class="green"><<print _currentValue>></span>
+								<</if>>
+							<<else>>
+								<<set _object to _validatorObject["player"][$_label]>>
+								<<if _object isnot undefined>>
+									<<set _valid to validateValue(_object, $_value)>>
+								<</if>>
+								<<set _displayName to _validatorObject["player"][$_label]["displayName"]>>
+								<<set _currentValue to (_altValue2 isnot undefined ? _validatorObject["player"][$_label]["textMap"][_altValue2] : _validatorObject["player"][$_label]["textMap"][$_value])>>
+
+								<<print _displayName>> <span class="green"><<print _currentValue>></span>
+							<</if>>
+						<<default>>
+							<<if _validatorObject[$_label]>>
+								<<set _displayName to _validatorObject[$_label]["displayName"]>>
+								<<set _currentValue to (_altValue2 isnot undefined ? _altValue2 : $_value)>>
+								<<print _displayName>> <span class="green"><<print _currentValue .toString().toUpperFirst()>></span>
+							<<else>>
+								<<set _currentValue to (_altValue2 isnot undefined ? _altValue2 : $_value)>>
+								<<print $_label + ":">> <span class="green"><<print _currentValue .toString().toUpperFirst()>></span>
+							<</if>>
+					<</switch>>
+					<<if _valid is undefined>>
+						<span class="red">(Setting is not recognised so will not be imported)</span>
+					<<elseif _valid is false>>
+						<span class="red">(Value is not valid so will not be imported)</span>
+					<</if>>
+				</li>
+			<</for>>
+		</ul>
+	<</if>>
+<</widget>>

@@ -1,0 +1,136 @@
+div[id|="numberslider-body"] {
+	display: inline-block;
+	width: 100%;
+}
+
+div[id|="numberslider-body"] span {
+	display: inline-block;
+	/* font-size: 1.25em; */
+	margin-left: 0.25em;
+	min-width: 3em;
+	/* text-align: center; */
+	vertical-align: middle;
+}
+
+div[id|="numberslider-body"] .small-description {
+	/* margin-left: -6em; */
+	text-align: left;
+}
+
+div[id|="numberslider-body"] span .inline-colour {
+	margin-left: unset;
+	min-width: unset;
+	vertical-align: unset;
+}
+
+div[id|="numberslider-body"] input {
+	-webkit-appearance: none;
+	width: 95%;
+	height: 1.25em;
+	max-width: 20em;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+div[id|="numberslider-body-humanpregnancymonths"] input,
+div[id|="numberslider-body-wolfpregnancyweeks"] input {
+	width: 75%;
+	margin-right: 5px;
+}
+
+div[id|="numberslider-body"] input:focus {
+	outline: none;
+}
+
+div[id|="numberslider-body"] input::-webkit-slider-runnable-track {
+	background: var(--850);
+	border: 1px solid var(--750);
+	border-radius: 0;
+	cursor: pointer;
+	height: 10px;
+	width: 100%;
+}
+
+div[id|="numberslider-body"] input::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	background: var(--200);
+	border: 3px solid var(--300);
+	border-radius: 0;
+	cursor: pointer;
+	height: 18px;
+	margin-top: -5px;
+	width: 33px;
+}
+
+div[id|="numberslider-body"] input:focus::-webkit-slider-runnable-track {
+	background: var(--850);
+}
+
+div[id|="numberslider-body"] input::-moz-range-track {
+	background: var(--850);
+	border: 1px solid var(--750);
+	border-radius: 0;
+	cursor: pointer;
+	height: 10px;
+	width: 100%;
+}
+
+div[id|="numberslider-body"] input::-moz-range-thumb {
+	background: var(--200);
+	border: 3px solid var(--300);
+	border-radius: 0;
+	cursor: pointer;
+	height: 18px;
+	width: 33px;
+}
+
+div[id|="numberslider-body"] input::-ms-track {
+	background: transparent;
+	border-color: transparent;
+	color: transparent;
+	cursor: pointer;
+	height: 10px;
+	width: 99%;
+	/* fallback for MS browsers without support for calc() */
+	width: calc(100% - 1px);
+}
+
+div[id|="numberslider-body"] input::-ms-fill-lower {
+	background: var(--850);
+	border: 1px solid var(--750);
+	border-radius: 0;
+}
+
+div[id|="numberslider-body"] input::-ms-fill-upper {
+	background: var(--850);
+	border: 1px solid var(--750);
+	border-radius: 0;
+}
+
+div[id|="numberslider-body"] input::-ms-thumb {
+	background: var(--200);
+	border: 3px solid var(--300);
+	border-radius: 0;
+	cursor: pointer;
+	height: 16px;
+	width: 33px;
+}
+
+#numberslider-value-settingsfemalenpcpenischance::after,
+#numberslider-value-settingsmalenpcvaginachance::after,
+#numberslider-value-settingsstraponchance::after,
+#numberslider-value-settingsnpcvirginchancestudent::after,
+#numberslider-value-settingsnpcvirginchanceadult::after,
+#numberslider-value-settingsdarkskinchance::after {
+	content: "%";
+}
+
+/*
+#numberslider-value-settingshumanpregnancymonths::after {
+	content: " months";
+}
+
+#numberslider-value-settingswolfpregnancyweeks::after {
+	content: " weeks";
+}
+*/

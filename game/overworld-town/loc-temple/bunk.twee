@@ -1,0 +1,127 @@
+:: Temple Bunk
+<<bedclotheson "Temple Bunk Bed">>
+<<effects>>
+
+You are beside your bunk in the temple quarters. There's a cupboard for your clothes and a small space behind a screen for dressing.
+<br><br>
+
+<<if Time.dayState is "night">>
+	The bunks are full, and the rooms are silent save for an occasional snore.
+<<elseif Time.dayState is "day">>
+	Initiates are hard at work dusting and cleaning.
+<<elseif Time.dayState is "dawn">>
+	The monks and nuns are already up and active.
+<<elseif Time.dayState is "dusk">>
+	Some of the monks and nuns are preparing for bed.
+<</if>>
+<br><br>
+
+<<if $unbind is 1>>
+	<<unset $unbind>>
+	<<if $possessed>>
+		You stare down at your bindings. You pull, and they fall apart, unable to hold against you.
+		<br><br>
+	<<else>>
+		<span class="green">You rub your bindings against the corner of a table.</span> It takes some effort, but eventually the material yields, freeing your limbs.
+		<br><br>
+	<</if>>
+	<<unbind>>
+<</if>>
+
+<<if pcAreArmsBound("any") or $feetuse is "bound">>
+	<<undobindingsicon>><<link [[Undo your bindings (0:10)|Temple Bunk]]>><<set $unbind to 1>><<pass 10>><</link>>
+	<br><br>
+<</if>>
+
+<<if $earSlime.event and $earSlime.noSleep>>
+	<<if $possessed>>
+		<<ind>><span class="purple">The slime in your head is silent.</span>
+	<<else>>
+		<<ind>><span class="red">The slime wants you to <<print $earSlime.event>> before you can go to bed.</span>
+	<</if>>
+	<br>
+<<else>>
+	<<bedicon>><<link [[Strip and get in bed|Temple Bunk Bed]]>><<undressSleep "Temple Bunk Bed">><</link>>
+	<br>
+	<<listsleepoutfits "Temple Bunk Bed">>
+	<br>
+<</if>>
+<<roomoptions>>
+<<safehouseEvents>>
+<<wardrobeicon>><<link [[Wardrobe|Temple Wardrobe]]>><</link>>
+<br>
+<<icon "mirror.png">><<link [[Mirror|Temple Mirror]]>><<preMirror>><<endevent>><</link>>
+<br><br>
+<<getouticon>><<link [[Step back|Temple Quarters]]>><</link>>
+
+<br><br>
+<<link [[Gameplay Settings|Temple Settings]]>><</link>>
+<br>
+<<attitudesControlCheck>>
+<<if $attitudesControl.showGoldLink is true>>
+	<span class="goldLink"><<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>> </span><span class="red">!!</span>
+<<else>>
+	<<link [[Attitudes]]>><<set $attitudesExitPassage to $passage>><</link>>
+<</if>>
+<br>
+
+
+:: Temple Settings [exitCheckBypass]
+<<effects>>
+
+<<set $settingsExitPassage to "Temple Bunk">>
+<<settings>>
+
+:: Temple Mirror
+<<effects>>
+<<getouticon>><<link [[Step away|Temple Bunk]]>><<unset $mirrorMenu>><<unset $bodywritingSet>><</link>>
+<br>
+<<mirror "reflection">>
+<br><br>
+
+:: Temple Bunk Bed
+<<effects>>
+<<wearoutfit>>
+
+<<if numberOfEarSlime() and $location is "temple" and random(0,100) lt 3 + Math.floor($earSlime.growth / 100) - $earSlime.eventTimer and !$earSlime.event>>
+	<<set $slimeBedExit to "Temple Bunk Bed">>
+	<<set $slimeBedroomExit to "Temple Bunk">>
+	<<setSlimeSleepEvents>>
+	<<if $earSlimeEvent>>
+		<<slimeSleepEvents>>
+	<</if>>
+<</if>>
+
+<<nightmareCheck "Temple Sleep">>
+<<generateSleepLinks "Temple Sleep">>
+<<link [[Climb out of bed|Temple Bunk]]>><<storeon "Temple Bunk Bed">><<set $wardrobe_location to "temple">><<loadTempHairStyle>><<endevent>><</link>>
+
+:: Temple Sleep
+<<set _autosavehere to true>>
+<<sleep>>
+<<if _dreaming>>
+	/* <<earSlimeFocusChoice>> or similar widgets are running */
+<<else>>
+	<<effects>>
+	<<wakingEffects $sleepHoursTotal>>
+	<<if $nightmares gte 1 and $controlled is 0>>
+		<<nightmareWake>>
+	<<else>>
+		<<if ($specialClothesEffects.bimbo.total gte random(100,1000) || $specialClothesEffects.pimp.total gte random(100,1000)) or $arousal gte ($arousalmax / 10) * 9>>
+			<<wetDream>>
+		<<elseif !_wakingEffect>>
+			You sleep soundly.
+			<br><br>
+		<</if>>
+	<</if>>
+	<<sleepeffects>>
+
+	<<set $wardrobe_location to "temple">>
+	<<wardrobeSelection true>>
+	<<radiooutfits>>
+
+	<br><br>
+	<<link [[Get up|Temple Bunk]]>><</link>>
+	<br>
+	<<set $phase to 0>>
+<</if>>

@@ -1,0 +1,3373 @@
+:: Gwylan Request
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $gwylan.requestDone>>
+	<<switch $speech_attitude>>
+		<<case "meek">>"I-is there anything else I can do?" you ask.
+		<<case "bratty">>"Do you have anything else for me to do?" you ask.
+		<<default>>"Is there anything else I can help with?" you ask.
+	<</switch>>
+	<br><br>
+
+	<<He>> tilts <<his>> head at you. "I appreciate the offer, but <span class="green">I already owe you</span>." <<He>> giggles. "Be careful. If you're this eager to help, I might start to take advantage."
+<<elseif $gwylan.request.event>>
+	<<switch $speech_attitude>>
+		<<case "meek">>"I-is there anything else I can do?" you ask.
+		<<case "bratty">>"Do you have anything else for me to do?" you ask.
+		<<default>>"Is there anything else I can help with?" you ask.
+	<</switch>>
+	<br><br>
+
+	<<He>> tilts <<his>> head at you. "You still haven't done what I already asked of you." <<He>> pats the top of your head. "One thing at a time, dear."
+<<elseif $daily.gwylan.request and !$gwylanSeen.includesAny("caught", "caught_no_lewd") and ["clothing"].includes($gwylan.requestLast?.event)>>
+	/* Prevent players from repeatedly skipping trigger for final snooping event */
+	<<switch $speech_attitude>>
+		<<case "meek">>"I-is there anything else I can do?" you ask.
+		<<case "bratty">>"Do you have anything else for me to do?" you ask.
+		<<default>>"Is there anything else I can help with?" you ask.
+	<</switch>>
+	<br><br>
+
+	<<He>> tilts <<his>> head at you. "I appreciate the offer, but if you keep this up I'm afraid you'll develop feelings for me, dear. Come back tomorrow if you're so eager."
+<<elseif !$gwylanSeen.includes("request_intro")>>
+	<<switch $speech_attitude>>
+		<<case "meek">>"I-is there anything I can help with?" you ask.
+		<<case "bratty">>"Hey, you look busy. Do you need anything?" you ask.
+		<<default>>"Is there anything I can help with?" you ask.
+	<</switch>>
+	<br><br>
+
+	<<if _gwylanStatus.includes("cautious")>>
+		<<He>> crosses <<his>> arms and looks sceptical. "What makes you want to help me?" <<He>> seems to realise something, and <<his>> expression quickly changes. "I'm sorry, that was rude of me. I could always use an extra pair of hands and eyes. Usually in my garden, but that's off-limits."
+	<<else>>
+		"You want to... help?" <<he>> asks, putting a hand under <<his>> chin. "I could always use an extra pair of hands and eyes. Usually in my garden, but that's off-limits."
+	<</if>>
+	<br><br>
+
+	After a moment of thought, <<he>> snaps <<his>> fingers.
+	<<run gwylanRequest("tutorial")>>
+	<<gwylanRequestText>>
+<<else>>
+	<<switch $speech_attitude>>
+		<<case "meek">>"I-is there anything I can help with?" you ask.
+		<<case "bratty">>"Hey, you look busy. Do you need anything?" you ask.
+		<<default>>"Is there anything I can help with?" you ask.
+	<</switch>>
+	<br><br>
+
+	"Yes, actually," <<he>> says with a smile.
+	<<run gwylanRequest()>>
+	<<gwylanRequestText>>
+<</if>>
+<br><br>
+
+<<gwylanOptions>>
+
+:: Gwylan Request Tutorial Complete
+<<effects>><<run statusCheck("Gwylan")>>
+You hand Gwylan the wolfshrooms.
+<br><br>
+
+<<set _amountToRemove to 3 - $gwylanTutorialShrooms>>
+<<if $foodstuff.wolfshroom.amount>>
+	<<set $foodstuff.wolfshroom.amount -= _amountToRemove>>
+<</if>>
+<<unset $gwylanTutorialShrooms>>
+/* Above is in case the player became proficient enough in tending to pick wolfshrooms without the tutorial exception half way through */
+
+<<He>> turns them over in <<his>> hands.
+<<if currentSkillValue('tending') lt 300>>
+	"Not the finest quality. Small, and this one's almost inert. You broke a few bits off when pulling them up, and the caps are warped too. Not bad, though. I'm sure you'll learn how to find better specimens in due time."
+<<else>>
+	"Very nice. You've got a good eye. These will work well."
+<</if>>
+<br><br>
+
+<<He>> holds one up to the light. "They were thought to boost strength and virility, while imparting the spirit of the wolf, and that myth still persists. It's an understandable mistake to make considering their true effects.
+Wolfshrooms are aphrodisiacs and suppress fear responses. Consuming them certainly makes one more brave, and could enable feats one might not normally be capable of because of that. They also promote the growth of body hair."
+<br><br>
+
+<<He>> smiles at you. "Thank you. If you're still in the mood to help, I might have more for you to do. But, I need to pay you back first."
+<<gwylanRequestEnd>>
+<<set $gwylanSeen.pushUnique("request_tutorial")>>
+<br><br>
+
+<span class="gold">You can now complete tasks for Gwylan in exchange for services. More may become available as you tell <<him>> your stories.</span>
+<br><br>
+
+<<gwylanOptions>>
+
+:: Gwylan Request Clothes Complete
+<<effects>><<run statusCheck("Gwylan")>>
+
+<<if $gwylan.request.special is "gas mask">>
+	<<set $gwylanSeen.pushUnique("request_gas_mask")>>
+	Gwylan gently brushes <<his>> fingers against your cheek. You shiver, though you can't feel <<his>> touch through the thick rubber of your gas mask.
+	<<He>> stares at you through the tinted lenses, <<his>> gaze stripping you bare.
+	<br><br>
+
+	When <<he>> speaks, <<his>> voice is quiet. "Every man, woman, and child in the country received one of these in the second World War.
+	After the chemical warfare of the first, the government feared that civilians would be on the receiving end of it. Special masks were made for the littlest ones.
+	Gas drills were held in schools, and posters were hung as a reminder to all: always carry your gas mask with you. They were fined if they were caught without one."
+	<<He>> lowers <<his>> hand. "Fortunately, they were never needed. Unfortunately, the masks were made with asbestos fibers, leaving many with long-term health consequences.
+	Sometimes decisions made with the best intentions do more harm than good. Sometimes the one devoted to protecting you is the one to kill you in the end." <<gghistory>><<historyskill 12>>
+	<br><br>
+
+	<<He>> gives you a wry smile. "I doubt this replica is in any way dangerous, but still, I'd like to have it." It's not a choice.
+	<<He>> reaches for the straps securing your mask and carefully removes it. "Thank you for humouring an old soul's request. What can I do for you?"
+	<<faceruined true>>
+	<<gwylanRequestEnd>>
+	<br><br>
+
+	<<gwylanOptions>>
+<<elseif $gwylan.request.special is "gold accessories">>
+	<<set $gwylanSeen.pushUnique("request_gold_accessories")>>
+	Gwylan gently lifts your wrist, examining one of your gold bracelets. <<He>> then lifts the other, and holds your wrists together.
+	"Iron and silver were often used as restraints, but gold had its place in that too. One shackled by gold is thought to be bound to the earth itself by greed, obsession, or yearning for something that was lost."
+	<<He>> adjusts <<his>> grip and runs <<his>> fingers up your forearms, making your hands relax.
+	<br><br>
+
+	"In alchemy, gold was the symbol of purity and perfection. Its symbol was a simple circle with a dot in the middle, to represent the sun. A closed loop.
+	Many a rich and powerful individual spent their fortunes on attempting to discover the art of chrysopoeia, or transmutation of base metals to gold, most commonly lead.
+	The symbol of a snake devouring its own tail is often associated with the art. Another closed loop."
+	<br><br>
+
+	With a deft touch, <<he>> slips the bracelets off over your hands. <<He>> holds one in between you, looking at you through it with one eye. A dot within a circle. You feel profoundly exposed. <<stress 2>><<gstress>>
+	<br><br>
+
+	"Gold is soft enough to eat and biologically inert, and was often powdered and used as a food decoration thought to halt aging. It was worn to make one's skin vibrant and youthful.
+	Even today, some believe infusions of gold into the skin keep the ravages of time at bay. Another metal that was thought to have this property was mercury sulfide, also called cinnabar.
+	Related to the philosopher's stone, a mythical object capable of the aforementioned transmutation of metals. In reality, it was simply poison, and any who imbibed it met a slow, painful end."
+	<br><br>
+
+	<<He>> leans under the counter and grabs a small chisel. <<He>> gouges one of the bracelets with it, and looks closer.
+	"As expected, these aren't gold all the way through. It's merely copper plated with gold. Are you noticing a pattern?
+	In a way, we're still trying to transmute base metals. We're still binding ourselves with gilded shackles for vanity, and some still continue to drink poison in an effort to extend their life." <<ggscience>><<scienceskill 12>>
+	<br><br>
+
+	<<specialClothesUnlock "set" "jasper">><<set $daily.gwylan.jasper to true>>
+
+	<<He>> holds out <<his>> hands, and you give <<him>> the <<if $worn.neck.name isnot "familiar collar">>choker and<</if>> anklets too. "I can still make use of these. Thank you for the lovely gifts. Now, what can I do to return the favour?"
+	<<handsruined true>><<neckruined true>><<legsruined true>>
+	<<gwylanRequestEnd>>
+	<br><br>
+
+	<<gwylanOptions>>
+<<else>>
+	<<set _clothesToTake to []>>
+	<<set _clothesToTakeText to []>>
+	<<run $gwylan.request.items.filter(item => item.name === V.worn[item.slot].name).forEach(item => {
+		T.clothesToTake.pushUnique(item.slot);
+		T.clothesToTakeText.push(item.name);
+	})>>
+
+	<<switch $gwylan.request.special>>
+		<<case "maid">>
+			Gwylan walks around you, inspecting your $worn.upper.name.
+			"A bit tight around the waist to accentuate curves, but comfortable enough for extended periods of service. Holds dust well, to prevent it from getting on the floor after cleaning.
+			The maid drags the dirt and dust home with them, to do even more cleaning."
+			<br><br>
+
+			<<if $worn.upper.name is "traditional maid dress">>
+				<<He>> crouches down, inspecting the lower half. "Thick apron all the way down, in anticipation of spills." <<He>> fleeces it down. "Good material."
+			<<elseif $worn.upper.name is "Victorian maid dress">>
+				<<He>> crouches down, inspecting the lower half. "An imitation of a much older style, but rugged." <<He>> fleeces it down. "The design is timeless."
+			<<else>>
+				<<He>> crouches down, inspecting the lower half. "A more modern design, more frilly than some older ones." <<He>> fleeces it down. "It has its own sort of appeal."
+			<</if>>
+			<br><br>
+
+			<<if _gwylanStatus.includes("dom")>>
+				<<He>> looks up at you and smiles. "Would you serve me in this, were I to ask?" <<He>> doesn't wait for you to answer.
+			<</if>>
+			<<He>> stands back up while gripping the skirt, <span class="pink">lifting the whole dress up over your head</span> along with your maid band. You barely even felt it happen.
+
+		<<case "waiter" "waitress">>
+			Gwylan walks around you, inspecting your $worn.upper.name.
+			<<if $gwylan.request.special is "waitress">>
+				"Well-pressed, good contrast to keep one's eyes high. The design on the front reminds one of an apron.<<if $gwylan_cafe_intro>> I bet you'd look cute in this while working at the cafe.<</if>>"
+				<br><br>
+
+				<<He>> suddenly crouches and lifts the short skirt, getting an unobstructed view of your <<undies>>. <<arousal 500>><<garousal>>
+				<br>
+				<<if $worn.under_lower.type.includes("naked")>>
+					"Ah, a bold choice, letting yourself be exposed underneath. Lower rim is spacious, easy to move around in quickly. Breathable, too." <<npcincr Gwylan lust 1>><<glust>>
+				<<else>>
+					"Lower rim is spacious, easy to move around in quickly. Good for someone serving multiple clients at once."
+				<</if>>
+			<<else>>
+				"Well-pressed, good contrast to keep one's eyes high. The waist apron is a cute touch.<<if $gwylan_cafe_intro>> I bet you'd look handsome in this while working at the cafe.<</if>>"
+				<br>
+				<<He>> suddenly yanks the apron forward, opening your trousers and getting an unobstructed view of your <<undies>>. <<arousal 500>><<garousal>>
+				<br>
+				<<if $worn.under_lower.type.includes("naked")>>
+					"Ah, a brave choice, letting yourself be exposed underneath. More loose than it looks. Breathable, too." <<npcincr Gwylan lust 1>><<glust>>
+				<<else>>
+					"Trousers are more spacious than they look. There's even a pouch behind the apron. Easy to move around in quickly. Good for someone serving multiple clients at once."
+				<</if>>
+			<</if>>
+			<br><br>
+
+			<<if !$gwylanSeen.includes("butterfly_pea_flower_tea")>>
+				<<set $gwylanSeen.pushUnique ("butterfly_pea_flower_tea")>><<set _noOptions to true>>
+				<<if !$gwylanTea>>
+					<<He>> looks up at you with a thoughtful expression on <<his>> face. "Say, do you happen to know how to make butterfly pea flower tea?"
+					<br><br>
+
+					You've never even heard of that before. You shake your head, prompting Gwylan to smile.
+				<<else>>
+					<<He>> looks up at you with a thoughtful expression on <<his>> face. "Say, I never did show you how to make butterfly pea flower tea, did I?"
+					<br><br>
+
+					<<if $gwylanTea gte 3>>
+						You barely manage to suppress a groan. Gwylan smiles.
+					<<else>>
+						You shake your head, prompting Gwylan to smile.
+					<</if>>
+				<</if>>
+				"Well, you're about to learn! No <<pwaitress>> in my shop can afford to live without such precious knowledge!"
+				<<He>> vanishes in the back of the shop, and you hear some loud clinking for a few moments. <<He>> returns, balancing a tray laden with several herbs, a cup of freshly washed berries and lemon, a ladle, a patterned tea set and a glass pot of hot water.
+				<br><br>
+
+				<<link [[Next|Gwylan Request Clothes Waiter Tea]]>><</link>>
+				<br>
+			<<elseif _gwylanLovePercent gte 50 and C.npc.Gwylan.lust gte 25>>
+				<<He>> looks up at you with a thoughtful expression on <<his>> face.
+				<<if $worn.neck.collared is 1>>
+					"You even brought a collar. You'd be ready to serve me," <<he>> says with a wink.
+				<<else>>
+					"All it's missing is a collar, and you'd be ready to serve me," <<he>> says with a wink.
+				<</if>>
+				<br><br>
+			<</if>>
+
+			<<if !_noOptions>>
+				Right after <<his>> comment, <<he>> <span class="pink"> pulls your
+				<<if $gwylan.request.special is "waitress">>
+					trousers fully down, and your shirt up and over your head.
+				<<else>>
+					uniform up and over your head.
+				<</if>>
+				</span>
+			<</if>>
+
+		<<case "nurse" "plastic nurse">>
+			Gwylan inspects your nurse costume. "I don't think that's standard garb for actual nurses. At least, not anymore. The job of a nurse is hard enough without all the ogling that uniform could cause."
+			<<if $gwylan.request.special is "plastic nurse">>
+				<<He>> runs <<his>> hands along it, causing the plastic to lightly squeak. "Oh, that's awful. It must be easy to clean, though."
+				<br><br>
+			<</if>>
+
+			<<He>> smiles. "Still, it's better than being naked." With that, <<he>> grabs the rim of the skirt and <span class="pink">pulls the whole dress off over your head</span>, along with your nurse hat.
+			<<if $gwylan.request.items.some(item => item.name === "nurse socks")>>
+				Somehow, you feel even more exposed still wearing the nurse socks than if you were completely naked. You carefully take them off and hand them to Gwylan too, before <<he>> gets any ideas.
+			<</if>>
+
+		<<case "gothic">>
+			<<set _noOptions to true>>
+			Gwylan takes a step back to study your $worn.upper.name. <<He>> nods thoughtfully. "You look good. I'd like for you to keep this set. Very solemn. Like someone took a slice of midnight with a cookie cutter.
+			It's not the most period-accurate representation, but it does remind one of the mourning dress of the Victorian era."
+			<<He>> runs a hand over your sleeve. "Back then, they dipped clothes in arsenic to get that rich black. Deep and dark, for when you've lost the light of your life."
+			<<He>> notices the look on your face and giggles. "Don't worry, dye methods have come a long way since then."
+			<br><br>
+
+			<<if $worn.head.name is "top hat">>
+				"I'm sure you're familiar with mourning veils, but men had mourning attire as well. While the societal rules around proper dress were less stringent for them, they wore black coats and breeches."
+				<<He>> takes your top hat off your head and measures the width of the band against <<his>> hand. "Many men tied a crepe sash around their hatband. Its width signaled their relationship with the deceased."
+				<<He>> places it back on your head and adjusts it.
+				<br><br>
+			<<elseif $worn.upper.name.includes("gothic gown")>>
+				"Women had particularly stringent societal rules around appropriate attire. Custom held that there were three mourning stages: first mourning, secondary mourning, and half mourning.
+				There were plenty of rules around what kinds of fabrics and accoutrements were acceptable when." <<He>> nods at the bow on your dress.
+				"For example, those bows and frills were acceptable for non-married women in first mourning, but not for widows. Their first mourning period was more intense, and was also referred to as deep mourning."
+				<br><br>
+			<</if>>
+
+			<<He>> circles around you, examining you from different angles. "There were general rules around the appropriate length of mourning. Widows who stopped wearing mourning dress too soon were thought to be sexually promiscuous!
+			It's interesting, really. How long should someone wait before seeking out companionship? I suppose some would say you never should.
+			The queen herself mourned her husband until her dying day, and never stopped wearing black. Romantic, or tragic? Who's to say. I'm sure people judged her for mourning too long."
+			<br><br>
+
+			<<He>> stops pacing. "It's funny, the expectations people have. As if you could simply flip a switch"—<<he>> snaps <<his>> fingers; one of the light bulbs above you goes dark—"and stop mourning.
+			Grief doesn't work that way. And even when you've 'moved on'... it always, always comes back. Not always in the same form. Not always on the same shores. But those tides of grief will find their way back to you.
+			Over and over and over again. Some days you can see it before it rolls in. Some days it crashes down when you least expect it. Some days it's enough to drown in."
+			<br><br>
+
+			<<He>> meets your gaze and gives you a smile. It's strangely distant and wooden. There's a lump in your throat. You're not sure why.
+			<br><br>
+
+			Before you can speak, Gwylan pipes back up. "Well!" <<he>> says. <<His>> voice is falsely chipper at first, but <<he>> quickly adjusts.
+			<<He>> sounds much more at ease when <<he>> continues. "Now that I've brought down the mood... what can I do for you?"
+			<<gwylanRequestEnd>>
+			<br><br>
+
+			<<gwylanOptions>>
+
+		<<case "karate">>
+			Gwylan examines your karate outfit.
+			<<switch $worn.upper.accessory_colour>>
+				<<case "black">>"Wow, a black belt? You must really know how to defend yourself," <<he>> chuckles.
+				<<case "brown">>"A brown belt. A step before the final rank. Represents maturity, like a ripe fruit."
+				<<case "red">>"A red belt. Sometimes represents the third highest ranking, but is sometimes swapped in place with purple."
+				<<case "purple">>"A purple belt. Sometimes represents the third highest ranking, but is sometimes swapped in place with red."
+				<<case "blue">>"A blue belt. Usually between purple and red in ranking. Can represent water and the fluidity of movement."
+				<<case "green">>"A green belt, representing the growth of the student. The first steps of progress on a long road."
+				<<case "tangerine">>"An orange belt. These aren't always used, but when they are, it's meant to show a continuation of the yellow belt rank. Like the sun setting, and the period of rest before a new day of learning."
+				<<case "yellow">>"A yellow belt, the first step above white. Represents the fresh enlightenment of a novice."
+				<<case "white">>"A white belt, representing the blank slate of a new student. Not a symbol of shame, but of potential."
+				<<default>>"I don't think that belt colour is recognised as an official rank," <<he>> chuckles.
+			<</switch>>
+			<<He>> unties the belt, and opens the jacket slightly before playfully poking your belly. "I hope you don't mind if I have this."
+			<<He>> doesn't wait for an answer, <span class="pink">pulling the jacket off of you before pulling the trousers down, too</span>.
+
+		<<case "sailor">>
+			Gwylan examines your sailor costume. "This town has a rich maritime history. You can't escape the salt in the air, even out here in the forest.
+			Our docks are famed for being a staging ground for large operations during the second World War. Unfortunately, that also made them an enticing target for bombings."
+			<br><br>
+
+			<<He>> lifts the sailor hat from your head. "The ocean is the root of all life in the world. It is the origin point. We used to worship it as it fed and nurtured us. Then we began to use it for travel and trade. We began to exploit it.
+			Finally, we used it for war. We spilled each other's blood in the water for eons. One must wonder just how many gallons of it. Do you think such a thing could even be measured?"
+			<br><br>
+
+			<<His>> expression is hard to read as <<he>> walks around you. <<His>> fingers brush your neck. "In beautiful displays of hatred, we sank each other's ships to the bottom, consigning the souls aboard to eternal rest in the waves, caring not for the debris we left behind.
+			Do you think the sea would eventually inherit our hatred after drinking so much of our blood, and chewing up the bones of our ships? No.
+			The rotten hulls become new ecosystems in and of themselves, and life blooms from death. The ocean always adapts. But... what if it couldn't anymore?"
+			<br><br>
+
+			<<He>> gently presses <<his>> palms against your chest. "The ocean remembers everything, despite its ever-shifting fluidity. The history of life itself lies within it.
+			All water eventually returns to the tide, and all of us do, too. So why have we forgotten? Why do we take its boons for granted?"
+			<br><br>
+
+			Gwylan smiles. "Just something to think about. I appreciate you bringing this to me." <span class="pink"><<He>> pulls the shirt up over your head.</span>
+		<<case "short sailor">>
+			Gwylan examines your short sailor costume.
+			<br><br>
+
+			As <<he>> walks behind you, you feel something get draped around your neck. It's a white scarf, patterned like some kind of bird. It feels heavy.
+			<br><br>
+
+			<<He>> circles you, avoiding eye contact until <<he>> turns on <<his>> heel in front of you.
+			"The tales of the sea and forest are closer together than you might think. To kill a bird of the sea, or to slay a mother fox, is to invite disaster.
+			There are stories aplenty of these beasts leading lost travellers to safety, only to be killed in suspicion of bringing misfortune. Which, of course, is then brought on by their death. A terrible cycle."
+			<br><br>
+
+			<<He>> smiles. "In frustration, the companions of the one who dealt the killing blow would make them wear the beast about their neck as a mark of shame, a symbol of the burden.
+			Today, we wear such symbols willingly. Some are oh so eager to keep digging once they reach the bottom." <span class="pink"><<He>> pulls the shirt and scarf up over your head.</span>
+
+		<<case "football">>
+			Gwylan gives your $worn.head.name a solid knock. You hardly feel anything. "We should use these in some of our own sports." <<He>> lifts it off of you after a brief struggle.
+			<br><br>
+
+			"We sure do love hurting each other, don't we? We even make entertainment out of it. At least we take the proper precautions. Occasionally. I'd like to examine the padding on the rest of the outfit, too. Do you mind?"
+			<br><br>
+
+			<span class="pink">You realise <<hes>> asking you to strip,</span> and comply.
+
+		<<case "cheerleader">>
+			Gwylan circles around you, inspecting your cheerleader outfit. "Morale is a powerful thing. Having people you know cheering for you can inspire one to feats of great strength. There's a sense of defending one's home territory and people."
+			<br><br>
+
+			You blink at Gwylan.
+			<br><br>
+
+			"What I'm trying to say is, cheerleading is a natural evolution of the war chant. I would argue it's more effective due to the sexual tension it invokes, too. Anyways, do you mind if I have this?"
+			<<He>> doesn't wait for you to answer, and twirls you by your arm. <span class="pink">Your cheerleader top flies right off, and the skirt follows soon after.</span>
+
+		<<case "cowboy">>
+			Gwylan takes your cowboy hat, briefly putting it on. "Good style, but not shady enough for my tastes."
+			<br><br>
+
+			<<He>> walks around you, and swiftly <span class="pink">yanks down your chaps</span>.
+
+		<<case "bunny">>
+			<<set _noOptions to true>><<upperstrip>><<lowerstrip>>
+			Gwylan flicks your bunny ears. "Sex appeal is a great way to get customers to dish out more money. Even if they're not consciously thinking of recompense, the chemistry of the brain is pushed towards it."
+			<br><br>
+
+			<<if $worn.upper.name isnot "naked" or $worn.lower.name isnot "naked">>
+				<<He>> stares at you for a moment. You realise <<he>> can't exactly see the rest with your clothes in the way, and strip down to your leotard.
+				<br><br>
+			<</if>>
+
+			<<link [[Next|Gwylan Request Clothes Bunny]]>><</link>>
+			<br>
+
+		<<case "kitty">>
+			<<if $worn.upper.name isnot "naked" or $worn.lower.name isnot "naked">>
+				You tell Gwylan that you're wearing the catgirl underwear. "Wonderful," <<he>> says. "May I see?"
+				<br><br>
+
+				You strip down to your underwear. Gwylan's gaze makes you feel entirely naked, though.
+				<br><br>
+			<</if>>
+
+			<<if _gwylanStatus.includesAny("aroused", "lust")>>
+				"I'll be honest with you," Gwylan starts. "I just wanted to see you dressed up like this. You look adorable." <<He>> pats you on the head.
+			<<else>>
+				"You pull off that look pretty well," <<he>> says with a giggle. "You look adorable." <<He>> pats you on the head.
+			<</if>>
+			"There's something appealing about it, isn't there? Taking on the features of something animalistic?
+			<<if $cat gte 6>>
+				I'm sure you feel right at home like this."
+			<<elseif $fox gte 6 or $wolfgirl gte 6 or $cow gte 6>>
+				I'm sure you agree."
+			<<else>>
+				I think you'd make a cute cat."
+			<</if>>
+			<<if _gwylanTF.tail is "revealed">>
+				<<His>> tail flits around behind <<him>>.
+			<</if>>
+			<br><br>
+
+			<<if _gwylanStatus.includesAny("dom", "lust")>>
+				<<set _noOptions to true>><<upperstrip>><<lowerstrip>><<feetstrip>><<handheldstrip>><<facestrip>>
+
+				<<He>> gets very close to you and caresses your cheek. "Does my little cat want a treat? Will you purr for me?" <<His>> touch sends a shiver of pleasure through your body. <<arousal 500>><<garousal>>
+				<br><br>
+
+				<<link [[Purr|Gwylan Request Clothes Kitty]]>><<set $phase to 1>><<transform cat 1>><</link>><<if $cat gte 6>><<cat>><<else>><<deviant1>><</if>>
+				<br>
+				<<link [[Nod|Gwylan Request Clothes Kitty]]>><<set $phase to 2>><</link>>
+				<br>
+				<<link [[Shake head|Gwylan Request Clothes Kitty]]>><<set $phase to 3>><</link>><<gwylanWillpowerDifficulty>>
+				<br>
+			<<else>>
+				<<He>> walks behind you and <span class="pink">unclips your bra, before pulling down your panties</span>. "I'll be keeping these."
+			<</if>>
+
+		<<default>>
+			<<if $gwylan.request.items.length gte 2>>
+				Gwylan inspects the clothes you've brought. After a moment, <<he>> grabs you by the arm and twirls you,
+				<span class="pink">removing your <<print formatList(_clothesToTakeText)>> in a blurred flurry.</span>
+				"I'll be keeping these," <<he>> says.
+			<<else>>
+				Gwylan inspects the <<print $gwylan.request.items[0].name>>. <<He>> hums as <<he>> looks it over.
+				Suddenly, <<he>>
+				<<if $gwylan.request.items[0].slot is "head">>
+					lifts it off of your head.
+				<<else>>
+					tugs. With minimal resistance, <span class="pink">it comes right off of your body</span>. You expect to hear a rip, but it seems completely intact.
+				<</if>>
+				"I'll be keeping this," <<he>> says.
+			<</if>>
+	<</switch>>
+
+	<<if !_noOptions>>
+		<br><br>
+
+		<<for _cl to 0; _cl lt _clothesToTake.length; _cl++>>
+			<<set _noRebuy to true>>
+			<<generalRuined _clothesToTake[_cl]>>
+		<</for>>
+		<<if $exposed gte 1>>
+			"Might as well buy a replacement while you're here!" <<He>> hands you some towels.
+			<<towelup>>
+		<</if>>
+		"Thank you for bringing this to me. If there's anything you need, I'll be here."
+		<<gwylanRequestEnd>>
+		<br><br>
+
+		<<gwylanOptions>>
+	<</if>>
+<</if>>
+
+:: Gwylan Request Clothes Waiter Tea
+<<effects>><<run statusCheck("Gwylan")>>
+<<He>> pours the hot water. "It's very simple, but you can't be careless. Butterfly pea flowers are very delicate. If you're not careful while steeping, they'll crumble in the water and ruin the flavour."
+<<He>> shows you the proper technique, and you repeat it as best you can.
+<br><br>
+
+Your water turns a rich blue.
+"Perfect! Give it a taste." You do so. It's different than any other kind of tea you've had before. Gwylan asks what you think of it.
+<br><br>
+
+<<if $speech_attitude is "meek">>
+	"It's a bit earthy," you mumble.
+<<elseif $speech_attitude is "bratty">>
+	"It's like drinking lawn clippings," you say bluntly.
+<<else>>
+	"It tastes like grass," you remark with a shrug.
+<</if>>
+"Are you sure I did this right?"
+<br><br>
+
+<<He>> chuckles. "You did it perfectly. I'm aware it's an acquired taste," Gwylan acknowledges with a nod, sipping <<his>> own tea. "I've just had enough time to get used to it, that's all. The berries should help. If you want to change its colour, you can add lemon juice."
+You give <<him>> a quizzical look, and <<he>> responds with an inscrutable smile. You shrug and take another sip. <<Hes>> right; the berries help. You squeeze lemon juice in your tea as well, watching its colour changes, from blue to purple.
+<br><br>
+
+"Now you're a proper <<pwaitress>>. Unfortunately, I need these."
+As soon as you put your teacup down, <span class="pink">Gwylan strips you bare of your uniform</span> with two quick, precise pulls.
+<br><br>
+
+<<upperruined true>><<lowerruined true>>
+"Might as well buy a replacement while you're here!" <<He>> hands you some towels.
+<<towelup>>
+"Thank you for bringing this to me. If there's anything you need, I'll be here."
+<<gwylanRequestEnd>>
+<br><br>
+
+<<gwylanOptions>>
+
+:: Gwylan Request Clothes Bunny
+<<effects>><<run statusCheck("Gwylan")>>
+
+<<He>> walks behind you, and runs <<his>> hands up the leotard. <<Hes>> only inspecting the clothing, but your body responds to <<his>> prodding regardless. <<arousal 1000>><<garousal>>
+<br><br>
+
+You hear a zipper unzip, <span class="pink">and your leotard falls right off</span>. "Sorry, I couldn't get a good look with your body in the way." <<He>> lifts it from the ground.
+<br><br>
+
+<<underupperruined true>><<underlowerruined true>><<headruined true>>
+<<if $gwylan.request.items.some(item => item.slot === "neck")>>
+	<<neckruined true>>
+<</if>>
+<<clotheson>><<towelup>>
+"Thank you for bringing these to me. If there's anything you need, I'll be here."
+<<gwylanRequestEnd>>
+<br><br>
+
+<<gwylanOptions>>
+
+:: Gwylan Request Clothes Kitty
+<<effects>><<run statusCheck("Gwylan")>>
+
+<<if $phase is 1 or $phase is 2 or ($phase is 3 and $hypnosis_traits.devotion gte 1 and !$willpowerSuccess)>>
+	<<if $phase is 3>>
+		<<hypnosisText "There's a brief spark of resistance in you, <span class='red'>but it's washed away as Gwylan continues to pet you.</span>">> The urge is too much.
+		<br><br>
+	<</if>>
+	<<if $phase is 1 or $phase is 3>>
+		<<if $cat gte 6>>
+			You purr just like a cat.
+		<<else>>
+			You do your best impression of a cat's purr.
+		<</if>>
+		"<<pcPetname "Gwylan" "good">>," Gwylan whispers.
+	<<else>>
+		You slowly nod your head.
+	<</if>>
+	Your heart begins to race as you wonder what 'treat' <<he>> has in mind.
+	<<if $phase is 1 and $cat lt 6>>
+		<<deviancy1>>
+	<<else>>
+		<br><br>
+	<</if>>
+
+	<<if $hypnosis_traits.devotion gte 5 and $phase isnot 2>>
+		"Oh, you poor thing," <<he>> coos. "You look like you can hardly wait." Your vision starts to get blurry, and shades of colour creep into your peripheral vision. "I won't make you wait, then."
+		<br><br>
+
+		<<hypnosisText "<<He>> snaps <<his>> fingers, and you're no longer where you once were.">>
+		<br><br>
+
+		<<link [[Next|Gwylan Cream Lick]]>><<set $worshipstart to 1>><<set $phase to 1>><</link>>
+		<br>
+	<<else>>
+		<<His>> thumb touches the corner of your mouth. "Wait here." <<He>> briskly walks through a dark doorway.
+		<<if _gwylanTF.tail is "revealed">>
+			<<His>> tail swings back and forth rapidly as <<he>> leaves.
+		<</if>>
+		You hear the rustling of cloth, followed by the sound of compressed air and a dull thud. After a moment, you hear <<his>> voice again. "Alright. Here, kitty, kitty."
+		<br><br>
+
+		You walk to the doorway. The room is dark, and none of the light from outside seems to leak in. You take a cautious step forward. "Just follow my voice," <<he>> whispers from somewhere in the dark.
+		You take another step towards <<him>>.
+		<<if $worn.neck.collared is 1 and $worn.neck.type.includes("leash")>>
+			Your leash starts to pull itself along the ground into the darkness. It suddenly goes taut, lightly pulling you in the same direction.
+		<</if>>
+		<br><br>
+
+		<<link [[Follow|Gwylan Cream Lick]]>><<set $worshipstart to 1>><<set $phase to 2>><</link>>
+		<br>
+		<<link [[Turn around|Gwylan Cream Lick]]>><<set $worshipstart to 1>><<set $phase to 3>><</link>>
+		<br>
+	<</if>>
+<<else>>
+	You blink at Gwylan, before shaking your head. "You're no fun," <<he>> pouts. <<His>> arms wrap around you, and <<he>> unhooks your bra. "I'll be keeping these." <<He>> then pulls down your panties, too.
+	<br><br>
+
+	<<underupperruined true>><<underlowerruined true>><<headruined true>>
+	<<if $gwylan.request.items.some(item => item.slot === "neck")>>
+		<<neckruined true>>
+	<</if>>
+	<<clotheson>><<towelup>>
+	"Thank you for bringing these to me. If there's anything you need, I'll be here."
+	<<gwylanRequestEnd>>
+	<br><br>
+
+	<<gwylanOptions>>
+<</if>>
+
+
+:: Gwylan Request Ingredients Complete
+<<effects>><<run statusCheck("Gwylan")>>
+<<set _itemsDelivered to []>>
+<<run $gwylan.request.items.forEach(item => {
+	if (V.foodstuff[item.name]) V.foodstuff[item.name].amount -= item.need;
+})>>
+<<run $gwylan.request.items.forEach(item => _itemsDelivered.pushUnique(item.name))>>
+
+You hand the ingredients over to Gwylan.
+<br><br>
+
+<<cleareventpool>>
+
+<<if _itemsDelivered.includesAny("red_rose", "white_rose")>>
+	<<addinlineevent "gwylan_ingredients_roses">>
+		<<He>> smells the roses. "Lovely. You've picked some fine specimens."
+	<</addinlineevent>>
+<</if>>
+
+<<if _itemsDelivered.includes("orchid")>>
+	<<addinlineevent "gwylan_ingredients_orchid">>
+		"Wonderfully fiery pink colours on these orchids. You've picked them well."
+	<</addinlineevent>>
+<</if>>
+
+<<if _itemsDelivered.includes("daisy")>>
+	<<addinlineevent "gwylan_ingredients_daisy">>
+		"These are good daisies. Well done."
+	<</addinlineevent>>
+<</if>>
+
+<<if _itemsDelivered.includes("tulip")>>
+	<<addinlineevent "gwylan_ingredients_tulip">>
+		"I've always been nostalgic for tulips, although I wish I could remember why."
+	<</addinlineevent>>
+<</if>>
+
+<<if _itemsDelivered.includes("lotus")>>
+	<<addinlineevent "gwylan_ingredients_lotus" 2>>
+		"Oh, these lotus are wonderful." <<He>> gently cups them in <<his>> hands.
+		"Did you know that our lake is named for them? Lake Whiteflower, for these beautiful floating blooms that grace the surface en masse."
+		<<He>> pauses. "Well, that's not entirely true. The name is a mutation of the name of a now-extinct noble family, and that name roughly translated to 'little flower'."
+	<</addinlineevent>>
+<</if>>
+
+<<if _itemsDelivered.includes("banana")>>
+	<<addinlineevent "gwylan_ingredients_banana">>
+		"Pulped bananas really improve the texture and thickness of drinks. You can also make dairy-free ice cream out of them if you know what you're doing."
+	<</addinlineevent>>
+<</if>>
+
+<<if _itemsDelivered.includes("lemon")>>
+	<<addinlineevent "gwylan_ingredients_lemon">>
+		/* ToDo: Gwylan - Robin lemonade interaction, bringing lemonade to Gwylan at the cafe */
+		<<if $gwylanSeen.includes("robin_lemonade_get")>>
+			"Your friend Robin. <<nnpc_He "Robin">> puts a lot of care into that lemonade. It seems like such a small thing, but it's easy to tell."
+		<<else>>
+			<<set $gwylanSeen.pushUnique("robin_lemonade")>>
+			"There's this lemonade stand down by the beach," <<he>> starts. "I see it there from my table at the cafe every weekend. I always want to take a walk down there and buy some, but the beach... doesn't agree with me."
+		<</if>>
+	<</addinlineevent>>
+<</if>>
+
+<<if _itemsDelivered.includes("blood_lemon")>>
+	<<addinlineevent "gwylan_ingredients_blood_lemon" 10>>
+		"Blood lemons are a potent aphrodisiac, and a base for several reactive agents. You've done me a huge favour getting these."
+	<</addinlineevent>>
+<</if>>
+
+<<if _itemsDelivered.includes("strawberry")>>
+	<<addinlineevent "gwylan_ingredients_strawberry">>
+		"Every morning, strawberry crepes," <<he>> says. "Sammy picks a fruit to put alongside my crepes every morning, based on how <<nnpc_he "Sam">> thinks I'll be feeling that day. I'm almost always feeling 'strawberries', apparently."
+	<</addinlineevent>>
+<</if>>
+
+<<if _itemsDelivered.includes("plum")>>
+	<<addinlineevent "gwylan_ingredients_plum" 2>>
+		"I love plums," <<he>> says. "I wish I could do more with them. I tried making plum tea once, but it was a disaster."
+	<</addinlineevent>>
+<</if>>
+
+<<if _itemsDelivered.includes("mushroom")>>
+	<<addinlineevent "gwylan_ingredients_mushroom">>
+		"Heartshrooms," <<he>> says. "A minor stimulant, but not hallucinogenic. I can use these for a lot."
+	<</addinlineevent>>
+<</if>>
+
+<<if _itemsDelivered.includes("wolfshroom")>>
+	<<addinlineevent "gwylan_ingredients_wolfshroom">>
+		"I always need more wolfshrooms," <<he>> says. "They keep the wolves from breaking in. They have some other uses, too."
+	<</addinlineevent>>
+<</if>>
+
+<<if _itemsDelivered.includes("ghostshroom")>>
+	<<addinlineevent "gwylan_ingredients_ghostshroom">>
+		"Legends say ghostshrooms only sprout on the site of a great injustice or tragedy. I'm not sure about that, but what I do know is that they're a good palette cleanser. They also help flush foreign substances out of the body."
+	<</addinlineevent>>
+<</if>>
+
+<<if _itemsDelivered.includes("wild_honeycomb")>>
+	<<addinlineevent "gwylan_ingredients_wild_honeycomb">>
+		"Real honey is so hard to come by these days," <<he>> says. "Store-bought won't do me any good. Plus, the honeycombs themselves have uses, too."
+	<</addinlineevent>>
+<</if>>
+
+<<if _itemsDelivered.includes("strange_flower")>>
+	<<addinlineevent "gwylan_ingredients_strange_flower">>
+		"A curious little flower, isn't it?" <<He>> picks up a strange flower with a pair of tongs. "It's often refined into all manner of awful substances, but many useful ones, too."
+	<</addinlineevent>>
+<</if>>
+
+<<if _itemsDelivered.includes("bird_egg")>>
+	<<addinlineevent "gwylan_ingredients_bird_egg">>
+		<<He>> turns one of the bird eggs around in <<his>> hand. "Have you ever eaten one of these? They're quite tasty. They have a very distinct taste from chicken eggs.
+		I only wish I didn't have to compete with the entire fox population for them. I suppose I didn't this time."
+	<</addinlineevent>>
+<</if>>
+
+<<if _itemsDelivered.includes("plumeria")>>
+	<<addinlineevent "gwylan_ingredients_plumeria">>
+		<<He>> smells the plumerias. "Oh, I've missed this smell. It's been ages since I could work with these."
+	<</addinlineevent>>
+<</if>>
+
+<<if _itemsDelivered.includes("salt")>>
+	<<addinlineevent "gwylan_ingredients_salt" 0.8>>
+		"Salt is useful for almost everything. Not just food or drink. Some say it can be used to ward away spirits and shear away bad luck."
+	<</addinlineevent>>
+<</if>>
+
+<<if _itemsDelivered.includes("vegetable_oil")>>
+	<<addinlineevent "gwylan_ingredients_vegetable_oil" 0.8>>
+		"Vegetable oil is a perfect base for many concoctions. It can be used as lubricant in a pinch too. I wouldn't recommend it, though."
+	<</addinlineevent>>
+<</if>>
+
+<<if _itemsDelivered.includes("sugar")>>
+	<<addinlineevent "gwylan_ingredients_sugar" 0.8>>
+		<<He>> sticks <<his>> finger in the sugar, pulls it out, and licks it. "What? You were thinking of doing it too, don't lie."
+	<</addinlineevent>>
+<</if>>
+
+<<if _itemsDelivered.includesAny("red_wine", "white_wine")>>
+	<<addinlineevent "gwylan_ingredients_wine" 0.8>>
+		"Red and white, just like roses," <<he>> says as <<he>> picks up a bottle of wine. "Both red and white wine are perfect bases for many concoctions."
+	<</addinlineevent>>
+<</if>>
+
+/* ToDo: Gwylan - More ingredient flavour text */
+
+<<addinlineevent "gwylan_ingredients_default" 0.1>>
+	<<He>> begins sorting them by colour and weight.
+<</addinlineevent>>
+
+<<runeventpool>>
+
+<<He>> smiles at you. "Thank you. Let me know if there's anything you need in return."
+<<gwylanRequestEnd>>
+<br><br>
+
+<<gwylanOptions>>
+
+
+:: Gwylan Request Sample
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $gwylanSeen.includes("sample")>>
+	<<switch $speech_attitude>>
+		<<case "meek">>
+			"Your measuring charms are all burnt up," you say to Gwylan.
+		<<case "bratty">>
+			"Your measuring charms are used up," you say to Gwylan.
+		<<default>>
+			"Your measuring charms have burned out," you say to Gwylan.
+	<</switch>>
+	<br><br>
+
+	<<He>> nods. "I haven't had time to replace them, but you could help me.
+<<else>>
+	<<if $temple_confessor_intro and $gwylanTalked.includes("temple_confessor")>>
+		<<switch $speech_attitude>>
+			<<case "meek">>
+				"You mentioned a... poison in the world," you start. "It sounds like what the bishop told me. How do you keep track of it?"
+			<<case "bratty">>
+				"You mentioned poison in the world," you start. "It sounds a lot like what the bishop told me. How do you track it?"
+			<<default>>
+				"You mentioned poison in the world," you start. "It sounds similar to what the bishop told me. How do you keep track of it?"
+		<</switch>>
+	<<else>>
+		<<switch $speech_attitude>>
+			<<case "meek">>
+				"You mentioned a... p-poison in the world," you start. "How do you keep track of it?"
+			<<case "bratty">>
+				"You rattled on about some kind of poison in the world," you start. "How do you keep track of it?"
+			<<default>>
+				"You mentioned something about poison in the world," you start. "Can you elaborate? How do you keep track of it?"
+		<</switch>>
+	<</if>>
+	<br><br>
+
+	<<He>> gives you a tired smile. "I'm glad you asked. I haven't had the time to set up my usual method of tracking it, but it's something you might be able to help me with.
+<</if>>
+<<if $gwylan.request.event>>
+	I need you to <span class="blue">do what I already asked of you first</span>, though."
+	<br><br>
+
+	<<gwylanOptions>>
+<<else>>
+	If it's not too much trouble." <<He>> stands.
+	<<run gwylanRequest("sample")>>
+	<<set $gwylan.request.hold to "corruption">>
+	<<set $gwylan.request.command to 1>>
+	<<gwylanRequestText>>
+	<br><br>
+
+	<<gwylanOptions>>
+<</if>>
+
+:: Gwylan Request Sample Complete
+<<effects>><<run statusCheck("Gwylan")>>
+<<set _sampleSources to []>>
+<<run $gwylan.request.items.forEach(sample => _sampleSources.pushUnique(sample.name))>>
+You hand the vials over to Gwylan.
+<br><br>
+
+<<He>> smiles at you, and holds one up to the light.
+
+<<cleareventpool>>
+
+<<if _sampleSources.includes("human")>>
+	<<addinlineevent "gwylan_sample_human_1">>
+		"Humans aren't the only victims of this poison, but some spread it willingly."
+	<</addinlineevent>>
+	<<addinlineevent "gwylan_sample_human_2">>
+		"Humans have the potential to be the most unchecked source of the poison's spread. By the time one realises something is wrong with them, they've often already spread it to others, or back into the world itself."
+	<</addinlineevent>>
+	<<addinlineevent "gwylan_sample_human_3">>
+		"What have they been up to on Elk Street...?"
+	<</addinlineevent>>
+<</if>>
+
+<<if _sampleSources.includes("wolf")>>
+	<<addinlineevent "gwylan_sample_wolf_1">>
+		"The spread is especially rapid between wolves. It amplifies aggression, which quickens spread, which further amplifies aggression. The tightly-knit pack doesn't help either."
+	<</addinlineevent>>
+	<<addinlineevent "gwylan_sample_wolf_2">>
+		<<if $gwylanSeen.includes("wolves_known")>>
+			"I hope you had fun running with your wolves."
+		<<else>>
+			"I hope the pack didn't give you too much trouble."
+		<</if>>
+	<</addinlineevent>>
+	<<if $gwylanSeen.includes("wolves_known")>>
+		<<addinlineevent "gwylan_sample_wolf_3">>
+			"I hope your pack is in good health."
+		<</addinlineevent>>
+	<</if>>
+<</if>>
+
+<<if _sampleSources.includes("fox")>>
+	<<addinlineevent "gwylan_sample_fox_1">>
+		<<if _gwylanTF.ears is "revealed">>
+			<<His>> fox ears twitch.
+		<</if>>
+		"Foxes are more sensitive to the poison than most. They either avoid it by instinct, or fall prey to it easier than any other."
+	<</addinlineevent>>
+	<<addinlineevent "gwylan_sample_fox_2">>
+		"I hope the foxes didn't give you too much of a run-around. Chasing them down is always a pain."
+		<<if _gwylanTF.tail is "revealed">>
+			<<His>> tail beats behind <<him>>. "Although, part of me enjoys the chase.<<if $fox gte 6>> I'm sure you understand.<</if>>"
+		<</if>>
+	<</addinlineevent>>
+<</if>>
+
+<<if _sampleSources.includes("cat")>>
+	<<addinlineevent "gwylan_sample_cat_1">>
+		"Large cats are most often exposed by accident. Curiosity and all that. I can relate."
+	<</addinlineevent>>
+	<<addinlineevent "gwylan_sample_cat_2">>
+		"Let's see if the cats have been licking up anything they shouldn't be."
+	<</addinlineevent>>
+<</if>>
+
+<<if _sampleSources.includes("lizard")>>
+	<<addinlineevent "gwylan_sample_lizard_1">>
+		"Reptiles see the most intense changes to their physiology when overexposed to the poison. I've yet to figure out why."
+	<</addinlineevent>>
+	<<addinlineevent "gwylan_sample_lizard_2">>
+		"Overexposure to the poison leads to some interesting changes in reptiles. Pigmentation in the eyes is a common one. It makes their gaze unsettling, sometimes paralysing."
+	<</addinlineevent>>
+<</if>>
+
+<<if _sampleSources.includes("dog")>>
+	<<addinlineevent "gwylan_sample_dog_1">>
+		"As man's best friend, dogs are a common vector for transmission. Usually by accident."
+	<</addinlineevent>>
+	<<addinlineevent "gwylan_sample_dog_2">>
+		"Dogs are one of the easiest animals to influence thanks to selective breeding. Those with intentions pure and ill alike exploit them."
+	<</addinlineevent>>
+<</if>>
+
+<<if _sampleSources.includes("boar")>>
+	<<addinlineevent "gwylan_sample_boar_1">>
+		"Boars are very temperamental beasts. Luckily we don't have razorbacks here. Their heightened aggression would be a disaster for the ecosystem."
+	<</addinlineevent>>
+	<<addinlineevent "gwylan_sample_boar_2">>
+		"Boars had to be manually reintroduced to the ecosystem after being hunted to extinction. We sure have a knack for that."
+	<</addinlineevent>>
+<</if>>
+
+<<if _sampleSources.includes("dolphin")>>
+	<<addinlineevent "gwylan_sample_dolphin_1">>
+		"Dolphins are very problematic when it comes to spreading the poison. Cetaceans are vulnerable as it is, but dolphins almost seem to spread it on porpoise with how often they..."
+		<<he>> stops <<himself>>. "That wasn't even on <i>purpose</i>, sorry."
+	<</addinlineevent>>
+	<<addinlineevent "gwylan_sample_dolphin_2">>
+		"Sexual promiscuity amidst dolphins would lead to rapid spread were the poison to become uncontrolled in the ocean."
+	<</addinlineevent>>
+	<<addinlineevent "gwylan_sample_dolphin_3">>
+		"All returns to the tide eventually," <<he>> whispers.
+	<</addinlineevent>>
+<</if>>
+
+<<if _sampleSources.includes("bear")>>
+	<<addinlineevent "gwylan_sample_bear_1">>
+		"I'm terribly sorry for making you collect samples from bears, but I knew you'd come out alright."
+	<</addinlineevent>>
+	<<addinlineevent "gwylan_sample_bear_2">>
+		"Bears were once resistant to the taint. Let's hope that remains true."
+	<</addinlineevent>>
+<</if>>
+
+<<if _sampleSources.includes("plant")>>
+	<<addinlineevent "gwylan_sample_plant_1">>
+		"Nectar is a sexual fluid too, and thus holds the same traces when the poison passes through."
+	<</addinlineevent>>
+	<<addinlineevent "gwylan_sample_plant_2">>
+		"Animals aren't the only vector for the poison to spread. The very earth is vulnerable."
+	<</addinlineevent>>
+	<<addinlineevent "gwylan_sample_plant_3">>
+		"It's hard to know how the dryads feel about anything serious like this. They're always so mischievous and whimsical."
+	<</addinlineevent>>
+<</if>>
+
+<<if _sampleSources.length gte 4>>
+	<<addinlineevent "gwylan_sample_variety_1">>
+		"This is a good range of samples. It should tell me much."
+	<</addinlineevent>>
+	<<addinlineevent "gwylan_sample_variety_2">>
+		"I hope it wasn't too much trouble to run around collecting all of these."
+	<</addinlineevent>>
+<</if>>
+
+/* ToDo: Gwylan - more unique sample comments, make comments more likely based on number of matching samples */
+
+<<addinlineevent "gwylan_sample_default" 0.5>>
+	"The poison isn't spread through sexual fluid alone, but it always leaves traces behind in it."
+<</addinlineevent>>
+
+<<runeventpool>>
+<br><br>
+
+<<if $gwylan.request.hold is "corruption" and !$gwylan.requestDone>>
+	<<He>> organises the vials on a countertop. "I'll use these right away. Thank you."
+	<<gwylanRequestEnd>>
+	<<set $gwylan.requestDone to false>>
+<<else>>
+	<<He>> organises the vials on a countertop. "I'll use these right away. Thank you. If you need anything in return, just say the word."
+	<<gwylanRequestEnd>>
+<</if>>
+<br><br>
+
+<<if $gwylanSeen.includes("sample")>>
+	<<He>> disappears through a dark doorway, but keeps talking. "As a reminder, once I'm done, these should last for about <span class="blue">two weeks</span>. I'll leave them in the open, so you can see them even if I'm not here."
+	<<He>> returns carrying a bucket of water, some scraps of patterned cloth, and a round pot.
+	<br><br>
+
+	<<He>> places the pot on a heating element and fills it with the water. As <<he>> waits for it to boil, <<he>> prepares the charms.
+	"In case you've forgotten, each of these that turn <span class="purple">purple</span> will represent a <span class="purple">deep corruption</span>, one that would take considerable effort to cleanse.
+	The largest one will measure the <span class="purple">total saturation</span> as a result of the former.
+	Left alone, any discolouration will fade, which means <span class="blue">they'll stay accurate until they burn out</span>."
+	You watch <<him>> prepare each, soaking them in a sample before splashing them with powder and dipping them in the now-boiling water.
+<<else>>
+	<<He>> disappears through a dark doorway, but keeps talking. "Once I'm done, these should last for about <span class="blue">two weeks</span>. I'll leave them in the open, so you can see them even if I'm not here."
+	<<He>> returns carrying a bucket of water and some scraps of patterned cloth, placing them down on the floor as <<he>> gets down on <<his>> hands and knees. After a brief struggle, <<he>> pulls a round pot out from under something.
+	You crane your head to look, but you can't see any space where it could have fit.
+	<br><br>
+
+	<<He>> places the pot on some kind of heating element and fills it with water. As <<he>> waits for it to boil, <<he>> soaks each cloth in a sample before tossing a fistful of powder on them.
+	"It's a complex reaction, but it's nothing out of the ordinary. There are chemicals left behind as tracers in samples of sexual fluid. These charms will react with them and change colour."
+	<<He>> quickly dips each cloth into the now-boiling water, before hanging them on a rope directly above it. "Each of these that turn <span class="purple">purple</span> will represent a <span class="purple">deep corruption</span>, one that would take considerable effort to cleanse."
+	<br><br>
+
+	<<He>> produces a much larger piece of cloth, more like a small rug, and repeats the process. "This one will measure the <span class="purple">total saturation</span> as a result of the former.
+	Left alone, any discolouration will fade, which means <span class="blue">they'll stay accurate until they burn out</span>."
+<</if>>
+<br><br>
+
+<<He>> wipes <<his>> brow and smiles.
+<<if $world_corruption_soft lte 25>>
+	<span class="teal"><<His>> smile remains as the largest charm seems to be mostly inert.</span> <<He>> looks relieved.
+<<elseif $world_corruption_soft lte 99>>
+	<span class="purple"><<His>> smile quickly fades as the largest charm starts to stain purple at the bottom.</span>
+	"We have much work to do."
+<<else>>
+	<span class="red"><<His>> smile rapidly fades to an expression of worry as the largest charm quickly becomes entirely purple.</span>
+	"This outlook is grim. Is our work still not enough?" <<He>> seems frustrated for a moment, but quickly composes <<himself>>.
+<</if>>
+<br><br>
+
+<<set $gwylanSeen.pushUnique("sample")>>
+<<gwylanOptions>>
+
+:: Gwylan Request Player Milking
+<<effects>><<run statusCheck("Gwylan")>>
+/* ToDo: Gwylan */
+
+:: Gwylan Request Preen
+<<effects>><<run statusCheck("Gwylan")>><<set _tf to checkTFparts()>>
+<<if $gwylan.request.special is "feathers">>
+	<<if $speech_attitude is "meek">>
+		"If you want, you can just... take right from the source," you say.
+	<<elseif $speech_attitude is "bratty">>
+		"My wings are looking grubby," you say. "Why not just take the feathers from me directly?"
+	<<else>>
+		"My wings are feeling a bit dirty," you say. "Why not just take the feathers from me directly?"
+	<</if>>
+<<elseif $gwylan.request.event is "preen">>
+	<<if $speech_attitude is "meek">>
+		"Go ahead, I wouldn't mind you preening me," you say.
+	<<elseif $speech_attitude is "bratty">>
+		"My wings are looking grubby anyways," you say. "I wouldn't mind you taking care of that for me."
+	<<else>>
+		"My wings are feeling a bit dirty," you say. "I wouldn't mind you getting your hands in there."
+	<</if>>
+<<elseif $gwylanSeen.includes("request_preen")>>
+	<<if $speech_attitude is "meek">>
+		"Hey, Gwylan?" you ask. "Would you mind preening my wings again?"
+	<<elseif $speech_attitude is "bratty">>
+		"My wings are looking grubby," you say. "Could you take care of that for me?"
+	<<else>>
+		"My wings are feeling a bit dirty again," you say. "Fancy getting your hands in there?"
+	<</if>>
+<<else>>
+	<<if $speech_attitude is "meek">>
+		"Gwylan?" you ask. "If it isn't too much trouble, can I take you up on your offer?"
+	<<elseif $speech_attitude is "bratty">>
+		"I'm ready to take you up on that offer," you say.
+	<<else>>
+		"You offered to preen my wings," you say. "Can I take you up on that now?"
+	<</if>>
+<</if>>
+<<if !_tf.birdWings>>
+	You unfurl your wings.
+<<else>>
+	You spread out your wings.
+<</if>>
+<br><br>
+
+<<if $gwylan.timer.preen gt Time.date.timeStamp and $gwylan.request.event isnot "preen">>
+	Gwylan's eyes brighten. "I still haven't used all of the last feathers you gave me," <<he>> says. "But I wouldn't mind at all! Thank you for trusting me with this. Please, come sit here."
+<<elseif $gwylan.request.event isnot "preen" and $gwylan.request.hold>>
+	<<set $gwylan.requestDone to true>>
+	Gwylan's eyes brighten. "Of course! I'll take this as payment for what you asked me to do for you, too. Thank you for trusting me with this. Please, come sit here."
+<<else>>
+	Gwylan's eyes brighten. "Of course! Thank you for trusting me with this. Please, come sit here."
+<</if>>
+<br><br>
+
+<<He>> moves a pile of folded clothing off of an antique chair. You sit facing the back of it, leaving your wings exposed. Gwylan chatters as <<he>> moves around the shop. You can hear the excitement in <<his>> voice.
+<br><br>
+
+<<if !$gwylanSeen.includes("request_preen")>>
+	"I never thought I would see feathers like this again.
+	The <<if ($settings.monsterChance gte random(1, 100) and ($hallucinations gte 1 or !$settings.monsterHallucinationsOnly)) or $greathawkmonster is 2>>harpies<<else>>hawks<</if>> were thought to be extinct."
+	<<His>> voice grows fainter as <<he>> moves deeper into the shop. "To think that you have gotten so close to one as to inherit its wings."
+	<br><br>
+
+	<<if isLoveInterest("Great Hawk")>>
+		You slide a finger along your feathers. Visions of flying high above the moor with your spouse fill your mind.
+		You think the skies would be empty without <<nnpc_his "Great Hawk">> silhouette.
+	<<else>>
+		You slide a finger along your feathers. Visions of flying high above the moor fill your mind.
+		You remember how liberating it was to fly, and what it would be like if you never learned how to from the Great Hawk.
+	<</if>>
+	A profound sadness fills you at the thought.
+	<br><br>
+
+	"It's tragic, I know. We destroy what we can't understand." Gwylan's voice is right by your ear. You jump.
+	<br><br>
+
+	<<He>> giggles, clamping <<his>> hand over <<his>> mouth. "Sorry," <<he>> says. "I'm more quiet than I mean to be."
+<<else>>
+	"I still can't believe it. If the <<if ($settings.monsterChance gte random(1, 100) and ($hallucinations gte 1 or !$settings.monsterHallucinationsOnly)) or $greathawkmonster is 2>>harpies<<else>>hawks<</if>> are returning, what else could be out there?"
+	<<His>> voice grows fainter as <<he>> moves deeper into the shop. "What should I make this time? A restorative? Lurker repellent? Oh, maybe..."
+	<br><br>
+
+	<<His>> voice fully fades. You start to wonder what effects your feathers have that you don't know about.
+	<br><br>
+
+	"There's lots, and it depends on whether the feathers are crushed or not first." Gwylan's voice is right by your ear. You jump.
+	<br><br>
+
+	<<He>> giggles, clamping <<his>> hand over <<his>> mouth. "Sorry," <<he>> says.
+<</if>>
+<br><br>
+
+<<link [[Next|Gwylan Request Preen 2]]>><<pass 20>><</link>>
+<br>
+
+:: Gwylan Request Preen 2
+<<effects>><<run statusCheck("Gwylan")>><<set _tf to checkTFparts()>>
+<<set _selfFeatherNum to 1>>
+Gwylan holds up a few instruments. A screw-top jar. A thin brush.
+A preserved beak<<if !($settings.monsterChance gte random(1, 100) and ($hallucinations gte 1 or !$settings.monsterHallucinationsOnly)) or $greathawkmonster is 0>> that looks eerily close to the Great Hawk's<</if>>.
+<<if !$gwylanSeen.includes("request_preen")>>
+	They're covered with dust. "I admit they need a bit of a clean," <<he>> says, wiping them down with <<his>> sleeve.
+<<else>>
+	You recognise them from last time. "I've been keeping them in good order," <<he>> says.
+<</if>>
+<br><br>
+
+<<He>> moves behind you. You can feel <<his>> breath on your wings.
+<<if $gwylanSeen.includes("yearning")>>
+	<<if $speech_attitude is "meek">>
+		You unfold one wing, then the other, biting your lip at the flush on your face.
+	<<elseif $speech_attitude is "bratty">>
+		You show off by fluffing up your feathers.
+	<<else>>
+		You spread your wings so that <<he>> can see better.
+	<</if>>
+<</if>>
+"Oh," <<he>> says. "They're just as beautiful as I remember. May I?"
+<br><br>
+
+You nod. You feel <<his>> fingers ghost over the ridge of your wing. <<He>> brings them down to the tip of your largest feather. There's a reverence to <<his>> movements.
+<<if $museumintro is 1>>
+	You begin to feel as though you're on display at Winter's museum.
+<<else>>
+	You begin to feel like an art exhibit.
+<</if>>
+<br><br>
+
+<<if _tf.angelWings>>
+	"Ooh, cold," <<he>> mutters as <<he>> touches the more angelic feathers. "I'll leave those ones be." You reach back and touch them yourself. They don't feel cold to you.
+<<elseif _tf.fallenAngelWings>>
+	"Even torn and pallid, they're magnificent," <<he>> says with wonder. "I can see... no, I can <i>feel</i> everything you've gone through. Each missing feather is telling me a story. It's beautiful."
+	<<He>> takes particular care around the bottom of your wings.
+<<elseif _tf.demonWings>>
+	"I've never seen a shape like this before," <<he>> says with wonder. "I can imagine these cutting through the air with ease." <<He>> lifts your wings gently, examining how they can move and stretch.
+<</if>>
+
+"I would love to see you fly one day," Gwylan says. "I imagine it must be a <<if $gwylanSeen.includes("yearning")>>breathtaking <</if>>sight."
+<<He>> unscrews the jar behind you. A rich scent fills the air. "I harvested this from an old bird some years ago. I made sure none of its body went to waste.
+It should simulate their natural oils and make your feathers even more splendid."
+<br><br>
+
+You close your eyes as you feel <<him>> move the beak through your feathers. <<if isLoveInterest("Great Hawk")>>It feels just like your spouse.<</if>> It's very soothing, right up until <<he>> plucks a feather from your wing. You flinch.
+<br><br>
+
+"Sorry," <<he>> says, not sounding the least bit sorry. "There's going to be more of that as I go."
+<br><br>
+
+You settle forwards, crossing your arms on the top of the chair's back, and close your eyes again. This time, you're prepared for the pain. It doesn't make it hurt any less. <<pain 3>><<gpain>>
+<br><br>
+
+Despite the pain, you find that you feel relaxed. <<if $hypnosis_traits.devotion gte 5>><span class="pink">Almost too relaxed.</span><</if>> Your eyelids feel heavy. <<arousal 2000>><<garousal>>
+<br><br>
+
+<<if $hypnosis_traits.devotion gte 5>>
+	<<link [[Next|Gwylan Request Preen Devotion]]>><<stress -12>><<tiredness -4>><</link>><<ltiredness>>
+<<else>>
+	<<link [[Next|Gwylan Request Preen Finish]]>><<pass 20>><<stress -6>><<tiredness -2>><<set $phase to 0>><</link>><<ltiredness>>
+<</if>>
+<br>
+
+:: Gwylan Request Preen Devotion
+<<effects>><<run statusCheck("Gwylan")>>
+<<set _selfFeatherNum to 1>><<set _birdFlowers to 1>>
+The shop melts away. Everything melts away but Gwylan, although <span class="pink"><<his>> apron melts way too, leaving <<his>> nude body exposed</span>.
+<br><br>
+
+<<He>> holds <<his>> arms out wide. You mimic the movement with your wings.
+<<if $gwylanSeen.includes("romance")>>Pink<<else>>Red and white<</if>> rose petals have replaced your feathers.
+<br><br>
+
+As you embrace, roses ripple out from your feet. It feels like you're falling into a perfumed sea. One with no bottom and no surface.
+Fear seizes you for a second. Gwylan hums
+<<if $seabird_lullaby gte 2>>
+	<span class="teal">Seabird's Lullaby</span>,
+<<else>>
+	a <span class="teal">haunting yet familiar melody</span>,
+<</if>>
+and you feel your fear disappear. With <<him>>, you are safe.
+<br><br>
+
+You flap your wings. The rose sea parts for you as you swim, though it feels like flying. Gwylan holds you close.
+It almost seems as if the two of you are dancing. Rose petals whirl around you in a tornado of colour.
+<br><br>
+
+Slowly, you come to a stop. Gwylan cups your cheeks in <<his>> hands. <<He>> kisses your forehead. Tingling warmth spreads all the way down to your toes.
+<br><br>
+
+There's a sharp prick of pain, as sweet as the scent around you. It clears your mind. You look up and see the surface. Gwylan gives you a gentle push, and you start to swim up, and up, and up.
+<br><br>
+
+<<link [[Next|Gwylan Request Preen Finish]]>><<pass 20>><<set $phase to 1>><</link>>
+<br>
+
+:: Gwylan Request Preen Finish
+<<effects>><<run statusCheck("Gwylan")>>
+<<set $gwylanSeen.pushUnique("request_preen")>>
+<<if $phase is 0>>
+	You open your eyes, somewhat groggy from your nap.
+	Gwylan is chattering about something as <<he>> cleans up. Many of your feathers are gathered in a neat pile.
+	<br><br>
+
+	"Did you sleep well?" Gwylan asks. <<He>> smiles when you nod.
+<<else>>
+	You break the surface with a gasp. The shop coalesces around you as you open your eyes.
+	Gwylan is chattering about something as <<he>> cleans up. Many of your feathers are gathered in a neat pile. They look normal again.
+	<br><br>
+
+	"Did you sleep well?" Gwylan asks. There is a shrewd look on <<his>> face. It turns into a smile as you nod.
+<</if>>
+<br><br>
+
+"Now, you should avoid flight for a while. You'll be a little off balance until some new feathers grow in. Gliding should be fine."
+You stretch your wings out again. They feel noticeably lighter, but look magnificent.
+<br><br>
+
+<<if $phase is 1>>
+	You feel Gwylan's arms wrap around you from behind. "Thank you for letting me fly with you," <<he>> whispers. "We'll have to try the real thing sometime."
+	<<He>> kisses you on the cheek. <<garousal>><<arousal 500>>
+	<br><br>
+<</if>>
+
+"Thank you again. If you need a favour, you know where to find me."
+<<if $gwylan.request.event is "preen">>
+	<<gwylanRequestEnd>>
+<</if>>
+<br><br>
+
+<<set $plucked to 14>>
+
+<<endevent>><<npc Gwylan>><<person1>>
+<<gwylanOptions>>
+
+:: Gwylan Request Feathers
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $phase is 1>>
+	<<set _featherCount to 10>>
+	You hand Gwylan a big bundle of feathers. <<He>> looks surprised, and gently takes them.
+	<br><br>
+
+	"That works too, I suppose. Although, I confess I was quite looking forward to preening you."
+	<<if $hypnosis_traits.devotion gte 1>>
+		<<hypnosisText "You can feel <<his>> disappointment.">> <<trauma 6>><<gtrauma>>
+	<<else>>
+		There's a slight tinge of disappointment to <<his>> voice.
+	<</if>>
+	<br><br>
+
+	"Apologies. They're magnificent." <<He>> rummages around for a moment, finding a small black vial. <<He>> removes the cap, which has a brush attached at the bottom. The brush is covered in a thin oily substance, which Gwylan starts to apply to the feathers.
+<<else>>
+	<<set _featherCount to $gwylan.request.items.find(feather => feather.name === "feathers").need>>
+	You hand the bundle of feathers over to Gwylan.
+	<br><br>
+
+	<<He>> gently takes them, marvelling at them for a moment. "Magnificent."
+	<br><br>
+
+	<<He>> rummages around for a moment, finding a small black vial. <<He>> removes the cap, which has a brush attached at the bottom. The brush is covered in a thin oily substance, which Gwylan starts to apply to the feathers.
+<</if>>
+<br><br>
+
+"You've done me a big favour. If there's anything you need, please just say the word."
+<<gwylanRequestEnd>>
+<<set $bird.materials.feathers -= _featherCount>>
+<br><br>
+
+<<endevent>><<npc Gwylan>><<person1>>
+<<gwylanOptions>>
+
+:: Gwylan Request Cream
+<<effects>><<run statusCheck("Gwylan")>>
+
+<<if $hypnosis_traits.devotion gte 5 and $gwylanSeen.includes("cream_lick")>>
+	You open your mouth to speak. You're not quite sure what you said, but there's a feeling of lurid excitement within you. You're reminded of the taste of cream.
+	<br><br>
+
+	"Oh, you poor thing," <<he>> coos. "You look like you can hardly wait." Your vision starts to get blurry, and shades of colour creep into your peripheral vision. "I won't make you wait, then."
+	<br><br>
+
+	<<hypnosisText "<<He>> snaps <<his>> fingers, and you're no longer where you once were.">>
+	<br><br>
+
+	<<link [[Next|Gwylan Cream Lick]]>><<set $worshipstart to 1>><<set $phase to 4>><<strip>><</link>>
+	<br>
+<<else>>
+	<<switch $speech_attitude>>
+		<<case "meek">>
+			"I'm ready to take you up on that offer," you say with a blush.
+		<<case "bratty">>
+			"That cream better be fresh," you say. "Else I might start biting instead."
+		<<default>>
+			"I'm ready for the cream," you say.
+	<</switch>>
+	<br><br>
+
+	<<His>> blush deepens. "Wait here." <<He>> briskly walks through a dark doorway.
+	<<if _gwylanTF.tail is "revealed">>
+		<<His>> tail swings back and forth rapidly as <<he>> leaves.
+	<</if>>
+	You hear the rustling of cloth, followed by the sound of compressed air and a dull thud. After a moment, you hear <<his>> voice again. <<if $cat gte 6>>"Alright. Here, kitty, kitty."<<else>>"Alright, come here, you."<</if>>
+	<br><br>
+
+	You walk to the doorway. The room is dark, and none of the light from outside seems to leak in. You take a cautious step forward. "Just follow my voice," <<he>> whispers from somewhere in the dark.
+	You take another step towards <<him>>.
+	<<if $worn.neck.collared is 1 and $worn.neck.type.includes("leash")>>
+		Your leash starts to pull itself along the ground into the darkness. It suddenly goes taut, lightly pulling you in the same direction.
+	<</if>>
+	<br><br>
+
+	<<link [[Follow|Gwylan Cream Lick]]>><<set $worshipstart to 1>><<set $phase to 5>><</link>>
+	<br>
+	<<if hasSexStat("exhibitionism", 4)>>
+		<<link [[Strip, and then follow|Gwylan Cream Lick]]>><<set $worshipstart to 1>><<set $phase to 6>><</link>><<exhibitionist4>>
+	<<else>>
+		<<insufficientStat "exhibitionism" "to strip first">>
+	<</if>>
+	<br>
+<</if>>
+
+:: Gwylan Cream Lick
+<<effects>><<run statusCheck("Gwylan")>>
+<<set $gwylanSeen.pushUnique("cream_lick")>>
+<<set $consensual to 1>>
+<<if $worshipstart is 1>>
+	<<set $worshipstart to 0>>
+	<<set $worship to {
+		fluid: "cream",
+		action: "start",
+		actionLast: "",
+		source: "normal",
+		body: 3,
+		tummy: 3,
+		breasts: C.npc.Gwylan.breastsize gte 1 ? Math.ceil(C.npc.Gwylan.breastsize / 3) : 1,
+		genitals: 2,
+		residue: 1,
+		control: "player",
+		arousal: C.npc.Gwylan.lust + Math.floor(C.npc.Gwylan.dom / 3),
+		timer: 30
+	}>>
+	<<if $gwylanSeen.includes("request_player_sample")>>
+		<<set $worship.source to "player">>
+	<</if>>
+	<<if $phase is 1 or $phase is 4>>
+		You blink away the confusion. There are candles lit all around you, and you're on your knees. Smooth skin fills your vision. You pull back, and see Gwylan in front of you.
+		<span class="lewd">
+			<<Hes>> entirely naked, and the two of you lay on a quilted blanket. Trails of cream snake all along <<his>> body, covering <<his>>
+			<<if _gwylanTF.tail is "revealed">>
+				<<print C.npc.Gwylan.breastsdesc>>. <<His>> tail is between <<his>> legs, but it slowly moves to the side to reveal that <<his>> <<if C.npc.Gwylan.penis isnot "none">><<print C.npc.Gwylan.penisdesc>><<else>>pussy<</if>> is covered in it, too.
+			<<else>>
+				<<print C.npc.Gwylan.breastsdesc>> and <<npcGenitals 0>>.
+			<</if>>
+		</span>
+		<br><br>
+
+		<<if $worship.source is "player">>
+			<span class="lewd">You can't help but wonder if this is what Gwylan used your 'sample' for. Is <<he>> covered in your cream?</span> <<arousal 1000>><<garousal>>
+			<br><br>
+		<</if>>
+
+		An empty glass vial sits at <<his>> side, and a small amount of purple residue sticks to the corner of <<his>> mouth.
+		"I'm the treat," <<he>> whispers with a giggle. <<His>> cheeks are bright red, and <<his>> gaze is full of hunger. "<span class="witch">Lick.</span>"
+		<br><br>
+
+		You can't hope to resist <<his>> command, and you're not sure if you would want to anyways. Your thoughts are a cloud of lust and confusion.
+		Still, you can choose <i>how</i> to follow <<his>> command.
+	<<else>>
+		<<if $phase is 6>>
+			You cast your clothes aside into the darkness. <<strip>><<exhibitionism4>>
+		<</if>>
+		<<if $phase is 2>>
+			You continue following the sound of Gwylan's breathing and light giggling. It echoes all around you, making it hard to track.
+		<<else>>
+			You turn around, <span class="purple">only to find that the doorframe is gone.</span> You hear a giggle from the dark. "It's too late to run away now, dear."
+		<</if>>
+		<br><br>
+
+		You feel something vaguely hand-shaped press against your face. It feels like smooth, polished wood. You think it's blocking your eyes, but it's so pitch-black in the room that you can't tell for sure.
+		<br><br>
+
+		You hear a flick. The intruding object slips away from you, revealing that candles have been lit. You can see again, and the first thing you see is Gwylan, sitting
+		<span class="lewd">
+			entirely naked on a quilted blanket. Trails of cream snake all along <<his>> body, covering <<his>>
+			<<if _gwylanTF.tail is "revealed">>
+				<<print C.npc.Gwylan.breastsdesc>>. <<His>> tail covers <<his>> lower body, but it slowly moves to the side to reveal that <<his>> <<npcGenitals 0>> is covered in it, too.
+			<<else>>
+				<<print C.npc.Gwylan.breastsdesc>> and <<npcGenitals 0>>.
+			<</if>>
+		</span>
+		<br><br>
+
+		<<if $worship.source is "player">>
+			<span class="lewd">You can't help but wonder if this is what Gwylan used your 'sample' for. Is <<he>> covered in your cream?</span> <<arousal 1000>><<garousal>>
+			<br><br>
+		<</if>>
+
+		An empty glass vial sits at <<his>> side, and a small amount of purple residue sticks to the corner of <<his>> mouth.
+		<<He>> smiles at you seductively. "Come get your treat," <<he>> whispers. One of <<his>> hands runs up <<his>> body.
+		<<if $worn.neck.collared is 1 and $worn.neck.type.includes("leash")>>
+			The other tugs your leash.
+		<</if>>
+		<br><br>
+
+		You're surrounded by a sea of darkness, and only Gwylan offers shelter from it all. You're not sure how or when you ended up kneeling right in front of <<him>>.
+	<</if>>
+	<br><br>
+<</if>>
+<<gwylanWorshipEffects>>
+
+<<if $worship.end>>
+	<<if ["milk", "genitals", "oral"].includes($worship.end) and $gwylanSeen.includes("partners")>>
+		<<link [[Crawl up and kiss Gwylan|Gwylan Cream Lick End]]>><<set $phase to "kiss">><<npcincr Gwylan lust 5>><<npcincr Gwylan dom 1>><</link>><<gglust>><<gyearning>><<gwylanHypnoNote "kiss">>
+	<<elseif $gwylanSeen.includes("partners")>>
+		<<link [[Kiss Gwylan|Gwylan Cream Lick End]]>><<set $phase to "kiss">><<npcincr Gwylan lust 2>><<npcincr Gwylan dom 1>><</link>><<glust>><<gyearning>><<gwylanHypnoNote "kiss">>
+	<</if>>
+	<br>
+	<<if ["genitals", "oral"].includes($worship.end) and C.npc.Gwylan.penis isnot "none">>
+		<<link [[Let Gwylan see you swallow <<his>> cum|Gwylan Cream Lick End]]>><<set $phase to "swallow">><<npcincr Gwylan lust 2>><</link>><<glust>>
+		<br>
+	<</if>>
+	<<link [[Cuddle with Gwylan for a while (0:10)|Gwylan Cream Lick End]]>><<stress -6>><<trauma -3>><<npcincr Gwylan dom 1>><<pass 10>><<set $phase to "cuddle">><</link>><<lstress>><<ltrauma>><<gyearning>>
+	<br>
+	<<link [[Just get up|Gwylan Cream Lick End]]>><<set $phase to "up">><</link>>
+	<br>
+<<elseif $worship.timer lte 0 or ($worship.breasts lte 0 and $worship.genitals lte 0 and $worship.body lte 0 and $worship.tummy lte 0)>>
+	<<link [[Next|Gwylan Cream Lick End]]>><<set $worship.end to "clean">><<set $phase to "clean">><</link>>
+	<br>
+<<else>>
+	<<gwylanWorshipActions>>
+<</if>>
+
+:: Gwylan Cream Lick End
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $worship.end is "oral">>
+	You slowly pull your head up, releasing <<his>> <<npcPenis>> and taking a deep breath.
+<<elseif $worship.end is "milk">>
+	You pull your mouth off of <<his>> breasts, taking a deep breath.
+<</if>>
+<<if $phase is "kiss">>
+	<<if ["genitals", "oral"].includes($worship.end)>>
+		You crawl up towards <<him>>, gently leaving a trail of kisses all the way up <<his>> body. <<His>> gaze is a mixture of anticipation and concern as you finally reach <<his>> face.
+		You kiss <<him>> on the cheek, and then on the lips.
+	<<else>>
+		You lean up towards Gwylan's face and kiss <<him>>.
+	<</if>>
+	<<if $worship.end is "milk">>
+		You push your tongue into <<his>> mouth, <span class="lewd">giving <<him>> a taste of <<his>> own milk</span>. It's only fair that you share the cream.
+	<<elseif $worship.end is "oral" or $worship.end is "genitals" and C.npc.Gwylan.penis isnot "none">>
+		You push your tongue into <<his>> mouth, <span class="lewd">giving <<him>> a taste of <<his>> own cum</span>. It's only fair that you share the cream.
+	<<elseif $worship.end is "genitals">>
+		You push your tongue into <<his>> mouth, <span class="lewd">letting <<him>> taste <<his>> own fluids</span>.
+	<<else>>
+		You push your tongue into <<his>> mouth, letting <<him>> partake in the lingering taste of cream.
+	<</if>>
+	<<gwylanKiss>>
+	<br><br>
+
+	<<if _gwylanStatus.includes("heat")>>
+		<<set _encore to true>>
+		After a moment, <<he>> puts <<his>> hand around your head and returns the kiss eagerly. <<He>> leans forward, pushing you back in <<his>> effort to kiss you even deeper, until you're toppled backwards.
+		<br><br>
+
+		<<He>> disengages for only a moment. A line of saliva and lewd fluid connects your mouths as <<he>> hovers over you. "More," <<he>> whispers, <<his>> expression still full of hunger.
+	<<else>>
+		<<He>> puts <<his>> hand on your cheek and returns the kiss for a moment, before pushing you away. "<<pcPetname "Gwylan" "good">>. Thanks for sharing," <<he>> giggles.
+		<<He>> helps you stand.
+	<</if>>
+<<elseif $phase is "swallow">>
+	You look up to Gwylan, your mouth wide open and your tongue out. You retract it and swallow, opening your mouth again to show <<him>> that it's now empty.
+	<br><br>
+
+	<<He>> reaches down and caresses your cheek. "<<pcPetname "Gwylan" "good">>."
+	<<if _gwylanStatus.includes("heat")>>
+		<<set _encore to true>>
+		<<He>> points to <<his>> lips. "Come here, you missed some."
+		<br><br>
+
+		You crawl up towards <<him>>. When you're close enough, <<he>> <span class="lewd"><<he>> licks a bit of cream off your cheek</span>. <<He>> licks again, closer to your mouth, then your lips.
+		Suddenly, you're kissing each other, your tongues eagerly sharing the taste of cream. <<gwylanKiss>>
+		<<if _pcKissVirginityTaken>>
+			<br><br>
+		<</if>>
+		<<He>> leans forward, pushing you back in <<his>> effort to kiss you even deeper, until you're toppled backwards.
+		<br><br>
+
+		<<He>> disengages for only a moment. A line of saliva and lewd fluid connects your mouths as <<he>> hovers over you. "More," <<he>> whispers, <<his>> expression still full of hunger.
+	<<else>>
+		<<His>> finger circles your mouth. <<He>> brings it back to <<his>> own, holding a small mound of cream. "You missed some," <<he>> giggles, licking it.
+		<<He>> helps you stand.
+	<</if>>
+<<elseif $phase is "cuddle">>
+	You cling to Gwylan, and the two of you slowly lay back on the blanket. <<He>> pulls you closer, stroking your hair as <<he>> holds you. "<<pcPetname "Gwylan" "good">>," <<he>> whispers.
+	<<if $bodysize is 3>>
+		<<He>> buries <<his>> face in your shoulder.
+	<<else>>
+		You bury your face in <<his>> shoulder.
+	<</if>>
+	<br><br>
+
+	<<His>> hand strokes up and down your back, and <<he>> continues humming
+	<<if $seabird_lullaby gte 2>>
+		<span class="teal">Seabird's Lullaby</span>.
+	<<else>>
+		a soothing, <span class='teal'>familiar</span> melody. You're not sure where you've heard it before.
+	<</if>>
+	The two of you stay like that for some time.
+	Eventually, <<he>> helps you stand.
+<<elseif $phase is "up">>
+	You quickly stand up, and wipe away any stray cream. Gwylan does the same.
+<<else>>
+	<<if $worship.breasts lte 0 and $worship.genitals lte 0 and $worship.body lte 0 and $worship.tummy lte 0>>
+		"There, all clean," <<he>> says. "<<pcPetname "Gwylan" "good">>." <<He>> pats the top of your head.
+	<<else>>
+		"That will have to do," <<he>> sighs. "We can't be here all day." <<He>> pats the top of your head.
+	<</if>>
+	<br><br>
+
+	<<if _gwylanStatus.includes("heat")>>
+		<<set _encore to true>>
+		<<He>> points to <<his>> lips. "Come here, you missed some."
+		<br><br>
+
+		You crawl up towards <<him>>. When you're close enough, <<he>> <span class="lewd"><<he>> licks a bit of cream off your cheek</span>. <<He>> licks again, closer to your mouth, then your lips.
+		Suddenly, you're kissing each other, your tongues eagerly sharing the taste of cream. <<gwylanKiss>>
+		<<if _pcKissVirginityTaken>>
+			<br><br>
+		<</if>>
+		<<He>> leans forward, pushing you back in <<his>> effort to kiss you even deeper, until you're toppled backwards.
+		<br><br>
+
+		<<He>> disengages for only a moment. A line of saliva and lewd fluid connects your mouths as <<he>> hovers over you. "More," <<he>> whispers, <<his>> expression still full of hunger.
+	<<else>>
+		<<His>> finger circles your mouth. <<He>> brings it back to <<his>> own, holding a small mound of cream. "You missed some," <<he>> giggles, licking it.
+		<<He>> helps you stand. <<npcincr Gwylan lust 2>><<glust>>
+	<</if>>
+<</if>>
+<br><br>
+
+<<if _encore>>
+	<<link [[Next|Gwylan Cream Sex]]>><<set $sexstart to 1>><</link>>
+	<br>
+<<else>>
+	"I hope you had as much fun as I did," <<he>> says, a little unsteady.
+	<<if $worship.end isnot "clean">>
+		"I don't often achieve... release."
+	<</if>>
+	<br><br>
+
+	<<if $worship.breasts lte 0 and $worship.genitals lte 0 and $worship.body lte 0 and $worship.tummy lte 0>>
+		<<He>> gets dressed, and rolls up the blanket.
+	<<else>>
+		<<He>> looks down at <<his>> body. There's still some cream left. "I'll need to wash." <<He>> starts to roll up the blanket, but stops and stares at it. <<He>> then wraps <<himself>> in it like a towel.
+		"I'll need to wash this too, anyways."
+	<</if>>
+	The darkness in the room has faded, revealing that you're in a small storage room full of mannequins. They're all facing the two of you.
+	<<clotheson>>
+
+	Gwylan leads you back to the shop. "Thanks for that, dear. <<if $worship.end isnot "clean">>You've got some talent with that tongue.<</if>> We'll have to do this again sometime. If you need anything, you know where to find me."
+	<<unset $worship>>
+	<<gwylanRequestEnd>>
+	<br><br>
+
+	<<link [[Next|Forest Shop Entrance]]>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Gwylan Cream Sex
+<<run statusCheck("Gwylan")>>
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<npcexpose>>
+	<<set $enemytrust += 200>>
+	<<gwylanCombatInit>>
+<</if>>
+
+<<if $timer lte 0 and $trance is 1>>
+	<<set $trance to 0>>
+	<span class="teal">You snap out of Gwylan's trance.</span>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if $orgasmcurrent gte $combat_player_orgasm_target>>
+	<span id="next"><<link [[Next|Gwylan Cream Sex Finish]]>><</link>></span><<nexttext>>
+<<elseif _combatend>>
+	<span id="next"><<link [[Next|Gwylan Cream Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Gwylan Cream Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Gwylan Cream Sex Finish
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $orgasmcurrent gte $combat_player_orgasm_target>>
+	<<set $enemyarousal += 200>>
+	<<if $enemyarousal gte $enemyarousalmax>>
+		<<if $hallucinations gte 2 and $NPCList[0].chest isnot "clothed">>
+			The tattoo on Gwylan's <<bellyDescription "Gwylan">> flares to life, and <<he>> shivers as you climax.
+		<<else>>
+			Your <<if $orgasmcurrent gt 1>>final<</if>> orgasm makes Gwylan shiver.
+		<</if>>
+		<span class="pink">It pushes <<him>> over the edge too.</span>
+		<<ejaculation>><<npcincr Gwylan lust -25>><<llllust>>
+	<<else>>
+		<<if _gwylanStatus.includesAny("dom", "lust")>>
+			<<He>> hums and holds you tight as you recover from your <<if $orgasmcurrent gt 1>>final<</if>> orgasm. <<gwylanHypnosis "devotion" 2>><br>
+			<<if $consensual is 1>>
+				"You did great, <<pcpetname "Gwylan">>,"
+			<<else>>
+				"There, isn't that better?"
+			<</if>>
+			<<he>> coos.
+		<<else>>
+			<<He>> makes a pleased sound as your <<if $orgasmcurrent gt 1>>final<</if>> orgasm subsides. <<gwylanHypnosis "devotion" 1>><br>
+			"That should do," <<he>> says.
+			<<if $consensual is 0>>
+				"Don't fuss so much next time, dear. I'm only trying to help."
+			<</if>>
+		<</if>>
+		<<if $penisfucked is 1>>
+			<<He>> rubs <<his>> <<bellyDescription "Gwylan">> in satisfaction until you pull out of <<him>>.
+		<<elseif $vaginafucked is 1>>
+			<<He>> rubs your <<bellyDescription>> in satisfaction, and pulls out.
+		<</if>>
+		<<npcincr Gwylan lust 5>><<gglust>>
+	<</if>>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	<<if $orgasmcurrent is 0 and $hypnosis_traits.devotion>>
+		<<gwylanHypnosis "devotion" -2>>
+	<</if>>
+	<<npcincr Gwylan lust -20>><<lllust>>
+<<elseif $enemyhealth lte 0>>
+	<<set $gwylan.punishment to true>>
+	Gwylan rolls away from you. "That hurt, dear." <<He>> giggles dryly. "Naughty, naughty. I'll remember this." <<npcincr Gwylan dom -2>><<lyearning>>
+<<else>>
+	Gwylan rolls away from you.
+<</if>>
+<br><br>
+
+"I hope you had as much fun as I did," <<he>> says, a little unsteady.
+<<if $enemyarousal gte $enemyarousalmax>>
+	"I don't often achieve... release."
+<</if>>
+<br><br>
+
+<<if $worship.breasts lte 0 and $worship.genitals lte 0 and $worship.body lte 0 and $worship.tummy lte 0>>
+	<<He>> gets dressed, and rolls up the blanket.
+<<else>>
+	<<He>> looks down at <<his>> body. There's still some cream left, along with some lewd fluids. "I'll need to wash." <<He>> starts to roll up the blanket, but stops and stares at it. <<He>> then wraps <<himself>> in it like a towel.
+	"I'll need to wash this too, anyways."
+<</if>>
+The darkness in the room has faded, revealing that you're in a small storage room full of mannequins. They're all facing the two of you.
+<<clotheson>>
+
+Gwylan leads you back to the shop. "Thanks for that, dear. <<if $worship.end isnot "clean">>You've got some talent with that tongue.<</if>> We'll have to do this again sometime. If you need anything, you know where to find me."
+<<unset $worship>>
+<<gwylanRequestEnd>>
+<br><br>
+<<endcombat>>
+
+<<link [[Next|Forest Shop Entrance]]>><<endevent>><</link>>
+<br>
+
+:: Gwylan Chastity Removal
+<<set $outside to 0>><<set $location to "forest_shop">><<effects>><<run statusCheck("Gwylan")>>
+<<outfitChecks>>
+<<if $phase is "ritual" or $phase is "forced">>
+	<<if $gwylanSeen.includes("ritual_sex")>>
+		<<switch $speech_attitude>>
+			<<case "meek">>
+				"I'd like to do this with you, but... there's a problem. I'm stuck."
+			<<case "bratty">>
+				"I'd love to go for a roll with you again, but I'm a bit stuck."
+			<<default>>
+				"I'd like to do this with you, but I'm stuck."
+		<</switch>>
+	<<else>>
+		<<switch $speech_attitude>>
+			<<case "meek">>
+				"I'm a bit nervous. Plus, I've got this thing stuck on me."
+			<<case "bratty">>
+				"I'm definitely interested in your proposal, but I've got this stupid thing on me."
+			<<default>>
+				"I'm interested, but I've got this thing stuck on me."
+		<</switch>>
+	<</if>>
+<<elseif $phase is "skip">>
+	<<switch $speech_attitude>>
+		<<case "meek">>
+			"I've done what you asked of me. Will you help me now?"
+		<<case "bratty">>
+			"Alright, I did what you asked. Time for you to hold up your end of the deal."
+		<<default>>
+			"I did what you asked. Can you help me now?"
+	<</switch>>
+<<else>>
+	<<if $gwylanJordanChastity and !$gwylanSeen.includes("chastity_parasite")>>
+		"I was told you could help me with a parasite problem that I have."
+	<<else>>
+		<<switch $speech_attitude>>
+			<<case "meek">>
+				"Would it be too much trouble to ask for help getting this off?"
+			<<case "bratty">>
+				"Please get this stupid thing off of me."
+			<<default>>
+				"Could you please help me remove this?"
+		<</switch>>
+	<</if>>
+<</if>>
+<<if _bottom>>
+	You displace your _bottom.name just enough to show your $worn.genitals.name.
+<<else>>
+	You gesture to your $worn.genitals.name.
+<</if>>
+<br><br>
+
+<<if _gwylanStatus.includes("lust") and ($gwylan.ritualMissed or $phase is "ritual" or $phase is "forced") and $gwylanSeen.includes("request_tutorial")>>
+	<<set _gwylanEager to true>>
+<</if>>
+
+<<if $gwylan.request.event is "chastity" or $phase is "skip">>
+	<<He>> smiles. "Of course. Let me take another look at what we're working with."
+<<elseif $gwylan.requestDone or $phase is "forced">>
+	<<He>> nods.
+	<<if $phase is "forced">>
+		"Let me take a closer look."
+	<<elseif $gwylan.requestLast.hold is "chastity">>
+		"You've done what I asked, so I'll repay the favour."
+	<<else>>
+		"Let me take a closer look."
+	<</if>>
+<<else>>
+	<<He>> thinks for a moment. "Maybe. I might need something from you first. Let's have a look."
+<</if>>
+<<if _bottom>>
+	<<He>> crouches down in front of you and <<if _bottom.skirt>>lifts<<else>>pulls down<</if>> your _bottom.name all the way.
+<<else>>
+	<<He>> crouches down in front of you.
+<</if>>
+<<lowerstrip>><<underlowerstrip>>
+<<if $gwylanSeen.includes("romance")>>
+	You can't help but get aroused at <<his>> touch after everything you've been through with <<him>>. <<arousal 1000>><<garousal>>
+<<elseif $gwylanSeen.includes("ritual_sex")>>
+	You're a little embarrassed, but you and Gwylan have done much more lewd things together. <<arousal 500>><<garousal>>
+<<elseif $uncomfortable.underwear is false>>
+	You can't help but feel excited having someone seeing you exposed this closely. <<arousal 500>><<garousal>>
+<<else>>
+	You can't help but feel embarrassed having someone seeing you exposed this closely. <<stress 1>><<gstress>>
+<</if>>
+<br><br>
+
+<<if $worn.genitals.name is "gold chastity belt">>
+	<<His>> brow furrows, but <<he>> seems to admire the craftsmanship for a moment. <<if $phase isnot "skip">>"Some of this looks like real gold." <<He>> gives it a knock, before trying to scratch it with an iron nail. "It's harder, though. Maybe an alloy."<</if>>
+	<br><br>
+
+	<<if $phase is "forced">>
+		<<if $gwylan.request.event is "chastity" and gwylanRequestMet()>>
+			<<He>> stands. "It looks like you already have what I need to break this off. Let's get it done."
+		<<else>>
+			<<He>> stands. "I can help you, but you'll owe me for the materials I use."
+		<</if>>
+		<br><br>
+
+		<<link [[Next|Gwylan Chastity Removal Gold]]>><<pass 5>><</link>>
+		<br>
+	<<elseif $gwylan.request.event and $gwylan.request.event isnot "chastity">>
+		<<set $gwylan.request.hold to "chastity">>
+		<<He>> stands. "I can help you, but I need you to finish what I asked of you already. Then, I'll need you to gather some items for me. I don't have all the materials on hand."
+		<<clotheson>>
+
+		<<endevent>><<npc Gwylan>><<person1>>
+		<<gwylanOptions>>
+	<<elseif !$gwylan.requestDone and !$gwylan.request.event>>
+		<<set $gwylan.request.hold to "chastity">>
+		<<He>> stands. "I can help you, but I'll need a favour first, and after that, I'll additionally need you to gather some items for me. Let's start with the first, though."
+		<<clotheson>>
+
+		<<run gwylanRequest()>>
+		<<gwylanRequestText>>
+		<br><br>
+
+		<<endevent>><<npc Gwylan>><<person1>>
+		<<gwylanOptions>>
+	<<else>>
+		<<He>> stands. "I can help you, but I'll need you to retrieve a few things for me first. I don't have all the materials on hand." <<He>> looks around, before grabbing a piece of paper sticking out of a bookshelf.
+		<<He>> produces a green pen and starts to write something down on it. <<clotheson>>
+
+		<<if $gwylanSeen.includes("chastity_gold")>>
+			<<He>> hands you the list of items. It's the same as last time.
+		<<else>>
+			After a moment, <<he>> hands it to you. It's a list. Salt, sugar, white wine... clams? A gold chain? You look up to <<him>>.
+			"Trust me, this will break you out. The gold chains they sell at the clothing shop on High Street are actually mostly copper, and they just so happen to be the perfect blend for this."
+			<<if $worn.neck.name is "familiar collar" and $worn.neck.cursed is 1>>
+				<<He>> tugs your collar. "Don't worry about the gold chain, I'll source that myself."
+			<</if>>
+		<</if>>
+		<br><br>
+
+		<<if $gwylan.request.event is "chastity">>
+			<span class="gold">Gwylan's request has been updated in your journal.</span>
+		<<else>>
+			<span class="gold">Gwylan's request has been added to your journal.</span>
+		<</if>>
+
+		<<if $gwylan.request.event is "chastity">>
+			<<gwylanRequestEnd "skip">>
+			<<run gwylanRequest("chastity")>>
+		<<else>>
+			<<run gwylanRequest("chastity")>>
+			<<set $gwylan.request.timer to null>>
+		<</if>>
+		<br><br>
+
+		<<endevent>><<npc Gwylan>><<person1>>
+		<<gwylanOptions>>
+	<</if>>
+<<elseif $worn.genitals.name is "chastity parasite">>
+	<<if $gwylan.request.event is "chastity" or $phase is "skip">>
+		"Right. This little thing."
+	<<elseif $gwylanSeen.includes("chastity_parasite")>>
+		"Oh my, another one?"
+	<<else>>
+		"Oh. Oh dear."
+	<</if>>
+	<<He>> pokes and prods at your parasite. It makes you shiver. <<arousal 1000>><<garousal>>
+	<br><br>
+
+	<<if $gwylan.request.event is "chastity" or $gwylan.requestDone or _gwylanEager>>
+		<<if numberOfEarSlime()>>
+			"A full infestation. I can remove it, but it will grow back eventually.<<if _gwylanEager>> Normally I'd ask a favour for this. You've gotten me excited, though.<</if>>"
+		<<else>>
+			"There shouldn't be an issue removing this.<<if _gwylanEager>> Normally I'd ask a favour, but you've gotten me excited.<</if>>"
+		<</if>>
+		<br><br>
+
+		<<He>> stands and walks behind a shelf, looking for something.
+		<br><br>
+
+		<<link [[Next|Gwylan Chastity Removal 2]]>><<pass 5>><</link>>
+		<br>
+	<<elseif $gwylan.request.event>>
+		<<set $gwylan.request.hold to "chastity">>
+		"I can help you, but I need you to finish the task I gave you first. Then we'll jostle this thing free." <<He>> stands.
+		<<clotheson>>
+
+		<<endevent>><<npc Gwylan>><<person1>>
+		<<gwylanOptions>>
+	<<else>>
+		<<set $gwylan.request.hold to "chastity">>
+		"I can help you, but I need you to do something for me first. Then we'll jostle this thing free." <<He>> stands.
+		<<clotheson>>
+
+		<<run gwylanRequest()>>
+		<<gwylanRequestText>>
+		<br><br>
+
+		<<endevent>><<npc Gwylan>><<person1>>
+		<<gwylanOptions>>
+	<</if>>
+<<else>>
+	<<if $gwylan.request.event is "chastity" or $gwylan.requestDone or _gwylanEager>>
+		<<if $worn.genitals.origin is "temple">>
+			<<He>> runs <<his>> hands along the seams. "The temple's handiwork. Do you have a vow to keep?" <<He>> doesn't wait for you to answer. "Robust, but not impregnable.
+		<<elseif $worn.genitals.origin is "Whitney">>
+			<<He>> runs <<his>> hands along the seams. "There's something written here. 'Property of Whitney.'"
+			<<if $gwylanSeen.includes("romance")>>
+				<<He>> looks up to you with a smile. "I'm glad you're getting this removed.
+			<<elseif _gwylanStatus.includes("dom")>>
+				<<He>> snickers. "We'll see about that.
+			<<else>>
+				<<He>> giggles. "Having regrets?
+			<</if>>
+		<<else>>
+			<<He>> runs <<his>> hands along the seams. "A simpler design, hobbyist level.
+		<</if>>
+
+		Give me a moment.<<if _gwylanEager>> Normally I'd ask a favour for this, you know.<</if>>"
+		<br><br>
+
+		<<He>> stands and walks behind a shelf, looking for something.
+		<br><br>
+
+		<<link [[Next|Gwylan Chastity Removal 2]]>><<pass 5>><</link>>
+		<br>
+	<<elseif $gwylan.request.event>>
+		<<set $gwylan.request.hold to "chastity">>
+		"I can help you, but I need you to finish the task I gave you first. Then we'll jostle this thing free." <<He>> stands.
+		<<clotheson>>
+
+		<<endevent>><<npc Gwylan>><<person1>>
+		<<gwylanOptions>>
+	<<else>>
+		<<set $gwylan.request.hold to "chastity">>
+		"I can help you, but I need you to do something for me first. Then we'll jostle this thing free." <<He>> stands.
+		<<clotheson>>
+
+		<<run gwylanRequest()>>
+		<<gwylanRequestText>>
+		<br><br>
+
+		<<endevent>><<npc Gwylan>><<person1>>
+		<<gwylanOptions>>
+	<</if>>
+<</if>>
+
+:: Gwylan Chastity Removal 2
+<<effects>><<run statusCheck("Gwylan")>>
+Gwylan rummages around the shop for a while, looking for something. "I can never find this thing when I'm looking for it, it only shows up when I don't need it. Aha!"
+<br><br>
+
+<<His>> head pokes back out from behind the shelf, with a smile.
+<<if $worn.genitals.origin is "temple">>
+	<<set $gwylanSeen.pushUnique("chastity", "chastity_temple")>>
+	<<He>> waves a small metal rod. "Found it!" <<He>> skips back up to you. It looks just like the ones they use at the temple.
+	<br><br>
+
+	You're curious. "Why do you have—"
+	<br><br>
+
+	"I stole it," <<he>> interrupts. "This will feel strange, brace yourself." <<He>> holds it against the belt. You feel a jolt and your belt clatters to the floor, the lock <span class="red">broken and smouldering</span>.
+	"I made a few modifications to it, too. It's great for self-defence." <<He>> picks up the remains. "I could use the scrap from this. Ooh, I could make a durable set of undergarments! Or maybe..."
+	<br><br>
+
+	<<He>> walks away with it, rambling to <<himself>>.
+	<<set $worn.genitals.type.push("broken")>><<genitalsruined>><<set _return to true>>
+<<elseif $worn.genitals.name is "chastity parasite" or $worn.genitals.origin is "ear slime">>
+	<<set $gwylanSeen.pushUnique("chastity", "chastity_parasite")>>
+	<<He>> waves a small metal rod. "Found it!" <<He>> skips back up to you.
+	<br><br>
+
+	<<He>> runs <<his>> hands along the fleshy growth again. It sends shivers down your spine. <<He>> holds the rod against the parasite. You feel a jolt and it immediately loosens its hold. Gwylan grips it tightly, pulling it free as it squirms.
+	<br><br>
+
+	<<He>> huffs with satisfaction, and holds it up to the light. "Don't you worry little one, I've got a nice home for you." <<He>> carries it, holding it in both hands as it tries to squirm free, to a small terrarium.
+	"Until then, you go in the time-out box." <<He>> gently places it in and quickly covers it. The parasite continues to squirm in the terrarium, but slows as Gwylan flips on a heat lamp above it.
+	<br><br>
+
+	<<He>> puts <<his>> hands on <<his>> hips and smiles.
+	<<if $gwylanSeen.includes("ritual_beast")>>
+		"Parasites like this are adapted to the heat of the human body, they won't survive long without it. The heat lamp will keep it alive. Even if it doesn't want to be."
+		<<He>> turns to you. "If I let it shrivel up and die, it'll just leak its poison back into the world. It'll need to be cleansed. Made into something else."
+	<</if>>
+	<<if $parasite.penis.name is "parasite">>
+		<<removeparasite "penis">>
+	<</if>>
+	<<if $parasite.clit.name is "parasite">>
+		<<removeparasite "clit">>
+	<</if>>
+	<<if numberOfEarSlime()>>
+		<<llcorruption true>><<corruption -10>><br>
+	<</if>>
+<<else>>
+	<<set $gwylanSeen.pushUnique("chastity")>>
+	<<He>> waves a small bladed instrument. "Found it!" <<He>> skips back up to you.
+	<br><br>
+
+	"Hold still." <<He>> jams it into the lock and twists, your belt clattering to the floor, the lock now broken. <<He>> picks up the remains. "I could use the scrap from this. Ooh, I could make a durable set of undergarments! Or maybe..."
+	<br><br>
+
+	<<He>> walks away with it, rambling to <<himself>>.
+	<<set $worn.genitals.type.push("broken")>><<genitalsruined>><<set _return to true>>
+<</if>>
+<<if $vaginalchastityparasite isnot 0>>
+	<span class="pink">With the chastity belt gone, the $vaginalchastityparasite fall out of your vagina.</span>
+	<br>
+	<<set $vaginalchastityparasite to 0>>
+<</if>>
+<<if $penilechastityparasite isnot 0>>
+	<span class="pink">With the chastity belt gone, the $penilechastityparasite fall off of your penis.</span>
+	<br>
+	<<set $penilechastityparasite to 0>>
+<</if>>
+<<if $analchastityparasite isnot 0>>
+	<span class="pink">With the chastity belt gone, the $analchastityparasite fall out of your anus.</span>
+	<br>
+	<<set $analchastityparasite to 0>>
+<</if>>
+
+<<if $gwylan.request.event is "chastity">>
+	<<gwylanRequestEnd>>
+<<else>>
+	<<set $gwylan.requestDone to false>>
+<</if>>
+<<if $gwylan.requestLast?.event is "chastity">>
+	<<run delete $gwylan.requestLast.hold>>
+<</if>>
+
+<<if $gwylanSeen.includes("ritual_sex") and ($phase is "ritual" or $phase is "forced" or $gwylan.ritualMissed)>>
+	<<clotheson>>
+
+	<<if _return>>
+		Gwylan marches back up to you and grabs you by the wrist.
+	<<else>>
+		Gwylan grabs you by the wrist.
+	<</if>>
+	<<if _gwylanStatus.includes("lust")>>
+		<<His>> gaze is full of hunger. "Garden. Ritual. Now." <<He>> pulls you along.
+	<<else>>
+		"Alright, with that out of the way, let's go." <<He>> leads you to the garden.
+	<</if>>
+	<br><br>
+
+	<<link [[Next|Gwylan Ritual Start Garden]]>><<endevent>><<set $phase to "fromChastityRemoval">><</link>><<gwylanHypnoNote>>
+	<br>
+<<elseif $gwylan.requestLast?.event is "chastity" and $gwylanSeen.includes("ritual_sex") and _gwylanStatus.includesAny("aroused", "lust")>>
+	You fix your-
+	<br><br>
+
+	<<if _return>>
+		A pair of hands grab your clothes, preventing you from fixing them. Gwylan snuck back up on you.
+	<<else>>
+		Gwylan's hands grab your clothes, preventing you from fixing them.
+	<</if>>
+	"What do you think you're doing?" <<He>> kneels down. "With that out of the way..."
+	<br><br>
+
+	<<if _gwylanStatus.includes("lust")>>
+		<<set _needsWillCheck to true>>
+		"I'm starved, dear. I think I deserve repayment. Don't you?"
+	<<else>>
+		"We could have some fun."
+	<</if>>
+	<br><br>
+
+	<<link [[Nod|Gwylan Chastity Removal Sex]]>><<set $sexstart to 1>><<npcincr Gwylan lust 2>><</link>><<glust>>
+	<br>
+	<<link [[Shake head|Gwylan Chastity Removal Sex Refuse]]>><</link>><<if _needsWillCheck>><<gwylanWillpowerDifficulty>><</if>>
+	<br>
+<<else>>
+	<<clotheson>>
+	<<endevent>><<npc Gwylan>><<person1>>
+	<<gwylanOptions>>
+<</if>>
+
+:: Gwylan Chastity Removal Gold
+<<set $location to "forest_shop_garden">><<effects>><<run statusCheck("Gwylan")>>
+<<if $phase isnot "forced" or $phase is "forced" and $gwylan.request.event is "chastity" and gwylanRequestMet()>>
+	<<set _clothesToTake to []>>
+	<<run $gwylan.request.items.forEach(item => {
+		if (item.category === "clothing") T.clothesToTake.pushUnique(item.slot);
+		if (item.category === "tending" && V.foodstuff[item.name]) V.foodstuff[item.name].amount -= item.need;
+	})>>
+	<<for _cl to 0; _cl lt _clothesToTake.length; _cl++>>
+		<<set _noRebuy to true>>
+		<<generalRuined _clothesToTake[_cl]>>
+	<</for>>
+	You place all the items Gwylan requested on a counter. <<He>> smiles. "Well done! I'll start the dissolution process right away. Wait here." <<He>> pulls a chair up for you.
+<<elseif $phase is "forced">>
+	<<He>> quickly writes some things on a piece of paper and hands it to you.
+	<<if $gwylanSeen.includes("chastity_gold")>>
+		It's the same as last time.
+	<<else>>
+		It's a list. Salt, sugar, white wine... clams? A gold chain? You look up to <<him>>.
+		"Trust me, this is a rough equivalent to what I'll be using. The gold chains they sell at the clothing shop on High Street are actually mostly copper, and they just so happen to be the perfect blend for this."
+		<<if $worn.neck.name is "familiar collar" and $worn.neck.cursed is 1>>
+			<<He>> tugs your collar. "Don't worry about the gold chain, I'll source that myself."
+		<</if>>
+	<</if>>
+	<br><br>
+
+	<<if $gwylan.request.event is "chastity">>
+		<span class="gold">Gwylan's request has been updated in your journal.</span>
+	<<else>>
+		<span class="gold">Gwylan's request has been added to your journal.</span>
+	<</if>>
+
+	<<if $gwylan.request.event is "chastity">>
+		<<gwylanRequestEnd "skip">>
+		<<run gwylanRequest("chastityIngredients")>>
+	<<else>>
+		<<run gwylanRequest("chastityIngredients")>>
+	<</if>>
+	<<set $gwylan.request.command to 1>>
+	<<set V.gwylan.request.timer = new DateTime(Time.date).addDays(2).timeStamp>>
+	<br><br>
+	"I'll start the dissolution process right away. Wait here." <<He>> pulls a chair up for you.
+<</if>>
+<br><br>
+
+You sit quietly for a few minutes, and Gwylan returns. "Right, burners are going, follow me."
+<br><br>
+
+<<if $gwylanSeen.includes("garden_seen")>>
+	<<if C.npc.Gwylan.dom gte 20>>
+		<<He>> takes your hand and leads you to the garden. <<takeHandholdingVirginity "Gwylan" "consensual">>
+	<<else>>
+		<<He>> grabs your wrist and leads you to the garden.
+	<</if>>
+	<br><br>
+<<else>>
+	<<He>> places a black blindfold over your eyes and helps you stand. "Sorry, but my garden is usually off-limits. I can't have anyone knowing how to get in."
+	<br><br>
+
+	<<if $gwylanSeen.includes("garden")>>
+		<<He>> steadily walks you to the garden before removing it.
+	<<else>>
+		<<set $gwylanSeen.pushUnique("garden")>>
+		<<He>> steadily walks you somewhere. You hear doors open and shut. Eventually, you smell roses and feel the fresh air on your skin. <<He>> removes your blindfold.
+		A large expanse of square stone tiles stretch along the ground, connecting patches of grass and raised sections filled with dirt, flowers and herbs.
+		Surrounding it all is an impressive weaving of crossed wooden stakes at least eight feet high, with gaps just large enough to allow vines to grab and climb through, shielding the whole area from prying outside eyes.
+		<br><br>
+
+		There's another raised section, but this one is different. It's covered by a wooden roof,
+		<<if Weather.precipitation is "rain" or Weather.precipitation is "snow">>
+			untouched by the <<print Weather.precipitation>>,
+		<</if>>
+		and the inside is padded with various cushions and quilts. It's not where Gwylan is leading you, though.
+		<br><br>
+	<</if>>
+<</if>>
+
+<<if $phase is "forced">>
+	<<He>> sits you down in another chair before darting back into the shop. You feel a little anxious being made to wait so long. <<stress 3>><<gstress>>
+<<else>>
+	<<He>> sits you down in another chair before darting back into the shop. <<He>> returns quickly with a small plate, holding half a serving of freshly cooked chicken and a fork.
+	"Eat up while you wait," <<he>> says with a smile, pinching your cheek before once again disappearing into the shop.
+	<<if !$gwylanSeen.includes("chastity_gold")>>
+		You had been wondering why a single serving of chicken was on <<his>> list.
+	<</if>>
+	<br><br>
+
+	You relax and eat. The atmosphere of <<his>> garden is extremely calming. The chicken tastes very plain and dry. <<stress -6>><<hallucinogen 5>><<lstress>>
+<</if>>
+<br><br>
+
+<<link [[Wait|Gwylan Chastity Removal Gold 2]]>><<pass 10>><</link>>
+<br>
+
+:: Gwylan Chastity Removal Gold 2
+<<effects>><<run statusCheck("Gwylan")>>
+<<undress "gwylanChastity">><<upperwear "patient gown">><<feetwear "work boots" "black">>
+Gwylan returns once again after some time.
+<<if $phase is "forced">>
+	<<He>> sets down a pair of rubber boots and a folded garment with
+<<else>>
+	<<He>> takes your empty plate and sets down a pair of rubber boots and a folded garment with
+<</if>>
+<<if $gwylanSeen.includes("request_gas_mask")>>
+	a gas mask on top. <span class="blue">It looks just like the one you got for <<him>> from the clothing shop.</span>
+<<else>>
+	a medical respirator mask on top.
+<</if>>
+"Strip, please, and put these on. Run the gown under your belt if you can." Once more, <<he>> returns to the shop.
+<br><br>
+
+You oblige, quickly stripping and folding your clothes.
+<br><br>
+
+It's a pain, but you manage to tug the gown into your chastity belt and down through the bottom. There's a gap between your legs still.
+<br><br>
+
+<<link [[Next|Gwylan Chastity Removal Gold 3]]>><<pass 10>><</link>>
+<br>
+
+:: Gwylan Chastity Removal Gold 3
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $gwylanSeen.includes("request_gas_mask")>>
+	You strap the gas mask on last, just in time for Gwylan to return. <<facewear "gas mask">>
+<<else>>
+	You put the respirator on last, just in time for Gwylan to return. <<facewear "surgical mask" "blue">>
+<</if>>
+
+<<Hes>> wearing a thick apron and a heavy pair of gloves. <<He>> shuffles towards you slowly, holding a metal tray with two glass beakers, a chisel, a hammer, and a small box.
+One of the beakers is empty, and the other has a tiny amount of a clear solution.
+<<if $gwylanSeen.includes("chastity_gold")>>
+	Aqua regia, as you know.
+<</if>>
+<br><br>
+
+<<He>> carefully sets the tray down, and puts on a matching mask.
+<<if $gwylanSeen.includes("request_gas_mask")>>
+	You wonder where <<he>> got another one.
+<</if>>
+<<He>> fleeces down your gown, giving it a hefty tug at the bottom. "Good!" <<He>> claps <<his>> gloved hands together. "Now, stand over there, please." <<He>> points to a metal basin on a bare spot of dirt, and follows you there with the tray.
+<br><br>
+
+<<if !$gwylanSeen.includes("chastity_gold")>>
+	<<switch $speech_attitude>>
+		<<case "meek">>
+			"Y-you're starting to scare me, Gwylan. What is all this?" you ask.
+		<<case "bratty">>
+			"Am I your little lab rat now? What is all this?" you ask. You move to cross your arms, but Gwylan pushes them back to your sides.
+		<<default>>
+			"I'm starting to get worried. What are you doing? What is all this?" you ask.
+	<</switch>>
+	<br><br>
+
+	"This? Protective clothing." <<He>> tugs your gown again, before inspecting your mask. <<He>> tugs the straps, ensuring there's a seal. <<He>> looks over to the tray. "In the box? Baking soda. In the beaker? Aqua regia."
+	<<if $sciencetrait gte 3>>
+		<br><br>
+
+		<span class="teal">You remember one of Sirris' lessons,</span> <span class="red">and your heart skips a beat.</span>
+		<<switch $speech_attitude>>
+			<<case "meek">>
+				"Th-that's dangerous! That's a very potent acid!"
+			<<case "bratty">>
+				"Are you out of your fucking mind? That's acid."
+			<<default>>
+				"What? That's acid!"
+		<</switch>>
+		<br>
+		"You're quite smart!" <<he>> says with a bit of excitement. "Don't fret, I'm being very careful." <<He>> holds <<his>> gloved hands up.
+		<br>
+		<<switch $speech_attitude>>
+			<<case "meek">>
+				"Careful? I'm practically naked!"
+			<<case "bratty">>
+				"You're insane. You're handling acid while I'm practically naked."
+			<<default>>
+				"I'm practically naked. How is that careful?"
+		<</switch>>
+		<br>
+		"Observant, too. You'll be alright, just don't try this at home." <<stress 12>><<ggstress>>
+	<<else>>
+		There's a long pause. "It's an acid for noble metals," <<he>> clarifies. <<stress 24>><<gggstress>>
+		<br><br>
+
+		<<switch $speech_attitude>>
+			<<case "meek">>
+				"Acid?! You're going to use acid on me? I'm practically naked!" you yell.
+			<<case "bratty">>
+				"You're insane. You're handling acid while I'm almost naked," you say.
+			<<default>>
+				"I'm practically naked!" you yell.
+		<</switch>>
+		<br>
+		"No you're not." <<He>> tugs your gown again for emphasis. "You'll be alright, just don't try this at home."
+	<</if>>
+<<else>>
+	"I can't believe I'm letting you do this again," you say.
+	<br>
+	<<if $gwylanSeen.includes("request_gas_mask")>>
+		You can't see <<his>> face, but you know <<hes>> smiling under the gas mask.
+	<<else>>
+		You can see just enough of <<his>> face to know <<hes>> smiling.
+	<</if>>
+	<<if $phase is "forced">>
+		"Actions, meet consequences. You'll be wonderful friends."
+	<<else>>
+		"You're the one that asked me for help, silly <<girl>>."
+
+		<<if $gwylan.request.command>>
+			<br>
+			"It's not like I had much of a choice," you grumble.
+		<</if>>
+	<</if>>
+<</if>>
+<br><br>
+
+<<if $sciencetrait gte 4 and !$gwylanSeen.includes("chastity_gold_sus") and $phase isnot "forced">>
+
+	<span class="blue">A realisation hits you as you remember more of Sirris' lessons.</span>
+	<br><br>
+
+	"Hold on," you say. "There's no way you were able to make a batch of aqua regia with what I gave you. Not this quickly, at least."
+	<br><br>
+
+	Gwylan stops for a moment.
+	<<if $gwylanSeen.includes("request_gas_mask")>>
+		You can't tell <<his>> expression under the mask anymore.
+	<<else>>
+		<<His>> expression doesn't change, though.
+	<</if>>
+	"Oh, I already had a batch prepared! The materials you got me are for the batch to replace this one."
+	<br><br>
+
+	"You mentioned starting burners," you say.<br>
+	"For the rooster," <<he>> responds quickly. "The chicken, I mean." You decide not to press further.
+	<br><br>
+
+	<<set $gwylanSeen.pushUnique("chastity_gold_sus")>>
+<</if>>
+
+<<He>> grabs a small dropper and pops the glass lid off of the beaker.
+"Stay still. This isn't a joke. One whiff and you're dead, one wrong movement and you'll have a new birthmark to show off after some of the worst pain you'll ever feel in your life."
+<br><br>
+
+<<link [[Next|Gwylan Chastity Removal Gold 4]]>><<pass 10>><<stress 3>><</link>><<gstress>>
+<br>
+
+:: Gwylan Chastity Removal Gold 4
+<<effects>><<run statusCheck("Gwylan")>>
+
+<<He>> brings the end of the dropper to your hip, on the thinnest part of the belt. You stay very still as <<he>> squeezes the end, letting two drops land on it.
+It begins to sizzle. <<He>> holds the empty beaker underneath to catch any runoff. After a few moments, <<he>> adds more.
+<br><br>
+
+<<He>> repeats adding two drops at a time for a few minutes. Your legs start to ache. "Loosen up," Gwylan says. "We'll be here a while, and you'll pass out if you stay that stiff." <<He>> waits for you to adjust before continuing.
+<br><br>
+
+Finally, you hear a distinctive crackle. "There we go, almost." <<He>> empties the dropper into the second flask. It has started to turn a deep yellow.
+<br><br>
+
+<<He>> grabs the hammer and chisel, and starts to chip away at the spot on the belt. Flakes of gold fall into the basin, which Gwylan scoops up and puts in the flask.
+<br><br>
+
+<<He>> switches between adding acid and chiselling at the belt. You think about chatting, but decide to let <<him>> focus. Immediately after you decide that, <<he>> speaks up instead. "So, how's school going?"
+<br><br>
+
+<<if $flashbackschoolready is 1 and $controlled is 0>>
+	<<set $flashbackschoolready to 0>>
+	<<flashbackschool>>
+	You're snapped out of it as Gwylan grabs you by the arm and forces you to step out of the basin.
+	<br><br>
+
+	The first flask lays within, <span class="red">now half emptied</span>. The acid eats away at the bottom slowly. <<He>> lets out a breath as <<he>> picks up the flask. "That was close."
+	<<He>> grabs the small box from the tray, and slowly pours baking soda on top of the spill. <<He>> turns to you. "I'm sorry, perhaps I shouldn't have asked. If it will make you feel better, though, don't hold back."
+	<br><br>
+
+	You tell Gwylan all about your troubles at school, and the assaults you've faced. The words spill out much like the acid from the flask, eating away at your lips. As if they were waiting to leave your body.
+	<<He>> listens patiently, saying nothing until you're done. <<He>> removes <<his>> mask, and places <<his>> forehead against yours. <<His>> eyes dig into you, but there's a comfort in them.
+	Like a wound being cleaned. It hurts now, but you know it's for your own good.
+	<br><br>
+
+	"I don't have any words for your troubles," <<he>> says, pulling you into a hug. "Just share them with me." <<trauma -6>><<npcincr Gwylan dom 2>><<ltrauma>><<gyearning>>
+	<br><br>
+
+	After a moment, <<he>> pulls away and clears <<his>> throat. <<He>> puts the gas mask back on, concealing <<his>> blush. "Let's continue."
+	<br><br>
+
+	<<link [[Next|Gwylan Chastity Removal Gold 5]]>><<set $phase2 to "spilled">><<pass 10>><</link>>
+	<br>
+<<else>>
+	<<link [[Chat about school|Gwylan Chastity Removal Gold 5]]>><<set $phase2 to "chat">><<pass 10>><<stress -2>><</link>><<lstress>>
+	<br>
+	<<link [[Stay quiet|Gwylan Chastity Removal Gold 5]]>><<set $phase2 to "quiet">><<pass 10>><</link>>
+	<br>
+	<<if $trauma gte ($traumamax / 7) or $stress gte ($stressmax / 7)>>
+		<<link [[Complain about school|Gwylan Chastity Removal Gold 5]]>><<set $phase2 to "complain">><<pass 10>><<stress -6>><<trauma -6>><</link>><<lstress>><<ltrauma>>
+		<br>
+	<</if>>
+<</if>>
+
+:: Gwylan Chastity Removal Gold 5
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $phase2 is "chat">>
+	<<switch $speech_attitude>>
+		<<case "meek">>
+			"I-it's been..." You hesitate. <<He>> looks up at you, and you're pretty sure <<hes>> smiling. You ease up and chat about it.
+		<<case "bratty">>
+			You snort. "What are you, my <<father>>?" Silence follows. You decide to be less snarky and chat about it normally.
+		<<default>>
+			"I don't know, it's..." You hesitate. <<He>> looks up at you, and you're pretty sure <<hes>> smiling. You ease up and chat about it.
+	<</switch>>
+<<elseif $phase2 is "quiet">>
+	You don't answer. <<He>> doesn't seem to mind, and continues focusing.
+<<elseif $phase2 is "complain">>
+	You sigh, and tell <<him>> about some of the things that have been bothering you about school. <<He>> doesn't say anything, but <<he>> doesn't need to. You feel better talking about it.
+<<else>>
+	You stand for a bit longer as Gwylan finishes with the belt.
+<</if>>
+<br><br>
+
+<<if $hallucinations gte 2>>
+	You rub your eyes. Your belt bleeds red as if wounded, and flakes of gold fall away like rose petals.
+<<else>>
+	All around the contact point, the gold of the belt has turned red.
+<</if>>
+Gwylan holds up the disposal flask, the acid's gold tint having turned red, too. "Gold to blood. I'm magic," <<he>> muses.
+<br><br>
+
+Finally, with one last hit of the hammer on the chisel, your belt clatters to the ground.
+<<He>> re-seals the beaker before standing up, removing <<his>> mask to reveal a bright smile. "Let me clean up. You can remove the gown now." <<He>> places the remains of the belt on the tray.
+<<if $vaginalchastityparasite isnot 0>>
+	<span class="pink">With the chastity belt gone, the $vaginalchastityparasite fall out of your vagina.</span>
+	<br>
+	<<set $vaginalchastityparasite to 0>>
+<</if>>
+<<if $penilechastityparasite isnot 0>>
+	<span class="pink">With the chastity belt gone, the $penilechastityparasite fall off of your penis.</span>
+	<br>
+	<<set $penilechastityparasite to 0>>
+<</if>>
+<<if $analchastityparasite isnot 0>>
+	<span class="pink">With the chastity belt gone, the $analchastityparasite fall out of your anus.</span>
+	<br>
+	<<set $analchastityparasite to 0>>
+<</if>>
+<<specialClothesUnlock "set" "jasper">><<set $daily.gwylan.jasper to true>>
+
+<<set $gwylanSeen.pushUnique("chastity", "chastity_gold")>>
+<<if $gwylan.request.event is "chastity">>
+	<<if $gwylan.request.command>>
+		<<gwylanRequestEnd "silent">>
+	<<else>>
+		<<gwylanRequestEnd "skip">>
+	<</if>>
+<<else>>
+	<<set $gwylan.requestDone to false>>
+<</if>>
+<<if $gwylan.requestLast?.event is "chastity">>
+	<<run delete $gwylan.requestLast.hold>>
+<</if>>
+<<set $worn.genitals.type.push("broken")>><<genitalsruined>>
+<br><br>
+
+<<if $gwylanSeen.includes("ritual_sex") and ($phase is "ritual" or $phase is "forced" or $gwylan.ritualMissed)>>
+	You start to strip and reach for your clothes.
+	<<if _gwylanStatus.includes("lust")>>
+		"Don't bother getting dressed," <<he>> calls from the door to the shop. "You're not going anywhere, <<pcpetname "Gwylan" "name">>. We have work to do."
+	<<else>>
+		"Don't bother getting dressed," <<he>> calls from the door to the shop. "You're not going anywhere. We have work to do."
+	<</if>>
+	<br><br>
+
+	<<link [[Next|Gwylan Ritual Start Garden]]>><<endevent>><<upperruined>><<lowerruined>><<faceruined>><<feetruined>><<storeon "gwylanChastity">><<undress "gwylanRitual">><<set $phase to "fromChastityRemoval">><</link>><<gwylanHypnoNote>>
+	<br>
+<<elseif $gwylan.requestLast?.event is "chastity" and $gwylanSeen.includes("ritual_sex") and _gwylanStatus.includesAny("aroused", "lust")>>
+	<<storeon "gwylanChastity">><<strip>>
+	You fix your-
+	<br><br>
+
+	<span class="red">Gwylan's hands snatch your clothes away from you.</span> "What do you think you're doing?" <<He>> kneels down. "With that out of the way..."
+	<<He>> admires your <<genitals>>.
+	<<if _gwylanStatus.includes("lust")>>
+		<<set _needsWillCheck to true>>
+		"I'm starved, dear. I think I deserve repayment. Don't you?"
+	<<else>>
+		"We could have some fun."
+	<</if>>
+	<br><br>
+
+	<<link [[Nod|Gwylan Chastity Removal Sex]]>><<set $sexstart to 1>><<npcincr Gwylan lust 2>><</link>><<glust>>
+	<br>
+	<<link [[Shake head|Gwylan Chastity Removal Sex Refuse]]>><</link>><<if _needsWillCheck>><<gwylanWillpowerDifficulty>><</if>>
+	<br>
+<<else>>
+	<<upperruined true>><<lowerruined true>><<faceruined true>><<feetruined true>><<storeon "gwylanChastity">>
+	<<clotheson>>
+
+	You head back into the shop with Gwylan.
+	<br><br>
+
+	<<endevent>><<npc Gwylan>><<person1>><<set $location to "forest_shop">>
+	<<gwylanOptions>>
+<</if>>
+
+:: Gwylan Chastity Removed
+<<effects>><<run statusCheck("Gwylan")>>
+<<outfitChecks>>
+<<if $gwylan.request.command>>
+	"I got my chastity device removed, just like you wanted," you say.
+	<br><br>
+
+	<<He>> smiles. "<<pcPetname "Gwylan" "good">>." <<He>> pets your head.
+	<<gwylanRequestEnd>><<run delete $gwylan.requestLast.hold>>
+	<br><br>
+
+	<<if _gwylanStatus.includesAny("dom", "lust")>>
+		<<His>> hand moves down to cup your cheek. "Let's make up for some of the time we've lost, then.
+		<<if _fullyNaked>>
+			<<gwylanCommand "Come.">>"
+		<<else>>
+			<<gwylanCommand "Strip.">>"
+		<</if>>
+		<br><br>
+
+		<<if _fullyNaked>>
+			<<link [[Follow|Gwylan Chastity Removal Sex]]>><<set $sexstart to 1>><<if $hypnosis_traits.devotion gte 1>><<hypnotised 1>><</if>><<set $phase to "strip">><<npcincr Gwylan lust 2>><</link>><<glust>>
+		<<else>>
+			<<link [[Strip|Gwylan Chastity Removal Sex]]>><<set $sexstart to 1>><<if $hypnosis_traits.devotion gte 1>><<hypnotised 1>><</if>><<set $phase to "strip">><<npcincr Gwylan lust 2>><</link>><<glust>>
+		<</if>>
+		<br>
+		<<link [[Refuse|Gwylan Chastity Removal Sex Refuse]]>><<set $phase to "strip">><</link>><<gwylanWillpowerDifficulty>>
+		<br>
+	<<else>>
+		<<He>> blushes. "Next time we conduct the ritual, let's make up for the... missed opportunities." <<npcincr Gwylan lust 5>><<gglust>>
+		<br><br>
+
+		<<gwylanOptions>>
+	<</if>>
+<<else>>
+	"I managed to break off my chastity device on my own," you say.
+	<br><br>
+
+	Gwylan smiles. "I hope you didn't hurt yourself doing that."
+	<<gwylanRequestEnd "skip">><<run delete $gwylan.requestLast.hold>>
+	<br><br>
+
+	<<gwylanOptions>>
+<</if>>
+
+:: Gwylan Chastity Removal Sex Refuse
+<<effects>><<run statusCheck("Gwylan")>>
+<<if _gwylanStatus.includes("lust") and $hypnosis_traits.devotion gte 1 and !$willpowerSuccess>>
+	You try to shake your head, <<hypnosisText "<span class='red'>but the muscles in your neck tense up painfully.">>
+	You're unable to say no.
+	<<if $phase is "strip">>
+		<<strip>>
+		In fact, you begin doing exactly as <<he>> asked.
+	<</if>>
+	<br><br>
+
+	<<He>> smiles sweetly at you. "There's my <<pcpetname "Gwylan" "good">>. Come on."
+	<<He>> takes your hand and leads you through a dark doorway.
+	<br><br>
+
+	<<link [[Next|Gwylan Chastity Removal Sex]]>><<set $molestationstart to 1>><<set $trance to 1>><</link>>
+	<br>
+<<else>>
+	<<if _gwylanStatus.includes("lust") and $hypnosis_traits.devotion gte 1 and $willpowerSuccess>>
+		<span class="green">You manage to push through Gwylan's compulsion, and shake your head.</span>
+	<<else>>
+		You shake your head apologetically at Gwylan.
+	<</if>>
+	<br><br>
+
+	<<He>> frowns, but it's brief. "Very well."
+	<<if $location is "forest_shop_garden">>
+		<<He>> leads you back into the shop without another word.
+	<<else>>
+		<<He>> leaves your side without another word.
+	<</if>>
+	<<npcincr Gwylan lust 2>><<glust>>
+	<br><br>
+	<<clotheson>>
+	<<link [[Next|Forest Shop Entrance]]>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Gwylan Chastity Removal Sex
+<<run statusCheck("Gwylan")>>
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<if $phase is "strip">>
+		<<if !_fullyNaked>>
+			You strip all of your clothes on the spot.
+		<</if>>
+		Gwylan smiles and takes your hand. "I'll go easy on you, <<pcpetname "Gwylan">>."
+		<<strip>>
+		<<He>> leads you through a dark doorway. All you can see within is a large quilt, which Gwylan lays down on, pulling you on top of <<him>>.
+	<<else>>
+		You nod, and Gwylan smiles. "Wonderful. Come here, <<pcpetname "Gwylan">>."
+	<</if>>
+	<br><br>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<npcexpose>>
+	<<set $enemytrust += 200>>
+	<<gwylanCombatInit>>
+<<elseif $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<if $phase is "strip">>
+		The room is dark. All you can see within is a large quilt, which Gwylan lays down on, pulling you on top of <<him>>.
+	<</if>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+	<<gwylanCombatInit>>
+	<<set $timer to $hypnosis_traits.devotion or 2>>
+<</if>>
+
+<<if $timer lte 0 and $trance is 1>>
+	<<set $trance to 0>>
+	<span class="teal">You snap out of Gwylan's trance.</span>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if $orgasmcurrent gte $combat_player_orgasm_target>>
+	<span id="next"><<link [[Next|Gwylan Chastity Removal Sex Finish]]>><</link>></span><<nexttext>>
+<<elseif _combatend>>
+	<span id="next"><<link [[Next|Gwylan Chastity Removal Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Gwylan Chastity Removal Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Gwylan Chastity Removal Sex Finish
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $orgasmcurrent gte $combat_player_orgasm_target>>
+	<<set $enemyarousal += 200>>
+	<<if $enemyarousal gte $enemyarousalmax>>
+		<<if $hallucinations gte 2 and $NPCList[0].chest isnot "clothed">>
+			The tattoo on Gwylan's <<bellyDescription "Gwylan">> flares to life, and <<he>> shivers as you climax.
+		<<else>>
+			Your <<if $orgasmcurrent gt 1>>final<</if>> orgasm makes Gwylan shiver.
+		<</if>>
+		<span class="pink">It pushes <<him>> over the edge too.</span>
+		<<ejaculation>><<npcincr Gwylan lust -25>><<llllust>>
+	<<else>>
+		<<if _gwylanStatus.includesAny("dom", "lust")>>
+			<<He>> hums and holds you tight as you recover from your <<if $orgasmcurrent gt 1>>final<</if>> orgasm. <<gwylanHypnosis "devotion" 2>><br>
+			<<if $consensual is 1>>
+				"You did great, <<pcpetname "Gwylan">>,"
+			<<else>>
+				"There, isn't that better?"
+			<</if>>
+			<<he>> coos.
+		<<else>>
+			<<He>> makes a pleased sound as your <<if $orgasmcurrent gt 1>>final<</if>> orgasm subsides. <<gwylanHypnosis "devotion" 1>><br>
+			"That should do," <<he>> says.
+			<<if $consensual is 0>>
+				"The struggle was thrilling, dear, but I'm only trying to help you."
+			<</if>>
+		<</if>>
+		<<if $penisfucked is 1>>
+			<<He>> rubs <<his>> <<bellyDescription "Gwylan">> in satisfaction until you pull out of <<him>>.
+		<<elseif $vaginafucked is 1>>
+			<<He>> rubs your <<bellyDescription>> in satisfaction, until you make <<him>> pull out.
+		<</if>>
+		<<npcincr Gwylan lust 5>><<gglust>>
+	<</if>>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	<<if $orgasmcurrent is 0 and $hypnosis_traits.devotion>>
+		<<gwylanHypnosis "devotion" -2>>
+	<</if>>
+	<<npcincr Gwylan lust -20>><<lllust>>
+<<elseif $enemyhealth lte 0>>
+	<<set $gwylan.punishment to true>>
+	Gwylan rolls away from you. "That hurt, dear." <<He>> giggles dryly. "Naughty, naughty. I'll remember this." <<npcincr Gwylan dom -2>><<lyearning>>
+<<else>>
+	Gwylan rolls away from you.
+<</if>>
+<br><br>
+
+Gwylan leads you back to the shop. "I'm looking forward to what we can do with that pesky thing gone."
+<br><br>
+<<clotheson>>
+<<endcombat>>
+<<link [[Next|Forest Shop Entrance]]>><<endevent>><</link>>
+<br>
+
+:: Gwylan Familiar Collar Lock
+<<effects>><<run statusCheck("Gwylan")>>
+<<switch $speech_attitude>>
+	<<case "meek">>"Gwylan, could you please lock my collar?"
+	<<case "bratty">>"Could you do your fancy trick on my collar?"
+	<<default>>"Can you lock my collar?"
+<</switch>>
+<br><br>
+
+<<if !$daily.gwylan.collar_lock>>
+	<<cleareventpool>>
+	<<addinlineevent "familiar_collar_1">>
+		<<He>> giggles. "Aww, how could I say no?" <<He>> tenderly caresses your neck, and slowly pulls you into a kiss.
+	<</addinlineevent>>
+
+	<<addinlineevent "familiar_collar_2">>
+		<<if $speech_attitude is "meek">>
+			"Ooh, I adore it when you're so polite. Such a <<pcpetname "Gwylan" "good">>."
+		<<else>>
+			"Say please."
+			<br><br>
+
+			<<if $speech_attitude is "bratty">>
+				You sigh. "Please do your fancy trick on my collar."
+			<<else>>
+				You oblige. "Can you please lock my collar?"
+			<</if>>
+			<br><br>
+
+			"<<pcPetname "Gwylan" "good">>. Of course I will."
+		<</if>>
+		<br><br>
+
+		<<He>> tenderly caresses your neck, and slowly pulls you into a kiss.
+	<</addinlineevent>>
+
+	<<if _gwylanStatus.includes("heat")>>
+		<<addinlineevent "familiar_collar_heat">>
+			You barely have time to make your request before <<he>> reaches in and hungrily pulls you into a kiss.
+		<</addinlineevent>>
+	<</if>>
+
+	<<runeventpool>>
+	<<gwylanKiss 25>>
+	<br><br>
+
+	A faint green light briefly illuminates your faces, and the golden heart on your collar pulses.
+
+	<<if $arousal gte $arousalmax>>
+		<br><br>
+		<<orgasm>>
+
+		Gwylan beams with pride as <<he>> pulls away. "<<pcPetname "Gwylan" "good">>!" <<He>> scratches you behind the ear. "That's right, who's my good, pent up <<girl>>? You are! Yes you are." <<npcincr Gwylan lust 2>><<glust>>
+		<br><br>
+
+		You melt into <<his>> embrace, panting from the <<if _deniedOrgasm>>denied <</if>>release. Gwylan continues praising you.
+		<<if $hypnosis_traits.devotion gte 5>>
+			The combined sensations make you feel
+			<<if $drunk gte 300>>
+				even more drunk than usual
+			<<else>>
+				almost drunk
+			<</if>>
+			as your brain fails to create any coherent thoughts.
+		<</if>>
+		You're snapped back to reality by a tug on your collar.
+	<<else>>
+		Gwylan pulls away, and gives the collar a tug.
+	<</if>>
+	It doesn't move.<<if $hypnosis_traits.devotion gte 5>> Good.<</if>>
+	<<set _magicLeash to true>><<set $worn.neck.cursed to 1>><<set $daily.gwylan.collar_lock to 1>>
+<<else>>
+	<<He>> crosses <<his>> arms. "Silly <<pcpetname "Gwylan" "simple">>, first you ask me to lock it, then to unlock it, and now you want me to lock it once more?"
+	<br><br>
+
+	Mockingly patting your head a few times, <<he>> continues. "You clearly need some time to sort through these conflicted emotions of yours. Ask me again tomorrow and maybe I'll take you more seriously."
+	<<set $daily.gwylan.collar_lock to 2>>
+<</if>>
+<br><br>
+<<gwylanOptions>>
+
+:: Gwylan Familiar Collar Unlock
+<<effects>><<run statusCheck("Gwylan")>>
+<<switch $speech_attitude>>
+	<<case "meek">>"Gwylan, could you please unlock my collar?"
+	<<case "bratty">>"Could you let me take this thing off?"
+	<<default>>"Can you unlock my collar?"
+<</switch>>
+<br><br>
+
+<<if !$gwylan.requestDone>>
+	<<if $gwylan.request.event>>
+		Gwylan thinks for a moment. "I suppose I can release you, but only after <span class="blue">you do what I asked of you.</span>"
+	<<else>>
+		<<if !$gwylanSeen.includes("request_intro")>>
+			Gwylan thinks for a moment. "I suppose I can release you, but I need you to do something for me first. It'll be nice and simple, don't worry." <<He>> smiles sweetly.
+			<<run gwylanRequest("tutorial")>>
+			<<gwylanRequestText>>
+		<<else>>
+			Gwylan thinks for a moment. "I suppose I can release you, but I need you to do something for me first." <<He>> smiles sweetly.
+			<<run gwylanRequest()>>
+			<<gwylanRequestText>>
+		<</if>>
+	<</if>>
+	<<set $gwylan.request.hold to "familiar">>
+<<else>>
+	<<He>> frowns. "But I so adore it when you're my obedient <<pcpetname "Gwylan" "simple">>." <<He>> waits for a moment, seemingly hoping that you'll change your mind, before running <<his>> hands along your collar.
+	<br><br>
+
+	<<He>> leans in and whispers something. You hear a faint click, and feel cold.
+	<br><br>
+
+	"There. You're free."
+	<<set $worn.neck.cursed to 0>>
+<</if>>
+<br><br>
+
+<<gwylanOptions>>
+
+:: Gwylan Dog Bed Request
+<<effects>><<run statusCheck("Gwylan")>>
+
+<<if !$gwylanSeen.includes("doggy_bed")>>
+	<<set $gwylanSeen.pushUnique("doggy_bed")>>
+	<<switch $speech_attitude>>
+		<<case "meek">>"Gwylan, I..." you hesitate. Gwylan gives you a patient smile. "I feel comfortable here, and I'm really tired. Do you have somewhere I could rest?"
+		<<case "bratty">>"I'm exhausted. Do you have somewhere I could shut my eyes? I'd even take a chair at this point."
+		<<default>>"Gwylan, I'm exhausted. Do you have somewhere I could rest? I feel safe here."
+	<</switch>>
+	<br><br>
+
+	Gwylan's head tilts. "You don't have a safe place to..." <<he>> stops <<himself>>. "Oh, where are my manners? Of course <<pcpetname "Gwylan" "my">> is welcome to sleep here!" <<He>> pulls you in <<if $worn.neck.cursed is 1>>by your collar<</if>> and kisses you on the cheek. "Wait here a moment."
+	<br><br>
+
+	<<He>> looks around, framing <<his>> hands in front of <<his>> face as if trying to visualise something. "There." <<He>> walks through a dark doorway. You hear something dragging along the ground.
+	<br><br>
+
+	Gwylan emerges, pulling a large cushioned object. <span class="lewd">It's a pet bed.</span> It looks luxurious. <<hypnosisText "You imagine falling asleep in it, and your eyes start to feel heavy.">>
+	<br><br>
+
+	<<He>> looks to the counter, and moves the bed a little more. "There. So I can see you while you're asleep. You should know, though. <span class="blue">You might have trouble falling asleep unless you're wearing your collar.</span>" <<He>> smiles, and pets the top of your head. "Anything for you, <<pcpetname "Gwylan" "my">>." <<hypnosisText "You melt at <<his>> touch.">> <<stress -3>><<trauma -1>><<tiredness 2>><<lstress>><<ltrauma>><<gtiredness>>
+	<br><br>
+
+	<span class="gold">You can now sleep at the forest shop while wearing your familiar collar.</span>
+	<br><br>
+
+	"I can't have you getting too comfortable here, though," <<he>> says. "I'll give you a week, but after that, <span class="blue">I'll make you work for pet bed privileges.</span>"
+	<<set $gwylan.timer.petBed to new DateTime(Time.date).addDays(7).timeStamp>>
+<<else>>
+	<<if $gwylan.timer.petBed>>
+		<<switch $speech_attitude>>
+			<<case "meek">>"I like sleeping here. Could you keep that bed out for me for a while longer?"
+			<<case "bratty">>"Could you keep my bed out longer? It's convenient to have here."
+			<<default>>"Can you keep my bed out for another week?"
+		<</switch>>
+	<<else>>
+		<<switch $speech_attitude>>
+			<<case "meek">>"Gwylan, could you... drag my bed out again, please?"
+			<<case "bratty">>"Where's my bed? I need to rest."
+			<<default>>"Can I have my pet bed back please?"
+		<</switch>>
+	<</if>>
+	<br><br>
+
+	<<if $gwylan.requestDone>>
+		<<He>> smiles. "Of course, <<pcpetname "Gwylan" "simple">>. I like seeing you sleep over there."
+		<<if !$gwylan.timer.petBed>>
+			<<set $gwylan.timer.petBed to new DateTime(Time.date).addDays(7).timeStamp>>
+			<<He>> giggles, and drags your pet bed into place.
+		<<else>>
+			<<set $gwylan.timer.petBed to new DateTime($gwylan.timer.petBed).addDays(7).timeStamp>>
+		<</if>>
+	<<elseif $tiredness gte 1700 and !$weekly.gwylanPetBedHold>>
+		<<set $weekly.gwylanPetBedHold to true>>
+		<<He>> looks you over. "Sure, but I need you to..." <<he>> stops <<himself>>, and frowns. "Oh. You look exhausted."
+		<br><br>
+
+		<<He>> puts a hand to <<his>> chin. "Alright. You can have it for <span class="blue">one day</span>, but after that I'll need a favour from you." <<He>> smiles. "I can't hope to turn you down looking like that."
+		<<if !$gwylan.timer.petBed>>
+			<<set $gwylan.timer.petBed to new DateTime(Time.date).addDays(1).timeStamp>>
+			<<He>> drags your bed out, and kisses you on the cheek. "Sleep well, <<pcpetname "Gwylan" "name">>."
+		<<else>>
+			<<set $gwylan.timer.petBed to new DateTime($gwylan.timer.petBed).addDays(1).timeStamp>>
+			<<He>> kisses you on the cheek. "Sleep well, <<pcpetname "Gwylan" "name">>."
+		<</if>>
+	<<elseif $gwylan.request.event>>
+		Gwylan thinks for a moment. "I suppose I can let you rest here, but only after <span class="blue">you do what I asked of you.</span>"
+	<<else>>
+		<<if !$gwylanSeen.includes("request_intro")>>
+			Gwylan thinks for a moment. "Sure, but I need you to do something for me first. It'll be nice and simple, don't worry." <<He>> smiles sweetly.
+			<<run gwylanRequest("tutorial")>>
+			<<gwylanRequestText>>
+		<<else>>
+			Gwylan thinks for a moment. "Sure, but I need you to do something for me first." <<He>> smiles sweetly.
+			<<run gwylanRequest()>>
+			<<gwylanRequestText>>
+		<</if>>
+		<<set $gwylan.request.hold to "petBed">>
+	<</if>>
+<</if>>
+<br><br>
+
+<<gwylanOptions>>
+
+
+:: Gwylan Request Widgets [widget]
+<<widget "gwylanRequestText">>
+	<<set $_request to gwylanRequest()>>
+	<<switch $_request.event>>
+
+		<<case "clothing">>
+			<<if $_request.special is "gas mask">>
+				"I've heard whispers that the clothing shop on High Street received a shipment of <u>gas masks</u>. I'd like to know if they're genuine, or just unusual costume items.
+				Could you be a dear and fetch one for me? Specifically, a <span class="black">black</span> one with <span class="white">white</span> lenses. Be sure to <span class="gold">wear it here</span>."
+			<<elseif $_request.special is "gold accessories">>
+				"There's a set of accessories being sold at the adult shop on Elk street. <u>It's a matching set of gold. Bracelets, anklets, and a choker.</u>
+				Would you suffer such a gift for little old me? Of course, <span class="gold">I'd like to see you wearing them first</span>."
+			<<else>>
+				<<set $_outfit to $_request.details.outfit>>
+				<<set $_shops to $_request.details.shops>>
+				<<set $_shopPrimary to $_shops.includes("clothing") ? "clothing" : $_shops[0]>>
+				<<set $_shopText to $_shops.filter(shop => shop !== $_shopPrimary)>>
+				"There's <<if $_outfit>>an outfit<<else>>a piece of clothing<</if>> that caught my eye
+				over at the <<= $_shopPrimary>> shop<<if $_shopText.length gte 1>>, although I believe it's also stocked at the <<= formatList($_shopText, "and")>> shop<<if $_shopText.length gte 2>>s<</if>><</if>>.
+				<<set $_shoppingList to $_request.items.filter(piece => !piece.skip && !piece.alt)>>
+				<<set $_plural to $_outfit || $_shoppingList[0].word is "n">>
+				<<if $_outfit>>
+					<span class="teal">It's a full set.</span>
+				<</if>>
+				<<set _shoppingListText to []>>
+				<<for $_i to 0; $_i lt $_shoppingList.length; $_i++>>
+					<<set $_colour to $_shoppingList[$_i].colour_requirement>>
+					<<set $_colour_acc to $_shoppingList[$_i].acc_colour_requirement>>
+					<<set $_word to $_shoppingList[$_i].word>>
+					<<if $_colour isnot "any">>
+						<<set $_firstWord to $_word is "n" ? "a set of" : ["a","e","i","o","u"].some(letter => $_colour.startsWith(letter)) ? "an" : "a">>
+						<<set $_firstWord += " <span class='" + $_colour + "'>" + $_colour + "</span>">>
+						<<set $_secondWord to $_colour_acc isnot "any" ? " with " + " <span class='" + $_colour_acc + "'>" + $_colour_acc + "</span> details" : "">>
+					<<else>>
+						<<set $_firstWord to $_word is "n" ? "a set of" : $_word>>
+						<<set $_secondWord to "">>
+					<</if>>
+					<<set $_theName to "<u>" + $_shoppingList[$_i].name + "</u>">>
+					<<set $_theRest to $_firstWord += " " + $_theName + $_secondWord>>
+					<<set _shoppingListText.push($_theRest)>>
+				<</for>>
+				<<= formatList(_shoppingListText, "and", true).toUpperFirst()>>.
+				<<if $_request.items.some(item => item.integrity_requirement isnot "any")>>
+					<<set $_full to []>><<set $_frayed to []>><<set $_torn to []>><<set $_tattered to []>>
+					<<for $_i to 0; $_i lt $_shoppingList.filter(items => items.integrity_requirement isnot "any").length; $_i++>>
+						<<switch $_shoppingList[$_i].integrity_word>>
+							<<case "full">><<set $_full.push($_shoppingList[$_i].name)>>
+							<<case "frayed">><<set $_frayed.push($_shoppingList[$_i].name)>>
+							<<case "torn">><<set $_torn.push($_shoppingList[$_i].name)>>
+							<<case "tattered">><<set $_tattered.push($_shoppingList[$_i].name)>>
+						<</switch>>
+					<</for>>
+					<<if $_full.length>>
+						<<if $_full.length gt 1>>The <<print formatList($_full, "and")>> were<<elseif $_plural>>They were<<else>>It was<</if>> <span class="green">pristine</span>.
+					<</if>>
+					<<if $_frayed.length>>
+						I'd like to see how <<if $_frayed.length gt 1>>the <<print formatList($_frayed, "and")>> look<<elseif $_plural>>they look<<else>>it looks<</if>> after a little bit of wear, maybe even <span class="teal">frayed</span>.
+					<</if>>
+					<<if $_torn.length>>
+						Don't be afraid to take <<if $_torn.length gt 1>>the <<print formatList($_torn, "and")>><<elseif $_plural>>them<<else>>it<</if>> out around town, I'd like to see how <<if $_torn.length gt 1>>they look<<else>>it looks<</if>> <span class="purple">torn</span>.
+					<</if>>
+					<<if $_tattered.length>>
+						Wear <<if $_tattered.length gt 1>>the <<print formatList($_tattered, "and")>><<elseif $_plural>>them<<else>>it<</if>> for a while, until <<if $_tattered.length gt 1 || $_plural>>they're<<else>>it's<</if>> in <span class="red">tatters</span>.
+					<</if>>
+				<</if>>
+				<<set $_conclusions to [
+					"I bet you'll look great in <<if $_plural>>them<<else>>it<</if>>! Be sure to <span class='gold'>wear <<if $_plural>>them<<else>>it<</if>> here</span> so I can see.",
+					"<span class='gold'>Wear <<if $_plural>>them<<else>>it<</if>> here,</span> if you would be so kind.",
+					"If you could <span class='gold'>wear <<if $_plural>>them<<else>>it<</if>> here,</span> that would be wonderful.",
+				]>>
+				<<if $gwylanSeen.includes("yearning") and $gwylan.timer.ritual and Time.date.dayDifference(new DateTime($gwylan.timer.ritual)) lte 0>>
+					<<set $_conclusions.push("<span class='gold'>Wear <<if $_plural>>them<<else>>it<</if>> here,</span> and maybe I'll rip them right off of you.")>>
+				<</if>>
+				<<print $_conclusions.pluck()>>
+				<<if $_request.details.replacements is "allowed">>
+					<<if $_outfit>>They come<<else>>It comes<</if>> in a few different styles, <span class="green">any of them will do</span>."
+				<<elseif $_request.details.replacements is "blocked">>
+					<<if $_outfit>>They come<<else>>It comes<</if>> in a few different styles, <span class="red">so make sure you get the right one<<if $_plural>>s<</if>>.</span>"
+				<<else>>
+					<<print either("It should be easy enough.", "No fuss, no muss.", "Go on then, dear.", "I'll owe you.")>>"
+				<</if>>
+			<</if>>
+			<br><br>
+
+			<span class="gold">Gwylan's request has been added to your journal.</span>
+
+		<<case "ingredients">>
+			<<if $_request.special is "tutorial">>
+				<<set $_shroomAmount to $_request.items.find(shroom => shroom.name === "wolfshroom").need>>
+				"Do you know what wolfshrooms are?"
+				<br><br>
+
+				<<if $scienceshroomknown is 1 and $scienceproject is "ongoing">>
+					You nod. "I was thinking about using them in my current science project at school," you say. "They were popular with warriors in ancient times."
+					<br><br>
+
+					"Wonderful! I'm low on stock, and could use a few.
+				<<elseif $foodstuff.wolfshroom.amount>>
+					You nod. "I've picked them before."
+					<br><br>
+
+					"Wonderful! I'm low on stock, and could use a few.
+				<<elseif currentSkillValue('science') gte 200>>
+					You remember hearing about them from school, and nod. "They were prized by warriors in ancient times," you say.
+					<br><br>
+
+					"Wonderful! I'm low on stock, and could use a few.
+				<<else>>
+					You shake your head.
+					<br><br>
+
+					"They're curious little things. Brown stem with a bright red cap. I can tell you more about them later.
+				<</if>>
+				If you could go find <span class="gold"><<number $_shroomAmount>></span> for me, you'd be making my day much easier."
+			<<elseif $_request.special is "plums">>
+				"I... have a craving. If you could just be a dear and... and go get me a bunch of plums." <<He>> reaches forward and pinches your cheek. "Please?"
+				<br><br>
+
+				<<He>> lowers <<his>> hands, placing them over <<his>> <<bellyDescription "Gwylan">>. "Lots of them. I'm eating for two right now, after all."
+			<<else>>
+				<<set $_types to []>>
+				<<run $_request.items.forEach(item => $_types.pushUnique(item.type))>>
+				<<if $_types.length is 1>>
+					<<switch $_types[0]>>
+						<<case "flower">>
+							"My garden needs some genetic diversity, so I've been meaning to pick some wild flowers.
+						<<case "fruit">>
+							"I need a bunch of fruit for <<print either("fermentation", "seed extraction", "juicing")>>.
+						<<case "ingredient">>
+							"I need some base ingredients for something I'm mixing together.
+						<<case "produce">>
+							"I need some produce to use as a binder for... well, don't worry about it."
+						<<default>>
+							"I need a few <<print $_types[0]>>.
+					<</switch>>
+				<<elseif $_request.items.every(item => setup.foodstuff[item.name].shop.available_in?.includes("supermarket"))>>
+					"I have a bit of a shopping list here. It's not the most exciting task, but you would be saving me a trip.
+				<<else>>
+					<<set $_typesPlural to []>>
+					<<run $_types.forEach(type => {
+						if (type === "produce") {
+							$_typesPlural.pushUnique(type)
+						} else {
+							$_typesPlural.pushUnique(type + "s")
+						}
+					})>>
+					<<set $_typesPlural.push("the like")>>
+					<<print either(`"I'm in need of a few ingredients for... well, don't worry about it.`, `"I'm trying something new, so I need a few ingredients.`, `"I'm going to try to make something, so I need a few ingredients.`)>>
+					<<print formatList($_typesPlural, "and", true).toUpperFirst()>>.
+				<</if>>
+				<<set $_names to []>>
+				<<run $_request.items.forEach(item => {
+					if (item.need > 1) {
+						$_names.pushUnique("<<number " + item.need + ">> " + setup.foodstuff[item.name].plural);
+					} else {
+						if (["a","e","i","o","u"].some(letter => item.name.startsWith(letter))) {
+							$_names.pushUnique("an " + setup.foodstuff[item.name].name.replace(/_/g," "));
+						} else {
+							$_names.pushUnique("a " + setup.foodstuff[item.name].name.replace(/_/g," "));
+						}
+					}
+				})>>
+				<span class="gold">I need <<print formatList($_names, "and", true)>>.</span> If you could gather those for me, I would be very thankful."
+			<</if>>
+			<br><br>
+
+			<span class="gold">Gwylan's request has been added to your journal.</span>
+
+		<<case "sample">>
+			<<if $gwylanSeen.includes("sample")>>
+				<<if $gwylan.request.hold is "corruption">>
+					"I'll need some fresh <span class="pink">fluid samples</span> to make new measuring charms."
+				<<elseif $gwylan.timer.sample gt Time.date.timeStamp>>
+					"I'd like to refresh the measuring charms before they burn out. I need another round of <span class="pink">fluid samples</span>."
+				<<else>>
+					"I need to replace the measuring charms. You know how this goes. I need some fresh <span class="pink">fluid samples</span>."
+				<</if>>
+			<<else>>
+				<<if $gwylan.request.hold is "corruption">>
+					"In order to measure the taint, I'll need some <span class="pink">fluid samples</span>."
+				<<else>>
+					"I need to measure the poison in the world. How fast it's growing, and how deep it runs. For this, I need some... samples."
+					<<He>> clears <<his>> throat. <span class="pink">"Fluid samples."</span>
+				<</if>>
+			<</if>>
+			<br><br>
+
+			<<He>> vanishes into a dark room. You hear some clanging, and <<he>> shortly returns with some glass vials. "Not from you.<<if $gwylanSeen.includes("player_sample")>> Not this time, at least.<</if>>
+			<<set $_sampleSpecies to []>><<set $_sampleLocations to []>>
+			<<run $gwylan.request.items.forEach(item => {
+				$_sampleSpecies.pushUnique(item.name);
+				if (["human", "dog", "cat"].includes(item.name)) $_sampleLocations.pushUnique("town");
+				if (["wolf", "fox", "lizard", "boar", "bear", "plant"].includes(item.name)) $_sampleLocations.pushUnique("forest");
+				if (["hawk", "fox", "cat"].includes(item.name)) $_sampleLocations.pushUnique("moor");
+				if (["dolphin"].includes(item.name)) $_sampleLocations.pushUnique("ocean");
+			})>>
+			<<if $_sampleSpecies.length is 1>>
+				<<set $_thisSpecies to $gwylan.request.items[0]>>
+				<<set $_thisColour to hasSexStat("deviancy", 3) ? "pink" : "red">>
+				<<if $_thisSpecies.name is "wolf">>
+					<<set $_thisColour to $syndromewolves gte 1 ? "green" : "red">>
+				<</if>>
+				<<switch $_thisSpecies.name>>
+					<<case "human">>I need a diverse array of samples from the <span class="purple">people of the town</span>.
+					<<case "wolf">>I need to determine the agitation level of the local <span @class="$_thisColour">wolf pack</span>. I'll need some samples from them.
+					<<case "plant">>I need a large amount of nectar samples from the <span class="forest-green">dryads of the forest</span>. If they become tainted, things will become very grim.
+					<<case "fox">>The <span @class="$_thisColour">foxes</span> of our forest may be clever, but not even they are immune to the poison. I'll need some samples from them, or from the ones out in the moor.
+					<<case "cat">>There's an interesting reaction in feline species, so I need samples from <span @class="$_thisColour">large cats</span>. It doesn't matter whether they're from the town or moor.
+					<<case "dolphin">>I worry that the poison has begun leaking into the ocean. I need samples from large marine mammals, such as <span @class="$_thisColour">dolphins</span>.
+					<<default>>
+						I need a diverse array of samples from the <span @class="$_thisColour"><<print $_thisSpecies.name + "s">></span> of the <<print formatList($_sampleLocations, "and", true)>>.
+				<</switch>>
+				<span class="gold"><<Number $_thisSpecies.need>></span> <<pluralise $_thisSpecies.need "sample">> should be enough."
+			<<else>>
+				I need some samples from the <<print formatList($_sampleLocations, "and", true)>>. Specifically, I need
+				<<for $_s to 0; $_s lt $_sampleSpecies.length; $_s++>>
+					<<set $_thisSpecies to $gwylan.request.items.find(species => species.name === $_sampleSpecies[$_s])>>
+					<<switch $_thisSpecies.name>>
+						<<case "wolf">><<set $_thisSpeciesPlural to "wolves">>
+						<<case "fox">><<set $_thisSpeciesPlural to "foxes">>
+						<<case "plant">><<set $_thisSpeciesPlural to "the dryads of the forest">>
+						<<default>><<set $_thisSpeciesPlural to $_thisSpecies.name + "s">>
+					<</switch>>
+					<<switch $_thisSpecies.name>>
+						<<case "human">><<set $_thisSpeciesColour to "purple">>
+						<<case "wolf">><<set $_thisSpeciesColour to $syndromewolves gte 1 ? "green" : hasSexStat("deviancy", 3) ? "pink" : "red">>
+						<<case "plant">><<set $_thisSpeciesColour to "forest-green">>
+						<<default>><<set $_thisSpeciesColour to hasSexStat("deviancy", 3) ? "pink" : "red">>
+					<</switch>>
+					<span class="gold"><<number $_thisSpecies.need>></span>
+					<<if $_thisSpecies.name is "plant">>
+						nectar
+					<<else>>
+						<<if maleChance() >= 100>>
+							semen
+						<<else>>
+							fluid
+						<</if>>
+					<</if>>
+					<<pluralise $_thisSpecies.need "sample">> from <span @class="$_thisSpeciesColour"><<print $_thisSpeciesPlural>></span><<if $_s is $_sampleSpecies.length - 2>>, and<<elseif $_s is $_sampleSpecies.length - 1>>."<<else>>,<</if>>
+				<</for>>
+			<</if>>
+			<br><br>
+
+			<<He>> hands you more vials than you need. <<if $_sampleSpecies.length gt 1>>Each one is labelled with the name of a sample source.<</if>>
+			<<if $gwylanSeen.includes("sample")>>
+				"I know you can handle this. You're strong.
+				<<if $gwylanSeen.includes("romance") or _gwylanStatus.includes("dom")>>
+					Still, be safe and come back to me in one piece."
+				<<else>>
+					Still, be safe."
+				<</if>>
+			<<else>>
+				"I'm sorry to ask something so dangerous of you. I can't just use the fluids of those I lure here, as those are always oversaturated.
+				The reading wouldn't be accurate. I wouldn't be asking if it wasn't important." <<He>> gives you an encouraging smile. "Be safe, please."
+			<</if>>
+			<br><br>
+
+			<<if $gwylan.request.items.some(item => item.name === "plant")>>
+				<<if $gwylanSeen.includes("plantperson_tip")>>
+					<<He>> quickly turns back to you once more. "Oh, remember. You can harvest nectar from the <span class="green">vines</span> of the dryads too. You'll get a lot more that way."
+				<<else>>
+					<<set $gwylanSeen.pushUnique("plantperson_tip")>>
+					<<He>> quickly turns back to you once more. "Oh, one more thing. You can harvest nectar from the <span class="green">vines</span> of the dryads too. You'll get a lot more that way."
+				<</if>>
+				<br><br>
+			<</if>>
+
+			<span class="gold">Gwylan's request has been added to your journal.</span>
+
+		<<case "samplePlayer">>
+			/* ToDo: Gwylan */
+
+		<<case "preen">>
+			<<if $harpy gte 6>>
+				"I'd like to preen your wings.
+				<<if !$gwylanSeen.includes("preen")>>
+					<<set $gwylanSeen.pushUnique("preen")>>
+					They're very pretty, and I could use some of the feathers."
+				<<else>>
+					I need to restock on feathers."
+				<</if>>
+			<<else>>
+				<<set $_featherCount to $gwylan.request.items.find(feather => feather.name === "feathers").need>>
+				"I need some of the hawk's feathers. They're a very valuable ingredient. <span class="gold"><<Number $_featherCount>></span> should be enough."
+				<br><br>
+
+				<span class="gold">Gwylan's request has been added to your journal.</span>
+			<</if>>
+
+		<<case "cream">>
+			"You've been very helpful to me lately. I think you deserve a treat.
+			<<if $gwylanSeen.includes("cream_lick")>>
+				<<if $cat gte 6>>
+					<span class="lewd">I'd like to see you put that rough tongue to work again, cat<<girl>>,</span>" <<he>> says with a flushed smile. "Last time was so much fun! I've got more cream to use, too."
+				<<else>>
+					<span class="lewd">I'd like to see you put that tongue to work again,</span>" <<he>> says with a flushed smile. "Last time was so much fun! I've got more cream to use, too."
+				<</if>>
+			<<elseif $gwylanSeen.includes("nectar_lick")>>
+				<<if $cat gte 6>>
+					<span class="lewd">I'd like to see you put that rough tongue to work again, cat<<girl>>,</span>" <<he>> says with a flushed smile. "Last time was so much fun! I can't spare any nectar this time, but I've got some cream."
+				<<else>>
+					<span class="lewd">I'd like to see you put that tongue to work again,</span>" <<he>> says with a flushed smile. "Last time was so much fun! I can't spare any nectar this time, but I've got some cream."
+				<</if>>
+			<<else>>
+				<<if $cat gte 6>>
+					I... <span class="lewd">would like to see what that cat tongue of yours can do</span>," <<he>> says with a flushed smile. "I've got some cream for you."
+				<<else>>
+					I have a fun idea," <<he>> says with a flushed smile. "I've got some cream from the cafe, and... no, it should be a surprise."
+				<</if>>
+			<</if>>
+			<br><br>
+
+			<<His>> eyes remain locked on you. "Just let me know when you're ready. It may become... messy."
+
+		<<case "robin">>
+			/* ToDo: Gwylan */
+
+		<<default>>
+			Gwylan opens <<his>> mouth to speak. <<He>> opens <<his>> mouth, and holds it. <<He>> then sneezes.
+			<br><br>
+
+			"Sorry, what were we talking about?"
+			<br><br>
+
+			<span class="red">This is a bug. Please report this.</span>
+	<</switch>>
+<</widget>>
+
+<<widget "gwylanRequestEnd">>
+	<<set $_skip to _args[0] is "skip" ? true : false>>
+	<<set $_silent to _args[0] is "silent" ? true : false>>
+	<<if !$_skip and $gwylan.request.event>>
+		<<set $gwylan.requestDone to true>>
+		<<set $gwylan.requestCount++>>
+		<<set $daily.gwylan.request to true>>
+		<<if !$_silent>>
+			<<if !$gwylanSeen.includes("request_intro")>>
+				<<set $_requestBr to true>>
+				<<set $gwylanSeen.pushUnique("request_intro")>>
+				<<He>> places <<his>> hand under <<his>> chin in thought as <<he>> looks you over.
+				<<if $gwylan.request.hold>>
+					"I know you already had something you wanted help with, but there's more I can do.
+				<<else>>
+					"There is something particular I may be able to do for you.
+				<</if>>
+				<span class="blue">If you ever have troubles with sleep, I know a technique that can help.</span> On a related note,
+				<span class="blue">if you ever find yourself entranced by someone else's words, come talk to me.</span> I know ways of <span class="pink">overwriting and erasing</span> such hypnotic impulses."
+			<<elseif $gwylan.request.hold>>
+				<<set $_requestBr to true>>
+				<<He>> puts <<his>> elbows on the counter.
+				<<switch $gwylan.request.hold>>
+					<<case "peace">>"You had asked me about bringing peace to your inner self."
+					<<case "silence">>"We can silence that pest in your ear, now."
+					<<case "slumber">>"You said you were having sleep troubles."
+					<<case "insight">>"You said you were seeing things?"
+					<<case "chastity">>"You wanted help removing a restrictive device, right?"
+					<<case "familiar">>
+						<<if $worn.neck.name is "familiar collar" and $worn.neck.cursed is 1>>
+							"You said you wanted me to release your collar?"
+						<<else>>
+							"You said you wanted me to release your collar, right? It looks like you don't need help with that anymore."
+						<</if>>
+					<<case "petBed">>"I'll drag your bed back out right away, if you'd like."
+					<<default>>"You already had something in mind, right?"
+				<</switch>>
+			<</if>>
+		<</if>>
+		<<if $hypnosis_traits.devotion>>
+			<<if $_requestBr>>
+				<br><br>
+			<</if>>
+			<<switch $hypnosis_traits.devotion>>
+				<<case 1>>
+					<<hypnosisText "<span class='lblue'>Completing Gwylan's request fills you with a strange sense of satisfaction.</span><<stress -3>><<trauma -3>><<lstress>><<ltrauma>>">>
+				<<case 2>>
+					<<hypnosisText "<span class='teal'>Completing Gwylan's request fills you with satisfaction.</span><<stress -6>><<trauma -6>><<lstress>><<ltrauma>>">>
+				<<case 3>>
+					<<hypnosisText "<span class='green'>Gwylan smiles at you proudly. It makes you feel warm and fulfilled.</span><<stress -6>><<trauma -10>><<hallucinogen 50>><<lstress>><<lltrauma>><<ghallucinogens>>">>
+				<<case 4>>
+					<<hypnosisText "<span class='purple'>Gwylan's warm smile makes your heart skip a beat. You've made <<him>> happy, which makes you happy in turn.</span><<trauma -12>><<arousal 1000>><<hallucinogen 80>><<lltrauma>><<garousal>><<ghallucinogens>>">>
+				<<default>>
+					<<hypnosisText "<span class='pink'>Gwylan's proud smile nearly brings you to your knees. You're awash with primal fulfilment.</span><<trauma -16>><<arousal 3000>><<drugs 80>><<lltrauma>><<gggarousal>><<gdrugged>>">>
+			<</switch>>
+		<</if>>
+		/* Save as recently completed task for use later */
+		<<set $gwylan.timer[$gwylan.request.event] to new DateTime(Time.date).addDays(14).timeStamp>>
+		<<set $gwylan.timer.requestLast to Time.date.timeStamp>>
+	<</if>>
+	<<set $gwylan.requestLast to $gwylan.request>>
+	<<set $gwylan.request to {}>>
+	<<if $gwylan.requestSeed isnot undefined>>
+		<<set $_seedIncrement to 0.001>>
+		<<set $gwylan.requestSeed to (($gwylan.requestSeed - 0.25 + $_seedIncrement) % (0.99 - 0.25)) + 0.25>>
+	<</if>>
+<</widget>>
+
+<<widget "gwylanChastityRequest">>
+	<<set $_consensual to _args[0] or 0>>
+	<<if $_consensual is 0 or _gwylanStatus.includes("lust")>>
+		<<if !$gwylan.request.event>>
+			<<He>> thinks for a moment, then smiles.
+			<br><br>
+
+			"<<pcPetname "Gwylan">>, either get that chastity device removed, or come see me later and I'll break it off of you."
+			<<run gwylanRequest("chastity")>>
+			<<set V.gwylan.request.command to true>>
+			<<set V.gwylan.request.timer = new DateTime(Time.date).addDays(1).timeStamp>>
+			<<if $combat is 1>><<npcincr Gwylan lust 10>><</if>> /* Partially negates lust loss from ejaculation */
+			<br><br>
+
+			<span class="gold">Gwylan's request has been added to your journal.</span>
+		<<elseif $gwylan.request.event is "chastity" and $gwylan.request.command>>
+			<<He>> looks down at you with a hint of annoyance. "I told you to remove that."
+		<<else>>
+			<<He>> looks down, annoyed.
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "gwylanJournalItems">>
+	<<set $_itemsToList to $gwylan.request.items?.filter(item => !item.skip && !item.alt)>>
+	<<if $_itemsToList?.length>>
+		<<for $_requestIndex to 0; $_requestIndex lt $_itemsToList.length; $_requestIndex++>>
+			<<set $_thisItem to $_itemsToList[$_requestIndex]>>
+			<<switch $_thisItem.category>>
+				<<case "clothing">>
+					<<set $_thisItemSetup to clone(setup.clothes[$_thisItem.slot].find(it => it.name === $_thisItem.name))>>
+					<<set $_thisItemSetup.colour to $_thisItem.colour_requirement isnot "any" ? $_thisItem.colour_requirement : $_thisItemSetup.colour_options.random()>>
+					<<set $_thisItemSetup.accessory_colour to $_thisItem.acc_colour_requirement isnot "any" ? $_thisItem.acc_colour_requirement : $_thisItemSetup.accessory_colour_options.random()>>
+					<<if gwylanRequestClothingSlotCheck($_thisItem.slot)>>
+						<span class='fa-icon fa-selected'></span>
+					<<else>>
+						<span class='fa-icon fa-unselected'></span>
+					<</if>>
+					<<clothingicon $_thisItemSetup $_thisItem.slot>>
+					<<print $_thisItemSetup.name_cap>>
+					<<if $_thisItem.slot is "neck" and $worn.neck.name is "familiar collar" and $worn.neck.cursed is 1>>
+						<span class="forest-green">or your familiar collar</span>
+					<<elseif $_thisItemSetup.shopGroup and $gwylan.request.details?.replacements is "allowed">>
+						<span class="green">or a variant</span>
+					<<elseif $_thisItemSetup.shopGroup and $gwylan.request.details?.replacements is "blocked">>
+						<span class="red">(specific variant)</span>
+					<</if>>
+					<<if $_thisItem.colour_requirement is "any" and $_thisItem.acc_colour_requirement is "any" and ($_thisItemSetup.colour_options.length or $_thisItemSetup.accessory_colour_options.length)>>
+						(any colours)
+					<<elseif $_thisItemSetup.colour_options.length or $_thisItemSetup.accessory_colour_options.length>>
+						(<<if $_thisItemSetup.colour_options.length>><span @class='$_thisItem.colour_requirement'><<print $_thisItem.colour_requirement>> primary</span><</if>><<if $_thisItemSetup.colour_options.length and $_thisItemSetup.accessory_colour_options.length>> and <</if>><<if $_thisItemSetup.accessory_colour_options.length>><span @class='$_thisItem.acc_colour_requirement'><<print $_thisItem.acc_colour_requirement>> accessory</span><</if>>)
+					<</if>>
+					<<if ["upper", "lower", "under_upper", "under_lower"].includes($_thisItem.slot)>>
+						<<switch $_thisItem.integrity_word>>
+							<<case "any">>(any condition)
+							<<case "full">><span class="green">(full)</span>
+							<<case "frayed">><span class="teal">(frayed)</span>
+							<<case "torn">><span class="purple">(torn)</span>
+							<<case "tattered">><span class="red">(tattered)</span>
+						<</switch>>
+					<</if>>
+				<<case "tending">>
+					<<set $_itemAmount to $foodstuff[$_thisItem.name].amount>>
+					<<if $gwylan.request.special is "tutorial">>
+						<<set $_itemAmount += $gwylanTutorialShrooms>>
+					<</if>>
+					<<if $_itemAmount gte $_thisItem.need>>
+						<span class='fa-icon fa-selected'></span>
+					<<else>>
+						<span class='fa-icon fa-unselected'></span>
+					<</if>>
+					<<foodstufficon $_thisItem.name>>
+					<<number $_thisItem.need>>
+					<<if $_thisItem.need gt 1>>
+						<<print setup.foodstuff[$_thisItem.name].plural>>
+					<<else>>
+						<<print setup.foodstuff[$_thisItem.name].name.replace(/_/g," ")>>
+					<</if>>
+					<<if $_itemAmount gte $_thisItem.need>>
+						<span class='green'>($_itemAmount / $_thisItem.need)</span>
+					<<elseif $_itemAmount is 0>>
+						<span class='red'>($_itemAmount / $_thisItem.need)</span>
+					<<else>>
+						<span class='blue'>($_itemAmount / $_thisItem.need)</span>
+					<</if>>
+				<<case "sample">>
+					<<if $_thisItem.have gte $_thisItem.need>>
+						<span class='fa-icon fa-selected'></span>
+					<<else>>
+						<span class='fa-icon fa-unselected'></span>
+					<</if>>
+					<span class="gold"><<Number $_thisItem.need>></span>
+					<<if $_thisItem.name is "plant">>
+						nectar
+					<<elseif maleChance() gte 100>>
+						semen
+					<<else>>
+						lewd fluid
+					<</if>>
+					<<pluralise $_thisItem.need "sample">> from
+					<<set $_sampleColour to $_thisItem.name is "wolf" and $syndromewolves gte 1 ? "green" : hasSexStat("deviancy", 3) ? "pink" : "red">>
+					<<switch $_thisItem.name>>
+						<<case "human">><span class="purple">humans</span>.
+						<<case "plant">><span class="forest-green">plantpeople,</span> or their tentacles.
+						<<case "wolf">><span @class="$_sampleColour">wolves</span>.
+						<<case "fox">><span @class="$_sampleColour">foxes</span>.
+						<<default>><span @class="$_sampleColour"><<print $_thisItem.name + "s">></span>.
+					<</switch>>
+					<<if $_thisItem.have lt $_thisItem.need>>
+						You have <span class="blue"><<number $_thisItem.have>></span>.
+					<</if>>
+				<<default>>
+			<</switch>>
+			<br>
+		<</for>>
+	<</if>>
+<</widget>>

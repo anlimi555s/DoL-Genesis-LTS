@@ -1,0 +1,1229 @@
+:: Flats Hookah
+<<effects>>
+
+<<if isPregnancyEnding()>>
+	<<set _noWake to true>>
+	<<pregnancyPassout "hookah">>
+<<else>>
+	<<if $hookah_state is 3>>
+		<<if $whitney_home_stage gte 3 and (C.npc.Whitney.state is "active" or C.npc.Whitney.state is "rescued") and not $weekly.whitneyHookah and $rng gte 81>>
+			<<set $weekly.whitneyHookah to 1>>
+			<<npc Whitney>><<person1>>
+			You're about to open the door when it bangs open without a knock. <span class="pink">It's Whitney.</span> Two of <<his>> friends pile in behind <<him>>, filling your parlour with noise.
+			<br><br>
+			<<set $whitney_hookah_visit to ($whitney_hookah_visit or 0) + 1>>
+			<<if $whitney_hookah_visit is 1>>
+				Whitney looks the place over like <<he>> owns it, then settles <<his>> eye on you.
+				<br><br>
+				"So this is the den everyone's been yammering about," <<he>> says. <<if C.npc.Whitney.dom gte 20>>"Should've known it was my slut running the show."<<else>>"Should've known it was yours."<</if>>
+				<br><br>
+				<<He>> drops onto a cushion by the hookah and sprawls out. <<His>> friends crowd in around the pipe.
+				<br><br>
+				"We're staying a while," <<he>> says, making <<himself>> comfortable. "Get it going."
+			<<else>>
+				Whitney doesn't bother looking the place over this time, stomping inside with two of <<his>> friends in tow. <<He>> heads straight for the same cushion <<he>> sat in last time and drops onto it casually.
+				<br><br>
+				"Miss me?" <<he>> asks. <<His>> friends sprawl out around the pipe.
+				<br><br>
+				"You know the drill," <<he>> says with a grin. "Get it going, slut."
+			<</if>>
+			<br><br>
+			<<link [[Let them in for free|Flats Hookah Whitney Free]]>><<glove>><<gdom>><</link>>
+			<br>
+			<<link [[Make them pay|Flats Hookah Whitney Pay]]>><<ldom>><</link>>
+		<<else>>
+			You are in your hookah parlour. The hookah itself sits in the centre, surrounded by cushions.
+			<br><br>
+
+			<<hookah_juice>>
+
+			<<if $hookah.juice gte 1>>
+				<<if $daily.hookah is 1>>
+					<span class="red">You were warned that smoking for more than an hour a day could be dangerous.</span>
+					<br>
+					<<rng 2>>
+					<<if $rng is 2>>
+						<<icon "hookah-smoke.png">><<link [[Partake anyway (1:00)|Flats Hookah Smoke]]>><<set $hookah.juice -= 1>><<hallucinogen 60>><</link>>
+						<br>
+					<<else>>
+						<<icon "hookah-smoke.png">><<link [[Partake anyway (1:00)|Flats Hookah Smoke Danger]]>><<set $hookah.juice -= 1>><<hallucinogen 60>><</link>>
+						<br>
+					<</if>>
+				<<else>>
+					<<icon "hookah-smoke.png">><<link [[Partake (1:00)|Flats Hookah Smoke]]>><<set $hookah.juice -= 1>><<set $daily.hookah to 1>><<hallucinogen 60>><</link>>
+					<br>
+				<</if>>
+				<<if $exposed lte 0>>
+					<<socialiseicon>><<link [[Entice customers (1:00)|Flats Hookah Work]]>><<set $hookah.juice -= 1>><<hallucinogen 60>><</link>>
+					<br>
+				<</if>>
+			<</if>>
+			<<getouticon>> <<link [[Leave|Flats]]>><</link>>
+			<br>
+		<</if>>
+	<<elseif $hookah_state is 2>>
+		You are in your hookah parlour. The hookah itself lies broken on the floor, but the smell of incense remains.
+		<br><br>
+
+		<<choreicon "sweep">><<link [[Clean (3:00)|Flats Hookah Clean]]>><<set $hookah_state to 3>><<pass 180>><</link>>
+		<br>
+		<<getouticon>><<link [[Leave|Flats]]>><</link>>
+		<br>
+	<<elseif $hookah_state is undefined>>
+		<<set $hookah_state to 1>>
+		<<generate1>><<person1>><<generate2>><<generate3>><<generate4>><<generate5>><<generate6>>
+		You push open the door, and peer inside. Five people lie on velvet cushions around a hookah pipe. The smell is intoxicating.
+		<br><br>
+		A <<person1>><<person>> enters from an adjoining room, carrying a bowl and pair of tongs. <<He>> lifts a squirming something from the vessel, and places it in the hookah pipe.
+		<br><br>
+		"Aha," <<he>> says, noticing you. You hear a jingle as <<he>> turns. A pair of tiny spectacles sits on the end of <<his>> nose. "Another visitor. It's £50 for an hour on the hookah."
+		<br><br>
+		"No two people have the same experience," <<he>> adds, as if predicting a question. "I'm afraid the substance itself must remain a secret."
+		<<if playerBellyVisible()>>
+			<<He>> looks down at your <<bellyDescription "pc">>. "Don't worry, it's completely safe. For your baby, I mean."
+		<</if>>
+		<br><br>
+		<span class="gold">You've discovered the hookah parlour.</span>
+		<br><br>
+		<<saveNPC 0 "hookah">>
+		<<link [[Leave|Flats]]>><<endevent>><<set $eventskip to 1>><</link>>
+		<br>
+	<<else>>
+		<<loadNPC 0 "hookah">><<person1>>
+		The hookah parlour isn't quite where you remember it, but you catch a whiff of the familiar incense, which helps track it down. The front door is open, and a purple light glows within. You push it ajar, and peer inside.
+		<br><br>
+		<<if $rng gte 81>>
+			The spectacled hookah <<hookah_master>> sits on one of the cushions <<himself>>, reading a newspaper.
+		<<elseif $rng gte 61>>
+			The spectacled hookah <<hookah_master>> kneels in front of a cabinet and rummages within.
+		<<elseif $rng gte 41>>
+			The spectacled hookah <<hookah_master>> is polishing the pipe.
+		<<elseif $rng gte 21>>
+			The spectacled hookah <<hookah_master>> leans on a window and watches <<if Weather.precipitation is "rain">>the rain.<<elseif Weather.precipitation is "snow">>the snow.<<else>>the street below.<</if>>
+		<<else>>
+			The spectacled hookah <<hookah_master>> sits on a stool and sips from a teacup.
+		<</if>>
+		<br><br>
+		<<if $daily.hookah is 1>>
+			<<He>> looks at you. "I'm afraid we don't allow someone to spend more than an hour a day on the hookah," <<he>> says. "For your safety."
+			<br><br>
+		<<else>>
+			<<He>> looks at you. "£50 for an hour on the hookah."
+			<br><br>
+		<</if>>
+
+		<<if $money gte 5000 and $daily.hookah is undefined>>
+			<<icon "hookah-smoke.png">><<link [[Smoke (1:00)|Flats Hookah Smoke]]>><<set $daily.hookah to 1>><<money -5000>><</link>>
+			<br>
+		<</if>>
+		<<getouticon>> <<link [[Leave|Flats]]>><<endevent>><<set $eventskip to 1>><</link>>
+		<br>
+	<</if>>
+<</if>>
+
+:: Flats Hookah Smoke
+<<effects>><<wearProp "hookah pipe">>
+
+You sit on a cushion in front of the hookah pipe, put the hose to your mouth, and inhale.
+<br><br>
+
+You find yourself on your back, beneath a spinning ceiling. A schism rips through the plaster, and reality parts.
+<br><br>
+
+<<if $awareness gte 400>>
+	It threatens to overwhelm, <span class="green">but you cling to glimmers of reason.</span> An alien forest appears through the portal. Colossal tentacles twist and writhe against the sky.
+	<br><br>
+	<<if $settings.tentaclesEnabled>>
+		<<link [[Enter|Tentacle Forest Entrance]]>><<set $tentacleEntrance to "hookah">><<endevent>><</link>>
+		<br>
+	<<else>>
+		<span class="red">You're terrified by them,</span> and start pushing against your consciousness, trying to force yourself to wake up. However, for one brief moment of lucidity, <span class="lewd">you wonder what would happen if you opened your mind to it.</span>
+		<br><br>
+		<<link [[Try to enter|Tentacle Forest Enable]]>><</link>><<willpowerdifficulty 1 1>> | <span class="pink">This will enable tentacles.</span> <!-- Appears even with blind stats enabled. Intentional -->
+		<br>
+	<</if>>
+	<<link [[Ignore|Flats Hookah Flow]]>><<pass 1 hour>><<willpower 6>><<if $awareness lt 600>><<awareness 6>><</if>><</link>><<ggwillpower>><<if $awareness lt 600>><<ggawareness>><</if>>
+	<br>
+<<else>>
+	You can't make sense of it, <span class="red">and your thoughts are torn from your control.</span><<ggwillpower>><<willpower 6>><<if $awareness lt 600>><<ggawareness>><<awareness 6>><</if>>
+	<br><br>
+	<<link [[Next|Flats Hookah Flow]]>><<pass 1 hour>><</link>>
+	<br>
+<</if>>
+
+
+:: Flats Hookah Flow
+<<effects>>
+
+You see flashes of eldritch vistas, but the experiences are snatched from consciousness before they can be etched on your memory, replaced by whispers of forgotten truths. These are seized in turn, replaced by other impossible sensations.
+<br><br>
+<<endevent>>
+<<loadNPC 0 "hookah">><<person1>>
+<<if $hookah_state gte 2>>
+	They assail you over and over, until you awaken on a cushion in the hookah parlour. You wait for the world to stop spinning, and rise to your feet.
+	<br><br>
+
+	<<link [[Next|Flats Hookah]]>><<endevent>><</link>>
+	<br>
+<<else>>
+	They assail you over and over, until you awaken on a cushion in the hookah parlour. "Thank you for your custom," the <<hookah_master>> says. "I fear we only allow an hour per day. Safety reasons."
+	<br><br>
+
+	<<He>> helps you to your feet, and leads you to the door.
+	<br><br>
+
+	<<link [[Next|Flats]]>><<endevent>><<set $eventskip to 1>><</link>>
+	<br>
+<</if>>
+
+
+:: Flats Hookah End
+<<location "flats">><<set $outside to 0>><<effects>>
+
+<<storeon "hookah">>
+
+<<if $hookah_state gte 2>>
+	You awaken in the hookah parlour. You wait for the spinning to subside, then rise to your feet.
+	<br><br>
+
+	<<link [[Next|Flats Hookah]]>><</link>>
+	<br>
+<<else>>
+	<<loadNPC 0 "hookah">><<person1>>
+	You awaken in the hookah parlour. "Thank you for your custom," the <<hookah_master>> says. A wry smile forms on <<his>> lips. "A good trip, I take it?"
+	<br><br>
+
+	<<if $rng gte 81>>
+		"It's best you don't stay there too long," <<he>> says, helping you to your feet. "It's a mistake few make more than once."
+	<<elseif $rng gte 61>>
+		"Don't tell the others," <<he>> says, helping you to your feet. "They'll tell you that's not the point of the hookah, but they'd be jealous."
+	<<elseif $rng gte 41>>
+		"I'd go straight home if I were you," <<he>> says, helping you to your feet. "A trip often leaves one sensitive."
+	<<elseif $rng gte 21>>
+		"Don't fret if you see anything unusual in the next hour or so," <<he>> says, helping you to your feet. "The effects can linger."
+	<<else>>
+		"Let me take a look outside before you leave," <<he>> says, helping you to your feet. "Just to make sure there are no ruffians around."
+	<</if>>
+	<br><br>
+
+	<<He>> pushes <<his>> spectacles up the bridge of <<his>> nose, and walks you to the door.
+	<br><br>
+
+	<<link [[Next|Flats]]>><<endevent>><<set $eventskip to 1>><</link>>
+	<br>
+<</if>>
+
+:: Flats Hookah Clean
+<<effects>>
+
+You remove the shards of broken glass with a dustpan and brush, then apply a vacuum cleaner to pick up the finer particles. A lot of the furniture in the living room is ruined. You carry the pieces outside.
+<br><br>
+With the parlour looking tidy, you examine the hookah. The vase is shattered, but the rest is intact.
+<br><br>
+<<npc Bailey>><<person1>><<generate2>>
+You feel a presence watching you from the entrance. <span class="pink">Bailey</span> leans against the doorframe. One of <<his>> goons, a <<person2>><<person>>, flanks <<person1>><<him>>.
+<br><br>
+
+<<link [[Next|Flats Hookah Clean 2]]>><</link>>
+<br>
+
+:: Flats Hookah Clean 2
+<<effects>>
+
+Bailey looks at you for a long moment. "I take a <span class="pink">50%</span> cut," <<he>> says. "That isn't negotiable." <<He>> glances at the <<person2>><<person>>, who disappears into the corridor outside.
+<br><br>
+
+<<link [[Nod|Flats Hookah Clean Nod]]>><<sub 1>><</link>>
+<br>
+<<link [[Get angry|Flats Hookah Clean Angry]]>><<def 1>><</link>>
+<br>
+
+:: Flats Hookah Clean Nod
+<<effects>>
+
+You nod, though Bailey has already taken your agreement for granted. "You'll need a new hookah. I can't help with... whatever it was the old master put in that thing. <i>Try the farms outside town.</i> Someone might have snared what you need."
+<br><br>
+
+The <<person>> returns, carrying an intact hookah pipe. <<He>> brings it into the middle of the room.
+<br><br>
+
+<<link [[Next|Flats Hookah Clean End]]>><</link>>
+<br>
+
+:: Flats Hookah Clean Angry
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"But you take so much already," you say.
+<<elseif $speech_attitude is "bratty">>
+	"Like I don't pay you enough already," you say.
+<<else>>
+	"But I already pay you," you say.
+<</if>>
+<br><br>
+"That's one thing," Bailey sneers. "This is another. You'll need a new hookah. I can't help with whatever it was the old master put in them. <i>Try the farms outside town.</i> Someone might have snared what you need."
+<br><br>
+
+The <<person>> returns, carrying an intact hookah pipe. <<He>> brings it into the middle of the room.
+<br><br>
+
+<<link [[Next|Flats Hookah Clean End]]>><</link>>
+<br>
+
+
+:: Flats Hookah Clean End
+<<effects>>
+
+Bailey waits for <<person1>><<his>> goon to pass, gives the room one last sweep with <<his>> eyes, then leaves.
+<br><br>
+
+<<link [[Next|Flats Hookah]]>><<endevent>><</link>>
+<br>
+
+:: Flats Hookah Juice Carried
+<<effects>>
+
+You retrieve a pair of tongs from the kitchen, and lift the lurker from your net. It squirms, impotent, as you put it in the hookah.
+<br><br>
+
+A sweet-smelling incense fills the air.
+<br><br>
+
+<<link [[Next|Flats Hookah]]>><</link>>
+<br>
+
+:: Flats Hookah Juice Fridge
+<<effects>>
+
+You retrieve a pair of tongs from the kitchen, and lift a lurker from its cage in the fridge. It squirms, impotent, as you put it in the hookah.
+<br><br>
+
+A sweet-smelling incense fills the air.
+<br><br>
+
+<<link [[Next|Flats Hookah]]>><</link>>
+<br>
+
+:: Flats Hookah Fridge
+<<effects>>
+
+You open the fridge, and one of the interior cages. You unfurl your net, letting the creature within fall, then slam the cage shut before it can escape.
+<br><br>
+
+<<link [[Next|Flats Hookah]]>><</link>>
+<br>
+
+:: Flats Hookah Smoke Danger
+<<effects>><<wearProp "hookah pipe">>
+
+You sit on a cushion in front of the hookah pipe, put the hose to your mouth, and inhale.
+<br><br>
+
+You find yourself on your back, beneath a spinning ceiling. A schism rips through the plaster, and reality parts.
+<br><br>
+
+<span class="red">An irresistible force seizes you,</span> and pulls you through an impossible labyrinth.
+<br><br>
+
+<<link [[Next|Flats Hookah Smoke Danger 2]]>><<pass 60>><</link>>
+<br>
+
+:: Flats Hookah Smoke Danger 2
+<<effects>>
+
+You awaken behind a dumpster. <span class="pink">Your clothes are missing.</span> You're somewhere in town, and there's no one else around, but you keep your body covered as you rise to your feet.
+<br><br>
+
+<<clothesruined>>
+<<switch $rng>>
+<<case 1>>
+	<<set $bus to "nightingale">>
+<<case 2>>
+	<<set $bus to "domus">>
+<<case 3>>
+	<<set $bus to "elk">>
+<<case 4>>
+	<<set $bus to "high">>
+<<case 5>>
+	<<set $bus to "starfish">>
+<<case 6>>
+	<<set $bus to "barb">>
+<<case 7>>
+	<<set $bus to "connudatus">>
+<<case 8>>
+	<<set $bus to "wolf">>
+<<case 9>>
+	<<set $bus to "harvest">>
+<<case 10>>
+	<<set $bus to "oxford">>
+<<case 11>>
+	<<set $bus to "danube">>
+<<case 12>>
+	<<set $bus to "mer">>
+<<case 13>>
+	<<set $bus to "cliff">>
+<</switch>>
+<<destination>>
+
+
+:: Flats Hookah Work
+<<effects>>
+
+You open the front door, letting the sweet incense leak outside. You won't need to wait long. How do you want to present yourself?
+<br><br>
+
+<<link [[Friendly|Flats Hookah Work Friendly]]>><</link>><<note "Troublesome anomalies" "blue">>
+<br>
+<<link [[Professional|Flats Hookah Work Professional]]>><</link>><<note "Troublesome customers" "blue">>
+<br>
+
+
+
+:: Flats Hookah Work Professional
+<<effects>>
+
+You wait by the door.
+<<cleareventpool>>
+
+<<addinlineevent "hookah_work_professional_1" 1>>
+	<<generate1>><<person1>>A <<person>> walks right by you, and looks around.
+	<br><br>
+	"Welcome to the hookah parlour," you say. <<He>> jumps when <<he>> hears your voice. "It's £50 for an hour on the hookah."
+	<br><br>
+	<<He>> opens <<his>> mouth to speak. "No two people have the same experience," you interrupt, as if predicting a question. "I'm afraid the substance itself must remain a secret."
+	<br><br>
+	<<He>> pays you, and sits on a cushion. You've made <<printmoney 2500>><<money 2500 "flatsHookah">>.
+	<br><br>
+	<<link [[Next|Flats Hookah Work Professional Grope]]>><<pass 60>><</link>>
+	<br>
+<</addinlineevent>>
+
+<<addinlineevent "hookah_work_professional_2" 1>>
+	<<generate1>><<generate2>><<person1>>
+	A <<person>> and <<person2>><<person>> enter.
+	<br><br>
+	"Welcome to the hookah parlour," you say. "It's £50—"
+	<br><br>
+	"This isn't our first time," the <<person2>><<person>> says, handing you money for two customers. You make <<printmoney 5000>><<money 5000 "flatsHookah">>.
+	<br><br>
+
+	The pair sit on a couple of cushions around the hookah.
+	<br><br>
+
+	<<link [[Next|Flats Hookah Work Professional Pair]]>><<pass 60>><</link>>
+	<br>
+<</addinlineevent>>
+
+<<addinlineevent "hookah_work_professional_3" 1>>
+	<<generate1>><<generate2>><<generate3>><<person1>>
+	A <<person>>, <<person2>><<person>>, and <<person3>><<person>> enter, looking unsure.
+	<br><br>
+	"Welcome to the hookah parlour," you say. "It's £50 for an hour on the hookah."
+	<br><br>
+	"This isn't, like, a brothel?" the <<person1>><<person>> asks.
+	<br><br>
+	You inhale and draw your shoulders higher in indignance. "No, this is not that sort of establishment."
+	<br><br>
+	The <<person>> raises <<his>> arms in a placating gesture. "Alright, alright. We'll see what this hookah is all about." <<He>> hands you the money. You make <<printmoney 7500>><<money 7500 "flatsHookah">>.
+	<br><br>
+	<<link [[Next|Flats Hookah Work Professional Trio]]>><<pass 60>><</link>>
+	<br>
+<</addinlineevent>>
+
+<<runeventpool>>
+
+
+:: Flats Hookah Work Professional Trio
+<<effects>>
+
+Your customers inhale the smoke. It lulls them into an erratic slumber.
+<br><br>
+
+
+<<if (dangerEvent() or $eventforced)>>
+	An hour passes. You wake them from their dreams. "Thank you for your custom," you say. "I'm afraid we only allow one hour on the hookah per day. For safety reasons."
+	<br><br>
+	You lead them to the door, but the <<person1>><<person>> slams it ahead of you. "The hookah's made me horny," <<he>> says. "How about you help me fix that?" The <<person2>><<person>> and <<person3>><<person>> step either side of you. They don't look ready to accept "no" as an answer.
+	<br><br>
+
+	<<link [[Next|Flats Hookah Work Professional Trio Rape]]>><<set $molestationstart to 1>><</link>>
+	<br>
+<<else>>
+	<<link [[Next|Flats Hookah Work Simple Good End]]>><</link>>
+	<br>
+<</if>>
+
+:: Flats Hookah Work Professional Trio Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Flats Hookah Work Professional Trio Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Flats Hookah Work Professional Trio Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Flats Hookah Work Professional Trio Rape Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	They leave the parlour, leaving you slumped beside the door.
+	<br><br>
+	<<tearful>> you rise to your feet.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+
+<<else>>
+	You throw open the door, and give the <<person1>><<person>> a solid kick to the behind. <<He>> tumbles outside. The <<person2>><<person>> and <<person3>><<person>> decide that further aggression isn't worthwhile, and leave with what dignity they still possess.
+	<br><br>
+	<<tearful>> you slam the door after them.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+
+<</if>>
+
+<<link [[Next|Flats Hookah]]>><</link>>
+<br>
+
+:: Flats Hookah Work Professional Pair
+<<effects>>
+
+The <<person1>><<person>> and <<person2>><<person>> inhale hookah smoke, and lean back on their cushions. You observe them, making sure their movements don't become worrisome.
+<br><br>
+
+
+<<if (dangerEvent() or $eventforced)>>
+	An hour passes. You wake your customers, only for the <<person1>><<person>> to snatch your wrist and pull you down.
+	<br><br>
+	"£50 each to smoke is a little dear, don't you think?" <<he>> says. "Let's get our money's worth."
+	<br><br>
+
+	<<link [[Next|Flats Hookah Work Professional Pair Rape]]>><<set $molestationstart to 1>><</link>>
+	<br>
+<<else>>
+	<<link [[Next|Flats Hookah Work Simple Good End]]>><</link>>
+	<br>
+<</if>>
+
+
+:: Flats Hookah Work Professional Pair Rape
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Flats Hookah Work Professional Pair Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Flats Hookah Work Professional Pair Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Flats Hookah Work Professional Pair Rape Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	They leave you lying on the cushions, and depart.
+	<br><br>
+	<<tearful>> you rise to your feet.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+<<else>>
+	The <<person1>><<person>> staggers, grasping the hookah to steady <<himself>>. <<He>> jostles the vase, and a puff of concentrated smoke envelops <<his>> face.
+	<br><br>
+	<<He>> staggers from the room, muttering nonsense. The <<person2>><<person>> follows, wearing a worried expression.
+	<br><br>
+	<<tearful>> you make sure the hookah doesn't fall.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+
+<</if>>
+
+<<link [[Next|Flats Hookah]]>><</link>>
+<br>
+
+:: Flats Hookah Work Professional Grope
+<<effects>>
+
+The <<person1>><<person>> inhales the hookah smoke, and loses consciousness. You observe <<him>>, making sure <<his>> movements don't become worrisome.
+<br><br>
+
+
+<<if (dangerEvent() or $eventforced)>>
+	An hour passes. You're about to wake <<him>>, when <<he>> bolts upright of <<his>> own accord. <<He>> stares at you with lust-filled, groggy eyes.
+	<br><br>
+
+	<<He>> steps forward, and presses <<his>> hands against your <<breasts>>. "Another hottie," <<he>> says. "I should take advantage while I can."
+	<br><br>
+
+	<<link [[Next|Flats Hookah Work Professional Grope Rape]]>><<set $molestationstart to 1>><</link>>
+	<br>
+<<else>>
+	<<link [[Next|Flats Hookah Work Simple Good End]]>><</link>>
+	<br>
+<</if>>
+
+
+:: Flats Hookah Work Professional Grope Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Flats Hookah Work Professional Grope Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Flats Hookah Work Professional Grope Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Flats Hookah Work Professional Grope Rape Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	<<He>> waits for a moment, then pinches <<himself>>. "Ow," <<he>> says. "Sorry. I thought I was dreaming."
+	<br><br>
+	<<tearful>> you show <<him>> the door.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<link [[Next|Flats Hookah]]>><</link>>
+	<br>
+
+<<else>>
+	You knock the <<person>> on <<his>> ass. <<He>> blinks. "Sorry," <<he>> says. "I thought I was dreaming."
+	<br><br>
+	<<tearful>> you show <<him>> the door.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<link [[Next|Flats Hookah]]>><</link>>
+	<br>
+
+<</if>>
+
+
+:: Flats Hookah Work Friendly
+<<effects>>
+
+You wait by the door.
+
+<<cleareventpool>>
+
+<<addinlineevent "hookah_work_friendly_1" 1>>
+	<<generate1>><<person1>> A <<person>> pokes <<his>> head in. "Hello," you say with a smile. "Welcome to the hookah parlour. It's £50 for an hour on the hookah."
+	<br><br>
+
+	The <<person>> looks around, then pays you and sits on a cushion. You've made <<printmoney 2500>><<money 2500 "flatsHookah">>.
+	<br><br>
+	<<link [[Next|Flats Hookah Work Friendly Tentacles]]>><<pass 60>><</link>>
+	<br>
+<</addinlineevent>>
+
+<<addinlineevent "hookah_work_friendly_2" 1>>
+	<<generate1>><<generate2>><<person1>>A <<person>> walks in, followed by a <<person2>><<person>>.
+	<br><br>
+	"Hello," you say. "Welcome to the hookah parlour. It's £50 for an hour on the hookah."
+	<br><br>
+	"Under new management?" the <<person>> asks, paying you while the <<person1>><<person>> takes a seat. "All the same to me."
+	<br><br>
+
+	You make <<printmoney 5000>><<money 5000 "flatsHookah">>.
+	<br><br>
+
+	<<link [[Next|Flats Hookah Work Friendly Slime]]>><<pass 60>><</link>>
+	<br>
+
+<</addinlineevent>>
+
+<<addinlineevent "hookah_work_friendly_3" 1>>
+	<<generate1>><<generate2>><<generate3>><<person1>>
+	A <<person>>, <<person2>><<person>>, and <<person3>><<person>> enter the parlour.
+	<br><br>
+	"Hello," you say. "Welcome to the hookah parlour. It's £50 for an hour on the hookah."
+	<br><br>
+	The <<person>> looks unsure, but the <<person1>><<person>> hands you money for all three and takes a seat on a cushion. The other two follow <<his>> example. You make <<printmoney 7500>><<money 7500 "flatsHookah">>.
+	<br><br>
+
+	<<link [[Next|Flats Hookah Work Friendly Window]]>><<pass 60>><</link>>
+	<br>
+<</addinlineevent>>
+
+<<runeventpool>>
+
+:: Flats Hookah Work Friendly Window
+<<effects>>
+
+The three huff on their hookah pipes, and soon fall into a slumber. You stand by the window, and watch the traffic below.
+<br><br>
+
+
+<<if (dangerEvent() or $eventforced)>>
+	Something catches your eye. Someone on the pavement, far below, is standing still. They stare up. It looks like they're staring at you.<<gstress>><<stress 6>>
+	<br><br>
+
+	<<link [[Close the curtains|Flats Hookah Work Window Close]]>><</link>>
+	<br>
+	<<link [[Stare back|Flats Hookah Work Window Stare]]>><<if $awareness lt 600>><<awareness 6>><</if>><</link>><<ggstress>><<if $awareness lt 600>><<gawareness>><</if>>
+	<br>
+<<else>>
+	<<link [[Next|Flats Hookah Work Simple Good End]]>><</link>>
+	<br>
+<</if>>
+
+:: Flats Hookah Work Window Close
+<<effects>>
+
+You close the curtains. You've enough to worry about.
+<br><br>
+
+The hour draws to a close, and you wake your customers.
+<br><br>
+
+"That was amazing," the <<person2>><<person>> says. "I want another hour."
+<br>
+"I'm sorry," you say. "But it's not safe to spend more than an hour a day on the hookah. I hope you come back another time!"
+<br><br>
+
+You hold the door wide open, and the trio leave.
+<br><br>
+
+<<link [[Next|Flats Hookah]]>><<endevent>><</link>>
+<br>
+
+
+:: Flats Hookah Work Window Stare
+<<effects>>
+
+You stare back at the figure below, but soon notice others, also looking your way. There's no question. They're looking at you.
+<br><br>
+
+You're so transfixed you almost fail to notice the time. You tear your eyes away from the window, and wake your customers.
+<br><br>
+
+"That was amazing," the <<person2>><<person>> says. "I want another hour."
+<br>
+"I'm sorry," you say. "But it's not safe to spend more than an hour a day on the hookah. I hope you come back another day!"
+<br><br>
+
+You hold the door wide open, and the trio leave.
+<br><br>
+
+<<link [[Next|Flats Hookah]]>><<endevent>><</link>>
+<br>
+
+:: Flats Hookah Work Friendly Slime
+<<effects>>
+
+The pair slip into a deep slumber in front of the hookah. You keep an eye on them, making sure their movements don't become too violent.
+<br><br>
+
+
+<<if (dangerEvent() or $eventforced)>>
+	<<if $settings.slimesEnabled>>
+		You hear a splat in the kitchen. You investigate, and find a large slime sliding across the floor. Another flops from the sink, and splatters onto the ground before reforming. More follow.
+		<br><br>
+		You return to the parlour proper, and wake your customers. "I hope you dreamt well," you say, helping the <<person1>><<person>> to <<his>> feet. "Please come again."
+		<br><br>
+		You lead them to the door, hoping they don't notice another splat from the kitchen.
+		<br><br>
+		<<link [[Next|Flats Hookah Work Friendly Slime 2]]>><</link>>
+		<br>
+	<<else>>
+		<<link [[Next|Flats Hookah Work Simple Bad End]]>><</link>>
+		<br>
+	<</if>>
+<<else>>
+	<<link [[Next|Flats Hookah Work Simple Good End]]>><</link>>
+	<br>
+<</if>>
+
+:: Flats Hookah Work Friendly Slime 2
+<<effects>>
+
+You close the door behind the pair, and turn to face the slimes.
+<br><br>
+
+<<link [[Next|Flats Hookah Work Friendly Slime Rape]]>><<endevent>><<set $struggle_start to 1>><</link>>
+<br>
+
+:: Flats Hookah Work Friendly Slime Rape
+
+<<if $struggle_start is 1>>
+	<<struggle_init>>
+	<<set $struggle.creature to "slime">>
+	<<struggle_creatures 4 1>>
+	<<set $combat to 1>>
+	<<controlloss>>
+	<<violence 1>>
+	<<molested>>
+	<<unset $struggle_start>>
+<</if>>
+
+<<struggle>>
+
+
+<<if $struggle.done gte $struggle.number>>
+	<span id="next"><<link [[Next|Flats Hookah Work Friendly Slime Rape End]]>><</link>></span>
+	<br>
+<<else>>
+	<span id="next"><<link [[Next|Flats Hookah Work Friendly Slime Rape]]>><</link>></span>
+	<br>
+<</if>>
+
+
+:: Flats Hookah Work Friendly Slime Rape End
+<<effects>>
+
+The last of the slimes leaps into the kitchen sink, and disappears down the drain.
+<br><br>
+
+<<tearful>> you make sure the hookah has not been damaged in the struggle.
+<br><br>
+
+<<clotheson>>
+<<endcombat>>
+
+<<link [[Next|Flats Hookah]]>><</link>>
+<br>
+
+:: Flats Hookah Work Friendly Tentacles
+<<effects>>
+
+The <<person1>><<person>> slips into a deep slumber in front of the hookah. You keep an eye on <<him>>, making sure <<his>> occasional twitchings don't develop into something worrisome.
+<br><br>
+
+
+<<if (dangerEvent() or $eventforced)>>
+	<<if $settings.tentaclesEnabled>>
+		You hear a strange noise in the bathroom. You peek around the corner. Tentacles are emerging from the drains on the sink and bath, as well as the taps.
+		<br><br>
+
+		You wake the <<person1>><<person>>, and help <<him>> to <<his>> feet. "Thank you for coming," you say. "I hope you had a pleasant dream." You lead <<him>> to the door, doing your best not to look at the tentacles emerging from the bathroom behind you.
+		<br><br>
+		<<link [[Next|Flats Hookah Work Friendly Tentacles 2]]>><</link>>
+		<br>
+	<<else>>
+		<<link [[Next|Flats Hookah Work Simple Bad End]]>><</link>>
+		<br>
+	<</if>>
+<<else>>
+	<<link [[Next|Flats Hookah Work Simple Good End]]>><</link>>
+	<br>
+<</if>>
+
+:: Flats Hookah Work Friendly Tentacles 2
+<<effects>>
+
+You close the door behind the <<person>>, and turn to face the tentacle threat.
+<br><br>
+
+<<link [[Next|Flats Hookah Work Friendly Tentacles Rape]]>><<endevent>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Flats Hookah Work Friendly Tentacles Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<set $combat to 1>>
+	<<set $enemytype to "tentacles">>
+	<<molested>>
+	<<controlloss>>
+
+	<<tentaclestart 6 12>>
+
+<</if>>
+
+<<statetentacles>>
+
+
+<<effects>>
+<<effectstentacles>>
+<<tentacles>>
+<<actionstentacles>>
+
+<<if $tentacles.active lte ($tentacles.max / 2)>>
+	<span id="next"><<link [[Next|Flats Hookah Work Friendly Tentacles Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Flats Hookah Work Friendly Tentacles Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+
+:: Flats Hookah Work Friendly Tentacles Rape Finish
+<<effects>>
+
+The tentacles retreat, disappearing into the bathroom, and down the drains.
+<br><br>
+
+<<tearful>> you make sure the hookah hasn't been disturbed.
+<br><br>
+
+<<clotheson>>
+<<endcombat>>
+
+<<link [[Next|Flats Hookah]]>><</link>>
+<br>
+
+
+:: Flats Hookah Work Simple Bad End
+<<effects>>
+
+<<if $enemyno gte 2>>
+	You watch over your customers. They appear to sleep, but still bring the pipes to their mouths now and then.
+	<br><br>
+<<else>>
+	You watch over your customer. <<He>> appears to sleep, but still brings the pipe to <<his>> mouth now and then.
+	<br><br>
+<</if>>
+<<person1>>
+<<set $rng to random(1, 5)>>
+<<if $rng is 5>>
+	The <<person>> fidgets incessantly. You shift the hookah away from <<him>>. You're afraid <<he>>'ll shatter it otherwise.<<gstress>><<stress 6>>
+	<br><br>
+<<elseif $rng is 4>>
+	The <<person>> releases an unholy wail. You cover your ears. It doesn't last long, at least.<<gstress>><<stress 6>>
+	<br><br>
+<<elseif $rng is 3>>
+	The <<person>> mutters incoherently. Something about the cadence is unnatural, and disturbing.<<gstress>><<stress 6>>
+	<br><br>
+<<elseif $rng is 2>>
+	The <<person>> licks <<his>> fingers, as if tasting a delectable honey. <<He>> sounds unreasonably sloppy.<<gstress>><<stress 6>>
+	<br><br>
+<<else>>
+	The <<person1>><<person>> shakes and shivers. <<His>> feet kick at the air. You're afraid <<he>>'ll break something, so you hold them still.<<gstress>><<stress 6>>
+	<br><br>
+<</if>>
+
+<<if $enemyno gte 2>>
+	At the end of the shift, you wake your customers and help them to their feet.
+	<br><br>
+<<else>>
+	At the end of the shift, you wake your customer and help <<him>> to <<his>> feet.
+	<br><br>
+<</if>>
+
+<<link [[Next|Flats Hookah]]>><<endevent>><</link>>
+<br>
+
+:: Flats Hookah Work Simple Good End
+<<effects>>
+
+<<if $enemyno gte 2>>
+	You watch over your customers. They appear to sleep, but still bring the pipes to their mouths now and then.
+	<br><br>
+<<else>>
+	You watch over your customer. <<He>> appears to sleep, but still brings the pipe to <<his>> mouth now and then.
+	<br><br>
+<</if>>
+<<person1>>
+<<set $rng to random(1, 5)>>
+<<if $rng is 5>>
+	The <<person>> whispers now and then, describing <<his>> visions. Some of it makes a disturbing sense.<<if $awareness lt 600>><<awareness 6>><<gawareness>><</if>>
+	<br><br>
+<<elseif $rng is 4>>
+	The <<person>> murmurs about <<his>> work on Elk Street. It sounds interesting.<<gscience>><<scienceskill>>
+	<br><br>
+<<elseif $rng is 3>>
+	The <<person>> solves maths problems out loud. Most are beyond you, and perhaps the <<person>> <<himself>>, but you follow along with some.<<gmaths>><<mathsskill>>
+	<br><br>
+<<elseif $rng is 2>>
+	The <<person>> quotes poetry aloud. At least you assume <<hes>> quoting. It's oddly inspiring.<<genglish>><<englishskill>>
+	<br><br>
+<<else>>
+	The <<person>> talks about <<his>> childhood. It's embellished, it must be, but it's still interesting.<<ghistory>><<historyskill>>
+	<br><br>
+<</if>>
+
+<<if $enemyno gte 2>>
+	At the end of the shift, you wake your customers and help them to their feet.
+	<br><br>
+<<else>>
+	At the end of the shift, you wake your customer and help <<him>> to <<his>> feet.
+	<br><br>
+<</if>>
+
+<<link [[Next|Flats Hookah]]>><<endevent>><</link>>
+<br>
+
+:: Flats Hookah Whitney Free
+<<effects>><<npc Whitney>><<person1>><<set $whitney_hookah_paid to false>>
+<<if $speech_attitude is "meek">>
+	"O-okay," you say. "You can stay. I-I'll get it started."
+<<elseif $speech_attitude is "bratty">>
+	"Fine," you say. "Don't wreck the place or I'll make you pay."
+<<else>>
+	"It's on the house," you say. "This time."
+<</if>>
+<br><br>
+"Knew you'd play nice." Whitney smirks, leaning back into <<his>> seat with <<his>> arms crossed behind <<his>> head. "Smart slut."<<npcincr Whitney dom 1>><<npcincr Whitney love 1>><<glove>><<gdom>>
+<br><br>
+<<His>> friends chat loudly while they wait for you to set up.
+<br><br>
+<<link [[Next|Flats Hookah Whitney Smoke]]>><</link>>
+
+:: Flats Hookah Whitney Pay
+<<effects>><<npc Whitney>><<person1>><<set $whitney_hookah_paid to true>>
+<<set _fee to 7500>>
+<<if $speech_attitude is "meek">>
+	"Um... it's fifty per person," you say, not quite meeting <<his>> eyes. "You need to pay. A-All of you."
+<<elseif $speech_attitude is "bratty">>
+	"Fifty a head," you say, holding out your hand. "You and your crew don't get to smoke my stock for free."
+<<else>>
+	"Fifty each," you say. "You and your friends pay like everyone else."
+<</if>>
+<br><br>
+Whitney goes still. <<His>> friends go quiet, watching to see what <<he>>'ll do.
+<br><br>
+<<if C.npc.Whitney.dom gte 20>>
+	The easy look drains off <<his>> face. Whitney holds your gaze, flat and cold, letting the silence stretch until one of <<his>> friends shifts uncomfortably.
+	<br><br>
+	"Sure," <<he>> says with a shrug. <<He>> jerks <<his>> chin at <<his>> crew, and one of them digs out a fold of bills and presses it into your palm without a word. "This better be worth it, slut."
+<<elseif C.npc.Whitney.dom lte 10>>
+	For a second <<he>> just blinks at you. One of <<his>> friends snickers only to be silenced by Whitney's glare.
+	<br><br>
+	"Fine. Whatever," <<he>> mutters, digging into <<his>> pocket and producing a bunch of loose bills <<he>> shoves into your hand. <<His>> friends follow <<his>> lead and pay you too.
+<<else>>
+	Then, <<he>> smirks.
+	<br><br>
+	"Look at you, growing a spine, running a business," <<he>> says, waving towards <<his>> friends. One of them reluctantly pulls out a fold of bills and pays you. "Cute. Let's see how you service customers."
+<</if>>
+<br><br>
+You make <<printmoney _fee>>.<<money _fee "flatsHookah">><<npcincr Whitney dom -1>><<ldom>>
+<br><br>
+<<link [[Next|Flats Hookah Whitney Smoke]]>><</link>>
+
+:: Flats Hookah Whitney Smoke
+<<effects>><<npc Whitney>><<person1>>
+You get the hookah going. Whitney's friends pass the hoses between them, sinking into the cushions and laughing loudly as the sweet smoke fills the room.
+<br><br>
+Whitney takes a long pull and holds it, watching you the whole time, before letting it curl out slow. <<He>> frowns at the pipe and wrinkles <<his>> nose slightly. "Huh. It's sweet."
+<br><br>
+<<He>> seems to enjoy it, taking a slower drag the next time before passing the pipe off.
+<br><br>
+<<He>> hooks an arm around your waist and tugs you down onto the cushion beside <<him>>. <<His>> hand settles low on your <<bottom>> and stays there.<<arousal 600>><<garousal>>
+<br><br>
+<<if $whitney_hookah_visit gte 2>>
+	"Good to be back," <<he>> says, smirking. <<He>> gives your arse a firm squeeze. "Nice job keeping the place running, slut."
+<<elseif C.npc.Whitney.love gte 25>>
+	"Place isn't bad with you in it," <<he>> murmurs against your ear, voice thick with smoke. "Might make this a habit."
+<<else>>
+	"Maybe I'll start coming around," <<he>> says, giving your arse a firm squeeze. "Make sure my slut is working hard."
+<</if>>
+<br><br>
+<<He>> tugs you closer, <<his>> intent clear. <<His>> friends goad <<him>> on.
+<br><br>
+<<if hasSexStat("promiscuity", 2)>>
+	<<link [[Lean into it|Flats Hookah Whitney Sex]]>><<set $sexstart to 1>><</link>><<promiscuous2>>
+<<else>>
+	<<insufficientStat "promiscuity" "to lean into it">>
+<</if>>
+<br>
+<<if $whitneySeen?.includes("hookahBadTrip")>>
+	<<link [[Pull away|Flats Hookah Whitney Loop]]>><</link>>
+<<else>>
+	<<link [[Pull away|Flats Hookah Whitney Decline]]>><</link>>
+<</if>>
+<br>
+
+:: Flats Hookah Whitney Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>><<set $consensual to 1>>
+	<<neutral 1>><<maninit>>
+	<<set $enemytrust += 100>>
+	<<promiscuity2>>
+	<<set $audiencepresent to 1>>
+
+	You turn into <<him>>. <<He>>'s on you in a heartbeat, hands already pushing under your clothes. <<He>> exhales smoke slowly into your face through pursed lips. <<His>> eyes rake over your body hungrily.
+
+	"That's right." <<His>> lips curve into a smirk. "C'mere."
+	<br><br>
+<</if>>
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if _combatend>>
+	<span id="next"><<link [[Next|Flats Hookah Whitney Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Flats Hookah Whitney Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Flats Hookah Whitney Sex Finish
+<<effects>>
+<<if $enemyhealth lte 0>>
+	You push Whitney off you. <<He>> almost knocks the hookah pipe over as <<he>> stumbles back. <<His>> friends stop jeering and go quiet.<<gstress>><<stress 6>>
+	<br><br>
+	"The hell's your problem, <<bitch>>?" <<He>> spits out, sneering. <<He>> turns to <<his>> crew. "C'mon. We're outta here." <<npcincr Whitney love -1>><<npcincr Whitney dom -1>><<llove>><<ldom>>
+	<br><br>
+	<<if $whitney_hookah_paid>>
+		"Fucking ripped off," <<he>> mutters, fixing <<his>> clothes. <<He>> slams the door open on <<his>> way out. <<His>> crew shuffles out after <<him>>, clearly high.
+	<<else>>
+		"At least it was free," <<he>> mutters, fixing <<his>> clothes. <<He>> throws the door open and leaves. <<His>> crew shuffles out after <<him>>, clearly high.
+	<</if>>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	<<He>> leans back into the cushions, spent, and smirks at <<his>> friends. "See that? Customer service at its finest."<<npcincr Whitney lust -20>><<llust>>
+	<br><br>
+	You climb off of Whitney and <<he>> rises to <<his>> feet. <<His>> friends rouse themselves from the hookah haze, shuffling out after <<him>> lazily, smoke still clinging to them. Whitney's the last through the door. <<He>> pauses there a moment.
+	<br><br>
+	"Keep it warm for me, slut," <<he>> says, before <<he>>'s gone. You're not sure if <<he>>'s talking about the hookah or your body.
+<<elseif $finish is 1>>
+	You tell Whitney you've had enough. <<He>> studies you a moment, then eases back with a shrug.
+	<br><br>
+	"Your loss." <<He>> tugs <<his>> clothes into place before <<he>> gets up and leaves, gesturing <<his>> friends towards the door with a tilt of <<his>> head. "Be seeing you, slut."
+	<br><br>
+	<<His>> friend peels away from the hookah, filing out after <<him>>.
+<<else>>
+	"Tease," Whitney mutters, shoving you off and rising from the cushions.
+	<br><br>
+	<<He>> stretches stiffly before <<he>> half-kicks, half-nudges <<his>> friends awake with <<his>> foot. They wake up and trail out after <<him>>, as <<he>> leaves, grumbling.
+<</if>>
+<br><br>
+<<tearful>> you get your bearings.
+<<clotheson>><<endcombat>>
+<br><br>
+<<link [[Next|Flats Hookah]]>><</link>>
+
+:: Flats Hookah Whitney Decline
+<<effects>><<npc Whitney>><<person1>><<set $whitneySeen.pushUnique("hookahBadTrip")>>
+<<if $speech_attitude is "meek">>
+	You shrink back, easing <<his>> hand off your <<bottom>>.
+	<br><br>
+	"N-not here, please," you whisper, eyes flicking to <<his>> friends. "Not while I'm working."
+<<elseif $speech_attitude is "bratty">>
+	You smack <<his>> hand off your <<bottom>>.
+	<br><br>
+	"Quit it," you say, stepping back and crossing your arms. "I'm working."
+<<else>>
+	You reach down and remove <<his>> hand from your <<bottom>>.
+	<br><br>
+	"Not while I'm on the clock," you say, stepping back from <<him>>.
+<</if>>
+<br><br>
+Whitney shrugs and lets you go. You make your way back to the front of the parlour. It doesn't seem like any more customers are going to come tonight.
+<br><br>
+<<He>> goes back to the hose, taking pull after pull, showing off for <<his>> friends. <<He>> blows smoke rings into the air with a confident grin. They whoop and egg <<him>> on.
+<br><br>
+Whitney's smile goes loose and lazy. <<His>> eyes drift, struggling to fix on anything. The hose slips from <<his>> fingers.
+<br><br>
+"...the hell," <<he>> mumbles. <<He>> tries to sit up straight and doesn't manage it, sinking back into the cushions. One of <<his>> friends has passed out. The other is howling with laughter. Both are too far gone to help.
+<br><br>
+<<He>> lays all the way down on the cushion, frowning and breathing hard.
+<br><br>
+<<link [[Take care of <<him>>|Flats Hookah Whitney Care]]>><</link>>
+<br>
+<<link [[Watch|Flats Hookah Whitney Watch]]>><</link>>
+
+:: Flats Hookah Whitney Care
+<<effects>><<npc Whitney>><<person1>>
+You bring Whitney and <<his>> friends some water. After easing the hose out of reach and placing the cups within arm's length of <<his>> friends, you crouch on the cushion next to Whitney.
+<br><br>
+You try to help <<him>> sit up. <<He>> reaches out and catches your wrist. <<His>> grip is weak. <<His>> head lolls, eyes half-shut, as you guide the water cup to <<his>> lips. <<He>> drinks without arguing.
+<br><br>
+<<if $speech_attitude is "meek">>
+	"You'll be okay," you say softly. "You had a little too much."
+<<elseif $speech_attitude is "bratty">>
+	"You absolute idiot," you say, shaking your head. "You had to overdo it."
+<<else>>
+	"I'm here," you say. "You'll make it through this."
+<</if>>
+<<if $whitneyromance is 1>>You stroke <<his>> hair,<<else>>You place a hand on <<his>> shoulder,<</if>> keeping <<him>> anchored until the worst of it loosens its grip.
+<br><br>
+<<His>> eyes drag back into focus. For a moment <<he>> just looks at you, something unreadable behind the haze. Then <<he>> smirks. "Knew you were worth keeping around, slut."<<npcincr Whitney love 1>><<glove>>
+<br><br>
+<<He>> gets up and hauls <<his>> friends up by their clothes. One of them is still giggling as <<he>> steers them toward the door. <<He>> pauses on the threshold and looks at you for a long moment before <<he>> turns around and leaves.
+<br><br>
+You stand alone in the parlour.
+<br><br>
+<<link [[Next|Flats Hookah]]>><<endevent>><</link>>
+
+:: Flats Hookah Whitney Watch
+<<effects>><<npc Whitney>><<person1>>
+You stay where you are and watch Whitney and <<his>> friends.
+<br><br>
+<<He>> slumps even lower into the cushions, muttering at the ceiling with a hand half-covering the frown on <<his>> face. <<His>> friend keeps laughing at something on the ceiling.
+<br><br>
+Time passes. Eventually, the laughter fades to snores and the haze thins on its own. Whitney props <<himself>> up on one elbow and starts sitting up drowsily.
+<br><br>
+<<His>> eyes flicker your way and <<he>> catches you watching. Something sour crosses <<his>> face.
+<br><br>
+"What're you gawking at?" <<he>> asks, shoving <<himself>> upright and onto <<his>> feet. "Dumb slut." <<npcincr Whitney love -1>><<llove>>
+<br><br>
+<<He>> kicks <<his>> friends awake and drags them out without looking at you again. The door bangs shut behind them.
+<br><br>
+You stand alone in the parlour.
+<br><br>
+<<link [[Next|Flats Hookah]]>><<endevent>><</link>>
+
+:: Flats Hookah Whitney Loop
+<<effects>><<npc Whitney>><<person1>>
+<<if $speech_attitude is "meek">>
+	You shrink back, easing <<his>> hand off your <<bottom>>.
+	<br><br>
+	"Not now," you say softly. "I'm working."
+<<elseif $speech_attitude is "bratty">>
+	You smack <<his>> hand off your <<bottom>>.
+	<br><br>
+	"Stop that," you tell <<him>>. "Some of us have a job to do."
+<<else>>
+	You reach down and remove <<his>> hand from your <<bottom>>.
+	<br><br>
+	"Not now," you say, stepping back from <<him>>. "I'm running a business."
+<</if>>
+<br><br>
+Whitney huffs, but doesn't push it. "Suit yourself, slut."
+<br><br>
+<<He>> goes back to the hookah and settles in with <<his>> friends. They smoke and trade insults and laugh too loud, passing the hoses back and forth, sprawled across your cushions like they own the place.
+<br><br>
+Eventually they've had their fill. Whitney hauls <<himself>> up, kicks <<his>> friends into motion, and heads for the door.
+<br><br>
+"We'll be back," <<he>> says, not bothering to look at you. "Keep the place running, slut."
+<br><br>
+<<He>> and <<his>> friends file out, leaving a haze of sweet smoke behind them.
+<br><br>
+You stand alone in the parlour.
+<br><br>
+<<link [[Next|Flats Hookah]]>><<endevent>><</link>>

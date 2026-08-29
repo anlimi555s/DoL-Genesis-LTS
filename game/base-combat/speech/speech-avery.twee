@@ -1,0 +1,34 @@
+:: Widgets speech-Avery [widget]
+<<widget "speech-avery">>
+	<<set _npc_speech to true>>
+	<<if ($speechpenisvirgin is 1 and $player.virginity.penile is "Avery") or ($speechvaginavirgin is 1 and $player.virginity.vaginal is "Avery")>>
+		<<He>> laughs. "How splendid. Your virginity is a wonderful gift."
+	<<elseif $speechanusvirgin is 1 and $player.virginity.anal is "Avery">>
+		<<He>> laughs. "This may hurt a bit, but you'll feel good soon. Trust me."
+	<<elseif $speechmouthvirgin is 1 and $player.virginity.oral is "Avery">>
+		<<He>> laughs. "Have you never done this before? Don't worry. I'll teach you."
+	<<elseif $speechkissvirgin is 1 and $player.virginity.kiss is "Avery">>
+		<<He>> laughs. "I hope you enjoyed it as much as I did."
+	<<elseif $speechnamedrop is 1>>
+		<<set $speechnamedrop to 0>>
+		<<switch _loveInterest>>
+			<<case "Robin">>
+				<<His>> face darkens. "The little brat I keep seeing you with? I should've known."
+			<<case "Black Wolf" "Great Hawk">>
+				<<His>> face darkens. "I don't pay you to let a filthy animal have its way with you."
+			<<default>>
+				<<He>> wordlessly eyes you with contempt.
+		<</switch>>
+	<<elseif $speechsextoy is 1>>
+		<<set $speechsextoy to 0>>
+		<<set $_sexToy to ($rightarm is "heldSexToy" and $leftarm is "heldSexToy" ? "sex toys" : "sex toy")>>
+		<<if C.npc.Avery.rage lte 60>>
+			<<print `<<He>> looks at your $_sexToy and speaks. "` + [`Well, this is a nice change of pace.`, `Everyone has their tools of the trade.`][random(0,1)] + `"`>>
+		<<else>>
+			<<print `<<He>> looks at your $_sexToy and speaks. "` + [`Oh, no. I'm paying you too much for this.`, `You put that back this instant.`][random(0,1)] + `"`>>
+			<<set $enemyanger += 50>><<set $enemytrust -= 50>>
+		<</if>>
+	<<else>>
+		<<set _noNameComment to true>>
+	<</if>>
+<</widget>>

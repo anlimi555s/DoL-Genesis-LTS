@@ -1,0 +1,561 @@
+:: Widgets Shop [widget]
+<<widget "shoptraits">>
+	Traits:
+	<<for _trait range setup.clothingTraits>>
+		<<if _temp_choice.type.includes(_trait)>>
+			<<set _traitObj to setup.shopDetails[_trait]>>
+			<<if _traitObj>>
+				<div class="trait-description">
+					<<if _traitObj.desc>>
+						<<clothingtrait _trait 1>>
+						<br>
+					<</if>>
+					<<if !_traitObj.desc>>
+						<<print _traitObj.name>>
+					<<elseif _traitObj.details is "none">>
+						<div><<print _traitObj.name>> - <<print _traitObj.desc>></div>
+					<<else>>
+							<div>
+								<<set _traitDetails to `<i class="green normal">` + _traitObj.details + `</i>`>>
+								<<print _traitObj.name>><<print "&nbsp;"+"-"+"&nbsp;">>
+								<span class="tooltip-anchor" @tooltip="_traitDetails">
+									_traitObj.desc
+								</span>
+							</div>
+					<</if>>
+				</div>
+			<</if>>
+		<</if>>
+	<</for>>
+	<br>
+<</widget>>
+
+<<widget "shopClothingFilterSettingsDefault">>
+	<<if $shopClothingFilter is undefined>>
+		<<set $shopClothingFilter to {
+			gender: "none",
+			traits: [],
+			reveal:{
+				lewd: true,
+				risqué: true,
+				seductive: true,
+				comfy: true,
+				tasteful: true,
+				smart: true,
+				unassuming: true
+			},
+			revealColour:{
+				lewd: "red",
+				risqué: "pink",
+				seductive: "purple",
+				comfy: "blue",
+				tasteful: "lblue",
+				smart: "teal",
+				unassuming: "green"
+			}
+		}>>
+		<<unset $shopClothingFilterTraits>>
+		<<unset $shopClothingFilterGender>>
+		<<unset $clothingTraitTypes>>
+	<</if>>
+<</widget>>
+
+<<widget "shopClothingFilterReset">>
+	<<if $shopClothingFilter is undefined>>
+		<<set $shopClothingFilter = {}>>
+	<</if>>
+	<<set $shopClothingFilter.gender = { female: true, neutral: true, male: true }>>
+	<<set $shopClothingFilter.reveal = { from: 0, to: 9999 }>>
+	<<set $shopClothingFilter.warmth = { from: 0, to: 50 }>>
+	<<set $shopClothingFilter.traits = []>>
+	<<set $shopClothingFilter.active = false>>
+	<<set $shopClothingFilter.sorting = { prop: "price", order: 'asc', enabled: false }>>
+	<<set $shopClothingFilter.outfit = { index: "none" }>>
+<</widget>>
+
+/*Args: slots used in an array*/
+<<widget "shopBuyItemStatus">>
+	<<if _args[0]>>
+		<<if $wardrobes.shopReturn is "wardrobe" or $wardrobes[$wardrobes.shopReturn] is undefined>>
+			<<set _returnWardrobe to $wardrobe>>
+		<<else>>
+			<<set _returnWardrobe to $wardrobes[$wardrobes.shopReturn]>>
+		<</if>>
+		<<set _undamagedCount to 0>>
+		<<set _damagedCount to 0>>
+		<<set _space to _returnWardrobe.space>>
+		<<set _spaceLeft to clone(_space)>>
+		<<for _i to 0; _i lt _args[0].length; _i++>>
+			<<if _i is 0>>
+				<<for _j to 0; _j lt _returnWardrobe[_args[0][0]].length; _j++>>
+					<<if _returnWardrobe[_args[0][0]][_j].name is _temp_choice.name>>
+						<<set _undamagedCount++>>
+						<<if _returnWardrobe[_args[0][0]][_j].outfitPrimary isnot undefined>>
+							<<for _valueShop range _returnWardrobe[_args[0][0]][_j].outfitPrimary>>
+								<<if _valueShop is "broken" or _valueShop is "split">>
+									<<set _damagedCount++>>
+									<<set _undamagedCount-->>
+									<<break>>
+								<</if>>
+							<</for>>
+						<<else>>
+							<<set _damagedCount to -1>>
+						<</if>>
+					<</if>>
+				<</for>>
+			<</if>>
+			<<if _space - _returnWardrobe[_args[0][_i]].length lt _spaceLeft>>
+				<<set _spaceLeft to _space - _returnWardrobe[_args[0][_i]].length>>
+			<</if>>
+			Wardrobe <<print (_args[0][_i]).replace("_"," ")>> slots used: <<print _returnWardrobe[_args[0][_i]].length>> / _space.
+			<br>
+		<</for>>
+		<<if _undamagedCount gt 0>>
+			You own _undamagedCount of this item<<if _damagedCount gte 0>> unbroken<</if>>.
+			<br>
+		<</if>>
+		<<if _damagedCount gt 0>>
+			You own _damagedCount of this item that have been broken in some way.
+			<br>
+		<</if>>
+	<</if>>
+<</widget>>
+
+/*Args: slot, itemName, outfit*/
+<<widget "shopFullImage">>
+	<<if _args[0] and _args[1] isnot undefined>>
+		<<set _shopFullImageVar to [_args[0], _args[1]]>>
+		<a value="Refresh" onclick="Wikifier.wikifyEval('<<replace #shopFullImage>><<shopFullImage $clothingShopSlot $clothes_choice>><</replace>>');">Refresh</a>
+		<br>
+		<div class="hideImageOverflow">
+			<div class="shopImg">
+				<<set _customPrimary to customColour($customColors.color.primary, $customColors.saturation.primary, $customColors.brightness.primary, $customColors.contrast.primary, $customColors.sepia.primary)>>
+				<<set _customSecondary to customColour($customColors.color.secondary, $customColors.saturation.secondary, $customColors.brightness.secondary, $customColors.contrast.secondary, $customColors.sepia.secondary)>>
+				<<shopFullImageSlot _args[0] _args[1]>>
+			</div>
+		</div>
+	<</if>>
+<</widget>>
+
+<<widget "shopFullImageSlot">>
+	<<if _args[0] and _args[1]>>
+		<<set $_slot to _args[0]>>
+		<<set $_item to _args[1]>>
+		<<if setup.clothes[$_slot][$_item].mainImage isnot 0>>
+			<<shopFullImagePart $_slot $_item "full" $colouraction _customPrimary>>
+		<</if>>
+		<<if setup.clothes[$_slot][$_item].breast_img is 1>>
+			<<switch $player.perceived_breastsize>>
+				<<case 12>>
+					<<set _breastSize to 6>>
+				<<case 8 9 10 11>>
+					<<set _breastSize to 5>>
+				<<case 6 7>>
+					<<set _breastSize to 4>>
+				<<case 4 5>>
+					<<set _breastSize to 3>>
+				<<case 3>>
+					<<set _breastSize to 2>>
+				<<case 0 1 2>>
+					<<set _breastSize to 1>>
+			<</switch>>
+			<<shopFullImagePart $_slot $_item `(_breastSize - 1)` $colouraction _customPrimary>>
+		<</if>>
+		<<if setup.clothes[$_slot][$_item].sleeve_img is 1>>
+			<<shopFullImagePart $_slot $_item "right" $colouraction _customPrimary>>
+			<<shopFullImagePart $_slot $_item "left" $colouraction _customPrimary>>
+		<</if>>
+		<<if setup.clothes[$_slot][$_item].leftImage is 1>>
+			<<shopFullImagePart $_slot $_item "left" $colouraction _customPrimary>>
+		<</if>>
+		<<if setup.clothes[$_slot][$_item].rightImage is 1>>
+			<<shopFullImagePart $_slot $_item "right" $colouraction _customPrimary>>
+		<</if>>
+		<<if setup.clothes[$_slot][$_item].accessory is 1>>
+			<<shopFullImagePart $_slot $_item "acc" $accessorycolouraction _customSecondary>>
+		<</if>>
+		<<set $_outfitPrimary to setup.clothes[$_slot][$_item].outfitPrimary>>
+		<<if $_outfitPrimary isnot undefined>>
+			<<for $_label, $_value range $_outfitPrimary>>
+				<<for $_i to 0; $_i < setup.clothes[$_label].length; $_i++>>
+					<<if setup.clothes[$_label][$_i].name is $_value>>
+						<<shopFullImageSlot $_label $_i>>
+						<<break>>
+					<</if>>
+				<</for>>
+			<</for>>
+		<</if>>
+	<</if>>
+<</widget>>
+
+/*_args[0] - slot, _args[1] - itemNo, _args[2] - file, _args[3] - colour, _args[4] - custom colour*/
+<<widget "shopFullImagePart">>
+	<img @class="'clothes-'+ (typeof(_args[3]) == 'string' ? _args[3].replace(/ /g, '-') : '') + ' layer-' + _args[0]" @src="'img/clothes/' + _args[0] + '/' + setup.clothes[_args[0]][_args[1]].variable + '/' + _args[2] + '.png'" @style="(_args[3] is 'custom'? _args[4]:'')">
+<</widget>>
+
+<<widget "shopFullImageToggle">>
+	<<toggleclass #shopFullImage "hidden">>
+<</widget>>
+
+/*
+	Set first argument to true to also clear caches.
+ */
+<<widget "updatesidebarimg">>
+	<<if $options.images is 1>>
+		<<if $passage is "Start">>
+			<<startingPlayerImageUpdate>>
+		<<else>>
+			<!-- SugarCube doesn't check for element validity, so I'm checking myself here, as to not force callers of this to test. -->
+			<<if elementExists("#img")>>
+				<<replace "#img">><<canvasimg "mainCanvas">><</replace>>
+			<</if>>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "earSlimeShoppingExhibitionism">>
+	<<set $shoppingCentreExit to $passage>>
+	<<set $weekly.earSlimeShoppingCentre to 1>>
+	<span class="lewd">You feel the slime in your head command you to expose yourself to the whole mall.</span> It doesn't promise anything now. It imposes its will, and expects you to obey.
+	<br><br>
+
+	<<if hasSexStat("exhibitionism", 5) and $submissive gte 1900>>
+		<<link [[Submit willingly|Shopping Centre Slime Exhibitionism Obey]]>><<corruption 5>><<pain -8>><<stress -12>><<trauma -24>><<sub 2>><<set $phase to 1>><</link>><<promiscuous5>><<ggcorruption>><<llpain>><<llltrauma>><<llstress>>
+		<br>
+	<</if>>
+	<<link [[Obey|Shopping Centre Slime Exhibitionism Obey]]>><<corruption 1>><<pain -4>><<stress -6>><<trauma -12>><<sub 1>><</link>><<gcorruption>><<lpain>><<lltrauma>><<lstress>>
+	<br>
+	/* Different than normal stat changes as the slime will never for the player to act */
+	<<link [[Defy|Shopping Centre Slime Exhibitionism Defy]]>><<corruption -1>><<pain 35>><<stress 18>><<trauma 12>><<def 1>><</link>><<llcorruption>><<ggpain>><<ggtrauma>><<ggstress>>
+	<br>
+<</widget>>
+
+<<widget "supermarketDisplay">>
+	<div id="supermarketDisplay" class="food_ui no-numberify">
+		<<set _selectedShop to _args[0]>>
+		<<if !$shoppingBasket>><<set $shoppingBasket to {}>><</if>>
+		<div id="mobileHeader">
+			<div id="controls" class="mobileOnly">
+				<div class="gold bold">Basket:</div>
+				<div><<supermarketDisplayFillBasket>></div>
+			</div>
+			<div class="mobileOnly">
+				<<if $options.images>>
+					<<link "<<iconUi 'basket.png'>>">>
+						<<set _basketOpenAlt to _basketOpen>>
+						<<replace "#altSection">><<supermarketDisplayBasket>><</replace>>
+						<<if _basketOpenAlt>>
+							<<toggleclass "#altSection, #mobileCloser" "mobileHidden">>
+						<<else>>
+							<<removeclass "#altSection, #mobileCloser" "mobileHidden">>
+						<</if>>
+					<</link>>
+				<<else>>
+					<<link "Basket">>
+						<<set _basketOpenAlt to _basketOpen>>
+							<<toggleclass "#altSection, #mobileCloser" "mobileHidden">>
+						<<if _basketOpenAlt>>
+							<<replace "#altSection">><<supermarketDisplayBasket>><</replace>>
+						<<else>>
+							<<replace "#altSection">><<supermarketDisplayBasket>><</replace>>
+						<</if>>
+					<</link>>
+				<</if>>
+			</div>
+		</div>
+		<div id="body">
+			<div id="mainSection">
+				<div id="search">
+					Search: <<textbox "_foodSearch" "">>
+					<<run $(() => {
+						var foodTimer = null;
+						$('#textbox--foodsearch').on('input change keypress', e => {
+							_foodSearch = e.target.value;
+							clearTimeout(foodTimer);
+							foodTimer = setTimeout(updateUI, 300);
+						});
+						var updateUI = () => {
+							Wikifier.wikifyEval('<<if elementExists(\'#itemList\')>><<replace "#itemList">><<supermarketDisplayItems>><</replace>><</if>>');
+						}
+					})>>
+				</div>
+				<div id="itemList">
+					<<supermarketDisplayItems>>
+				</div>
+			</div>
+			<div id="altSection" class="mobileHidden">
+				<<supermarketDisplayBasket>>
+			</div>
+			<div id="mobileCloser" class="mobileOnly mobileHidden" onclick="wikifier('addclass', '#altSection', 'mobileHidden'); wikifier('addclass', '#mobileCloser', 'mobileHidden');"></div>
+		</div>
+	</div>
+<</widget>>
+
+<<widget "supermarketDisplayItems">>
+	<<set _foodKeys to []>>
+	<<set _foodGroups to []>>
+	<<run Object.keys(setup.foodstuff).forEach(key => {
+		const item = setup.foodstuff[key];
+		if (!item.shop.available_in?.includes(_selectedShop)) return;
+
+		const filter = _foodSearch ? _foodSearch.toLowerCase().split(/[_ ]/g) : false;
+		if (filter and !filter.find(term =>
+				item.name.includes(term) or
+				item.category.includes(term) or
+				item.plural?.includes(term) or
+				item.singular?.includes(term)
+			)) {
+			return;
+		}
+
+		_foodKeys.pushUnique(key);
+		if (V.foodstuff[key].supermarket gt 0) {
+			_foodGroups.pushUnique(item.category);
+		} else {
+			_foundSoldOut to true;
+		}
+	})>>
+	<<if _foundSoldOut>><<run _foodGroups.pushUnique("Sold out")>><</if>>
+	<<for _category range _foodGroups>>
+		<<set _categoryVar to "_" + _category.replace(" ", "")>>
+		<<foldout false _categoryVar>>
+			<span class="gold"><<print _category.toLocaleUpperFirst()>></span>
+			<<set _keys to _foodKeys.filter(key =>
+				(_category isnot "Sold out" && setup.foodstuff[key].category is _category && $foodstuff[key].supermarket > 0) ||
+				(_category is "Sold out" && $foodstuff[key].supermarket <= 0)
+			)>>
+			<<for $_i, $_key range _keys>>
+				<div @id="$_key" class="item"><<supermarketDisplayItem $_key>></div>
+				<<if $_i lt _keys.length - 1>><hr><</if>>
+			<</for>>
+		<</foldout>>
+	<</for>>
+<</widget>>
+
+<<widget "supermarketDisplayItem">>
+	<<set _key to _args[0]>>
+	<<set $_setupItem to setup.foodstuff[_key]>>
+	<div class="details">
+		<div>
+			<<foodstufficon _args[0]>> |
+
+			Owned: <span class="gold"><<print $foodstuff[_key].amount>></span> |
+
+			<<if Time.dayState is "night">>
+				Value: <span class="gold"> £<<print ($_setupItem.shop.sell_price * ($_setupItem.shop.bought_in_bulk or 1) * 2 / 100).toFixed(2)>></span>
+			<<else>>
+				Price: <span class="gold"> £<<print ($_setupItem.shop.sell_price * ($_setupItem.shop.bought_in_bulk or 1) * 2 / 100).toFixed(2)>></span>
+			<</if>>
+			<<if $_setupItem.shop.bought_in_bulk>>
+				per <<print $_setupItem.shop.bought_in_bulk>>
+			<</if>>
+		</div>
+		<<if $foodstuff[_key].supermarket gt 0>>
+			<<numberStepper "<<recipe_name _key 'cap'>>" $shoppingBasket[_key] {
+				callback: (value, arr) => {
+					V.shoppingBasket[arr[0]] = value;
+					Wikifier.wikifyEval('<<replace "#altSection">><<supermarketDisplayBasket>><</replace>>');
+				},
+				valueFormat: (value, percentage, values) => {
+					return `${value}/${values[1]}`;
+				},
+				values: [_key, $foodstuff[_key].supermarket],
+				disableMinMax: false,
+				step: 1 * ($_setupItem.shop.bought_in_bulk or 1),
+				max: Math.floor($foodstuff[_key].supermarket),
+				colorArr:["--yellow"],
+				percentage: false
+			}>>
+		<<else>>
+			<br>
+			<span class="red">
+				<<switch _key>>
+					<<case "prawn" "clam" "date" "lime">><<recipe_name _key 'cap'>>s are
+					<<case "cherry">>Cherries are
+					<<case "oats">>Oats are
+					<<default>><<recipe_name _key 'cap'>> is
+				<</switch>>
+				out of stock.
+			</span>
+			<br>
+		<</if>>
+	</div>
+	<div class="recipe">
+		<<capture _key>>
+			<<if $options.images is 1>>
+				<<set _file to $_setupItem.kitchen_item_type_icon>>
+				<<link "<<iconUi _file>>">>
+					<<replace "#altSection">><<supermarketDisplayDetails _key>><</replace>>
+					<<removeclass "#altSection, #mobileCloser" "mobileHidden">>
+				<</link>>
+			<<else>>
+				<<link "Details">>
+					<<replace "#altSection">><<supermarketDisplayDetails _key>><</replace>>
+					<<removeclass "#altSection, #mobileCloser" "mobileHidden">>
+				<</link>>
+			<</if>>
+		<</capture>>
+	</div>
+<</widget>>
+
+<<widget "supermarketDisplayBasket">>
+	<<set _basketOpen to true>>
+	<div id="basket">Basket:
+		<div class="mobileOnly">
+			<<link "Close">>
+				<<addclass "#altSection, #mobileCloser" "mobileHidden">>
+			<</link>>
+			<br><br>
+		</div>
+	</div>
+
+	<div id="basketItems">
+		<div class="mobileHidden">
+			<<supermarketDisplayFillBasket>>
+			<hr>
+		</div>
+		<<set $_typesInBasket to 0>>
+		<<set _totalCost to Object.entries($shoppingBasket).reduce((sum, [key, amount]) => {
+			if (amount > 0) {
+				$_typesInBasket++;
+			};
+			sum += setup.foodstuff[key].shop.sell_price * amount * 2 or 0;
+			return sum;
+		}, 0)>>
+
+		<<if $_typesInBasket is 0>>
+			Your shopping basket is empty.
+			<<exit>>
+		<</if>>
+
+		<<if $_typesInBasket gt 5>>
+			<<foldout false "_basketFoldout">>
+				<span>Items:</span>
+				<div class="itemSummary">
+					<<supermarketDisplayBasketSummary>>
+				</div>
+			<</foldout>>
+		<<else>>
+			Items:
+			<div class="itemSummary">
+				<<supermarketDisplayBasketSummary>>
+			</div>
+		<</if>>
+		<hr>
+		<<if Time.dayState is "night" and Time.hour isnot 21>>
+			<<link [[Steal|$passage]]>>
+				<<for _itemInCart range Object.keys($shoppingBasket)>>
+					<<for _i to 0; _i lt $shoppingBasket[_itemInCart]; _i++>>
+						<<crimeUp `setup.foodstuff[_itemInCart].shop.sell_price * 2 / 100` "thievery">>
+					<</for>>
+					<<tending_give _itemInCart $shoppingBasket[_itemInCart]>>
+					<<set $foodstuff[_itemInCart].supermarket -= $shoppingBasket[_itemInCart]>>
+				<</for>>
+				<<set $shoppingBasket to {}>>
+			<</link>>
+		<<else>>
+			Total: <span class="gold"> £<<print (_totalCost / 100).toFixed(2)>></span>
+			<br>
+			<<if $money gte _totalCost>>
+				<<link [["Purchase"|$passage]]>>
+					<<for _itemInCart range Object.keys($shoppingBasket)>>
+						<<tending_give _itemInCart $shoppingBasket[_itemInCart]>>
+						<<money `-(setup.foodstuff[_itemInCart].shop.sell_price * $shoppingBasket[_itemInCart] * 2)` "supermarket">>
+						<<set $foodstuff[_itemInCart].supermarket -= $shoppingBasket[_itemInCart]>>
+					<</for>>
+					<<set $shoppingBasket to {}>>
+				<</link>>
+			<<else>>
+				You can't afford your selection of goods.
+			<</if>>
+		<</if>>
+		|
+		<<link "Empty">>
+			<<set $shoppingBasket to {}>>
+			<<addclass "#altSection, #mobileCloser" "mobileHidden">>
+			<<replace "#itemList">><<supermarketDisplayItems>><</replace>>
+			<<replace "#altSection">><<supermarketDisplayBasket>><</replace>>
+		<</link>>
+	</div>
+	<br><br>
+<</widget>>
+
+<<widget "supermarketDisplayBasketSummary">>
+	<<for _itemInCart range Object.keys($shoppingBasket)>>
+		<<if $shoppingBasket[_itemInCart] lte 0>><<continue>><</if>>
+		<div class="basketItem">
+			<div>
+				<<foodstufficon _itemInCart>>
+				<<recipe_name _itemInCart "cap">> |
+				x<<print $shoppingBasket[_itemInCart]>>
+			</div>
+			<div class="price">
+				<span class="gold"> £<<print (setup.foodstuff[_itemInCart].shop.sell_price * $shoppingBasket[_itemInCart] * 2 / 100).toFixed(2)>></span>
+				<span>
+					<<capture _itemInCart>>
+						<<link "Remove">>
+							<<run delete $shoppingBasket[_itemInCart]>>
+							<<replace "#itemList">><<supermarketDisplayItems>><</replace>>
+							<<replace "#altSection">><<supermarketDisplayBasket>><</replace>>
+						<</link>>
+					<</capture>>
+				</span>
+			</div>
+		</div>
+	<</for>>
+<</widget>>
+
+<<widget "supermarketDisplayFillBasket">>
+	<<if Object.keys(setup.foodstuff).find(key => {
+		if (setup.foodstuff[key].shop.available_in?.includes(_selectedShop) and $foodstuff[key].supermarket) return key;
+	})>>
+		Fill
+		<<link "25%">><<supermarketDisplayFillBasketLink 0.25>><</link>> |
+		<<link "50%">><<supermarketDisplayFillBasketLink 0.5>><</link>> |
+		<<link "75%">><<supermarketDisplayFillBasketLink 0.75>><</link>> |
+		<<link "100%">><<supermarketDisplayFillBasketLink 1>><</link>>
+	<<else>>
+		The shop is currently out of stock.
+	<</if>>
+<</widget>>
+
+<<widget "supermarketDisplayFillBasketLink">>
+	<<set $shoppingBasket to {}>>
+	<<run Object.keys(setup.foodstuff).forEach(key => {
+		if (setup.foodstuff[key].shop.available_in?.includes(_selectedShop) and $foodstuff[key].supermarket) {
+			$shoppingBasket[key] to Math.ceil($foodstuff[key].supermarket * _args[0]);
+		}
+	})>>
+	<<replace "#itemList">><<supermarketDisplayItems>><</replace>>
+	<<replace "#altSection">><<supermarketDisplayBasket>><</replace>>
+	<<removeclass "#altSection, #mobileCloser" "mobileHidden">>
+<</widget>>
+
+<<widget "supermarketDisplayDetails">>
+	<<set $_setupItem to setup.foodstuff[_args[0]]>>
+	<div id="basket">
+		<div>
+		<<foodstufficon _args[0]>>
+			<div class="recipeTitle"><<recipe_name _args[0] "cap">>:</div>
+		</div>
+		<div class="mobileOnly">
+			<<link "Close">>
+				<<addclass "#altSection, #mobileCloser" "mobileHidden">>
+			<</link>>
+		</div>
+	</div>
+	<<set _basketOpen to false>>
+	<div id="basketItems">
+		<div class="mobileHidden">
+			<<link "Return to basket">>
+				<<replace "#altSection">><<supermarketDisplayBasket>><</replace>>
+				<<addclass "#altSection, #mobileCloser" "mobileHidden">>
+			<</link>>
+			<hr>
+		</div>
+		<<if $_setupItem.shop.bought_in_bulk>>
+			Bought in sets of <<print $_setupItem.shop.bought_in_bulk>>.
+		<</if>>
+		<<knownFoodRecipes _args[0]>>
+	</div>
+<</widget>>

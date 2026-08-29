@@ -1,0 +1,261 @@
+:: Toy Shop Lock
+<<set $outside to 0>><<effects>><<set $lock to 200>>
+
+<<if currentSkillValue('skulduggery') gte $lock>>
+	<<if pcAreArmsBound("both")>>
+		You think you'd be able to pick the lock, <span class="blue">if your arms weren't bound.</span>
+		<br><br>
+	<<else>>
+		<<wearProp "lockpick">>
+		<span class="green">The lock looks easy to pick.</span>
+		<br><br>
+		<<lockicon "pick">><<link [[Pick it (0:10)|Toy Shop]]>><<pass 10>><<crimeUp 15 "trespassing">><</link>><<crime "trespassing">>
+		<br>
+	<</if>>
+<<else>>
+	<span class="red">The lock looks beyond your ability to pick.</span>
+	<<skulduggeryrequired>>
+	<br><br>
+<</if>>
+
+<<getouticon>><<link [[Leave|Shopping Centre Top]]>><</link>>
+<br>
+
+
+:: Toy Shop
+<<set $outside to 0>><<effects>><<set $lock to 0>>
+
+<<if $player.inventory.childrenToys is undefined>>
+	<<set $player.inventory.childrenToys to []>>
+<</if>>
+<<if !$storedChildrenToys>><<set $storedChildrenToys to {}>><</if>>
+
+You are in the toy store. From floor to ceiling stand before you toys of all kinds, many in their own boxes, others ready to be played with.
+<<if $pregnancyStats.humanToysUnlocked>>
+	You can't help but think about your children when being in here.
+<</if>>
+<<if random(0,200) gt 199 and Time.dayState isnot "night">>
+	<br><br>
+	You spot a kid zooming around in a vrelcar.
+	<<if !$daily.seenVrelcar>>
+		<<set $daily.seenVrelcar to true>>
+		<<trauma -60>><<lltrauma>>
+	<</if>>
+<</if>>
+<br><br>
+
+<<if Time.dayState is "night" and Time.hour isnot $closinghour>>
+	You are alone in the darkness.
+	<br><br>
+<<elseif $exposed gte 1>>
+	You hide in a cupboard to protect your dignity.
+	<br><br>
+<</if>>
+
+<<if $stress gte 10000>>
+	<<passoutshop "shop">>
+<<else>>
+	<<if Time.hour is 21>>
+		It's closing time. Security is herding everyone outside. <<if $exposed gte 1>>Panic swells within you as you realise how exposed you'll be should security find you in this state of dress.<</if>>
+		<br><br>
+
+		<<if $exposed lte 0>>
+			<<highicon>><<link [[Go outside|High Street]]>><</link>>
+			<br>
+		<<else>>
+			<<ind>><<link [["Hide until it's over (1:00)"|Toy Shop]]>><<pass 1 hour>><</link>>
+		<</if>>
+	<<else>>
+
+		<<if Time.dayState is "night" and Time.hour isnot $closinghour and !$weekly.theft.toyShop>>
+			<<shopicon "register">><<link [[Examine the cash register|Toy Shop Register]]>><</link>>
+			<br><br>
+		<</if>>
+
+		<<toySelection>>
+		<<if $exposed lte 1 and Time.dayState isnot "night" and Time.hour isnot 21>>
+			<<if $pregnancyStats.humanToysUnlocked>>
+				<<childicon "teddy bear">><<link [[Toys|Toy Shop Item]]>><<set $selectedToy to clone(_toySelection["teddyBear"])>><</link>>
+				<br><br>
+			<</if>>
+		<</if>>
+		<<getouticon>><<link [[Leave|Shopping Centre Top]]>><</link>>
+	<</if>>
+<</if>>
+
+:: Toy Shop Item
+
+<<dynamic "toyUpdate" "toy-update-container">>
+<br>
+<<getouticon>><<link [[Back|Toy Shop]]>><<run delete $selectedToy>><</link>>
+<br>
+<<toySelection>>
+<<set $selectedToy to $selectedToy || clone(_toySelection["teddyBear"])>>
+<hr>
+<div class="settingsHeader">Toys</div>
+<div id="toyContainer">
+	<<dynamic "toyLinks" "toyContainerHeader">>
+	<<dynamic "toyList" "toy-menu-container">>
+</div>
+
+
+:: Toy Shop Widgets [widget]
+
+<<widget "toyUpdate">>
+	You take a look at the collection of <<print $selectedToy.set>>. They cost <span class="gold"><<print $selectedToy.costDisplay>></span> each.
+<</widget>>
+
+<<widget "toyLinks">>
+	<<set _toyLinks to [
+		{ id: "teddyBear", label: "Teddy Bears" },
+		{ id: "babyRattle", label: "Baby Rattles" },
+		{ id: "toyCar", label: "Toy Cars" },
+		{ id: "dummy", label: "Dummies" }
+	]>>
+	<<for _i = 0; _i < _toyLinks.length; _i++>>
+		<<set _toyLink = _toyLinks[_i]>>
+		<div @class="$selectedToy.set is _toyLink.label.toLowerCase() ? 'shopTabSelected' : 'shopTab'">
+			<button
+				@class="($selectedToy.name is _toyLink.id ? 'selected' : '')"
+				@id="Dynamic.eventBinder(_toyLink.id)"
+				onclick="(id) => $selectedToy = T.toySelection[id]"
+			>_toyLink.label
+			</button>
+		</div>
+	<</for>>
+<</widget>>
+
+<<widget "toyList">>
+	<<if $selectedToy.options>>
+		<<set _numberOnHand to {}>>
+		<<for _i to 0; _i lt $player.inventory.childrenToys.length; _i++>>
+			<<if $player.inventory.childrenToys[_i].set is $selectedToy.set>>
+				<<if _numberOnHand[$player.inventory.childrenToys[_i].name] is undefined>>
+					<<set _numberOnHand[$player.inventory.childrenToys[_i].name] to 1>>
+				<<else>>
+					<<set _numberOnHand[$player.inventory.childrenToys[_i].name]++>>
+				<</if>>
+			<</if>>
+		<</for>>
+		<<if $player.inventory.childrenToys.length gte 1>>
+			<<set $_toys = V.player.inventory.childrenToys.map(function(item) {
+				return '<span class="' + item.colour + '">' + item.name + '</span>';
+			}).join(", ")>>
+			You are currently carrying <<number $player.inventory.childrenToys.length>> <<= $player.inventory.childrenToys.length is 1 ? "toy" : "toys">>: <<= $_toys>>
+		<<else>>
+			You are not carrying any toys.
+		<</if>>
+		<br>
+		<<if $player.inventory.childrenToys.length gte 5>>
+			<span class="description">You can't carry more than five toys at a time.</span>
+		<</if>>
+		<hr>
+		<div id="toyContainer">
+			<<capture _i>>
+				<<for _i to 0; _i lt $selectedToy.options.length; _i++>>
+					<div class="shopBlock no-numberify">
+						<label>
+							<<set _icon to $selectedToy.options[_i].name.toLowerCase().replace(".","")>>
+							<<childicon _icon>>
+							<span @class="$selectedToy.options[_i].colour">
+								<<print $selectedToy.options[_i].optionsName>>
+							</span>
+							|
+							<<if $player.inventory.childrenToys.length gte 5>>
+								<span class="grey"><<= "£"+$selectedToy.cost/100>></span>
+							<<elseif $selectedToy.cost lte $money>>
+								<<link [['£' + $selectedToy.cost/100|$passage]]>><<set $selectedToy.selectedOption to _i>><<buyToy>><</link>>
+							<<else>>
+								<span class="red"><<= "£"+$selectedToy.cost/100>></span>
+							<</if>>
+						</label>
+					</div>
+				<</for>>
+			<</capture>>
+		</div>
+	<</if>>
+<</widget>>
+
+<<widget "toySelection">>
+	<<set _toySelection to {
+		"babyRattle":
+			{
+				set:"baby rattles", name:"baby rattle", cost:1000, costDisplay:"£10", selectedOption: 0, type:"human",
+				options: [
+					{"colour":"pink","name":"Pink baby rattle","name_lower":"pink baby rattle","optionsName":"Pink"},
+					{"colour":"blue","name":"Blue baby rattle","name_lower":"blue baby rattle","optionsName":"Blue"},
+					{"colour":"green","name":"Green baby rattle","name_lower":"green baby rattle","optionsName":"Green"},
+					{"colour":"red","name":"Red baby rattle","name_lower":"red baby rattle","optionsName":"Red"},
+					{"colour":"gold","name":"Yellow baby rattle","name_lower":"yellow baby rattle","optionsName":"Yellow"},
+				],
+
+			},
+		"teddyBear":
+			{
+				set:"teddy bears", name:"Teddy bear", name_lower: "teddy bear", cost:4000, costDisplay:"£40", selectedOption: 0, type:"human",
+				options: [
+					{"colour":"tan","name":"Teddy bear","name_lower":"teddy bear","optionsName":"Teddy Bear"},
+					{"colour":"blue","name":"Mr. Teddy","name_lower":"Mr. Teddy","optionsName":"Mr. Teddy"},
+					{"colour":"pink","name":"Mrs. Teddy","name_lower":"Mrs. Teddy","optionsName":"Mrs. Teddy"},
+					{"colour":"gold","name":"Clown","name_lower":"clown","optionsName":"Clown"},
+					{"colour":"green","name":"Green robot","name_lower":"green robot","optionsName":"Green Robot"},
+					{"colour":"red","name":"Red robot","name_lower":"red robot","optionsName":"Red Robot"},
+					{"colour":"light-pink","name":"Baby doll","name_lower":"baby doll","optionsName":"Baby Doll"},
+				],
+
+			},
+		"toyCar":
+			{
+				set:"toy cars", name:"Toy car", name_lower: "toy car", cost:1500, costDisplay:"£15", selectedOption: 0, type:"human",
+				options: [
+					{"colour":"pink","name":"Pink mini toy car","name_lower":"pink mini toy car","optionsName":"Pink Mini"},
+					{"colour":"blue","name":"Blue toy racecar","name_lower":"blue toy racecar","optionsName":"Blue Racecar"},
+					{"colour":"green","name":"Green toy racecar","name_lower":"green toy racecar","optionsName":"Green Racecar"},
+					{"colour":"red","name":"Hot rod toy car","name_lower":"hot rod toy car","optionsName":"Hot Rod"},
+					{"colour":"grey","name":"Limousine toy car","name_lower":"limousine toy car","optionsName":"Limousine"},
+				],
+
+			},
+		"chewToy":
+			{
+				set:"chew toys", name:"chew toy", cost:1500, costDisplay:"£15", selectedOption: 0, type:"wolf",
+				options: [
+					{"colour":"grey","name":"Chew bone","name_lower":"chew bone","optionsName":"Chew Bone"},
+					{"colour":"light-green","name":"Chew ball","name_lower":"chew ball","optionsName":"Chew Ball"},
+					{"colour":"light-grey","name":"Squeaky sheep","name_lower":"squeaky sheep","optionsName":"Squeaky Sheep"},
+					{"colour":"gold","name":"Squeaky chicken","name_lower":"squeaky chicken","optionsName":"Squeaky Chicken"},
+					{"colour":"softbrown","name":"Rope","name_lower":"rope","optionsName":"Rope"},
+				],
+
+			},
+		"dummy":
+			{
+				set:"dummies", name:"dummy", cost:500, costDisplay:"£5", selectedOption: 0, type:"human",
+				options: [
+					{"colour":"pink","name":"Pink dummy","name_lower":"pink dummy","optionsName":"Pink"},
+					{"colour":"blue","name":"Blue dummy","name_lower":"blue dummy","optionsName":"Blue"},
+					{"colour":"green","name":"Green dummy","name_lower":"green dummy","optionsName":"Green"},
+					{"colour":"red","name":"Red dummy","name_lower":"red dummy","optionsName":"Red"},
+					{"colour":"gold","name":"Yellow dummy","name_lower":"yellow dummy","optionsName":"Yellow"},
+					{"colour":"light-grey","name":"White dummy","name_lower":"white dummy","optionsName":"White"},
+					{"colour":"light-grey","name":"Clear dummy","name_lower":"clear dummy","optionsName":"Clear"},
+				],
+
+			},
+	}>>
+<</widget>>
+
+<<widget "buyToy">>
+	<<money `-$selectedToy.cost` "toyShop">>
+	<<if $selectedToy.options>>
+		<<set _selectedOption to $selectedToy.selectedOption>>
+		<<if $selectedToy.options[_selectedOption].name>>
+			<<set $selectedToy.name to clone($selectedToy.options[_selectedOption].name)>>
+			<<set $selectedToy.name_lower to clone($selectedToy.options[_selectedOption].name_lower)>>
+		<</if>>
+		<<if $selectedToy.options[_selectedOption].colour>>
+			<<set $selectedToy.colour to clone($selectedToy.options[_selectedOption].colour)>>
+		<</if>>
+	<</if>>
+	<<run $player.inventory.childrenToys.push(clone($selectedToy))>>
+<</widget>>

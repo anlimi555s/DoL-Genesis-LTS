@@ -1,0 +1,551 @@
+:: Widgets Livestock [widget]
+<<widget "livestock_sleep">>
+	<<set _autosavehere to true>>
+	<<if Time.hour is 21>>
+		<<set _livestock_sleep to 9>>
+	<<elseif Time.hour is 22>>
+		<<set _livestock_sleep to 8>>
+	<<elseif Time.hour is 23>>
+		<<set _livestock_sleep to 7>>
+	<<else>>
+		<<set _livestock_sleep to (6 - Time.hour)>>
+	<</if>>
+	<<for _l to 0; _l lt _livestock_sleep; _l++>>
+		<<pass 60>>
+		<<set $sleepStat++>>
+		<<set $tiredness -= 200>>
+		<<if !($sleeptrouble is 1 and $controlled is 0 and !$hypnosis_traits.slumber)>>
+			<<set $tiredness -= 50>>
+		<</if>>
+		<<if $hypnosis_traits.slumber>>
+			<<set _traumaToSleep to Math.floor($trauma / 100)>>
+			<<set $tiredness -= _traumaToSleep>>
+		<</if>>
+	<</for>>
+<</widget>>
+
+<<widget "livestock_init">>
+	<<set $livestock.intro to true>>
+	<<set $livestock.obey to 50>>
+<</widget>>
+
+<<widget "livestock_end">>
+	<<unset $livestock.food>>
+	<<unset $livestock.muzzle>>
+	<<unset $livestock.dig.fence>>
+	<<unset $livestock.dig.barn>>
+<</widget>>
+
+<<widget "pcow">><<silently>>
+	<<set _text_output to ($player.gender_appearance is "m" ? "bull" : "cow")>>
+<</silently>><<print _text_output>><</widget>>
+
+<!-- Modified for Monster People -->
+<<widget "livestock_cows">>
+	<<if ($settings.monsterChance gte 1 and $hallucinations gte 1) or ($settings.monsterChance gte 1 and !$settings.monsterHallucinationsOnly)>>
+		<<if $settings.maleVictimChance is 0>>
+			<<set _text_output to "cowgirls">>
+		<<elseif $settings.maleVictimChance is 100>>
+			<<set _text_output to "bullboys">>
+		<<else>>
+			<<set _text_output to "cowgirls and bullboys">>
+		<</if>>
+	<<else>>
+		<<if $settings.maleVictimChance is 0>>
+			<<set _text_output to "cows">>
+		<<elseif $settings.maleVictimChance is 100>>
+			<<set _text_output to "bulls">>
+		<<else>>
+			<<set _text_output to "cows and bulls">>
+		<</if>>
+	<</if>>
+
+	<<if _args[0] is "cap">>
+		<<set _text_output to _text_output.toUpperFirst()>>
+	<</if>>
+
+	<<print _text_output>>
+<</widget>>
+
+<<widget "livestock_horse">>
+	<<if ($settings.monsterChance gte 1 and $hallucinations gte 1) or ($settings.monsterChance gte 1 and !$settings.monsterHallucinationsOnly) or (!$settings.bestialityEnabled)>>
+		<<set _text_output to "centaur">>
+	<<else>>
+		<<if beastMaleChance() gte random(1, 100)>>
+			<<set _text_output to "stallion">>
+		<<else>>
+			<<set _text_output to "mare">>
+		<</if>>
+	<</if>>
+	<<print _text_output>>
+<</widget>>
+
+<<widget "livestock_horses">>
+	<<if ($settings.monsterChance gte 1 and $hallucinations gte 1) or ($settings.monsterChance gte 1 and !$settings.monsterHallucinationsOnly) or (!$settings.bestialityEnabled)>>
+		<<set _text_output to "centaurs">>
+	<<else>>
+		<<set _text_output to "horses">>
+	<</if>>
+	<<print _text_output>>
+<</widget>>
+
+<<widget "livestock_obey_description">>
+	<<if $livestock.obey gte 100>>
+		<span class="green">The farmhands don't give you a second look. As far as they're concerned, you're a domesticated member of the herd.</span>
+	<<elseif $livestock.obey gte 80>>
+		<span class="teal">The farmhands don't pay you much attention. They expect no trouble.</span>
+	<<elseif $livestock.obey gte 60>>
+		<span class="lblue">The farmhands glance at you now and then, but don't seem concerned about your behaviour.</span>
+	<<elseif $livestock.obey gte 40>>
+		<span class="blue">The farmhands keep a cautious eye on you.</span>
+	<<elseif $livestock.obey gte 20>>
+		<<if $livestock.winter.active>>
+			<span class="purple">The farmhands watch you warily from the doorway.</span>
+		<<else>>
+			<span class="purple">The farmhands watch you warily from behind the fence.</span>
+		<</if>>
+	<<elseif $livestock.obey gte 1>>
+		<span class="pink">The farmhands watch you, expecting trouble.</span>
+	<<else>>
+		<span class="red">The farmhands watch you, expecting an escape attempt.</span>
+	<</if>>
+<</widget>>
+
+<<widget "livestock_overhear">>
+	<<cleareventpool>>
+	<<generate1>><<generate2>><<generate3>><<generate4>><<person1>>
+	<<if $livestock.winter.active and $rng gte 51>>
+		<<addinlineevent "livestock_overhear_winter 1">>
+			"I can't believe I got cleaning duty again," a <<person>> complains. "I think the chore list is rigged."
+			<br>
+			"Stop whining," a <<person2>><<person>> says. "You're lucky we're indoors. The poor sods outside have to keep working."
+			<br>
+			"I'd take that over shovelling hay all day near these things." <<person1>><<He>> glares at the <<livestock_cows>>. "It's creepy."
+			<br>
+			"A job's a job," a <<person3>><<person>> says.
+			<br>
+			"Shitty job, if you ask me," the <<person1>><<person>> mutters.
+			<br>
+			"No one did," the <<person2>><<person>> says.
+			<br><br>
+			Their argument fades as they move away.
+		<</addinlineevent>>
+
+		<<addinlineevent "livestock_overhear_winter 2">>
+			"Did you hear?" a <<person>> asks.
+			<br>
+			"Hear what?" a <<person2>><<person>> says.
+			<br>
+			"Another one of those little buggers got into the other barn."
+			<br>
+			"Again?"
+			<br>
+			"Yeah. I think they must be as cold as the rest of us or something."
+			<br>
+			"Wish we could kill them, but the boss says to catch them alive."
+			<br>
+			"Maybe if the boss got off <<nnpc_his "Remy">> ass once in a while—"
+			<br><br>
+			The <<person2>><<person>> kicks the <<person1>><<person>>. Both look around nervously before scurrying away.
+		<</addinlineevent>>
+
+		<<addinlineevent "livestock_overhear_winter 3">>
+			The barn door opens, letting in a gust of cold air. The farmhand, a <<person>>, jerks awake as a <<person2>><<person>> rushes in.
+			<br><br>
+			"Shift change," the <<person2>><<person>> says, stomping <<his>> feet free from snow.
+			<br>
+			"No way," the <<person1>><<person>> complains. "It's freezing out there!"
+			<br>
+			The <<person2>><<person>> tips the <<person1>><<person>> out of the chair. "Get your ass out there," <<person2>><<he>> says. "It's my turn to be warm."
+			<br><br>
+			The <<person1>><<person>> curses under <<his>> breath. <<He>> braces <<himself>>, then leaves the barn.
+			<br><br>
+			The <<person2>><<person>> closes the door and settles in the chair to doze.
+		<</addinlineevent>>
+
+		<<addinlineevent "livestock_overhear_winter 4">>
+			You look at the front of the barn. The farmhand, a <<person>>, is staring at you. There's a leer on <<his>> face. <<He>> makes a point of looking over your exposed <<genitals>>. You blush and look away.
+			<br><br>
+			When you look back, the <<person>> has <<his>> hand down the front of <<his>> pants. <<He>> moves it rapidly. After a few moments, <<he>> <<if $awareness gte 100>>convulses in orgasmic bliss<<else>>convulses. You wonder if <<hes>> okay<</if>>.
+			<br><br>
+			<<He>> avoids looking at you for the rest of <<his>> shift.
+		<</addinlineevent>>
+
+		<<addinlineevent "livestock_overhear_winter 5">>
+			A screech rips through the air. The farmhand at the door jumps to <<his>> feet. <<He>> glances around. Some of the <<livestock_cows>> look uneasy.
+			<br><br>
+			The tension drains away after a few minutes of silence. You look out the window. <<if hasSharpSenses("sight")>>You can just make out a <<if C.npc["Great Hawk"].init is 1>>familiar <</if>>silhouette in the distance. <</if>>As the <<livestock_cows>> settle down, another screech sends them into a frenzy.
+			<br><br>
+			<<silently>><<willpowerdifficulty 250 1000>><</silently>>
+			<<if $syndromebird>>
+				<span class=green>You stand unafraid.</span> You would recognise your spouse's call anywhere.
+			<<elseif $willpowerSuccess>>
+				<span class=green>You resist the urge to run.</span>
+			<<else>>
+				<span class=red>You join the panicked herd in charging the door.</span><<stress 8>><<pain 8>><<gstress>><<gpain>>
+			<</if>>
+			<br><br>
+			You hear a gunshot. The <<livestock_cows>> around you freeze. The farmhand guarding the door pants. Smoke curls from the end of <<his>> gun. <<He>> looks scared.
+			<br><br>
+			"Calm down!" <<he>> orders. "You're safe here. No monster's going to carry you off." <<His>> voice shakes despite <<his>> words.
+			<br><br>
+			At <<his>> urging, the <<livestock_cows>> go back to the heaters. You follow, though you look out the window once more. A pang goes through you at the memory of freedom.
+			<<if $cow gte 6 and $livestock.obey gte 80>>
+				You turn back to the barn, reminding yourself that you're content with your new life.
+			<<else>>
+				You vow to be free again one day.
+			<</if>>
+		<</addinlineevent>>
+
+		<<addinlineevent "livestock_overhear_winter 6">>
+			<<endevent>><<beastNEWinit 1 cow>><<generate2>><<person1>>
+			A commotion at the front of the barn draws your attention. You notice the <<livestock_cows>> looking too. A few moo with a mixture of curiosity and annoyance.
+			<br><br>
+			A pair of farmhands is wrestling a <<beasttype>> to the door. The <<beasttype>> <<if $monster is 1>>screams<<else>>moos<</if>> in protest.
+			<br><br>
+			<<if $monster is 1>>
+				"Please," <<bhe>> begs. "I won't do it again!"
+				<br>
+				"Shut up," a <<person2>><<person>> says. <<He>> drags <<person1>><<bhim>> towards the door. "You knew what would happen if you disobeyed."
+				<br>
+				"No," the <<beasttype>> says. <<bHe>> looks out the window at something. You can't see what <<bhes>> staring at, but <<bhe>> looks terrified. "I'll be good, I promise!"
+				<br><br>
+				The farmhands struggle until, frustrated, one kicks <<bhim>> in the ass, and <<bhe>> falls silent.
+			<<else>>
+				The <<beasttype>> moos again. This time it almost sounds like a scream. <<bHe>> digs <<bhis>> hooves into the ground and pulls <<bhis>> head back. The farmhands struggle with <<bhim>> until one kicks <<bhim>> in the rump. The <<beasttype>> jolts forwards with a startled bellow.
+				<br><br>
+				<<bHe>> looks out the window at something you can't see. As the farmhands lead <<bhim>> away, <<bhe>> lets out one last desperate moo.
+			<</if>>
+			<br><br>
+			You watch as the <<beasttype>> is led away. A queasy feeling settles in your stomach as <<if $livestock.seen.includes("tieStall")>>you know what is in store for <<bhim>><<else>>you wonder what will be done to <<bhim>><</if>>.<<stress 8>><<trauma 4>><<gstress>><<gtrauma>>
+		<</addinlineevent>>
+
+		<<if Weather.temperature lte -20>>
+			<<addinlineevent "livestock_overhear_winter 7">>
+				You see four farmhands chatting near one of the heaters. You listen in as you pretend to look for a comfortable place to nap.
+				<br><br>
+				"This morning, I was driving along and out of nowhere - bam! I hit black ice. My car nearly slid off the road," a <<person>> complains.
+				<br>
+				"I hate that," a <<person2>><<person>> answers. "Nearly happened to my <<print either("sister", "brother")>> too."
+				<br>
+				"You know," a <<person3>><<person>> says. "You should get snow tyres. Saved my life once."
+				<br>
+				A <<person4>><<person>> laughs. "We don't get paid enough for that."
+				<br><br>
+				They're just chatting. It's nothing useful. You wander away.
+			<</addinlineevent>>
+		<</if>>
+
+		<<addinlineevent "livestock_overhear_winter 8">>
+			<<endevent>><<beastNEWinit 1 cow>><<generate2>><<generate3>><<person2>>
+			A <<person>> sneaks in through the barn door. The farmhand on duty is dozing in <<person3>><<his>> chair. The <<person2>><<person>> closes the door and looks around. <<His>> eyes land on you, though <<he>> quickly looks away. Curious, you watch <<him>>.
+			<br><br>
+			The <<personsimple>> creeps over to one of the groups of <<livestock_cows>>. <<He>> steps around them into the middle. There is a hay bale there with a few chunks pulled away. <<He>> settles on top of it and closes <<his>> eyes.
+			<br><br>
+			One of the <<person1>><<beastsplural>> puts <<bhis>> head on the <<person2>><<personsimple>>'s legs. <<He>> cracks open one eye.
+			<br><br>
+			"All right," <<he>> whispers. "Just this one time."
+			<br><br>
+			The <<beasttype 0>> moos softly. The <<person>> smiles and closes <<his>> eyes again. Soon, <<he>> starts to snore.
+			<br><br>
+			You smile at the sight, then turn back to the barn.<<stress -5>><<lstress>>
+		<</addinlineevent>>
+	<<else>>
+		You overhear two farmhands talking <<if $livestock.winter.active>>by a stall<<else>>behind the fence<</if>>.
+		<br><br>
+		<<addinlineevent "livestock_overhear 1">>
+			"How does Remy keep that herd of beasts under control?" a <<person>> asks.
+			<br>
+			"No clue," a <<person2>><<person>> responds. "They won't respond to anyone else."
+			<br>
+			"Have you seen them at full gallop?"
+			<br>
+			"Aye. Cow got free once, and Remy chased it down on one. Was terrifying to see."
+			<br><br>
+			They walk out of earshot.
+		<</addinlineevent>>
+
+		<<addinlineevent "livestock_overhear 2">>
+			"Remy's a stingy bastard," a <<person>> says, looking over <<his>> shoulder.
+			<br>
+			"Aye," a <<person2>><<person>> responds. "Especially with the animals. Treats apples like they're fucking gold."
+			<br>
+			"I ate an apple in front of those horses once. The way they looked at it, I almost felt bad."
+			<br><br>
+			They walk out of earshot.
+		<</addinlineevent>>
+
+		<<addinlineevent "livestock_overhear 3">>
+			"Where'd you think the milk ends up?" a <<person>> asks.
+			<br>
+			"Where'd you think?" a <<person2>><<person>> responds. "In a supermarket. Where else?"
+			<br>
+			"No, I mean the"—<<person1>><<he>> looks over <<his>> shoulder—"the milk from the special cattle. I'm not drinking it with my tea am I?"
+			<br>
+			"I know some gets processed elsewhere. Don't know more than that."
+			<br><br>
+			They walk out of earshot.
+		<</addinlineevent>>
+
+		<<addinlineevent "livestock_overhear 4">>
+			"Heard more strange noises last night," a <<person>> says. "From the south."
+			<br>
+			"Just some animal," a <<person2>><<person>> responds. "A wolf, at worst. What, you scared?"
+			<br>
+			"You haven't heard it. I'm telling you. Like a screech. I'm asking Remy to change my hours."
+			<br><br>
+			They walk out of earshot.
+		<</addinlineevent>>
+
+		<<addinlineevent "livestock_overhear 5">>
+			"There's no way," a <<person>> says. "One of the teachers would step in."
+			<br>
+			"They don't though," a <<person2>><<person>> responds. "Maybe they don't know. Check it out yourself if you don't believe me."
+			<br>
+			"You know I don't like that part of town. Smells like shit."
+			<br>
+			"Doesn't smell like any shit I've known."
+			<br><br>
+			They walk out of earshot.
+		<</addinlineevent>>
+
+		<<addinlineevent "livestock_overhear 6">>
+			"That doctor makes me uncomfortable," a <<person>> says.
+			<br>
+			"The kid?" a <<person2>><<person>> laughs. "Don't be daft."
+			<br>
+			"<<nnpc_Hes "Harper">> too nice for a place like this. Something's not right."
+			<br>
+			"I think you're just afraid of doctors."
+			<br><br>
+			They walk out of earshot.
+		<</addinlineevent>>
+
+		<<addinlineevent "livestock_overhear 7">>
+			"Where'd they get new <<girls>> anyway?" a <<person>> asks. "Just grab 'em off the street?"
+			<br>
+			"Remy knows a few sellers," a <<person2>><<person>> responds. "Dunno how they get them. Police sometimes throw trash our way."
+			<br>
+			"Explains the squad car. Thought they were just shaking us down."
+			<br>
+			"They probably were."
+			<br><br>
+			They walk out of earshot.
+		<</addinlineevent>>
+
+		<<addinlineevent "livestock_overhear 8">>
+			"That new <<girl>> is cute," a <<person>> says.
+			<br>
+			"That new <<pcow>> you mean," a <<person2>><<person>> responds.
+			<br>
+			"Right. Tasty looking thing."
+			<br>
+			"Just don't get any ideas. Remy don't like us interfering."
+			<br><br>
+			They walk out of earshot.
+		<</addinlineevent>>
+
+		<<addinlineevent "livestock_overhear 9">>
+			"Wish they let us see the photos," a <<person>> says.
+			<br>
+			"Aye," a <<person2>><<person>> responds. "Asked that photographer for a peek. <<nnpc_He "Niki">> ignored me."
+			<br>
+			"They must be selling 'em to someone."
+			<br>
+			"Perverts richer than us, I guess."
+			<br><br>
+			They walk out of earshot.
+		<</addinlineevent>>
+
+		<<if playerBellyVisible() and $settings.pregnancySpeechEnabled>>
+			<<addinlineevent "livestock_overhear 10">>
+				"That pregnant <<girl>> is cute," a <<person>> says.
+				<br>
+				"Yeah," a <<person2>><<person>> responds. "Think they are experimenting again?"
+				<br>
+				"Who knows? Be careful what you say, don't want to scare the cattle."
+				<br>
+				<<if $player.breastsize gte 12>>
+					"Well, whatever Remy is doing, it's working rather well on those gazongas."
+				<<elseif $player.breastsize gte 8>>
+					"Well, whatever Remy is doing, it seems to be working rather well, <<pshe>> has a nice pair."
+				<<elseif $player.breastsize gte 6>>
+					"Well, whatever Remy is doing, it seems to be doing something, <<pher>> boobs seem to be growing."
+				<<elseif $player.breastsize gte 1>>
+					"Well, whatever Remy is doing, doesn't seem to be working this time, <<pshes>> almost flat."
+				<<else>>
+					"Well, whatever Remy is doing, doesn't seem to be working this time, <<pshes>> completely flat as a board."
+				<</if>>
+				<br><br>
+				They walk out of earshot.
+			<</addinlineevent>>
+		<</if>>
+	<</if>>
+
+	<<runeventpool>>
+	<br><br>
+	<<endevent>>
+<</widget>>
+
+<<widget "passoutremy">>
+	<<if isPregnancyEnding()>>
+		<<pregnancyPassout "remy">>
+	<<else>>
+		<<passout>>
+		You've pushed yourself too much. You pass out.
+		<br><br>
+		<<link [[Next|Livestock Passout]]>><<pass 60>><<set $stress -= 4000>><</link>>
+	<</if>>
+	<br>
+<</widget>>
+
+<<widget "livestock_bodywriting">>
+	<<if $skin[_bodypart].writing>>
+		<<bodywriting_clear _bodypart>>
+	<</if>>
+	<<rng 6>>
+	<<switch $rng>>
+		<<case 1>>
+			<<add_bodywriting _bodypart remys_cattle tattoo>>
+		<<case 2>>
+			<<if $player.gender_appearance is "m">>
+				<<add_bodywriting _bodypart remys_bull tattoo>>
+			<<else>>
+				<<add_bodywriting _bodypart remys_cow tattoo>>
+			<</if>>
+		<<case 3>>
+			<<if $player.gender_appearance is "m">>
+				<<add_bodywriting _bodypart remys_bull tattoo>>
+			<<else>>
+				<<add_bodywriting _bodypart dairy_cow tattoo>>
+			<</if>>
+		<<case 4>>
+			<<add_bodywriting _bodypart milk_me tattoo>>
+		<<case 5>>
+			<<add_bodywriting _bodypart animal tattoo>>
+		<<case 6>>
+			<<add_bodywriting _bodypart breedable tattoo>>
+	<</switch>>
+<</widget>>
+
+<<widget "livestockescape">>
+	<<if $whitneyromance is 1>>
+		<<set $whitneyReunionScene to "farm">>
+	<</if>>
+
+	<<if C.npc.Kylar.love gte 50>>
+		<<set $kylarReunionScene to "farm">>
+	<</if>>
+
+	<<unset $baileySold>>
+<</widget>>
+
+<<widget "livestockFieldGrassEvents">>
+	<<if $rng gte 81>>
+		<!-- Modified for Monster People -->
+		<<if ($settings.monsterChance gte 1 and ($hallucinations gte 1 or !$settings.monsterHallucinationsOnly))>>
+			<<if maleChance() lt random(1, 100)>>
+				A cowgirl sniffs you, and moos. You pet her head.
+				<<lstress>><<stress -6>>
+			<<else>>
+				A bullboy sniffs you, and moos. You pet his head.
+				<<lstress>><<stress -6>>
+			<</if>>
+		<<else>>
+			A cow sniffs you, and moos. You pet its head.
+			<<lstress>><<stress -6>>
+		<</if>>
+		<br><br>
+	<<elseif $rng gte 51>>
+		<<if $uncomfortable.nude is true>>
+			You look up, and see a <<generate1>><<person1>><<person>> leering at you. <<covered>><<gstress>><<stress 6>>
+		<<else>>
+			You look up for just a moment. You spot a <<generate1>><<person1>><<person>> leering at you,
+			but you pay <<him>> no mind as you continue
+			<<if $livestock.winter.active>>
+				munching on <<if $cow gte 6>>tasty <</if>>pieces of hay.
+			<<else>>
+				your search for <<if $cow gte 6>>tasty <</if>>tufts of grass.
+			<</if>>
+		<</if>>
+		<br><br>
+	<<else>>
+		<<livestock_overhear>>
+	<</if>>
+<</widget>>
+
+<<widget "livestock_lock_desc">>
+	/*Description of the current state of the farm gate lock */
+	<<if $livestock.lock.strength is 100>>
+		<span class="green">undamaged.</span>
+	<<elseif $livestock.lock.strength lte 99 and $livestock.lock.strength gt 69>>
+		<span class="teal">slightly damaged.</span>
+	<<elseif $livestock.lock.strength lte 69 and $livestock.lock.strength gt 40>>
+		<span class="blue">very damaged.</span>
+	<<elseif $livestock.lock.strength lte 40 and $livestock.lock.strength gt 29>>
+		<span class="purple">heavily damaged.</span>
+	<<elseif $livestock.lock.strength lte 29 and $livestock.lock.strength gt 0>>
+		<span class="pink">falling apart.</span>
+	<<elseif $livestock.lock.strength lte 0>>
+		<span class="red">broken.</span>
+	<</if>>
+<</widget>>
+
+<<widget "livestock_patrol">>
+	/*Lock damage based on physique check*/
+	<<if $physiqueSuccess is 1>>
+		<<set $livestock.lock.strength -= 10>>
+		You feel like you've made good progress.
+		<br>
+	<<else>>
+		<<set $livestock.lock.strength -= 5>>
+		It doesn't feel like you've made much progress.
+		<br>
+	<</if>>
+	/*Farm hand catch chance based on your livestock obidence */
+	<<if $livestock.obey lte 100 and $livestock.obey gt 60>>
+		<<set $livestock.lock.patrol -= 20>>
+
+	<<elseif $livestock.obey lte 60 and $livestock.obey gt 20>>
+		<<set $livestock.lock.patrol -= 27>>
+
+	<<elseif $livestock.obey lte 20>>
+		<<set $livestock.lock.patrol -= 40>>
+	<</if>>
+	/*Farm hand status while your rocking the gate*/
+	<<if $livestock.lock.patrol lte 80 and $livestock.lock.patrol gt 60>>
+		<span class="teal">The farmhand is busy with the further stalls of the opposite row</span>
+
+	<<elseif $livestock.lock.patrol lte 60 and $livestock.lock.patrol gt 40>>
+		<span class="blue">The farmhand is busy with the further stalls of the opposite row.</span>
+
+	<<elseif $livestock.lock.patrol lte 40 and $livestock.lock.patrol gt 20>>
+		<span class="purple">The farmhand is busy with the nearer stalls of the opposite row.</span>
+
+	<<elseif $livestock.lock.patrol lte 20>>
+		<span class="pink">The farmhand is busy with the nearer stalls of your row.</span>
+	<</if>>
+<</widget>>
+
+<<widget "livestock_lock_cleanup">>
+	/*Clean up of Livestock lock varaibles*/
+	<<unset $livestock.lock.sequence>>
+	<<unset $livestock.lock.keys>>
+	<<unset $livestock.lock.unlocked>>
+	<<unset $livestock.lock.patrol>>
+	<<unset $livestock.lock.cooldown>>
+	<<unset $livestock.lock.intro>>
+<</widget>>
+
+<<widget "farm_var_set">>
+	/*Make sure some farm lock var get unset/set when they need to be */
+	<<if $livestock.lock.cooldown lte 1>>
+		<<unset $livestock.lock.cooldown>>
+	<</if>>
+	<<if $livestock.lock.strength lte 0>>
+		<<set $livestock.lock.strength to 99>>
+	<</if>>
+	<<if $livestock.lock.sequence isnot undefined>>
+		<<unset $livestock.lock.sequence>>
+	<</if>>
+<</widget>>

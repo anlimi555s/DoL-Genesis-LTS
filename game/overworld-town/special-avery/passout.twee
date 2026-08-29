@@ -1,0 +1,250 @@
+:: Mansion Passout Pair
+<<set $outside to 0>><<effects>>
+
+<<generate1>><<person1>><<generate2>>
+<<bind>>
+<<facewear "blindfold">>
+<<set $avery_mansion.assault_pair to 1>>
+
+"Ah," says a <<personssimple>> voice. "Looks like <<pshes>> awake."
+<br><br>
+A blindfold covers your face, and you feel carpet beneath your back.
+<br><br>
+"This is our chance," says another voice. "Avery thinks <<nnpc_he Avery>>'s so high and mighty, but <<nnpc_his Avery>> <<girlfriend>> is ours now."
+<br><br>
+
+<<link [[Threaten to tell Avery about them|Mansion Passout Pair Threaten]]>><</link>>
+<br>
+<<if $demon gte 6>>
+	<<link [[Goad them into untying your hands|Mansion Passout Pair Goad]]>><</link>><<demon>>
+	<br>
+<</if>>
+<<link [[Remain silent|Mansion Passout Pair Silent]]>><</link>>
+<br>
+
+
+:: Mansion Passout Pair Threaten
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Please don't do anything rash," you say. "I recognise your voices, and I'll tell Avery what you've done."
+<<elseif $speech_attitude is "bratty">>
+	"I know who you are," you say. "Avery will make you pay for this. If there's anything left when I'm done with you, that is."
+<<else>>
+	"I recognise your voices," you say. "Avery won't be pleased."
+<</if>>
+<br><br>
+
+The <<person1>><<personsimple>> laughs. "We're skipping town after this. Fuck Avery, and fuck you."
+<br>
+"Good idea," the other voice says, reaching for you.
+<br><br>
+
+<<link [[Next|Mansion Passout Pair Rape]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+
+:: Mansion Passout Pair Goad
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"You have me all to yourselves," you say. "Could you release my arms so I can serve you better?"
+<<elseif $speech_attitude is "bratty">>
+	"Taking Avery's <<girlfriend>> right under <<nnpc_his Avery>> Nose?" you say. "Delicious." You raise your arms. "Let me help."
+<<else>>
+	"This is a once in a lifetime opportunity for you," you say, raising your arms. "It would be a shame if you couldn't enjoy me fully."
+<</if>>
+<br><br>
+
+Overcome by lust, trembling hands untie the rope binding your wrists together. You pull your blindfold up a little, for a peek. You're in one of Avery's spare rooms. There's a bed, but something large sits on it, covered by a white sheet. The door is on the other side.
+<br><br>
+<<unbind>>
+The voices belong to a <<person1>><<person>> and <<person2>><<person>>. They watch you, eager, but waiting for you to make the next move.
+<br><br>
+
+<<if hasSexStat("promiscuity", 2)>>
+	<<link [[Drain them|Mansion Passout Pair Sex]]>><<set $sexstart to 1>><</link>><<promiscuous2>>
+	<br>
+<</if>>
+<<link [[Leave|Mansion Passout Pair Leave]]>><</link>>
+<br>
+
+:: Mansion Passout Pair Leave
+<<effects>>
+
+You smile at the pair, then walk away while pulling off the blindfold. You're halfway to the door before they realise you intend to leave.
+<br><br>
+
+"Wait!" the <<person1>><<person>> shouts, but it's too late. They're not so bold as to attack you in the hall outside.
+<br><br>
+<<set $worn.face.type.push("broken")>>
+<<faceruined>>
+
+<<link [[Next|Mansion Bedroom]]>><<endevent>><</link>>
+<br>
+
+
+:: Mansion Passout Pair Silent
+<<effects>>
+
+You remain silent. The pair reach for you, their hands trembling with excitement.
+<br><br>
+
+<<link [[Next|Mansion Passout Pair Rape]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+
+:: Mansion Passout Pair Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Mansion Passout Pair Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Passout Pair Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Passout Pair Rape Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Satisfied, the pair leave you lying on the floor.
+	<br><br>
+	<<tearful>> you rise.
+	<br><br>
+	Avery's bedroom door is open. You walk over to the wardrobe, hook the hard-edged doorknob through your bindings, and let the metal tear through it. You remove the blindfold.
+	<br><br>
+	<br><br>
+
+<<elseif $enemyhealth lte 0>>
+	The pair back away from you.
+	<br><br>
+	<<tearful>> you run from the room. Avery's bedroom door is open. You walk over to the wardrobe, hook the hard-edged doorknob through your bindings, and let the metal tear through it. You remove the blindfold.
+	<br><br>
+<</if>>
+<<unbind>>
+<<set $worn.face.type.push("broken")>>
+<<faceruined>>
+<<clotheson>>
+<<endcombat>>
+
+<<link [[Next|Mansion Bedroom]]>><</link>>
+<br>
+
+
+:: Mansion Passout Pair Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<promiscuity2>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if _combatend>>
+	<span id="next"><<link [[Next|Mansion Passout Pair Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Passout Pair Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Passout Pair Sex Finish
+
+<<set $outside to 0>><<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	You leave the pair lying on the floor. <<tearful>> you exit the room, and pull off the blindfold.
+	<br><br>
+<<elseif $enemyhealth lte 0>>
+	The pair back away from you, fear in their eyes.
+	<br><br>
+	<<tearful>> you run from the room, pulling off the blindfold.
+	<br><br>
+	<br><br>
+<<else>>
+	The pair step away from you, looking dazed. <<tearful>> you leave the room, and pull off the blindfold.
+	<br><br>
+<</if>>
+<<set $worn.face.type.push("broken")>>
+<<faceruined>>
+<<clotheson>>
+<<endcombat>>
+<<link [[Next|Mansion Bedroom]]>><</link>>
+<br>
+
+:: Mansion Passout Saved
+<<set $outside to 0>><<effects>>
+
+<<npc Avery>><<person1>>
+You awaken in Avery's bedroom, on the mattress. Avery emerges from the bathroom, and flashes a smile.
+<br><br>
+
+"Were you too tired to make it to bed?" <<he>> asks. "I'm glad you're pushing yourself, but there are limits."
+<br><br>
+
+A thoughtful look flashes across <<his>> face, and <<he>> walks away.
+<br><br>
+
+<<link [[Next|Mansion Bedroom]]>><<endevent>><</link>>
+<br>
+
+:: Mansion Passout Ascended
+<<set $outside to 0>><<effects>>
+
+You awaken in darkness, arms floating beside you. The platform beneath wobbles as you rise. It's a raft. Still water stretches in all directions.
+<br><br>
+
+The water stirs. Bubbles rise to the surface, growing more intense, until the sea around you boils. A fell glow pulses into life, yet it illuminates nothing. You curl up, letting the raft shield you.
+<br><br>
+
+"You shouldn't be here." The voice is familiar. Distorted limbs rise from the water, followed by a head menacing with metal spikes. "Awaken."
+<br><br>
+
+Your eyes snap open. Avery's bed creaks beneath you.
+<br><br>
+
+<<link [[Next|Mansion Bedroom]]>><<endevent>><</link>>
+<br>
+
+:: Mansion Passout Rage
+<<set $outside to 0>><<effects>>
+<<npc Avery>><<person1>>
+You awaken to a sharp sensation on your face. You're sat upright. Avery is gripping your shoulder, and staring at you.<<gpain>><<gstress>><<pain 4>><<stress 6>>
+<br><br>
+
+"I almost fucking tripped," <<he>> says. "You might be used to sleeping wherever like a fucking wild animal, but you will at least pretend to be civilised while you live with me. Understood?" <<He>> rises, and walks away.
+<br><br>
+<<endevent>>
+<<avery_mansion_end_links>>
+
+:: Mansion Passout Avery
+<<set $outside to 0>><<effects>>
+
+<<npc Avery>><<person1>>
+You awaken as a force pulls you to a sitting position. Avery crouches in front of you, one eyebrow raised.
+<br><br>
+
+"An odd place to sleep," <<he>> says, rising to <<his>> feet. "Try to make it to the bed next time. I almost tripped over you." <<He>> walks away.
+<br><br>
+<<endevent>>
+<<avery_mansion_end_links>>

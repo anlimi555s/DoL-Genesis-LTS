@@ -1,0 +1,43 @@
+:: Widgets Version Info [widget]
+<<widget "versioninfo">>
+	<h3>Version <<print StartConfig.version>></h3>
+
+	<<if StartConfig.versionName>>
+		<h4><<print StartConfig.versionName>></h4>
+	<</if>>
+
+	<<if StartConfig.sneaky>>
+		<h4 class="orange">SNEAKY BUILD</h4>
+	<</if>>
+<</widget>>
+
+<<widget "linkinformation">>
+	<div class="m-2">
+		<p class="gold m-0">Official website</p>
+		[[vrelnir.com|"https://www.vrelnir.com"]]
+	</div>
+
+	<div class="m-2">
+		<p class="gold m-0">Changelog and information</p>
+		[[vrelnir.blogspot.com|"https://vrelnir.blogspot.com"]]
+	</div>
+
+	<div class="m-2">
+		<p class="gold m-0">Support development</p>
+		[[https://vrelnir.fanbox.cc/|"https://vrelnir.fanbox.cc/"]]
+	</div>
+
+	<<if StartConfig.sourceLinkEnabled>>
+		<div class="m-2">
+			<p class="gold m-0">Source code</p>
+			[[gitgud.io/Vrelnir|"https://gitgud.io/Vrelnir/degrees-of-lewdity"]]
+		</div>
+	<</if>>
+
+	<<if StartConfig.socialMediaEnabled>>
+		<div class="m-2">
+			<p class="gold m-0">Official Discord</p>
+			[[discord.gg/VznUtEh|"https://discord.gg/VznUtEh"]]
+		</div>
+	<</if>>
+<</widget>>

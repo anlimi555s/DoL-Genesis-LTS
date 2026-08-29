@@ -1,0 +1,2936 @@
+:: Livestock Job
+<<effects>>
+
+<<if $rng gte 51 or !$settings.bestialityEnabled>>
+	<<if !playerChastity("hidden")>>
+		<<set $genderknown.pushUnique("Harper")>>
+	<</if>>
+	<<if $livestock.jobs.harper is undefined>>
+		<<set $livestock.jobs.harper to 1>>
+		You're led down the small lane in the direction of the barn, but take a detour down a smaller path to the side, shielded by hedgerows. You bend around a corner, and come to a small stone building.
+		<br><br>
+
+		The interior is dark, but clean. Farm equipment and machinery is neatly tucked to one side, leaving space in the middle for a table and pair of chairs.
+		<br><br>
+
+		<<if $harperSeen>>
+			<<endevent>><<npc Harper>><<person1>>A <<personsimple>> wearing a white medical coat sits on one, jotting on a sheet of paper on the table. You recognise <<him>>.
+			<br><br>
+			<<He>> stands up as Remy enters. "I'm Doctor Harper," <<he>> says. "Thank you for allowing this. We're not ready for human trials."
+			<br>
+			"It's my pleasure," Remy responds, taking the doctor's hand.
+			<br>
+			"This must be the specimen," Harper says, <<his>> eyes flicking over your body. <<if $uncomfortable.nude is true>><<covered>><</if>> It's as if <<he>> doesn't recognise you.
+			<br><br>
+			Remy turns to you. <<endevent>><<npc Remy>><<person1>>"Do what the good doctor says," <<he>> says as Harper tugs on a pair of gloves. "It won't hurt. It might even be good for you."
+			<br><br>
+
+			<<link [[Obey|Livestock Job Harper Obey]]>><<sub 1>><<npcincr Remy dom 1>><<npcincr Harper dom 1>><<livestock_obey 5>><<transform cow 1>><</link>><<ggobey>>
+			<br>
+			<<link [[Resist|Livestock Job Harper Resist]]>><<def 1>><<npcincr Remy dom -1>><<npcincr Harper dom -1>><<livestock_obey -5>><</link>><<llobey>>
+			<br>
+		<<else>>
+			<<endevent>><<npc Harper>><<person1>>A <<personsimple>> wearing a white medical coat sits on one, jotting on a sheet of paper on the table.
+			<<set $harperSeen.pushUnique("livestock")>>
+			<br><br>
+			<<He>> stands up as Remy enters. "I'm Doctor Harper," <<he>> says, brushing <<his>> blond fringe away from <<his>> eyes. <<He>> looks young for a doctor, can't be older than 25. "Thank you for allowing this. We're not ready for human trials."
+			<br>
+			"It's my pleasure," Remy responds, taking the doctor's hand.
+			<br>
+			"This must be the specimen." The doctor says, <<his>> eyes flickering over your body. <<if $uncomfortable.nude is true>><<covered>><</if>>
+			<br><br>
+
+			Remy turns to you. <<endevent>><<npc Remy>><<person1>>"Do what the good doctor says," <<he>> says as Harper tugs on a pair of gloves. "It won't hurt. It might even be good for you."
+			<br><br>
+			<<link [[Obey|Livestock Job Harper Obey]]>><<sub 1>><<npcincr Remy dom 1>><<npcincr Harper dom 1>><<livestock_obey 5>><<transform cow 1>><</link>><<ggobey>>
+			<br>
+			<<link [[Resist|Livestock Job Harper Resist]]>><<def 1>><<npcincr Remy dom -1>><<npcincr Harper dom -1>><<livestock_obey -5>><</link>><<llobey>>
+			<br>
+		<</if>>
+	<<elseif $livestock.jobs.harper is 1>>
+		<<set $livestock.jobs.harper to 2>>
+		You're led down the small lane in the direction of the barn, but take a detour down the smaller path to the side, shielded by hedgerows. You bend around a corner, and come to the small stone building.
+		<br><br>
+
+		The interior is as dark as ever. Farm equipment and machinery is neatly tucked to one side, leaving space in the middle for a table and pair of chairs.
+		<br><br>
+
+		<<endevent>><<npc Harper>><<person1>>
+		Doctor Harper sits on one. "Ah," <<he>> says, smiling. "Our specimen." Remy hands <<him>> your leash, then stands behind you.
+		<br><br>
+
+		"Today we're going to try a little technique that should improve your yield." <<His>> voice has taken on a soothing quality. "Help you be the <<pcow>> you were meant to be."
+		<br><br>
+
+		<<He>> lifts a pen from the table beside <<him>>, and holds it in front of you. Remy's hands rest on the side of your head, gentle but firm, forcing you to look at the doctor. "Focus on the pen," Harper says. "There's nothing in the universe but this pen, and the sound of my voice."
+		<br><br>
+
+		<<link [[This feels nice|Livestock Job Hypnosis]]>><<control 15>><<livestock_obey 5>><<transform cow 2>><<trauma -6>><<stress -6>><<awareness -10>><</link>><<ggobey>><<ggcontrol>><<llawareness>><<ltrauma>><<lstress>>
+		<br>
+		<<link [[Resist|Livestock Job Hypnosis Resist]]>><<livestock_obey -5>><<stress 6>><</link>><<llobey>><<gstress>>
+		<br>
+
+	<<elseif $livestock.jobs.harper is 2>>
+		<<set $livestock.jobs.harper to 3>>
+		You're led down the small lane toward the barn. You don't stop there however, instead continuing further until you come to a rustic farmhouse.
+		<br><br>
+
+		The interior is cramped, but clean and well-decorated. You're led into a living room lined by chairs. They're occupied by <<people>>.
+		<br><br>
+
+		Doctor Harper rises from the seat closest to the door. <<endevent>><<npc Harper>><<person1>><<He>> holds out <<his>> hand. "Again, thank you," <<he>> says as Remy takes it. "I've brought my colleagues." <<He>> gestures at other figures seated around the room. They look a bit rough to be the doctor's colleagues. "They wish to observe the effects."
+		<br>
+		Remy nods. "Then I'll leave you to it."
+		<br>
+		Harper pulls a phial of pink liquid from <<his>> coat pocket. "Could you remain a moment? It needs to drink this, and I have little experience handling beasts."
+		<br><br>
+
+		<<endevent>><<npc Remy>><<person1>>
+		<<if $worn.face.type.includes("gag")>>
+			Remy gropes at the back of your head as the doctor opens the phial. <span class="lblue">Your muzzle comes loose.</span> A sweet smell permeates the room.
+			<<set $worn.face.type.push("broken")>>
+			<<faceruined>>
+			<br><br>
+
+			<<endevent>><<npc Harper>><<person1>>The doctor presses it against your lips.
+		<<elseif $livestock.obey gte 30>>
+			Remy and <<his>> farmhands stand nearby as the doctor opens the phial. A sweet smell permeates the room. <<endevent>><<npc Harper>><<person1>><<He>> presses it against your lips.
+		<<else>>
+			Remy has two of <<his>> farmhands restrain you. The doctor opens the phial. A sweet smell permeates the room. <<endevent>><<npc Harper>><<person1>><<He>> presses it against your lips.
+		<</if>>
+		<br><br>
+
+		<<link [[Obey|Livestock Job Harper 2 Obey]]>><<sub 1>><<npcincr Remy dom 1>><<npcincr Harper dom 1>><<livestock_obey 5>><<transform cow 1>><</link>><<ggobey>><<ggarousal>>
+		<br>
+		<<link [[Deceive|Livestock Job Harper 2 Deceive]]>><</link>><<skulduggerydifficulty 1 1000>><<garousal>>
+		<br>
+		<<link [[Struggle|Livestock Job Harper 2 Struggle]]>><<def 1>><<livestock_obey -5>><</link>><<physiquedifficulty 1 $physiquemax>><<llobey>>
+		<br>
+
+	<<elseif $livestock.jobs.harper is 3>>
+		<<set $livestock.jobs.harper to 4>>
+		You're led down the small lane toward the barn. You walk past it, continuing further until you come to the rustic farmhouse.
+		<br><br>
+
+		You're led into the cramped living room. Chairs line the edge. They're occupied by <<people>>.
+		<br><br>
+
+		<<endevent>><<npc Harper>><<person1>>Doctor Harper rises from the seat closest to the door. "Again, thank you," <<he>> says. "My colleagues and I are here to observe the long-term effects of the treatment."
+		<br><br>
+
+		Remy hands <<him>> your leash. "Of course. May you find it enlightening. I'll be in the barn should you have trouble."
+		<br><br>
+
+		Harper tries to pull you into the middle of the room.
+		<br><br>
+
+		<<link [[Obey|Livestock Job Harper 3 Obey]]>><<sub 1>><<livestock_obey 5>><<transform cow 1>><</link>><<ggobey>>
+		<br>
+		<<link [[Struggle|Livestock Job Harper 3 Struggle]]>><<def 1>><<livestock_obey -5>><</link>><<physiquedifficulty 1 $physiquemax>><<llobey>>
+		<br>
+	<<elseif $livestock.jobs.harper is 4>>
+		<<set $livestock.jobs.harper to 1>>
+		You're led down the small lane toward the barn. You walk past it, continuing further until you come to the rustic farmhouse.
+		<br><br>
+
+		You're led into the cramped living room. Chairs line the edge. They're occupied by <<people>>.
+		<br><br>
+
+		<<endevent>><<npc Harper>><<person1>>Doctor Harper rises from the seat closest to the door. "Again, thank you," <<he>> says. "My colleagues and I are here to observe the long-term effects of the treatment."
+		<br><br>
+
+		Remy hands <<him>> your leash. "Of course. May you find it enlightening. I'll be in the barn should you have trouble."
+		<br><br>
+
+		<<He>> lifts a pen from the table beside <<him>>, and holds it in front of you. Remy's hands rest on the side of your head, gentle but firm, forcing you to look at the doctor. "Focus on the pen," Harper says. "There's nothing in the universe but this pen, and the sound of my voice."
+		<br><br>
+
+		<<link [[This feels nice|Livestock Job Hypnosis 2]]>><<control 15>><<livestock_obey 5>><<transform cow 4>><<trauma -12>><<stress -12>><<awareness -20>><</link>><<ggobey>><<ggcontrol>><<llawareness>><<ltrauma>><<lstress>>
+		<br>
+		<<link [[Resist|Livestock Job Hypnosis Resist]]>><<livestock_obey -5>><<stress 6>><</link>><<llobey>><<gstress>>
+		<br>
+	<</if>>
+<<else>>
+	<<if !playerChastity("hidden")>>
+		<<set $genderknown.pushUnique("Niki")>>
+	<</if>>
+	<<if $livestock.jobs.pig is undefined>>
+		<<set $livestock.jobs.pig to 1>>
+		<<endevent>><<npc Niki>><<person1>>
+		Remy leads you down the small lane towards the barn. You arrive in front of it, but then turn toward the second, smaller barn opposite.
+		<br><br>
+		The interior is dusky. A mat has been placed in the centre, bathed in light from a couple of studio lamps and surrounded by stools. They're unoccupied. A camera rests on a tripod. A young <<personsimple>> with a stick in <<his>> mouth stares into it.
+		<br><br>
+
+		<<if !$nikiSeen.length>>
+			<<He>> pulls away from the camera and looks at you. "Niki, I take it?" Remy says beside you.
+			<br><br>
+			The young <<personsimple>> nods. "We're ready when you are."
+		<<else>>
+			<<He>> pulls away from the camera and stares at you. You recognise <<him>>. It's Niki the photographer. <<if $uncomfortable.nude is true>><<covered>><</if>>
+			<br><br>
+			"Niki, I take it?" Remy says beside you.
+			<br><br>
+			Niki hesitates, <<his>> eyes lingering on you, then nods. "We're ready when you are."
+		<</if>>
+		<<set $nikiSeen.pushUnique("farm")>>
+		<br><br>
+
+		<<endevent>><<npc Remy>><<person1>>
+		"Good." Remy turns to you. "We're just doing a practise shoot today, but you need to be good all the same."
+		<br><br>
+
+		<<link [[Next|Livestock Job Niki]]>><</link>>
+		<br>
+	<<elseif $livestock.jobs.pig is 1>>
+		<<set $livestock.jobs.pig to 2>>
+		<<endevent>><<beastNEWinit 1 pig>>
+		Remy leads you down the small lane towards the barn. You arrive in front of it, but then are turned toward the second, smaller barn opposite.
+		<br><br>
+
+		The interior is dusky. The mat, lights and camera from before are set up. Niki operates the camera. A <<beasttype>> already sits before it, waiting beside a hay bale.
+		<br><br>
+
+		"Lie on the mat," Remy whispers. "There's a good <<girl>>."
+		<br><br>
+
+		<<link [[Obey|Livestock Job Pig Obey]]>><<set $farm_phase to 0>><<livestock_obey 5>><<sub 1>><<transform cow 1>><</link>><<ggobey>>
+		<br>
+		<<link [[Struggle|Livestock Job Pig Struggle]]>><<set $farm_phase to 0>><<livestock_obey -5>><<def 1>><</link>><<physiquedifficulty 1 $physiquemax>><<llobey>>
+		<br>
+		<<link [[Plead with Niki|Livestock Job Pig Plead]]>><<set $farm_phase to 0>><<livestock_obey -1>><</link>><<lobey>>
+		<br>
+
+	<<elseif $livestock.jobs.pig is 2>>
+		<<set $livestock.jobs.pig to 1>>
+		<<endevent>><<beastNEWinit 3 pig>>
+		Remy leads you down the small lane towards the barn. You arrive in front of it, but then are turned toward the second, smaller barn opposite.
+		<br><br>
+
+		The interior is dusky. The mat, lights and camera from before are set up. A ring of stools sits around the edge. They're occupied by <<people>>. Three <<beastsplural>> sit on the mat, waiting beside a hay bale. Niki operates the camera.
+		<br><br>
+
+		"Lie on the mat," Remy whispers. "There's a good <<girl>>."
+		<br><br>
+
+		<<link [[Obey|Livestock Job Pig Obey]]>><<set $farm_phase to 1>><<livestock_obey 5>><<sub 1>><<transform cow 1>><</link>><<ggobey>>
+		<br>
+		<<link [[Struggle|Livestock Job Pig Struggle]]>><<set $farm_phase to 1>><<livestock_obey -5>><<def 1>><</link>><<physiquedifficulty 1 $physiquemax>><<llobey>>
+		<br>
+		<<link [[Plead with Niki|Livestock Job Pig Plead]]>><<set $farm_phase to 1>><<livestock_obey -1>><</link>><<lobey>>
+		<br>
+
+	<</if>>
+<</if>>
+<br><br>
+
+:: Livestock Job End
+<<effects>>
+<<unset $farm_phase>>
+<<npc Remy>><<person1>>
+Remy leads you back to the
+<<if $livestock.winter.active>>
+	barn. <<He>> stops outside while the farmhands open the door.
+<<else>>
+	field. <<He>> stops outside while the farmhands open the gate.
+<</if>>
+<br><br>
+
+<<if $worn.face.type.includes("gag")>>
+	Reaching behind your head, <<he>> unties and <span class="lblue">removes your $worn.face.name.</span>
+	<<set $worn.face.type.push("broken")>>
+	<<faceruined>>
+	<br><br>
+<</if>>
+
+<<if $livestock.obey gte 95>>
+	"You've been such a good <<girl>>," Remy says. <<He>> holds out <<his>> hand, and a farmhand hands <<him>> a sheet-covered basket. Remy removes the sheet, revealing a number of large, juicy apples.
+
+	<<if $hunger gte 1600>>
+		Your heart skips a beat at the sight. You're so hungry, and they look so delicious. Your stomach growls.
+	<<else>>
+		They look so delicious. Certainly compared to the grass you've had to tolerate. Your stomach growls.
+	<</if>>
+	<br><br>
+
+	"These are for you," Remy says, handing you the entire basket. <<if $cow gte 6 or pcAreArmsBound("both")>>You take the handle in your mouth.<</if>> "Good <<girls>> get treats. Enjoy."
+	<br><br>
+
+	<<if $cow gte 6 and $worn.neck.name isnot "cow bell">>
+		<<if $worn.neck.name isnot "naked">>
+			Just as you're about to crawl away, Remy holds you by your shoulders and removes the $worn.neck.name,
+			"One other thing before I go. I got you a new bell, for being such a good <<girl>>," <<he>> says while securing it around your neck.
+			<<set $worn.neck.type.push("broken")>>
+			<<neckruined>>
+		<<else>>
+			Just as you're about to crawl away, Remy holds you by your shoulders and secures something around your neck.
+			"One other thing before I go. I got you a new bell, for being such a good <<girl>>," <<he>> says before walking away.
+		<</if>>
+		You give your head a small shake, and it rings. The sound is oddly soothing.
+		<<neckwear 8>>
+		<br><br>
+	<</if>>
+
+	The gate shuts behind you.
+	<br><br>
+
+	<<link [[Eat the apples|Livestock Job Eat]]>><<stress -6>><<trauma -6>><<hunger -2000>><</link>><<lllhunger>><<ltrauma>><<lstress>>
+	<br>
+	<<link [[Save them for someone else|Livestock Job Save]]>><</link>>
+	<br>
+<<elseif $livestock.obey gte 51>>
+	<<if $cow gte 6>>
+		<<transform cow 1>><<npcincr Remy love 1>>
+		"You've been a good <<girl>>," Remy says. <<He>> pulls a shiny red apple from <<his>> pocket. "This is for you." <<He>> holds it toward you.
+		<br><br>
+
+		You lean forward and take a bite. It's so sweet and delicious. The juice runs down your chin. Remy turns the fruit for you, and you lean forward again, and again, until just the core is left. Remy holds out <<his>> fingers, and you lick the juice off.
+		<<lhunger>><<hunger -6>>
+		<br><br>
+
+		"There's more where that came from," Remy says as <<he>> ruffles your hair. "As long as you're a good <<pcow>>." <<He>> pulls you into the <<if $livestock.winter.active>>barn<<else>>field<</if>>.
+		<br><br>
+
+		<<if $worn.neck.name isnot "cow bell">>
+			<<if $worn.neck.name isnot "naked">>
+				Just as you're about to crawl away, Remy holds you by your shoulders and removes the $worn.neck.name.
+				"One other thing before I go. I got you a new bell, for being such a good <<girl>>," <<he>> says while securing it around your neck.
+				<<set $worn.neck.type.push("broken")>>
+				<<neckruined>>
+			<<else>>
+				Just as you're about to crawl away, Remy holds you by your shoulders and secures something around your neck.
+				"One other thing before I go. I got you a new bell, for being such a good <<girl>>," <<he>> says before walking away.
+			<</if>>
+			You give your head a small shake, and it rings. The sound is oddly soothing.
+			<<neckwear 8>>
+			<br><br>
+		<</if>>
+
+		You lick fruit off your chin as the <<if $livestock.winter.active>>door slams<<else>>gate clanks<</if>> shut behind you.
+		<br><br>
+
+		<<if $livestock.winter.active>>
+			<<link [[Next|Livestock Barn]]>><<endevent>><</link>>
+		<<else>>
+			<<link [[Next|Livestock Field]]>><<endevent>><</link>>
+		<</if>>
+		<br>
+
+	<<elseif pcAreArmsBound("both")>>
+		"You've been a good <<girl>>," Remy says. <<He>> pulls a shiny red apple from <<his>> pocket. "This is for you." <<He>> holds it towards you. Your arms are bound, so you can't reach for it. "I'll hold it while you eat," Remy says, as if reading your mind. "<<silently>><<pcow>><</silently>><<capitalise>>s don't have hands."
+		<br><br>
+		<<link [[Eat|Livestock Job Eat One]]>><<npcincr Remy love 1>><<hunger -400>><<livestock_obey 1>><<transform cow 1>><</link>><<gobey>><<lhunger>>
+		<br>
+		<<link [[Refuse|Livestock Job Eat Refuse]]>><<livestock_obey -1>><</link>><<lobey>>
+		<br>
+	<<else>>
+		"You've been a good <<girl>>," Remy says. <<He>> pulls a shiny red apple from <<his>> pocket. "This is for you." <<He>> holds it toward you, but when you reach out <<he>> pulls it back. "No no," <<he>> says. "<<silently>><<pcow>><</silently>><<capitalise>>s don't have hands. I'll hold it for you as you eat."
+		<br><br>
+
+		<<link [[Eat|Livestock Job Eat One]]>><<npcincr Remy love 1>><<hunger -400>><<livestock_obey 1>><<transform cow 1>><</link>><<gobey>><<lhunger>>
+		<br>
+		<<link [[Refuse|Livestock Job Eat Refuse]]>><<livestock_obey -1>><</link>><<lobey>>
+		<br>
+	<</if>>
+<<elseif $livestock.obey gte 21>>
+	"You're a temperamental one," Remy says. <<He>> pulls a shiny red apple from <<his>> pocket. "This could be yours someday. If you behave yourself." <<He>> takes a bite.
+
+	<<if $hunger gte 1600>>
+		It looks so juicy. Your deprived stomach growls.
+	<<else>>
+		It looks so sweet, so tasty compared to the alternative.
+	<</if>>
+	<br><br>
+
+	Remy pulls you the rest of the way into the <<if $livestock.winter.active>>barn. The door slams<<else>>field. The gate clanks<</if>> shut behind you.
+	<br><br>
+
+	<<if $livestock.winter.active>>
+		<<link [[Next|Livestock Barn]]>><<endevent>><</link>>
+	<<else>>
+		<<link [[Next|Livestock Field]]>><<endevent>><</link>>
+	<</if>>
+	<br>
+<<else>>
+	"You're a temperamental one," Remy says, pulling your leash. "But you'll break. They always do." <<He>> shoves you through the <<if $livestock.winter.active>>door. It slams<<else>>gate. It clanks<</if>> shut behind you.
+	<br><br>
+
+	<<if $livestock.winter.active>>
+		<<link [[Next|Livestock Barn]]>><<endevent>><</link>>
+	<<else>>
+		<<link [[Next|Livestock Field]]>><<endevent>><</link>>
+	<</if>>
+	<br>
+<</if>>
+
+:: Livestock Job Eat One
+<<effects>>
+
+You lean forward and take a bite. It's so sweet and delicious. The juice runs down your chin. Remy turns the fruit for you, and you lean forward again, and again, until just the core is left.
+<br><br>
+
+"There's more where that came from," Remy says as <<he>> ruffles your hair. "As long as you're good." <<He>> pulls you into the <<if $livestock.winter.active>>barn. You lick fruit off your chin as the door slams<<else>>field. You lick fruit off your chin as the gate clanks<</if>> shut behind you.
+<br><br>
+
+<<if $livestock.winter.active>>
+	<<link [[Next|Livestock Barn]]>><<endevent>><</link>>
+<<else>>
+	<<link [[Next|Livestock Field]]>><<endevent>><</link>>
+<</if>>
+<br>
+
+:: Livestock Job Eat Refuse
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I-I refuse," you say. Your stomach growls in protest. "I'm a person."
+<<elseif $speech_attitude is "bratty">>
+	"I'm not cattle," you say. Your stomach growls in protest. "Shove it up your ass."
+<<else>>
+	"No," you say. Your stomach growls in protest. "I don't care how hungry I am."
+<</if>>
+<br><br>
+
+Remy takes a bite of the apple <<himself>>. <<He>> closes <<his>> eyes in feigned enjoyment. "So tasty," <<he>> says. <<He>> clutches your leash, and pulls you the rest of the way into the <<if $livestock.winter.active>>barn. The door slams<<else>>field. The gate clanks<</if>> shut behind you.
+<br><br>
+
+<<if $livestock.winter.active>>
+	<<link [[Next|Livestock Barn]]>><<endevent>><</link>>
+<<else>>
+	<<link [[Next|Livestock Field]]>><<endevent>><</link>>
+<</if>>
+<br>
+
+:: Livestock Job Eat
+<<effects>><<canvas-model-override "mouth" "chew">>
+
+You bite into one of the apples. It's so sweet. Once started, there's no stopping you. You eat the entire basket, careful to not waste a single drop of juice. You lie back on the <<if $livestock.winter.active>>ground<<else>>grass<</if>>, relieved and satiated.
+<br><br>
+<<hunger -2000>>
+<<if $livestock.winter.active>>
+	<<link [[Next|Livestock Barn]]>><<canvas-model-override "clear">><<endevent>><</link>>
+<<else>>
+	<<link [[Next|Livestock Field]]>><<canvas-model-override "clear">><<endevent>><</link>>
+<</if>>
+<br>
+
+:: Livestock Job Save
+<<effects>>
+
+You cover the apples with the sheet.
+<<if $hunger gte 1000>>
+	Your stomach growls in protest.
+<</if>>
+<<set $livestock.food to true>>
+<br><br>
+
+<<if $livestock.winter.active>>
+	<<link [[Next|Livestock Barn]]>><<endevent>><</link>>
+<<else>>
+	<<link [[Next|Livestock Field]]>><<endevent>><</link>>
+<</if>>
+<br>
+
+:: Livestock Job Resist End
+<<effects>>
+<<endevent>><<npc Remy>><<person1>>
+<<unset $farm_phase>>
+<<if $livestock.winter.active>>
+	Remy pulls you to the field. <<He>> doesn't steer you in the direction of the winter barn, instead bringing you to the far end of the field where an isolated barn stands.
+	<br><br>
+
+	"Since you're not going to be useful..." Remy begins, motioning over a couple of farmhands nearby, "...then you'll just have to sit and think about what you've done." <<He>> directs the farmhands to stand guard outside the barn before the two of you head inside.
+	<br><br>
+
+	<<link [[Next|Livestock Tie Stall Punishment]]>><<endevent>><<set $phase to 0>><</link>>
+<<else>>
+	Remy pulls you back to the small lane. <<He>> doesn't turn toward the cattle field, but walks in the opposite direction instead, past the barn and across a thin paved road. There's another field here, but the gate is more mundane, and bordered by regular hedgerows.
+	<br><br>
+
+	"You're going to be useful," Remy says, tugging you toward an old plough. "One way or another." Two farmhands grasp your arms. They pull you beneath, forcing you to bend a little. They tie your shoulders to the metal with thick rope.
+	<br><br>
+
+	Remy sits on the plough and leans back. <<He>> unclips <<his>> whip.
+	<br><br>
+
+	<<link [[Pull|Livestock Plough]]>><<sub 1>><<transform cow 1>><<npcincr Remy dom 1>><<tiredness 18>><</link>><<ggtiredness>>
+	<br>
+	<<link [[Refuse|Livestock Plough Refuse]]>><<def 1>><<npcincr Remy dom -1>><<pain 6>><</link>><<gpain>>
+<</if>>
+<br>
+
+:: Livestock Plough
+<<effects>>
+
+<!--<<if $edenwhip is 0>>
+	<<set $edenwhip to 1>>
+<</if>> -->
+
+<<if currentSkillValue('physique') gte 15000>>
+	You force yourself forward, pulling the plough behind you. It's a small satisfaction that Remy is surprised by the speed, and falls back into <<his>> chair.
+	<br><br>
+
+	You march across the field with slow but determined steps. Remy doesn't use the whip, seeming content with your performance.
+<<elseif currentSkillValue('physique') gte 12000>>
+	You force yourself forward, straining to pull the plough behind you. It feels like an immovable weight, but then it gives. Remy's whip cracks at your side.
+	<br><br>
+
+	It's easier now that you have momentum, but progress is slow, and you feel like your muscles will give out at any moment. Remy doesn't use the whip again, seeming content with your performance.
+<<elseif currentSkillValue('physique') gte 8000>>
+	You force yourself forward, straining to pull the plough behind you. You can't move it far before your strength gives out. You'd collapse if you weren't tied to the metal. Remy's whip cracks at your side.
+	<br><br>
+
+	You recover enough to pull again, but can only move it in short bursts. Remy berates you and cracks the whip, but the lash never touches you. <<He>> seems content with your effort.
+<<elseif currentSkillValue('physique') gte 4000>>
+	You try to pull the plough behind you. It takes everything you have, but you manage to move it. An inch. Remy's whip cracks at your side.
+	<br><br>
+
+	You keep pulling, moving the plough in short bursts. Remy berates you and cracks the whip, but the lash never touches you. <<He>> seems content with your effort.
+<<else>>
+	You try to pull the plough, but it's no use. You're not strong enough. Remy's whip cracks at your side.
+	<br><br>
+
+	You keep pulling, despite the hopelessness of the task. Remy berates you and cracks the whip, but the lash never touches you. <<He>> seems content with your effort.
+<</if>>
+<<physique 6>>
+<<pass 60>>
+<br><br>
+
+"Stop," Remy says, just as you feel like you're about to collapse. "That's enough for the day. Untie <<phim>>."
+<br><br>
+
+The farmhands remove the rope from your small shoulders, and you almost fall to the soil. Remy marches over and grasps your leash. "I'd have preferred you do the other job," <<he>> says. "But stubborn beasts get hard labour. Remember that."
+<br><br>
+
+<<He>> pulls you back to the cattle field, flanked by <<his>> cronies.
+<<if $worn.face.type.includes("gag")>>
+	<<He>> grasps the back of your muzzle, <span class="lblue">unties it,</span> then pushes you through the gate. It clanks shut behind you.
+	<<set $worn.face.type.push("broken")>>
+	<<faceruined>>
+<<else>>
+	The gate clanks shut behind you.
+<</if>>
+<br><br>
+
+<<link [[Next|Livestock Field]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Plough Refuse
+<<effects>>
+
+<!--<<if $edenwhip is 0>>
+	<<set $edenwhip to 1>>
+<</if>> -->
+
+<<if $worn.face.type.includes("gag")>>
+	You remain still, refusing to move.
+<<elseif $speech_attitude is "meek">>
+	"I-I can't pull this," you say. "I'm too weak."
+<<elseif $speech_attitude is "bratty">>
+	"Untie me at once," you demand. "Or you'll be sorry."
+<<else>>
+	"I can't pull this," you say. "I'm not strong enough."
+<</if>>
+<br><br>
+
+Remy's cracks the whip once to your side, then follows it up with a lash to your back. You cry out in pain. "If that's how you want it," <<he>> says, a hint of delight in <<his>> voice, "so be it."
+<br><br>
+
+You brace for another lash, but the whip cracks again at your side.
+<br><br>
+
+<<link [[Pull|Livestock Plough]]>><<sub 1>><<transform cow 1>><<npcincr Remy dom 1>><<tiredness 18>><</link>><<ggtiredness>>
+<br>
+<<link [[Refuse|Livestock Plough Refuse 2]]>><<def 1>><<npcincr Remy dom -1>><<pain 12>><</link>><<willpowerdifficulty 1 400>><<ggpain>>
+<br>
+
+:: Livestock Plough Refuse 2
+<<effects>>
+
+<!--<<if $edenwhip is 0>>
+	<<set $edenwhip to 1>>
+<</if>> -->
+
+Remy lashes the whip against your back again, and again you cry out. <<He>> brings it down again, and again, each time more painful than the last.
+<<if $willpowerSuccess>>
+	<span class="green">You remain obstinate.</span> Remy stands in <<his>> chair, planting <<his>> feet and readying <<his>> whip. "So you're not a calf," <<he>> says. "Fine."
+	<<gwillpower>><<willpower 2>>
+	<br><br>
+
+	<<link [[Pull|Livestock Plough]]>><<sub 1>><<transform cow 1>><<npcincr Remy dom 1>><<tiredness 18>><</link>><<ggtiredness>>
+	<br>
+	<<link [[Refuse|Livestock Plough Refuse 3]]>><<def 1>><<npcincr Remy dom -1>><<pain 12>><</link>><<willpowerdifficulty 300 700>><<ggpain>>
+	<br>
+<<else>>
+	<span class="red">You can't take it.</span> All pride flees your mind, and your muscles move.
+	<<ggwillpower>><<willpower 12>>
+	<br><br>
+	<<link [[Next|Livestock Plough]]>><<transform cow 1>><<npcincr Remy dom 1>><<tiredness 18>><</link>><<ggtiredness>>
+	<br>
+<</if>>
+
+:: Livestock Plough Refuse 3
+<<effects>>
+
+<!--<<if $edenwhip is 0>>
+	<<set $edenwhip to 1>>
+<</if>> -->
+
+Remy brings the whip down once more. You grit your teeth as the leather assaults your back, pain surges through your body with every blow.
+<<if $willpowerSuccess>>
+	<span class="green">You remain obstinate.</span> Remy ceases <<his>> assault. "The"—<<he>> pants—"the barbs." The farmhands glance at each other. "Now!"
+	<<gwillpower>><<willpower 2>>
+	<br><br>
+
+	One of the farmhands runs from the field as Remy marches closer. <<He>> clutches your chin and raises it. "Listen here, <<pcow>>," <<he>> spits. "I've broken stronger beasts than you. You do as I say, or I might get angry."
+	<br><br>
+
+	The farmhand returns, carrying a wooden case in both hands. Remy opens it, and pulls out another whip. <<He>> holds it in front of you. It's similar to the other, except studded with cruel barbs.
+	<<gstress>><<stress 6>>
+	<br><br>
+
+	Remy returns to <<his>> seat. <<He>> holds the whip above <<his>> head, the length of it falling behind <<him>>.
+	<br><br>
+
+	<<link [[Pull|Livestock Plough]]>><<sub 1>><<transform cow 1>><<npcincr Remy dom 1>><<tiredness 18>><</link>><<ggtiredness>>
+	<br>
+	<<link [[Refuse|Livestock Plough Refuse 4]]>><<def 1>><<npcincr Remy dom -1>><<pain 24>><</link>><<willpowerdifficulty 300 700>><<gggpain>>
+	<br>
+<<else>>
+	<span class="red">You can't take it.</span> All pride flees your mind, and your muscles move.
+	<<ggwillpower>><<willpower 12>>
+	<br><br>
+	<<link [[Next|Livestock Plough]]>><<transform cow 1>><<npcincr Remy dom 1>><<tiredness 18>><</link>><<ggtiredness>>
+	<br>
+<</if>>
+
+:: Livestock Plough Refuse 4
+<<effects>>
+
+<!--<<if $edenwhip is 0>>
+	<<set $edenwhip to 1>>
+<</if>> -->
+
+The barbs bite into your flesh. The minutes blur together. You're not sure you remain conscious.
+<<if $willpowerSuccess>><<pass 60>>
+	It matters not. <span class="green">You remain obstinate.</span>
+	<<gwillpower>><<willpower 2>>
+	<br><br>
+
+	Remy's blows become erratic. Some of them even miss. At last, <<he>> stops. "T-Take," <<he>> pants. <<He>> sounds defeated. "Take this creature back to the field. I'm done."
+	<br><br>
+
+	<<link [[Next|Livestock Plough Refuse 5]]>><<pass 60>><</link>>
+	<br>
+<<else>>
+	<span class="red">You can't take it.</span> All pride flees your mind, and your muscles move.
+	<<ggwillpower>><<willpower 12>>
+	<br><br>
+	<<link [[Next|Livestock Plough]]>><<transform cow 1>><<npcincr Remy dom 1>><<tiredness 18>><</link>><<ggtiredness>>
+	<br>
+<</if>>
+
+:: Livestock Plough Refuse 5
+<<effects>>
+
+<<generate2>><<generate3>>
+<<person2>>
+"I've never seen Remy like that," one of the farmhands says on the way back to the cattle field. "Is <<person1>><<he>> losing <<his>> touch?"
+<br>
+<<if $worn.face.type.includes("gag")>>
+	"Nah," a <<person3>><<person>> responds as <<he>> <span class="lblue">unties your $worn.face.name.</span> "This one here's just a fighter. Was impressive, if hard to watch."
+	<<set $worn.face.type.push("broken")>>
+	<<faceruined>>
+<<else>>
+	"Nah," a <<person3>><<person>> responds. "This one here's just a fighter. Was impressive, if hard to watch."
+<</if>>
+<br>
+"Never thought I'd see someone—" <<person2>><<He>> catches <<himself>>. "Ah, I mean something, that Remy couldn't break."
+<br><br>
+
+You arrive in front of the gates. "It's not over for this poor thing," <<person3>>the <<person>> glances around. "Hang on." <<He>> disappears into a small shed, and emerges with a basket covered with a white sheet.
+<br><br>
+<<He>> passes it to you. "Might need help healing after that." You glimpse beneath the sheet. It's full of shiny, juicy apples. Your mouth waters and your stomach growls.
+<br><br>
+
+<<person2>>The <<person>> looks shocked. "Remy's not gonna be happy," <<he>> says. <<person1>>"<<Hes>> the only one allowed to give those out."
+<br>
+"Remy's not gonna find out. Like <<hes>> not gonna find out you said <<he>> lost <<his>> touch."
+<br><br>
+The <<person2>><<persons>> face pales, and <<he>> drops the topic. The gate shuts behind you.
+<br><br>
+
+<<link [[Eat the apples|Livestock Job Eat]]>><<stress -6>><<trauma -6>><<hunger -2000>><</link>><<lllhunger>><<ltrauma>><<lstress>>
+<br>
+<<link [[Save them for someone else|Livestock Job Save]]>><</link>>
+<br>
+
+:: Livestock Job Harper Obey
+<<effects>>
+<<endevent>><<npc Harper>><<person1>>
+<<pass 60>>
+Harper steps closer. <<He>> pulls a stethoscope from behind <<his>> coat, and presses it against your chest. <<He>> listens for a moment, then
+
+<<if $player.breastsize gte 7>>
+	grasps one of your <<breasts>> with <<his>> free hand. <<He>> gently fondles you.
+	<<garousal>><<arousal 600 "breasts">>
+<<else>>
+	presses <<his>> thumb against your <<nipple>>. <<He>> rubs it in a circle, teasing you.
+	<<garousal>><<arousal 600 "breasts">>
+<</if>>
+<br><br>
+
+<<He>> continues to listen as <<his>> hand wanders down your body.
+
+<<if playerChastity()>>
+	<<He>> tries to slip <<his>> fingers beneath your $worn.genitals.name, without success.
+<<else>>
+	<<His>> fingers brush against your <<genitals 1>>.
+	<<garousal>><<arousal 600 "genitals">>
+<</if>>
+
+<<if $settings.analEnabled and !playerChastity("anus")>>
+	<br><br>
+	<<He>> allows the stethoscope to fall, and licks <<his>> free forefinger, before reaching behind your <<bottom>>. You feel the finger press against your anus. It slides in without difficulty.
+	<br><br>
+	<<He>> prods around inside you as <<his>> other hand
+	<<if playerChastity("hidden")>>
+		slowly strokes your thighs.
+	<<elseif $worn.genitals.name is "chastity parasite">>
+		cups and squeezes your $worn.genitals.name, as if examining it<<if $player.vaginaExist>>, before spreading your <<pussy>><</if>>.
+	<<elseif $player.penisExist and $player.vaginaExist>>
+		cups and buoys your <<penis>>, as if weighing it, before spreading your <<pussy>>.
+	<<elseif $player.penisExist>>
+		cups and buoys your <<penis>>, as if weighing it.
+	<<else>>
+		spreads your <<pussy>>.
+	<</if>>
+	<<garousal>><<arousal 600 "genitals">>
+<<elseif !playerChastity()>>
+	<br><br>
+	<<if $player.penisExist and $player.vaginaExist>><<He>> cups and buoys your <<penis>>, as if weighing it, before spreading your <<pussy>>.<<elseif $player.penisExist>><<He>> cups and buoys your <<penis>>, as if weighing it.<<else>><<His>> fingers spread your <<pussy>>, while another hovers in front, as if ready to plunge in at any moment.<</if>>
+	<<garousal>><<arousal 600 "genitals">>
+<</if>>
+<br><br>
+
+The examination continues for a while. You endure Harper's probing and prodding until <<he>> steps away from you, leaving your breath quickened. "Everything seems fine," <<he>> says. "I'll be in touch to discuss the next step."
+<br><br>
+
+<<link [[Next|Livestock Job End]]>><<endevent>><</link>>
+
+:: Livestock Job Harper Refuse
+<<effects>>
+
+Harper steps towards you, but you back away.
+
+<<if $worn.face.type.includes("gag")>>
+	You try to speak, but the gag reduces your words to an unintelligible mumble.
+<<elseif $speech_attitude is "meek">>
+	"P-please don't treat me like this," you say. "You're scaring me."
+<<elseif $speech_attitude is "bratty">>
+	"I'm not a cow," you say. "And I'm not gonna let you nutters treat me like this."
+<<else>>
+	"I'm not going to play along," you say. "This isn't right."
+<</if>>
+<br><br>
+
+"I'm terribly sorry," Remy says. "This will just take a moment." At that, two farmhands enter the building. Remy grasps the base of your leash and leans close.
+<br><br>
+
+"You're not going to show me up in front of the doctor," <<he>> whispers. "Let <<endevent>><<npc Harper>><<person1>><<him>> treat you, or we'll make you."
+<br><br>
+
+<<link [[Obey|Livestock Job Harper Obey]]>><<sub 1>><<livestock_obey 1>><<transform cow 1>><<npcincr Remy dom 1>><</link>><<gobey>>
+<br>
+<<link [[Resist|Livestock Job Harper Resist]]>><<def 1>><<livestock_obey -5>><<npcincr Remy dom -1>><</link>><<llobey>><<physiquedifficulty 1 $physiquemax>>
+<br>
+
+:: Livestock Job Harper Resist
+<<effects>>
+
+<<endevent>><<npc Remy>><<person1>>
+<<if $physiqueSuccess>>
+	<<npcincr Remy dom -1>><<npcincr Harper dom -1>>
+	You shove Remy away from you. <<His>> farmhands grasp your arms. You shake one off, then <span class="green">punch the other in the nose.</span> <<He>> clutches <<his>> face and stumbles backwards, tripping over a bucket and falling to the floor.
+	<br><br>
+
+	Remy reaches for <<his>> whip, but Harper interrupts <<him>>. <<endevent>><<npc Harper>><<person1>>"That's enough," the doctor says. "This serves as a reasonable test." <<He>> gathers <<his>> papers from the table. "I'll be in touch to discuss the next stage."
+	<br><br>
+
+	<<link [[Next|Livestock Job Resist End]]>><<endevent>><</link>>
+	<br>
+
+<<else>>
+	<<npcincr Remy dom 1>><<npcincr Harper dom 1>>
+	You shove Remy away from you. <<His>> farmhands grasps your arms, and <span class="red">you're unable to shake them off.</span> They hold you still.
+	<br><br>
+
+	<<link [[Next|Livestock Job Harper Obey]]>><</link>>
+	<br>
+
+<</if>>
+
+:: Livestock Job Harper 2 Obey
+<<effects>>
+
+Harper pours the liquid down your throat. It's even sweeter than it smells, and sticky. A warm feeling spreads from your abdomen, permeating your body until it reaches the tips of your fingers and toes.
+<<drugs 360>><<arousal 1200>><<ggarousal>>
+<br><br>
+<<endevent>><<npc Harper>><<person1>><<set $phase to 0>>
+
+Harper takes your hand and leads you into the middle of the room. <<takeHandholdingVirginity "Harper">>
+<br><br>
+<<His>> touch, even on such a mundane part of your body, sends a shiver down your spine. <<He>> grasps your arms and holds them behind your body. The audience leans forward in their seats.
+<br><br>
+
+<<link [[Next|Livestock Job Harper 2 Obey 2]]>><</link>>
+<br>
+
+:: Livestock Job Harper 2 Deceive
+<<effects>>
+
+Harper pours the liquid into your mouth. It's even sweeter than it smells, and sticky. You hold it in your mouth, refusing to swallow. It isn't easy. Even there the liquid seeps into you, making you flush with an unnatural warmth.
+<<drugs 180>><<arousal 600>>
+<br><br>
+<<endevent>><<npc Harper>><<person1>>
+
+<<if currentSkillValue('skulduggery') gte random(1, 1000)>><<set $phase to 1>>
+	Harper takes your hand and leads you into the middle of the room. <<takeHandholdingVirginity "Harper">>
+	<br><br>
+	<<His>> touch, even on such a mundane part of your body, sends a shiver down your spine. Your throat quivers, <span class="green">but you manage to keep yourself from swallowing.</span>
+	<br><br>
+	The doctor grasps your arms and holds them behind your body. The audience leans forward in their seats.
+	<br><br>
+<<else>><<set $phase to 0>>
+	Harper takes your hand and leads you into the middle of the room. <<takeHandholdingVirginity "Harper">>
+	<br><br>
+	<<His>> touch, even on such a mundane part of your body, sends a shiver down your spine. Your throat quivers, <span class="red">and you can't stop yourself from swallowing.</span>
+	<<drugs 180>><<arousal 600>><<garousal>>
+	<br><br>
+	The doctor grasps your arms and holds them behind your body. The audience leans forward in their seats.
+	<br><br>
+<</if>>
+
+<<link [[Next|Livestock Job Harper 2 Obey 2]]>><</link>>
+<br>
+
+:: Livestock Job Harper 2 Obey 2
+<<effects>>
+
+"As you can see," the doctor says, turning you on the spot to give each person a look at you from all angles. "The treatment is already working."
+
+<<if playerChastity("hidden") or $worn.genitals.name is "chastity parasite">>
+	<<He>> points at your face. "A <<if $player.gender_appearance is "m">>virile bull<<else>>fertile cow<</if>> like this would be foolish to leave unshackled at the best of times. With my treatment, it would be dangerous.
+	<<if $worn.genitals.name is "chastity parasite">>
+		While you may be unable to see under a parasite such as this, there are the means to remove it when you are ready."
+		<br><br>
+		<<He>> runs <<his>> fingers over the front of the $worn.genitals.name causing you whimper from the wave of pleasure. "<<pShes>> already ready for breeding."
+	<<else>>
+		While you may be unable to see under a device such as this, there are the means to remove it even when you don't have the key."
+		<br><br>
+		<<He>> runs <<his>> fingers over the front of the $worn.genitals.name. "<<pShes>> already wet and dripping through the metal."
+	<</if>>
+	<br><br>
+<<elseif playerChastity()>>
+	<<if $player.penisExist and $player.vaginaExist>>
+		The audience murmurs about your hermaphroditism. "You might be wondering," Harper continues. "If all the livestock here are blessed with both male and female genitalia. They are not. This specimen is unique."
+		<br><br>
+	<</if>>
+
+	<<He>> points at your <<genitals 1>>, semi-concealed behind your $worn.genitals.name. "A <<if $player.gender_appearance is "m">>virile bull<<else>>fertile cow<</if>> like this would be foolish to leave unshackled at the best of times. With my treatment, it would be dangerous."
+	<br><br>
+
+	<<He>> runs <<his>> fingers over the front of the device. <<if $player.penisExist>>"<<pShes>> already erect and straining against the metal."<<else>>"<<pShes>> already wet and dripping through the metal."<</if>>
+	<br><br>
+<<else>>
+	<<if $player.penisExist and $player.vaginaExist>>
+		The audience murmurs about your hermaphroditism. "You might be wondering," Harper continues. "If all the livestock here are blessed with both male and female genitalia. They are not. This specimen is unique."
+		<br><br>
+	<</if>>
+
+	<<He>> points at your <<if $player.penisExist>><<penis>>. "<<pShes>> already erect and ready to <<if $settings.pregnancySpeechEnabled>>breed<<else>>mate<</if>>.<<else>><<pussy>>. "<<pShes>> already wet and ready to <<if $settings.pregnancySpeechEnabled>>breed<<else>>mate<</if>>.<</if>>" The audience leans forward in their seats, staring at your <<genitals 1>> with a lewd thirst in their eyes.
+	<br><br>
+<</if>>
+
+<<link [[Next|Livestock Job Harper 2 Obey 3]]>><<pass 60>><</link>>
+<br>
+
+:: Livestock Job Harper 2 Obey 3
+<<effects>>
+
+The examination continues. Harper presents and speaks of your body in detail, highlighting every little tremble, every flush in the skin.
+
+<<if $phase is 1>>
+	All the while you keep the sweet liquid in your mouth, preventing its full effects.
+<</if>>
+<br><br>
+
+"That concludes the examination," Harper says at last. Polite applause fills the small room. "Next time it should be safe to get a little more hands-on. To test the lingering effects of the treatment."
+<br><br>
+
+Harper pats your head. "Thank you for being cooperative," <<he>> says. <<He>> pauses a moment, then pulls your hair back, leans in, and kisses your lips.
+<<takeKissVirginity "Harper" "rape">>
+<br><br>
+<<if $phase is 1>>
+	<span class="pink"><<His>> eyes open in surprise as <<he>> tastes the pink fluid.</span>
+	<br><br>
+<</if>>
+
+<<link [[Endure|Livestock Job Harper 2 Endure]]>><<transform cow 1>><<livestock_obey 1>><<stress 6>><</link>><<gstress>><<gobey>>
+<br>
+<<link [[Pull away|Livestock Job Harper 2 Pull]]>><<livestock_obey -1>><</link>><<lobey>>
+<br>
+<<if $phase is 1>>
+	<<link [[Spit|Livestock Job Harper 2 Spit]]>><</link>>
+	<br>
+<</if>>
+
+:: Livestock Job Harper 2 Endure
+<<effects>>
+
+You remain still as the doctor violates your mouth with <<his>> tongue.
+<br><br>
+
+"I take it the beast was well-behaved?" says Remy from the door. Harper pulls away at once.
+<br>
+"Y-yes," the doctor stutters. "Very. Thank you again. I trust my next visit is still scheduled?"
+<br>
+"Of course." Remy takes your leash. "Until we meet again."
+
+<<if $phase is 1>>
+	<br><br>
+	Remy leads you outside. You spit out the pink fluid. If Remy notices, <<endevent>><<npc Remy>><<person1>><<he>> thinks nothing of it.
+<</if>>
+<br><br>
+
+<<link [[Next|Livestock Job End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Job Harper 2 Pull
+<<effects>>
+
+You pull away from Harper. <<He>> tries to hold you still, but you persist and turn away from <<him>>.
+<br><br>
+
+"Is our beast causing trouble?" says Remy from the door. Harper ceases at once.
+<br>
+"N-no," the doctor stutters. "Just a little temperamental. Thank you again. I trust my next visit is still scheduled?"
+<br>
+"Of course." Remy takes your leash. "Until we meet again."
+
+<<if $phase is 1>>
+	<br><br>
+	Remy leads you outside. You spit out the pink fluid. If Remy notices, <<endevent>><<npc Remy>><<person1>><<he>> thinks nothing of it.
+<<else>>
+
+<</if>>
+<br><br>
+
+<<link [[Next|Livestock Job End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Job Harper 2 Spit
+<<effects>>
+<<earnFeat "Harper's Bane">>
+You spit the pink fluid into Harper's mouth. <<He>> pulls away and wipes <<his>> chin. Almost at once, however, a change comes over <<him>>. <<He>> was already flushed, but there was a restraint there. Now, there's nothing but a mad thirst. <<He>> pounces on you, tackling you to the floor.
+<br><br>
+
+The audience crowds around, glad the show isn't over.
+<br><br>
+
+<<link [[Next|Livestock Job Harper 2 Rape]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Livestock Job Harper 2 Rape
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<audience>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Livestock Job Harper 2 Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Livestock Job Harper 2 Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Livestock Job Harper 2 Rape Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Reason returns to Harper's face, and <<he>> fumbles with <<his>> clothes as <<he>> rises to <<his>> feet.
+	<br><br>
+	<<tearful>> you climb to your feet as well.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Livestock Job Harper 2 Rape End]]>><</link>>
+	<br>
+
+<<else>>
+	You shove Harper away from you. <<He>> falls back on a chair. The hunger in <<his>> eyes has abated, but the audience encourages <<him>> to continue. Some look prepared to restrain you themselves.
+	<br><br>
+	<<tearful>> you climb to your feet and brace yourself.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Livestock Job Harper 2 Rape End]]>><</link>>
+	<br>
+
+<</if>>
+
+:: Livestock Job Harper 2 Rape End
+<<effects>>
+
+"That's not what we agreed to," says Remy from the door.
+<br>
+"I-I," the doctor stutters. "There was an accident. I apologise. I trust my next visit is still scheduled?"
+<br>
+Remy laughs and takes your leash. "It is. Until we meet again."
+<br><br>
+
+<<link [[Next|Livestock Job End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Job Harper 2 Struggle
+<<effects>>
+
+<<if $physiqueSuccess>>
+	<<npcincr Remy dom -1>><<npcincr Harper dom -1>>
+	You shove Harper away from you. Remy's farmhands hold your arms tight as the doctor makes a second attempt. You <<endevent>><<npc Harper>><<person1>>headbutt <<him>>, <span class="green">and the phial shatters on the ground.</span>
+	<br><br>
+
+	<<if $livestock.muzzle>>
+		Harper clutches <<his>> face. Blood drips between <<his>> fingers. The other visitors look amused. Remy does not. "I'm so sorry," <<endevent>><<npc Remy>><<person1>><<he>> says, <span class="purple">tying a muzzle around your face.</span><<facewear "bit gag">> "My animals are normally better behaved."
+	<<else>>
+		Harper clutches <<his>> face. Blood drips between <<his>> fingers. The other visitors look amused. Remy does not. "I'm so sorry," <<endevent>><<npc Remy>><<person1>><<he>> says, clutching the back of your collar. "My animals are normally better behaved."
+	<</if>>
+	<br><br>
+
+	Harper nods as if unbothered. <<He>> fumbles for a tissue.
+	<br><br>
+
+	<<link [[Next|Livestock Job Resist End]]>><</link>>
+	<br>
+
+<<else>>
+	<<npcincr Remy dom 1>><<npcincr Harper dom 1>>
+	You shove Harper away from you. Remy's farmhands hold your arms tight as the doctor makes a second attempt. You try to free yourself, <span class="red">but the farmhands are too strong.</span>
+	<br><br>
+
+	<<link [[Next|Livestock Job Harper 2 Obey]]>><</link>>
+	<br>
+
+<</if>>
+
+:: Livestock Job Harper 3 Obey
+<<effects>>
+<<generate2>><<generate3>><<generate4>><<generate5>><<generate6>>
+Harper pulls you into the middle of the room. You're surrounded by hungry eyes. <<if $uncomfortable.nude is true>><<covered>><</if>> "This specimen," <<he>> begins, stepping behind you and grasping your arms. <<He>> pulls them back, making sure you can't cover. "Has been administered certain treatments to improve yield. Observe."
+<br><br>
+
+<<if $player.penisExist and !playerChastity()>>
+	<<switch $player.penissize>>
+	<<case 6>>
+		<<He>> reaches around your body and takes your <<penis>> in <<his>> hand. You flinch at <<his>> touch. "As you can see," <<he>> continues, rubbing your length. "This one is of prodigious size."
+		<<garousal>><<arousal 600 "genitals">>
+		<br><br>
+		A <<person2>><<person>> leans forward in <<his>> seat, awed by the size of your cock and leering with naked thirst.
+		<<insecurity "penis_big" 1>><<ginsecurity "penis_big">>
+	<<case 5 4>>
+		<<He>> reaches around your body and takes your <<penis>> in <<his>> hand. <<His>> touch makes you jump. "As you can see," <<he>> continues, rubbing your length. "This one is almost ready to be milked."
+		<<garousal>><<arousal 600 "genitals">><<insecurity "penis_big" 1>><<ginsecurity "penis_big">>
+		<br><br>
+
+		A <<person2>><<person>> leans forward in <<his>> seat, leering.
+	<<case 3 2>>
+		<<He>> reaches around your body and takes your <<penis>> in <<his>> hand. <<His>> touch makes you jump. "Don't be fooled," <<he>> continues. "It may be small, but it can still be very productive.
+		<<garousal>><<arousal 600 "genitals">>
+		<br><br>
+
+		"It's so cute," a <<person2>><<person>> laughs. "But if you say so."
+		<<insecurity "penis_small" 1>><<ginsecurity "penis_small">>
+	<<case 1>>
+		<<He>> reaches around your body and takes your <<penis>> in <<his>> hand. <<His>> touch makes you jump. "Don't be fooled," <<he>> continues. "This one is too small to produce, but that will soon change."
+		<br><br>
+		"It's so little and cute," a <<person2>><<person>> laughs. "It's almost a shame."
+		<<insecurity "penis_small" 2>><<ginsecurity "penis_small">>
+	<<case 0>>
+		<<He>> reaches around your body and takes your <<penis>> over <<his>> finger. <<His>> touch makes you jump. "Unfortunately," <<he>> continues. "I'm not sure how we can help make this one productive."
+		<br><br>
+		"It's so tiny and cute," a <<person2>><<person>> laughs. "It's a shame."
+		<<insecurity "penis_small" 3>><<ginsecurity "penis_small">>
+	<</switch>>
+	<br><br>
+
+	<<person1>>
+	<<link [[Next|Livestock Job Harper 3 Obey 2]]>><</link>>
+	<br>
+<<else>>
+	<<if $player.breastsize gte 8>>
+		<<He>> reaches around your body and takes your <<breasts>> in <<his>> hands. <<His>> touch makes you jump. "As you can see," <<he>> continues, rubbing your chest. "This one is of prodigious size."
+		<<garousal>><<arousal 600 "breasts">>
+		<br><br>
+
+		A <<person2>><<person>> leans forward in <<his>> seat, awed by the size of your breasts and leering with a naked thirst.
+		<<ginsecurity "breasts_big">><<insecurity "breasts_big" 1>>
+		<br><br>
+	<<elseif $player.breastsize gte 6>>
+		<<He>> reaches around your body and takes your <<breasts>> in <<his>> hands. <<His>> touch makes you jump. "As you can see," <<he>> continues, rubbing your chest. "This one is almost ready to be milked."
+		<<ginsecurity "breasts_big">><<insecurity "breasts_big" 1>><<garousal>><<arousal 600 "breasts">>
+		<br><br>
+
+		A <<person2>><<person>> leans forward in <<his>> seat, leering.
+		<br><br>
+	<<elseif $player.breastsize gte 1>>
+		<<He>> reaches around your body and takes your <<breasts>> in <<his>> hands. <<His>> touch makes you jump. "As you can see," <<he>> continues, rubbing your chest. "These may be small, but they can still be very productive."
+		<<garousal>><<arousal 600 "breasts">>
+		<br><br>
+
+		"So small and cute," a <<person2>><<person>> laughs. "But if you say so."
+		<<ginsecurity "breasts_small">><<insecurity "breasts_small" 1>>
+		<br><br>
+	<<else>>
+		<<He>> reaches around your body and takes your <<breasts>> in <<his>> hands. <<His>> touch makes you jump. "As you can see," <<he>> continues, rubbing your chest. "This one is too small to produce, but that will soon change."
+		<<garousal>><<arousal 600 "breasts">>
+		<br><br>
+
+		"So flat and cute," a <<person2>><<person>> laughs. "It's almost a shame."
+		<<ginsecurity "breasts_small" 2>><<insecurity "breasts_small" 2>>
+		<br><br>
+	<</if>>
+	<<person1>>
+	<<link [[Next|Livestock Job Harper 3 Obey 2]]>><</link>>
+<</if>>
+<br><br>
+
+:: Livestock Job Harper 3 Obey 2
+<<effects>>
+<<pass 60>>
+<<if $player.penisExist and !playerChastity()>>
+	Harper continues to assault your <<penis>> in front of everyone, teasing without mercy.
+	<<ggarousal>><<arousal 1800 "genitals">>
+<<else>>
+	Harper continues to assault your <<breasts>> in front of everyone, teasing without mercy.
+	<<ggarousal>><<arousal 1800 "breasts">>
+<</if>>
+<br><br>
+<<person2>>
+<<if $pronoun is "m">>
+	<<if $NPCList[1].penis isnot "none">>
+		The <<person>> unzips <<his>> fly, pulling out <<his>> <<print $NPCList[1].penisdesc>>. <<He>> starts masturbating, right in the middle of the room.
+	<<else>>
+		The <<person>> unzips <<his>> fly, revealing <<his>> moistened pussy. <<He>> starts masturbating, right in the middle of the room.
+	<</if>>
+<<else>>
+	<<if $NPCList[1].penis isnot "none">>
+		The <<person>> lifts the front of <<his>> skirt, revealing <<his>> <<print $NPCList[1].penisdesc>>. <<He>> starts masturbating, right in the middle of the room. <<He>> pulls down <<his>> top with <<his>> free hand, showing off <<his>> <<print $NPCList[1].breastsdesc>>. <<He>> plays with them as well.
+	<<else>>
+		The <<person>> lifts the front of <<his>> skirt, revealing <<his>> moistened pussy. <<He>> starts masturbating, right in the middle of the room. <<He>> pulls down <<his>> top with <<his>> free hand, showing off <<his>> <<print $NPCList[1].breastsdesc>>. <<He>> plays with them as well.
+	<</if>>
+<</if>>
+<br><br>
+
+Harper continues as if nothing were amiss. Others follow suit, and you're soon surrounded by masturbating <<people>>.
+
+<<if $arousal gte $arousalmax>>
+	Between the physical stimulation, and all the leering eyes, there's nothing you can do to stop the approaching wave. <<orgasm>>
+
+	"<<pShe>> came!"
+	<br>
+	<<if $player.penisExist>>
+		<<if !$femaleclimax and !_deniedOrgasm>>
+			"Look at all that tasty cum."
+		<<else>>
+			"I was hoping for cum, if I'm honest."
+		<</if>>
+	<<else>>
+		"I can see <<pher>> juices."
+	<</if>>
+	<br>
+	"Do you think the doctor will let us have a lick?"
+	<br><br>
+
+<<else>>
+
+<</if>>
+
+The <<person2>><<person>> shakes, and
+<<if $NPCList[1].penis isnot "none">>
+	thick strings of cum erupt from <<his>> <<print $NPCList[1].penisdesc>>, <span class="purple">landing on your hair.</span>
+	<<bodyliquid "hair" "semen">>
+<<else>>
+	juices stream from <<his>> pussy. <<He>> throws back <<his>> head and moans in climax.
+<</if>>
+<br><br>
+
+<<link [[Next|Livestock Job Harper 3 Obey End]]>><</link>>
+<br>
+
+:: Livestock Job Harper 3 Obey End
+<<effects>>
+
+<<endevent>><<npc Remy>><<person1>>Harper releases you as the front door opens. Remy enters, wiping sweat from <<his>> forehead. "I must get this one back to the field," <<he>> says. "Fresh air and exercise is important for a healthy yield."
+<br><br>
+
+"Of course," Harper responds. "Thank you once again."
+<br><br>
+
+You feel the audience stares at your <<bottom>> as you're led outside. Some of them want to do more than look, you're sure.
+<br><br>
+
+<<link [[Next|Livestock Job End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Job Harper 3 Struggle
+<<effects>>
+
+<<if $physiqueSuccess>>
+	You grasp your own leash, and pull it away from Harper. <<He>> stumbles, almost tripping.
+	<br><br>
+
+	At Remy's call, two farmhands enter and grasp your arms from behind. You shake one of them off, <span class="green">and punch the other in the nose.</span>
+	<br><br>
+
+	Both seem afraid to approach you. <<endevent>><<npc Remy>><<person1>>"What are you waiting for?" Remy asks. "Restrain the beast." <<His>> cronies glance at each other, unwilling to make the first move.
+	<br><br>
+
+	"It's alright," <<endevent>><<npc Harper>><<person1>>Harper says, stabilising <<himself>> on the arm of a chair. "The <<pcow>> needs to be cooperative. We can try again another day."
+	<br><br>
+
+	<<endevent>><<npc Remy>><<person1>>
+	"I'm sorry for this terrible behaviour," Remy says, tugging your leash. "Thank you for understanding."
+	<br><br>
+
+	<<link [[Next|Livestock Job Resist End]]>><<endevent>><</link>>
+	<br>
+
+<<else>>
+	You grasp your own leash, and pull it away from Harper. <<He>> stumbles, almost tripping.
+	<br><br>
+
+	At Remy's call, two farmhands enter and grasp your arms from behind. You try to shake them off, <span class="red">but they hold firm.</span> Harper picks up your leash again.
+	<br><br>
+
+	The farmhands let go, but remain in the room, ready to intervene.
+	<br><br>
+
+	<<link [[Next|Livestock Job Harper 3 Obey]]>><</link>>
+	<br>
+
+<</if>>
+
+:: Livestock Job Niki
+<<effects>>
+<<endevent>>
+<<beastNEWinit 1 pig>>
+The barn doors open, and a farmhand enters, holding a leash. The leash tightens. Whatever it's attached to refuses to enter.
+<br><br>
+With some tugging, and help from a couple of other farmhands, the beast is coerced into the building. It's a <<beasttype>>.
+<br><br>
+"You've worked with animals before?" Remy asks.
+<br><br>
+Niki hesitates. "Yes."
+<br><br>
+"Then this should be straightforward. Our animals are well-behaved. Even our cows and pigs get on well with each other." <<nnpc_He "Remy">> scratches behind your ear. "They should be able to stay still for however long it takes."
+<br><br>
+
+<<link [[Cooperate|Livestock Job Niki Cooperate]]>><<transform cow 1>><<livestock_obey 5>><<sub 1>><</link>><<ggobey>>
+<br>
+<<link [[Defy|Livestock Job Niki Defy]]>><<livestock_obey -5>><<def 1>><</link>><<llobey>>
+<br>
+
+:: Livestock Job Niki Cooperate
+<<effects>>
+<<pass 60>>
+Remy makes you kneel on the mat in front of the camera, and pulls the <<beasttype>> beside you. Niki takes over from there. <<nnpc_He "Niki">> takes some photos, then orders the farmhands to adjust the lighting.
+<br><br>
+
+It's a while before Niki is satisfied, but eventually <<nnpc_he "Niki">> has you adopt different poses alongside the <<beasttype>>.
+
+<<if $player.penisExist>>
+	Your <<penis>> and <<breasts>> seem to be the focus.
+<<else>>
+	Your <<breasts>> seem to be the focus.
+<</if>>
+<<if !hasSexStat("exhibitionism", 6) or $uncomfortable.nude is true>>
+	<<if $uncomfortable.nude is true>>You resist the urge to cover yourself.<</if>>
+	Remy mentioned this was just a practise shoot, but you worry the pictures would still be distributed.
+<<else>>
+	Remy mentioned this was just a practise shoot, but you wonder if the pictures would still be distributed. The thought excites you.
+	<<garousal>><<arousal 600>>
+<</if>>
+<br><br>
+
+Remy watches from a distance. Usually watching you.
+<br><br>
+
+<<link [[Next|Livestock Job Niki Cooperate 2]]>><</link>>
+<br>
+
+:: Livestock Job Niki Cooperate 2
+<<effects>>
+
+"That's all I need," Niki says at last. "We're ready for the proper shoots."
+<br><br>
+
+"Excellent," Remy responds, walking over and picking up your leash. "This good <<girl>> is gonna be <<bred>> by a pig."
+<<gstress>><<stress 6>>
+<br><br>
+
+<<endevent>><<npc Remy>><<person1>>Niki ignores <<him>>, instead focusing on packing up <<endevent>><<npc Niki>><<person1>><<his>> things.
+<br><br>
+
+<<link [[Next|Livestock Job End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Job Niki Defy
+<<effects>>
+<<pass 60>>
+Remy pulls you to the mat, followed by the <<beasttype>>. Niki takes over from there. <<nnpc_He "Niki">> takes some photos, then orders the farmhands to adjust the lighting.
+<br><br>
+
+It's a while before Niki is satisfied, but eventually <<nnpc_he "Niki">> asks you to adopt poses beside the <<beasttype>>.
+<br><br>
+
+You refuse.
+<<if $uncomfortable.nude is true>>
+	<<if pcAreArmsBound("both")>>
+		Your bound arms prevent you from covering, so you keep your back turned to the camera.
+	<<else>>
+		You cover your <<genitals>> and <<breasts>> with your hands.
+	<</if>>
+<<else>>
+	<<if pcAreArmsBound("both")>>
+		Your nudity doesn't bother you, but you keep your back to the camera anyway.
+	<<else>>
+		Your nudity doesn't bother you, but you cover yourself anyway.
+	<</if>>
+<</if>>
+<br><br>
+
+<<link [[Next|Livestock Job Niki Defy 2]]>><</link>>
+<br>
+
+:: Livestock Job Niki Defy 2
+<<effects>>
+
+Remy storms over and grasps your leash. <<endevent>><<npc Remy>><<person1>>"Refusing even this simple task," <<he>> says. "Bad <<girl>>." <<He>> yanks your leash.
+<br><br>
+
+Niki interrupts. "It's alright. I got what I needed. We're ready for the proper shoots."
+<br><br>
+
+"You hear that," Remy says in a low voice. "You're gonna get <<bred>> by a pig. Maybe that will teach you to behave."
+<<gstress>><<stress 6>>
+<br><br>
+
+<<endevent>><<npc Remy>><<person1>>Niki ignores <<him>>, instead focusing on packing up <<endevent>><<npc Niki>><<person1>><<his>> things.
+<br><br>
+
+<<link [[Next|Livestock Job End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Job Pig Obey
+<<effects>>
+<<pass 60>>
+"Just need to finish up," Niki says. You wait obediently. When Remy pulls you over to the mat, you don't struggle. That's all the prompting the <<if $farm_phase is 1>><<beastsplural>> need<<else>><<beasttype>> needs<</if>>.
+<br><br>
+<<if $farm_phase is 1>>
+	<<link [[Next|Livestock Job Pig Gang Rape]]>><<set $molestationstart to 1>><</link>>
+<<else>>
+	<<link [[Next|Livestock Job Pig Rape]]>><<set $molestationstart to 1>><</link>>
+<</if>>
+<br>
+
+:: Livestock Job Pig Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+<</if>>
+
+<<effects>>
+<span class="red">Niki films you.</span>
+<br>
+<<effectsman>>
+<br><br>
+<<beast $enemyno>>
+<br><br>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Livestock Job Pig Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Livestock Job Pig Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Livestock Job Pig Rape Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+
+	<<beastejaculation>><<famebestiality 30 "vid">>
+	<<if playerBellyVisible()>><<famepregnancy `Math.ceil(playerBellySize() / 10)`>><</if>>
+
+	"Done," Niki says, pulling back from the camera.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<npc Remy>><<person1>>
+	<<tearful>> you're tugged to your feet by Remy. "Good <<girl>>," <<he>> says, pulling you toward the exit as farmhands help Niki dismantle the set. "That wasn't so bad, was it? Now we have something new to show our customers."
+	<br><br>
+
+	<<link [[Next|Livestock Job End]]>><<endevent>><</link>>
+
+<<else>>
+	<<famescrap 30 "vid">>
+	<<if playerBellyVisible()>><<famepregnancy `Math.ceil(playerBellySize() / 10)`>><</if>>
+	The <<beasttype>> squeals and backs away from you. The farmhands try to calm <<bhim>>, but they have no luck.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<npc Remy>><<person1>>
+	<<tearful>> you're tugged to your feet by Remy. "This is expensive to set up," <<he>> says, almost choking you. Niki looks away.
+	<br><br>
+
+	<<link [[Next|Livestock Job End]]>><<endevent>><</link>>
+
+<</if>>
+
+:: Livestock Job Pig Gang Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+	<<beastTrainGenerate>>
+<</if>>
+
+<<effects>>
+<span class="red">Niki films you.</span>
+<br>
+<<effectsman>>
+<br><br>
+<<beast $enemyno>>
+<br><br>
+<<audience>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Livestock Job Pig Gang Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Livestock Job Pig Gang Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Livestock Job Pig Gang Rape Finish
+<<effects>>
+<<if $enemyhealth lte 0>>
+	<<beastwound>>
+	<<if $combatTrain.length gt 0>>
+		The <<beasttype>> recoils in pain and fear, but another is eager for a go.
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Livestock Job Pig Gang Rape]]>><</link>>
+	<<else>>
+		The <<beasttype>> recoils in pain and fear.
+		<<combatTrainAdvance>>
+		<br><br>
+
+		<<link [[Next|Livestock Job Pig Gang Rape Finish]]>><<set $finish to 1>><</link>>
+	<</if>>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<<beastejaculation>>
+	<<if $combatTrain.length gt 0>>
+		Satisfied, the <<beasttype>> moves and another takes its turn.
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Livestock Job Pig Gang Rape]]>><</link>>
+	<<else>>
+		Satisfied, the <<beasttype>> moves away from you.
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Livestock Job Pig Gang Rape Finish]]>><<set $finish to 1>><</link>>
+	<</if>>
+<<else>>
+	"Done," Niki says, pulling back from the camera.
+	<br><br>
+	<<if $enemywounded gte 2 and $enemyejaculated is 0>>
+		The <<beastsplural>> cower. Despite not getting what they came for, the audience seems entertained. They applaud the fight.<<famescrap 30 "vid">>
+	<<elseif $enemywounded is 0 and $enemyejaculated gte 2>>
+		The <<beastsplural>> leave you spent and shivering as the audience applauds.<<famebestiality 30 "vid">>
+	<<elseif $enemywounded gte 1 and $enemyejaculated gte 1>>
+		The <<beastsplural>> leave you spent and shivering as the audience applauds.<<famebestiality 30 "vid">><<famescrap 30 "vid">>
+	<</if>>
+	<<if playerBellyVisible()>><<famepregnancy `Math.ceil(playerBellySize() / 10)`>><</if>>
+	<br><br>
+
+
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<npc Remy>><<person1>>
+	<<tearful>> you're tugged to your feet by Remy. "Good <<girl>>," <<he>> says, pulling you toward the exit as farmhands help Niki dismantle the set. "Our customers enjoyed it."
+	<br><br>
+
+	<<link [[Next|Livestock Job End]]>><<endevent>><</link>>
+<</if>>
+
+:: Livestock Job Pig Struggle
+<<effects>>
+
+<<if $physiqueSuccess>>
+
+	You pull the leash free from Remy's grasp. Farmhands rush over to restrain you. You push one away from you, but then another grasps you from behind. They pull you to the mat. There are too many.
+	<br><br>
+
+	Despite restraining you in a mating posture, <span class="green">the <<if $farm_phase is 1>><<beastsplural>> do<<else>><<beasttype>> does<</if>> nothing.</span> <<if $farm_phase is 1>>They see<<else>><<bHe>> sees<</if>> your aggression and <<if $farm_phase is 1>>are<<else>>is<</if>> afraid of provoking you. No amount of Remy's discipline can convince <<if $farm_phase is 1>>them<<else>><<bhim>><</if>> otherwise.
+	<br><br>
+
+	Niki shakes <<nnpc_his "Niki">> head. "We need them to cooperate," <<nnpc_he "Niki">> says. "Perhaps another day."
+	<br><br>
+
+	Remy takes your leash and pulls you from the barn as the farmhands help Niki dismantle the set.
+	<br><br>
+
+	<<link [[Next|Livestock Job Resist End]]>><<endevent>><</link>>
+	<br>
+
+<<else>>
+	<<pass 60>>
+
+	You pull the leash free from Remy's grasp. Farmhands rush over to restrain you. You push one away from you, but then another grasps you from behind. <span class="red">They pull you to the mat.</span> There are too many.
+
+	<br><br>
+
+	They restrain you in a mating posture until you get the<<if $farm_phase is 1>> first<</if>> <<beasttype>>'s attention.
+	<br><br>
+
+	<<if $farm_phase is 1>>
+		<<link [[Next|Livestock Job Pig Gang Rape]]>><<set $molestationstart to 1>><</link>>
+	<<else>>
+		<<link [[Next|Livestock Job Pig Rape]]>><<set $molestationstart to 1>><</link>>
+	<</if>>
+	<br>
+
+<</if>>
+
+:: Livestock Job Pig Plead
+<<effects>>
+
+
+<<if $worn.face.type.includes("gag")>>
+	You try to plead with Niki, though you can't do much than make noises into your $worn.face.name.
+<<elseif $speech_attitude is "meek">>
+	"P-please save me," you say to Niki. "I'm not a cow."
+<<elseif $speech_attitude is "bratty">>
+	"Get me away from these crazies," you say. "Before you become one."
+<<else>>
+	"Please help me," you say to Niki. "This is wrong."
+<</if>>
+<<nnpc_His "Niki">> eyes make contact with yours, but <<nnpc_he "Niki">> looks away.
+
+
+<<if C.npc.Niki.love gte 30>>
+	<br><br>
+	<<pass 60>>
+
+	Niki finishes setting up, <span class="green">but seems to be having problems.</span>
+	<br><br>
+
+	"It's no use," <<nnpc_he "Niki">> says. "Equipment's faulty. We need to call it off." <<nnpc_He "Niki">> glances at you again.
+	<<llove>><<npcincr Niki love -1>>
+	<br><br>
+
+	<<endevent>><<npc Remy>><<person1>>Remy frowns, and holds your leash closer to the collar. "Very well," <<he>> says. "If it can't be helped."
+	<br><br>
+
+	<<He>> pulls you from the barn as the farmhands move to help Niki dismantle the set.
+	<br><br>
+
+	<<link [[Next|Livestock Job Resist End]]>><<endevent>><</link>>
+	<br>
+<<else>>
+	<<nnpc_He "Niki">> doesn't look again.
+	<br><br>
+	<<pass 60>>
+
+	Niki finishes setting up. <span class="red"><<nnpc_He "Niki">> sticks <<nnpc_his "Niki">> thumb out, giving the go-ahead.</span> Remy leads you to the mat. That's all the prompting the<<if $farm_phase is 1>> first<</if>> <<beasttype>> needs.
+	<br><br>
+
+
+	<<if $farm_phase is 1>>
+		<<link [[Next|Livestock Job Pig Gang Rape]]>><<set $molestationstart to 1>><</link>>
+	<<else>>
+		<<link [[Next|Livestock Job Pig Rape]]>><<set $molestationstart to 1>><</link>>
+	<</if>>
+	<br>
+
+<</if>>
+
+:: Livestock Job Hypnosis
+<<effects>>
+<<pass 60>>
+You slip deeper into the trance. <span class="green">You don't remember ever feeling so tranquil.</span> You hear Harper's voice drifting toward you. "You are the happiest, most productive <<pcow>> on the farm. You have all the grass you could want to eat, and at night your master keeps you safe from wolves."
+<br><br>
+
+Tranquillity invades your mind. You wonder at how lucky you are, a simple <<pcow>>, to be cared for so.
+<br><br>
+
+The doctor continues to speak in that soothing tone, extolling the virtues of your place in the world.
+<br><br>
+
+"When I drop this pen, you will awaken." The pen clatters to the floor, and you blink back to reality. Harper stands and passes Remy the leash. "Today was a success. I will return for the next step."
+<br><br>
+<<endevent>><<npc Remy>><<person1>>
+"Thank you, good doctor," Remy responds. "And thank you"—<<he>> scratches you behind the ear—"for being so good." <<He>> pulls you from the room.
+<br><br>
+
+<<link [[Next|Livestock Job End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Job Hypnosis Resist
+<<effects>>
+
+<<if $harper_farm_abduction is 1>>
+	<<unset $harper_farm_abduction>>
+	You shake yourself free of the effect. Harper doesn't change the tone of <<his>> voice. "I'm afraid the process requires..."
+	<br><br>
+	<<if $worn.face.type.includes("gag")>>
+		You interrupt <<him>> by slamming your fists into the table. With the muzzle gagging you, you can only stare at Harper with
+
+		<<if $speech_attitude is "meek">>
+			a tearful expression.
+		<<elseif $speech_attitude is "bratty">>
+			an intense glare.
+		<<else>>
+			an accusatory stare.
+		<</if>>
+		<br>
+		Remy places a firm hand on your shoulder. "I apologise. Our livestock rarely have outbursts like this."
+	<<else>>
+		You interrupt <<him>> by slamming your fists into the table.
+
+		<<if $speech_attitude is "meek">>
+			"Y-you did this to me," you say. "I'm not an animal..."
+		<<elseif $speech_attitude is "bratty">>
+			"You fucker," you say. "You're the reason..."
+		<<else>>
+			"You kidnapped me..."
+		<</if>>
+		<br>
+		Remy silences you with a hand. "I apologise. Our livestock rarely have outbursts like this."
+	<</if>>
+	<br>
+	Harper sighs. "The beast has a temper problem. We can try again another day."
+	<br>
+<<else>>
+	You shake yourself free of the effect. Harper doesn't change the tone of <<his>> voice. "I'm afraid the process requires the beast's cooperation," <<he>> says to Remy. "We can try again another day."
+	<br><br>
+<</if>>
+
+"Very well," Remy responds, tugging your leash toward the door. "I'll find something else for this one to do. Thank you for your time, doctor."
+<br><br>
+
+<<link [[Next|Livestock Job Resist End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Job Hypnosis 2
+<<effects>>
+<<pass 60>>
+You slip deeper into the trance. <span class="green">You don't remember ever feeling so tranquil.</span> You hear Harper's voice drifting toward you. "You are the happiest, most productive <<pcow>> on the farm. I'm just going to give you something extra special which will help you further. Please get on the table over there and bend over for me please. There is some fresh grass if you want to eat some."
+<br><br>
+
+Tranquillity invades your mind. You wonder at how lucky you are, a simple <<pcow>>, to be cared for so. You climb onto the table thinking about how you should follow <<his>> directions.
+<br><br>
+<<if $player.vaginaExist>>
+	You start munching on the grass, and while you feel what feels like a small tube enter your vagina, followed by some cold liquid entering, it doesn't bother you.
+	<<recordSperm `{genital: "vagina", target: "pc", spermOwner: "Harper's serum", spermType: "human", daysTillRemovalOverride: 12, quantity: 6}`>>
+	<<purity -3>><<internalejac>><<creampie "self" "vagina">><<set $hygiene += 1000>><<bodyliquid "vagina" "semen" 3>><<bodyliquid "vagina" "goo">>
+<<else>>
+	You start munching on the grass, and while you feel what feels like a small tube enter your anus, followed by some cold liquid entering, it doesn't bother you.
+	<<recordSperm `{genital: "anus", target: "pc", spermOwner: "Harper's serum", spermType: "human", daysTillRemovalOverride: 12, quantity: 6}`>>
+	<<purity -3>><<internalejac>><<creampie "self" "anus">><<set $hunger -= 200>><<set $thirst -= 200>><<set $hygiene += 1000>><<bodyliquid "anus" "semen" 3>><<bodyliquid "anus" "goo">>
+<</if>>
+<<drugs 45>><<arousal 150>>
+<<fetishPregnancyImg>>
+
+The doctor continues to speak in that soothing tone, extolling the virtues of your place in the world.
+<br><br>
+
+"Please get off the table. When I drop this pen, you will awaken." The moment you're standing again, the pen clatters to the floor, and you blink back to reality. Harper stands and passes Remy the leash. "Today was a success. You may see results after some time passes."
+<br><br>
+<<endevent>><<npc Remy>><<person1>>
+"Thank you, good doctor," Remy responds. "And thank you"—<<he>> scratches you behind the ear—"for being so good." <<He>> pulls you from the room.
+<br><br>
+
+<<link [[Next|Livestock Job End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Harper Medical Exam
+<<effects>>
+
+<<He>> then moves on to squeezing your ass. Your face grows red at the repeated groping.<<arousal 1200>><<ggarousal>>
+<br><br>
+Harper spreads your cheeks, and you feel a slight pressure against your hole as <<he>> rests one finger there. You <<if $cow gte 6>>moo in protest<<else>>turn your head as best you can to glare at <<him>><</if>>. Remy grips your hair to keep you in place.<<arousal 600>><<garousal>>
+<br><br>
+Harper glances at Remy, then moves <<person2>><<his>> finger away. "Just checking to make sure there were no blockages," <<he>> says, flashing an innocent smile.
+<br><br>
+The rest of the exam passes much the same way. You find it hard to concentrate on anything other than the way Harper prods and gropes you. Remy is silent as <<person1>><<he>> watches.
+<br><br>
+At last, Harper straightens. "Just one more procedure," <<person2>><<he>> says.
+<br><br>
+<<He>> comes to stand in front of you, and you notice that <<his>> face is slightly flushed. <<He>> crouches down and shines a light in your eyes. The sudden glare makes your eyes water.
+<br><br>
+"Say <i>'aah'</i>."
+<br><br>
+
+<<if !$livestock.muzzle and $cow gte 6>>
+	<<link [[Moo|Livestock Harper Medical Exam Obey]]>><<set $phase to 0>><<livestock_obey 3>><</link>><<cow>><<gobey>>
+	<br>
+<</if>>
+<<if $livestock.muzzle>>
+	<span class="blue">You're unable to do anything else with a muzzle on your face.</span>
+	<br>
+	<<link [[Next|Livestock Harper Medical Exam Obey]]>><<set $phase to 1>><</link>>
+<<else>>
+	<<link [[Open your mouth|Livestock Harper Medical Exam Obey]]>><<set $phase to 1>><<livestock_obey 3>><</link>><<gobey>>
+<</if>>
+<<if !$livestock.muzzle>>
+	<br>
+	<<link [[Bite|Livestock Harper Medical Exam Disobey]]>><<livestock_obey -3>><</link>><<lobey>>
+	<br>
+<</if>>
+
+:: Livestock Harper Medical Exam Obey
+<<pass 60>><<effects>>
+
+<<if $phase is 0>>
+	You moo obediently. Harper shines the light. <<He>> lifts <<his>> other hand to your mouth, then looks at Remy. Remy looks back with an unreadable expression.
+	<br><br>
+	"Good <<girl>>," Harper says, patting your head instead.<<stress -4>><<lstress>>
+<<else>>
+	<<if $livestock.muzzle>>Your mouth remains open<<else>>You open your mouth<</if>>. Harper shines the light. You're not sure what <<he>> is looking for, but <<he>> lowers the light with a dissatisfied expression.<<stress 4>><<gstress>>
+	<br><br>
+	"Good <<girl>>," <<he>> says, patting your head.
+<</if>>
+<br>
+"I think this one deserves an apple."
+<br><br>
+<<if $livestock.obey gte 30>>
+	Remy smiles. "Of course," <<he>> says. "All of my good <<pcow>>s get rewards."
+<<else>>
+	Remy frowns. "Only good <<pcow>>s get rewards," <<he>> says.
+<</if>>
+<<He>> clips a leash to your collar. "What do you think, Doctor?"
+<br><br>
+
+<<link [[Next|Livestock Harper Medical Exam End]]>><<set $phase to 0>><</link>>
+<br>
+
+:: Livestock Harper Medical Exam Disobey
+<<pass 60>><<effects>>
+
+When Harper's hand is close enough, you quickly clamp your teeth shut around it. <<person2>><<He>> yelps.
+
+<<if $livestock.obey lte 15>>
+	Remy acts swiftly, <<if playerBellyVisible()>>grabbing your hair and jerking your head back<<else>>kicking you in the side<</if>>.<<pain 12>><<ggpain>>
+	<br><br>
+	"I apologise," <<person1>><<he>> says. "This one is a little unruly at times."
+	<br><br>
+	Harper adjusts <<person2>><<his>> coat. "I have a substance that might help."
+	<br><br>
+	Remy's expression hardens. <<person1>><<He>> shoots you a dark look. "No need. I'll break it yet. I always do."
+	<br><br>
+	You glare back.
+<<else>>
+	Remy acts swiftly. <<person1>><<He>> pinches your <<genitals>> roughly. You gasp, allowing Harper to pull <<person2>><<his>> hand free.
+	<br><br>
+	"I apologise," Remy says. "<<pShe>> is normally so well behaved."
+	<br><br>
+	"Well," Harper says, adjusting <<person2>><<his>> coat. "Perhaps you are losing a bit of your touch."
+	<br><br>
+	Remy's expression darkens. <<person1>><<He>> shoots you a look. "There'll be no apples for this one after this performance. You can chew on hay, <<girl>>."
+<</if>>
+<br><br>
+<<facewear "bit gag">><<set $livestock.muzzle to true>>
+<<He>> steps out of sight. When <<he>> returns, <<hes>> carrying a muzzle. You bare your teeth, but it's no use. <span class="purple"><<He>> slips the muzzle over your mouth</span> and secures it behind your head.
+<br><br>
+"I trust that this will not harm our working relationship," <<he>> says, looking at Harper.
+<br>
+"No," Harper says. <<person2>><<He>> has recovered some of <<his>> dignity, though <<he>> clutches <<his>> hand to <<his>> chest. "It doesn't."
+<br>
+"Is everything otherwise satisfactory with my <<pcow>>?"
+<br><br>
+
+<<link [[Next|Livestock Harper Medical Exam End]]>><<set $phase to 1>><</link>>
+<br>
+
+:: Livestock Harper Medical Exam End
+<<effects>><<unbind>>
+
+"Your <<pcow>> seems to be in fine condition," Harper says.
+<<if $player.breastsize gte 6 or $player.penissize gte 4>>
+	<span class="green">"I don't see any need for concern. <<pShe>> has a fine body."</span>
+<!-- Checks if fetus exists before trying to access data to prevent TypeErrorException -->
+<<elseif playerBellyVisible() and (($sexStats.vagina.pregnancy.fetus[0] and $sexStats.vagina.pregnancy.fetus[0].father is "Harper's serum") or ($sexStats.anus.pregnancy.fetus[0] and $sexStats.anus.pregnancy.fetus[0].father is "Harper's serum"))>>
+	"Be sure to give <<phim>> the best quality food, fresh air, and water you have. My serum works best when the subject is in good condition." <<He>> pats your rear affectionately.
+<<elseif playerBellyVisible()>>
+	"Be sure to give <<phim>> a lot of food, fresh air, and water. <<pShe>> is with child. It needs to be nourished."
+<<else>>
+	"Stress can affect milk production. More personal attention could help."
+<</if>>
+<br><br>
+Remy nods. <<person1>><<He>> stoops to untie you from the restraints. <<if $livestock.muzzle>><<He>> leaves your muzzle in place. <</if>>"Thank you for your time and advice," <<he>> says.
+<br><br>
+"Of course."
+<br><br>
+Harper walks with you as far as the barn doors. <<person2>><<He>> pauses there and rests a hand on your back. "If you need me to look at <<phim>> again, at any time, please call," <<he>> says. "I would be happy to look, free of charge."
+<br><br>
+"I'm sure you would," Remy mutters so lowly that only you hear <<person1>><<him>>. <<He>> catches the look on your face and clears <<his>> throat. "I'll keep that in mind," <<he>> says, louder this time.
+<br><br>
+Harper smiles. "Good."
+<br><br>
+You're led back to the barn. Remy pauses outside. <<He>> reaches into a basket near the door and pulls out an apple.
+<br><br>
+
+<<link [[Next|Livestock Harper Medical Exam End 2]]>><</link>>
+<br>
+
+:: Livestock Harper Medical Exam End 2
+<<effects>>
+
+<<if $phase is 0 and $livestock.obey gte 30>>
+	"Here, <<girl>>," Remy says. "You've earned this."
+	<br><br>
+	You reach out with your hand. <<He>> holds it out of reach, shaking <<his>> head with a smile.
+	<br><br>
+	"No hands," <<he>> says. "<<silently>><<pcow>><</silently>><<capitalise>>s don't have hands. I'll hold it for you."
+	<br><br>
+	You eat the fruit from <<his>> hand. It's sweet and juicy, especially compared to the hay in the barn. You lick your lips of any remaining juice.<<stress -8>><<lstress>>
+<<else>>
+	"It's too bad," Remy says, examining the apple. "I would have given this to you if you were better behaved."
+	<br><br>
+	<<He>> takes a large bite. You see juice drip down <<his>> chin as <<he>> chews. Your mouth waters at the thought of the sweet, juicy fruit.<<stress 6>><<gstress>>
+	<br><br>
+	"If you're good, there's plenty more," <<he>> says as <<he>> tosses the apple core over <<his>> shoulder. <<if $livestock.muzzle>><<He>> examines your muzzle. "Although, not like you could eat it anyway."<<else>>"Let's go."<</if>>
+<</if>>
+<br><br>
+
+<<He>> brings you back inside the barn and unclips the leash. You watch as <<he>> stops by the door, speaking to the farmhand in a low voice. Then <<he>> leaves, locking you inside once more.
+<br><br>
+
+<<link [[Next|Livestock Barn]]>><<endevent>><</link>>
+<br>
+
+:: Widgets Tie Stall Barn [widget]
+
+<<widget "livestockTiePunishment">>
+	<<cleareventpool>>
+
+	<<addinlineevent "tie_stall_punishment_farmhand_feeding">>
+		<<generate1>><<person1>>
+		A farmhand comes up from behind you. "Hey there, girl," <<he>> says. "Hungry?"
+		<br><br>
+		<<He>> has a
+		<<if $rng lte 10>>
+			<<set $phase to 0>>
+			<span class="red">bale of rotten hay</span>
+		<<elseif $rng lte 90>>
+			<<set $phase to 1>>
+			<<if $cow gte 6>>
+				<span class="teal">bale of fresh hay</span>
+			<<else>>
+				<span class="purple">bale of fresh hay</span>
+			<</if>>
+		<<else>>
+			<<set $phase to 2>>
+			<span class="green">shining red apple</span>
+		<</if>>
+		in <<his>> hands. <<He>> places it in the trough before you.
+		<br><br>
+		"Better eat up," <<he>> says<<if $phase is 0>> with a smirk<</if>>.
+		<br><br>
+		<<link [[Eat|Livestock Tie Stall Punishment Feeding Eat]]>><</link>>
+		<br>
+		<<link [[Refuse|Livestock Tie Stall Punishment Feeding Refuse]]>><</link>>
+	<</addinlineevent>>
+
+	<<addinlineevent "tie_stall_punishment_other_cow">>
+		<<beastNEWinit 1 cow>><<generate2>><<generate3>><<person1>>
+		The doors to the barn open. You hear two voices arguing. As they get closer, you can see that two farmhands are herding a <<beasttype>> in between them. <<bHe>> digs <<bhis>> <<if $monster is 1>>heels<<else>>hooves<</if>> into the ground as the farmhands drag <<bhim>> to the stall next to you.
+		<br><br>
+		"Stupid <<beasttype>>," the <<person2>><<person>> says. <<He>> aims a kick at the <<person1>><<beasttype>>. "You brought this on yourself."
+		<br><br>
+		The <<person3>><<person>> brings out two cattle prods. <<He>> grins, a sadistic light in <<his>> eyes.
+		<br><br>
+		The <<person1>><<beasttype>> moos, eyes wide in terror.
+		<br><br>
+		<<link [[Try to comfort|Livestock Tie Stall Punishment Other Cow Comfort]]>><<livestock_obey -2>><</link>><<lobey>>
+		<br>
+		<<link [[Ignore|Livestock Tie Stall Punishment Other Cow Ignore]]>><<livestock_obey 2>><</link>><<gobey>>
+	<</addinlineevent>>
+
+	<<addinlineevent "tie_stall_punishment_farmhand_rape">>
+		<<generate1>><<person1>>
+		The doors to the barn open. You can see a farmhand looking right at you out of the corner of your eye. <<He>> smirks at you.
+		<br><br>
+		"You've been a bad <<pcow>>, haven't you? And you know what happens to bad <<pcow>>s," <<he>> says as <<he>> walks over to you. <<He>> presses up against your rear.
+		<br><br>
+		<<link [[Next|Livestock Tie Stall Punishment Farmhand Rape]]>><<set $molestationstart to 1>><</link>>
+	<</addinlineevent>>
+
+	<<addinlineevent "tie_stall_punishment_fly">>
+		You hear the sound of a fly. It buzzes around the hay in front of you. It lands on a strand to clean its legs. You can see a million reflections of your predicament in its compound eyes.
+		<br><br>
+		<<link [[Watch|Livestock Tie Stall Punishment Fly Watch]]>><</link>>
+		<br>
+		<<link [[Ignore|Livestock Tie Stall Punishment Fly Ignore]]>><</link>>
+	<</addinlineevent>>
+
+	<<addinlineevent "tie_stall_punishment_screech">>
+		<<beastNEWinit 1 cow>><<generate2>><<generate3>><<person1>>
+		A loud screech rips through the air. <<if $syndromebird>>You recognise the call of your spouse.<<stress -6>><<lstress>><<else>>You feel the hairs on the back of your neck stand on end.<<stress 6>><<gstress>><</if>>
+		<br><br>
+		Shouts ring outside. You can hear footsteps pounding the cold ground. You strain your neck and manage to see a stampede of panicked animals and harried farmhands. One <<beasttype>> barrels over a <<person2>><<person>>. <<He>> staggers to <<his>> feet in a daze.
+		<br><br>
+		After a while, the noises die down. Another farmhand pokes <<person3>><<his>> head in to check on you. Satisfied that you're still there, <<he>> leaves you alone with your thoughts.
+		<br><br>
+		<<link [[Next|Livestock Tie Stall Punishment End]]>><<endevent>><</link>>
+	<</addinlineevent>>
+
+	<<addinlineevent "tie_stall_punishment_missed_job">>
+		You hear footsteps approaching. They stop right outside the window above your head. You can hear snatches of conversation if you concentrate.
+		<br><br>
+		<<link [[Eavesdrop|Livestock Tie Stall Punishment Missed Job]]>><<set $phase to 0>><</link>><<skulduggerydifficulty 200 1000>>
+		<br>
+		<<link [[Ignore|Livestock Tie Stall Punishment Missed Job]]>><<set $phase to 1>><</link>>
+	<</addinlineevent>>
+
+	<<addinlineevent "tie_stall_punishment_secrets">>
+		<<generate1>><<generate2>><<person1>>
+		"Man," a <<person>> says as <<he>> walks behind you. "I do not envy those <<if maleChance() is 0>>gals<<else>>guys<</if>> that have to go into the moor today. <<if $bird?.hunts?.estate is "complete">>Did you hear what happened with<<else>>Imagine having to protect<</if>> the—"
+		<br>
+		"Shut up, idiot," a <<person2>><<person>> says. <<He>> looks at you. "Remy'll have your head if you keep yapping like this."
+		<br>
+		"Yeah, yeah," the <<person1>><<person>> says. <<He>> does stay quiet, though.
+		<br><br>
+		They finish clearing the hay behind you before leaving.
+		<<if $bird?.hunts?.estate is "complete">>
+			You suspect <<he>> was referring to the silver bar you pilfered.
+		<<elseif $birdSilverHunt>>
+			You suspect <<he>> was referring to that silver bar they have.
+		<<else>>
+			You have no idea what <<he>> was talking about.
+		<</if>>
+		<br><br>
+		<<link [[Next|Livestock Tie Stall Punishment End]]>><<endevent>><</link>>
+	<</addinlineevent>>
+
+	<<addinlineevent "tie_stall_punishment_rape_reward" 1000>>
+		<<if $rng gte 51 and (($settings.monsterChance gte random(1, 100) and ($hallucinations gte 1 or !$settings.monsterHallucinationsOnly) or $settings.bestialityEnabled))>>
+			<<if $rng gte 51 and $settings.horsesEnabled>>
+				<<beastNEWinit 1 horse>>
+			<<else>>
+				<<beastNEWinit 1 dog>>
+			<</if>>
+			<<set _attacker to $NPCList[0].type>>
+		<<else>>
+			<<generate1>><<set _attacker to "farmhand">>
+		<</if>>
+		The doors to the barn open. Remy steps through, leading a _attacker behind <<npc Remy 2>><<person2>><<him>>. <<He>> notices you and smiles.
+		<br><br>
+		"There you are, <<girl>>," <<he>> says. "I've been looking for you. See, this _attacker has been going above and beyond lately. <<person1>><<if _attacker is "farmhand">><<Hes>> doing <<his>><<else>><<bHes>> doing <<bhis>><</if>> job so well."
+		<br><br>
+		Remy strides over to you and places a hand on your head, crouching until <<person2>><<his>> green eyes are level with yours. "I reward those who do well," <<he>> says. <<He>> tilts your chin up with a gloved finger. "And punish those who defy me."
+		<br><br>
+		<<link [[Stay still|Livestock Tie Stall Punishment Rape Reward 2]]>><<livestock_obey 4>><<set $phase to 2>><</link>><<gobey>>
+		<br>
+		<<link [[Pull away|Livestock Tie Stall Punishment Rape Reward 2]]>><<livestock_obey -2>><<set $phase to 1>><</link>><<lobey>>
+		<<if !$livestock.muzzle>>
+			<br>
+			<<link [[Bite <<him>>|Livestock Tie Stall Punishment Rape Reward 2]]>><<livestock_obey -10>><<set $phase to 0>><</link>><<llobey>><<defianttext>>
+		<</if>>
+	<</addinlineevent>>
+
+	<<addinlineevent "tie_stall_punishment_cat">>
+		<<beastNEWinit 1 cat>><<person1>>
+		A <<beasttype>> comes to a stop in front of you. <<bHe>> looks up at you with large, curious eyes. <<bHe>> purrs deep in <<bhis>> chest as <<bhe>> rubs against you.
+		<br><br>
+		<<if $rng lte 15>>
+			<<if $monster is 1 or $settings.bestialityEnabled>>
+				There is a gleam in <<bhis>> eyes. <<bHe>> saunters around to your ass. You feel <<bhis>> hot breath on your <<genitals>>.
+				<br><br>
+				<<if $cat gte 6>>
+					You growl at the <<beasttype>>. <<bHe>> growls back. There's a tense silence. You wait, your tail swishing in <<bhis>> face. You hear <<if $monster is 1>><<bhim>> sigh<<else>>a huff<</if>>. <<bHe>> flops down by your side.
+					<br><br>
+					<<link [[Cuddle with <<bhim>>|Livestock Tie Stall Punishment Cat Cuddle]]>><<pass 5>><</link>>
+					<br>
+					<<link [[Scare away|Livestock Tie Stall Punishment Cat End]]>><<pass 5>><<set $phase to 0>><</link>>
+				<<else>>
+					The first swipe of <<bhis>> tongue makes you jolt against your restraints. You <<if $cow gte 6>>moo<<else>>whimper<</if>> in protest. <<bHe>> grows bolder and mounts you.
+					<br><br>
+					<<link [[Next|Livestock Tie Stall Punishment Cat Rape]]>><<set $molestationstart to 1>><</link>>
+				<</if>>
+			<<else>>
+				There is a gleam in <<bhis>> eyes. <<bHe>> saunters behind you. You feel <<bhis>> claws trace along your back as <<bhe>> begins using you for a makeshift scratching post.<<pain 8>><<gpain>>
+				<br><br>
+				<<if $cat gte 6>>
+					You growl at the <<beasttype>>. <<bHe>> growls back. There's a tense silence. You wait, your tail swishing in <<bhis>> face. You hear <<if $monster is 1>><<bhim>> sigh<<else>>a huff<</if>>. <<bHe>> flops down by your side.
+					<br><br>
+					<<link [[Cuddle with <<bhim>>|Livestock Tie Stall Punishment Cat Cuddle]]>><<pass 5>><</link>>
+					<br>
+					<<link [[Scare away|Livestock Tie Stall Punishment Cat End]]>><<pass 5>><<set $phase to 0>><</link>>
+				<<else>>
+					<<bHe>> eventually grows bored with you and walks away. <<tearful>> you wait for your punishment to finally end.
+					<br><br>
+					<<link [[Next|Livestock Tie Stall Punishment End]]>><<endevent>><</link>>
+				<</if>>
+			<</if>>
+		<<else>>
+			<<bHe>> purrs even louder as <<bhe>> curls up <<if $monster is 1>>by your side<<else>>on your back<</if>>.
+			<br><br>
+			<<link [[Keep cuddling|Livestock Tie Stall Punishment Cat Cuddle]]>><<pass 5>><</link>>
+			<br>
+			<<link [[Ignore|Livestock Tie Stall Punishment Cat End]]>><<pass 5>><<set $phase to 1>><</link>>
+		<</if>>
+	<</addinlineevent>>
+
+	<<if $stress gte ($stressmax / 5) * 3>>
+		<<addinlineevent "tie_stall_punishment_gangrape">>
+			<<generate1>><<person1>>
+			You moo as loud as you can and rattle your restraints. The noise echoes around the empty barn. You hear the barn door open.
+			<br><br>
+			"Oi," a <<person>> shouts. "Keep it down in there, you dumb <<pcow>>."
+			<br><br>
+			<<He>> slams the door shut. You glare at the wall.
+			<br><br>
+			<<link [[Keep mooing|Livestock Tie Stall Punishment Gangrape]]>><<livestock_obey -15>><<stress -24>><</link>><<llobey>><<lllstress>><<dangerousText>>
+			<br>
+			<<link [[Stay Quiet|Livestock Tie Stall Punishment End]]>><<endevent>><</link>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $livestock.obey gte 5>>
+		<<addinlineevent "tie_stall_punishment_remy_ask">>
+			<<npc Remy 1>><<person1>>
+			You hear the barn doors open. Remy stands in the doorway, watching you.
+			<br><br>
+			<<link [[Ask to be released|Livestock Tie Stall Punishment Remy Ask]]>><<set $phase to 0>><</link>>
+			<br>
+			<<link [[Ignore|Livestock Tie Stall Punishment Remy Ask]]>><<set $phase to 1>><</link>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $hunger gte 1500>>
+		<<addinlineevent "tie_stall_punishment_hunger" 3>>
+			You feel a gnawing pit in your belly and grimace.
+			<br><br>
+			You're not sure what's more painful, the soreness in your throat or the cramping the hunger pangs are causing your stomach. It's been a while since you've eaten or drunk anything.<<pain 5>><<stress 6>><<gpain>><<gstress>>
+			<br><br>
+			You lick your lips. They're dry.
+			<br><br>
+			<<link [[Next|Livestock Tie Stall Punishment End]]>><<endevent>><</link>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<addinlineevent "tie_stall_punishment_blanket">>
+		<<generate1>><<person1>>
+		The barn doors burst open, bringing in a rush of frigid air. A farmhand quickly shuts the doors behind <<him>>, breathing into <<his>> hands after securing the latch.
+		<br><br>
+		"It's freezing out there!"
+		<br><br>
+		You shiver <<if $cow gte 6>>and moo<</if>> in response, your teeth chattering.
+		<br><br>
+		"What's the matter, <<girl>>? You cold?" the farmhand coos. <<He>> goes to a cabinet in the corner and pulls out a blanket.
+		<br><br>
+		<<link [[Accept|Livestock Tie Stall Punishment Blanket]]>><<set $phase to 0>><</link>>
+		<br>
+		<<link [[Refuse|Livestock Tie Stall Punishment Blanket]]>><<set $phase to 1>><</link>>
+	<</addinlineevent>>
+
+	<<addinlineevent "tie_stall_punishment_photos">>
+		<<npc Remy 1>><<npc Niki 2>><<person2>>
+		"<<pShes>> just in here," a voice says. It's Remy.
+		<br><br>
+		You turn your head as much as you can. Remy is leading <<if !$nikiSeen.length>>a young <<nnpc_gender "Niki">> with a white toothpick in <<his>> mouth<<else>>Niki<</if>> into the barn. <<His>> camera hangs around <<his>> neck.
+		<br><br>
+		"Not much happening," <<he>> says, looking you over.
+		<br>
+		"It's for our more imaginative customers," Remy says. <<person1>><<He>> puts a gloved hand on your shoulder. "They like to see <<phim>> tied up and helpless."
+		<br>
+		<<if !$nikiSeen.length>>The young <<nnpc_gender "Niki">><<else>>Niki<</if>> chews on <<person2>><<his>> toothpick. "Sure."
+		<br><br>
+		Remy turns to you. "Behave now while Niki here gets the footage <<he>> needs, unless you'd like to feel the end of my whip." <<nnpc_He "Remy">> cracks it once to emphasise <<nnpc_his "Remy">> point.<<stress 4>><<gstress>>
+		<br><br>
+		<<link [[Next|Livestock Tie Stall Punishment Photos 2]]>><<set $nikiSeen.pushUnique("farm")>><<pass 10>><</link>>
+	<</addinlineevent>>
+
+	<<addinlineevent "tie_stall_punishment_eavesdrop">>
+		<<generate1>><<generate2>><<person1>>
+		You try to listen to the farmhands' chatter.
+		<br><br>
+		<<silently>><<skulduggerydifficulty 1 1000>><</silently>>
+		<<if $skulduggerysuccess>>
+			<<if ($pain gte 60 and $stress gte ($stressmax / 5) * 3) and $rng lte 50>>
+				But you're in too much pain to actually pay attention to what they say.
+			<<elseif $necklaceThief is "player" and $rng lte 10>>
+				You hear footsteps, coming from only one person. You feel something is different.
+				<br><br>
+				The steps get closer. They stop in front of your stall. A <<person>> stands before you. <<He>> almost gets paler and paler by the second.
+				<br><br>
+				You blink. A tall, pale figure has taken <<his>> place. It clutches its neck, a haunting rage in its eyes. Then, it speaks.
+				<br><br>
+				<span class="wraith">"Graverobber."</span>
+				<br><br>
+				You blink again. The pale figure is gone.<<stress 8>><<trauma 8>><<gstress>><<gtrauma>>
+			<<else>>
+				<<if Weather.precipitation isnot "none" and $rng gte 33>>
+					"The weather's nice today," a <<person>> says as <<he>> changes the hay from a nearby stall. "I always found this type of climate relaxing to watch."
+					<br>
+					"Maybe if you don't have to work that day," the <<person2>><<person>> replies. "For example, today."
+					<br>
+					"You just hate everything I like."
+					<br><br>
+					The two of them wait for a little while before leaving the stalls.
+				<</if>>
+				<<rng>>
+				<<if $rng gte 75>>
+					"This stinks," a <<person>> complains. <<Hes>> carrying a fresh haybale while <<his>> partner, a <<person2>><<person>> removes the old hay, holding a bale of fresh hay.
+					<br><br>
+					The <<person>> doesn't reply, simply leaving when the job is done.
+					<br><br>
+					"Oi, where are you going?" the <<person1>><<person>> calls. Regardless, <<he>> follows behind.
+				<<elseif $rng gte 50>>
+					A <<person>> and a <<person2>><<person>> appear in the stalls. They pass right in front of you and stop in the next one. One of them is carrying a bundle of fresh hay, while the other one is carrying a basket full of shiny apples. Your stomach growls at the sight, and you can't help but wonder about how sweet and juicy they are. You wish you could eat at least one of them to satiate your curiosity.<<stress 4>><<gstress>>
+					<br><br>
+					"Sometimes I feel bad for the cattle and the steeds," the <<person>> says. "It must be difficult for them to watch us eat apples without having to earn them, at any moment we want." <<His>> tone makes you think <<hes>> saying it on purpose.
+					<br><br>
+					"I actually do feel bad for them, I think," replies the <<person1>><<person>> as <<he>> changes the hay. "But I'm not getting between Remy and <<nnpc_his "Remy">> ways."
+					<br><br>
+					The two of them leave the stalls before you can hear anything else.
+				<<elseif $rng gte 25>>
+					"Honestly, I haven't drank milk ever since I started working here," says the <<person>> changing hay in one of the nearby stalls. "I've grown a bit repulsed."
+					<br><br>
+					"I would drink the milk of one specific <<pcow>> here, if I'm being honest," replies another farmhand.
+					<br><br>
+					"I think I know which one you're referring to. <<pShe>> is really cute, I will admit it."
+					<br><br>
+					"Too sad <<pshe>> won't behave. I hope <<pshe>> doesn't make the same mistakes when <<pher>> punishment ends."
+					<br><br>
+					They leave the stalls.
+				<<else>>
+					"I've heard one of the farmhands tried to use the milking machine for their own milk. Not sure who," says the <<person>> changing hay in the stall in front of you.
+					<br><br>
+					"I've heard about it, too, and I'm not sure what to believe. Remy definitely wouldn't be happy to hear that, either way. <<nnpc_His "Remy">> machines are for <<nnpc_his "Remy">> animals only."
+					<br><br>
+					They leave the stalls.
+				<</if>>
+			<</if>>
+		<<else>>
+			But you can't hear anything as they move on.
+		<</if>>
+		<br><br>
+		<<link [[Next|Livestock Tie Stall Punishment End]]>><<endevent>><</link>>
+	<</addinlineevent>>
+
+	<<addinlineevent "tie_stall_punishment_lurker">>
+		Out of the corner of your eye, some hay shakes. You hear a strange chittering.<<stress 5>><<gstress>>
+		<br><br>
+		<<link [[<<if $cow gte 6>>Bellow<<else>>Scream<</if>>|Livestock Tie Stall Punishment Lurker]]>><<set $phase to 0>><</link>>
+		<br>
+		<<link [[Remain quiet|Livestock Tie Stall Punishment Lurker]]>><<set $phase to 1>><</link>>
+	<</addinlineevent>>
+
+	<<runeventpool>>
+	<br>
+<</widget>>
+
+:: Livestock Tie Stall Punishment
+<<set $outside to 0>><<pass 4 hours>><<effects>>
+<<bind>><<shackle_feet>><<headbind>>
+<<if $phase is 1>>
+	You're led to a medium-sized room inside a barn on the far end of the field.
+	<br><br>
+<</if>>
+There are two rows of empty stalls. Each stall has a wooden post sticking out of the ground.
+<br><br>
+You are <<if $livestock.muzzle>><<facewear "bit gag">><span class="purple">muzzled</span>, then <</if>>tied to the wooden post and left there. You can't move very far, not even to lie down. All you can see is the wall in front of you. Your hands are tied together and your feet are in shackles that keep you spread and helpless.
+<br><br>
+<<endevent>>
+<<if !$livestock.winter.exam>>
+	<<set $livestock.winter.exam to true>>
+	<<npc "Remy">><<npc Harper 2>><<person1>>
+	You hear Remy conversing with someone behind you. <<if $harperSeen.length>>You recognise the other voice. It's Harper. <</if>>Though you can't catch the words, you feel a sense of dread creep through you.
+	<br><br>
+	Remy walks to stand by your head. "It'll be okay, <<girl>>," <<he>> says. "The nice doctor is just going to check you over for any signs of illness."
+	<br><br>
+	<<if $harperSeen.length>>
+		"Indeed," Harper says.
+	<<else>>
+		The doctor crouches down in front of you. "Why hello there, <<girl>>. A new addition to the herd I take it? You can just call me Harper," <<person2>><<he>> says, giving your head a pat before walking over to a cabinet. <<He>> looked young for a doctor, can't be older than 25.
+	<</if>>
+	<<set $harperSeen.pushUnique("livestock")>>
+	You hear a nitrile glove snap behind you. "It will be simple," <<person2>><<he>> adds. "All I need you to do is be calm and allow me to complete the examination."
+	<br><br>
+	Something cold and wet smears on your <<bottom>>. You jump <<if $cow gte 6>>and moo<<else>>and shout<</if>> in surprise. Remy and Harper share a chuckle. "It's just a gel," Remy assures you. "Nothing to worry about."
+	<br><br>
+	Harper massages the gel into your <<bottomsimple>>. You squirm at the warm sensation tingling wherever <<person2>><<he>> touches you, and shudder when <<he>> touches your <<genitals>> for the first time. <<He>> continues to rub it into your skin, paying special attention to your <<genitals>> and your <<chest>>.<<arousal 600>><<garousal>>
+	<br><br>
+	<<link [[Next|Livestock Harper Medical Exam]]>><</link>>
+	<br>
+<<else>>
+	<<set $livestock.seen.pushUnique("tieStall")>>
+	<<livestockTiePunishment>>
+<</if>>
+
+:: Livestock Tie Stall Punishment Feeding Eat
+<<effects>>
+
+<<if $phase is 0>>
+	<<silently>><<willpowerdifficulty 1 1000>><</silently>>
+	Humiliated, you lower your head to the hay. Its rotten, sour smell
+	<<if $willpowerSuccess>>
+		nearly overwhelms you. You manage to eat a few mouthfuls despite your nausea.<<stress 8>><<trauma 2>><<hunger -300>><<gstress>><<gtrauma>><<lhunger>>
+		<br><br>
+		"Now that's a good <<girl>>," the farmhand laughs.
+	<<else>>
+		overwhelms you. You shake your head and pull away.<<stress 16>><<trauma 8>><<ggstress>><<ggtrauma>>
+		<br><br>
+		"Ungrateful whore," the farmhand mutters.
+	<</if>>
+<<elseif $phase is 1>>
+	<<if $cow gte 6>>
+		You
+	<<else>>
+		Seeing no other option, you
+	<</if>>
+	lower your head to the hay. It tastes
+	<<if $cow gte 6>>
+		pleasant. You eat a few mouthfuls and moo.<<hunger -400>><<lhunger>>
+	<<else>>
+		like straw. You manage to eat a few mouthfuls despite your nausea.<<stress 8>><<hunger -300>><<gstress>><<lhunger>>
+	<</if>>
+<<else>>
+	You eat the apple with enthusiasm. You <<if $cow gte 6>>moo up at <<him>> and nuzzle <<his>> leg<<else>>smile up at <<him>> in thanks<</if>>.<<stress -12>><<hunger -200>><<llstress>><<lhunger>>
+	<br><br>
+	"Good <<girl>>," the farmhand says. <<He>> gives you a small smile.
+<</if>>
+<br><br>
+<<He>> slaps your ass before walking away.<<stress 3>><<pain 1>><<gstress>><<gpain>>
+<br><br>
+<<link [[Next|Livestock Tie Stall Punishment End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Tie Stall Punishment Feeding Refuse
+<<effects>>
+
+"Ungrateful whore," <<he>> says. <<He>> gives you a swift kick to your ass. "You can starve then, for all I care."<<stress 6>><<pain 6>><<gstress>><<gpain>>
+<br><br>
+You watch <<him>> stomp away with the <<if $phase is 0>>rotten hay<<elseif $phase is 1>>hay<<else>>apple<</if>> in <<his>> hands. Your stomach rumbles as you wonder what to do.
+<br><br>
+<<link [[Next|Livestock Tie Stall Punishment End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Tie Stall Punishment Other Cow Comfort
+<<effects>>
+
+The farmhands start to shock the <<beasttype>> with cattle prods. You can hear the <<person3>><<person>> laughing. The <<person1>><<beasttype>> <<if $monster is 1>>screams<<else>>moos<</if>> in pain.
+<br><br>
+You lower your head and try to nuzzle the <<beasttype>> through the bars. <<bHe>> looks at you with wide eyes. <<if $monster is 1>>"Thank you," <<bhe>> says<<else>><<bHe>> licks your cheek<</if>>.<<trauma -4>><<ltrauma>>
+<br><br>
+"Aw," the <<person3>><<person>> says. <<He>> lowers <<his>> cattle prod. "Does the <<girl>> want to play too?"
+<br><br>
+"Leave it," the <<person2>><<person>> says. <<He>> grabs the <<person3>><<persons>> wrist. "You know better than to mess with <<phim>>. Let's just take this one back and be done with it."
+<br><br>
+<<person2>><<He>> unties the <<person1>><<beasttype>> and leads <<bhim>> back outside. The <<person3>><<person>> leers at you as <<he>> follows.
+<br><br>
+<<link [[Next|Livestock Tie Stall Punishment End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Tie Stall Punishment Other Cow Ignore
+<<effects>>
+
+You turn your head away. The other <<beasttype>> <<if $monster is 1>>screams<<else>>moos<</if>> in pain. You do your best to shut out the sounds. The laughter of the farmhands is harder to shut out.<<stress 14>><<ggstress>>
+<br><br>
+<<link [[Next|Livestock Tie Stall Punishment End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Tie Stall Punishment Farmhand Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Livestock Tie Stall Punishment Farmhand Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Livestock Tie Stall Punishment Farmhand Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Livestock Tie Stall Punishment Farmhand Rape Finish
+<<effects>>
+<<if $enemyhealth lte 0>>
+	The farmhand stumbles back. "<<silently>><<bitch>><</silently>><<capitalise>>," <<he>> swears at you.
+	<br><br>
+	<<He>> kicks you in the ass, and you fall forward onto your face. You hear <<him>> stomp away, muttering to <<himself>>.<<pain 6>><<livestock_obey -2>><<ggpain>><<lobey>>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	"You're good for something at least," <<he>> says once <<he>> catches <<his>> breath. <<He>> slaps you on the <<bottomsimple>>.<<pain 2>><<gpain>>
+	<br><br>
+	You hear <<him>> walk away, whistling.
+<<else>>
+	"Fine, you're not worth it anyway," <<he>> says. <<He>> adjusts <<his>> belt as <<he>> stands back up.
+	<br><br>
+	You hear <<him>> walk away.
+<</if>>
+<br><br>
+<<tearful>> you try to gather yourself.
+<br><br>
+<<clotheson>>
+<<endcombat>>
+<<link [[Next|Livestock Tie Stall Punishment End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Tie Stall Punishment Fly Watch
+<<effects>>
+You continue to look at the fly. It flies in strange loops and spirals in front of your eyes. You think about how free it is and feel a stab of envy.<<stress 2>><<gstress>>
+<br><br>
+After a bit, it lands on your <<if $cow gte 6>>ear<<else>>nose<</if>>. Its legs tickle.
+<br><br>
+<<if $cow gte 6>>
+	<<link [[Shake it off|Livestock Tie Stall Punishment Fly Watch 2]]>><<set $phase to 1>><</link>><<cow>>
+<<else>>
+	<<link [[Blow it away|Livestock Tie Stall Punishment Fly Watch 2]]>><<set $phase to 0>><</link>>
+<</if>>
+<br>
+<<link [[Ignore|Livestock Tie Stall Punishment Fly Ignore]]>><</link>>
+<br>
+
+:: Livestock Tie Stall Punishment Fly Watch 2
+<<effects>>
+<<if $phase is 1>>You bristle, flicking your ear<<else>>You exhale a huff of air<</if>>. The fly takes off, and its buzzing eventually fades into silence.
+<br><br>
+<<link [[Next|Livestock Tie Stall Punishment End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Tie Stall Punishment Fly Ignore
+<<effects>>
+You turn your head as best you can to ignore the fly. It keeps buzzing around your ear, but eventually leaves.<<stress 6>><<gstress>>
+<br><br>
+<<link [[Next|Livestock Tie Stall Punishment End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Tie Stall Punishment Missed Job
+<<effects>>
+You strain your ears to listen.
+<br><br>
+<<if $phase is 0>>
+	<<if $skulduggerysuccess>>
+		<<if $rng gte 51 or !$settings.bestialityEnabled>>
+			"This experiment is very sensitive," a voice says. <<if $harperSeen>>It's Harper<<else>>You don't recognise it<</if>>. "If I don't administer the serum within the right time frame, it could throw off the results."
+		<<else>>
+			"The equipment's expensive," a voice says. <<if $nikiSeen>>It's Niki<<else>>You don't recognise it<</if>>. "Renting it costs me a fortune."
+		<</if>>
+		<br><br>
+		"It can't be helped," another voice says. It's Remy. "The <<pcow>> needed to be punished." There's a pause. "Maybe there's another job you can do."
+		<br><br>
+		The
+	<<else>>
+		You can't hear anything through the solid wall despite your best efforts. After some time, the
+	<</if>>
+<<elseif $phase is 1>>
+	You block out the voices. After some time, the
+<</if>>
+footsteps move on.
+<br><br>
+<<link [[Next|Livestock Tie Stall Punishment End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Tie Stall Punishment Rape Reward 2
+<<effects>>
+<<if $NPCList[0].type is "human">>
+	<<set _attacker to "farmhand">>
+<<else>>
+	<<set _attacker to $NPCList[0].type>>
+<</if>>
+<<if $phase is 0>>
+	You bite down on <<his>> finger. <<He>> yelps and jumps back. The _attacker <<if _attacker is "farmhand">>snickers<<else>>nuzzles <<him>><</if>>.
+	<br><br>
+	"Wretched beast," Remy snarls. <<He>> takes a breath and runs a hand through <<his>> hair. "You'll learn your place yet."
+<<elseif $phase is 1>>
+	You jerk your head away. <<He>> smiles, then slaps you.<<pain 5>><<gpain>>
+	<br><br>
+	"Foolish beast," <<he>> says. "You'll learn your place yet."
+<<else>>
+	You remain still. Remy smiles at you, stroking your hair. "See?" <<he>> says. "It isn't so hard to be good. If you were like this more often, I wouldn't need to punish you this way."
+<</if>>
+<br><br>
+<<He>> steps back and gives <<his>> signal to the _attacker.
+<br><br>
+<<link [[Next|Livestock Tie Stall Punishment Rape Reward Rape]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Livestock Tie Stall Punishment Rape Reward Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<clearsinglenpc 1>><<clearsinglenpc 2>> /* Leaving this here to fix errors caused by a bug in this scene */
+
+	<!-- Prevents $enemyno from being 0 -->
+	<<if $enemyno is 0>>
+		<<set $enemyno to 1>>
+	<</if>>
+
+	<<if $NPCList[0].type is "human">>
+		<<maninit>>
+	<<elseif $NPCList[0].type is "horse" or $NPCList[0].type is "centaur">>
+		<<beastCombatInit>><<set $position_lock to 1>><<prop haybale>>
+	<<else>>
+		<<beastCombatInit>>
+	<</if>>
+
+	<<set $NPCList[0].stance to "top">><<set $position to "doggy">>
+
+	<<if $phase is 0>>
+		<<set $enemytrust -= 200>>
+	<<elseif $phase is 1>>
+		<<set $enemytrust -= 100>>
+	<<else>>
+		<<set $enemytrust += 100>>
+	<</if>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<if $NPCList[0].type is "human">>
+	<<man>>
+<<else>>
+	<<beast $enemyno>>
+	<br>
+<</if>>
+Remy watches in silence from a distance away.
+<br><br>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Livestock Tie Stall Punishment Rape Reward Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Livestock Tie Stall Punishment Rape Reward Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Livestock Tie Stall Punishment Rape Reward Rape Finish
+<<effects>>
+<<if $NPCList[0].type is "human">>
+	<<set _attacker to "farmhand">>
+<<else>>
+	<<set _attacker to $NPCList[0].type>>
+<</if>>
+<<npc Remy 2>>
+<<if $enemyhealth lte 0>>
+	The _attacker <<if _attacker is "farmhand">>falls on <<person1>><<his>> ass<<else>>flinches away<</if>>.
+	Remy pulls out a whip and lets it crack across your back. <<silently>><<willpowerdifficulty 300 1000>><</silently>><<if $willpowerSuccess>><span class="green">You bite back your scream of pain.</span><<else>><span class="red">You can't help but scream in pain.</span><</if>><<pain 8>><<gpain>>
+	<br><br>
+	"I'll see you broken before the end," <<person2>><<he>> threatens. "Everyone has a breaking point."
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<<if _attacker is "farmhand">><<ejaculation>><<else>><<beastejaculation>><</if>>
+	The _attacker <<if _attacker is "farmhand">>moans as <<person1>><<he>> comes<<else>>sighs at <<person1>><<bhis>> release<</if>>. Remy watches with a glimmer of satisfaction in <<person2>><<his>> eyes.
+	<br><br>
+	"Well done," <<he>> says. It's unclear if <<he>> means you or the _attacker. "I'll see you in a few hours, <<girl>>."
+<<else>>
+	The _attacker looks disappointed, but relents.
+	<br><br>
+	Remy frowns. "Guess we'll have to find you someone else more willing."
+<</if>>
+<br><br>
+<<clotheson>>
+<<endcombat>>
+Remy leads the _attacker away, leaving you alone. <<tearful>> you hope that you'll be released soon.
+<br><br>
+<<link [[Next|Livestock Tie Stall Punishment End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Tie Stall Punishment Cat Cuddle
+<<effects>>
+You spend some time cuddling with the <<beasttype>>. <<bHis>> purrs rumble through you, soothing some of your worries.<<stress -6>><<lstress>>
+<br><br>
+<<bHe>> <<if $monster is 1>>stands up<<else>>jumps off your back<</if>>. <<bHe>> purrs and rubs <<bhis>> cheek against yours. You watch <<bhim>> amble off in pursuit of <<bhis>> next prey.
+<br><br>
+<<link [[Next|Livestock Tie Stall Punishment End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Tie Stall Punishment Cat Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+	<<enable_rescue>>
+	<<set $NPCList[0].stance to "top">><<set $position to "doggy">>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<br><br>
+<<beast $enemyno>>
+<br><br>
+<<audience>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Livestock Tie Stall Punishment Cat Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Livestock Tie Stall Punishment Cat Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Livestock Tie Stall Punishment Cat Rape Finish
+<<effects>>
+<<if $enemyhealth lte 0>>
+	The <<beasttype>> screeches. <<bHe>> jumps off of you and runs away, scattering hay as <<bhe>> goes. You take a deep breath and try to gather yourself.
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<<beastejaculation>>
+	The <<beasttype>> yowls as <<bhe>> comes. <<bHe>> slides off you in boneless contentment. You tremble as <<bhe>> comes around and licks your face.
+	<br><br>
+	<<if $monster is 1>>
+		"Thanks, that was fun!" <<bhe>> says.
+		<br><br>
+	<</if>>
+	<<bHe>> trots off, <<bhis>> tail pointing straight up. <<tearful>> you gather yourself.
+<<elseif $alarm is 1 and $rescue is 1>>
+	<<if $livestock.obey lte 10>>
+		<<generate2>><<person1>>
+		"What the- Hey! Get off <<phim>>!" someone shouts.
+		<br><br>
+		A boot flies through the air and nails the <<beasttype>> in the head. <<bHe>> yowls and jumps off you. A farmhand stands at the entrance of the barn, looking appalled.
+		<br><br>
+		<<person2>><<He>> moves towards the <<beasttype 0>>, who hisses at <<him>> and bolts away. The farmhand chases after <<person1>><<bhim>>, leaving you alone. <<tearful>> you gather yourself.
+	<<else>>
+		<<npc Remy 2>><<person1>>
+		A harsh whistle draws the <<beasttypes>> attention. <<bHe>> jumps off you as fast as possible. You hear the sound of boots approaching as a <<nnpc_gender "Remy">> comes into view. It's Remy.
+		<br><br>
+		"What do you think you're doing?" <<person2>><<he>> says. "Get back to work, you damn beast."
+		<br><br>
+		<<He>> aims a kick for the <<person1>><<beasttype>>, but <<bhe>> is already running away with <<bhis>> tail tucked between <<bhis>> legs.
+		<br><br>
+		"Damn cats," <<person2>><<he>> mutters. <<He>> doesn't even give you a glance as <<he>> leaves.
+	<</if>>
+<<else>>
+	The <<beasttype>> hisses in frustration, but jumps off of you.
+	<<if $monster is 1>>
+		"Whatever, you're no fun," <<bhe>> says.
+	<</if>>
+	<br><br>
+	<<bHe>> glares at you, then huffs and leaves with <<bhis>> head held high.
+<</if>>
+<br><br>
+<<clotheson>>
+<<endcombat>>
+<<link [[Next|Livestock Tie Stall Punishment End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Tie Stall Punishment Cat End
+<<effects>>
+<<if $phase is 0>>
+	You growl and <<if $monster is 1>>nudge the <<beasttype>> away<<else>>shake the <<beasttype>> off your back<</if>> <<bHe>> stands up, looking insulted. <<bHe>> leaves, hissing at you before <<bhe>> goes.<<stress 3>><<gstress>>
+<<else>>
+	You ignore the <<beasttype>>. After a time, <<bhe>> leaves without looking back.
+<</if>>
+<br><br>
+<<link [[Next|Livestock Tie Stall Punishment End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Tie Stall Punishment Gangrape
+<<effects>>
+<<generate2>><<generate3>><<generate4>><<generate5>><<generate6>><<person1>>
+You ignore the warning and <<if $cow gte 6>>moo<<else>>scream<</if>> as loud as you can.
+<br><br>
+The doors to the barn burst open. You can see the farmhand is back with a group of <<his>> friends. They don't look happy.
+<br><br>
+"I told you to keep quiet," <<he>> says. "Now you're in trouble."
+<br><br>
+<<link [[Next|Livestock Tie Stall Punishment Gangrape Rape]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Livestock Tie Stall Punishment Gangrape Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+<span id="next"><<link [[Next|Livestock Tie Stall Punishment Gangrape Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+<span id="next"><<link [[Next|Livestock Tie Stall Punishment Gangrape Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Livestock Tie Stall Punishment Gangrape Rape Finish
+<<effects>>
+<<if $enemyhealth lte 0>>
+	The group backs away with fear. "This isn't worth it," the <<person1>><<person>> says.
+	<br><br>
+	"Don't think the boss won't hear about this," the <<person2>><<person>> threatens.
+	<br><br>
+	They leave you alone. <<tearful>> you try to gather your bearings.
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	"Fuck, that was good," the <<person1>><<person>> says.
+	<br><br>
+	The <<person2>><<person>> leers at you. "Should we get the others? They might want a turn."
+	<br><br>
+	There's a murmur of assent from the group. The <<person5>><<person>> shakes <<his>> head.
+	<br><br>
+	"Best not make too big a fuss," <<he>> says. "We don't want the boss to hear about it."
+	<br><br>
+	<<He>> leads the others out of the barn. A few of them give you some parting glances over their shoulders. <<tearful>> gather your bearings.
+<<else>>
+	<<set $livestock.muzzle to true>><<facewear "bit gag">>
+	The group exchanges glances for a few moments, then looks at you. "Hmph, well you're not getting off scot-free, that's for sure," the <<person5>><<person>> says.
+	<br><br>
+	<<He>> nods to the <<person1>><<person>>, who smirks as <<he>> produces a muzzle. "Yeah, we're not listening to a single more noise from you."
+	<br><br>
+	<span class="purple"><<He>> and the <<person2>><<person>> affix the muzzle to your face.</span> Try as you might, you're unable to <<if $cow gte 6>>moo<<else>>yell<</if>> anymore.<<stress 5>><<gstress>>
+	<br><br>
+	The group files back out, and the room echoes as the door slams shut. Then, silence. <<tearful>> you're left with only your own thoughts to keep you company.
+<</if>>
+<br><br>
+<<clotheson>>
+<<endcombat>>
+<<link [[Next|Livestock Tie Stall Punishment End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Tie Stall Punishment Remy Ask
+<<effects>>
+<<if $phase is 0>>
+	<<if $speech_attitude is "meek">>
+		"C-can you please let me out?" you ask.
+	<<elseif $speech_attitude is "bratty">>
+		"Hey, I've been stuck here long enough. Let me out," you say.
+	<<else>>
+		"I think I've been here long enough. Can you let me out?" you ask.
+	<</if>>
+	<br><br>
+	<<if $livestock.obey lte 10>>
+		Remy doesn't even blink.
+	<<elseif $livestock.obey lte 15>>
+		Remy tilts <<his>> head but says nothing else.
+	<<else>>
+		"No," <<he>> says simply. "You acted out, and you need to be reminded of your place. You'll be released when I feel you've learnt your lesson."
+	<</if>>
+<<else>>
+	You ignore him as best as you can.
+<</if>>
+<br><br>
+<<He>> continues to watch you for a time before turning and leaving the barn.
+<br><br>
+<<link [[Next|Livestock Tie Stall Punishment End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Tie Stall Punishment Blanket
+<<effects>>
+<<if $phase is 0>>
+	<<if $livestock.obey gte 20>>
+		<<He>> drapes it over your body, tying it in place under your chin.
+		<br><br>
+		"These are usually reserved for the <<livestock_horses>>, but I don't think they'll mind for a good <<girl>> like you." <<He>> scratches behind your ear before continuing <<his>> duties.
+	<<else>>
+		<<He>> laughs as <<he>> pulls it around <<his>> shoulders. "As if a brat like you would get anything from me," <<he>> says.
+		<br><br>
+		<<Hes>> still laughing as <<he>> leaves, not bothering to close the doors behind <<him>>. You hunker down against the cold.
+		<<set $outside to 1>>
+	<</if>>
+<<else>>
+	<<if $livestock.obey gte 20>>
+		When <<hes>> close enough, you bite at the air right in front of <<his>> hands.
+		<br><br>
+		"Ungrateful <<pcow>>!" <<he>> hisses while taking a few steps back. "Go ahead and freeze for all I care!"
+		<br><br>
+		<<He>> throws the blanket back into the cabinet, locking it up before storming away.
+	<<else>>
+		You glare at <<him>> defiantly. <<He>> laughs as <<he>> pulls it around <<his>> shoulders. "It's precisely that attitude that stops you from getting one also," <<he>> says.
+		<br><br>
+		<<Hes>> still laughing as <<he>> leaves, not bothering to close the doors behind <<him>>. You hunker down against the cold.
+		<<set $outside to 1>>
+	<</if>>
+<</if>>
+<br><br>
+<<link [[Next|Livestock Tie Stall Punishment End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Tie Stall Punishment Photos 2
+<<effects>>
+<<if !playerChastity("hidden")>>
+	<<set $genderknown.pushUnique("Niki")>>
+<</if>>
+You endure Niki moving around you, taking photos from all angles. <<He>> takes many of your <<genitals>> and <<bottom>>.<<stress 8>><<arousal 400>><<gstress>><<garousal>>
+<br><br>
+<<Hes>> sweating by the time <<he>> takes <<his>> last shot. "Done," <<he>> says. "I'll get them touched up for you within the week."
+<br><br>
+"See that you do," Remy says. <<person1>><<He>> looks like <<hes>> about to say something else when there's a commotion outside. <<He>> scowls. "Excuse me."
+<br><br>
+You're alone with Niki, <<person2>><<if C.npc.Niki.love gte 40>>who avoids looking you in the eye<<else>>who fiddles with <<his>> camera<</if>>. An idea occurs to you.
+<br><br>
+<<if !$worn.face.type.includes("gag")>>
+	<<link [[Ask Niki to destroy the photos|Livestock Tie Stall Punishment Photos Plead]]>><</link>>
+	<br>
+<</if>>
+<<link [[Stay quiet|Livestock Tie Stall Punishment Photos End]]>><<set $phase to 0>><</link>>
+<br>
+
+:: Livestock Tie Stall Punishment Photos Plead
+<<effects>>
+"Hey..." you say.
+<br><br>
+Niki looks over at you. <<He>> bites <<his>> toothpick in half. "Yeah?"
+<br><br>
+<<if $speech_attitude is "meek">>
+	"P-please, it would really mean the world to me if you d-destroyed those photos," you beg.
+<<elseif $speech_attitude is "bratty">>
+	"You know this is wrong," you say. "Destroy the photos."
+<<else>>
+	"I know you're a good person," you say. "Destroy those photos for me. Please."
+<</if>>
+<br><br>
+<<if C.npc.Niki.love gte random(40, 80)>>
+	<<set $phase to 1>>
+	<<He>> hesitates. Pity flashes over <<his>> face for an instant. <<He>> takes out the memory card to <<his>> camera and crushes it underfoot.
+	<br><br>
+	"Thank you," you say.
+	<br>
+	"Don't mention it," <<he>> says. "Literally."<<stress -8>><<trauma -6>><<lstress>><<ltrauma>>
+<<else>>
+	<<set $phase to 0>>
+	<<He>> lifts <<his>> eyebrows, shakes <<his>> head, and turns back to fiddling with <<his>> camera.<<stress 8>><<trauma 6>><<gstress>><<gtrauma>>
+<</if>>
+<br><br>
+<<link [[Next|Livestock Tie Stall Punishment Photos End]]>><</link>>
+<br>
+
+:: Livestock Tie Stall Punishment Photos End
+<<effects>>
+Remy returns. "I apologise," <<person1>><<he>> says. "Is everything set?"
+<br><br>
+"All good," Niki says. <<if $phase is 1>><<person2>><<He>> sweeps the crushed memory card into the trough. <<else>><<famerape 20 "pic">><</if>>"I'll see you next week, same time."
+<br><br>
+The two leave, Remy in front. You watch them go before turning your attention back to the wall.
+<br><br>
+<<link [[Next|Livestock Tie Stall Punishment End]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Tie Stall Punishment Lurker
+<<effects>>
+<<if $phase is 0>>
+	You <<if $cow gte 6>>bellow<<else>>scream<</if>>. <span class="red">No one comes to your aid.</span><<if !$willpowersuccess>> Panic grips you, and you struggle against your bindings. The ropes chafe your skin.<<pain 6>><<gpain>><</if>>
+<<else>>
+	You remain quiet.<<if !$willpowersuccess>> You can feel your heart racing, despite your best efforts to stay calm. You struggle against your bindings. The ropes chafe your skin.<<pain 6>><<gpain>><</if>>
+<</if>>
+<br><br>
+<<if ($phase is 0 and $rng gte 75) or !$settings.bestialityEnabled or !$settings.lurkersEnabled>>
+	The chittering stops. You hear something skitter to the back of the barn. Whatever it is, it seems it doesn't want to risk attacking you.<<stress -4>><<lstress>>
+	<br><br>
+	<<link [[Next|Livestock Tie Stall Punishment End]]>><<endevent>><</link>>
+	<br>
+<<else>>
+	The chittering grows louder. You see shadows moving just out of reach. As you prepare to <<if $cow gte 6>>bellow<<else>>scream<</if>> again, the noises stop. You hold your breath. After a few seconds, you begin to relax. Then it starts again, and your heart races with panic.
+	<br><br>
+	Before you can figure out what to do next, a creature leaps from the hay and flies towards you!
+	<br><br>
+	<<link [[Next|Livestock Tie Stall Punishment Lurker Struggle]]>><<set $struggle_start to 1>><</link>>
+	<br>
+<</if>>
+
+:: Livestock Tie Stall Punishment Lurker Struggle
+<<effects>>
+
+<<if $struggle_start is 1>>
+	<<struggle_init>>
+	<<set $struggle.creature to "lurker">>
+	<<struggle_creatures 1 1>>
+	<<set $combat to 1>>
+	<<controlloss>>
+	<<violence 1>>
+	<<molested>>
+	<<set $struggle.mouth.creature to "lurker">>
+	<<set $mouthuse to "struggle">><<set $mouthstate to "struggle">><<set $struggle.enemy[0].location to "mouth">>
+	<<unset $struggle_start>>
+	<<set $turnCount to 0>>
+<</if>>
+
+<<struggle>>
+<<set $turnCount++>>
+
+<<if $struggle.done gte $struggle.number or $turnCount gte ($phase is 0 ? 8 : 16)>>
+	<span id="next"><<link [[Next|Livestock Tie Stall Punishment Lurker Struggle Finish]]>><</link>></span>
+	<br>
+<<else>>
+	<span id="next"><<link [[Next|Livestock Tie Stall Punishment Lurker Struggle]]>><</link>></span>
+	<br>
+<</if>>
+
+:: Livestock Tie Stall Punishment Lurker Struggle Finish
+<<effects>>
+<<if $struggle.done gte $struggle.number>>
+	The lurker jumps away from you with a chitter. It scurries back into the shadows. <<tearful>>, you try to gather your scattered wits and think of what to do next.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<link [[Next|Livestock Tie Stall Punishment End]]>><<endevent>><</link>>
+<<else>>
+	<<npc Remy>><<generate2>><<person2>>
+	You hear a crash. The lurker jumps off you. It stiffens its legs and unfurls its proboscis. Shouts fill the barn as you hear crashes behind you. <<tearful>> you strain to see what's happening.
+	<br><br>
+	A farmhand backs up until <<hes>> near your head. <<He>> holds a net out in front of <<him>>. It shakes in <<his>> trembling hands. The lurker chitters from above you.
+	<br><br>
+	"What are you lot waiting for?" a voice shouts, cutting above the chaos. It's Remy. "Catch it now!" <<person1>><<he>> orders.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<link [[Next|Livestock Tie Stall Punishment Lurker Catch]]>><</link>>
+<</if>>
+<br>
+
+:: Livestock Tie Stall Punishment Lurker Catch
+<<effects>>
+<<npc Remy>><<person1>>
+You hear another crash, louder this time. The lurker darts next to you. You feel a little bad for it. It's not so different from you right now. It flicks out its proboscis before preparing to leap into the air. As it leaps, Remy
+<<if $rng gte 96>>
+	snatches it mid-air. <<He>> holds it over <<his>> head with a look of triumph. The lurker struggles for a moment, then falls limp. The rest of the farmhands cheer.
+	<br><br>
+	"Let this be a lesson to you all," Remy says. "That's how you catch a lurker."
+<<else>>
+	grabs for it. <<He>> misses, and it sails right into the net of a second farmhand. The lurker struggles against the rope for a moment before falling limp.
+	<br><br>
+	Remy dusts <<himself>> off and glares at the farmhand. "Good work," <<he>> says, though it doesn't sound like <<he>> means it. The farmhand shifts nervously.
+<</if>>
+<br><br>
+"And good work to you as well, <<girl>>," Remy says. You jump when <<he>> puts <<his>> hand on your head. "Without you to distract it, it may have skittered right out of the barn." <<He>> scratches your head. "You deserve your freedom, for now."<<livestock_obey 10>><<gobey>>
+<br><br>
+<<He>> unties you and hands your leash to one of the farmhands.<<unbind>> As the farmhand pulls you along, you look back at the lurker one last time. You feel a pang of pity go through you as the barn doors swing shut. The heavy thud sounds like a death knell.<<stress 4>><<gstress>>
+<br><br>
+You are led back to the other barn and released. You look around and wonder what to do.
+<br><br>
+<<link [[Next|Livestock Barn]]>><<endevent>><</link>>
+<br>
+
+:: Livestock Tie Stall Punishment End
+<<effects>>
+<<if Time.hour lt 15>>
+	<<pass 4 hours>>
+<<else>>
+	<<passTimeUntil 19>>
+<</if>>
+<<npc Remy>><<person1>>
+The rest of your punishment passes by uneventfully.
+<br><br>
+<<if Time.hour gte 19>>
+	You hear the barn door open. Someone releases your legs from their bonds, then your hands, and at last your head. You turn and look up. It's Remy.
+	<br><br>
+	"The herd missed you today, <<girl>>," <<he>> says, patting your shoulder. "I hope you've learned your lesson. Now, come along. It's time to be milked before bed."
+<<else>>
+	Remy comes over and unties you. "Come along," <<he>> says. "Time to go back, <<girl>>."
+<</if>>
+<<unbind>>
+<br><br>
+<<He>> stops you from walking upright and points to the ground. It's clear <<he>> wants you to crawl on all fours.<<if $cow lt 6>><<stress 3>><<trauma 3>><<gstress>><<gtrauma>><</if>>
+<br><br>
+<<link [[Crawl|Tie Stall Barn Release]]>><<livestock_obey 2>><<set $phase to 0>><</link>><<gobey>>
+<br>
+<<link [[Refuse|Tie Stall Barn Release]]>><<livestock_obey -2>><<set $phase to 1>><</link>><<lobey>>
+<br>
+
+:: Tie Stall Barn Release
+<<set $outside to 0>><<effects>>
+<<if $phase is 0>>
+	You follow on all fours. Farmhands whisper and leer at you. Eventually, you arrive at the <<if Time.hour gte 19>>milking machine<<else>>barn<</if>>.
+<<elseif $phase is 1>>
+	You dig your heels in and refuse to move. Remy lifts <<his>>
+	<<if $livestock.obey gte 20>>
+		hand, then shakes <<his>> head. "Fine," <<he>> says.
+	<<else>>
+		hand and slaps you.<<pain 5>><<gpain>>
+		<br>
+		"Do as you're told," <<he>> says. "Or there will be worse for you."
+		<br>
+		You get down on all fours.<<if $cow lt 6>> It's humiliating.<<stress 6>><<trauma 6>><<gstress>><<gtrauma>><</if>>
+	<</if>>
+	<br><br>
+	Remy leads you through the farm, ignoring the gawking farmhands, until you arrive at the <<if Time.hour gte 19>>milking machine<<else>>barn<</if>>.
+<</if>>
+<br><br>
+<<if Time.hour gte 19>>
+	<<if $livestock.obey gte 80 and C.npc.Remy.love gte 50 and random(1,100) gte 60 and !playerChastity()>>
+		<<link [[Obey|Livestock Milking Obey]]>><<npcincr Remy dom 1>><<livestock_obey 5>><<set $phase to 1>><</link>><<ggobey>>
+		<br>
+		<<link [[Resist|Livestock Milking Refuse]]>><<npcincr Remy dom -1>><<livestock_obey -5>><</link>><<lobey>>
+		<br>
+	<<else>>
+		<<link [[Obey|Livestock Milking Obey]]>><<npcincr Remy dom 1>><<livestock_obey 5>><</link>><<ggobey>>
+		<br>
+		<<link [[Resist|Livestock Milking Refuse]]>><<npcincr Remy dom -1>><<livestock_obey -5>><</link>><<lobey>>
+		<br>
+	<</if>>
+<<else>>
+	<<link [[Next|Livestock Barn]]>><<endevent>><</link>>
+<</if>>

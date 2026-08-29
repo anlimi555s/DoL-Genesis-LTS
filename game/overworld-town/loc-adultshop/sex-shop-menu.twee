@@ -1,0 +1,69 @@
+:: Adult Shop Menu
+<<set $shopName = "adult">>
+
+You are inside the adult shop.
+<br><br>
+<div class="ssm_header">
+/*	<span class="ssm_owner_name">Rose's</span>*/
+	<span class="ssm_shop_title"><span class="ssm_neon">Se<span class="ssm_flicker_slow">x</span> T<span class="ssm_flicker_fast">o</span>ys</span></span>
+</div>
+<br>
+<div class="ssm_gridContainer" id="sexShopMenuContainer">
+</div>
+<br>
+<div class="ssm_gridDescContainer" id="ssmDescPillContainer" style="display: none;">
+	<div class="ssm_descContainer" id="ssm_descContainer">
+	</div>
+</div>
+<<run window.sexShopGridInit()>>
+<br><br>
+<<if $debug is 1>>
+	<<ind>><<link [[Reload|Adult Shop Menu]]>><</link>>
+	<br>
+<</if>>
+<<getouticon>><<link [[Leave|Adult Shop]]>><</link>>
+
+:: Forest Shop Sex Toys
+<<set $shopName = "forest">>
+
+You are looking through Gwylan's creaky cabinet in the forest shop.
+<br><br>
+<div class="ssm_gridContainer" id="sexShopMenuContainer">
+</div>
+<br>
+<div class="ssm_gridDescContainer" id="ssmDescPillContainer" style="display: none;">
+	<div class="ssm_descContainer" id="ssm_descContainer">
+	</div>
+</div>
+<<run window.sexShopGridInit()>>
+<br><br>
+<<if $debug is 1>>
+	<<ind>><<link [[Reload|Forest Shop Sex Toys]]>><</link>>
+	<br>
+<</if>>
+<<getouticon>><<link [[Leave|Forest Shop]]>><</link>>
+
+:: Sextoys Inventory
+
+<<if $worn.lower.name != "naked">>
+	<span id="stiShowUnderwear"><<link "Hide lower clothing">><<run window.tempHideLower()>><<run Links.generateLinkNumbers($(".passage"))>><</link>></span>
+<</if>>
+<div id="stiCursedText" class="ssm_fade_in"></div>
+<br>
+<div class="sti_grid" id="sti_grid">
+	<div class="sti_grid_title">Sex toys inventory</div>
+</div>
+<br>
+<div class="sti_gridDescContainer" id="stiDescPillContainer" style="display: none;">
+	<div class="sti_descContainer" id="sti_descContainer"></div>
+</div>
+<br><br>
+<<run window.patchStraponsWearStatus()>>
+<<run window.sexToysInventoryInit()>>
+
+<<if $debug is 1>>
+	<<link [[Reload|Sextoys Inventory]]>><</link>>
+	<br>
+<</if>>
+
+<<link [[Leave|$sextoyInvReturnLink]]>><<unset $sextoyInvReturnLink>><</link>>

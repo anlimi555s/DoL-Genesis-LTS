@@ -1,0 +1,27 @@
+:: Wren Widgets [widget]
+
+<<widget "smuggler_pub_wren">>
+<<if (Time.weekDay is 1 or Time.weekDay is 7) and Time.dayState is "dusk">>
+	<<link [[Chat (1:00)|Smuggler Pub Wren Chat]]>><<pass 60>><<npcincr Wren love 1>><</link>><<glove>>
+	<br>
+	<<if $loft_known and !$loft_wren>>
+		<<link [[Tell Wren about the orphanage loft|Smuggler Pub Wren Loft]]>><<set $loft_wren to 1>><</link>>
+		<br>
+	<</if>>
+	<<if $loft_wren is 2>>
+		<<link [[Ask about the well in the orphanage garden|Smuggler Pub Wren Well]]>><<set $loft_wren to 3>><</link>>
+		<br>
+	<</if>>
+	<<link [[Leave|Smuggler Pub]]>><<endevent>><</link>>
+	<br>
+<<else>>
+	Wren glances at <<his>> watch. "I fear I must be off. Business calls." <<He>> flashes you a mysterious smile. "See you around."
+	<br><br>
+
+	<<He>> winks at you, rises to <<his>> feet, and leaves the pub.
+	<br><br>
+
+	<<link [[Next|Smuggler Pub]]>><<endevent>><</link>>
+	<br>
+<</if>>
+<</widget>>

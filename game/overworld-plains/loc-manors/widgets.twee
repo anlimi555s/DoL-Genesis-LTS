@@ -1,0 +1,74 @@
+:: Farmland Manors Widgets [widget]
+<<widget "farmland_manors_maze">>
+	<<if $rng gte 76>>
+		<<link [[Left|Farmland Manors Plants Escape]]>><</link>>
+		<br>
+		<<link [[Forward|Farmland Manors Plants Lost]]>><</link>>
+		<br>
+		<<link [[Right|Farmland Manors Plants Lost]]>><</link>>
+		<br>
+		<<link [[Double back|Farmland Manors Plants Lost]]>><</link>>
+		<br>
+	<<elseif $rng gte 51>>
+		<<link [[Left|Farmland Manors Plants Lost]]>><</link>>
+		<br>
+		<<link [[Forward|Farmland Manors Plants Escape]]>><</link>>
+		<br>
+		<<link [[Right|Farmland Manors Plants Lost]]>><</link>>
+		<br>
+		<<link [[Double back|Farmland Manors Plants Lost]]>><</link>>
+		<br>
+	<<elseif $rng gte 26>>
+		<<link [[Left|Farmland Manors Plants Lost]]>><</link>>
+		<br>
+		<<link [[Forward|Farmland Manors Plants Lost]]>><</link>>
+		<br>
+		<<link [[Right|Farmland Manors Plants Escape]]>><</link>>
+		<br>
+		<<link [[Double back|Farmland Manors Plants Lost]]>><</link>>
+		<br>
+	<<else>>
+		<<link [[Left|Farmland Manors Plants Lost]]>><</link>>
+		<br>
+		<<link [[Forward|Farmland Manors Plants Lost]]>><</link>>
+		<br>
+		<<link [[Right|Farmland Manors Plants Lost]]>><</link>>
+		<br>
+		<<link [[Double back|Farmland Manors Plants Escape]]>><</link>>
+		<br>
+	<</if>>
+<</widget>>
+
+<<widget "farmland_dungeon_init">>
+	<<set $farmland_dungeon to {}>>
+	<<set $farmland_dungeon.gauntlet to 0>>
+	<<set $farmland_dungeon.gauntlet_left to "calm">>
+	<<set $farmland_dungeon.gauntlet_right to "calm">>
+	<<set $farmland_dungeon.doorways to []>>
+	<<set $farmland_dungeon.escort to false>>
+	<<set $farmland_dungeon.npc_pain to 0>>
+<</widget>>
+
+<<widget "farmland_dungeon_end">>
+	<<unset $farmland_dungeon>>
+<</widget>>
+
+<<widget "farmland_dungeon_gauntlet">>
+	<<rng 3>>
+	<<if $rng gte 3>>
+		<<set $farmland_dungeon.gauntlet_left to "calm">>
+	<<elseif $rng gte 2>>
+		<<set $farmland_dungeon.gauntlet_left to "snarl">>
+	<<else>>
+		<<set $farmland_dungeon.gauntlet_left to "rattle">>
+	<</if>>
+
+	<<rng 3>>
+	<<if $rng gte 3>>
+		<<set $farmland_dungeon.gauntlet_right to "calm">>
+	<<elseif $rng gte 2>>
+		<<set $farmland_dungeon.gauntlet_right to "snarl">>
+	<<else>>
+		<<set $farmland_dungeon.gauntlet_right to "rattle">>
+	<</if>>
+<</widget>>

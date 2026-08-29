@@ -1,0 +1,3856 @@
+:: Gwylan Hypnosis Start
+<<effects>><<run statusCheck("Gwylan")>>
+<<set _hideHypnosisOptions to true>>
+
+<<if $gwylan.requestLast?.hold is $phase>>
+	<<switch $speech_attitude>>
+		<<case "meek">>
+			"C-can we continue now, please?" you ask.
+		<<case "bratty">>
+			"Alright, I did what you wanted, can we continue now?" you ask.
+		<<default>>
+			"May we continue where we left off now?" you ask.
+	<</switch>>
+<<else>>
+	<<switch $phase>>
+		<<case "peace">>
+			<<if !$gwylanSeen.includes("hypnosis_peace")>>
+				<<switch $speech_attitude>>
+					<<case "meek">>"Y-you said you could help me with this," you say, gesturing to your unusual parts.
+					<<case "bratty">>"So, can you help me with all this?" you ask, gesturing to your unusual parts.
+					<<default>>"You said you could help me with my inner self," you say, gesturing to your unusual parts.
+				<</switch>>
+			<<else>>
+				<<switch $speech_attitude>>
+					<<case "meek">>"C-can you help me with my inner self again?" you ask.
+					<<case "bratty">>"I need your help keeping my inner self under control again," you say.
+					<<default>>"Could you help me come to terms with my inner self again?" you ask.
+				<</switch>>
+			<</if>>
+		<<case "silence">>
+			<<switch $speech_attitude>>
+				<<case "meek">>"C-can you make <<if numberOfEarSlime() gt 1>>these things in my ears<<else>>this thing in my ear<</if>> stop?" you ask.
+				<<case "bratty">>"Please, for the love of god, shut <<if numberOfEarSlime() gt 1>>these things in my ears<<else>>this thing in my ear<</if>> up," you say.
+				<<default>>"Could you help me with <<if numberOfEarSlime() gt 1>>these things in my ears<<else>>this thing in my ear<</if>>?" you ask.
+			<</switch>>
+		<<case "slumber">>
+			<<switch $speech_attitude>>
+				<<case "meek">>"I-I've been having trouble sleeping," you say. "Can you help?"
+				<<case "bratty">>"I need my beauty sleep, but it's not coming easy," you say. "Can you help?"
+				<<default>>"I've been having trouble sleeping. Can you help?" you ask.
+			<</switch>>
+		<<case "insight">>
+			<<switch $speech_attitude>>
+				<<case "meek">>"I-I've been seeing things," you say. "Can you help?"
+				<<case "bratty">>"I think I'm losing it. I'm seeing things that can't be real," you say. "Can you help?"
+				<<default>>"I've been seeing things. Can you help?" you ask.
+			<</switch>>
+		<<case "removal">>
+			<<switch $speech_attitude>>
+				<<case "meek">>"I-I think someone else is in my head," you say. "Can you make it stop?"
+				<<case "bratty">>"Someone's got my brain in a twist, I think. Can you help?" you ask.
+				<<default>>"I don't feel like myself. I have strange impulses, and I think someone else hypnotised me," you explain.
+			<</switch>>
+		<<default>>
+			<<set _hypnosisError to true>>
+	<</switch>>
+<</if>>
+<br><br>
+
+<<if _hypnosisError>>
+	You open your naughty mouth to ask Gwylan for help, but the only thing that comes out is salt. A branch slaps you square on the ass for your troubles. <<pain 2>><<arousal 200>><<gpain>><<garousal>>
+	<br><br>
+
+	"What?" Gwylan says. "Could you repeat that please?"
+	<br><br>
+
+	<span class="red">This is a bug. Please report this. phase: <<print $phase>></span>
+	<br><br>
+
+	<<set $phase to 0>>
+	<<gwylanOptions>>
+<<elseif !$settings.hypnosisEnabled>>
+	Gwylan smiles sadly. "<span class="blue">You've closed up your mind.</span> There's nothing I can do for you until you open it to being changed through <span class="purple">hypnosis</span>."
+	<br><br>
+
+	<i><span class="blue">Hypnosis must be enabled to continue.</span></i>
+	<br><br>
+
+	<<set $phase to 0>>
+	<<gwylanOptions>>
+<<elseif $daily.gwylan.hypnosis and !$gwylanSeen.includes("yearning")>>
+	Gwylan holds up <<his>> hands towards you. "One per day is enough for now. You need to pace yourself. Give it time to stick."
+	<br><br>
+
+	<<set $phase to 0>>
+	<<gwylanOptions>>
+<<elseif $hypnosis_traits.devotion gte gwylanHypnoMax("trait") and !$gwylanSeen.includes("hypnosis_deepest") and $hypnosisTimers?.devotion.time + 10 > gwylanHypnoMax("value")>>
+	<<if $hypnosis_traits.devotion gte 4 and !$gwylanSeen.includes("hypnosis_deepest")>>
+		Gwylan frowns, but blushes. "You know the side effects deepen each time. You're already..."
+		<br><br>
+
+		<<He>> raises <<his>> hand, and a single finger. Your eyes lock on it. <<He>> then cups <<his>> hand near your face. <<hypnosisText "You raise your head instinctively, and <<he>> scratches under your chin.">>
+		<br><br>
+
+		"...trapped in my web," <<he>> says with a guilty laugh. "I'm afraid I'll break you if I let this go any further."
+		<<if _gwylanLovePercent gte 80 and _gwylanStatus.includes("lust") and !$weekly.gwylanDeepest>>
+			<<His>> thumb rubs your cheek. "Yet, a part of me wants this. To just give in and..."
+			<br><br>
+
+			<<His>> face comes close to yours. You feel <<his>> breath on your lips, but <<he>> stops short of kissing you. After a moment's hesitation, <<he>> releases you and steps around you.
+			You turn to follow <<him>>. "<span class="witch">Stay,</span>" <<he>> says. <<hypnosisText "Your body obeys without question.">>
+			<br><br>
+
+			You feel <<his>> chin rest on your shoulder.
+			"If you truly want this..." <<His>> whisper slides into your ears and echoes. Visions of your acts with Gwylan swim in schools, displacing the currents of your mental ocean.
+			<<His>> breath tickles your ear. "Prove it." A thin red powder is drawn under your nose, and the visions dry up. <<llarousal>><<arousal -2000>>
+			<br><br>
+
+			"This will only last a minute." <<He>> steps back in front of you. "Sit."
+			<br><br>
+
+			<span class="teal">The usual compulsion isn't present.</span> <<He>> smiles. "If we sink any further, <span class="red">you won't be able to say 'no' to me until the hypnosis wears off.</span> So I need to hear the words from your mouth. I need to make sure it's <i>you</i> that wants this."
+			<br><br>
+
+			<<link [[Do nothing|Gwylan Hypnosis Deepest]]>><<set $phase2 to 1>><<npcincr Gwylan dom -5>><</link>><<llyearning>>
+			<br>
+			<<link [[Sit and tell <<him>> you want this|Gwylan Hypnosis Deepest]]>><<set $phase2 to 2>><<sub 1>><</link>>
+			<br>
+		<<else>>
+			<<He>> lowers <<his>> hand, leaving you feeling cold. "You were never meant to fall this deep in. I'm sorry. Let it fade for a while, please. For both of our sakes.
+			You should be ready again
+			<<set _canRefreshHypnosisIn to $hypnosisTimers.devotion.time - (gwylanHypnoMax("value") - 10)>>
+			<<if _canRefreshHypnosisIn is 1>>
+				<span class="gold">tomorrow</span>."
+			<<else>>
+				in <span class="gold"><<number _canRefreshHypnosisIn>> days</span>."
+			<</if>>
+			<br><br>
+
+			<<if $weekly.gwylanDeepest>>
+				<span class="blue"><<He>> believes your requests are not your own, and that you have sunken too deep. Given time, <<he>> may be open to the possibility again.</span>
+			<<else>>
+				<span class="blue">There was hesitation in <<his>> voice. If pushed further into <span class="forest-green">yearning</span>, <<he>> might not show restraint.</span>
+			<</if>>
+			<br><br>
+
+			<<set $phase to 0>>
+			<<gwylanOptions>>
+		<</if>>
+	<<else>>
+		<<if $gwylanSeen.includes("ritual_beast")>>
+			<<if $phase is "silence">>
+				Gwylan frowns. "I'm sorry, <span class="blue">but you're not ready to go any deeper into my trance yet</span>. I'm... I'm afraid of what you'd do for me, were I to ask. You'll have to hang in there for a little while longer."
+			<<else>>
+				Gwylan giggles. "I appreciate your enthusiasm, <span class="blue">but you're not ready to go deeper into my trance yet</span>. For both of our sakes, we shouldn't allow our... attachment... to go that far. You may end up doing something you regret if we do. Give your mind time to rationalise and recover."
+			<</if>>
+		<<else>>
+			Gwylan shakes <<his>> head. "<span class="blue">You aren't ready to slip deeper into my trance.</span> Not yet, at least. The side effects are only harmless so long as we give you time to recover."
+		<</if>>
+		<br><br>
+
+		<<He>> steps aside, and motions for you to follow. <<He>> pulls out a chair and has you sit.
+		<br><br>
+
+		"Just hold still a moment, dear." <<He>> leans in to look into your eyes. <<He>> then raises <<his>> hand, and snaps <<his>> fingers in various directions to measure your responsiveness.
+		<<He>> asks you several questions pertaining to how you feel about <<him>>, interspersed with seemingly random ones such as what you had for breakfast.
+		<br><br>
+
+		<<He>> places a hand to <<his>> chin in thought. "You should be ready again...
+		<<set _canRefreshHypnosisIn to $hypnosisTimers.devotion.time - (gwylanHypnoMax("value") - 10)>>
+		<<if _canRefreshHypnosisIn is 1>>
+			<span class="gold">tomorrow</span>."
+		<<else>>
+			in <span class="gold"><<number _canRefreshHypnosisIn>> days</span>."
+		<</if>>
+		<br><br>
+
+		<<set $phase to 0>>
+		<<gwylanOptions>>
+	<</if>>
+<<elseif $phase isnot "removal" and $hypnosisTimers[$phase] and $hypnosisTimers[$phase]?.time gt Math.floor($hypnosisTimers[$phase]?.max / 2) and !$gwylanSeen.includes("hypnosis_deepest")>>
+	Gwylan tilts <<his>> head. "The effects from last time should still be holding strong. Just hold still a moment, dear." <<He>> leans in to look into your eyes. <<He>> then raises <<his>> hand, and snaps <<his>> fingers in various directions to measure your responsiveness.
+	<br><br>
+
+	<<He>> places a hand to <<his>> chin in thought. "If you don't wish to leave any gaps in the effects, we should be able to perform that technique again...
+	<<set _canRefreshHypnosisIn to $hypnosisTimers[$phase].time - Math.floor($hypnosisTimers[$phase]?.max / 2)>>
+	<<if _canRefreshHypnosisIn is 1>>
+		<span class="gold">tomorrow</span>."
+	<<else>>
+		in <span class="gold"><<number _canRefreshHypnosisIn>> days</span>."
+	<</if>>
+	<br><br>
+
+	<<set $phase to 0>>
+	<<gwylanOptions>>
+<<elseif !$gwylan.requestDone>>
+	<<if $gwylan.request.event>>
+		Gwylan thinks for a moment. "Sure, but only after <span class="blue">you do what I asked of you</span>."
+	<<else>>
+		<<if !$gwylanSeen.includes("request_intro")>>
+			Gwylan thinks for a moment. "I can help, but I need you to do something for me first. It'll be nice and simple, don't worry." <<He>> smiles sweetly.
+			<<run gwylanRequest("tutorial")>>
+			<<gwylanRequestText>>
+		<<else>>
+			Gwylan thinks for a moment. "I can help, but I need you to do something for me first." <<He>> smiles sweetly.
+			<<run gwylanRequest()>>
+			<<gwylanRequestText>>
+		<</if>>
+	<</if>>
+	<<set $gwylan.request.hold to $phase>>
+	<br><br>
+
+	<<set $phase to 0>>
+	<<gwylanOptions>>
+<<else>>
+	<<if $phase is "removal" and !$gwylanSeen.includes("hypnosis_removal")>>
+		Gwylan nods. "I should warn you that there will be temporary side effects. Simply removing the impulses isn't possible, that would require erasing entire memories.
+		Instead, I'll be <span class="pink">replacing them</span> with something that will fade naturally over time. <span class="red">There's a risk of damage to your psyche.</span> If you're alright with that, we can continue whenever you're ready."
+	<<elseif !$gwylanSeen.includes("hypnosis_intro")>>
+		Gwylan nods. "You'll need to trust me for it to work. It won't last long, but we can always redo it at a later date. There's also a limit to how much your mind can take at once.
+		<<if $phase is "slumber">>
+			<span class="blue">This particular method will require you to fall asleep, and may take up to a few hours.</span>
+		<</if>>
+		<span class="blue">There will be temporary side effects,</span> too. We can start whenever you're ready."
+	<<elseif $phase is "slumber" and !$gwylanSeen.includes("hypnosis_slumber")>>
+		Gwylan smiles. "<span class="blue">This particular method will require you to fall asleep, and may take up to a few hours.</span> We can start whenever you're ready."
+	<<elseif _gwylanStatus.includes("lust") && $hypnosis_traits.devotion gte 5>>
+		Gwylan smiles. "You want to go yet deeper, <<pcpetname "Gwylan" "my">>?" <<He>> cups under your chin. "Strange. I can't seem to say no to you. You must know what that's like by now."
+	<<else>>
+		Gwylan smiles. "Of course. We can start whenever you're ready. As you know, there will be temporary side effects."
+	<</if>>
+	<br><br>
+
+	<<switch $phase>>
+		<<case "peace">><<hypnosisicon>><<link [[Let Gwylan hypnotise you (1:00)|Gwylan Hypnosis Start 2]]>><<pass 10>><<endevent>><<set $phase to "peace">><</link>><<gwylanHypnoNote>>
+		<<case "silence">><<hypnosisicon>><<link [[Let Gwylan hypnotise you (1:00)|Gwylan Hypnosis Start 2]]>><<pass 10>><<endevent>><<set $phase to "silence">><</link>><<gwylanHypnoNote>>
+		<<case "slumber">><<hypnosisicon>><<link [[Let Gwylan hypnotise you (1:00)|Gwylan Hypnosis Start 2]]>><<pass 10>><<endevent>><<set $phase to "slumber">><</link>><<gwylanHypnoNote>>
+		<<case "insight">><<hypnosisicon>><<link [[Let Gwylan hypnotise you (1:00)|Gwylan Hypnosis Start 2]]>><<pass 10>><<endevent>><<set $phase to "insight">><</link>><<gwylanHypnoNote>>
+		<<case "removal">><<hypnosisicon>><<link [[Let Gwylan hypnotise you (1:00)|Gwylan Hypnosis Start 2]]>><<pass 10>><<endevent>><<set $phase to "removal">><</link>><<gwylanHypnoNote>>
+	<</switch>>
+	<br><br>
+
+	<<set $phase to 0>>
+	<<gwylanOptions>>
+<</if>>
+
+:: Gwylan Hypnosis Start 2
+<<effects>><<run statusCheck("Gwylan")>>
+<<set $outside to 0>><<set $location to "forest_shop_garden">>
+<<npc Gwylan>><<person1>>
+<<set $gwylan.requestDone to false>>
+<<if $gwylan.requestLast?.hold>>
+	<<run delete $gwylan.requestLast.hold>>
+<</if>>
+<<set $hypnosis_potency to Math.ceil($hypnosis_traits.devotion / 2) || 1>>
+
+<<if $gwylanSeen.includes("garden_seen")>>
+	<<if C.npc.Gwylan.dom gte 20>>
+		<<He>> takes your hand and leads you to the garden. <<takeHandholdingVirginity "Gwylan" "consensual">>
+	<<else>>
+		<<He>> leads you to the garden.
+	<</if>>
+	You sit down on the large cushion in the covered room.
+	<br><br>
+<<else>>
+	<<He>> places a black blindfold over your eyes. "Sorry, but my garden is usually off-limits. I can't have anyone knowing how to get in."
+	<br><br>
+
+	<<if $gwylanSeen.includes("garden")>>
+		<<He>> steadily walks you to the garden before removing it. <<He>> sits you down on a large cushion in the covered room.
+	<<else>>
+		<<set $gwylanSeen.pushUnique("garden")>>
+		<<He>> steadily walks you somewhere. You hear doors open and shut. Eventually, you smell roses and feel the fresh air on your skin. <<He>> removes your blindfold.
+		A large expanse of square stone tiles stretch along the ground, connecting patches of grass and raised sections filled with dirt, flowers and herbs.
+		Surrounding it all is an impressive weaving of crossed wooden stakes well over two metres high, with gaps just large enough to allow vines to grab and climb through, shielding the whole area from prying outside eyes.
+		<br><br>
+
+		There's another raised section, but this one is different. It's covered by a wooden roof,
+		<<if Weather.precipitation is "rain" or Weather.precipitation is "snow">>
+			untouched by the <<print Weather.precipitation>>,
+		<</if>>
+		and the inside is padded with various cushions and quilts. Gwylan leads you over to it, sitting you down on a large cushion.
+		<br><br>
+	<</if>>
+<</if>>
+
+Gwylan leaves momentarily, returning with a tray that holds a teacup, many herbs, and a mortar and pestle. <<He>> places it in front of you on a small table.
+<<if $worn.handheld.name isnot "naked">>
+	You set your <<= $worn.handheld.name>> aside.
+	<<handheldundress "gwylanHypno">>
+<</if>>
+<br><br>
+
+<<He>> walks around the garden, picking a few herbs and tossing them into the mortar and pestle. <<He>> hums as <<he>> grinds them together.
+<<if !$gwylanSeen.includes("hypnosis_intro")>>
+	When <<hes>> done, <<he>> gently grabs your arm and runs <<his>> fingernails down it, just enough to leave some small marks. You instinctively pull your arm away. "What are you doing?"
+	<br><br>
+
+	<<He>> gently grabs your arm again. "Simple allergy test." <<He>> rubs the freshly ground herbs on the marks <<he>> left, and watches closely. Nothing happens for several minutes. "Excellent."
+	<<He>> adds the herbs to a filter.
+<<else>>
+	<<He>> finishes grinding up the herbs, and adds them to a filter.
+<</if>>
+<<He>> then pours the hot water from the teapot through it, into the cup. "Drink this first. It's a herbal tea that will help you relax."
+<br><br>
+
+<<He>> turns away and lights a hanging incense burner. <<hallucinogen 20>>
+<br><br>
+
+<<link [[Drink the tea|Gwylan Hypnosis Start 3]]>><<pass 10>><<set $phase2 to "drink">><<stress -14>><<tiredness 3>><<hallucinogen 200>><<set $hypnosis_potency++>><</link>><<llstress>><<gtiredness>><<gwylanHypnoEffect>>
+<br>
+<<link [[Don't drink it|Gwylan Hypnosis Start 3]]>><<pass 10>><<set $phase2 to "no">><</link>><<gwylanWillpowerDifficulty>>
+<br>
+
+:: Gwylan Hypnosis Start 3
+<<effects>><<run statusCheck("Gwylan")>>
+
+<<if $phase2 is "no">>
+	You decide against drinking it. Gwylan sits down at the opposite side of the small table, on a cushion of <<his>> own.
+	<<if !$willpowerSuccess>>
+		<<He>> frowns upon seeing the cup still full. "It won't bite, dear." <<He>> scoots over to your side of the table. "Here, just relax." <<He>> puts a hand on your shoulder.
+		<br><br>
+
+		<<hypnosisText "Your body won't move, yearning to be guided by <<him>>. <span class='red'><<He>> knows what's best.</span>">>
+		<br><br>
+
+		<<He>> lifts the cup to your lips, and you drink obediently. "There. See?" <<He>> strokes your head for a moment. You don't know what you were worried about.
+		You relish in <span class="witch"><<his>></span> warmth. You find your arms and eyelids feeling heavier already.
+		<<stress -12>><<tiredness 3>><<hallucinogen 200>><<set $hypnosis_potency++>><<llstress>><<gtiredness>><<gwylanHypnoEffect>>
+	<<else>>
+		<<He>> frowns upon seeing the cup still full, but doesn't mention it.
+	<</if>>
+<<else>>
+	<<wearProp "tea">>
+	You sip the tea, relishing in its warmth. You find your arms and eyelids feeling heavier already. Gwylan sits down at the opposite side of the small table, on a cushion of <<his>> own.
+<</if>>
+<<set $gwylanSeen.pushUnique("hypnosis_intro")>>
+<br><br>
+
+<<switch $phase>>
+	<<case "peace">>
+		"Tell me, dear. What is it about your inner self that bothers you?"
+		<br><br>
+
+		<<if $fox gte 4 and $gwylanSeen.includes("romance")>>
+			<<His>> gaze lingers on you for a moment too long.
+			<br><br>
+		<</if>>
+
+		<<link [[It attracts too much attention|Gwylan Hypnosis Peace]]>><<set $phase to "attention">><<stress 18>><</link>><<ggstress>>
+		<br>
+		<<link [[It's not who I am|Gwylan Hypnosis Peace]]>><<set $phase to "identity">><<trauma 18>><</link>><<ggtrauma>>
+		<br>
+		<<if $cow gte 4>>
+			<<link [[Painful memories of the farm|Gwylan Hypnosis Peace]]>><<set $phase to "cow">><<trauma -3>><</link>><<ltrauma>>
+			<br>
+		<</if>>
+		<<if $fallenangel gte 2 or $demon gte 6>>
+			<<link [[Regret and shame for lost purity|Gwylan Hypnosis Peace]]>><<set $phase to "purity">><<stress 14>><<trauma -6>><</link>><<ggstress>><<ltrauma>>
+			<br>
+		<</if>>
+		<<if ($wolfgirl gte 2 or $cat gte 2 or $cow gte 2 or $fox gte 2) and (playerHeatMinArousal() + playerRutMinArousal()) gte 1>>
+			<<if playerHeatMinArousal() gte 1 and playerRutMinArousal() gte 1>>
+				<<link [[Bothered by heat and rut|Gwylan Hypnosis Peace]]>><<set $phase to "heat">><<npcincr Gwylan lust 2>><</link>><<glust>>
+			<<elseif playerRutMinArousal() gte 1>>
+				<<link [[Bothered by rut|Gwylan Hypnosis Peace]]>><<set $phase to "heat">><<npcincr Gwylan lust 2>><</link>><<glust>>
+			<<else>>
+				<<link [[Bothered by heat|Gwylan Hypnosis Peace]]>><<set $phase to "heat">><<npcincr Gwylan lust 2>><</link>><<glust>>
+			<</if>>
+			<br>
+		<</if>>
+	<<case "silence">>
+		<<He>> moves behind you and places <<his>> fingers under your ears. "Relax." <<His>> touch makes you shiver. <<He>> rubs the area for a moment, as if feeling for something.
+		<br><br>
+
+		"This may feel strange." <<He>> tilts your head to the side, and you feel a temperate liquid enter your ear canal.
+		<<if numberOfEarSlime(true) gte 2>>
+			<<He>> then tilts your head the other way and repeats with your other ear.
+		<</if>>
+		"It will keep <<if numberOfEarSlime(true) gte 2>>them<<else>>it<</if>> quiet until I can work."
+		<br><br>
+
+		<<link [[Next|Gwylan Hypnosis Silence]]>><</link>>
+		<br>
+	<<case "slumber">>
+		"Tell me, why do you think sleep evades you?"
+		<br><br>
+
+		<<if $dissociation gte 1 and $controlled is 0>>
+			<<link [[Say you can't tell what's real|Gwylan Hypnosis Slumber]]>><<set $phase to "dissociation">><</link>>
+			<br>
+		<<else>>
+			<<link [[Say you just have trouble falling asleep|Gwylan Hypnosis Slumber]]>><<set $phase to "insomnia">><</link>>
+			<br>
+			<<if $nightmares gte 1>>
+				<<link [[Say you have nightmares|Gwylan Hypnosis Slumber]]>><<set $phase to "nightmares">><</link>>
+				<br>
+			<</if>>
+			<<if $anxiety gte 1>>
+				<<link [[Say you're often too anxious to get restful sleep|Gwylan Hypnosis Slumber]]>><<set $phase to "anxiety">><</link>>
+				<br>
+			<</if>>
+			<<if $panicattacks gte 1>>
+				<<link [[Say you have panic attacks in your sleep|Gwylan Hypnosis Slumber]]>><<set $phase to "panic">><</link>>
+				<br>
+			<</if>>
+			<<if $flashbacks gte 1>>
+				<<link [[Say you have recurring nightmares of the torment you've faced|Gwylan Hypnosis Slumber]]>><<set $phase to "flashbacks">><</link>>
+				<br>
+			<</if>>
+			<<if $dissociation gte 1>>
+				<<link [[Say you can't tell what's real|Gwylan Hypnosis Slumber]]>><<set $phase to "dissociation">><</link>>
+				<br>
+			<</if>>
+		<</if>>
+	<<case "insight">>
+		"What is it you see, that you should not?"
+		<br><br>
+
+		<<if $settings.tentaclesEnabled>>
+			<<link [[Unnatural monsters with many limbs|Gwylan Hypnosis Insight]]>><<set $phase to "tentacles">><</link>>
+			<br>
+			<<if $settings.plantsEnabled>>
+				<<link [[Plants that attack with branches, roots and vines|Gwylan Hypnosis Insight]]>><<set $phase to "plants">><</link>>
+				<br>
+			<</if>>
+		<</if>>
+		<<if $settings.slimesEnabled>>
+			<<link [[Slime that moves with a will of its own|Gwylan Hypnosis Insight]]>><<set $phase to "slimes">><</link>>
+			<br>
+		<</if>>
+		<<if $settings.monsterHallucinationsOnly and $settings.monsterChance gte 1>>
+			<<link [[Animals with human characteristics|Gwylan Hypnosis Insight]]>><<set $phase to "monsters">><</link>>
+			<br>
+		<</if>>
+		<<if $temple_confessor_intro>>
+			<<link [[Holes in the world itself|Gwylan Hypnosis Insight]]>><<set $phase to "holes">><</link>>
+			<br>
+		<<else>>
+			<<link [[Lots of little things that should not be|Gwylan Hypnosis Insight]]>><<set $phase to "lots">><</link>>
+			<br>
+		<</if>>
+	<<case "removal">>
+		"Tell me about these impulses, as well as any gaps in your memory."
+		<br><br>
+
+		<<if $hypnosis_traits.suggestion gte 1>>
+			<<link [[Tell <<him>> about Harper's treatments|Gwylan Hypnosis Removal]]>><<set $phase to "suggestion">><</link>>
+			<br>
+		<</if>>
+		<<if $hypnosis_traits.scream gte 1>>
+			<<link [[Tell <<him>> about your inability to scream for help|Gwylan Hypnosis Removal]]>><<set $phase to "scream">><</link>>
+			<br>
+		<</if>>
+		<<if $hypnosis_traits.cover gte 1>>
+			<<link [[Tell <<him>> about your urge to flaunt|Gwylan Hypnosis Removal]]>><<set $phase to "cover">><</link>>
+			<br>
+		<</if>>
+		<<if $hypnosis_traits.deviancy gte 1>>
+			<<link [[Tell <<him>> about your urge to provoke beasts|Gwylan Hypnosis Removal]]>><<set $phase to "deviancy">><</link>>
+			<br>
+		<</if>>
+		<<link [[Tell <<him>> that you can't remember|Gwylan Hypnosis Removal]]>><<set $phase to "forgot">><</link>>
+		<br>
+	<<default>>
+		You blink, and realise that none of this actually happened.
+		<<if !($phase is "no" and $willpowerSuccess)>>That must have been some fucked up tea. Wait, did you even drink it?<</if>>
+		You're still standing in the forest shop. <span class="red">This is a bug, please report.</span> <span class="blue">Hypnosis selection: <<print $phase>></span>
+		<br><br>
+
+		<<unset $hypnosis_potency>>
+		<<endevent>><<npc Gwylan>><<person1>><<set $location to "forest_shop">>
+		<<gwylanOptions>>
+<</switch>>
+
+:: Gwylan Hypnosis Peace
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $phase is "attention">>
+	<<switch $speech_attitude>>
+		<<case "meek">>"Everyone looks at me funny," you say. "More than usual."
+		<<case "bratty">>"Too many people get the wrong idea," you say.
+		<<default>>"I get too many looks," you say. "I got too many before all this, it's just worse now."
+	<</switch>>
+	<br><br>
+
+	Gwylan thinks for a moment, picking more herbs.
+	<<if _gwylanTF.known>>
+		<<if $fox gte 6>>
+			"It's hard, isn't it? Us foxes are the favoured victims. Always the first choice, the prize for a hunt."
+		<<else>>
+			"I can relate, but not for the same reasons."
+		<</if>>
+	<<else>>
+		"I understand. It's difficult enough without them."
+	<</if>>
+<<elseif $phase is "identity">>
+	<<switch $speech_attitude>>
+		<<case "meek">>"I didn't want this," you say. "It just happened."
+		<<case "bratty">>"I didn't ask for it," you say. "It just happened to me, but it's not me."
+		<<default>>"I'm not comfortable with this," you say. "It's not me."
+	<</switch>>
+	<br><br>
+
+	<<if $worn.neck.name is "familiar collar" and ($wolfgirl gte 4 or $cat gte 4 or $fox gte 4 or $cow gte 4 or $harpy gte 4)>>
+		Gwylan caresses your familiar collar. "Your collar is preventing you from changing. It makes you wear your heart on your sleeve. Or neck, in this case."
+		<<if $worn.neck.cursed is 1>>
+			<<set _magicLeash to true>>
+			Gwylan holds <<his>> hand up, and your leash appears.
+			<<if $gwylan.taken>>
+				"I can't allow you to remove it. I'll ensure you're at peace, and can hide away as you please. However, you should know that you can never truly hide yourself from me, my dear."
+			<<else>>
+				"If you wish to remove it, come speak to me. Until then, I'll ensure you're at peace."
+			<</if>>
+		<<else>>
+			<<set _selfFulfilling to true>>
+		<</if>>
+	<<elseif $wolfgirl gte 4 and $worn.neck.name.includes("spiked collar")>>
+		<<set _selfFulfilling to true>>
+		Gwylan walks up to you and
+		<<if $worn.neck.type.includes("leash")>>
+			holds your leash. "I think you make a cute puppy, for what it's worth." <<arousal 400>><<garousal>>
+		<<else>>
+			examines your spiked collar. "Well, this isn't helping if you want to be rid of it entirely. You're accepting it by wearing this."
+		<</if>>
+	<<elseif $cat gte 4 and $worn.neck.name is "cat bell collar">>
+		<<set _selfFulfilling to true>>
+		Gwylan walks up to you and examines your collar. "This little kitty bell certainly won't help your self-perception. You're accepting it by wearing this."
+	<<elseif $fox gte 4 and ($worn.head.name is "spirit mask" or $worn.neck.name is "jasper pendant")>>
+		<<set _selfFulfilling to true>>
+		<<if $worn.head.name is "spirit mask" and $worn.neck.name is "jasper pendant">>
+			Gwylan walks up and examines the spirit mask and jasper pendant you're wearing.
+			<<if !$gwylanTalked.includesAny("shine", "jasper")>>
+				"Firstly, these are wonderful, please come talk to me about where you got these later. Secondly, you're accepting it by wearing these."
+			<<else>>
+				"You have a strange way of showing dissatisfaction. You're accepting it by wearing these."
+			<</if>>
+		<<else>>
+			<<if $worn.head.name is "spirit mask">>
+				Gwylan walks up and rubs <<his>> thumb over the mask on your head.
+				<<if !$gwylanTalked.includes("shrine")>>
+					"Firstly, this looks wonderful, please come talk to me about where you got it later. Secondly, you're accepting this manifestation by wearing it."
+				<<else>>
+					"You have a strange way of showing dissatisfaction. You're accepting it by wearing this."
+				<</if>>
+			<<else>>
+				Gwylan walks up and rubs <<his>> thumb over the jasper pendant.
+				<<if !$gwylanTalked.includes("jasper")>>
+					"Firstly, this looks wonderful, please come talk to me about where you got it later. Secondly, you're accepting this manifestation by wearing it."
+				<<else>>
+					"You have a strange way of showing dissatisfaction. You're accepting it by wearing this."
+				<</if>>
+			<</if>>
+		<</if>>
+	<<elseif $cow gte 4 and $worn.neck.name is "cow bell">>
+		<<set _selfFulfilling to true>>
+		Gwylan walks up and pushes your cow bell with a finger, hearing it ring once. "You wear this willingly. If you wish to be rid of it, you'll need to shed this mark of submission and acceptance."
+	<<elseif $harpy gte 4 and ($worn.head.name is "feathered hair clip" or $worn.neck.name is "feather necklace")>>
+		<<set _selfFulfilling to true>>
+		<<if $worn.head.name is "feathered hair clip" and $worn.neck.name is "feather necklace">>
+			Gwylan walks up and examines the feathered accessories you're wearing.
+			<<if !$gwylanTalked.includes("bird")>>
+				"Firstly, these are wonderful, please come talk to me about where you got these later. Secondly, you're accepting it by wearing these."
+			<<else>>
+				"You're accepting it by wearing these, little birdie."
+			<</if>>
+		<<else>>
+			Gwylan walks up and examines the feather you're wearing.
+			<<if !$gwylanTalked.includes("bird")>>
+				"Firstly, this looks wonderful, please come talk to me about where you got it later. Secondly, you're accepting this manifestation by wearing it."
+			<<else>>
+				"You're accepting it by wearing this, little birdie."
+			<</if>>
+		<</if>>
+	<<elseif $demon gte 6 and $worn.lower.name is "succubus lower back wings">>
+		<<set _selfFulfilling to true>>
+		Gwylan walks behind you and examines the fake wings on your lower back. "You seem to have accepted it, in a way. Is it true acceptance, or are you trying to fit a role you never asked to play?"
+	<</if>>
+	<<if _selfFulfilling>>
+		<<He>> smiles, and <<his>> voice is gentle. "I understand it can be difficult to let go. There's a comfort in forcing your face to fit a mask. It's a dangerous game to play, though.
+		Accepting something you don't want, making it part of your identity, can only help so much. When you finally begin to heal, you may feel as though you're losing a part of yourself."
+		<br><br>
+	<</if>>
+
+	<<if $angel gte 4 and $transformationParts.angel.halo isnot "hidden">>
+		<<His>> finger traces your halo. "There are ways to be rid of it, but losing this would break you. I can imagine the struggle," <<he>> says sadly.
+	<<elseif $fallenangel gte 2 and $transformationParts.fallenAngel.wings isnot "hidden">>
+		<<His>> fingers run up and down your broken wings.
+		<<if $gwylanSeen.includes("fallen_fault")>>
+			"Forgiveness doesn't... come easy." <<He>> can't make eye contact with you again. "I hope you can find it in your heart to forgive me some day."
+		<<else>>
+			"Forgiveness doesn't come easy, does it?" <<He>> smiles sadly. "Forgiving yourself is much harder than just asking to be forgiven, so we take the easier option, even if it doesn't help."
+		<</if>>
+	<<elseif $demon gte 6 and $transformationParts.demon.wings isnot "hidden">>
+		<<His>> fingers run up and down your wings.
+		<<if $gwylanTalked.includes("succubus")>>
+			"You've presented your most precious vulnerabilities to me. You must really trust me." <<He>> giggles. "I appreciate it. There is a dark beauty to these wings. I understand why it can be so hard to let go, to endure that searing light in your head."
+		<<else>>
+			"There is a dark beauty to them. I understand why it can be so hard to let go, to endure that searing light in your head."
+		<</if>>
+	<<else>>
+		<<He>> cups your cheek. "There are ways to be rid of it, but such things take time. I'll ensure you're at peace with it until that time comes."
+	<</if>>
+	/* ToDo: Gwylan - ghostbrew intro here? */
+
+	<<if _gwylanTF.known and $fox gte 4>>
+		<<He>> looks away, but you think you see the slightest hint of sadness on <<his>> face as <<he>> does.
+	<</if>>
+<<elseif $phase is "cow">>
+	<<switch $speech_attitude>>
+		<<case "meek">>"It's too... dehumanising," you say. "I was treated like a real cow on that farm. I can't move on if I look like this."
+		<<case "bratty">>"I hate it. I hate what that farm did to me. I hate feeling ashamed for wanting to act human."
+		<<default>>"It brings backs memories of the farm. I can't stand it."
+	<</switch>>
+	<br><br>
+
+	Gwylan nods solemnly.
+<<elseif $phase is "purity">>
+	<<switch $speech_attitude>>
+		<<case "meek">>"I can't ever be pure again, but... I at least want to go back to the way I was before," you say.
+		<<case "bratty">>"I don't want to think about how I was before anymore," you say.
+		<<default>>"It's nothing but a reminder of what things were like before," you say.
+	<</switch>>
+	<br><br>
+
+	"You can't erase it," <<he>> says quickly. "There's no erasing it, ever. There's no forgetting either. There's only acceptance, or misery." <<He>> smiles. "Let's work on the former."
+<<else>>
+	<<switch $speech_attitude>>
+		<<case "meek">>"I... I'm in..." You can't muster the words.
+		<<case "bratty">>"I'm bothered. Sexually. Like an animal."
+		<<default>>"It's that time of year," you say, trying to hide your embarrassment.
+	<</switch>>
+	<br><br>
+
+	<<if _gwylanTF.known>>
+		<<if _gwylanStatus.includes("heat")>>
+			<<He>> snickers. "That makes two of us. Maybe we should do something about that later."
+		<<else>>
+			<<He>> smiles. "I know something that can help relieve the pressure. I don't usually have to deal with it myself, I'm a bit... numb to it." <<He>> puts <<his>> hands over <<his>> belly.
+		<</if>>
+	<<else>>
+		<<He>> smiles. "I understand. It's a hard impulse to overcome. This won't rid you of that, but it may at least make you feel less animalistic about it."
+	<</if>>
+<</if>>
+<br><br>
+
+<<if $hypnosis_potency gt 4 or $hypnosis_traits.devotion gte 4>>
+	<<He>> raises a single finger. "Follow it." <<He>> moves <<his>> hand side to side, then up and down. You follow it, and as you do, it almost looks like a small light forms on the tip.
+	<br><br>
+
+	<span class="purple">You quickly realise you're no longer able to look away.</span>
+<<else>>
+	<<He>> reaches into the neck of <<his>> robes, and pulls out a pendant tipped with <<if $gwylanTalked.includes("jasper")>>jasper<<else>>a reddish gem<</if>>. "Follow it." <<He>> moves it side to side. Your eyes follow.
+<</if>>
+<br><br>
+
+"There's nothing in the forest except us." Everything outside the room slowly fades away. The corners of your vision blur, until there's nothing left but Gwylan.
+"Good. The next time you doubt your inner self, remember..."
+<br><br>
+
+<<set $_devotionUp to 10 + $hypnosis_potency>>
+<<gwylanHypnosis "devotion" $_devotionUp>>
+<br><br>
+
+<<He>> snaps <<his>> fingers, and you're no longer where you once were.
+<br><br>
+
+<<link [[Next|Gwylan Hypnosis Peace 2]]>><<pass 10>><</link>>
+<br>
+
+:: Gwylan Hypnosis Peace 2
+<<effects>><<run statusCheck("Gwylan")>>
+<<gwylanHypnoCanvas>><<strip>>
+
+<<revealTransformations>>
+
+<<set _tf to checkTFparts()>>
+<<set _earFind to Object.keys(T.tf).find(ear => ear.includes("Ears"))>>
+<<switch _earFind>>
+	<<case "wolfEars">><<set _earText to "wolf ears">>
+	<<case "catEars">><<set _earText to "cat ears">>
+	<<case "cowEars">><<set _earText to "cow ears">>
+	<<case "foxEars">><<set _earText to "fox ears">>
+	<<default>><<set _earText to "error">>
+<</switch>>
+<<set _tailFind to Object.keys(T.tf).find(tail => tail.includes("Tail") && tail !== "demonTail_colour")>>
+<<switch _tailFind>>
+	<<case "wolfTail">><<set _tailText to "wolf tail">>
+	<<case "catTail">><<set _tailText to "cat tail">>
+	<<case "cowTail">><<set _tailText to "cow tail">>
+	<<case "foxTail">><<set _tailText to "fox tail">>
+	<<case "birdTail">><<set _tailText to "bird tail">>
+	<<case "demonTail">><<set _tailText to "demon tail">>
+	<<default>><<set _tailText to "error">>
+<</switch>>
+
+You lie in a sea of roses. You feel more naked than you've ever been.
+<<if _unhidden>>
+	The parts of yourself that you were previously hiding are exposed.
+<</if>>
+Someone is watching you, unravelling you with their gaze, but you don't know from where.
+<br><br>
+
+<<if _tf.wolfEars or _tf.catEars or _tf.foxEars>>
+	"Sharpest of ears, listen well."
+<<elseif _tf.cowEars>>
+	<<if $phase is "cow">>
+		"Docile ears, seeking to return to humanity. Listen well."
+	<<else>>
+		"Docile ears, yearning for the praise of cattle. Listen well."
+	<</if>>
+<<else>>
+	"Listen well."
+<</if>>
+The voice makes you jump as it reverberates around you. The roses all tremble in unison.
+<span class="purple">You feel a breath on your ears.</span> You turn, and there's nobody. <<stress 2>><<gstress>>
+<br><br>
+
+The sky is pink. You feel fingers creep along your skin. A storm of rose petals swirls around you, and when they pass, Gwylan is embracing you.
+<br><br>
+
+<b>"<span class="witch">Delusion. Truth. The only difference is the face of the coin.</span>"</b>
+<br><br>
+
+<<if _earFind>>
+	<<His>> hand runs along your head, rubbing your <<= _earText>>. <<He>> whispers. "Let them listen softly. The harsh sounds of civilisation are grating.
+	Let there be no shame in hiding them away, lest your hearing become dull." <<He>> places <<his>> other hand on them, and lifts. <span class="red">Your ears lift away.</span>
+
+	It looks like a headband.
+	<<if _tf.cowHorns or _tf.demonHorns>>
+		Your horns are on it, too.
+	<</if>>
+	<<He>> holds it in front of you, ensuring you can see it.
+	<<if _tf.foxEars and _gwylanTF.known>>
+		"I won't deny how this pains me, too. I see in you a kindred spirit, and it breaks my heart to see you made to hide away your beauty. I hope you'll still show your true self to me."
+	<</if>>
+	<<He>> puts it in your hands. "They will be here for you when you wish to hear the truth again."
+	<br><br>
+<<elseif _tf.cowHorns or _tf.demonHorns>>
+	<<His>> hand runs along your head, rubbing your horns. <<He>> whispers. "Shave them down, if you wish. They will grow back in time, when you feel you need their protection again."
+	<<He>> places <<his>> other hand on them, and lifts. <span class="red">Your horns lift away.</span>
+	It looks like a headband. <<He>> holds it in front of you, ensuring you can see it. <<He>> puts it in your hands.
+	<br><br>
+<</if>>
+
+<<if _tf.angelHalo>>
+	You hear a soft, metallic thrum as <<he>> runs <<his>> hand along your halo. "The light can't remain forever. A candle must be snuffed to allow one to rest."
+	<<He>> gently grasps it, <span class="red">and pulls.</span>
+	It's a headpiece with translucent resin, giving it the appearance of a real floating halo. It reflects the light extremely well.
+	"When the darkness becomes too much, one merely needs to light another. Keep it safe, and it will keep you safe in turn."
+	<br><br>
+<<elseif _tf.fallenAngelHalo>>
+	You hear a discordant thrum as <<he>> runs <<his>> hand along the shards of your halo. "Are you ashamed? Is this self-flagellation for your loss?"
+	<<He>> gently grasps it, <span class="red">and pulls.</span>
+	It's a headpiece with translucent resin, giving it the appearance of a real floating halo. It's cracked and deformed in several places.
+	"It's healthy to look back upon what could have been done differently, but it should not consume you. Life goes on, my dear."
+	<br><br>
+<</if>>
+
+<<if _tailFind>>
+	<<His>> hands trace down your body, making you shiver. They stop around your <<bottom>>. You suddenly feel off balance.
+	<<He>> walks around you, <span class="red">now holding your disembodied <<= _tailText>></span>. There's an angled, rigid clip on the end.
+	"Balance. Attracting mates. One must learn to crawl before they can walk, and you, my gentle one, face the challenge of sprinting in two different worlds."
+	<<He>> hands you your tail. "The pace is yours to set. It will be ready for you to rejoin the wild, but only when you are, too."
+	<br><br>
+<</if>>
+
+<<if _tf.catHeterochromia>>
+	<<He>> cups your cheeks, and <<his>> hand approaches your eye. <span class="red"><<He>> pulls out a coloured contact lens.</span>
+	"The eyes are the window to the soul. Does yours hold many facets?" <<He>> places it in a small case, and hands it to you.
+	<br><br>
+<</if>>
+
+<<if _tf.birdWings or _tf.angelWings or _tf.fallenAngelWings or _tf.demonWings>>
+	<<His>> arms wrap around you again. <<His>> hands rub your wings.
+	<<if _tf.birdWings>>
+		"These wings, these magnificent wings. If you find them too beautiful to show the world, let them fold without guilt. The sky will be waiting for you."
+		You hear several clicks, and a sudden weight drops from your body. You somehow feel both lighter and heavier.
+		<span class="red"><<He>> holds a strange backpack-like device, with large wing membranes on each side of it.</span> It's covered in straps and chords.
+		"Only where the wind permits." Feathers fall all around you.
+	<<elseif _tf.demonWings>>
+		"An extra pair of limbs to embrace. Ever closer. A provocation themselves. Such things must be tempered."
+		You hear a click, and a sudden weight drops from your body. You somehow feel both lighter and heavier.
+		<span class="red"><<He>> holds a pair of bat-like wings.</span>
+		"Should you need their comfort again, their embrace will return."
+	<<else>>
+		"Radiance. Tragedy. The most intimate reflections."
+		You hear a click, and a sudden weight drops from your body. You somehow feel both lighter and heavier.
+		<span class="red"><<He>> holds a pair of angel wings.</span>
+		<<if _tf.fallenAngelWings>>
+			They're worn and tattered.
+		<<else>>
+			They're white and fluffy.
+		<</if>>
+		"Should you need their comfort again, their embrace will return."
+	<</if>>
+	<br><br>
+<</if>>
+
+You feel like you've been shattered. You huddle in on yourself, scared and confused, clutching the pieces torn from your body. Was it ever real? <<trauma 16>><<ggtrauma>>
+<br><br>
+
+Just as you're about to slip further, <span class="green">they return to you</span>.
+"Do you understand?" Gwylan holds you tightly, stroking your hair. "Justifications. Illusions. All that matters is what you believe, and what you can bear."
+<<if _tf.birdWings or _tf.angelWings or _tf.fallenAngelWings or _tf.demonWings>>
+	<<He>> rubs your wings. They can feel <<his>> hands.
+<</if>>
+<<if _tailFind>>
+	Your tail moves on its own.
+<</if>>
+<<if _earFind>>
+	You hear <<his>> whispers through your <<= _earText>>.
+<</if>>
+<<if _tf.angelHalo>>
+	Your halo lights <<his>> face.
+<<elseif _tf.fallenAngelHalo>>
+	Your broken halo briefly comes back together.
+<</if>>
+<br><br>
+
+With or without them, real or facsimile, you feel whole.
+<br><br>
+
+<<set _hypnoDays to 10 + ($hypnosis_potency * 3)>>
+<<gwylanHypnosis "peace" _hypnoDays>>
+<br><br>
+
+<<if $fox gte 6 and $gwylanSeen.includes("romance") and $phase is "identity">>
+	<<link [[Next|Gwylan Hypnosis Peace Fox Breakdown]]>><</link>>
+<<else>>
+	"Awaken." <<He>> snaps <<his>> fingers.
+	<br><br>
+
+	<<link [[Next|Gwylan Hypnosis Peace Wake]]>><<pass 30>><<clotheson>><</link>>
+<</if>>
+<br>
+
+:: Gwylan Hypnosis Peace Fox Breakdown
+<<effects>><<run statusCheck("Gwylan")>>
+You close your eyes.
+<br><br>
+
+Nothing happens. You're still in the sea of roses.
+<br><br>
+
+Gwylan stares down at you. <span class="purple"><<His>> expression has changed.</span> <<His>> fox ears twitch.
+<br><br>
+
+"My dearest kin..." <<His>> mouth comes close to yours. "You're breaking my heart."
+<br><br>
+
+<span class="red">The sky turns a deep red.</span> "You say this isn't who you are?" <<His>> voice isn't gentle anymore.
+"You are the only other person in the world who understands what this is like, to be mated for life. You promised forever. Now you tell me that it isn't who you are?"
+<br><br>
+
+<<His>> breathing is fast and shallow. <<His>> pupils are slits. "Do you wish to abandon what you are? Do you wish to leave me cold and alone again?"
+<br><br>
+
+<<He>> looks around in panic and confusion. <span class="purple">You only now realise that <<his>> lips aren't moving when <<he>> speaks anymore.</span>
+<<He>> puts <<his>> hands over <<his>> ears.
+<br><br>
+
+"You're the only one who understands." A crack forms on <<his>> forehead.<br>
+"Perhaps you don't understand enough." The crack escapes <<his>> head, taking the shape of an antler.<br>
+"Perhaps you need to learn what an eternity alone feels like." The sky begins turning black.<br>
+"Without me." Gwylan starts getting pulled away from you. <<He>> reaches out for you in desperation.<br>
+"When it all returns to the tide."
+<br><br>
+
+You're both pulled into a black abyss. <<trauma 36>><<npcincr Gwylan dom -30>><<gggtrauma>><<lllyearning>>
+<br><br>
+
+"<<gwylanCommand "Awaken!">>" Gwylan desperately screams as <<his>> head is pulled under.
+<br><br>
+
+<<link [[...|Gwylan Hypnosis Peace Wake]]>><<pass 30>><<set $phase2 to "breakdown">><<clotheson>><</link>>
+<br>
+
+:: Gwylan Hypnosis Peace Wake
+<<set $location to "forest_shop_garden">><<effects>><<run statusCheck("Gwylan")>><<set _tf to checkTFparts()>>
+<<canvas-model-override "clear">>
+<<rehideTransformations>>
+
+<<if $phase2 is "breakdown">>
+	Your focus snaps back. You're back in the garden.
+	<br><br>
+
+	Gwylan is still holding you. <<His>> hands are shaking. "I'm sorry about that," <<he>> says unsteadily. "I... I suppose I had some bad thoughts of my own that needed to be put away."
+	<<He>> looks up. Tears streak down <<his>> face, but <<he>> quickly wipes them away. "I'm fine."
+<<else>>
+	Your focus slowly returns. You're back in the garden.
+	<<if $fox gte 6>>
+		Gwylan is sitting behind you, brushing your tail. <<He>> pulls out clumps of loose fur, and it looks much more sleek than it did before.
+		<br><br>
+
+		<<if _gwylanTF.known>>
+			"...and I personally find that pet shampoo works just as well, and leaves it quite fragrant.
+			<<if random (0, 1) and !$gwylanSeen.includes("romance")>>
+				If you've got a regular bed partner, you can use some perfumes made for people with allergies or sensitive skin.
+				I recommend scents that can help soothe your partner if they have a habit of hugging your tail in their sleep, or spice things up when it's time to get hot and heavy, depending on what you want."
+			<<else>>
+				How do you think mine smells, dear?" <<His>> tail whiffs across your nose.
+				<br><br>
+
+				You rub your eyes. "It smells like fresh rain," you say.
+				<br><br>
+
+				<<He>> giggles. "So, like the rest of me, then."
+			<</if>>
+		<<else>>
+			"...and I personally find that pet shampoo works just as well, although I wouldn't recommend trying to get that close to a wild fox in most circumstances unless you really know what you're doing."
+		<</if>>
+		<<He>> spends some more time brushing it. It feels good.
+		<<if !_tf.foxTail>>
+			When <<he>> releases your tail, it vanishes the next time you blink.
+		<</if>>
+		<<stress -3>><<lstress>>
+	<</if>>
+<</if>>
+<br><br>
+
+The incense has burned out. "You should feel better now. I hope I've brought you peace." <<He>> starts to gather <<his>> things.
+<<if $phase is "heat" and $phase2 isnot "breakdown">>
+	<<He>> pauses. "Oh! Would you also like help with your...
+	<<if playerHeatMinArousal() gte 1 and playerRutMinArousal() gte 1>>
+		heat and rut issue?"
+	<<elseif playerRutMinArousal()>>
+		rut issue?"
+	<<else>>
+		heat issue?"
+	<</if>>
+<</if>>
+<br><br>
+
+<<set $gwylanSeen.pushUnique("hypnosis_peace")>>
+
+<<if $phase is "heat" and $phase2 isnot "breakdown">>
+	<<link [[Nod|Gwylan Hypnosis Peace Heat]]>><</link>>
+	<br>
+<</if>>
+<<link [[Go back in the shop|Gwylan Hypnosis End]]>><<endevent>><</link>>
+<br>
+
+:: Gwylan Hypnosis Peace Heat
+<<effects>><<run statusCheck("Gwylan")>><<set _tf to checkTFparts()>>
+You nod eagerly. <<if !$gwylanSeen.includes("ritual_sex")>>Gwylan blushes.<</if>>
+<br><br>
+
+"Alright, here, lay on your stomach like this." <<He>> guides you to laying flat on your tummy.
+<br><br>
+
+<<outfitChecks>>
+"You're going to feel my hand now, alright? Don't be alarmed."
+<<if _bottom>>
+	You feel <<his>> hand slip under your clothes, where it rests
+<<else>>
+	You feel <<his>> hand trail down your skin, where it rests
+<</if>>
+<<if _tf.wolfTail or _tf.catTail or _tf.foxTail or _tf.cowTail or _tf.demonTail>>
+	right above your tail.
+<<else>>
+	on your lower back.
+<</if>>
+"Just relax."
+<br><br>
+
+<<He>> starts to rub and knead the spot. You melt into <<his>> touch immediately. It feels amazing. <<stress -6>><<arousal 800>><<lstress>><<garousal>>
+<br><br>
+
+You let out an involuntary whine, which prompts <<him>> to giggle. "There's a <<pcpetname "Gwylan" "good">>." Being called that right now makes you feel strange, in a good way.
+Your legs shake with pleasure each time <<he>> presses <<his>> fingers against your tailbone. "Here, turn over." You eagerly obey, laying on your back.
+<br><br>
+
+<<He>> presses <<his>> hand firmly on your pelvis,
+<<if $player.vaginaExist and $player.penisExist>>
+	right above your <<penis>> and your womb. <<He>> keeps eye contact with you the whole time, either unaware of or ignoring your erection.
+<<elseif $player.vaginaExist>>
+	right above your womb.
+<<else>>
+	right above your <<penis>>. <<He>> keeps eye contact with you the whole time, either unaware of or ignoring your erection.
+<</if>>
+<<He>> slowly presses down, and starts to massage your tummy. Your hips lift by themselves as <<he>> does. <<He>> rubs in small circles, alternating between light and heavy pressure. You grip the blankets. <<arousal 2500>><<ggarousal>>
+<br><br>
+
+<<if $arousal gte $arousalmax>>
+	It's too much. <<if $player.vaginaExist>>Your womb is on fire.<</if>> You tense up, letting out short, shallow moans. <<orgasm>>
+	<<if _deniedOrgasm>>
+		<<He>> frowns upon seeing your lack of release. "That wasn't natural."
+	<<elseif $gwylanSeen.includes("ritual_sex")>>
+		<<He>> giggles again. "There, isn't that better?"
+	<<else>>
+		<<His>> blush deepens. "Oh my. It's alright, I don't mind. It's a natural response."
+	<</if>>
+	<<npcincr Gwylan lust 1>><<glust>>
+	<br><br>
+
+	<<He>> hums as you pant. Once you're steady, <<he>> helps you up.
+	<br><br>
+
+	<<link [[Next|Gwylan Hypnosis End]]>><<endevent>><</link>>
+	<br>
+<<else>>
+	<<if !$gwylanSeen.includes("ritual_sex")>>
+		<<if _bottom>>
+			"If you want more help, I'll need to remove your _bottom.name, is that alright?"
+		<<else>>
+			"Do you need me to continue?"
+		<</if>>
+		<<Hes>> not looking at you anymore. "This won't change anything between us. It's just a favour for a friend."
+		<br><br>
+
+		<<link [[Nod|Gwylan Hypnosis Peace Heat 2]]>><<npcincr Gwylan lust 2>><</link>><<glust>>
+		<br>
+		<<link [[Stop here|Gwylan Hypnosis End]]>><<endevent>><</link>>
+		<br>
+	<<elseif _gwylanStatus.includes("heat") and _gwylanTF.known>>
+		<<He>> suddenly stops, and stares down at you for a long moment.
+		<<if _bottom>>
+			Without provocation, <<he>> <span class="pink">grabs your _bottom.name in <<his>> teeth and yanks it down</span>.
+		<<else>>
+			<<He>> shivers.
+		<</if>>
+		"Let's just solve this for both of us."
+		<br><br>
+
+		<<link [[Next|Gwylan Hypnosis Peace Heat Sex]]>><<set $sexstart to 1>><</link>>
+		<br>
+	<<elseif _gwylanStatus.includesAny("aroused", "lust")>>
+		<<if _bottom>>
+			<<He>> starts to slowly pull down your _bottom.name, and straddles you. "I'll make sure you feel better," <<he>> says with a seductive smile.
+		<<else>>
+			<<He>> straddles you. "I'll make sure you feel better," <<he>> says with a seductive smile.
+		<</if>>
+		<br><br>
+
+		<<link [[Next|Gwylan Hypnosis Peace Heat Sex]]>><<set $sexstart to 1>><</link>>
+		<br>
+	<<else>>
+		<<if _bottom>>
+			<<He>> starts to pull down your _bottom.name.
+		<</if>>
+		"I'll have to get a little more hands-on. Is that alright?"
+		<br><br>
+
+		<<link [[Nod|Gwylan Hypnosis Peace Heat 2]]>><<npcincr Gwylan lust 2>><</link>><<glust>>
+		<br>
+		<<link [[Stop here|Gwylan Hypnosis End]]>><<endevent>><</link>>
+		<br>
+	<</if>>
+<</if>>
+
+:: Gwylan Hypnosis Peace Heat 2
+<<effects>><<run statusCheck("Gwylan")>><<set _tf to checkTFparts()>>
+<<outfitChecks>>
+You nod again<<if _bottom>>, and <<he>> slips off your _bottom.name<</if>>.
+<<lowerstrip>>
+<br><br>
+
+<<if $player.penisExist and $player.vaginaExist and !$gwylanSeen.includes("herm")>>
+	<<set $gwylanSeen.pushUnique("herm")>>
+	<<His>> eyes widen slightly upon seeing your <<genitals>>.
+	<<if C.npc.Gwylan.gender is "h">>
+		"We're alike in many ways, aren't we?"
+	<<else>>
+		"Wow. I've never seen a rebis in person before. You're full of surprises!"
+	<</if>>
+<<elseif $crossdressing gte 1 and !$genderknown.includes("Gwylan")>>
+	<<His>> head tilts slightly upon seeing your <<genitals>>. "Unexpected genitalia, not that I particularly mind."
+<</if>>
+<<set $genderknown.pushUnique("Gwylan")>>
+
+<<if $player.penisExist and $player.vaginaExist>>
+	<<He>> gently wraps <<his>> hand around your shaft. The tip of each of <<his>> fingers send a tingle down it. <<He>> slowly runs <<his>> hand up and down, and uses <<his>> other hand to rub your <<pussy>>.
+	Once <<hes>> sure you're ready, <<he>> gently slips two fingers in.
+<<elseif $player.penisExist>>
+	<<He>> gently wraps <<his>> hand around your shaft. The tip of each of <<his>> fingers send a tingle down it. <<He>> slowly runs <<his>> hand up and down.
+<<else>>
+	<<He>> gently starts to rub your <<pussy>>. Once <<hes>> sure you're ready, <<he>> gently slips two fingers in.
+<</if>>
+<<if playerChastity()>>
+	Even with your $worn.genitals.name in the way, <<he>> manages.
+<<elseif $player.vaginaExist>>
+	<<His>> fingers curl in just the right way to hit your most sensitive spots.
+<<else>>
+	<<His>> thumb rubs the head smoothly.
+<</if>>
+<br><br>
+
+<<if $player.sex isnot "h">>
+	<<He>> continues pressing on your tummy while servicing you.
+<<else>>
+	After a moment, <<he>> withdraws <<his>> hand from your <<pussy>> to press on your tummy again.
+<</if>>
+<<if $player.vaginaExist>>Your womb is on fire.<</if>> Your hips buck as you let out a final moan.
+<<orgasm>>
+
+<<He>> smiles, <<his>> face a bright red. "Better?" You nod, still panting. <<He>> lays down next to you while you recover.
+<br><br>
+
+You lay there for a few minutes, until Gwylan helps you stand.
+<br><br>
+
+<<link [[Next|Gwylan Hypnosis End]]>><<clotheson>><<endevent>><</link>>
+<br>
+
+:: Gwylan Hypnosis Peace Heat Sex
+<<run statusCheck("Gwylan")>>
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<npcexpose>>
+	<<set $enemytrust += 200>>
+	<<gwylanCombatInit>>
+<</if>>
+
+<<if $timer lte 0 and $trance is 1>>
+	<<set $trance to 0>>
+	<span class="teal">You snap out of Gwylan's trance.</span>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if $orgasmcurrent gte $combat_player_orgasm_target>>
+	<span id="next"><<link [[Next|Gwylan Hypnosis Peace Heat Sex Finish]]>><</link>></span><<nexttext>>
+<<elseif _combatend>>
+	<span id="next"><<link [[Next|Gwylan Hypnosis Peace Heat Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Gwylan Hypnosis Peace Heat Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Gwylan Hypnosis Peace Heat Sex Finish
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $orgasmcurrent gte $combat_player_orgasm_target>>
+	<<set $enemyarousal += 200>>
+	<<if $enemyarousal gte $enemyarousalmax>>
+		<<if $hallucinations gte 2 and $NPCList[0].chest isnot "clothed">>
+			The tattoo on Gwylan's <<bellyDescription "Gwylan">> flares to life, and <<he>> shivers as you climax.
+		<<else>>
+			Your <<if $orgasmcurrent gt 1>>final<</if>> orgasm makes Gwylan shiver.
+		<</if>>
+		<span class="pink">It pushes <<him>> over the edge too.</span>
+		<<ejaculation>><<npcincr Gwylan lust -25>><<llllust>>
+	<<else>>
+		<<if _gwylanStatus.includesAny("dom", "lust")>>
+			<<He>> hums and holds you tight you as you recover from your <<if $orgasmcurrent gt 1>>final<</if>> orgasm. <<gwylanHypnosis "devotion" 2>><br>
+			<<if $consensual is 1>>
+				"You did great, <<pcpetname "Gwylan">>,"
+			<<else>>
+				"There, isn't that better?"
+			<</if>>
+			<<he>> coos.
+		<<else>>
+			<<He>> makes a pleased sound as your <<if $orgasmcurrent gt 1>>final<</if>> orgasm subsides. <<gwylanHypnosis "devotion" 1>><br>
+			"That should do," <<he>> says.
+			<<if $consensual is 0>>
+				"The struggle was thrilling, dear, but I'm only trying to help you."
+			<</if>>
+		<</if>>
+		<<if $penisfucked is 1>>
+			<<He>> rubs <<his>> <<bellyDescription "Gwylan">> in satisfaction until you pull out of <<him>>.
+		<<elseif $vaginafucked is 1>>
+			<<He>> rubs your <<bellyDescription>> in satisfaction, and pulls out.
+		<</if>>
+		<<npcincr Gwylan lust 5>><<gglust>>
+		<br><br>
+	<</if>>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	<<if $orgasmcurrent is 0 and $hypnosis_traits.devotion>>
+		<<gwylanHypnosis "devotion" -2>>
+	<</if>>
+	<<npcincr Gwylan lust -20>><<lllust>>
+<<elseif $enemyhealth lte 0>>
+	<<set $gwylan.punishment to true>>
+	Gwylan rolls away from you. "That hurt, dear." <<He>> giggles dryly. "Naughty, naughty. I'll remember this." <<npcincr Gwylan dom -2>><<lyearning>>
+	<br><br>
+<<else>>
+	Gwylan rolls away from you.
+<</if>>
+<<He>> helps you stand.
+<br><br>
+
+<<clotheson>>
+<<endcombat>>
+<<link [[Next|Gwylan Hypnosis End]]>><<endevent>><</link>>
+<br>
+
+
+:: Gwylan Hypnosis Silence
+<<effects>><<run statusCheck("Gwylan")>>
+
+<<if $hypnosis_potency gt 4 or $hypnosis_traits.devotion gte 4>>
+	<<He>> raises a single finger. "Follow it." <<He>> moves <<his>> hand side to side, then up and down. You follow it, and as you do, it almost looks like a small light forms on the tip.
+	<br><br>
+
+	<span class="purple">You quickly realise you're no longer able to look away.</span>
+<<else>>
+	<<He>> reaches into the neck of <<his>> robes, and pulls out a pendant tipped with <<if $gwylanTalked.includes("jasper")>>jasper<<else>>a reddish gem<</if>>. "Follow it." <<He>> moves it side to side. Your eyes follow.
+<</if>>
+<br><br>
+
+"There's nothing in the forest except us." Everything outside the room slowly fades away. The corners of your vision blur, until there's nothing left but Gwylan.
+"Good. The next time you hear these whispers, remember..."
+<br><br>
+
+<<set $_devotionUp to 10 + $hypnosis_potency>>
+<<gwylanHypnosis "devotion" $_devotionUp>>
+<br><br>
+
+<<He>> snaps <<his>> fingers, and you're no longer where you once were.
+<br><br>
+
+<<link [[Next|Gwylan Hypnosis Silence 2]]>><<pass 10>><</link>>
+<br>
+
+:: Gwylan Hypnosis Silence 2
+<<effects>><<run statusCheck("Gwylan")>>
+<<gwylanHypnoCanvas>>
+<<set $slimeOrigin to []>>
+<<if $parasite.left_ear?.origin is "Wraith" or $parasite.right_ear?.origin is "Wraith">>
+	<<set $slimeOrigin.push("Wraith")>>
+<</if>>
+<<if $parasite.left_ear?.origin is "landfill" or $parasite.right_ear?.origin is "landfill">>
+	<<set $slimeOrigin.push("landfill")>>
+<</if>>
+<<if !$slimeOrigin.length>>
+	<<set $slimeOrigin.push("landfill")>>
+<</if>>
+<<if $slimeOrigin.includes("landfill")>>
+	<<set $location to "landfill">>
+<<else>>
+	<<set $location to "forest">>
+<</if>>
+
+<<if $slimeOrigin.includesAll("Wraith", "landfill")>>
+	You are in the landfill on Elk Street. Piles of trash spiral into the sky, which is split in two.
+	<br><br>
+
+	The pillars of trash slowly become trees in the distance, and those trees then become pale tendrils. You see the lake nearby, too. The forest and landfill are grafted together with stitches, the space between lost.
+<<elseif $slimeOrigin.includes("Wraith")>>
+	You are at the edge of the lake. The trees are made of undulating pale tendrils.
+<<else>>
+	You are in the landfill on Elk Street. Piles of trash spiral into the sky.
+<</if>>
+<br><br>
+
+Something with antlers
+<<if $slimeOrigin.includesAll("Wraith", "landfill")>>
+	emerges from the lake on many legs, and stalks between the heaps of trash.
+<<elseif $slimeOrigin.includes("Wraith")>>
+	emerges from the lake on many legs.
+<<else>>
+	walks on many legs between heaps of trash.
+<</if>>
+It doesn't belong here.
+<br><br>
+
+<span class="lewd">You feel the <<pluralise numberOfEarSlime(true) "slime">> in your head command you to approach.</span> It promises rewards if you comply and threatens consequences if you do not.
+<br><br>
+
+<<link [[Approach it|Hypnotic Silence Creature]]>><<set $phase to 0>><<stress -6>><<trauma -12>><</link>><<lltrauma>><<lstress>>
+<br>
+<<link [[Run from it|Hypnotic Silence Creature]]>><<set $phase to 1>><<stress 6>><<trauma 6>><<set $hypnosis_potency++>><</link>><<gwylanHypnoNote 1>>
+<br>
+
+:: Hypnotic Silence Creature
+<<effects>>
+<<if $phase is 0>>
+	<<if $slimeOrigin.includesAll("Wraith", "landfill")>>
+		You walk the grafted line in the landscape, each step opening an old wound,
+	<<elseif $slimeOrigin.includes("Wraith")>>
+		You wade into the water,
+	<<else>>
+		You weave through the rubbish,
+	<</if>>
+	every step threatening to scare it away. It stays still as you draw closer. You reach a hand out, and it bows to you. Your palm connects with the top of its head. Now you know why it was here. You're glad that you could help it.
+<<else>>
+	You resist the whispers. You turn and run from it. Each step sinks you further and further into the
+	<<if $slimeOrigin.includesAll("Wraith", "landfill")>>
+		wounds.
+	<<elseif $slimeOrigin.includes("Wraith")>>
+		water.
+	<<else>>
+		rubbish.
+	<</if>>
+	<br><br>
+
+	You fall.
+	<br><br>
+
+	Its towering legs flank to your side. It bows to you, and you reach out to help yourself up. Your hands grasp either side of its head. Now you know why it was here. You're glad that it could help you.
+<</if>>
+<br><br>
+
+You lead your new companion away.
+<br><br>
+
+Something goes wrong. Its antlers are tangled in
+<<if $slimeOrigin.includesAll("Wraith", "landfill")>>
+	the stitches that hold the world together.
+<<elseif $slimeOrigin.includes("Wraith")>>
+	the tendrilled trees.
+<<else>>
+	the fence.
+<</if>>
+Your hands are tangled in its antlers. Your antlers are tangled in <<pher>> hands. You don't know how this happened, only that this is now. You can't help each other like this.
+<br><br>
+
+<<link [[Struggle|Hypnotic Silence Creature 2]]>><<set $phase to 0>><</link>>
+<br>
+<<link [[Accept|Hypnotic Silence Creature 2]]>><<set $phase to 1>><</link>>
+<br>
+
+:: Hypnotic Silence Creature 2
+<<effects>>
+<<if $phase is 0>>
+	You try to pull your hand away. It's stuck. Using your other hand, you claw at yourself. Red sloughs off, and it's not clear from whom. You are both tugging on your hand and pushing into it.
+<<elseif $phase is 1>>
+	You remain still. It pushes its head into the
+	<<if $slimeOrigin.includesAll("Wraith", "landfill")>>
+		stitches,
+	<<elseif $slimeOrigin.includes("Wraith")>>
+		trees,
+	<<else>>
+		fence,
+	<</if>>
+	into you. You push into your own hand.
+<</if>>
+Your antlers are tangled in the
+<<if $slimeOrigin.includesAll("Wraith", "landfill")>>
+	stitches.
+<<elseif $slimeOrigin.includes("Wraith")>>
+	trees.
+<<else>>
+	fence.
+<</if>>
+<<pHer>> hands are tangled in your antlers.
+<br><br>
+
+<span class="red">You bite into your arm.</span>
+<br><br>
+
+Something approaches. Someone. <<He>> sings without sound. <<His>> hands are on your hands. <<His>> hands are on your antlers. Your hands are your antlers.
+<br><br>
+
+<<link [[Next|Hypnotic Silence Creature 3]]>><</link>>
+<br>
+
+:: Hypnotic Silence Creature 3
+<<effects>>
+<<strip>>
+
+<<He>> pulls you apart. You dissolve. Hundreds of small, shiny creatures crawl away, leaving trails of red slime. You lie naked in <<his>> arms.
+<br><br>
+
+A hand rests on your head. You look up and see Gwylan. <<He>> smiles at you. It's tinged with sadness. "Sometimes, hounds wear the coats of foxes," <<he>> says.
+"What seems symbiotic is often parasitic. It hates to hear us sing, yet loves to hear us scream. Remember this."
+<br><br>
+
+<<His>> hand rubs your cheek. "Remember that you are you. Remember what will happen if you lose yourself." <<His>> hands clasp over your ears, and all goes silent.
+<br><br>
+
+<<His>> lips continue to move. <<His>> words appear directly in your head. "When these whispers slip into your ears again, you will not hear them. They are not you. Only you are you."
+<<if $gwylanSeen.includes("partners")>>
+	The sadness leaves <<his>> smile. "And you, my dear, are perfect as you are."
+<</if>>
+<br><br>
+
+<<He>> closes your eyelids, and you slip further into blissful silence. "Awaken."
+<br><br>
+
+<<link [[Next|Gwylan Hypnosis Silence Wake]]>><<pass 30>><<clotheson>><</link>>
+<br>
+
+:: Gwylan Hypnosis Silence Wake
+<<set $location to "forest_shop_garden">><<effects>><<run statusCheck("Gwylan")>>
+<<canvas-model-override "clear">>
+
+Your focus slowly returns. You're back in the garden. <<corruption -20>><<lllcorruption true>>
+<br><br>
+
+The incense has burned out. "You'll be numb to the signals for some time. Like they aren't even there, hopefully." <<He>> starts to gather <<his>> things.
+"If it starts to wear down, come back and I'll shut them right up again. Otherwise, they should be considerably weaker when they do come back."
+<br><br>
+
+<<He>> smiles and helps you stand. "Easy, you might be off balance for a little while."
+<br><br>
+
+<<set _hypnoDays to 5 + ($hypnosis_potency * 2)>>
+<<gwylanHypnosis "silence" _hypnoDays>>
+<<if $earSlime.growth gte 50>>
+	<<set $earSlime.growth to 49>>
+<</if>>
+<<set $earSlime.defyCooldown to 50>>
+<<set $earSlime.eventTimer to 10>>
+<<set $earSlime.event to "">>
+<<run delete $earSlime.forcedDressing>>
+<<run delete $earSlime.noSleep>>
+<<run delete $earSlime.alwaysSleepNaked>>
+<br><br>
+
+<<set $gwylanSeen.pushUnique("hypnosis_silence")>>
+
+<<link [[Go back in the shop|Gwylan Hypnosis End]]>><<endevent>><</link>>
+<br>
+
+
+:: Gwylan Hypnosis Slumber
+<<effects>><<run statusCheck("Gwylan")>>
+<<switch $phase>>
+	<<case "insomnia">>
+		"I just can't seem to fall asleep," you say. "Sometimes it leads to me sleeping in."
+		<br><br>
+
+		<<He>> nods. "That could be caused by any number of things, even the smallest lingering trouble. Let's talk about it."
+	<<case "nightmares">>
+		"I have nightmares," you say. "Really bad ones."
+		<br><br>
+
+		<<He>> nods. "I'll have you tell me all about them, then. Anything you can remember will help."
+	<<case "anxiety">>
+		<<if $anxiety gte 2>>
+			"I can't ever keep my mind calm enough to sleep," you say. "I'm always so anxious."
+		<<else>>
+			"I can't get certain thoughts out of my head," you say. "I'm always anxious."
+		<</if>>
+		<br><br>
+
+		<<He>> nods. "We'll talk about what's making you anxious, then."
+	<<case "panic">>
+		<<if $panicattacks gte 2>>
+			"I think I thrash around in my sleep," you say. "It sometimes feels like something is attacking me from all over."
+		<<else>>
+			"I get panic attacks," you say. "Even when I'm just laying in bed."
+		<</if>>
+		<br><br>
+
+		<<He>> nods. "We'll talk about what you're afraid of, and what makes you jump."
+	<<case "flashbacks">>
+		"These scenes keep replaying in my head," you say. "I can't stop thinking about them."
+		<br><br>
+
+		<<He>> frowns. "I can't make you forget what happened, but I can help you face it."
+	<<case "dissociation">>
+		<<if $dissociation gte 2>>
+			You stare ahead blankly. You don't know how to explain it. You don't even know if you're really here, if Gwylan is real.
+			<br><br>
+
+			You see a strange shape on Gwylan's head. You don't pay it any mind. There'd be no use struggling anyways.
+			<br><br>
+
+			<<His>> head tilts. "Oh my. It's worse than I thought."
+		<<else>>
+			"It's hard to tell when I'm awake and when I'm dreaming," you say. You shift side to side. "I'm really here, right? This isn't another nightmare?"
+			<br><br>
+
+			<<He>> smiles. "Yes, dear, this is real. I'll prove it to you. If it's this bad, then it should be easier for me to help you. I'll need you to trust me completely, though."
+		<</if>>
+<</switch>>
+<br><br>
+
+<<if $gwylanSeen.includes("romance")>>
+	<<He>> crawls around the table, and gently pushes your chest until you're laying down. <<He>> lays next to you.
+<<elseif _gwylanStatus.includesAny("aroused", "lust", "dom")>>
+	<<He>> pats <<his>> lap. You shift over and lay your head down in it.
+<<else>>
+	<<He>> motions for you to lay down. You do so.
+<</if>>
+<br><br>
+
+<<if $hypnosis_potency gt 4 or $hypnosis_traits.devotion gte 4>>
+	<<He>> raises a single finger. "Follow it." <<He>> moves <<his>> hand side to side, then up and down. You follow it, and as you do, it almost looks like a small light forms on the tip.
+	<br><br>
+
+	<span class="purple">You quickly realise you're no longer able to look away.</span>
+<<else>>
+	<<He>> reaches into the neck of <<his>> robes, and pulls out a pendant tipped with <<if $gwylanTalked.includes("jasper")>>jasper<<else>>a reddish gem<</if>>. "Follow it." <<He>> moves it side to side. Your eyes follow.
+<</if>>
+<br><br>
+
+"There's nothing in the forest except us." Everything outside the room slowly fades away. The corners of your vision blur, until there's nothing left but Gwylan.
+"Good. Now, tell me, the last time you had trouble sleeping..."
+<br><br>
+
+<<set $_devotionUp to 10 + $hypnosis_potency>>
+<<gwylanHypnosis "devotion" $_devotionUp>>
+<br><br>
+
+<<He>> snaps <<his>> fingers, and you fall asleep.
+<br><br>
+
+<<link [[Next|Gwylan Hypnosis Slumber Insomnia]]>><<pass 10>><<tiredness -1>><</link>><<ltiredness>>
+<br>
+
+:: Gwylan Hypnosis Slumber Insomnia
+<<set $location to "meadow">><<effects>><<run statusCheck("Gwylan")>>
+<<gwylanHypnoCanvas>><<set $slumberDifficultyLow to 300>><<set $slumberDifficultyHigh to 600>>
+<<if $hypnosis_traits.slumber>>
+	<<set $slumberDifficultyLow -= 100>><<set $slumberDifficultyHigh -= 100>>
+<</if>>
+Your eyes flutter open. <span class="red">You're inside a gargantuan rib cage.</span> The ribs are made of wood bleached white. A thin membrane stretches in between each massive trunk. It expands and contracts in a way that reminds you of breathing.
+You find that you match the rhythm of its rise and fall.
+<br><br>
+
+A voice breaks your trance. "Can't sleep, <<pcpetname "Gwylan" "name">>?"
+<br><br>
+
+You turn around. Gwylan sits in front of you amid a bed of <<if isLoveInterest("Gwylan")>>pink<<else>>red and white<</if>> roses. <<He>> twirls one by its stem.
+<br><br>
+
+"I can't either," <<he>> continues. "It's keeping me awake."
+<br><br>
+
+<<He>> points, but you don't need <<him>> to. You can hear the song coming from behind <<him>>. It's all you can hear. The call of something that has spent an eternity alone, only to find a kindred spirit at last.
+<br><br>
+
+<<if $nightmares gte 1>>
+	<<link [[Confront your nightmares|Gwylan Hypnosis Slumber Nightmares]]>><</link>><<gtrauma>><<gwylanHypnoEffect>><<note "Nightmares" "blue">>
+	<br>
+<<else>>
+	<<link [[Delve into a nightmare|Gwylan Hypnosis Slumber Nightmares]]>><</link>><<gggtrauma>><<gwylanHypnoEffect>><<willpowerdifficulty $slumberDifficultyLow $slumberDifficultyHigh>>
+	<br>
+<</if>>
+<<link [[Turn away and escape the vision|Gwylan Hypnosis Slumber Nightmares]]>><<set $phase to "wake">><</link>>
+<br>
+
+:: Gwylan Hypnosis Slumber Nightmares
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $nightmares gte 1 and $phase isnot "wake">>
+	<<set _continue to true>>
+	<span class="blue">You're no stranger to nightmares.</span> <<trauma 12>><<set $hypnosis_potency++>><<gtrauma>><<gwylanHypnoEffect>>
+<<elseif $willpowerSuccess and $phase isnot "wake">>
+	<<set _continue to true>><<set $slumberDifficultyLow += 200>><<set $slumberDifficultyHigh += 200>>
+	<span class="green">You shake away the tingling fear shooting through your fingertips.</span> They yearn to hold something. <<trauma 50>><<set $hypnosis_potency++>><<gggtrauma>><<gwylanHypnoEffect>>
+<<else>>
+	<<if $phase isnot "wake">>
+		<span class="red">You stand paralysed.</span> The ribcage becomes still, as does your breathing. Gwylan stands, taking your hands.
+		<br><br>
+	<</if>>
+
+	You turn away from the song, and focus on Gwylan. <<He>> smiles sadly. "Without confronting our nightmares, they will only fester into something darker."
+<</if>>
+<br><br>
+
+<<if _continue>>
+	<<tiredness -1>><<pass 10>>
+	You walk around Gwylan. <<He>> doesn't stop you. A knife rests buried in the ground just behind <<him>>. Its handle is made of bone. A circle of purple bulbs sway around it. They part for you as you advance.
+	The knife's song grows louder. It is deep and mournful, pulling at parts of you that you didn't know existed.
+	<br><br>
+
+	"I can't," Gwylan says. "This isn't my thorn to pull."
+	<br><br>
+
+	<<Hes>> standing next to you now. <<His>> hand is around your wrist. Nails bite into your skin. A thin sheen of sweat glistens on <<his>> brow. <<His>> eyes are trained on the knife, pupils little more than dots in the middle of <<his>> irises.
+	<br><br>
+
+	"Please be careful," <<he>> says. "To yank it out carelessly will only leave you bloodied."
+	<br><br>
+
+	The knife's song grows louder. It bounces off the wooden ribs. Splinters fall to the ground, littering among the roses, as rot spreads from within.
+	It wriggles out of the cracks with writhing shadows shaped like <<if $settings.tentaclesEnabled>>tentacles<<else>>hands<</if>>.
+	<br><br>
+
+	Red sea water weeps from the knife handle. The ribcage expands and contracts faster.
+	<br><br>
+
+	<<if $anxiety gte 1>>
+		<<link [[Embrace your anxiety|Gwylan Hypnosis Slumber Anxiety]]>><</link>><<gtrauma>><<gwylanHypnoEffect>><<anxiety_disorder_text>>
+		<br>
+	<<else>>
+		<<link [[Let yourself worry|Gwylan Hypnosis Slumber Anxiety]]>><</link>><<gggtrauma>><<gwylanHypnoEffect>><<willpowerdifficulty $slumberDifficultyLow $slumberDifficultyHigh>>
+		<br>
+	<</if>>
+	<<link [[Let it fester|Gwylan Hypnosis Slumber Anxiety]]>><<set $phase to "wake">><</link>>
+	<br>
+<<else>>
+	The emptiness fills.
+	<br><br>
+
+	<<link [[Next|Gwylan Hypnosis Slumber Wake]]>><<pass 30>><</link>>
+	<br>
+<</if>>
+
+:: Gwylan Hypnosis Slumber Anxiety
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $anxiety gte 1 and $phase isnot "wake">>
+	<<set _continue to true>>
+	<span class="blue">You've been in darker places and seen what lies within.</span> You squeeze Gwylan's hand back.
+<<elseif $willpowerSuccess and $phase isnot "wake">>
+	<<set _continue to true>><<set $slumberDifficultyLow += 200>><<set $slumberDifficultyHigh += 200>>
+	<span class="green">You squeeze Gwylan's hand back.</span>
+<<else>>
+	<<if $phase isnot "wake">>
+		<span class="red">You can't resist. You need this thorn out of your paw.</span>
+		<br><br>
+	<</if>>
+
+	You break free from Gwylan's grasp and take the knife by the handle, before yanking it out. Red seawater erupts from the wound, which grows with each pulse.
+	Gwylan winces. "To bleed, or to fester. An impossible choice."
+<</if>>
+<br><br>
+
+<<if _continue>>
+	<<tiredness -1>><<pass 10>>
+	The knife calls to you. An urge to pick it up itches in your hand. You watch it move as if controlled by a string from far below. Gwylan clutches your wrist so hard you worry that <<he>>'ll break skin.
+	<br><br>
+
+	"Don't," <<he>> says. "You want to yank it out, but you have to be gentle. Slow."
+	<br><br>
+
+	You half-listen to <<him>>. It's begging you. After so long, It found you. You reach out, and wrap your hand around it.
+	<br><br>
+
+	The water reaches your ankles, but <span class="witch">you resist the call,</span> only lightly moving it. It hurts.
+	<br>
+	The water laps at your waist,
+	<<if currentSkillValue('willpower') gte $slumberDifficultyLow>>
+		<<set $slumberDifficultyLow += 50>><<set $slumberDifficultyHigh += 50>>
+		but <span class="witch">you resist the call.</span> You slowly pull upwards. <<trauma 12>><<set $hypnosis_potency++>><<gtrauma>><<gwylanHypnoEffect>>
+		<br>
+		Your chest goes numb from the cold,
+		<<if currentSkillValue('willpower') gte $slumberDifficultyLow>>
+			<<set $slumberDifficultyLow += 75>><<set $slumberDifficultyHigh += 75>>
+			but <span class="witch">you resist the call.</span> You exhale slowly as the red water flows faster. <<trauma 24>><<set $hypnosis_potency++>><<ggtrauma>><<gwylanHypnoEffect>>
+			<br>
+			You have to fight to keep your head above water,
+			<<if currentSkillValue('willpower') gte $slumberDifficultyLow>>
+				<<set _unbloodied to true>>
+				<<set $slumberDifficultyLow += 100>><<set $slumberDifficultyHigh += 100>>
+				but <span class="witch">you resist the call.</span> The knife is nearly free. <<trauma 50>><<set $hypnosis_potency++>><<gggtrauma>><<gwylanHypnoEffect>>
+				<br>
+				The waves close over your head,
+			<</if>>
+		<</if>>
+	<</if>>
+	<<if _unbloodied>>
+		and you finally succumb... but you're already holding the freed blade. You didn't feel a thing. The ground around you crumbles.
+		<br><br>
+
+		Gwylan smiles, and crumbles.
+	<<else>>
+		and you <span class="erase-from-history">succumb,</span> yank<span class="erase-from-history">ing</span> the blade free. It slides free from the ground with no resistance. As it does, the ground around it crumbles.
+		<br><br>
+
+		Gwylan crumbles.
+	<</if>>
+	<br><br>
+
+	You crumble.
+	<br><br>
+
+	Nobody is left in the dark.
+	<br><br>
+
+	<<if $panicattacks gte 1>>
+		<<link [[Clutch your panic|Gwylan Hypnosis Slumber Panic]]>><</link>><<gtrauma>><<gwylanHypnoEffect>><<note "Panic Attacks" "pink">>
+		<br>
+	<<else>>
+		<<link [[Embrace the panic|Gwylan Hypnosis Slumber Panic]]>><</link>><<gggtrauma>><<gwylanHypnoEffect>><<willpowerdifficulty $slumberDifficultyLow $slumberDifficultyHigh>>
+		<br>
+	<</if>>
+	<<link [[Shut out everything|Gwylan Hypnosis Slumber Panic]]>><<set $phase to "wake">><</link>>
+	<br>
+<<else>>
+	The emptiness fills.
+	<br><br>
+
+	<<link [[Next|Gwylan Hypnosis Slumber Wake]]>><<pass 30>><</link>>
+	<br>
+<</if>>
+
+:: Gwylan Hypnosis Slumber Panic
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $panicattacks gte 1 and $phase isnot "wake">>
+	<<set _continue to true>>
+	<span class="blue">You've been more afraid.</span> <<trauma 12>><<set $hypnosis_potency++>><<gtrauma>><<gwylanHypnoEffect>>
+<<elseif $willpowerSuccess and $phase isnot "wake">>
+	<<set _continue to true>><<set $slumberDifficultyLow += 200>><<set $slumberDifficultyHigh += 200>>
+	<span class="green">You keep your eyes open,</span> although it's hard to tell. Everything is pitch black. <<trauma 50>><<set $hypnosis_potency++>><<gggtrauma>><<gwylanHypnoEffect>>
+<<else>>
+	<<if $phase isnot "wake">>
+		<span class="red">You curl in on yourself.</span> You keep curling, your own body twisting and contorting... if only you had one.
+		<br><br>
+	<</if>>
+
+	You lay still in emptiness, until something starts to break through the dark.
+<</if>>
+<br><br>
+
+<<if _continue>>
+	<<canvas-model-override "arm_right" "hold">>
+	<<wearProp "whale bone dagger">>
+	<<tiredness -1>><<pass 10>>
+	Only the knife lights your way. Its blue-white glow casts dark shadows that writhe and reach. You feel them caress you, trying to worm inside of you. Your muscles seize as you remember all of the suffering that has been inflicted upon you.
+	<br><br>
+
+	The shadows grow closer. One wraps <<if $settings.tentaclesEnabled>>a tentacle<<else>>its fingers<</if>> around your wrist. Another tries to pry your lips apart.
+	<br><br>
+
+	The knife begins to burn in your hand. You slash wildly. Bits of shadow fall to the ground and ooze back to the waiting void. You keep slashing, driven by an animalistic urge to be safe.
+	<br><br>
+
+	Except there is no safety in the dark. Not even the knife can protect you. The shadows, sensing triumph is close at hand, close over you. They promise you the bliss of Nothing.
+	<br><br>
+
+	<<if $flashbacks gte 1>>
+		<<link [[Remember|Gwylan Hypnosis Slumber Flashbacks]]>><</link>><<gtrauma>><<gwylanHypnoEffect>><<note "Flashbacks" "purple">>
+		<br>
+	<<else>>
+		<<link [[Attempt to stir your memory|Gwylan Hypnosis Slumber Flashbacks]]>><</link>><<gggtrauma>><<gwylanHypnoEffect>><<willpowerdifficulty $slumberDifficultyLow $slumberDifficultyHigh>>
+		<br>
+	<</if>>
+	<<link [[Forget|Gwylan Hypnosis Slumber Flashbacks]]>><<set $phase to "wake">><</link>>
+	<br>
+<<else>>
+	The emptiness fills.
+	<br><br>
+
+	<<link [[Next|Gwylan Hypnosis Slumber Wake]]>><<pass 30>><</link>>
+	<br>
+<</if>>
+
+:: Gwylan Hypnosis Slumber Flashbacks
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $flashbacks gte 1 and $phase isnot "wake">>
+	<<set _continue to true>>
+	<span class="blue">You remember being through this.</span> <<trauma 12>><<set $hypnosis_potency++>><<gtrauma>><<gwylanHypnoEffect>>
+<<elseif $willpowerSuccess and $phase isnot "wake">>
+	<<set _continue to true>><<set $slumberDifficultyLow += 200>><<set $slumberDifficultyHigh += 200>>
+	<span class="green">You remember who, and where, you are. You remember that this was all painfully real, once.</span> <<trauma 50>><<set $hypnosis_potency++>><<gggtrauma>><<gwylanHypnoEffect>>
+<<else>>
+	<span class="red">You forget the violation, but the emptiness remains. You forget the pain, but your skin still stings.</span> You tell yourself that you're better. A comforting lie.
+	<br><br>
+
+	You shut out the probing limbs, until something begins to appear in the darkness.
+<</if>>
+<br><br>
+
+<<if _continue>>
+	<<tiredness -1>><<pass 10>>
+	Shadows undulate all over your body. They reach in between your legs. Even more pry open your mouth and force their way inside. Grasping, squeezing hands. Fingers probing the most private parts of you.
+	You writhe under all of the assaults you've ever faced.
+	<br><br>
+
+	It's too much. You sink lower into the dark.
+	<br><br>
+
+	There is nothing. There is nobody.
+	<br><br>
+
+	A voice whispers in your ear. "<span class="witch">Is this what you wanted?</span>"
+	<br><br>
+
+	You twitch.
+	<br><br>
+
+	"<span class="witch">Is this the life you want to live?</span>"
+	<br><br>
+
+	You inhale what feels like shards of frozen glass.
+	<br><br>
+
+	<<if $auriga_scar>>
+		"<span class="witch">Rise, <<pcpetname "Gwylan">>. The void may promise comfort, but it is false, and the price is your soul.</span>"
+	<<else>>
+		"<span class="witch">Rise, <<pcpetname "Gwylan">>. To shut out the shadows is to give them power. The unknown and forgotten are always the more terrifying.</span>"
+	<</if>>
+	<br><br>
+
+	The knife burns. Its light becomes searing. The shadows retreat in waves of oily, oozing blackness. You are left on the floor naked and revealed.
+	<<revealTransformations>>
+
+	You stand on shaking legs. Ahead of you is darkness. Behind you is a wall of dirt. All above you is the rib cage. Once white wood has decayed to brittle black. Insects crawl in and out of holes, their shells like shining jewels.
+	<br><br>
+
+	There is a trail of <<if isLoveInterest("Gwylan")>>pink<<else>>alternating red and white<</if>> roses leading into the dark. A sweet voice sings to you from far away. You lift your knife and follow its sound.
+	<br><br>
+
+	<<if $dissociation gte 1>>
+		<<link [[There's something wrong with you|Gwylan Hypnosis Slumber Visibly Disturbed]]>><</link>><<ggtrauma>><<gwylanHypnoEffect>><<note "and nobody can tell" "red">>
+		<br>
+	<<else>>
+		<<link [[Brave the dark|Gwylan Hypnosis Slumber Visibly Disturbed]]>><</link>><<gggtrauma>><<gwylanHypnoEffect>><<willpowerdifficulty $slumberDifficultyLow $slumberDifficultyHigh>>
+		<br>
+	<</if>>
+	<<link [[Wake up|Gwylan Hypnosis Slumber Visibly Disturbed]]>><<set $phase to "wake">><</link>>
+	<br>
+<<else>>
+	The emptiness fills.
+	<br><br>
+
+	<<link [[Next|Gwylan Hypnosis Slumber Wake]]>><<pass 30>><</link>>
+	<br>
+<</if>>
+
+:: Gwylan Hypnosis Slumber Visibly Disturbed
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $dissociation gte 1 and $phase isnot "wake">>
+	<<set _continue to true>>
+	<span class="blue">Nobody knows you. Nobody knows you better than anybody.</span> <<trauma 25>><<set $hypnosis_potency++>><<ggtrauma>><<gwylanHypnoEffect>>
+<<elseif $willpowerSuccess and $phase isnot "wake">>
+	<<set _continue to true>><<set $slumberDifficultyLow += 200>><<set $slumberDifficultyHigh += 200>>
+	<span class="green">You grip the handle of the knife tighter, until it hurts. You're still here.</span> <<trauma 50>><<set $hypnosis_potency++>><<gggtrauma>><<gwylanHypnoEffect>>
+<<else>>
+	<span class="red">You step the wrong way, and you fall.</span> Perhaps you did it on purpose. Perhaps you weren't ready to see what lays at the end, at your core.
+<</if>>
+<br><br>
+
+<<if _continue>>
+	<<tiredness -1>><<pass 10>>
+	<<canvas-model-override "arm_right" "idle">><<handheldon>>
+	Each step brings a new change. Insects twist and warp. Some bulge. Slime oozes out between the chitin of their shells. Others grow bigger, or smaller. You think they're all staring at you.
+	<br><br>
+
+	The ribs change, too. Patches of bark crumble away to reveal water pierced by light. Somehow, the water does not fall onto you. You forge onwards. The roses guide you. The song buoys you. <span class="teal">It's familiar.</span>
+	<br><br>
+
+	It isn't until the song is so loud you can almost feel it that you realise you've been changing too. The scars inside of you have become real. <<if $rapestat + $moleststat gte 500>>Hand prints are burnt into your thighs.<</if>>
+	Parts of you have disintegrated to reveal that same watery visage.
+	<br><br>
+
+	"It's beautiful, isn't it?"
+	<br><br>
+
+	You look up. Gwylan is sitting at the end of the trail of roses. <<He>> smiles at you. <<His>> mousy hair is long and flows all around <<him>> like a pool of water<<if _gwylanTF.known>>, resting on <<his>> tail<</if>>.
+	<<if isLoveInterest("Gwylan")>>Pink<<else>>Red and white<</if>> roses adorn <<his>> body like a <<if $pronoun is "m">>robe<<else>>dress<</if>>. <<if _gwylanTF.known>><<His>> ears twitch.<</if>>
+	<br><br>
+
+	"We are always more beautiful when we reveal what's inside of us," <<he>> says. <<He>> holds up a tightly wound bundle of rose petals. "Like a chrysalis opening up to a butterfly."
+	<br><br>
+
+	<<He>> blows on the rose petals.
+	<br><br>
+
+	<<if $dissociation gte 2>>
+		<<link [[This feels real|Gwylan Hypnosis Slumber Dissociation]]>><</link>><<gwylanHypnoEffect>><<note "Dissociation" "forest-green">>
+		<br>
+	<<else>>
+		<<link [[This doesn't feel real|Gwylan Hypnosis Slumber Dissociation]]>><</link>><<gwylanHypnoEffect>><<willpowerdifficulty $slumberDifficultyLow $slumberDifficultyHigh>>
+		<br>
+	<</if>>
+	<<link [[This isn't real|Gwylan Hypnosis Slumber Dissociation]]>><<set $phase to "wake">><</link>>
+	<br>
+<<else>>
+	The emptiness fills.
+	<br><br>
+
+	<<link [[Next|Gwylan Hypnosis Slumber Wake]]>><<pass 30>><</link>>
+	<br>
+<</if>>
+
+:: Gwylan Hypnosis Slumber Dissociation
+<<effects>><<run statusCheck("Gwylan")>>
+
+The petals scatter into the air. You watch as they flutter all around you in an explosion of colour. Roses bloom from the cracks in the wooden ribs. You see them bloom on your watery patches, too.
+<br><br>
+
+<<if $dissociation gte 1 and $phase isnot "wake">>
+	<span class="forest-green">This feels real.</span> <<trauma -50>><<set $hypnosis_potency++>><<llltrauma>><<gwylanHypnoEffect>>
+<<elseif $willpowerSuccess and $phase isnot "wake">>
+	<span class="green">You let them wash over you.</span> <<trauma -25>><<set $hypnosis_potency++>><<lltrauma>><<gwylanHypnoEffect>>
+<<else>>
+	<span class="red">You flinch away.</span> One brushes your cheek like a gentle caress, and you open your eyes again. You steady your breathing. The look on Gwylan's face makes you feel like everything will be alright.
+<</if>>
+<br><br>
+
+Gwylan steps over to join you. "Embracing our struggles makes us human," <<he>> says. "Pain can be breathtaking in its cruel majesty. Every rose has its thorn."
+<br><br>
+
+Vines weave together to form a bed. Gwylan leads you to it and pulls you down. Despite the thorns poking into you, you find it comfortable. <<He>> strokes your hair. Warmth fills you.
+<br><br>
+
+"Sleep," <<he>> says. <<He>> pulls a blanket of roses over you both. "Sleep, <<pcpetname "Gwylan">>. Trauma is not something to run from. It's something to confront. To reflect upon. To remember." <<npcincr Gwylan dom 1>><<gyearning>>
+<br><br>
+
+One of the rose petal butterflies lands on your hand. You smile and rest your head on Gwylan's chest. Soon, you are asleep, safe underneath the blanket of roses.
+<br><br>
+
+<<link [[Sleep|Gwylan Hypnosis Slumber Wake]]>><<pass 30>><<set $phase to "end">><<tiredness -20>><</link>>
+<br>
+
+:: Gwylan Hypnosis Slumber Wake
+<<set $location to "forest_shop_garden">><<effects>><<run statusCheck("Gwylan")>>
+<<canvas-model-override "clear">><<handheldon>>
+<<unset $slumberDifficultyLow>><<unset $slumberDifficultyHigh>>
+<<rehideTransformations>>
+Your focus slowly returns. You're back in the garden.
+<br><br>
+
+The incense has burned out.
+<<if $phase is "end">>
+	<<if $gwylanSeen.includes("romance")>>
+		Gwylan holds you tightly. <<Hes>> fallen asleep <<himself>>.
+		<br><br>
+
+		<<He>> pushes <<his>> head into your chest, and lets out a sigh of contentment. You idly stroke <<his>> hair. <<npcincr Gwylan dom 3>><<ggyearning>>
+		<br><br>
+
+		After some time, <<his>> eyes flutter open. <<He>> smiles at you. "Oh, silly me. I got too comfortable." <<He>> yawns. "I haven't slept that well in ages. I think you helped me just as much as I helped you."
+	<<elseif _gwylanStatus.includesAny("aroused", "lust", "dom")>>
+		Gwylan runs <<his>> fingers through your hair. "Sleep well? You were out for a while." <<He>> smiles. "You did well, going so deep into the trance."
+	<<else>>
+		Gwylan looks down at you, smiling. "Sleep well? You were out for a while." <<He>> giggles. "You did well, going so deep into the trance."
+	<</if>>
+	<<He>> helps you stand.
+	<br><br>
+
+	You feel rested. "You should find sleep coming to you easier now, and you won't spend as much time tossing and turning when the bad thoughts hit. In fact, you might find the bad thoughts make sleep come even easier."
+<<else>>
+	<<if $gwylanSeen.includes("romance")>>
+		Gwylan still lays next to you, watching you. "Sleep well?"
+	<<elseif _gwylanStatus.includesAny("aroused", "lust", "dom")>>
+		Gwylan runs <<his>> fingers through your hair. "Sleep well?"
+	<<else>>
+		Gwylan looks down at you, smiling. "Sleep well?"
+	<</if>>
+	<br><br>
+
+	<<if $hypnosis_potency gte 6>>
+		You feel rested. You nod at Gwylan, and <<he>> helps you stand.
+		<br><br>
+
+		"Wonderful! You should find sleep coming to you easier now, and you won't spend as much time tossing and turning when the bad thoughts hit. In fact, you might find the bad thoughts make sleep come even easier."
+	<<else>>
+		You feel a little more rested. You nod at Gwylan, and <<he>> helps you stand.
+		<br><br>
+
+		"You weren't asleep very long, <span class="blue">so the hypnosis might not last.</span> Regardless, you should find sleep coming to you easier now, and you won't spend as much time tossing and turning when the bad thoughts hit. In fact, you might find the bad thoughts make sleep come even easier."
+	<</if>>
+<</if>>
+<<He>> starts to gather <<his>> things.
+<br><br>
+
+<<set _hypnoDays to 5 + Math.floor($hypnosis_potency * 1.5)>>
+<<gwylanHypnosis "slumber" _hypnoDays>>
+<br><br>
+
+<<set $gwylanSeen.pushUnique("hypnosis_slumber")>>
+
+<<link [[Go back in the shop|Gwylan Hypnosis End]]>><<endevent>><</link>>
+<br>
+
+:: Gwylan Hypnosis Insight
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $phase is "tentacles">>
+	<<set $gwylanSeen.pushUnique("hypnosis_insight_tentacles")>>
+	"I've seen monsters," you say. "Unnatural creatures with many grasping limbs, like tentacles."
+	<br><br>
+
+	<<if $gwylanSeen.includes("likes_tentacles")>>
+		Gwylan nods. "If you see them, they see you. If 'see' is the right word. You've done much more than seeing, from what you've told me."
+	<<else>>
+		Gwylan nods. "If you see them, they see you. If 'see' is the right word."
+	<</if>>
+<<elseif $phase is "plants">>
+	<<set $gwylanSeen.pushUnique("hypnosis_insight_plants")>>
+	"I've seen plants come to life," you say. "I know they're already alive, but not like this. Not moving their branches, roots, and vines with malicious intent."
+	<br><br>
+
+	"There are songs I could teach you," Gwylan says. "But it would take a long time to learn them all, and it might not be enough."
+<<elseif $phase is "slimes">>
+	<<set $gwylanSeen.pushUnique("hypnosis_insight_slimes")>>
+	"I've seen blobs of slime, of different sizes," you say. "They move as if they have a will, and they're not friendly."
+	<br><br>
+
+	"I've seen them too," Gwylan says. "But their origin is a mystery to me. They used to be far more rare, but they've multiplied since the Violet Elk moved in. Perhaps they've agitated a nest underground while searching where they shouldn't. Or maybe they make them, deliberately or otherwise."
+<<elseif $phase is "monsters">>
+	<<set $gwylanSeen.pushUnique("hypnosis_insight_monsters")>>
+	"I've seen animals that appear to have human characteristics," you say. "Including speech. It's surreal, especially in the park when people are walking their dogs."
+	<br><br>
+
+	"Sounds fun," Gwylan says. "In moderation."
+<<elseif $phase is "holes">>
+	<<set $gwylanSeen.pushUnique("hypnosis_insight_holes")>>
+	"There are holes in reality," you say. "As the temple calls them. I see them sometimes, and the corruption seeping through."
+	<br><br>
+
+	Gwylan nods. "That's indeed what they call them. I—" <<he>> pauses, then seems to change <<his>> mind. "They can be distracting."
+<<elseif $phase is "lots">>
+	<<set $gwylanSeen.pushUnique("hypnosis_insight_lots")>>
+	"This might sound silly," you say. "But it's more than one thing. Shadows watching me. Eyes staring from impossible places. It's hard to look into the dark."
+	<br><br>
+
+	"Some threats only become dangerous if they're noticed," Gwylan says.
+<</if>>
+<br><br>
+
+"It's not an easy thing, to forget what you know. It's too brutal, too costly. I can't offer you such. However," <<he>> decapitates a flower without looking at it, without needing to. "There's another way. An old way."
+<br><br>
+
+<<if $hypnosis_potency gt 4 or $hypnosis_traits.devotion gte 4>>
+	<<He>> raises a single finger. "Follow it." <<He>> moves <<his>> hand side to side, then up and down. You follow it, and as you do, it almost looks like a small light forms on the tip.
+	<br><br>
+
+	<span class="purple">You quickly realise you're no longer able to look away.</span>
+<<else>>
+	<<He>> reaches into the neck of <<his>> robes, and pulls out a pendant tipped with <<if $gwylanTalked.includes("jasper")>>jasper<<else>>a reddish gem<</if>>. "Follow it." <<He>> moves it side to side. Your eyes follow.
+<</if>>
+<br><br>
+
+"There's nothing in the forest except us." Everything outside the room slowly fades away. The corners of your vision blur, until there's nothing left but Gwylan.
+"Good. The next time you doubt your place in the world, remember..."
+<br><br>
+
+<<set $_devotionUp to 10 + $hypnosis_potency>>
+<<gwylanHypnosis "devotion" $_devotionUp>>
+<br><br>
+
+<<He>> snaps <<his>> fingers, and you're no longer where you once were.
+<br><br>
+/* ToDo: Gwylan - also needs a proper unlock condition */
+
+<<if $phase is "tentacles">>
+	<<link [[Next|Gwylan Hypnosis Insight Tentacles]]>><<pass 10>><</link>>
+	<br>
+<<elseif $phase is "plants">>
+	<<link [[Next|Gwylan Hypnosis Insight Plants]]>><<pass 10>><</link>>
+	<br>
+<<elseif $phase is "slimes">>
+	<<link [[Next|Gwylan Hypnosis Insight Slimes]]>><<pass 10>><</link>>
+	<br>
+<<elseif $phase is "monsters">>
+	<<link [[Next|Gwylan Hypnosis Insight Monsters]]>><<pass 10>><</link>>
+	<br>
+<<elseif $phase is "holes">>
+	<<link [[Next|Gwylan Hypnosis Insight Holes]]>><<pass 10>><</link>>
+	<br>
+<<else>>
+	<<link [[Next|Gwylan Hypnosis Insight Lots]]>><<pass 10>><</link>>
+	<br>
+<</if>>
+
+:: Gwylan Hypnosis Insight Tentacles
+<<set $location to "drain">><<effects>><<run statusCheck("Gwylan")>>
+<<gwylanHypnoCanvas>>
+You find yourself in the storm drains beneath town. Water drips into the still canal beside you, each drop reflecting purple light.
+<br><br>
+
+A deep thump echoes through the tunnel, dislodging loose bricks from the ceiling. The caps of the pipes lining the waterway burst open, revealing grasping masses of purple tentacles. More than that, a shadow appears on the wall ahead, cast by something unseen. You hear the groan of tortured stone, like a great bulk forcing its way through, towards you.
+<br><br>
+
+From behind, a song echoes, loud enough to be heard beneath the groaning. It promises security, but this only agitates your anxiety. You turn and run towards the voice. Light continues to enter from the drains above, yet the tunnels around you darken, as if the dark itself were resisting, and growing stronger.
+<br><br>
+
+You come to a round room, with a pathway looping around a pool. In its centre a waterfall cascades, flowing into the water below without disturbing it. Within, a pair of eyes open, bearing a mischievous glimmer. It's Gwylan. <<He>> looks uncanny, as neither <<his>> hair nor clothes appear wet. <<He>> gives you a reassuring smile, then <<he>> reaches towards you. <<His>> hand presses against the side of the waterfall as if it were glass.
+<br><br>
+
+<<link [[Reach for Gwylan|Gwylan Hypnosis Insight Tentacles 2]]>><<set $phase2 to 1>><</link>>
+<br>
+<<link [[Step away|Gwylan Hypnosis Insight Tentacles 2]]>><<set $phase2 to 2>><</link>>
+<br>
+
+:: Gwylan Hypnosis Insight Tentacles 2
+<<effects>>
+
+<<if $phase2 is 1>>
+	You reach for Gwylan, pushing your fingers into the waterfall. It feels like normal water, if warmer than you'd expect. Gwylan grasps your hand, then pulls you with an irresistible force.
+<<else>>
+	You turn away from the waterfall. The water becomes more violent, and you hear the voice again. It's the same song, but more firm this time, carrying the tone of an anxious parent telling their child to step away from danger.
+	<br><br>
+
+	The force of it proves irresistible. You step back to the waterfall, and reach in. It feels like normal water, if a bit cooler than usual.
+<</if>>
+<br><br>
+
+A flash of green light fills your vision as you pass into the water, disorienting you. Your hands and knees find solid stone. Gwylan stands next to you, and crouches to help you to your feet. <<He>> looks oddly dry.
+<br><br>
+
+"You're not actually wet, you know," Gwylan says as if reading your mind. You look at the waterfall, <span class="pink">and see another pair of eyes staring back.</span>
+<br><br>
+
+"Don't look at it." Gwylan takes both your hands. "Look at me. Remember this waterfall, and where I brought you. Now your inability to forget works in your favour, see?"
+<br><br>
+
+<<link [[Ask for more details on what's going on|Gwylan Hypnosis Insight Ask]]>><</link>>
+<br>
+<<link [[Nod|Gwylan Hypnosis Insight Nod]]>><</link>>
+<br>
+
+:: Gwylan Hypnosis Insight Plants
+<<set $location to "farm_manors">><<effects>><<run statusCheck("Gwylan")>>
+<<gwylanHypnoCanvas>>
+You find yourself within a circular clearing in a hedge maze, perhaps its centre. A statue looms above you, staring at the horizon. Vines grow up its entire body, wrapping around its limbs and neck. It looks tall enough to see over the hedge.
+<br><br>
+
+The statue creaks as the vines tighten around it with impossible strength. Then the head snaps off, the neck reduced to a rain of splinters. Freed from the statue, the vines whip towards you, groping the air inches from your skin.
+<br><br>
+
+You hear singing, blown to you on the wind. It promises security, but that only agitates your anxiety. You step away from the vines, and enter the maze, following the sound of the voice. The hedge around you sways in an unseen wind, but lacks the malice of the vines. For now.
+<br><br>
+
+You come to another clearing, this one dominated by a fountain. Water flies a dozen or more feet into the air, landing in a second tier before cascading to the main vessel. A pair of eyes, bearing a mischievous glimmer, stare up at you. It's Gwylan, lying on <<his>> back. <<He>> gives you a reassuring smile, then <<he>> lifts a hand and presses it against the surface, as if it were glass.
+<br><br>
+
+<<link [[Reach for Gwylan|Gwylan Hypnosis Insight Plants 2]]>><<set $phase2 to 1>><</link>>
+<br>
+<<link [[Step away|Gwylan Hypnosis Insight Plants 2]]>><<set $phase2 to 2>><</link>>
+<br>
+
+:: Gwylan Hypnosis Insight Plants 2
+<<effects>>
+<<if $phase2 is 1>>
+	You reach into the water, and grasp Gwylan's fingers. With an irresistible force, <<he>> pulls you into the fountain.
+<<else>>
+	You turn away from the water, but Gwylan's song calls to you again, taking on a firmer tone, like an anxious parent calling their child away from danger. It proves an irresistible force. You turn back to the fountain. Gwylan takes your hand, and pulls you in.
+<</if>>
+<br><br>
+
+It's deeper than it looked, and your surroundings disappear in a disorienting flash of green light. Then you're on your hands and knees in shallow water, the fountain's water cascading on your back. Gwylan crouches, and helps you from the fountain. <<Hes>> somehow dry.
+<br><br>
+
+"You're not actually wet either, you know," Gwylan says, as if <<he>> read your mind. You look at the water, <span class="pink">and see a pair of eyes staring back.</span>
+<br><br>
+
+"Don't look at it." Gwylan takes both your hands. "Look at me. Remember this fountain, and where I brought you. Now your inability to forget works in your favour, see?"
+<br><br>
+
+<<link [[Ask for more details on what's going on|Gwylan Hypnosis Insight Ask]]>><</link>>
+<br>
+<<link [[Nod|Gwylan Hypnosis Insight Nod]]>><</link>>
+<br>
+
+:: Gwylan Hypnosis Insight Slimes
+<<set $location to "underground">><<effects>><<run statusCheck("Gwylan")>>
+<<gwylanHypnoCanvas>>
+You find yourself in a cave, lit by glowing crystals. They reverberate a little, releasing a gentle tinkling sound. The cave looks natural, but there are footprints leading into the dark.
+<br><br>
+
+You move your foot, and find a sticky substance clinging to your heel. You steady yourself against the wall, only to find the substance on your hand as well. Slime is oozing through cracks in the floor and walls, arising from somewhere unseen. You step away, and a dollop lands where you just stood. It's emerging from the ceiling.
+<br><br>
+
+Singing echoes through the cave. It almost sounds like the crystals are singing along, amplifying the sound. It promises security, yet that only agitates your anxiety. You walk towards the voice. The crystals become larger and more numerous, until you reach an open space full of them.
+<br><br>
+
+In the centre of the space sits a pool of water, reflecting the light from the crystal, and almost appearing to glow itself. You step to its shore, and see a pair of eyes staring up at you, a mischievous glimmer within. It's Gwylan. <<He>> gives you a reassuring smile, perhaps aware of how disconcerting <<he>> looks. Then <<he>> lifts a hand and presses it against the surface, as if <<he>> were trapped in one of the crystals, not floating in a pool.
+<br><br>
+
+<<link [[Reach for Gwylan|Gwylan Hypnosis Insight Slimes 2]]>><<set $phase2 to 1>><</link>>
+<br>
+<<link [[Step away|Gwylan Hypnosis Insight Slimes 2]]>><<set $phase2 to 2>><</link>>
+<br>
+
+:: Gwylan Hypnosis Insight Slimes 2
+<<effects>>
+<<if $phase2 is 1>>
+	You reach for Gwylan's hand, pushing it into the chill water. Gwylan takes your hand in <<hers>>. With an irresistible force, <<he>> pulls you into the water.
+<<else>>
+	You turn away, but the singing rings out, louder now, and with a new force to it. It sounds like an anxious parent, calling their child away from danger. The force proves irresistible. You turn back to the water.
+	<br><br>
+
+	Gwylan takes your hand in <<hers>>, and pulls you in.
+<</if>>
+<br><br>
+
+A flash of green light disorients you as you enter, then you find yourself on your knees, on the ground beside the pool. Gwylan helps you to your feet. <<His>> clothes are dry.
+<br><br>
+
+"You're not actually wet, you know," Gwylan says, as if reading your mind. You look at the water, <span class="pink">and see a pair of eyes staring back.</span>
+<br><br>
+
+"Don't look at it." Gwylan takes both your hands. "Look at me. Remember this pool, and where I brought you. Now your inability to forget works in your favour, see?"
+<br><br>
+
+<<link [[Ask for more details on what's going on|Gwylan Hypnosis Insight Ask]]>><</link>>
+<br>
+<<link [[Nod|Gwylan Hypnosis Insight Nod]]>><</link>>
+<br>
+
+:: Gwylan Hypnosis Insight Monsters
+<<set $location to "forest">><<effects>><<run statusCheck("Gwylan")>>
+<<gwylanHypnoCanvas>>
+You find yourself elsewhere in the forest. Branches fork and twist above you, groping the sky. You put your hands on wiry grass, and push yourself into a sitting position.
+<br><br>
+
+A bullet blasts apart a nearby tree. You jump to your feet and, spinning in the direction of the shot, find a pair of wolf people.
+<br><br>
+
+"Blast!"
+<br>
+"I told you you'd miss. Give me the gun."
+<br>
+"One more try. Look, its stunned in fright."
+<br><br>
+
+You hear singing behind you. It promises security, yet that only agitates your anxiety. Lacking options, you turn and run in the direction of the voice.
+<br><br>
+
+You come to a still lake, but it's not the lake you're familiar with. It looks deep, even here at the shore. A sheer drop, if not for the water, with no bottom visible.
+<br><br>
+
+A pair of eyes appear beneath you, a mischievous glimmer clear despite the distortion of the water. It's Gwylan. <<He>> gives you a reassuring smile, then reaches towards you, stopping just short of the surface. <<His>> fingertips press against it, as if it were glass.
+<br><br>
+
+<<link [[Reach for Gwylan|Gwylan Hypnosis Insight Monsters 2]]>><<set $phase2 to 1>><</link>>
+<br>
+<<link [[Step away|Gwylan Hypnosis Insight Monsters 2]]>><<set $phase2 to 2>><</link>>
+<br>
+
+:: Gwylan Hypnosis Insight Monsters 2
+<<effects>>
+
+<<if $phase2 is 1>>
+	You crouch, and reach in. It feels like normal, cool lake water.
+<<else>>
+	You step away from the lake. The surface stirs, and you hear the voice again. It's the same song, but more firm this time, carrying the tone of an anxious parent telling their child to step away from danger.
+	<br><br>
+
+	The force of it proves irresistible. You step back to the lake, and reach in. It feels like normal, cool lake water.
+<</if>>
+<br><br>
+
+Gwylan takes your hand in <<hers>>, flashes an apologetic smile, then pulls you towards <<him>> with an irresistible strength. You plunge into the water, and for a disorienting moment your surroundings vanish in a flash of green light.
+<br><br>
+
+Your hands and knees find solid ground, and you push yourself to your feet, emerging from the water. It's shallower than it appeared. Gwylan grasps your shoulder, and helps keep your slick feet steady. <<He>> looks dry, somehow.
+<br><br>
+
+"You're not actually wet either, you know," Gwylan says as if reading your mind. You look back at the water. It appears deep again, <span class="pink">and another pair of eyes stare back.</span>
+<br><br>
+
+"Don't look at it." Gwylan takes both your hands. "Look at me. Remember this lake, and where I brought you. Now your inability to forget works in your favour, see?"
+<br><br>
+
+<<link [[Ask for more details on what's going on|Gwylan Hypnosis Insight Ask]]>><</link>>
+<br>
+<<link [[Nod|Gwylan Hypnosis Insight Nod]]>><</link>>
+<br>
+
+:: Gwylan Hypnosis Insight Holes
+<<set $location to "town">><<effects>><<run statusCheck("Gwylan")>>
+<<gwylanHypnoCanvas>>
+You awaken in town, stood on what looks like High Street. Except it's all wrong. The buildings, cars, and trees all look fine in isolation, but together appear somehow alien from one another. It feels like the space between them is sick, swollen, about to burst open. Like your presence could cause an irreparable rupture. You dare not glance at the people.
+<br><br>
+
+You hear singing over the traffic. You follow the sound of the voice, careful not to look anyone in the eye, until you come to a tiered fountain. Water cascades from a platform, high above.
+<br><br>
+
+Other people are giving the fountain a wide berth. You peer into the falling water, and see a pair of eyes, bearing a mischievous glint. It's Gwylan. <<He>> gives you a reassuring smile, then reaches towards you. <<His>> hand presses against the waterfall, as if it were glass.
+<br><br>
+
+<<link [[Reach for Gwylan|Gwylan Hypnosis Insight Holes 2]]>><<set $phase2 to 1>><</link>>
+<br>
+<<link [[Step away|Gwylan Hypnosis Insight Holes 2]]>><<set $phase2 to 2>><</link>>
+<br>
+
+:: Gwylan Hypnosis Insight Holes 2
+<<effects>>
+<<if $phase2 is 1>>
+	You reach through the water. Gwylan takes your hand, and pulls you in with an irresistible strength.
+<<else>>
+	You turn away from the fountain, <span class="red">only to find everyone on the street stood still, watching you.</span> You hear the singing again, now louder, and with the tone of an anxious parent calling their child away from danger.
+	<br><br>
+
+	The force proves irresistible. You turn back to the fountain and take Gwylan's hand. <<He>> pulls you in.
+<</if>>
+<br><br>
+
+Your hands and knees find solid ground. You're kneeling in the fountain. Gwylan helps you to your feet, gives you a reassuring squeeze, and helps you step from the water. <<He>> looks dry, somehow.
+<br><br>
+
+"You're not actually wet, you know," Gwylan says as if reading your mind. You look back at the cascading water. <span class="pink">Another pair of eyes stare back.</span>
+<br><br>
+
+"Don't look at it." Gwylan takes both your hands. "Look at me. Remember this fountain, and where I brought you. Now your inability to forget works in your favour, see?"
+<br><br>
+
+<<link [[Ask for more details on what's going on|Gwylan Hypnosis Insight Ask]]>><</link>>
+<br>
+<<link [[Nod|Gwylan Hypnosis Insight Nod]]>><</link>>
+<br>
+
+:: Gwylan Hypnosis Insight Lots
+<<set $location to "park">><<effects>><<run statusCheck("Gwylan")>>
+<<gwylanHypnoCanvas>>
+You awaken in town, in what looks like the park. You feel an odd stillness. You hear none of the usual sounds of town.
+<br><br>
+
+An electricity crawls over the side of your neck, and your hair stands on end. Something is watching you. You turn to face the culprit, but see only trees and other plants. You feel the sensation again, this time on the back of your neck. You whirl, but still see nothing. You feel, more than hear, a mocking laughter, coming from the trees themselves. Or something within them.
+<br><br>
+
+The silence is broken by a sweet voice, singing. You follow the sound, until you come to a bridge over a river. Peering into the water, you see a pair of eyes staring back, bearing a mischievous glint. It's Gwylan. <<He>> gives you a reassuring smile, then reaches towards you. <<His>> fingers press against the river's surface, as if it were glass.
+<br><br>
+
+<<link [[Take Gwylan's hand|Gwylan Hypnosis Insight Lots 2]]>><<set $phase2 to 1>><</link>>
+<br>
+<<link [[Step away from the water|Gwylan Hypnosis Insight Lots 2]]>><<set $phase2 to 2>><</link>>
+<br>
+
+:: Gwylan Hypnosis Insight Lots 2
+<<effects>>
+
+<<if $phase2 is 1>>
+	You crouch, and reach through the side of the bridge. Gwylan grasps your hand. An irresistible force blows the bridge apart, and you fall into the water.
+<<else>>
+	You turn away, but hear the singing again. It's louder now, and carries an urgent tone, like an anxious parent calling their child away from danger. It proves an irresistible force. You turn back to Gwylan, and take <<his>> hand. The bridge collapses, and you fall into the water.
+<</if>>
+<br><br>
+
+A flash of green light disorients you further, then you find yourself on your hands and knees on the riverbank. Gwylan crouches beside you, and helps you to your feet. <<He>> looks dry.
+<br><br>
+
+"You're not actually wet, you know," Gwylan says as if reading your mind. You look back at the rushing river. <span class="pink">Another pair of eyes stare back.</span>
+<br><br>
+
+"Don't look at it." Gwylan takes both your hands. "Look at me. Remember this river, and where I brought you. Now your inability to forget works in your favour, see?"
+<br><br>
+
+<<link [[Ask for more details on what's going on|Gwylan Hypnosis Insight Ask]]>><</link>>
+<br>
+<<link [[Nod|Gwylan Hypnosis Insight Nod]]>><</link>>
+<br>
+
+:: Gwylan Hypnosis Insight Ask
+<<effects>>
+<<if $speech_attitude is "meek">>
+	"I hope it's not impudent," you say. "But can you share some details on how this works?"
+<<elseif $speech_attitude is "bratty">>
+	"What was that thing in the water?" you ask. "It'll be easier to remember if you tell me what's going on."
+<<else>>
+	"What's watching me from the water?" you ask. "What did you do?"
+<</if>>
+<br><br>
+
+"I just changed your perspective," Gwylan says. "I'd say I put you upside-down, but that implies there's a right way up. I dragged you into the water, don't look, and I dragged you from the water, but not both. Your compass now points south." <<He>> pauses. "Are these metaphors helping, or am I just confusing things further?"
+<br><br>
+
+<<He>> looks at the water, in thought. "You needn't worry about what you saw in there. Not unless you forget. That's the important thing." <<He>> snaps <<his>> fingers. "Awaken."
+<br><br>
+
+<<link [[Next|Gwylan Hypnosis Insight Wake]]>><<pass 30>><</link>>
+<br>
+
+:: Gwylan Hypnosis Insight Nod
+<<effects>>
+
+You nod. Gwylan looks at the water, in thought. "You needn't worry about what you saw in there. Not unless you forget." <<He>> snaps <<his>> fingers. "Awaken."
+<br><br>
+
+<<link [[Next|Gwylan Hypnosis Insight Wake]]>><<pass 30>><</link>>
+<br>
+
+:: Gwylan Hypnosis Insight Wake
+<<set $location to "forest_shop_garden">><<effects>><<run statusCheck("Gwylan")>>
+<<canvas-model-override "clear">>
+
+Your focus slowly returns. You're back in the garden.
+<br><br>
+
+The incense has burned out. "Be aware. Perspectives can change." <<He>> starts to gather <<his>> things.
+<br><br>
+
+<<set _hypnoDays to 10 + ($hypnosis_potency * 2)>>
+<<gwylanHypnosis "insight" _hypnoDays>>
+<br><br>
+
+<<set $gwylanSeen.pushUnique("hypnosis_insight")>>
+
+<<link [[Go back in the shop|Gwylan Hypnosis End]]>><<endevent>><</link>>
+<br>
+
+:: Gwylan Hypnosis Removal
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $phase is "suggestion">>
+	<<if $gwylanSeen.includes("hypnosis_removal_suggestion")>>
+		"I think Harper put ideas in my head again," you say.
+		<br><br>
+
+		Gwylan frowns. "I'll have to dig around in your head some more, then."
+	<<else>>
+		<<switch $speech_attitude>>
+			<<case "meek">>"Th-there's this doctor, named Harper. <<nnpc_Hes "Harper">> been giving me treatments, but they don't feel right."
+			<<case "bratty">>"There's this quack named Harper. <<nnpc_Hes "Harper">> been giving me treatments, but they're... not right."
+			<<default>>"There's this doctor named Harper. <<nnpc_He "Harper">> keeps giving me these strange treatments, and they feel wrong, somehow."
+		<</switch>>
+		You think for a moment. "I can't remember why, though."
+		<br><br>
+
+		Gwylan's face sours. "I can imagine what you mean. I'll have to dig around in your head a little."
+		<<if !$brownFoxRevealed>>
+			<br><br>
+			"Do you know <<nnpc_him "Harper">>?" you ask. <<He>> doesn't answer. Maybe <<he>> didn't hear you.
+		<</if>>
+	<</if>>
+	<<set $gwylanSeen.pushUnique("hypnosis_removal_suggestion")>>
+<<elseif $phase is "scream">>
+	<<switch $speech_attitude>>
+		<<case "meek">>"Whenever I... feel helpless, and like I want to scream for help, I end up hurting all over."
+		<<case "bratty">>"There are times when I feel like I need to yell for someone to help me. Every time I do, I end up with bruises."
+		<<default>>"Whenever I feel like I need to scream for help, I end up with bruises all over."
+	<</switch>>
+	<br><br>
+
+	Gwylan nods. "I've heard this before. This should be easy to fix."
+	<<set $gwylanSeen.pushUnique("hypnosis_removal_scream")>>
+<<elseif $phase is "cover">>
+	"Whenever I get exposed and want to cover myself up, I just end up feeling even more exposed," you say.
+	<br><br>
+
+	Gwylan nods. "A common trick. We'll fix this."
+	<<set $gwylanSeen.pushUnique("hypnosis_removal_cover")>>
+<<elseif $phase is "deviancy">>
+	"Whenever I get attacked by animals, I think I end up provoking them somehow," you say.
+	<br><br>
+
+	<<if $hypnosis_traits.devotion gte 3>>
+		Gwylan covers <<his>> mouth. "Oh dear. I hope that's not a side effect of what we've done together."
+	<<else>>
+		Gwylan frowns. "I'm familiar with such techniques. We'll fix this."
+	<</if>>
+	<<set $gwylanSeen.pushUnique("hypnosis_removal_deviancy")>>
+<<else>>
+	"I can't remember. There's a lot of memories missing."
+	<br><br>
+
+	Gwylan nods. "I know how to bring up blocked memories. Let's have a dig through."
+	<<set _hypnosisTypes to ["suggestion", "scream", "cover", "deviancy"].filter(h => V.hypnosis_traits[h] && V.hypnosis_traits[h] >= 1)>>
+	<<if _hypnosisTypes.length>>
+		<<set $phase to _hypnosisTypes.random()>>
+	<</if>>
+<</if>>
+<br><br>
+
+<<if $hypnosis_potency gt 4 or $hypnosis_traits.devotion gte 4>>
+	<<He>> raises a single finger. "Follow it." <<He>> moves <<his>> hand side to side, then up and down. You follow it, and as you do, it almost looks like a small light forms on the tip.
+	<br><br>
+
+	<span class="purple">You quickly realise you're no longer able to look away.</span>
+<<else>>
+	<<He>> reaches into the neck of <<his>> robes, and pulls out a pendant tipped with <<if $gwylanTalked.includes("jasper")>>jasper<<else>>a reddish gem<</if>>. "Follow it." <<He>> moves it side to side. Your eyes follow.
+<</if>>
+<br><br>
+
+"There's nothing in the forest except us." Everything outside the room slowly fades away. The corners of your vision blur, until there's nothing left but Gwylan.
+"Good. Tell me, when's the last time..."
+<br><br>
+
+<<set $_devotionUp to 10 + $hypnosis_potency>>
+<<gwylanHypnosis "devotion" $_devotionUp>>
+<br><br>
+
+<<He>> snaps <<his>> fingers, and you're no longer where you once were.
+<br><br>
+
+<<switch $phase>>
+	<<case "suggestion">><<link [[Next|Gwylan Hypnosis Removal Suggestion]]>><<pass 10>><</link>><br>
+	<<case "scream">><<link [[Next|Gwylan Hypnosis Removal Scream]]>><<pass 10>><</link>><br>
+	<<case "cover">><<link [[Next|Gwylan Hypnosis Removal Cover]]>><<pass 10>><</link>><br>
+	<<case "deviancy">><<link [[Next|Gwylan Hypnosis Removal Deviancy]]>><<pass 10>><</link>><br>
+	<<default>><<link [[Next|Gwylan Hypnosis Removal Error]]>><<pass 10>><</link>><br>
+<</switch>>
+
+:: Gwylan Hypnosis Removal Suggestion
+<<effects>><<run statusCheck("Gwylan")>>
+<<gwylanHypnoCanvas>>
+/* ToDo: Gwylan - underwhelming compared to others. Redo? */
+The flash of a camera.
+<br><br>
+
+You feel dizzy as your eyes adjust.
+<br><br>
+
+<i>"...you won't remember this."</i> Harper's voice echoes in a white void.
+<br><br>
+
+"A little further back," Gwylan's voice says. "Just before that."
+<br><br>
+
+The click of a pen. Harper's voice speaks again. <i>"That's very good. Now, the next time you feel overwhelmed by it all, I want you to remember this feeling, and..."</i>
+<br><br>
+
+Gwylan speaks. "There it is. Alright. Listen well. Whenever you remember that feeling,
+
+<<cleareventpool>>
+<<addinlineevent "gwylan_hypno_removal_1">>instead, I want you to remember this smell." You smell a rich, earthy herb. It smells like...<</addinlineevent>>
+<<addinlineevent "gwylan_hypno_removal_2">>instead, I want you to remember this sensation." You feel <<his>> hands run through your hair. It feels like...<</addinlineevent>>
+<<addinlineevent "gwylan_hypno_removal_3">>instead, I want you to remember this taste." Your mouth opens, and a berry is placed on your tongue. It tastes like...<</addinlineevent>>
+<<addinlineevent "gwylan_hypno_removal_4">>instead, I want you to remember this sound." You hear a bird call. You wonder if Gwylan's making that sound <<himself>>. It sounds like...<</addinlineevent>>
+<<addinlineevent "gwylan_hypno_removal_5">>instead, I want you to remember this sound." You hear a chorus of frogs croaking. It almost sounds like...<</addinlineevent>>
+<<addinlineevent "gwylan_hypno_removal_6">>instead, I want you to remember this sound." You hear a phantom rhythm as the wind blows through the trees. It almost sounds like...<</addinlineevent>>
+<<addinlineevent "gwylan_hypno_removal_7">>instead, I want you to remember this word." You feel <<his>> breath on your ear. <<He>> says...<</addinlineevent>>
+<<addinlineevent "gwylan_hypno_removal_8">>instead, I want you to remember this sight." Something takes shape in the emptiness. It looks like...<</addinlineevent>>
+<<if $hypnosis_traits.devotion gte 2>>
+	<<addinlineevent "gwylan_hypno_removal_devotion_1" 4>>instead, I want you to remember... me! I'll be right there, making sure you don't slip." <<He>> pinches your cheek.<</addinlineevent>>
+<</if>>
+<<if $hypnosis_traits.devotion gte 5>>
+	<<addinlineevent "gwylan_hypno_removal_devotion_2" 10>>instead, I want you to remember... us. What it feels like when we're together." <<His>> arms wrap around you.<</addinlineevent>>
+<</if>>
+<<runeventpool>>
+<br><br>
+
+"The instructions <<nnpc_he "Harper">> gave you are unimportant. Heed them no more. In time, they will fade naturally." <<His>> face appears in the blank space before you. "Now. Awaken." <<He>> snaps <<his>> fingers. <<trauma 12>><<awareness 5>><<ggtrauma>><<gawareness>>
+<br><br>
+
+<<link [[Next|Gwylan Hypnosis Removal Wake]]>><<pass 30>><</link>>
+<br>
+
+:: Gwylan Hypnosis Removal Scream
+<<set $location to "alley">><<set $bus to "industrial">><<effects>><<run statusCheck("Gwylan")>>
+<<gwylanHypnoCanvas>>
+/* ToDo: Gwylan - underwhelming compared to others. Redo? */
+You're in an alleyway.
+<br><br>
+
+You're not sure how you got here. You call out for Gwylan, but get no answer.
+<br><br>
+
+Something else hears you, though. The way out is blocked by a crowd of people. They converge on you!
+<br><br>
+
+There's too many. You couldn't hope to escape. Their hands are all over you. Your clothes tear away, and you're violated. <<gggstress>><<ggtrauma>><<stress 24>><<trauma 16>>
+<br><br>
+
+<<link [[Scream!|Gwylan Hypnosis Removal Scream 2]]>><</link>>
+<br>
+
+:: Gwylan Hypnosis Removal Scream 2
+<<effects>><<run statusCheck("Gwylan")>>
+
+You open your mouth to scream, and everything freezes.
+<br><br>
+
+"There." Gwylan walks through the crowd of frozen people. You still can't move, either. <<He>> examines you closely and snaps <<his>> fingers. Everything starts moving again, and your voice escapes.
+<br><br>
+
+<span class="red"><<askrough>></span>
+<br><br>
+
+<<He>> snaps <<his>> fingers again, stopping everything once more. "Now, why would you go and say something like that?" <<His>> hand pulls away those that violate you, and <<he>> cups your cheek.
+"Tell me, dear. Do you have trouble asking others for help in normal situations? I think someone may have exploited that, and used it as the impetus for this behaviour."
+<br><br>
+
+<<He>> smiles. "Remember, you came here to ask me for help. Wasn't it easy? Whenever you feel like this, instead of this self-destructive urge... just pretend you're asking me for help instead. Loudly."
+<br><br>
+
+One final time, <<he>> snaps <<his>> fingers. "Awaken."
+<br><br>
+
+<<link [[Next|Gwylan Hypnosis Removal Wake]]>><<pass 30>><</link>>
+<br>
+
+:: Gwylan Hypnosis Removal Cover
+<<set $location to "home">><<effects>><<run statusCheck("Gwylan")>>
+<<gwylanHypnoCanvas>><<strip>>
+You're in the orphanage washroom.
+<br><br>
+
+You're taking a bath. It's relaxing. You let yourself sink into the warm water.
+<br><br>
+
+You hear a loud bang, which makes you jump. <<stress 6>><<gstress>>
+<br><br>
+
+You look around the washroom. The lights are a little dim, but you're definitely alone. You take a deep breath.
+<br><br>
+
+<<link [[Relax|Gwylan Hypnosis Removal Cover 2]]>><<set $phase2 to 1>><</link>>
+<br>
+<<link [[Investigate|Gwylan Hypnosis Removal Cover 2]]>><<set $phase2 to 2>><</link>>
+<br>
+
+:: Gwylan Hypnosis Removal Cover 2
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $phase2 is 1>>
+	You steady your heart rate and relax again. It was nothing.
+	<br><br>
+
+	You hear the squeak of skin on a glass pane. Was someone trying to peek in through the window?
+	<br><br>
+
+	You try not to think about it. <span class="red">Until the doorknob turns.</span> It opens. You reach for a towel to cover yourself, but there are none.
+	Instead of covering up, your hands rub around your <<genitals>>, flaunting your nudity. You can't feel them, it's like your hands have gained a mind of their own.
+	<br><br>
+
+	A pair of glowing eyes stare at you from the darkness beyond, unblinking. You have to escape. They can see everything. <<gggstress>><<stress 24>>
+	<br><br>
+
+	<<link [[Escape through the window|Gwylan Hypnosis Removal Cover 3]]>><<set $phase2 to 3>><</link>>
+	<br>
+	<<link [[Close the door|Gwylan Hypnosis Removal Cover 3]]>><<set $phase2 to 4>><</link>>
+	<br>
+<<else>>
+	You reach for a towel, but there are none. You stand up naked and exposed.
+	<br><br>
+
+	You step from the bath, and hear three more loud bangs. It's coming from the fogged up window.
+	<span class="red">There's a handprint on it. A pair of glowing eyes peer through it at you.</span>
+	<br><br>
+
+	You scream, taking a step back, but you don't cover yourself. Your body leans forward provocatively instead, your hands gesturing to every lewd detail of your body.
+	You can't feel them, it's like your hands have gained a mind of their own.
+	<br><br>
+
+	You feel the eyes violating you. <span class="red">Many more handprints appear on the window.</span> It shakes under the pressure. There are so many. Your heart races. They're all going to see you! <<gggstress>><<stress 24>>
+	<br><br>
+
+	"Let me in." The voice sounds vaguely familiar, but it makes you shiver.
+	<br><br>
+
+	<<link [[Open the window|Gwylan Hypnosis Removal Cover 3]]>><<set $phase2 to 3>><</link>>
+	<br>
+	<<link [[Open the door and run|Gwylan Hypnosis Removal Cover 3]]>><<set $phase2 to 4>><</link>>
+	<br>
+<</if>>
+
+:: Gwylan Hypnosis Removal Cover 3
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $phase2 is 3>>
+	You run to the window and open it. Steam escapes from the washroom, obscuring what's on the other side.
+	<br><br>
+
+	After a moment, it clears. You see... Gwylan's face. "Hello, <<pcpetname "Gwylan" "name">>. Thanks for letting me in." <<He>> climbs through the window, grabbing your wrists to steady <<himself>> as <<he>> does.
+<<else>>
+	You run to the door, but <span class="red">slip</span>. You manage to avoid falling, but stumble right into something.
+	<br><br>
+
+	A pair of hands grab your wrists to steady you. It's Gwylan. "Hello, <<pcpetname "Gwylan" "name">>. I thought I might find you here." <<He>> steps into the room.
+<</if>>
+<br><br>
+
+"Are you quite alright? You look frazzled. And... where are your clothes?"
+<br><br>
+
+You try to cover yourself, but Gwylan won't release your hands, no matter how much you struggle. <<He>> looks down, perplexed. "Ah, I see."
+<<He>> lifts your wrists, <span class="blue">to reveal that your hands have been replaced by magnifying glasses</span>. <<He>> looks through one of them at you.
+<br><br>
+
+"I see it all, in fact. Nothing left to the imagination. Casual nudity is all well and good, I sometimes like to lounge around the garden in the nude myself." You feel yourself unravelling under <<his>> scrutiny.
+<br><br>
+
+You're painfully reminded of every time someone's seen you exposed against your will. The scenes play out all around you. Gwylan sees them, too, looking at them through your right magnifying-glass-hand. <<trauma 12>><<ggtrauma>>
+<br><br>
+
+"Good, tell me all about it." Your lips move, but you can't hear what you're saying. Gwylan continues nodding. You realise that the scenes around you are literally coming from your head. You look at the mirror, and see the screen of a camera in your mouth.
+<br><br>
+
+Gwylan takes a look at the camera, before reaching in and pulling it out. You cough and sputter. <<He>> starts to browse the videos on it for a little while, before pitching the camera
+<<if $phase2 is 3>>
+	through the open window. <span class="purple">You don't hear it hit anything outside.</span>
+<<else>>
+	at the closed window. <span class="red">The glass shatters loudly as the camera crashes through it.</span>
+<</if>>
+<br><br>
+
+<<link [[Next|Gwylan Hypnosis Removal Cover 4]]>><</link>>
+<br>
+
+:: Gwylan Hypnosis Removal Cover 4
+<<effects>><<run statusCheck("Gwylan")>>
+
+<<He>> turns back to you with a smile, dusting <<his>> hands off. "Sometimes, the world forces you to bear everything no matter how much you try to hide it. Whether it's genital exposure, bruises, or trauma."
+<<He>> takes your wrists again, and pulls you closer. <<His>> arms wrap around you in a hug, before pulling something from behind you. It's a green cloak.
+<br><br>
+
+<<He>> pulls it over you, covering your exposure. As it passes over your hands, <span class="teal">they turn back to normal</span>. <<He>> takes them and squeezes them.
+"Modesty is a luxury. It might feel good in the moment to throw it all out..." <<He>> points to the <<if $phase2 is 4>>broken<</if>> window. "But that's just a short-term burst of excitement."
+<br><br>
+
+You're still exposed in the front. Gwylan steps around you, and guides your hands to help you cover yourself up. <<arousal 500>><<garousal>>
+<br><br>
+
+Many additional hands start to form around you, covering your skin. They slowly change colour, and turn into more clothes. You think you recognise this outfit from the forest shop.
+<br><br>
+
+"Now, if you ever feel like you're too exposed, and think it's a good idea to flaunt it instead of covering yourself up when you really need to... just think of covering up with some clothes from my shop, instead!"
+<br><br>
+
+You feel safe, and warm. Gwylan giggles and snaps <<his>> fingers. "Awaken." The washroom's light goes out.
+<br><br>
+
+<<link [[Next|Gwylan Hypnosis Removal Wake]]>><<pass 30>><<clotheson>><</link>>
+<br>
+
+:: Gwylan Hypnosis Removal Deviancy
+<<set $location to "forest">><<effects>><<run statusCheck("Gwylan")>>
+<<gwylanHypnoCanvas>>
+You're running through the forest. Something is chasing you.
+<br><br>
+
+You pant for breath. You've been running for so long. <<tiredness 2>><<gtiredness>>
+<br><br>
+
+You hear growls all around you, and countless sets of eyes peeling you apart. <<stress 12>><<ggstress>>
+<br><br>
+
+You can't take it anymore. If you just stop, if you just submit...
+<br><br>
+
+You fall to the ground. You can't see them, but you know they're getting closer. They're all around you. You close your eyes, but spread your legs.
+If you just make sure it's as fast as possible, you'll be okay. You just have to submit. <<stress 12>><<trauma 14>><<ggstress>><<ggtrauma>>
+<br><br>
+
+Footsteps approach. Something crashes into you, causing you to roll. Your head spins.
+<br><br>
+
+<<if _gwylanTF.known>>
+	You see a pair of brown fox ears. They twitch. Your vision comes back into focus.
+<<else>>
+	You see a head of mousy-brown hair. Your vision comes back into focus.
+<</if>>
+It's Gwylan. "Caught you," <<he>> giggles, straddling you. "I saw you running, dear, and I just had to catch up."
+<<if $gwylanSeen.includes("partners")>>
+	<<He>> kisses you on the cheek before helping you up.
+<<else>>
+	<<He>> helps you up.
+<</if>>
+"Why were you running to begin with, though?"
+<br><br>
+
+<<link [[Tell Gwylan why you were running|Gwylan Hypnosis Removal Deviancy 2]]>><<set $phase2 to 1>><</link>>
+<br>
+<<link [[Stay silent|Gwylan Hypnosis Removal Deviancy 2]]>><<set $phase2 to 2>><</link>>
+<br>
+
+:: Gwylan Hypnosis Removal Deviancy 2
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $phase2 is 1>>
+	<<switch $speech_attitude>>
+		<<case "meek">>
+			You look down in shame. "I was running from the scary beasts," you say. "I ran for so long, though. I gave up, I thought it would be easier if I just..."
+		<<case "bratty">>
+			You look down and cross your arms. "I was running from... some kind of beast," you say. "But I ran out of energy, and figured it would go by faster if I..."
+		<<default>>
+			You look away. "I was running from the animals. I thought I could outrun them, but I got so tired, I thought it would hurt less if I..."
+	<</switch>>
+	<br><br>
+
+	"Played dead," <<he>> finishes. You open your mouth to protest, but can't find the words to do so. That does seem similar to what you were doing. <<stress 6>><<gstress>>
+<<else>>
+	You stay silent. Gwylan frowns. "I understand. I'll have to coax the answer out of you, though. Hold still for a moment. I'll be gentle."
+	<br><br>
+
+	<<He>> pulls you into a hug. You feel yourself come apart as <<he>> unravels you like a spool of twine. <<trauma 12>><<ggtrauma>>
+	<br><br>
+
+	"You were running from beasts, and thought to play dead," <<he>> says. You open your mouth to protest, but have already cast your voice aside.
+<</if>>
+<br><br>
+
+"We will correct this impulse.
+<<if $cow gte 6>>
+	Reject your submissive instincts, dear calf."
+<<else>>
+	Follow your instincts, <<pcpetname "Gwylan">>."
+<</if>>
+<br><br>
+
+Gwylan vanishes. You're left alone in the darkening forest.
+<br><br>
+
+<<link [[Wander|Gwylan Hypnosis Removal Deviancy 3]]>><<set $phase2 to "run">><</link>>
+<br>
+<<link [[Hunker down|Gwylan Hypnosis Removal Deviancy 3]]>><<set $phase2 to "hide">><</link>>
+<br>
+
+:: Gwylan Hypnosis Removal Deviancy 3
+<<effects>>
+<<if $phase2 is "run">>
+	You start to walk through the forest again.
+<<else>>
+	You find a hiding place in the foliage and hunker down.
+<</if>>
+You keep a sharp ear out for any intruding sound, but it's eerily silent.
+<br><br>
+
+It becomes darker.
+<br><br>
+
+A chilling voice echoes around you.
+<br><br>
+
+<<if $phase2 is 1>>
+	"I can hear your steps, heavy with terror." It laughs. "Run. Run!"
+<<else>>
+	"I can smell your sweet fear." It laughs. "Hide. Hide!"
+<</if>>
+<br><br>
+
+<<set $skulduggerydifficulty to random(500, 1000)>>
+<<link [[Run|Gwylan Hypnosis Removal Deviancy Run]]>><</link>><<athleticsdifficulty 500 1000>>
+<br>
+<<link [[Hide|Gwylan Hypnosis Removal Deviancy Hide]]>><</link>><<skulduggerydifficulty>>
+<br>
+
+:: Gwylan Hypnosis Removal Deviancy Run
+<<effects>>
+<<if $phase2 is "run">>
+	You keep moving, breaking into a run.
+<<else>>
+	You flee your hiding spot, and break into a run.
+<</if>>
+<<if $athleticsSuccess>>
+	Rapid footsteps approach, <span class="green">but get no closer</span>. <<set $hypnosis_potency++>><<gwylanHypnoEffect>>
+	<br><br>
+
+	Eventually, they fade away behind you. You slow down to catch your breath. When you look up, you see three terrible green eyes staring at you from the shadows.
+	<br><br>
+
+	Whatever it is, it pounces on you. Brown fur fills your vision.
+<<else>>
+	Rapid footsteps approach, <span class="red">and bear down on you</span>.
+	<br><br>
+
+	You're pounced upon by something massive. Brown fur fills your vision. <<stress 12>><<pain 3>><<ggstress>><<gpain>>
+<</if>>
+<br><br>
+
+<<link [[Submit|Gwylan Hypnosis Removal Deviancy 4]]>><<set $phase2 to "submit">><</link>>
+<br>
+<<link [[Fight back|Gwylan Hypnosis Removal Deviancy 4]]>><<set $phase2 to "fight">><</link>>
+<br>
+
+:: Gwylan Hypnosis Removal Deviancy Hide
+<<effects>>
+<<if $phase2 is "run">>
+	You dive into the nearby foliage and hunker down.
+<<else>>
+	You stay in your hiding place.
+<</if>>
+Something stalks by on four legs. You hold your breath.
+<<skulduggerycheck>> <<set $hypnosis_potency++>><<gwylanHypnoEffect>>
+<br><br>
+<<if $skulduggerysuccess>>
+	It passes by. You exhale. You don't know how long you wait for, but you emerge from your hiding spot, only to be met with three terrible green eyes staring at you from the shadows.
+	<br><br>
+
+	Whatever it is, it pounces on you. Brown fur fills your vision.
+<<else>>
+	It stops. Three terrible green eyes fill your vision, and you're pounced upon by something massive.
+<</if>>
+<br><br>
+
+<<link [[Submit|Gwylan Hypnosis Removal Deviancy 4]]>><<set $phase2 to "submit">><</link>>
+<br>
+<<link [[Soothe|Gwylan Hypnosis Removal Deviancy 4]]>><<set $phase2 to "soothe">><</link>><<tendingdifficulty 500 1000>>
+<br>
+<<link [[Fight back|Gwylan Hypnosis Removal Deviancy 4]]>><<set $phase2 to "fight">><</link>><<physiquedifficulty 1 $physiquemax>>
+<br>
+
+:: Gwylan Hypnosis Removal Deviancy 4
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $phase2 is "soothe">>
+	<<if $tendingSuccess>>
+		You instinctively hum
+		<<if $seabird_lullaby gte 2>>
+			<span class="teal">Seabird's Lullaby,</span>
+		<<elseif $seabird_lullaby is 1>>
+			a <span class="teal">faintly familiar melody,</span>
+		<<else>>
+			a soothing tune,
+		<</if>>
+		and stroke the beast's fur gently. After a moment, <span class="green">the beast stills,</span> and pulls you close to its underbelly in an embrace. <<trauma -6>><<lltrauma>>
+	<<else>>
+		You try to soothe the beast, <span class="red">but you're too afraid</span>. The slightest wrong movement is enough to make you lose your nerve. <<trauma 6>><<gtrauma>>
+		<br><br>
+
+		You lay still, anticipating the violation. It never comes. The beast simply lays atop you, covering your lower half.
+	<</if>>
+<<elseif $phase2 is "fight">>
+	You lash out at the beast.
+	<<if $physiqueSuccess>>
+		<span class="green">You land a strike in a vital spot, causing it to recoil.</span> It trills and grumbles, before simply flopping over on top of you. Its legs pull you to its underbelly, almost like a hug. <<trauma -6>><<lltrauma>>
+	<<else>>
+		<span class="red">Your strike is weak and misplaced.</span> You freeze, fearing the reprisal attack. <<trauma 6>><<gtrauma>>
+		<br><br>
+
+		It never comes. The beast simply lays atop you, covering your lower half.
+	<</if>>
+<<else>>
+	You lay still as the creature's hot breath blows against your face, hoping it will lose interest. You close your eyes, anticipating the violation. <<trauma 12>><<ggtrauma>>
+	<br><br>
+
+	It never comes. The beast simply lays atop you, covering your lower half.
+<</if>>
+<br><br>
+
+You look up. The beast is like a gigantic fox. Although, instead of a head, you see <span class="pink">Gwylan's entire upper body emerging from the neck</span>. <<Hes>> naked.
+<br><br>
+
+<<if $phase2 is "soothe" and $tendingSuccess>>
+	Both the human and fox parts of <<his>> body stretch as <<he>> yawns. "My, my, <<pcpetname "Gwylan" "simple">>. That was quite the serenade." The legs of <<his>> fox half push you up towards the human half, and <<he>> hugs you close to <<his>> bare chest.
+	<<if C.npc.Gwylan.breastsize gte 6>>
+		<<He>> pushes your head between <<his>> <<= C.npc.Gwylan.breastsdesc>>.
+	<</if>>
+	<br><br>
+
+	"You did well. You didn't give up, showing warmth rather than submission. It was risky, but it worked." <<He>> breathes gently. "Be wary of what beasts you try to become warm with. Not all will be so..."
+	<<if $gwylanSeen.includes("partners")>>
+		<<He>> pulls you into a brief kiss.
+	<<else>>
+		<<His>> embrace tightens.
+	<</if>>
+	"...warm in turn." The fox half seems to fall asleep.
+<<elseif $phase2 is "fight" and $physiqueSuccess>>
+	<<He>> rubs a fresh bruise. "One decisive blow is often all it takes to make a predator back down. Well done." <<He>> smiles. "Your instincts serve you well. You were caught, but didn't give up. Be cautious, though.
+	Might alone can only save you for so long."
+	<br><br>
+
+	<<He>> rolls over, freeing you.
+<<elseif $phase2 is "submit">>
+	"You're lucky I wasn't something more dangerous, <<pcpetname "Gwylan">>." <<He>> giggles, and <<his>> massive tail brushes up against your face.
+<<else>>
+	"It was a good attempt, dear. You didn't give up, and that's what's important." <<He>> stays lying atop you.
+<</if>>
+"<span class="blue">The fox that plays dead is the first devoured.</span> Remember this the next time you feel this impulse overtake you."
+<br><br>
+
+<<He>> snaps <<his>> fingers. "Awaken."
+<br><br>
+
+<<link [[Next|Gwylan Hypnosis Removal Wake]]>><<pass 30>><</link>>
+<br>
+
+:: Gwylan Hypnosis Removal Error
+<<effects>><<run statusCheck("Gwylan")>>
+<<gwylanHypnoCanvas>>
+You sit in an empty white void. There's nothing. At least, there's nothing until you look up.
+<br><br>
+
+Far, far up in the sky, there are red words floating.
+<br><br>
+
+<span class="red">ERROR: Invalid hypnosis removal scene: <<= $phase>>. Please report.</span>
+<br><br>
+
+<<set $phase to "error">>
+You wonder what that could possibly mean. Gwylan snaps <<his>> fingers.
+<br><br>
+
+<<link [[Next|Gwylan Hypnosis Removal Wake]]>><</link>>
+<br>
+
+:: Gwylan Hypnosis Removal Wake
+<<set $location to "forest_shop_garden">><<effects>><<run statusCheck("Gwylan")>>
+<<canvas-model-override "clear">>
+
+Your focus slowly returns. You're back in the garden.
+<br><br>
+
+The incense has burned out.
+<br><br>
+
+<<if $phase isnot "error">>
+	<<set _hypnoDown to $hypnosis_potency * -1>>
+	<<set _hypnoStartLevel to $hypnosis_traits[$phase]>>
+	<<set _hypnoEndLevel to _hypnoStartLevel - $hypnosis_potency>>
+	<<switch $phase>>
+		<<case "scream">><<set _hypnoText to "Yearning">>
+		<<case "cover">><<set _hypnoText to "Flaunting">>
+		<<default>><<set _hypnoText to $phase.toUpperFirst()>>
+	<</switch>>
+	<<set _hypnoNames to [0, "Hypnotic", "Bewitched", "Beguiled", "Mesmeric", "Sublime"]>>
+	<<set _hypnoColours to ["green", "lblue", "blue", "purple", "pink", "red"]>>
+	Your <span @class="_hypnoColours[_hypnoStartLevel]"><<= _hypnoNames[_hypnoStartLevel]>> <<= _hypnoText>></span> has
+	<<if _hypnoEndLevel lte 0>>
+		<span class="green">drowned</span>.
+		<<run delete $hypnosis_traits[$phase]>>
+	<<else>>
+		shallowed to <span @class="_hypnoColours[_hypnoEndLevel]"><<= _hypnoNames[_hypnoEndLevel]>> <<= _hypnoText>></span>.
+		<<set $hypnosis_traits[$phase] to _hypnoEndLevel>>
+	<</if>>
+	<br><br>
+
+	<<if _hypnoEndLevel lte 0>>
+		"I think I got it all," Gwylan says, looking quite pleased with <<himself>>. "You should feel better now, although remember that there may still be side effects for a while."
+	<<else>>
+		"Some of the impulse may still linger, but it should be less intense, now. Give your head a few days to cool down, and then come back. We can try to smother the rest," Gwylan says.
+	<</if>>
+	<br><br>
+<</if>>
+
+<<set $gwylanSeen.pushUnique("hypnosis_removal")>>
+
+<<link [[Go back in the shop|Gwylan Hypnosis End]]>><<endevent>><</link>>
+<br>
+
+:: Gwylan Hypnosis End
+<<effects>><<set $outside to 0>><<set $location to "forest_shop">><<run statusCheck("Gwylan")>>
+<<storeonhandheld "gwylanHypno">>
+<<npc Gwylan>><<person1>>
+Gwylan leads you back into the shop. "If there's anything else I can do for you, just ask."
+<br><br>
+
+<<unset $hypnosis_potency>><<set $daily.gwylan.hypnosis to true>>
+<<gwylanOptions>>
+
+:: Gwylan Hypnosis Deepest
+<<effects>><<run statusCheck("Gwylan")>>
+<<if $phase2 is 2 or $phase2 is 3>>
+	<<if $phase2 is 2>> /* Initial passage */
+		<<switch $speech_attitude>>
+			<<case "meek">>
+				You slowly drop to your knees. "P-please," you start. "I want this."
+			<<case "bratty">>
+				You sit cross-legged. "I want this," you say. "Really."
+			<<default>>
+				You slowly sit down. "I want to go deeper," you say. "Really."
+		<</switch>>
+		<br><br>
+
+		<<He>> locks eyes with you. "Why?" Your head pounds painfully. <<pain 2>><<gpain>>
+	<<else>> /* You want the hypnosis for its effects */
+		<<switch $speech_attitude>>
+			<<case "meek">>
+				"It's just... the only way," you say quietly. "The only way to
+			<<case "bratty">>
+				"Because I don't have any other options," you say firmly. "It's the only way to
+			<<default>>
+				"It's the only way," you say, shrugging. "The only way to
+		<</switch>>
+
+		<<switch $phase>>
+			<<case "peace">>
+				come to peace with what I am."
+			<<case "silence">>
+				get rid of the <<pluralise numberOfEarSlime(true) "thing">> in my <<pluralise numberOfEarSlime(true) "ear">>."
+			<<case "slumber">>
+				have a good night's sleep."
+			<<case "insight">>
+				know what's real and what's not."
+			<<case "removal">>
+				have control of myself."
+				<br><br>
+
+				Gwylan laughs bitterly. "<<pcPetname "Gwylan" "simple">>, if you're worried about <i>control</i>, this is the last thing you should be doing."
+		<</switch>>
+		<br><br>
+
+		<<if $phase isnot "removal">>
+			Gwylan closes <<his>> eyes, frowning. "Not good enough, <<pcpetname "Gwylan" "simple">>. This, what I'm about to do to you... it's not an acceptable byproduct for <i>anything</i>."
+			<br><br>
+		<</if>>
+
+		<<switch $phase>>
+			<<case "peace">>
+				"But these pieces of myself—"
+			<<case "silence">>
+				"But the <<pluralise numberOfEarSlime(true) "slime">>—"
+			<<case "slumber">>
+				"But my sleep—"
+			<<case "insight">>
+				"But the visions—"
+			<<case "removal">>
+				"But the voices—"
+		<</switch>>
+		<br><br>
+
+		"—<<= $phase is "slumber" or $phase is "silence" and numberOfEarSlime(true) is 1 ? "is" : "are">> not bad enough to justify this," <<he>> insists. "This is a cost too great for you to pay, unless you're certain you can accept it. Not just that; unless you're certain you want it."
+	<</if>>
+	<br><br>
+
+	<<link [[Say nothing|Gwylan Hypnosis Deepest]]>><<set $phase2 to 1>><<npcincr Gwylan dom -5>><</link>><<llyearning>>
+	<br>
+	<<link [[Say it makes you feel safe|Gwylan Hypnosis Deepest]]>><<set $phase2 to 4>><</link>>
+	<br>
+	<<link [[Say you like feeling closer to <<him>>|Gwylan Hypnosis Deepest]]>><<set $phase2 to 5>><<npcincr Gwylan dom 1>><</link>><<gyearning>>
+	<br>
+	<<link [[Say you want answers|Gwylan Hypnosis Deepest]]>><<set $phase2 to 6>><</link>>
+	<br>
+	<<if $phase2 isnot 3>>
+		<<link [[Say you just want the help you asked for|Gwylan Hypnosis Deepest]]>><<set $phase2 to 3>><<npcincr Gwylan dom -1>><</link>><<lyearning>>
+	<</if>>
+<<elseif $phase2 is 4 or $phase2 is 5 or $phase2 is 6>>
+	<<if $phase2 is 4>> /* It makes you feel safe */
+		You cross your arms over your chest.
+		<<switch $speech_attitude>>
+			<<case "meek">>
+				"It... it makes me feel safe," you say. "You make me feel safe."
+			<<case "bratty">>
+				"The world is fucking scary," you say. "But what you do to me makes it feel safer."
+			<<default>>
+				"It makes me feel safe," you say. "Like you'll protect me from everything."
+		<</switch>>
+		<br><br>
+
+		<<He>> looks at you sadly. "I'm not convinced."
+	<<elseif $phase2 is 5>> /* You like feeling closer */
+		You shuffle a little closer to <<him>>.
+		<<switch $speech_attitude>>
+			<<case "meek">>
+				"I... I like how close it makes me feel to you," you say.
+			<<case "bratty">>
+				"I want to feel closer to you," you say. "Willingly."
+			<<default>>
+				"I like feeling this close to you," you say. "I want more."
+		<</switch>>
+		<br><br>
+
+		<<His>> face reddens, but <<his>> expression doesn't change. "I'm not convinced."
+	<<else>> /* You want answers */
+		You look away. "There's something further down," you say. "I can't explain it, but I need to see it. I need the answer to this question."
+		<br><br>
+
+		<<He>> crosses <<his>> arms. "I'm not convinced."
+	<</if>>
+	<br><br>
+
+	Your vision gets blurry for a moment. You find some of your memories missing or out of order. <<trauma 6>><<gtrauma>>
+	<br><br>
+
+	<<link [[Stop|Gwylan Hypnosis Deepest]]>><<set $phase2 to 1>><<npcincr Gwylan dom -5>><</link>><<llyearning>>
+	<br>
+	<<link [[Beg|Gwylan Hypnosis Deepest]]>><<set $phase2 to 7>><</link>>
+	<br>
+	<<if hasSexStat("deviancy", 3)>>
+		<<link [[Beg like a dog|Gwylan Hypnosis Deepest]]>><<set $phase2 to 8>><<npcincr Gwylan lust 5>><</link>><<deviant3>><<gglust>>
+	<<else>>
+		<<insufficientStat "deviancy" "to willingly beg like a dog">>
+	<</if>>
+	<br>
+<<elseif $phase2 is 7 or $phase2 is 8>>
+	<<set _tf to checkTFparts()>>
+	<<if $phase2 is 7>> /* Beg */
+		You bow your head. "Please," you say. "I want this. I really do."
+		<br><br>
+
+		"What was that? I didn't hear you." <<He>> crouches down to your eye level.
+		<br><br>
+
+		<<switch $speech_attitude>>
+			<<case "meek">>
+				"P-please!" you say louder.
+			<<case "bratty">>
+				You sigh and roll your eyes. "Pleeeeeease," you say.
+			<<default>>
+				"Please," you say louder.
+		<</switch>>
+		<br><br>
+
+		"Please what?" <<He>> cups your cheek. "Tell me you want to do everything I say without question."
+	<<else>> /* Bark like a dog */
+		<<if $speech_attitude is "meek">>
+			You straighten up on your knees,
+		<<else>>
+			You shift around to get on your knees,
+		<</if>>
+		folding your arms up to your chest.
+		<<if _tf.wolfTail or _tf.catTail or _tf.cowTail or _tf.birdTail or _tf.foxTail or _tf.demonTail>>
+			Your tail wags behind you.
+		<</if>>
+		<<if $worn.neck.collared is 1>>
+			You <<pull_leash "give">> a tug for emphasis.
+		<</if>>
+		<<deviancy3>>
+
+		<<if $worn.neck.collared is 1 and $worn.neck.type.includes("leash")>>
+			<<He>> crouches down to your eye level, grabbing your leash and patting your head.
+		<<else>>
+			<<He>> crouches down to your eye level and pats your head.
+		<</if>>
+		"<<pcPetname "Gwylan" "good">>." <<arousal 500>><<garousal>>
+		<br><br>
+
+		<<He>> cups your cheek. "Tell me you want to do everything I say without question."
+	<</if>>
+	<br><br>
+
+	<span class="purple">You feel the effects of the red powder wearing off. A heat rises within you, yearning for <<him>>.</span>
+	<br><br>
+
+	<<link [[Stay silent|Gwylan Hypnosis Deepest]]>><<set $phase2 to 1>><<npcincr Gwylan dom -5>><</link>><<llyearning>>
+	<br>
+	<<link [[Give <<him>> control|Gwylan Hypnosis Deepest Slip]]>><<set $phase2 to 0>><<npcincr Gwylan dom 3>><</link>><<ggyearning>>
+	<br>
+<<else>>
+	<<set _hideHypnosisOptions to true>><<set $weekly.gwylanDeepest to true>>
+	You let out a deep breath, but do nothing more.
+	<br><br>
+
+	Gwylan frowns. "Forgive me. I should have never let you sink this far."
+	<br><br>
+
+	<<set $phase to 0>><<set $phase2 to 0>>
+	<<gwylanOptions>>
+<</if>>
+
+:: Gwylan Hypnosis Deepest Slip
+<<effects>><<run statusCheck("Gwylan")>>
+<<set $gwylanSeen.pushUnique("hypnosis_deepest")>>
+<<set $phase2 to 0>>
+<<if $hypnosisTimers.devotion>>
+	<<set $hypnosisTimers.devotion.time to Math.clamp($hypnosisTimers.devotion.time, 75, 95)>>
+<</if>>
+You muster your willpower to make sure it sounds like you mean it.
+<<switch $speech_attitude>>
+	<<case "meek">>
+		"I w-want... I want to do everything you say."
+	<<case "bratty">>
+		"I want to do everything you say. Without question."
+	<<default>>
+		"I want to... do everything you say... without question."
+<</switch>>
+<br><br>
+
+"Tell me you want to belong to me," Gwylan says through ragged breaths. The shop begins to swirl around you in a haze.
+<br><br>
+
+"I want to belong to you," you say.
+<br><br>
+
+"Tell me you want to sink even deeper," <<he>> says, leaning towards you.
+<br><br>
+
+"I want to reach the bottom," you say, getting closer in turn.
+<br><br>
+
+"I suppose I have to believe you now, despite my doubts," <<he>> says, leaning away as you continually get even closer. "Dear, that's enough. Stop that." <<He>> pushes your face away gently.
+<br><br>
+
+Your lips itch. You feel your will is still your own for a precious few seconds, <span class="pink">yet part of you wants to slip even deeper,</span> as though you need to further prove yourself to <<him>>. Gwylan starts to stand. "Let's go."
+<br><br>
+
+<<link [[Follow <<him>>|Gwylan Hypnosis Start 2]]>><<endevent phaseless>><</link>>
+<br>
+<<link [[Tell Gwylan you love <<him>>|Gwylan Hypnosis Love]]>><<pass 1>><</link>><<gwylanHypnoNote "kiss">>
+<br>
+
+:: Gwylan Hypnosis Love
+<<effects>><<run statusCheck("Gwylan")>>
+"I love you," you say. "Those are my own words. Are they proof enough?"
+<br><br>
+
+<<His>> face goes beetroot-red. "That's just the hypnosis talking. It's not—"
+<br><br>
+
+You lean forward and close the minuscule remaining distance, kissing <<him>>.
+<<His>> eyes widen and <<he>> lets out a tiny squeak. But <<he>> doesn't push you away. <<gwylanKiss>>
+<br><br>
+
+<<if $gwylanSeen.includes("partners")>>
+	<<He>> gingerly returns it. <<His>> eyes close.
+<<else>>
+	<span class="green"><<He>> cautiously returns it. <<His>> eyes close.</span>
+<</if>>
+<br><br>
+
+<<He>> pulls away after a moment, and flicks you on the nose. "You're too much," <<he>> huffs. <<npcincr Gwylan dom 5>><<ggyearning>>
+<br><br>
+
+<<He>> brushes <<himself>> off and stands, helping you to your feet too.
+<br><br>
+
+<<link [[Follow <<him>>|Gwylan Hypnosis Start 2]]>><<endevent phaseless>><</link>>
+<br>
+<<link [[Ask <<him>> to say it back|Gwylan Hypnosis Deepest Love 2]]>><</link>>
+<br>
+
+:: Gwylan Hypnosis Deepest Love 2
+<<effects>><<run statusCheck("Gwylan")>>
+<<switch $speech_attitude>>
+	<<case "meek">>
+		"You're so insensitive! Say it back!" you pout.
+	<<case "bratty">>
+		You clear your throat. <<He>> looks back at you.
+		<br><br>
+
+		"Well?" you say.
+		<br><br>
+
+		"Out the front door and to the left, mind the winch, it's a bit rusty," <<he>> responds.
+		<br><br>
+
+		"Say it back, smartass."
+	<<default>>
+		"How rude," you say. "Say it back."
+<</switch>>
+<br><br>
+
+<<He>> frowns, and turns away. "I've lied to you enough already." <<trauma 12>><<ggtrauma>>
+<br><br>
+
+<<link [[Follow <<him>>|Gwylan Hypnosis Start 2]]>><<endevent phaseless>><</link>>
+<br>
+
+:: Gwylan Talk Ear Slime
+<<effects>><<run statusCheck("Gwylan")>>
+<<set $gwylanSeen.pushUnique("ear_slime")>>
+<<if $gwylanJordanSlime>>
+	<<switch $speech_attitude>>
+		<<case "meek">>
+			"S-someone told me you can help with something in my <<pluralise numberOfEarSlime(true) "ear">>," you say.
+		<<case "bratty">>
+			"I heard that you can stop <<if numberOfEarSlime(true) gte 2>>these demons<<else>>this demon<</if>> in my ear from whispering sweet nothings," you say.
+		<<default>>
+			"Jordan said you can help me with <<if numberOfEarSlime(true) gte 2>>these things that are<<else>>this thing that's<</if>> whispering in my ear," you say.
+	<</switch>>
+<<else>>
+	<<switch $speech_attitude>>
+		<<case "meek">>
+			"S-so, you said you can help with my intrusive thoughts?"
+		<<case "bratty">>
+			"Please tell me you actually know how to get <<if numberOfEarSlime(true) gte 2>>these things out of my ears<<else>>this thing out of my ear<</if>>."
+		<<default>>
+			"You said you could help me with <<if numberOfEarSlime(true) gte 2>>these things in my ears<<else>>this thing in my ear<</if>>."
+	<</switch>>
+<</if>>
+<br><br>
+
+<<He>> nods, rummaging around in a shoebox. <<He>> pulls out a small metal object. <<He>> then walks around you,
+<<if $bodysize is 3>>
+	standing on the tips of <<his>> toes to look
+<<elseif $bodysize is 0>>
+	bending over to look
+<<else>>
+	tilting your head to look
+<</if>>
+into your ear. You feel the cool touch of metal on the lobe.
+<<if numberOfEarSlime(true) gte 2>>
+	<<He>> then walks around you, looking in your other ear, too.
+<</if>>
+<br><br>
+
+<<He>> sighs. "You're host to
+<<if numberOfEarSlime(true) gte 2>>
+	a pair of terrible parasitic creatures. Ones that are capable of forcing you to protect them, overwriting your needs with their desires." <<He>> steps in front of you. "I don't have the tools to extract them safely, not anymore. I haven't needed such things in many years."
+<<else>>
+	a terrible parasitic creature. One that's capable of forcing you to protect it, overwriting your needs with its desires." <<He>> steps in front of you. "I don't have the tools to extract it safely, not anymore. I haven't needed such things in many years."
+<</if>>
+<br><br>
+
+<<He>> turns <<his>> head and holds <<his>> earlobe forward. <span class="blue">There's a tiny tattoo shaped like an ornate X behind it.</span> The details are intricate, and some of the lines almost seem to be moving when you look too long.
+It's far more advanced than anything you've seen from the local tattoo parlour.
+<br><br>
+
+"It's a bit late for that to be a good solution for you, and I'm low on stock to make the ink anyways. The only permanent solution is quite dangerous, and involves laying upon the sunken altar in Lake Whiteflower when the moon rises red.
+Not only will you have to hold your breath for a very long time, <span class="red">but there's something in that lake that doesn't much appreciate trespassers</span>, and it's attracted to the presence of these very parasites."
+<br><br>
+
+<<He>> puts <<his>> hand to <<his>> chin. "I can help in the short term, at least. <span class="blue">I know a particular hypnosis technique that can silence <<if numberOfEarSlime(true) gte 2>>them<<else>>it<</if>>,</span> or at least let you automatically filter out <<if numberOfEarSlime(true) gte 2>>their<<else>>its<</if>> noises and chemical releases."
+<br><br>
+
+<<gwylanOptions>>
+
+:: Gwylan Talk Ear Slime Clothes
+<<effects>><<run statusCheck("Gwylan")>>
+<<switch $speech_attitude>>
+	<<case "meek">>
+		"I-I can't wear those clothes," you say. "The <<pluralise numberOfEarSlime(true) "slime">> in my head won't let me."
+	<<case "bratty">>
+		"I can't dress up for you," you say. "The <<pluralise numberOfEarSlime(true) "devil">> in my <<pluralise numberOfEarSlime(true) "ear">> won't permit it."
+	<<default>>
+		"I can't wear the clothes you asked me to," you say. "The <<pluralise numberOfEarSlime(true) "parasite">> in my head won't let me."
+<</switch>>
+<br><br>
+
+<<His>> brow furrows.
+<<if $gwylanSeen.includes("hypnosis_silence")>>
+	<<if numberOfEarSlime(true) gte 2>>
+		"The pests inside are back at it? In that case, let's make them take a nap. After you complete a different favour."
+	<<else>>
+		"The pest inside is back at it? In that case, let's make it take a nap. After you complete a different favour."
+	<</if>>
+<<elseif $gwylanSeen.includes("ear_slime")>>
+	"It's gotten that bad already? My offer still stands to silence <<if numberOfEarSlime(true) gte 2>>them<<else>>it<</if>>. I'll figure out something else you can do."
+<<else>>
+	<<set $gwylanSeen.pushUnique("ear_slime_intro")>><<set $gwylanSeen.pushUnique("ear_slime")>>
+	<<He>> rummages around in a shoebox, producing a metal object. <<He>> walks around you,
+	<<if $bodysize is 3>>
+		and stands on the tips of <<his>> toes to look
+	<<elseif $bodysize is 0>>
+		and bends over to look
+	<<else>>
+		and tilts your head to look
+	<</if>>
+	into your ear. You feel the cool touch of metal on the lobe.
+	<<if numberOfEarSlime(true) gte 2>>
+		<<He>> then walks around you, looking in your other ear, too.
+	<</if>>
+	<br><br>
+
+	<<He>> sighs. "You're host to
+	<<if numberOfEarSlime(true) gte 2>>
+		a pair of terrible parasitic creatures. Ones that are capable of forcing you to protect them, overwriting your needs with their desires." <<He>> steps in front of you. "I don't have the tools to extract them safely, not anymore. I haven't needed such things in many years."
+	<<else>>
+		a terrible parasitic creature. One that's capable of forcing you to protect it, overwriting your needs with its desires." <<He>> steps in front of you. "I don't have the tools to extract it safely, not anymore. I haven't needed such things in many years."
+	<</if>>
+	<br><br>
+
+	<<He>> turns <<his>> head and holds <<his>> earlobe forward. <span class="blue">There's a tiny tattoo shaped like an ornate X behind it.</span> The details are intricate, and some of the lines almost seem to be moving when you look too long.
+	It's far more advanced than anything you've seen from the local tattoo parlour.
+	<br><br>
+
+	"It's a bit late for that to be a good solution for you, and I'm low on stock to make the ink anyways. The only permanent solution is quite dangerous, and involves laying upon the sunken altar in Lake Whiteflower when the moon rises red.
+	Not only will you have to hold your breath for a very long time, <span class="red">but there's something in that lake that doesn't much appreciate trespassers</span>, and it's attracted to the presence of these very parasites."
+	<br><br>
+
+	<<He>> puts <<his>> hand to <<his>> chin. "I can help in the short term, at least. <span class="blue">I know a particular hypnosis technique that can silence <<if numberOfEarSlime(true) gte 2>>them<<else>>it<</if>>,</span> or at least let you automatically filter out <<if numberOfEarSlime(true) gte 2>>their<<else>>its<</if>> noises and chemical releases."
+<</if>>
+<br><br>
+
+<<He>> thinks for a moment.
+<<gwylanRequestEnd "skip">>
+<<run gwylanRequest()>>
+<<set $gwylan.request.hold to "silence">>
+<<gwylanRequestText>>
+<br><br>
+
+<<gwylanOptions>>
+
+:: Gwylan Hypnosis Widgets [widget]
+
+<<widget "gwylanHypnosis">>
+	<<set $_trait to _args[0]>>
+	<<set $_duration to _args[1]>>
+	<<set $_level to _args[2] || 5>>
+	/* Catch invalid arguments and escape */
+	<<if !["devotion", "peace", "silence", "slumber", "insight"].includes($_trait)>>
+		<<exit '<span class="red">ERROR: Invalid hypnosis type: <<= $_trait>> inflicted. Please report.</span>'>>
+	<</if>>
+	<<if typeof $_duration isnot "number">>
+		<<exit '<span class="red">ERROR: Invalid hypnosis duration: <<= $_duration>> inflicted. Please report.</span>'>>
+	<</if>>
+
+	/* Set up colours and text */
+	<<switch $_trait>>
+		<<case "devotion">>
+			<<switch $hypnosis_traits.devotion>>
+				<<case 1 0 undefined>><<set $_hypnotic to "Hypnotic">><<set $_color to "lblue">>
+				<<case 2>><<set $_hypnotic to "Bewitched">><<set $_color to "blue">>
+				<<case 3>><<set $_hypnotic to "Beguiled">><<set $_color to "purple">>
+				<<case 4>><<set $_hypnotic to "Mesmeric">><<set $_color to "pink">>
+				<<case 5>><<set $_hypnotic to "Sublime">><<set $_color to "red">>
+				<<case 6>><<set $_hypnotic to "Frenzied">><<set $_color to "basicHypnoCss()">>
+			<</switch>>
+			<<set $_traitText to $worn.neck.name is "familiar collar" and $worn.neck.cursed is 1 ? "Devotion" : "Curiosity">>
+		<<case "peace">><<set $_hypnotic to "Hypnotic">><<set $_color to "forest-green">><<set $_traitText to "Peace">>
+		<<case "silence">><<set $_hypnotic to "Hypnotic">><<set $_color to "purple">><<set $_traitText to "Silence">>
+		<<case "slumber">><<set $_hypnotic to "Hypnotic">><<set $_color to "blue">><<set $_traitText to "Slumber">>
+		<<case "insight">><<set $_hypnotic to "Hypnotic">><<set $_color to "grey">><<set $_traitText to $awareness gte 300 ? "Ignorance" : "Insight">>
+	<</switch>>
+
+	<<if !$hypnosis_traits[$_trait] and $_duration lte 0>>
+		/* Error, escape */
+		<<exit '<span class="red">ERROR: Invalid negative hypnosis duration: <<= $_duration>> inflicted on non-existent trait: <<= $_trait>>. Please report.</span>'>>
+
+	<<elseif !$hypnosis_traits[$_trait] and $_duration gt 0>>
+		/* Initial trait gain */
+		<<set $hypnosis_traits[$_trait] to 1>>
+		<<set $hypnosisTimers[$_trait] to {}>>
+		<<set $hypnosisTimers[$_trait].time to $_duration>>
+		<<if $_trait is "devotion">>
+			/* Initial Curiosity/Devotion gain */
+			<<set $hypnosisTimers[$_trait].max to gwylanHypnoMax("value")>>
+			<<set $hypnosisTimers[$_trait].time to Math.clamp($hypnosisTimers[$_trait].time, 0, gwylanHypnoMax("value"))>>
+			<<set $gwylanSeen.pushUnique("hypnosis_first")>>
+			<span @class="$_color">A question with no answer fills your mind, and visions of the forest linger. Gwylan looks a little softer around the edges.</span><br>
+			You've gained the <span @class="$_color"><<= $_hypnotic>> <<= $_traitText>></span> trait. <<arousal 200>><<awareness 2>><<garousal>><<gawareness>>
+		<<else>>
+			/* Other trait gain */
+			<<set $hypnosisTimers[$_trait].max to $_duration>>
+			You've gained the <span @class="$_color"><<= $_hypnotic>> <<= $_traitText>></span> trait.
+		<</if>>
+		<<hypnotised 1>>
+
+	<<elseif $hypnosis_traits[$_trait] and $_duration lte 0>>
+		/* Duration/trait down */
+
+		<<if $_trait is "devotion">>
+			<<set $hypnosisTimers.devotion.time to Math.clamp($hypnosisTimers.devotion.time + $_duration, 0, gwylanHypnoMax("value"))>>
+			<<if $hypnosisTimers.devotion.time lte gwylanHypnoMax("value", $hypnosis_traits.devotion - 1)>>
+				<<switch $hypnosis_traits.devotion>>
+					<<case 1>>/* Trait cleared */
+						<<run delete $hypnosis_traits.devotion>><<run delete $hypnosisTimers.devotion>>
+						<span class="erase-from-history">You feel as </span><span class="erase-from-history">though you once </span><span class="erase-from-history">had a burning </span><span class="erase-from-history">question in your </span><span class="erase-from-history">mind, but you </span><span class="erase-from-history">can't remember it.</span><br>
+						Your <span class="lblue">Hypnotic <<= $_traitText>></span> has <<print either("evaporated", "ebbed away", "receded")>>. <<awareness -2>><<lawareness>><br>
+					<<case 2>>/* Decay to level 1 */
+						<<set $hypnosis_traits.devotion-->>
+						<span class="lblue">The riddle stuck in your head becomes hollow, as if it never had an answer. The extra space someone once took up in your memory feels empty.</span><br>
+						Your <span class="blue">Bewitched <<= $_traitText>></span> has shallowed to <span class="lblue">Hypnotic <<= $_traitText>></span>. <<awareness -4>><<lawareness>><br>
+					<<case 3>>/* Decay to level 2 */
+						<<set $hypnosis_traits.devotion-->>
+						<span class="blue">The mystery at the back of your mind begins to close and simplify. The visions of Gwylan's smiling face become blurry and indistinct.</span><br>
+						Your <span class="purple">Beguiled <<= $_traitText>></span> has shallowed to <span class="blue">Bewitched <<= $_traitText>></span>. <<awareness -6>><<lawareness>><br>
+					<<case 4>>/* Decay to level 3 */
+						<<set $hypnosis_traits.devotion-->>
+						<span class="purple">The paradox looping in your mind breaks free, reaching a conclusion. The lurid visions of Gwylan fade to grey.</span><br>
+						Your <span class="pink">Mesmeric <<= $_traitText>></span> has shallowed to <span class="purple">Beguiled <<= $_traitText>></span>. <<awareness -8>><<llawareness>><br>
+					<<case 5>>/* Decay to level 4 */
+						<<set $hypnosis_traits.devotion-->>
+						<span class="pink">The answer you once held vanishes, and with it, the repeating tide of new questions halts. You've forgotten something.</span><br>
+						Your <span class="red">Sublime <<= $_traitText>></span> has shallowed to <span class="pink">Mesmeric <<= $_traitText>></span>. <<awareness -12>><<llawareness>><br>
+					<<case 6>>/* Decay to level 5 */
+						<<set $hypnosis_traits.devotion-->>
+						<span class="red">The maddening spiral finally releases you from its whirlpool grip.</span><br>
+						Your <span @class="basicHypnoCss()">Frenzied <<= $_traitText>></span> has shallowed to <span class="red">Sublime <<= $_traitText>></span>. <<awareness -15>><<lllawareness>><br>
+				<</switch>>
+			<<elseif $_duration lte -2>>
+				<span class="witchbloom">Your <span @class="$_color"><<= $_traitText>></span> shallows.</span>
+			<</if>>
+			<<if $hypnosisTimers.devotion>>
+				<<set $hypnosisTimers.devotion.max to gwylanHypnoMax("value")>>
+			<</if>>
+		<<else>>
+			<<if $hypnosisTimers[$_trait].time + $_duration lte 0>>
+				<<run delete $hypnosis_traits[$_trait]>><<run delete $hypnosisTimers[$_trait]>>
+				<<switch $_trait>>
+					<<case "peace">>
+						<span class="purple">A familiar uncertainty fills your being. Your Hypnotic Peace has faded.</span><br>
+					<<case "silence">>
+						<<if numberOfEarSlime()>>
+							<span class='purple'>Familiar whispers fill your ears. Your Hypnotic Silence has faded.</span><br>
+						<<else>>
+							<span class='purple'>Your Hypnotic Silence has faded.</span><br>
+						<</if>>
+					<<default>>
+						<span class="purple">Your Hypnotic <<= $_traitText>> has faded.</span><br>
+				<</switch>>
+			<</if>>
+		<</if>>
+
+	<<else>>
+		/* Trait already exists */
+
+		<<if $_trait is "devotion">>
+			/* Hypnotic Curiosity/Devotion trait levels and logic */
+			<<if $hypnosis_traits.devotion gt $_level>>
+				/* Level of action is insufficient to increase curiosity/devotion */
+				<span class="witchbloom">A familiar embrace enwreathes your heart, but your <span @class="$_color"><<= $_traitText>></span> goes no deeper.</span>
+			<<else>>
+				<<if $hypnosisTimers.devotion.time + $_duration gt gwylanHypnoMax("value") and $hypnosis_traits.devotion gte gwylanHypnoMax("trait")>>
+					/* Max current trait level, can't increase further */
+					<<if $daily.devotionWall>>
+						<<if $hypnosis_traits.devotion gte 5>>
+							<<set _devotionTrauma to true>>
+							<span class="witchbloom">You slip deeper.</span> <<arousal 1000>><<trauma 12>><<ggarousal>><<ggtrauma>>
+						<<else>>
+							<span class="forest-green">Your mind rejects further <<= $_traitText>>, being pulled back to the shore of sense at the last moment.</span>
+						<</if>>
+					<<elseif $hypnosis_traits.devotion gte 5>>
+						<<set _devotionTrauma to true>>
+						<span class="witchbloom">Your mind delves ever deeper down a path of infinite questions.</span> <<arousal 500>><<stress -3>><<trauma 12>><<garousal>><<lstress>><<ggtrauma>>
+					<<else>>
+						<<set _devotionTrauma to true>>
+						Your mind feels like it's on the edge of slipping into something deeper, <span class="forest-green">before being pulled back to the shore of sense at the last moment.</span>
+						Your <span @class="$_color"><<= $_hypnotic>> <<= $_traitText>></span> can't yet sink further. <<arousal 500>><<stress -3>><<trauma 3>><<garousal>><<lstress>><<gtrauma>>
+					<</if>>
+					<<set $daily.devotionWall to true>>
+				<<elseif $hypnosisTimers.devotion.time + $_duration gt gwylanHypnoMax("value")>>
+					/* Trait level increases */
+					<<set $_score to Math.clamp($hypnosisTimers.devotion.time + $_duration, 0, gwylanHypnoMax("value", gwylanHypnoMax()))>>
+					<<switch gwylanHypnoMax("level", $_score)>>
+						<<case 0 1>>
+							/* Should be impossible */
+						<<case 2>>
+							<span class="blue">A riddle with no retort fills your mind, and visions of the forest shop linger. A strange feeling of attachment to Gwylan follows.</span><br>
+							Your <span @class="$_color"><<= $_hypnotic>> <<= $_traitText>></span> has deepened. You are now <span class="blue">Bewitched</span>. <<arousal 500>><<awareness 4>><<garousal>><<gawareness>>
+						<<case 3>>
+							<span class="purple">A mystery with no closure fills your mind, and visions of Gwylan's smiling face linger. <<nnpc_He "Gwylan">> looks so safe and comforting.</span><br>
+							Your <span @class="$_color"><<= $_hypnotic>> <<= $_traitText>></span> has deepened. You are now <span class="purple">Beguiled</span>. <<arousal 1000>><<awareness 6>><<ggarousal>><<gawareness>>
+						<<case 4>>
+							<span class="pink">A paradox with no resolution fills your mind, and visions of Gwylan's naked body linger. <<nnpc_He "Gwylan">> looks so warm and welcoming.</span><br>
+							Your <span @class="$_color"><<= $_hypnotic>> <<= $_traitText>></span> has deepened, becoming <span class="pink">Mesmeric</span>. <<arousal 1000>><<awareness 8>><<ggarousal>><<ggawareness>>
+						<<case 5>>
+							<<if !$gwylanSeen.includes("hypnosis_sublime")>>
+								<<set $gwylanSeen.pushUnique("hypnosis_sublime")>>
+								<span class="red">An answer finally fills your mind. <<nnpc_Hes "Gwylan">> been in front of you all along. You expected to find the bottom, but you remain adrift in an ocean.
+								<<nnpc_He "Gwylan">> only raises more questions, spiralling down into infinity. Visions of Gwylan snuff out any other thoughts you have. <<nnpc_He "Gwylan">> is everything.</span><br>
+								Your <span @class="$_color"><<= $_hypnotic>> <<= $_traitText>></span> has blossomed, becoming <span class="red">Sublime</span>. <<arousal 1000>><<awareness 12>><<ggarousal>><<ggawareness>>
+							<<else>>
+								<span class="red">An answer finally fills your mind. <<nnpc_Hes "Gwylan">> been in front of you all along. <<nnpc_He "Gwylan">> is everything.</span><br>
+								Your <span @class="$_color"><<= $_hypnotic>> <<= $_traitText>></span> has deepened beyond abyssal fathoms, becoming <span class="red">Sublime</span>. <<arousal 1000>><<awareness 12>><<ggarousal>><<ggawareness>>
+							<</if>>
+						<<case 6>>
+							<span @class="basicHypnoCss()">You plunge below the bottom, into something that was never meant to be. You reach out and grip nothing. Nothing grips back, and nothing will ever be the same.</span><br>
+							Your <span @class="$_color"><<= $_hypnotic>> <<= $_traitText>></span> has become <span class="basicHypnoCss()">Frenzied</span>. <<arousal 5000>><<awareness 20>><<gggarousal>><<gggawareness>>
+						<<default>>
+					<</switch>>
+					<<set $hypnosis_traits.devotion to gwylanHypnoMax("level", $_score)>><<hypnotised 1>>
+				<<else>>
+					/* Trait level does not increase but value does */
+					<span class="blue">Your <span @class="$_color"><<= $_traitText>></span> deepens.</span>
+				<</if>>
+				<<set $hypnosisTimers[$_trait].time to Math.clamp($hypnosisTimers[$_trait].time + $_duration, 0, gwylanHypnoMax("value"))>>
+				<<set $hypnosisTimers[$_trait].max to gwylanHypnoMax("value")>>
+			<</if>>
+
+		<<else>>
+			<<set $hypnosisTimers[$_trait].time to Math.clamp($hypnosisTimers[$_trait].time + $_duration, 0, 30)>>
+			/* Refreshing/adding duration of existing unlevelled traits */
+			<<if $hypnosisTimers[$_trait].max lt $_duration>>
+				/*If existing max is less than new base duration, equalise before overflow check */
+				<<set $hypnosisTimers[$_trait].max to $_duration>>
+			<</if>>
+			<<if $hypnosisTimers[$_trait].time gte $hypnosisTimers[$_trait].max>>
+				/* Allow some overflow, up to 1/2 of overflow value added on to time and max */
+				<<set $_overflow to $hypnosisTimers[$_trait].time - $hypnosisTimers[$_trait].max>>
+				<<set $_adjustment to Math.ceil($_overflow / 2)>>
+				<<set $hypnosisTimers[$_trait].time to $hypnosisTimers[$_trait].max += $_adjustment>>
+				<<set $_overflow to true>>
+			<</if>>
+			<<set $hypnosisTimers[$_trait].max to Math.max($hypnosisTimers[$_trait].max, $hypnosisTimers[$_trait].time)>>
+			Your <span @class="$_color">Hypnotic <<= $_traitText>></span> has been nurtured.
+			<<if $_overflow>>
+				<span class="blue">Your trance felt deeper than last time.</span>
+			<</if>>
+			<<hypnotised 1>>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "gwylanHypnoNote">>
+	<<set $_note to "">>
+	<<if _args[0] is "kiss" and !$gwylanSeen?.includes("kiss_hypno")>>
+		/* Do nothing, no warning the first time hypnosis from kiss happens */
+	<<elseif $gwylanSeen?.includes("hypnosis_first")>>
+		<<set $_devotion to $worn.neck.name is "familiar collar" and $worn.neck.cursed is 1 ? "Devotion" : "Curiosity">>
+		<<set $_level to _args[0] || 6>>
+		/* Change level later if needed, levelled actions not currently used */
+		<<if $_level is "kiss">><<set $_level to 6>><</if>>
+		<<if $_level lte $hypnosis_traits.devotion>>
+			<<set $_color to "black">>
+			| <span @class='$_color'><<print $_devotion>></span>
+		<<else>>
+			<<switch $hypnosis_traits.devotion>>
+				<<case 1>><<set $_color to "blue">>
+				<<case 2>><<set $_color to "purple">>
+				<<case 3>><<set $_color to "pink">>
+				<<case 4>><<set $_color to "red">>
+				<<case 5>><<set $_color to "witch">>
+				<<default>><<set $_color to "lblue">>
+			<</switch>>
+			| <span @class='$_color'>+ <<print $_devotion>></span>
+		<</if>>
+	<</if>>
+	<<if _args[0] is "kiss">>
+		<<kissvirginitywarning>>
+	<</if>>
+<</widget>>
+
+<<widget "gwylanWillpowerDifficulty">>
+	<<set $_level to _args[0] || 1>>
+	<<if !$hypnosis_traits.devotion or $hypnosis_traits.devotion lt $_level>>
+		<<set $willpowerSuccess to 1>>
+	<<elseif $hypnosis_traits.devotion gte 5>>
+		/* resisting Gwylan is now impossible */
+		<<if !$settings.blindStatsEnabled>>
+			<<if $settings.skillCheckStyle is "skillname">>
+				<<hypnosisText "<span class='white'>|</span> <span class='orange'>Willpower</span>">>
+			<<else>>
+				| <span class='orange'>Willpower</span>:
+				<<switch random(1, 18)>>
+					<<case 1>><<hypnosisText "Snuffed.">>
+					<<case 2>><<hypnosisText "Clay between my fingers.">>
+					<<case 3>><<hypnosisText "Shush, <<pcpetname 'Gwylan'>>.">>
+					<<case 4>><<hypnosisText "This is what you wanted, <<pcpetname 'Gwylan'>>.">>
+					<<case 5>><<hypnosisText "Given away willingly.">>
+					<<case 6>><<hypnosisText "Mine to keep.">>
+					<<default>><<hypnosisText "Impossible.">>
+				<</switch>>
+			<</if>>
+		<</if>>
+		<<set $willpowerSuccess to 0>>
+	<<elseif $hypnosis_traits.devotion gte 1>>
+		<<willpowerdifficulty `120 * $hypnosis_traits.devotion` `350 * $hypnosis_traits.devotion`>>
+	<<else>>
+		<<set $willpowerSuccess to 1>>
+	<</if>>
+<</widget>>
+
+<<widget "gwylanKiss">>
+	<<set $_devotionUp to typeof _args[0] is "number" ? _args[0] : 5>>
+	<<if $_devotionUp isnot 0>>
+		<<if $daily.gwylan.kiss>>
+			<<hypnosisText "Nothing else in the world matters to you right now.">>
+		<<else>>
+			<<hypnosisText "You feel the world fade away for a moment, your doubts and troubles vanishing as everything shrinks down to just the two of you.">>
+		<</if>>
+		<<set $gwylanSeen.pushUnique("kiss_hypno")>><<set $daily.gwylan.kiss to true>>
+		<<gwylanHypnosis "devotion" 5>>
+		<<if !_devotionTrauma>>
+			<<trauma -4>><<ltrauma>>
+		<</if>>
+	<</if>>
+	<<set $_lustUp to 0 + $gwylanSeen.count("partners") + $gwylanSeen.count("romance")>>
+	<<if $_lustUp>>
+		<<npcincr Gwylan lust $_lustUp>><<glust>>
+	<</if>>
+	<<if $player.virginity.kiss is true>>
+		<<if $_devotionUp or $_lustup>><br><</if>>
+		<<takeKissVirginity "Gwylan" "romantic">>
+	<</if>>
+<</widget>>
+
+<<widget "gwylanCommand">><<silently>>
+	<<set $_gwylanCommand to _args[0]>>
+	<<set $_hypnosis_level to _args[1] or 1>>
+	<<if $hypnosis_traits.devotion gte $_hypnosis_level>>
+		<<set $_gwylanCommand to '<span class="witch">' + $_gwylanCommand + '</span>'>>
+	<</if>>
+<</silently>><<print $_gwylanCommand>><</widget>>
+
+<<widget "gwylanHypnoCanvas">>
+	<<canvas-model-override "left_eye" "green">>
+	<<canvas-model-override "right_eye" "green">>
+	<<canvas-model-override "trauma" true>>
+	<<canvas-model-override "eyes_half" true>>
+	<<canvas-model-override "mouth" "cry">>
+	<<if !$sexRitual?.bondage>>
+		<<canvas-model-override "arm_left" "idle">>
+		<<canvas-model-override "arm_right" "idle">>
+	<</if>>
+<</widget>>
+
+<<widget "gwylanHypnoEffect">><<silently>>
+	<<if $gwylanSeen.includes("hypnosis_intro")>>
+		<<set $_plus to _args[0]>>
+		<<switch $_plus>>
+			<<case 3>><<set $_text_output to " | <span class='teal'>+ + + Hypnosis Potency</span>">>
+			<<case 2>><<set $_text_output to " | <span class='teal'>+ + Hypnosis Potency</span>">>
+			<<case 1>><<set $_text_output to " | <span class='teal'>+ Hypnosis Potency</span>">>
+			<<case -1>><<set $_text_output to " | <span class='purple'>- Hypnosis Potency</span>">>
+			<<case -2>><<set $_text_output to " | <span class='purple'>- - Hypnosis Potency</span>">>
+			<<case -3>><<set $_text_output to " | <span class='purple'>- - - Hypnosis Potency</span>">>
+			<<default>><<set $_text_output to " | <span class='teal'>+ Hypnosis Potency</span>">>
+		<</switch>>
+	<</if>>
+<</silently>><<if $_text_output>><<print $_text_output>><</if>><</widget>>
+
+<<widget "gwylanSong">>
+	<<if !$gwylan.lureSong>><<exit>><</if>>
+	<<run statusCheck("Gwylan")>>
+	<<if _args[0] isnot "end">>
+		<<switch $gwylan.lureSong>>
+			<<case 1>>
+				<<if $islander_language gte 100>>
+					<span class="narration">
+					<<if $rng gte 51 and ($wolfgirl gte 6 or $cat gte 6 or $cow gte 6 or $harpy gte 6 or $fox gte 6)>>
+						<<if $wolfgirl gte 6>>
+							Wild heart that beats <<if $gwylanSeen?.includes("partners")>>for<<else>>with<</if>> me<br>
+							There lies a way to be<br>
+							One with the waiting sea.
+						<<elseif $cat gte 6>>
+							Your curiosity<br>
+							Will buoy us 'til we<br>
+							May join the waiting sea.
+						<<elseif $cow gte 6>>
+							Your forced docility
+							Won't halt our destiny;
+							We'll join the waiting sea.
+						<<elseif $harpy gte 6>>
+							Bird of song, fly with me.<br>
+							I'll bring you down to be<br>
+							One with the waiting sea.
+						<<else>>
+							My dear kin, soon you'll see<br>
+							<<if $auriga_scar>>
+								Our black hearts stand ready<br>
+							<<else>>
+								Our hearts, a remedy<br>
+							<</if>>
+							To join the waiting sea.
+						<</if>>
+					<<else>>
+						<<if $gwylanSeen?.includes("romance") and $rng lte 25>>
+							Love, you could always see
+						<<elseif $demon gte 6>>
+							Passion guides you to see
+						<<elseif $angel gte 6>>
+							Virtue guides you to see
+						<<elseif $fallenangel gte 4>>
+							Forgiven hearts will see
+						<<elseif $fallenangel gte 2 or $auriga_scar>>
+							Your black heart yearns to see
+						<<else>>
+							It was in you to see
+						<</if>><br>
+						There lies a way to be<br>
+						One with the waiting sea.
+					<</if>>
+					</span>
+				<<else>>
+					The words are in a language you don't recognise.
+				<</if>>
+			<<case 2>>
+				<<if $islander_language gte 100>>
+					<span class="narration">
+					<<if _gwylanStatus.includes("badEndReady") or $gwylanSeen?.includes("romance") and $rng gte 51>>
+						Feel my hands on your skin,<br>
+						whispered name on the wind,<br>
+						let our touch settle in.
+					<<else>>
+						Feel the salt on your skin,<br>
+						whispered name on the wind,<br>
+						let the light settle in.
+					<</if>>
+					</span>
+				<<else>>
+					<span class="blue">The song sounds like a lullaby.</span>
+				<</if>>
+			<<case 3>>
+				<<if $islander_language gte 100>>
+					<span class="narration">
+					<<if _gwylanStatus.includes("badEndReady") or $gwylanSeen?.includes("romance") and $rng gte 51>>
+						I'll soothe your tired bones,<br>
+						A lover's word alone,<br>
+						Like water shaping stone.
+					<<else>>
+						Embedded deep in bone,<br>
+						Words maiden, mother, crone,<br>
+						Like water carving stone.
+					<</if>>
+					</span>
+				<<else>>
+					<span class="purple">Your eyelids grow heavy.</span> <<tiredness 2>><<gtiredness>>
+				<</if>>
+			<<case 4>>
+				<<if $islander_language gte 100>>
+					<span class="narration">
+					<<if _gwylanStatus.includes("badEndReady") or $gwylanSeen?.includes("romance") and $rng gte 51 or $auriga_scar>>
+						Walk here with me, we'll find<br>
+						all that's been lost in time,<br>
+						this broken seal we'll bind.
+					<<else>>
+						Tread your path, sunwise to<br>
+						Seek what's lost, please don't rue,<br>
+						For still, it sings for you.
+					<</if>>
+					</span>
+				<<else>>
+					<span class="purple">Your eyelids grow heavy.</span> <<tiredness 2>><<gtiredness>>
+				<</if>>
+			<<case 5>>
+				<<if $islander_language gte 100>>
+					<span class="narration">
+					<<if _gwylanStatus.includes("badEndReady") or $gwylanSeen?.includes("romance") and $rng gte 51 or $auriga_scar>>
+						The river shifts its tide<br>
+						for our names, cast aside,<br>
+						lay unspoken, brookside.
+					<<else>>
+						Take root child, raise your shield.<br>
+						Bear your name, unrevealed.<br>
+						Rivers come. They will yield.
+					<</if>>
+					</span>
+				<<else>>
+					<span class="blue">The words of the song fade away, only the melody continuing. It sounds so familiar.</span>
+				<</if>>
+			<<default>>
+				<span class="blue">The song's melody dances between the trees.</span>
+		<</switch>>
+		<<set $gwylan.lureSong++>>
+	<<else>>
+		<<if $islander_language gte 100>>
+			<span class="narration">
+			<<if _gwylanStatus.includes("badEndReady")>>
+				Hush now, return to sleep.<br>
+				Fall further, slumber deep.<br>
+				<span class="red">At last, you're mine to keep.</span>
+			<<else>>
+				Awaken, rise from sleep.<br>
+				The <<if $auriga_scar>>Dark Elk<<else>>darkness<</if>> shall not reap<br>
+				That which the earth will keep.
+			<</if>>
+			</span>
+		<<else>>
+			<span class="blue">The singing stops.</span>
+		<</if>>
+	<</if>>
+<</widget>>
+

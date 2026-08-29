@@ -1,0 +1,302 @@
+.kitchen-recipe-box {
+	flex-wrap: wrap;
+	position: relative;
+}
+
+.recipe-text {
+	font-size: 1.25em;
+}
+
+.food_ui {
+	position: relative;
+	border: 1px solid var(--500);
+	background-color: var(--850);
+	height: 75vh;
+	box-sizing: border-box;
+}
+
+.food_ui > #body {
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	overflow: hidden;
+}
+
+.food_ui #mainSection {
+	height: 100%;
+	width: 65%;
+	border-right: 1px solid var(--500);
+}
+
+.food_ui #header {
+	display: flex;
+}
+
+.food_ui #search {
+	display: flex;
+	align-items: center;
+	gap: 0.4em;
+	background-color: var(--800) !important;
+	color: var(--gold);
+	font-weight: bold;
+	padding: 5px 5px 5px 8px;
+	border-bottom: 1px solid var(--500);
+	height: 8%;
+}
+
+.food_ui #basket,
+.food_ui #recipe {
+	display: flex;
+	align-items: center;
+	background-color: var(--800) !important;
+	color: var(--gold);
+	font-weight: bold;
+	padding: 5px 8px;
+	border-bottom: 1px solid var(--500);
+	height: 8%;
+}
+
+.food_ui #basket {
+	justify-content: space-between;
+}
+
+.food_ui input[type="text"] {
+	width: 92%;
+	min-width: 1em;
+	border: 1px solid var(--500);
+	background-color: var(--750);
+}
+
+.food_ui input[type="text"]:hover {
+	background-color: var(--800);
+	border-color: var(--150);
+	color: var(--000);
+}
+
+.food_ui #itemList,
+#mainSection #itemList {
+	height: 95%;
+	height: 91%;
+	overflow-y: scroll;
+	padding: 5px 8px 10px 5px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	box-sizing: border-box;
+}
+
+.food_ui #altSection .recipe {
+	padding-left: 8px;
+	display: flex;
+	gap: 5px;
+}
+
+.food_ui #mainSection .item {
+	display: flex;
+	flex-direction: row;
+	padding: 2px;
+	margin-bottom: 5px;
+	border: 0;
+	box-sizing: border-box;
+	width: 100%;
+	justify-content: center;
+}
+
+.food_ui #mainSection .item .details {
+	display: flex;
+	flex-flow: column wrap;
+	justify-content: center;
+	align-content: center;
+	width: calc(100% - 60px);
+	padding-left: 5px;
+	box-sizing: border-box;
+}
+
+#altSection > div {
+	padding: 5px 8px;
+}
+
+#itemList > div {
+	border: 1px solid var(--700);
+	width: 100%;
+	box-sizing: border-box;
+}
+
+#mainSection .item > div {
+	max-width: 95%;
+}
+
+.food_ui #mainSection .item .recipe {
+	display: block;
+	width: 60px;
+}
+
+.food_ui #mainSection .item .recipe img {
+	height: 40px;
+	width: auto;
+	border: 1px solid var(--150);
+	vertical-align: middle;
+}
+
+.food_ui #altSection {
+	height: 100%;
+	width: 35%;
+}
+
+.food_ui #basketItems {
+	height: 91%;
+	overflow-y: scroll;
+	box-sizing: border-box;
+}
+
+.food_ui hr {
+	border-top: 1px solid var(--700);
+	margin: 8px 0;
+}
+
+#requiredForRecipe hr {
+	margin-top: 14px;
+}
+
+#altSection .info {
+	padding: 5px;
+}
+
+.food_ui .mobileOnly {
+	display: none;
+}
+
+#basketItems .foldoutBody,
+#itemList .foldoutBody {
+	padding: 0;
+}
+
+#itemList .foldoutHeader,
+#itemList .info {
+	padding-left: 5px;
+}
+
+.itemSummary {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+	padding: 0;
+	gap: 5px;
+	box-sizing: border-box;
+}
+
+.basketItem {
+	padding: 0 8px;
+	border: 1px solid var(--700);
+	box-sizing: border-box;
+	width: 100%;
+}
+
+.recipeTitle {
+	margin: 0.25rem;
+	display: inline-block;
+}
+
+.price {
+	display: flex;
+	justify-content: space-between;
+}
+
+@media screen and (max-width: 600px) {
+	.food_ui #mobileHeader {
+		display: flex;
+		align-items: center;
+		background-color: var(--800);
+		padding-left: 8px;
+		height: 54px;
+		width: 100%;
+		border-bottom: 1px solid var(--500);
+		overflow: hidden;
+		box-sizing: border-box;
+	}
+
+	.food_ui #mobileHeader img {
+		border: 1px solid var(--150);
+	}
+
+	.food_ui #mobileHeader #controls {
+		width: 90%;
+		width: calc(100% - 50px);
+		display: flex;
+		gap: 0.5em;
+	}
+
+	.food_ui #body {
+		height: 90%;
+		height: calc(100% - 55px);
+		display: block;
+		position: relative;
+		overflow: hidden;
+	}
+
+	/* Override since this UI doesn't have a header */
+	#kitchenDisplay #body {
+		height: 100%;
+	}
+
+	.food_ui #mainSection {
+		height: 100%;
+		width: 100%;
+	}
+
+	.food_ui #mainSection .item .details {
+		width: 100%;
+	}
+
+	.food_ui #altSection {
+		display: block;
+		position: absolute;
+		top: 10px;
+		min-height: 200px;
+		max-height: 90%;
+		width: 90%;
+		left: 5%;
+		background-color: var(--850);
+		border: 1px solid var(--150);
+		border-radius: 4px;
+		z-index: 1;
+	}
+
+	/* Found that some recipes wernt readable at certain heights */
+	.food_ui #altSection .tooltip span {
+		position: fixed;
+		top: 0;
+	}
+
+	.food_ui #mobileCloser {
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		backdrop-filter: blur(2px);
+	}
+
+	.food_ui .mobileOnly {
+		display: flex;
+	}
+
+	.food_ui .mobileHidden {
+		display: none !important;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.food_ui #mainSection .item {
+		flex-direction: column;
+	}
+}
+
+@media screen and (min-width: 601px) {
+	/* Found that some recipes wernt readable at certain widths */
+	.food_ui #altSection .tooltip span {
+		position: absolute;
+		top: 0;
+		left: 10%;
+	}
+}

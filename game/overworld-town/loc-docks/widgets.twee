@@ -1,0 +1,1713 @@
+:: Widgets Docks [widget]
+
+<<widget "dockclotheson">>
+	<<storeon "docks" "check">>
+	<<if _store_check is 1>>
+		You find your clothes where you left them.
+		<<storeon "docks">>
+		<br><br>
+	<</if>>
+<</widget>>
+
+<<widget "dockunbindoffer">>
+	<<endevent>>
+	A <<generate1>><<person1>><<person>> approaches you, smiling. "Rope accident?" <<he>> asks. "Come here, I'll sort it out."
+	<br><br>
+
+	<<link [[Accept|Docks Binding]]>><</link>>
+	<br>
+	<<link [[Refuse|Docks Binding Refuse]]>><</link>>
+	<br>
+<</widget>>
+
+<<widget "dockoptions">>
+	<<endevent>>
+
+	<<if $docks.returnedToWork>>
+		You decide to return to work.<<unset $docks.returnedToWork>>
+		<br><br>
+	<</if>>
+
+	<<dockstatustext>>
+
+	/* Slacking suspicion display, values set in Docks Work */
+	<<if $docks.suspicion gte 4>>
+		<span class="red">A supervisor follows you around.</span>
+	<<elseif $docks.suspicion is 3>>
+		<span class="purple">A supervisor watches you closely.</span>
+	<<elseif $docks.suspicion is 2>>
+		<span class="blue">A supervisor keeps an eye on you.</span>
+	<<elseif $docks.suspicion is 1>>
+		<span class="lblue">A supervisor gives you glances.</span>
+	<</if>>
+	<br><br>
+
+	/* Tracked to display whether slacking will lower coolness.
+	The number of slack actions allowed varies based on current $docks.status */
+	<<set _daily_slacked to ($docks.dailyHours.shift.slacked + $docks.dailyHours.overtime.slacked)>>
+
+	<<if $docks.dayType is "busy">>
+		<<set _fatigue_value to 9>>
+	<<elseif $docks.dayType is "slow">>
+		<<set _fatigue_value to 3>>
+	<<else>>
+		<<set _fatigue_value to 6>>
+	<</if>>
+
+	/* If the player shows up late, pass enough time until they're back on schedule */
+	/* Also locks schedule in again after events that pass variable time, such as sex */
+	<<set _time_to_pass to (60 - Time.minute)>>
+	<<if _time_to_pass is 60>>
+		<<set _time_to_display to "1:00">>
+	<<elseif _time_to_pass lt 10>>
+		<<set _time_to_display to "0:0" + _time_to_pass>>
+	<<else>>
+		<<set _time_to_display to "0:" + _time_to_pass>>
+	<</if>>
+
+	<<if Time.hour is 11>> /* 11-12 */
+		<<icon "food/eat.png">><<link [[Lunch (1:00)|Docks Lunch]]>><<stress -6>><</link>><<lstress>>
+	<<elseif Time.hour gte 16>> /* 16-19 (3 hours), no overtime on slow days, checked in dockleave */
+		<<if hasSexStat("exhibitionism", 5) and !$daily.docksExhibitionism>>
+			<<icon "actions/dock-work.png">>
+			<<link [["Strip and work (" + _time_to_display + ")"|Docks Work]]>>
+				<<undressclothes "docks">><<dockstatus 1>>
+				<<set $phase to 2>><<tiredness _fatigue_value>><<pass _time_to_pass>>
+				<<set $docks.dailyHours.overtime.total += 1>><<set $docks.dailyHours.overtime.workedHard += 1>>
+				<<if $docks.dayType is "lewd">><<arousal 1200>><</if>>
+			<</link>>
+			<<exhibitionist5>>
+			<<if $docks.dayType is "busy">><<ggtiredness>><<else>><<gtiredness>><</if>>
+			<<if $docks.dayType is "lewd">><<gggarousal>><</if>>
+			<<gcool>>
+			<br>
+		<</if>>
+		<<icon "actions/dock-work.png">>
+		<<link [["Work overtime (" + _time_to_display + ")"|Docks Work]]>>
+			<<set $phase to 0>><<tiredness _fatigue_value>><<pass _time_to_pass>>
+			<<set $docks.dailyHours.overtime.total += 1>><<set $docks.dailyHours.overtime.workedHard += 1>>
+			<<if $docks.dayType is "lewd">><<arousal 900>><</if>>
+		<</link>>
+		<<if $docks.dayType is "busy">><<ggtiredness>><<else>><<gtiredness>><</if>>
+		<<if $docks.dayType is "lewd">><<ggarousal>><</if>>
+		<br>
+		<<relaxicon>>
+		<<link [["Slack (" + _time_to_display + ")"|Docks Work]]>>
+			<<set $phase to 1>><<pass _time_to_pass>>
+			<<set $docks.dailyHours.overtime.total += 1>><<set $docks.dailyHours.overtime.slacked += 1>>
+			<<if $docks.dayType is "lewd">><<arousal 600>><</if>>
+		<</link>>
+		/* Displays whether dock status is lowered when slacking as information for the player */
+		/* This varies based on current status in 20 status intervals. At high status, the player can get away with more slacking, but supervisors will still disapprove */
+		/* $docks.status is decremented in Docks Work to reduce code duplication */
+		<<if ($docks.dayType isnot "slow") and ($docks.status lt 20 or ($docks.status lt 40 and _daily_slacked gte 1) or ($docks.status lt 60 and _daily_slacked gte 2) or ($docks.status lt 80 and _daily_slacked gte 3) or _daily_slacked gte 4)>>
+			<<if $docks.dayType is "busy">><<llcool>><<else>><<lcool>><</if>>
+		<</if>>
+		<<if $docks.dayType is "lewd">><<garousal>><</if>>
+	<<else>> /* 7-11 (4 hours), then 12-16 (4 hours), so 8 total */
+		<<if hasSexStat("exhibitionism", 5) and !$daily.docksExhibitionism>>
+			<<skinicon "strip">>
+			<<link [["Strip and work (" + _time_to_display + ")"|Docks Work]]>>
+				<<undressclothes "docks">><<dockstatus 1>>
+				<<set $phase to 2>><<tiredness _fatigue_value>><<pass _time_to_pass>>
+				<<set $docks.dailyHours.shift.total += 1>><<set $docks.dailyHours.shift.workedHard += 1>>
+				<<if $docks.dayType is "lewd">><<arousal 1200>><</if>>
+			<</link>>
+			<<exhibitionist5>>
+			<<if $docks.dayType is "busy">><<ggtiredness>><<else>><<gtiredness>><</if>>
+			<<if $docks.dayType is "lewd">><<gggarousal>><</if>>
+			<<gcool>>
+			<br>
+		<</if>>
+		<<icon "actions/dock-work.png">>
+		<<link [["Work (" + _time_to_display + ")"|Docks Work]]>>
+			<<set $phase to 0>><<tiredness _fatigue_value>><<pass _time_to_pass>>
+			<<set $docks.dailyHours.shift.total += 1>><<set $docks.dailyHours.shift.workedHard += 1>>
+			<<if $docks.dayType is "lewd">><<arousal 900>><</if>>
+		<</link>>
+		<<if $docks.dayType is "busy">><<ggtiredness>><<else>><<gtiredness>><</if>>
+		<<if $docks.dayType is "lewd">><<ggarousal>><</if>>
+		<br>
+		<<relaxicon>>
+		<<link [["Slack (" + _time_to_display + ")"|Docks Work]]>>
+			<<set $phase to 1>><<pass _time_to_pass>>
+			<<set $docks.dailyHours.shift.total += 1>><<set $docks.dailyHours.shift.slacked += 1>>
+			<<if $docks.dayType is "lewd">><<arousal 600>><</if>>
+		<</link>>
+		/* See note on the same if-conditional above */
+		<<if ($docks.dayType isnot "slow") and ($docks.status lt 20 or ($docks.status lt 40 and _daily_slacked gte 1) or ($docks.status lt 60 and _daily_slacked gte 2) or ($docks.status lt 80 and _daily_slacked gte 3) or _daily_slacked gte 4)>>
+			<<if $docks.dayType is "busy">><<llcool>><<else>><<lcool>><</if>>
+		<</if>>
+		<<if $docks.dayType is "lewd">><<garousal>><</if>>
+	<</if>>
+	<br><br>
+
+	<<if Time.hour lte 15>>
+		<<docksicon>><<link [[Leave early|Docks Leave]]>><<storeon "docks">><</link>>
+	<<else>>
+		<<docksicon>><<link [[Leave|Docks Leave]]>><<storeon "docks">><</link>>
+	<</if>>
+	<br>
+<</widget>>
+
+/* Used to go to the right widget based on the current time */
+<<widget "docklunchprompt">>
+	<<if Time.hour is 11>>
+		<<if $phase is "prompt">> /* Currently unused, but lets displaying a Next prompt */
+			<<foodicon "eat">><<link [[Next|Docks Lunch]]>><</link>>
+		<<else>>
+			<<docklunchoptions>>
+		<</if>>
+	<<else>>
+		<<dockoptions>>
+	<</if>>
+<</widget>>
+
+<<widget "docklunchoptions">>
+	<<if $arousal gte $arousalmax>>
+		<<orgasmLocation "docks">>
+	<</if>>
+
+	<<if Time.minute >= 50>>
+		Lunch break is almost over.
+	<<else>>
+		You're on lunch break.
+	<</if>>
+	<br><br>
+
+	The other dockers
+	<<if $docks.dayType is "busy">>
+		look tired from overwork. They
+	<<elseif $docks.dayType is "slow">>
+		look bored. They
+	<<elseif $docks.dayType is "lewd">>
+		look flustered. They
+	<</if>>
+	talk amongst themselves while eating the meals they packed for the day.<<if Time.minute >= 50>> Some anxiously check the time.<</if>>
+	<br><br>
+
+	<<dockoverhear>>
+
+	<<dockstatus>>
+
+	<<if Time.minute >= 31>>
+		<<set _time_to_pass to 60 - Time.minute>>
+	<<else>>
+		<<set _time_to_pass to 30>>
+	<</if>>
+
+	<<if !$worn.face.type.includes("gag")>>
+		<<socialiseicon>><<link [["Socialise (0:" + _time_to_pass + ")"|Docks Lunch Socialise]]>><<pass _time_to_pass>><</link>>
+		<br>
+		<<if Time.minute < 50>>
+			<<brothelicon>><<link [[Flirt (0:05)|Docks Lunch Flirt]]>><<pass 5>><</link>><<promiscuous1>>
+			<br>
+		<</if>>
+	<</if>>
+	<<walkicon>><<link [["Take a stroll (0:" + _time_to_pass + ")"|Docks Lunch Stroll]]>><<pass _time_to_pass>><</link>>
+	<br>
+	<<if Time.minute < 50>>
+		<<bedicon "zzz">><<link [["Sleep (0:" + _time_to_pass + ")"|Docks Lunch Sleep]]>><<pass _time_to_pass>><</link>><<ltiredness>>
+		<br>
+		<<if $docks.fakeID is "shown">>
+			<<walkicon>><<link [[Leave|Docks Lunch Leave]]>><</link>>
+			<br>
+		<</if>>
+	<</if>>
+<</widget>>
+
+
+<<widget "docklunchseduce">>
+	<<if hasSexStat("promiscuity", 2)>>
+		<<link [[Seduce (0:01)|Docks Lunch Seduce]]>><<pass 1>><</link>><<promiscuous2>>
+	<<else>>
+		<<insufficientStat "promiscuity" "to take things further">>
+	<</if>>
+	<br>
+	<<link [[Say goodbye|Docks Lunch]]>><<endevent>><</link>>
+	<br>
+<</widget>>
+
+<<widget "dockstatustext">>
+	<<set $docks.status to Math.clamp($docks.status, 0, 100)>>
+	<<if $docks.status gte 100>>
+		<span class="green">The other workers admire you.</span>
+	<<elseif $docks.status gte 80>>
+		<span class="teal">The other workers respect you.</span>
+	<<elseif $docks.status gte 60>>
+		<span class="lblue">The other workers accept you.</span>
+	<<elseif $docks.status gte 40>>
+		<span class="blue">The other workers tolerate you.</span>
+	<<elseif $docks.status gte 20>>
+		<span class="purple">The other workers view you with suspicion.</span>
+	<<else>>
+		<span class="red">The other workers view you with contempt.</span>
+	<</if>>
+<</widget>>
+
+<<widget "dockstatus">>
+	<<if _args[0]>>
+		<<set $docks.status += (_args[0] * 2)>>
+		<<set $docks.status to Math.clamp($docks.status, 0, 100)>>
+	<</if>>
+<</widget>>
+
+<<widget "dockleave">>
+	/* Leaving after a shift or overtime */
+	<<if Time.hour gte 16>>
+		<<if Time.hour gte 19>>
+			You help put away equipment and make sure the containers are locked for the evening.
+			<br><br>
+		<<elseif $docks.dayType is "slow" and Time.hour gte 16>>
+			There's no more cargo left to move today, so nobody is allowed to work overtime. You help put away equipment and make sure the containers are locked for evening.
+			<br><br>
+		<</if>>
+		<<dockclotheson>>
+		You join the queue in front of security, where a surly <<generate1>><<person1>><<personsimple>> hands out brown envelopes containing the day's pay.
+		<br><br>
+
+		/* Calculating pay. The constant 8 for eight hours of work can't be used since the player can start late */
+		<<if $docks.dayType is "busy" or $docks.dayType is "lewd" or (Time.month is 12 and Time.monthDay is 25)>>
+			<<set _overtime_multiplier to 2>>
+		<<else>>
+			<<set _overtime_multiplier to 1.5>>
+		<</if>>
+		<<set _shift_wage to ($docks.wage * ($docks.dailyHours.shift.total - $docks.dailyHours.shift.unpaid))>>
+		<<if _shift_wage lt 0>><<set _shift_wage to 0>><</if>>
+		<<if Time.month is 12 and Time.monthDay is 25>> /* All day overtime rates on Christmas */
+			<<set _shift_wage to (_shift_wage * _overtime_multiplier)>>
+		<</if>>
+		<<set _overtime_wage to ($docks.wage * ($docks.dailyHours.overtime.total - $docks.dailyHours.overtime.unpaid) * _overtime_multiplier)>>
+		<<if _overtime_wage lt 0>><<set _overtime_wage to 0>><</if>>
+		<<set _bonus to 0>>
+		<<if $christmas is 1>> /* £25 bonus on Christmas week, £100 bonus on Christmas day */
+			<<if $docks.dailyHours.shift.unpaid gte $docks.dailyHours.shift.total>>
+				<<set _bonus to 0>>
+			<<elseif Time.monthDay is 25>>
+				<<set _bonus to 10000>>
+			<<else>>
+				<<set _bonus to 2500>>
+			<</if>>
+		<</if>>
+		<<set _total_wage to (_shift_wage + _overtime_wage + _bonus)>>
+		<<set _shift_wage_display to (_shift_wage / 100)>>
+		<<set _overtime_wage_display to (_overtime_wage / 100)>>
+		<<set _bonus_display to (_bonus / 100)>>
+		<<set _total_wage_display to (_total_wage / 100)>>
+
+		<<if $docks.dailyHours.shift.unpaid gte $docks.dailyHours.shift.total>> /* slacked the entire shift with max suspicion */
+			<<if $docks.dailyHours.overtime.unpaid gte $docks.dailyHours.overtime.total>> /* slacked all of overtime with max suspicion */
+				You are not given an envelope<<if $christmas is 1>>, not even your Christmas bonus<</if>>. <span class="red">"No work, no pay,"</span> <<he>> says. "<<if $christmas is 1>>We're not a charity. You can't just sit on your arse to collect a bonus.<<else>>If you're not working, why are you here?<</if>>" <<He>> eyes you for a moment, but doesn't stop you from leaving.
+			<<else>>
+				You are given a light envelope containing <span class="gold">£<<print _overtime_wage_display>></span> overtime pay<<if $christmas is 1>>, but your Christmas bonus is withheld<</if>>. <span class="purple">"We expect you to work during your shift,"</span> the <<personsimple>> says. "No, only working during overtime doesn't count. You're not going to last here if you stay that course." <<He>> eyes you for a moment, but doesn't stop you from leaving.
+				<<wearProp "manila envelope">>
+			<</if>>
+		<<elseif $docks.dailyHours.overtime.total gte 1 and $docks.dailyHours.overtime.total gt $docks.dailyHours.overtime.unpaid>> /* worked during shift and overtime */
+			You make <span class="gold">£<<print _shift_wage_display>></span> for your shift, plus <span class="gold">£<<print _overtime_wage_display>></span> overtime pay<<if $christmas is 1>> and your <span class="gold">£<<print _bonus_display>></span> Christmas bonus<</if>>, totalling <span class="gold">£<<print _total_wage_display>></span>.
+			<<wearProp "manila envelope">>
+		<<else>> /* no overtime */
+			You make <span class="gold">£<<print _shift_wage_display>></span><<if $christmas is 1>>, plus your <span class="gold">£<<print _bonus_display>></span> Christmas bonus, totalling <span class="gold">£<<print _total_wage_display>></span><</if>>.
+			<<wearProp "manila envelope">>
+		<</if>>
+		<<money `_total_wage` "docksWage">>
+		<br><br>
+
+		<<if $docks.status gte 60 and $docks.pub.cooldown is 0>>
+			<<set $docks.pub.cooldown to 2>> /* reduced in dailyDockEffects() */
+			<<generate2>><<person2>>
+
+			A group of your colleagues gather at the gate. A <<person>> waves you over. "We're going on a pub crawl," <<he>> says.
+			<<if playerBellyVisible()>>
+				"You'd be welcome to join us, but..."
+				<<He>> looks down at your <<bellyDescription "pc">>. "I'm sure you don't want your kid coming out as messed up as any of us." They share a playful laugh with you.
+				<br><br>
+
+				<<link [[Next|Docks]]>><<endevent>><</link>>
+				<br>
+			<<else>>
+				"You in?"
+				<br><br>
+
+				<<if playerIsPregnant() and playerAwareTheyArePregnant()>>
+					<span class="blue">You can't bring yourself to a night of such debauchery while you know you're with child.</span><br>
+				<<elseif $money gte 500>>
+					<<pubicon>><<link [[Accept (1:00 £5)|Docks Pub Crawl]]>><<endevent>><<set $docks.pub.count to 0>><<money -500>><<alcohol 120>><<dockstatus 1>><<stress -6>><<pass 60>><</link>><<gcool>><<lstress>><<ggalcohol>>
+					<br>
+				<</if>>
+				<<refuseicon>><<link [[Decline|Docks]]>><<endevent>><</link>>
+				<br>
+			<</if>>
+		<<else>>
+			<<link [[Next|Docks]]>><<endevent>><</link>>
+			<br>
+		<</if>>
+	/* Leaving before the end of the shift */
+	<<else>>
+		You inform a manager that you need to leave.
+		<br><br>
+
+		"Security won't let you in again, and you won't be paid for the day. Are you sure?"
+		<br><br>
+
+		<<link [[Reconsider|Docks Options]]>><<set $docks.returnedToWork to true>><</link>>
+		<br>
+		<<link [[Leave anyways|Docks]]>><<set $daily.docksLeftEarly to true>><</link>>
+	<</if>>
+<</widget>>
+
+<<widget "dockwork">>
+	<<timeTrackingManual "docks" 1>>
+	<<if $stress gte $stressmax>>
+		<<if isPregnancyEnding()>>
+			<<pregnancyPassout "docks">>
+		<<else>>
+			You've pushed yourself too much.
+			<br><br>
+			<<passout>>
+
+			<<if dangerEvent()>>
+				<<link [[Next|Passout Docks]]>><</link>>
+				<br>
+			<<else>>
+				<<ambulance>>
+			<</if>>
+		<</if>>
+	/* Leaving the docks after overtime. To note, this prevents an event from firing during the last hour */
+	<<elseif (Time.hour gte 19) or ($docks.dayType is "slow" and Time.hour gte 16)>>
+		<<dockleave>>
+	<<elseif $docks.status lte 0 and $docks.wage gte 1600>> /* pay cut if status is 0 */
+		A <<generate1>><<person1>><<person>> walks up to you with a clipboard. <span class="red">It's a manager.</span>
+		<br><br>
+		<<set $docks.wage to ($docks.wage - 100)>>
+		"Performance reviews indicate that you're not pulling your weight around here, so <span class="red">we're cutting your wage to</span> <span class="gold">£<<print ($docks.wage / 100)>></span> <span class="red">an hour.</span> Your end-of-shift payment will use the new rate. Do better."<<stress 12>><<trauma 12>><<ggstress>><<ggtrauma>>
+		<br><br>
+		The other dockers overheard the news. Some look vindicated that you got your comeuppance. Many give sympathetic glances before returning to work.<<dockstatus 30>><<gggcool>>
+		<br><br>
+		<<endevent>>
+		<<dockoptions>>
+	<<else>> /* Regular work events */
+		<<dockworkevents>>
+	<</if>>
+<</widget>>
+
+<<widget "dockworkevents">>
+	<<cleareventpool>>
+
+	<<addinlineevent "docks_work_container_inspect">>
+		You're tasked with inspecting the contents of the containers after they're lifted from the deck.
+		<<rng>>
+		<<if $rng gte 81 and $money gte 12000 and !$docks.slave.seen>>
+			<<generatey1>><<generate2>><<person2>>You hear a muffled cry from one of them.
+			<br><br>
+			You enter the keycode, but it doesn't unlock. "Not that one," another docker says. <<He>> points at the initials printed on the door. "We don't inspect these." If <<he>> hears the crying, <<he>> ignores it.
+			<br><br>
+			<<set $lock to 400>>
+			<<if currentSkillValue('skulduggery') gte $lock>>
+				<<if pcAreArmsBound("both")>>
+					You think you'd be able to pick the lock, <span class="blue">if your arms weren't bound.</span>
+					<br><br>
+				<<else>>
+					<<wearProp "lockpick">>
+					<span class="green">The lock looks easy to pick.</span>
+					<br><br>
+					<<link [[Break in anyway (£100 1:00)|Docks Slave Open]]>><<handheldon>><<set $docks.slave.seen to true>><<crimeUp 1 "trespassing">><</link>><<crime "trespassing">>
+					<br>
+				<</if>>
+			<<else>>
+				<span class="red">The lock looks beyond your ability to pick.</span><<skulduggeryrequired>>
+				<br><br>
+			<</if>>
+			<<link [[Ignore the voice|Docks Slave Ignore]]>><<handheldon>><</link>>
+			<br>
+		<<else>>
+			<<rng>>
+			<<if $rng gte 81>>
+				Many containers contain goods ordered by private citizens. A package in one of them is torn open, and something glints from inside.
+				<br><br>
+				<<link [[Steal|Docks Steal]]>><<crimeUp 60 "thievery">><<set $blackmoney += 60>><</link>><<crime "thievery">>
+				<br>
+				<<link [[Don't steal|Docks Don't Steal]]>><</link>>
+				<br>
+			<<else>>
+				There's lots of machinery. You don't understand what it's for, but it's all tagged properly.
+				<br><br>
+				<<dockoptions>>
+			<</if>>
+		<</if>>
+	<</addinlineevent>>
+
+	<<addinlineevent "docks_work_vessel_guide">>
+		A vessel requests help making it to the dock. You, a <<generate1>><<person1>><<person>>, and a <<generate2>><<person2>><<person>> are tasked with helping. You board a small ship and sail to meet it.
+		<br><br>
+
+		<<if dangerEvent()>>
+			You're halfway there when the <<person>> cuts out the engine. <<He>> and the <<person1>><<person>> stare at you. "A fresh <<girl>>, all alone at sea," <<he>> says. "Hows about you let us have some fun, and we won't need to hurt you." The <<person>> brandishes a length of rope.
+			<br><br>
+			<<link [[Nod|Docks Rape]]>><<set $molestationstart to 1>><</link>>
+			<br>
+			<<link [[Fight|Docks Rape]]>><<set $fightstart to 1>><</link>>
+			<br>
+			<<link [[Capsize the boat|Docks Rape Capsize]]>><<dockstatus -1>><</link>><<lcool>>
+			<br>
+		<<else>>
+			The <<person>> guides the captain while you and the <<person1>><<person>> help the crew with the spring lines. <<if $exposed gte 1>>The sailors ogle you, though they try to hide it. <</if>>You swing the vessel around and make a successful landing.
+			<br><br>
+			<<endevent>>
+			<<dockoptions>>
+		<</if>>
+	<</addinlineevent>>
+
+	<<addinlineevent "docks_work_tourist_vessel">>
+		A tourist vessel cuts across the docks, delaying the launch of other ships. They won't respond to hails. You're sent in a small boat to deliver a message.
+		<br><br>
+		<<generate1>><<person1>>
+		<<if $exposed gte 1>>
+			You climb aboard. The arrival of an undressed <<girl>> aboard the ship sends murmurs through the well-dressed crowd. You find the captain flirting with a passenger. <<He>> drops <<his>> glass when <<he>> sees you.
+		<<else>>
+			You climb aboard and push through the well-dressed crowd in search of the captain. You find <<him>> flirting with a passenger.
+			<br><br>
+		<</if>>
+		<<if $speech_attitude is "meek">>
+			"Please <<sir>>," you say. "Your ship isn't meant to approach this way. You're blocking other ships."
+		<<elseif $speech_attitude is "bratty">>
+			"Sorry to interrupt," you say. "But your dumb arse is about to collide with another ship."
+		<<else>>
+			"I'm delivering a message," you say. "Your course is wrong. You need to pull away and approach from the proper angle. You're delaying other ships."
+		<</if>>
+		<br><br>
+		"They can wait," <<he>> laughs. "Lots of important passengers. They're anxious to be back on land." <<He>> turns away.
+		<br><br>
+		<<if hasSexStat("promiscuity", 4)>>
+			<<link [[Seduce <<him>>|Docks Tourist Seduce]]>><</link>><<promiscuous4>>
+			<br>
+		<</if>>
+		<<if displayDefiantOption(500)>>
+			<<link [[Scare the passengers|Docks Tourist Intimidate]]>><<dockstatus 3>><<wolfDefiant 500>><</link>><<defianttext 500>><<ggcool>>
+			<br>
+		<</if>>
+		<<link [[Return to dock|Docks Tourist Return]]>><</link>>
+		<br>
+	<</addinlineevent>>
+
+	<<addinlineevent "docks_work_compound_lorry">>
+		You're tasked with unloading a lorry. You notice another vehicle being unloaded nearby, but the workers wear a strange uniform. A <<generate1>><<person1>><<generate2>><<person>> supervises them.
+		<br><br>
+		"Don't pay them no mind," the <<person2>><<person>> working beside you says. "They handle their own shipments."
+		<br><br>
+		<<link [[Sneak closer for a look|Docks Compound]]>><<drugs 240>><<stress -6>><</link>><<garousal>><<lstress>>
+		<br>
+		<<link [[Ignore|Docks Compound Ignore]]>><</link>>
+		<br>
+	<</addinlineevent>>
+
+	<<addinlineevent "docks_work_data_inconsistency">>
+		You're tasked with recording cargo information onto a computer. While working through the notes you notice an inconsistency.
+		<br><br>
+		<<link [[Examine the inconsistency|Docks Examine]]>><<set $phase to 0>><<stress 6>><</link>><<skill_difficulty `currentSkillValue("maths")` "Maths" 1 1000>><<gstress>>
+		<br>
+		<<if currentSkillValue('skulduggery') gte 400>>
+			<<set $skulduggerydifficulty to 500>>
+			<<link [[Note the location of valuable goods|Docks Examine Valuables]]>><<set $phase to 2>><</link>><<skulduggerydifficulty>>
+			<br>
+		<</if>>
+		<<link [[Ignore|Docks Examine]]>><<set $phase to 1>><</link>>
+		<br>
+	<</addinlineevent>>
+
+	<<addinlineevent "docks_work_cleaning_pier">>
+		You're tasked with cleaning the pier.
+		<<rng>>
+		<<if $rng gte 61>>
+			You notice a pink shape in the water, in front of an approaching ship.
+			<br><br>
+			<!-- Convert to proper history skill check? -->
+			<<link [[Examine|Docks History]]>><<set $phase to 0>><<stress 6>><</link>><<note "History" "blue">><<gstress>>
+			<br>
+			<<link [[Ignore|Docks History]]>><<set $phase to 1>><</link>>
+			<br>
+		<<else>>
+			You finish without a problem.
+			<br><br>
+			<<dockoptions>>
+		<</if>>
+	<</addinlineevent>>
+
+	<<addinlineevent "docks_work_moving_crates">>
+		You're tasked with moving some crates so they can be loaded onto vehicles. <<generate1>><<person1>>"You'll need a forklift," the supervisor says. "Let me find the keys."
+		<br><br>
+		<<if currentSkillValue('physique') gte 14000>>
+			The crates don't look too heavy. By the time <<he>> returns you've already finished. "You're stronger than you look," <<he>> chuckles.
+			<<gcool>><<dockstatus 1>>
+			<br><br>
+			<<dockoptions>>
+		<<else>>
+			<<He>> keeps an eye on you as you move the crates, but you manage it without a problem.
+			<br><br>
+			<<dockoptions>>
+		<</if>>
+	<</addinlineevent>>
+
+	<<addinlineevent "docks_work_untying_ship">>
+		You're tasked with untying a moored ship from the pier. The ropes are thick and heavy, and you don't have long before another ship needs the space.
+		<br><br>
+		<<if currentSkillValue('physique') gte 5000 and $feetuse isnot "bound">>
+			You make it in time.
+			<br><br>
+		<<else>>
+			You manage to make it in time. Just.
+			<<if $feetuse is "bound">>
+				<span class="pink">It's sort of miraculous that you did so while your legs were restrained.</span>
+			<</if>>
+			<<gtiredness>><<tiredness 6>>
+			<br><br>
+		<</if>>
+
+		<<if pcAreArmsBound("any") or $feetuse is "bound">>
+			<<dockunbindoffer>>
+		<<else>>
+			<<dockoptions>>
+		<</if>>
+	<</addinlineevent>>
+
+	<<if $exposed lte 0>>
+		<<addinlineevent "docks_work_lubricating_machinery">>
+			You're tasked with lubricating machinery.
+			<<if $docks.status gte 30>>
+				You manage it without a problem.
+				<br><br>
+				<<dockoptions>>
+			<<elseif !$worn.over_lower.type.includes("naked")>>
+				You're working on a crane when it roars to life, and the boom rises. You find yourself yanked upwards by a hook embedded in your $worn.over_lower.name.
+				<br><br>
+				<<generate1>><<person1>>The crane stops, leaving you suspended in the air. The <<person>> manning the crane waves at you as you spin. Other dockers step into view. They whistle and applaud.
+				<br><br>
+				<<set $worn.over_lower.integrity -= 10>>
+				<<if $worn.over_lower.integrity lte 0 and !$worn.lower.type.includes("naked")>>
+					<<overlowerruined>><<exposure>>
+					Your weight tears you free of your clothing. <<generate2>><<person2>>A <<person>> catches you. <<He>> ogles your <<lewdness>>. So does everyone else. <<covered>> You squirm free and dash for safety, chased by jeers. You find a sheet to cover with.
+					<<gtrauma>><<gstress>><<garousal>><<trauma 6>><<stress 6>><<arousal 600>>
+					<br><br>
+					<<towelup>>
+					<<dockoptions>>
+				<<else>>
+					<<if $worn.over_lower.integrity lte 0>>
+						Your weight tears you free from your <<print $worn.over_lower.name>>.
+					<<else>>
+						Your weight tears you free from the hook.
+					<</if>>
+					<<generate2>><<person2>>A <<person>> catches you, but you squirm free.
+					<<gstress>><<stress 6>>
+					<br><br>
+					<<link [[Get angry|Docks Angry]]>><<stress -3>><<dockstatus 1>><</link>><<gcool>><<lstress>>
+					<br>
+					<<link [[Walk away|Docks Walk]]>><</link>>
+					<br>
+				<</if>>
+			<<else>>
+				You're working on a crane when it roars to life, and the boom rises. You find yourself yanked upwards by a hook embedded in your $worn.lower.name.
+				<br><br>
+				<<generate1>><<person1>>The crane stops, leaving you suspended in the air. The <<person>> manning the crane waves at you as you spin. Other dockers step into view. They whistle and applaud.
+				<br><br>
+				<<set $worn.lower.integrity -= 10>>
+				<<if $worn.lower.integrity lte 0>>
+					<<lowerruined>><<exposure>>
+					Your weight tears you free of your clothing. <<generate2>><<person2>>A <<person>> catches you. <<He>> ogles your <<lewdness>>. So does everyone else. <<covered>> You squirm free and dash for safety, chased by jeers. You find a sheet to cover with.
+					<<gtrauma>><<gstress>><<garousal>><<trauma 6>><<stress 6>><<arousal 600>>
+					<br><br>
+					<<towelup>>
+					<<dockoptions>>
+				<<else>>
+					Your weight tears you free from the hook. <<generate2>><<person2>>A <<person>> catches you, but you squirm free.
+					<<gstress>><<stress 6>>
+					<br><br>
+					<<link [[Get angry|Docks Angry]]>><<stress -3>><<dockstatus 1>><</link>><<gcool>><<lstress>>
+					<br>
+					<<link [[Walk away|Docks Walk]]>><</link>>
+					<br>
+				<</if>>
+			<</if>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<addinlineevent "docks_work_lifting_crates">>
+		You lift crates from a moored ship and drop them off on the dock. They're small compared to the rest of the cargo, but heavy.
+		<<if currentSkillValue('physique') gte 15000 and !pcAreArmsBound("any")>>
+			You have no trouble. You keep going while the other dockers stop to rest.
+			<<gcool>><<dockstatus 1>>
+			<br><br>
+		<<elseif currentSkillValue('physique') gte 5000 and !pcAreArmsBound("any")>>
+			You manage to keep up with the other dockers.
+			<br><br>
+		<<else>>
+			So heavy you don't even make it off the deck before stopping to rest. The other dockers make several deliveries before you make one.
+			<<if pcAreArmsBound("both")>>
+				<span class="pink">Your bound arms make the process far more difficult than it would otherwise be as you can't manage a proper grip.</span>
+			<</if>>
+			<br><br>
+			You're struggling with the second crate when a muscular docker takes it from your hands. "Last one," <<generate1>><<person1>><<he>> says. <<He>> doesn't look at you.
+			<<lcool>><<dockstatus -1>>
+			<br><br>
+		<</if>>
+		<<endevent>>
+
+		<<if pcAreArmsBound("any") or $feetuse is "bound">>
+			<<dockunbindoffer>>
+		<<else>>
+			<<dockoptions>>
+		<</if>>
+	<</addinlineevent>>
+
+	<<runeventpool>>
+<</widget>>
+
+<<widget "dockoverhear">>
+	<<cleareventpool>>
+
+	<<addinlineevent "docks_overhear_new_shipments">>
+		"What's the deal with the crews in those strange uniforms? <<print either("Manager's been real tight-lipped about them.", "I couldn't squeeze a straight answer out of my manager.", "All of the managers try to deflect when I ask about them.")>>"
+		<br>
+		<<if $rng gte 81>>
+			"I'm just as in the dark as you are. I hope it's nothing illegal."
+		<<elseif $rng gte 61>>
+			"Beats me. So long as I'm getting paid, it's none of my business."
+		<<elseif $rng gte 41>>
+			"I'd like some transparency, too, but maybe it's better if I don't know."
+		<<elseif $rng gte 21>>
+			"Whatever they're handling smells kind of sweet, and it makes me feel weird."
+		<<else>>
+			"I heard rumours that it has something to do with the compound on Elk street. Testing out some new kind of drug or something. Sounds pretty far-fetched to me."
+		<</if>>
+	<</addinlineevent>>
+
+	<<if $beauty gte ($beautymax / 7) * 3>>
+		<<addinlineevent "docks_overhear_orphan_beautiful">>
+			<<if $rng gte 81>>
+				"You see that sweet piece of ass working the docks lately?"
+			<<elseif $rng gte 61>>
+				"You see that new <<girl>> working on the docks? <<pShes>> so pretty."
+			<<elseif $rng gte 41>>
+				"That new <<girl>> is so hot."
+			<<elseif $rng gte 21>>
+				"You think that new <<girl>> would want someone like me?"
+			<<else>>
+				"Word is that we got some new eye candy working out here. Think <<pshes>> down to fuck?"
+			<</if>>
+			<br>
+			<<rng>>
+			<<if $rng gte $world_corruption_soft>>
+				<<rng>>
+				<<if $rng gte 81>>
+					"Keep your <<print either("hands", "paws", "mitts")>> to yourself."
+				<<elseif $rng gte 61>>
+					"Don't be a pervert. We're here to get paid, not laid."
+				<<elseif $rng gte 41>>
+					"Don't be a creep. If you want to leer, go to the strip club."
+				<<elseif $rng gte 21>>
+					"Leave <<phim>> alone. <<pShes>> probably got enough trouble to be working the docks at <<pher>> age."
+				<<else>>
+					"<<pShes>> still a student, fresh out of school at best. Go for someone your own age."
+				<</if>>
+			<<else>>
+				<<rng>>
+				<<if $rng gte 81>>
+					"Keep your <<print either("hands", "paws", "mitts")>> to yourself. <<pShes>> mine."
+				<<elseif $rng gte 61>>
+					"Yeah, <<pshes>> pretty hot. I'd love to get laid with <<phim>>."
+				<<elseif $rng gte 41>>
+					"Looks like one of those <<girl>>s you see at the strip club. <<pShe>> can dance <<if $settings.malechance gte random(1, 100)>>on my pole<<else>>and grind on me<</if>> all day."
+				<<elseif $rng gte 21>>
+					"So cute. <<pShe>> must be desperate to work at the docks. Real desperate."
+				<<else>>
+					"<<pShes>> still a student, fresh out of school at worst. Perfect time to rob whatever innocence <<pshe>> has left."
+				<</if>>
+				<<stress 6>><<trauma 6>><<gstress>><<gtrauma>>
+			<</if>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<addinlineevent "docks_overhear_union_question">>
+		"Heard you guys had a union. How do I join?"
+		<br>
+		"Show your ID, sign a contract. Dues are 2% of your wage."
+		<br>
+		"That's not too bad. What's in it for me?"
+		<br>
+		"Fair treatment and collective bargaining. Union leader can give you all the details."
+	<</addinlineevent>>
+
+	<<addinlineevent "docks_overhear_container_lift" 0.5>>
+		"You ever wonder what it'd be like to be in one of those containers when a crane lifts it?"
+		<br>
+		"No. That sounds horrible."
+		<br>
+		"Why's that?"
+		<br>
+		"High up, pitch black, cramped space, motion sickness..."
+		<br>
+		"Okay, I see what you mean."
+	<</addinlineevent>>
+
+	<<addinlineevent "docks_overhear_food_request">>
+		"You got any food to spare? My wife didn't pack me lunch today."
+		<br>
+		"Sure. I can give you a half-eaten <<print either("sandwich", "bag of crisps", "protein bar")>> for a pound."
+		<br>
+		"<<print either("Forget it. I'd rather go hungry.", "Deal.", "Fine, but only because I'm starving.")>>"
+	<</addinlineevent>>
+
+	<<addinlineevent "docks_overhear_pub_crawl">>
+		"You joining us at the pub later?"
+		<br>
+		<<if $rng gte 51>>
+			<<if $docks.pub.cooldown gt 0>>
+				"Again? I'm still recovering from last time."
+				<br>
+				"That's fair. Maybe we should lay off for a bit."
+			<<else>>
+				"Me? Yeah, I'm down to get wasted."
+				<br>
+				"I'll get the mates together after our shift."
+			<</if>>
+		<<elseif $rng gte 21>>
+			"I don't know. I'm <<print either("exhausted", "tired")>> in the evening."
+			<br>
+			"Overtime?"
+			<br>
+			"Yeah.
+			<<if $docks.status lt 20>>
+				I need the money. The slacker staying after <<pher>> shift isn't helping."<<stress 6>><<gstress>>
+			<<else>>
+				I need the money."
+			<</if>>
+		<<elseif $rng gte 11>>
+			"Sorry, that life's behind me."
+			<br>
+			"You're never too old to enjoy a drink with your mates, aye?"
+			<br>
+			"No thank you. I've got a bad history with alcohol."
+		<<else>>
+			"Sorry, I don't drink."
+			<br>
+			"I don't believe it. A docker who doesn't get drunk. It's like meeting a unicorn."
+		<</if>>
+	<</addinlineevent>>
+
+	<<if Weather.temperature gte 25>>
+		<<addinlineevent "docks_overhear_hot_day" 2>>
+			"<<print either("It's hot out", "It's hot as fuck", "I'm sweating like a pig", "Sun's wearing me down")>> today. You got anything to drink?"
+			<br>
+			"Nope. Strip down if it's too hot for you."
+			<<rng>>
+			<<if $rng gte 91>>
+				<br>
+				"But I'm already going commando."
+				<br>
+				"Oh."
+			<</if>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if Weather.temperature lte 5>>
+		<<addinlineevent "docks_overhear_cold_day" 2>>
+			"It's <<print either("cold out", "cool out", "chilly out", "nippy out", "cold as fuck", "colder than a witch's tit", "colder than a well digger's arse", "cold enough to freeze the balls off a brass monkey", "so cold the dogs are sticking to the hydrants")>> today. You got an extra <<print either("coat", "jacket", "scarf")>> or <<print either("anything", "something")>>?"
+			<br>
+			"<<print either("Sure, let me grab it from my car for you. I'll be right back.", "No, nothing to spare. Try working harder and you'll warm up fast.", "Not on me, but I can ask around and see if anyone else does.")>>"
+		<</addinlineevent>>
+	<</if>>
+
+	<<addinlineevent "docks_overhear_students">>
+		"I've been seeing more students working weekends lately."
+		<br>
+		"Money must be tight. Are they at least keeping up with us?"
+		<br>
+		<<if $docks.status gte 100>>
+			"One of them might be the best docker we've got. I'm starting to get worried <<pshe>>'ll leave us without a job."
+		<<elseif $docks.status gte 80>>
+			"One of them's been making our lives a lot easier around here lately. Wish more of us had that kind of work ethic."
+		<<elseif $docks.status gte 60>>
+			"The new <<girl>> is doing well. <<pShes>> been a solid help around here."
+		<<elseif $docks.status gte 40>>
+			"That new <<girl>>'s doing alright so far. <<pShes>> been earning <<pher>> keep."
+		<<elseif $docks.status gte 20>>
+			"Most quit after a weekend. Too demanding. The new <<girl>>... eh, I've seen worse."
+		<<else>>
+			"The new <<girl>> is more trouble than <<pshes>> worth. I'm surprised <<pshe>> hasn't <<if $docks.wage gte 1600>>had <<pher>> pay slashed yet<<else>>been fired yet<</if>>."<<stress 6>><<gstress>>
+		<</if>>
+	<</addinlineevent>>
+
+	<<addinlineevent "docks_overhear_seagulls">>
+		"The seagulls are getting bold. The other day, one tried to snatch a <<print either("burger", "sandwich")>> right out of my hands!"
+		<br>
+		"There's a reason they're called the rats of the skies."
+		<br>
+		"I thought that was pigeons?"
+		<br>
+		"Eh, pests all the same."
+	<</addinlineevent>>
+
+	<<addinlineevent "docks_overhear_container_accident">>
+		"<<print either("What do you think the odds are of", "What's the over-under on")>> someone <<print either("dropping a container", "dropping cargo into the sea")>> today?"
+		<br>
+		<<if $rng gte 76>>
+			"We haven't had an accident in a while. Feel like we're due."
+		<<elseif $rng gte 51>>
+			"Fifty-fifty. Either it happens or it doesn't."
+		<<elseif $rng gte 26>>
+			"Higher than it should be. Do we even vet these guys?"
+		<<else>>
+			"It'll be lower once management stops letting snot-nosed brats operate the cranes. Are they trying to get us killed?"
+		<</if>>
+	<</addinlineevent>>
+
+	<<addinlineevent "docks_overhear_strippers">>
+		"You think any of the strippers at the club are single?"
+		<br>
+		<<if $rng gte 51>>
+			"I'm not even going to entertain that question."
+			<br>
+			"Why, you afraid of some strippers?"
+			<br>
+			"No, I just think you're too ugly a cunt for the answer to matter."
+		<<else>>
+			"I don't know. Why don't you ask them?"
+			<br>
+			"I'm too shy. Besides, I don't want to get kicked out by security."
+		<</if>>
+	<</addinlineevent>>
+
+	<<addinlineevent "docks_overhear_giant_hawk" 0.5>>
+		"You ever hear about that giant hawk way out in the moor?"
+		<br>
+		"I haven't. What about it?"
+		<br>
+		"It's supposed to be huge. Enormous, even. Much larger than birds normally are."
+		<br>
+		"Has anybody ever seen it?"
+		<br>
+		"There's a few accounts here and there. I haven't seen photos or videos."
+		<br>
+		"Sounds like an urban legend. You know how superstitious people are in this town."
+		<br>
+		"Yeah. Maybe you're right."
+	<</addinlineevent>>
+
+	<<addinlineevent "docks_overhear_exercise">>
+		"Do you still work out after your shift?"
+		<br>
+		<<if $rng gte 76>>
+			"No. I get all the lifting I need here."
+			<br>
+			"Not even leg day? Any aerobics?"
+			<br>
+			"I've got the walk to work and back... Maybe I need to start doing some running."
+		<<elseif $rng gte 51>>
+			"Only lower body stuff. You know, squats, aerobics... My arms get plenty of bulk."
+			<br>
+			"How do you find the energy for it?"
+			<br>
+			"I always leave after my shift. If I stayed overtime, I wouldn't have any left."
+		<<elseif $rng gte 26>>
+			"I have to. Most of my day is operating cranes. It's like a desk job in a vehicle."
+			<br>
+			"I'm jealous."
+			<br>
+			"Don't be. It's not your ass on the line if thousands of pounds of cargo gets damaged."
+		<<else>>
+			"Yeah. I go swimming at the beach or jog in the park if it's cold out."
+			<br>
+			"The park? I heard rumours that people run naked there at night."
+			<br>
+			"Really? I go before sundown. This job starts too early to be a night owl."
+		<</if>>
+	<</addinlineevent>>
+
+	<<addinlineevent "docks_overhear_wage">>
+		"How much you make an hour?"
+		<br>
+		<<set _overhear_dock_wage to random(15, 24)>>
+		"£<<print _overhear_dock_wage>>."
+		<br>
+		<<if _overhear_dock_wage gte 23>>
+			"Wow. I'm jealous."
+			<br>
+			"I busted my ass to get there, though. Can't be caught slacking or your buddies won't put in a good word for you."
+		<<elseif _overhear_dock_wage gte 21>>
+			"That's pretty good."
+			<br>
+			"All the elbow grease paid off eventually."
+			<br>
+			"I'll have to start pushing myself more..."
+		<<elseif _overhear_dock_wage gte 19>>
+			"Hey, that's about what I make."
+			<br>
+			"Yeah, it's the average pay. Stick around for a few months, don't goof off, and it's pretty much guaranteed."
+		<<elseif _overhear_dock_wage gte 17>>
+			"That's a little on the low side."
+			<br>
+			"I know. Starting to feel like someone's got a grudge against me for slacking on the job a few too many times."
+		<<else>>
+			"That's about what they pay the students on weekends."
+			<br>
+			"Eh, this is just a stepping stone for another job. As long as I get work experience and a decent reference, I'm golden."
+			<br>
+			"Don't knock getting a raise. An extra pound adds up over time."
+		<</if>>
+	<</addinlineevent>>
+
+	<<if $dissociation gte 1>>
+		<<addinlineevent "docks_overhear_visibly_disturbed" 2>>
+			"There's something <<if $dissociation gte 2>>very <</if>>wrong with that <<lass>>."
+			<br>
+			<<if $docks.status gte 80>>
+				"I feel bad for <<phim>>. <<pShes>> a big help around here, but I'm worried that <<pshe>>'ll snap some day."
+				<br>
+				"Maybe we should do something?"
+				<br>
+				"I don't know. I think we should just leave <<phim>> alone. <<pShe>> looks like <<pshes>> got enough to worry about."
+			<<else>>
+				"What do you think it is? Drugs? Abuse?"
+				<br>
+				"I don't know, but I'd keep my distance. You never know if <<pshe>>'ll lash out at us."<<stress 6>><<trauma 6>><<gstress>><<gtrauma>>
+			<</if>>
+		<</addinlineevent>>
+	<</if>>
+
+	/* Any partial animal transformation that is not hidden */
+
+	<<set _tf to checkTFparts()>>
+	<<set _tfPartList to Object.keys(_tf)>>
+
+	<<if _tfPartList.includesAny("birdWings", "cowHorns", "wolfTail", "catTail", "cowTail", "birdTail", "foxTail", "wolfEars", "catEars", "cowEars", "foxEars")>>
+		<<addinlineevent "docks_overhear_animal_costume">>
+			"What's up with the new <<girl>>? Why's <<pshe>> always wearing that animal costume?"
+			<br>
+			<<if $fame.bestiality gte 600>>
+				"Don't tell anyone, but rumour has it <<pshe>> sleeps with them."
+				<br>
+				"Gross. What a freak."<<stress 6>><<trauma 6>><<dockstatus -1>><<gstress>><<gtrauma>><<lcool>>
+			<<elseif $halloween is 1>>
+				<<if Time.monthDay is 31>>
+					"Did you forget? It's Halloween. <<pShes>> probably going trick-or-treating later."
+				<<else>>
+					"Halloween's coming up. <<pShes>> probably just showing off <<pher>> costume."
+				<</if>>
+			<<else>>
+				"Might be a kink thing. You know this town. People are freaks."<<stress 6>><<gstress>>
+			<</if>>
+		<</addinlineevent>>
+	<</if>>
+
+	/* Fame events */
+
+	/* Divides the chance for each fame event by total fame, up to 2200 */
+	<<set _fame_total to fameTotal()>>
+	<<if _fame_total gte 2200>>
+		<<set _fame_total to 2200>>
+	<</if>>
+	<<set _chance_divisor to (600 / _fame_total)>>
+
+	/* Negative fame events */
+
+	<<if $fame.sex gte 600>>
+		<<addinlineevent "docks_overhear_fame_sex" _chance_divisor>>
+			"You see that <<lass>> who's been working here? I hear <<pshes>> been sleeping with the whole town."
+			<br>
+			"I wouldn't touch that <<girl>> with a metal pole. <<pShes>> a used condom."
+			<br>
+			"But <<pshes>> gotta be experienced. Just think about—"
+			<br>
+			"I don't want to hear it. You can fuck <<phim>> all you want, though."<<stress 6>><<trauma 6>><<gstress>><<gtrauma>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $fame.bestiality gte 600>>
+		<<addinlineevent "docks_overhear_fame_deviancy" _chance_divisor>>
+			"I heard that one of the new dockers here has a thing for
+			<<if $rng gte 96>>
+				animals. I thought I was the only one..."
+				<br>
+				"Excuse me?"
+				<br>
+				"I mean, the only one who knew about that."
+				<br>
+				"Right."<<stress 6>><<trauma 6>><<gstress>><<gtrauma>>
+			<<elseif $rng gte 91>>
+				animals."
+				<br>
+				"That's hot."
+				<br>
+				"Excuse me?"
+				<br>
+				"I mean, that news is hot. Everybody's heard about it."
+				<br>
+				"Right."<<stress 6>><<trauma 6>><<gstress>><<gtrauma>>
+			<<else>>
+				animals."
+				<br>
+				"That's disgusting."
+				<br>
+				"I know, right? They say <<pshe>>'ll fuck anything that moves. That <<pshes>> completely depraved."
+				<br>
+				"Why don't they lock <<phim>> up?"
+				<br>
+				"Beats me. Maybe the cops are in on it."
+				<br>
+				"Yeah. <<pShe>> would fuck some pigs, wouldn't <<pshe>>?"<<stress 6>><<trauma 6>><<gstress>><<gtrauma>>
+			<</if>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $fame.rape gte 600>>
+		<<addinlineevent "docks_overhear_fame_rape" _chance_divisor>>
+			"I heard the new <<girl>>..." <<generate1>><<person1>>The <<person>> leans in close to whisper.
+			<br>
+			"No... Really? Poor thing."
+			<br>
+			"Poor? I bet <<pshe>> likes it."
+			<br>
+			<<generate2>><<person2>>"It wouldn't be r—" The <<person>> catches <<himself>>, then lowers <<his>> voice. You can barely hear <<him>>. "It wouldn't be rape if <<pshe>> liked it."
+			<br>
+			The <<person1>><<person>> whispers back, "That's the thing. <<pShes>> totally into it. Being taken advantage of."
+			<br>
+			The two of them look around nervously. "Still... I feel bad. Maybe we should—"
+			<br>
+			"Don't bother. The cops don't care. It's just some orphan."<<stress 6>><<trauma 6>><<gstress>><<gtrauma>>
+			<<endevent>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $fame.exhibitionism gte 600>>
+		<<addinlineevent "docks_overhear_fame_exhibitionism" _chance_divisor>>
+			"You know that new <<girl>>?"
+			<br>
+			"The one who's always taking off <<pher>> clothes?"
+			<br>
+			"I hear <<pshe>> gets off on baring it all. Just the thrill of it. Don't even need to touch <<phim>>."
+			<br>
+			"You think <<pshe>> can cum hands-free?"
+			<br>
+			"Maybe if we all gather around to keep watch over <<phim>>. Make sure nobody takes advantage of <<phim>>. Look over <<pher>> whole body..."<<stress 6>><<trauma 6>><<gstress>><<gtrauma>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $fame.prostitution gte 600>>
+		<<addinlineevent "docks_overhear_fame_prostitution" _chance_divisor>>
+			"I didn't know we allowed whores in here."
+			<br>
+			"Whores? Where?"
+			<br>
+			"The <<girl>>. The new one. <<pShes>> been sleeping around for a living. Everybody knows it."
+			<br>
+			"How much does <<pshe>> cost?"
+			<br>
+			"More than <<pshes>> worth, I'm sure. Who knows what <<pshes>> done for money? Probably fucked someone to pay for breakfast before <<pshe>> came to work today."<<stress 6>><<trauma 6>><<gstress>><<gtrauma>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $fame.pregnancy gte 600>>
+		<<addinlineevent "docks_overhear_fame_pregnancy" _chance_divisor>>
+			"You hear about the baby factory?"
+			<br>
+			"That <<lass>> who's always pregnant?"
+			<br>
+			"Yeah, <<phim>>. I don't know how <<pshe>> does it. Aren't broodmothers supposed to be... older?"
+			<br>
+			"Don't knock it until you've tried it."
+			<br>
+			"Getting pregnant? No thanks."
+			<br>
+			"No, you idiot. Putting another batch in <<phim>>. <<pShe>> looks young. Fertile. Probably gets off on it. I'll bet you <<pshes>> real wet and loose, too."<<stress 6>><<trauma 6>><<gstress>><<gtrauma>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $fame.impreg gte 600>>
+		<<addinlineevent "docks_overhear_fame_impregnation" _chance_divisor>>
+			"I hear that <<lass>> has been knocking up every girl in town."
+			<br>
+			"Really? I'm envious. <<pShe>> must get around."
+			<br>
+			"Can you imagine how much <<pshe>> pays in child support?"
+			<br>
+			"I doubt <<pshe>> even bothers."<<stress 6>><<trauma 6>><<gstress>><<gtrauma>>
+		<</addinlineevent>>
+	<</if>>
+
+	/* Positive fame events */
+
+	<<if $fame.model gte 600>>
+		<<addinlineevent "docks_overhear_fame_modeling" _chance_divisor>>
+			"What's with the model working at the docks?"
+			<br>
+			"Who?"
+			<br>
+			"The model. Little on the younger side. Looks like last year of school, maybe fresh out of it."
+			<br>
+			"Oh, <<phim>>? Way out of my league."
+			<br>
+			"Yeah. Same. Sorry, I'm just a bit starstruck. Not every day you find yourself working with someone on magazine covers. Especially not in this line of work."
+			<<if $docks.status lte 20>>
+				<br>
+				"Eh. I'd be more enamoured if <<pshe>> ever lifted a finger to help us."
+			<</if>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $fame.social gte 600>>
+		<<addinlineevent "docks_overhear_fame_socialite" _chance_divisor>>
+			"You know that new <<girl>>? I saw some pictures of <<phim>> mingling with some high society types."
+			<br>
+			<<if $docks.status lt 20>>
+				<br>
+				"I wouldn't be surprised. <<pShe>> certainly loafs around like some upper class snob, waiting on <<pher>> precious little servants to do the work for <<phim>>."
+			<<else>>
+				"<<pHim>>? High society? Give me a break. <<pShes>> putting in too much effort for that."
+				<br>
+				"No, I'm serious. We're working with someone high class. The upper crust. What's <<pshe>> doing here, anyway?"
+				<br>
+				"Maybe <<pshes>> down on <<pher>> luck? Lost <<pher>> job, scrounging up money..."
+			<</if>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $fame.good gte 600>>
+		<<addinlineevent "docks_overhear_fame_kindness" _chance_divisor>>
+			"What's the goody two-shoes doing here?"
+			<br>
+			"The one who still looks like a student?"
+			<br>
+			"Yeah. People talk about <<phim>> like <<pshe>> personally helped every old lady in town across the street. Some were even saying <<pshes>> an angel.
+			<<if $docks.status is 100>>
+				<<if $angel gte 6>>
+					<<pShe>> looks the part.
+				<<elseif $fallenangel gte 2>>
+					<<pShe>> may be blemished, but
+				<<elseif $demon gte 6>>
+					<<pShe>> doesn't look it, but
+				<</if>>
+				<span class="green">I believe it.</span>"
+				<<if $angel gte 6 or $fallenangel gte 2>>
+					<<stress -6>><<trauma -6>><<lstress>><<ltrauma>>
+				<<elseif $demon lt 6>>
+					<<stress -6>><<lstress>>
+				<</if>>
+			<<elseif $docks.status gte 80>>
+				I'm not sure about that yet, but <span class="teal">maybe they're right.</span>"
+			<<elseif $docks.status gte 60>>
+				<span class="lblue">Maybe there's a kernel of truth to that.</span>"
+			<<elseif $docks.status gte 40>>
+				<span class="blue">I'll believe it when I see it.</span>"
+			<<elseif $docks.status gte 20>>
+				<span class="purple">I've got my doubts about that.</span>"
+			<<else>>
+				<span class="red">I highly doubt that.</span>
+				<<if $angel gte 6>>
+					<<pHer>> looks are deceiving."
+				<<elseif $fallenangel gte 2>>
+					If <<pshe>> was, <<pshes>> fallen a long way."
+				<<elseif $demon gte 6>>
+					I mean, just look at <<phim>>."
+				<<else>>
+					<<pShes>> just some slacker looking for some easy quid."
+				<</if>>
+				<<if $angel gte 6 or $fallenangel gte 2>>
+					<<stress 6>><<trauma 6>><<gstress>><<gtrauma>>
+				<<elseif $demon lt 6>>
+					<<stress 6>><<gstress>>
+				<</if>>
+			<</if>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $fame.business gte 600>>
+		<<addinlineevent "docks_overhear_fame_business" _chance_divisor>>
+			"You know that <<girl>> who's been helping out? Apparently <<pshe>> runs <<pher>> own business, and <<pshe>> makes more than enough money to not even need this job."
+			<br>
+			"Why do you think <<pshes>> here, then?"
+			<br>
+			"I couldn't tell you. Business could be seasonal, or maybe <<pshes>> down on <<pher>> luck."
+			<<if $docks.status lt 20>>
+				<br>
+				"With <<pher>> work ethic, I wouldn't be surprised if <<pshe>> went bankrupt."
+			<</if>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<if $fame.scrap gte 600>>
+		<<addinlineevent "docks_overhear_fame_combat" _chance_divisor>>
+			"Isn't that <<girl>> a martial artist or something?"
+			<br>
+			"The one that still looks like a student?"
+			<br>
+			"Yeah, <<phim>>. <<pShes>> the talk of the town. Beats the shit out of everyone who attacks <<phim>> without even breaking a sweat."
+			<br>
+			"You're exaggerating."
+			<br>
+			"I'm serious! Don't mess with <<phim>>!"
+			<<if $docks.status lt 20>>
+				<br>
+				"Well, maybe <<pshe>> should fight off boredom for five minutes and help around for a change."
+			<</if>>
+		<</addinlineevent>>
+	<</if>>
+
+	<<runeventpool>>
+	<br><br>
+<</widget>>
+
+<<widget "dockpubdestination">>
+	<<if $bus is "high">>
+		<<link [[Stop|High Street]]>><<endevent>><<set $eventskip to 1>><</link>>
+	<<elseif $bus is "harvest">>
+		<<link [[Stop|Harvest Street]]>><<endevent>><<set $eventskip to 1>><</link>>
+	<<elseif $bus is "connudatus">>
+		<<link [[Stop|Connudatus Street]]>><<endevent>><<set $eventskip to 1>><</link>>
+	<<elseif $bus is "barb">>
+		<<link [[Stop|Barb Street]]>><<endevent>><<set $eventskip to 1>><</link>>
+	<<else>>
+		<<link [[Stop|Mer Street]]>><<endevent>><<set $eventskip to 1>><</link>>
+	<</if>>
+<</widget>>
+
+<<widget "dockpuboptions">>
+	<<endevent>>
+	<<if $money gte 500>>
+		<<link [[Continue (1:00 £5)|Docks Pub Crawl]]>><<set $docks.pub.count to 0>><<money -500>><<alcohol 120>><<dockstatus 1>><<stress -6>><<pass 60>><</link>><<gcool>><<lstress>><<ggalcohol>>
+		<br>
+	<</if>>
+	<<dockpubdestination>>
+<</widget>>
+
+<<widget "dockpubquiz">>
+	<<if $rng gte 81>>
+
+		is science.
+		<br><br>
+
+		<<link [[Let your colleagues answer|Docks Pub Crawl Science]]>><<set $phase2 to 0>><</link>>
+		<br>
+		<<link [[Answer yourself|Docks Pub Crawl Science]]>><<set $phase2 to 1>><</link>><<skill_difficulty `currentSkillValue("science")` "Science" 1 1000>>
+		<br>
+		<<link [[Give the wrong answers|Docks Pub Crawl Science]]>><<set $phase2 to 2>><</link>>
+		<br>
+
+	<<elseif $rng gte 61>>
+
+		is arithmetic. One of your colleagues gets their fingers ready for counting.
+		<br><br>
+
+		<<link [[Let your colleagues answer|Docks Pub Crawl Maths]]>><<set $phase2 to 0>><</link>>
+		<br>
+		<<link [[Answer yourself|Docks Pub Crawl Maths]]>><<set $phase2 to 1>><</link>><<skill_difficulty `currentSkillValue("maths")` "Maths" 1 1000>>
+		<br>
+		<<link [[Give the wrong answers|Docks Pub Crawl Maths]]>><<set $phase2 to 2>><</link>>
+		<br>
+
+	<<elseif $rng gte 41>>
+
+		is literature.
+		<br><br>
+
+		<<link [[Let your colleagues answer|Docks Pub Crawl English]]>><<set $phase2 to 0>><</link>>
+		<br>
+		<<link [[Answer yourself|Docks Pub Crawl English]]>><<set $phase2 to 1>><</link>><<englishdifficulty 1 1000>>
+		<br>
+		<<link [[Give the wrong answers|Docks Pub Crawl English]]>><<set $phase2 to 2>><</link>>
+		<br>
+
+	<<elseif $rng gte 21>>
+
+		is local history.
+		<br><br>
+
+		<<link [[Let your colleagues answer|Docks Pub Crawl History]]>><<set $phase2 to 0>><</link>>
+		<br>
+		<<link [[Answer yourself|Docks Pub Crawl History]]>><<set $phase2 to 1>><</link>><<skill_difficulty `currentSkillValue("history")` "History" 1 1000>>
+		<br>
+		<<link [[Give the wrong answers|Docks Pub Crawl History]]>><<set $phase2 to 2>><</link>>
+		<br>
+
+	<<else>>
+
+		is lovemaking, which prompts a bawdy cheer. Your colleagues insist this will be easy.
+		<br><br>
+
+		<<link [[Let your colleagues answer|Docks Pub Crawl Love]]>><<set $phase2 to 0>><</link>>
+		<br>
+		<<link [[Answer yourself|Docks Pub Crawl Love]]>><<set $phase2 to 1>><<dockstatus 1>><</link>><<skill_difficulty $promiscuity "Promiscuity" 1 100>><<gcool>>
+		<br>
+		<<link [[Give the wrong answers|Docks Pub Crawl Love]]>><<set $phase2 to 2>><<dockstatus 1>><</link>><<gcool>>
+		<br>
+
+	<</if>>
+<</widget>>
+
+<<widget "skul_dock_init">>
+	<<if $skul_dock_init is undefined>>
+		<<unset $catsuit_spawned>>
+		<<set $skul_dock_init to 1>>
+		<<set $dock_security to 1>>
+		<<set $skul_dock to {}>>
+		<<set $skul_dock.NW to {}>>
+		<<set $skul_dock.N to {}>>
+		<<set $skul_dock.NE to {}>>
+		<<set $skul_dock.W to {}>>
+		<<set $skul_dock.M to {}>>
+		<<set $skul_dock.E to {}>>
+		<<set $skul_dock.SW to {}>>
+		<<set $skul_dock.S to {}>>
+		<<set $skul_dock.SE to {}>>
+		<<set _skul_dock_keys to Object.keys($skul_dock)>>
+		<<set _count to 0>>
+		<<for _i to 0; _i lt _skul_dock_keys.length; _i++>>
+			<<rng>>
+			<<if $rng gte 100>>
+				<<set $skul_dock[_skul_dock_keys[_i]].contents to "gold">>
+				<<set _count++>>
+			<<elseif $rng gte 96>>
+				<<set $skul_dock[_skul_dock_keys[_i]].contents to "aphrodisiacs">>
+				<<set _count++>>
+			<<elseif $rng gte 76>>
+				<<set $skul_dock[_skul_dock_keys[_i]].contents to "electronics">>
+				<<set _count++>>
+			<<elseif $rng gte 66>>
+				<<set $skul_dock[_skul_dock_keys[_i]].contents to "fertiliser">>
+				<<set _count++>>
+			<<elseif $rng gte 55 and !$catsuit_found and !$catsuit_spawned>>
+				<<set $catsuit_spawned to 1>>
+				<<set $skul_dock[_skul_dock_keys[_i]].contents to "equipment">>
+				<<set _count++>>
+			<<elseif $rng gte 61 and $catsuit_found>>
+				<<set $skul_dock[_skul_dock_keys[_i]].contents to "mechanisms">>
+				<<set _count++>>
+			<<else>>
+				<<set $skul_dock[_skul_dock_keys[_i]].contents to "none">>
+			<</if>>
+		<</for>>
+		<<if _count lte 1>>
+			<<for _i to 0; _i lt _skul_dock_keys.length; _i++>>
+				<<if $skul_dock[_skul_dock_keys[_i]].contents is "none">>
+					<<rng>>
+					<<if $rng gte 96>>
+						<<set $skul_dock[_skul_dock_keys.pluck()].contents to "aphrodisiacs">>
+						<<set _count++>>
+					<<elseif $rng gte 76>>
+						<<set $skul_dock[_skul_dock_keys.pluck()].contents to "electronics">>
+						<<set _count++>>
+					<<elseif $rng gte 66>>
+						<<set $skul_dock[_skul_dock_keys.pluck()].contents to "fertiliser">>
+						<<set _count++>>
+					<</if>>
+					<<if _count is 2>>
+						<<break>>
+					<</if>>
+				<</if>>
+			<</for>>
+			<!--Added in case the variable gets use elsewhere-->
+			<<set _skul_dock_keys to Object.keys($skul_dock)>>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "skul_dock_contents">>
+	<<set _skul_dock_keys to Object.keys($skul_dock)>>
+	<<for _i to 0; _i lt _skul_dock_keys.length; _i++>>
+		<<if $skul_dock[_skul_dock_keys[_i]].contents is _args[0] and $skul_dock[_skul_dock_keys[_i]].state isnot "known">>
+			<<set $skul_dock[_skul_dock_keys[_i]].state to "known">>
+			<<set _dock_location to _skul_dock_keys[_i]>>
+			<<set _dock_contents to $skul_dock[_skul_dock_keys[_i]].contents>>
+			<<break>>
+		<</if>>
+	<</for>>
+<</widget>>
+
+<<widget "skul_dock_location">>
+	<<switch _args[0]>>
+		<<case "NW">>
+			<<set _text_output to "moorings">>
+		<<case "N">>
+			<<set _text_output to "anchored ship">>
+		<<case "NE">>
+			<<set _text_output to "warehouse">>
+		<<case "W">>
+			<<set _text_output to "cranes">>
+		<<case "M">>
+			<<set _text_output to "tallest stacks of cargo containers">>
+		<<case "E">>
+			<<set _text_output to "office building">>
+		<<case "SW">>
+			<<set _text_output to "lorry unloading area">>
+		<<case "S">>
+			<<set _text_output to "front gate">>
+		<<case "SE">>
+			<<set _text_output to "car park">>
+	<</switch>>
+	<<print _text_output>>
+<</widget>>
+
+<<widget "skul_dock_nav">>
+	<<if $bus is "W">>
+		<<icon "anchor.png">><<link [[Sneak to the anchored ship (0:05)|Docks Sneak]]>><<handheldon true>><<pass 5>><<set $bus to "NW">><</link>><<skul_dock_state NW>>
+		<br>
+	<</if>>
+	<<if $bus is "N">>
+		<<getouticon>><<link [[Sneak off the ship (0:05)|Docks Sneak]]>><<handheldon true>><<pass 5>><<set $bus to "NW">><</link>><<skul_dock_state NW>>
+		<br>
+	<</if>>
+	<<if $bus is "NW">>
+		<<icon "anchor.png">><<link [[Sneak aboard the anchored ship (0:05)|Docks Sneak]]>><<handheldon true>><<pass 5>><<set $bus to "N">><</link>><<skul_dock_state N>>
+		<br>
+	<</if>>
+	<<if $bus is "E">>
+		<<icon "storage-unit.png">><<link [[Sneak to the warehouse (0:05)|Docks Sneak]]>><<handheldon true>><<pass 5>><<set $bus to "NE">><</link>><<skul_dock_state NE>>
+		<br>
+	<</if>>
+	<<if $bus is "SW" or $bus is "NW">>
+		<<skyscrapericon "construction">><<link [[Sneak to the cranes (0:05)|Docks Sneak]]>><<handheldon true>><<pass 5>><<set $bus to "W">><</link>><<skul_dock_state W>>
+		<br>
+	<</if>>
+	<<if $bus is "E">>
+		<<icon "cargo-stack.png">><<link [[Sneak to the tallest stacks of cargo containers (0:05)|Docks Sneak]]>><<handheldon true>><<pass 5>><<set $bus to "M">><</link>><<skul_dock_state M>>
+		<br>
+	<</if>>
+	<<if $bus is "SE" or $bus is "M" or $bus is "NE">>
+		<<officeicon>><<link [[Sneak to the office (0:05)|Docks Sneak]]>><<handheldon true>><<pass 5>><<set $bus to "E">><</link>><<skul_dock_state E>>
+		<br>
+	<</if>>
+	<<if $bus is "W" or $bus is "S">>
+		<<icon "lorry.png">><<link [[Sneak to the lorry unloading area (0:05)|Docks Sneak]]>><<handheldon true>><<pass 5>><<set $bus to "SW">><</link>><<skul_dock_state SW>>
+		<br>
+	<</if>>
+	<<if $bus is "SE" or $bus is "SW">>
+		<<lockicon "gate">><<link [[Sneak to the gate (0:05)|Docks Sneak]]>><<handheldon true>><<pass 5>><<set $bus to "S">><</link>><<skul_dock_state S>>
+		<br>
+		<br>
+	<</if>>
+	<<if $bus is "S" or $bus is "E">>
+		<<icon "carpark.png">><<link [[Sneak to the car park (0:05)|Docks Sneak]]>><<handheldon true>><<pass 5>><<set $bus to "SE">><</link>><<skul_dock_state SE>>
+		<br>
+	<</if>>
+	<<if $bus is "S">>
+		<<docksicon>><<link [[Leave|Docks]]>><<handheldon true>><<set $bus to "mer">><</link>>
+		<br>
+	<</if>>
+<</widget>>
+
+<<widget "skul_dock_state">>
+	<<if !$settings.blindStatsEnabled>>
+		<<if $skul_dock[_args[0]].state is "known">>
+			<<if $skul_dock[_args[0]].contents is "none">>
+				<span class="purple">The containers here contain nothing of value to you.</span>
+			<<elseif $skul_dock[_args[0]].contents is "fertiliser" and $tending lt 400>>
+				<span class="purple">The containers here contain nothing of value to you.</span>
+			<<else>>
+				<span class="teal">A container here contains valuable <<print $skul_dock[_args[0]].contents>>.</span>
+			<</if>>
+		<<elseif $skul_dock[_args[0]].state is "empty">>
+			<span class="lblue">You've checked here.</span>
+		<<else>>
+			<span class="blue">Unknown contents.</span>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "events_skul_dock">>
+	<<if $dock_security gte random(1, 4)>>
+		<<rng 5>>
+		<<if $rng is 1>>
+			<<generateSecurity 1>><<person1>>
+			You hear footsteps approach. You take cover behind a container, and wait for the noise to pass. You exhale.<<gstress>><<stress 6>>
+			<br><br>
+
+			<<link [[Next|Docks Sneak]]>><<endevent>><<set $eventskip to 1>><</link>>
+			<br>
+		<<elseif $rng is 2>>
+			<<generateSecurity 1>><<person1>>
+			Torchlight appears on the container in front of you. Whoever's holding it is close, and getting closer.
+			<br><br>
+			You look around. The containers are packed tight. You could run the way you came, but it's some distance and you don't have long.
+			<br><br>
+			<<set $skulduggerydifficulty to 500>>
+			<<link [[Hide|Docks Hide]]>><</link>><<skulduggerydifficulty>>
+			<br>
+			<<link [[Run|Docks Run]]>><<crimeUp 100 "trespassing">><<tiredness 6>><<dock_security 1>><</link>><<crime "trespassing">><<gtiredness>><<gsecurity>>
+			<br>
+			<<if $physiquesize lte 6000>>
+				<<link [[Squeeze between the containers|Docks Squeeze]]>><</link>><<small_text>>
+				<br>
+			<</if>>
+		<<elseif $rng is 3>>
+			<!-- Modified for Monster People -->
+			You hear a patter of feet on the other side of a row of containers.
+			<<beastNEWinit 1 dog>>
+			<<set $dock_dog to clone($NPCList[0])>>
+			You peer between them, and see a <<beasttype>> <<if $monster is 1>>on all fours <</if>>sniffing the ground. You walked there not long ago. <<bHe>> has your scent.
+			<br><br>
+			<<if $monster is 1>>
+				"This way!" <<bhe>> exclaims, breaking into a run.
+			<<else>>
+				<<bHe>> barks and breaks into a run.
+			<</if>>
+			You glimpse someone in a security uniform following.
+			<br><br>
+			They'll find you soon.
+			<br><br>
+
+			<<distracticon "blue">><<link [[Ambush|Docks Ambush]]>><<dock_security 1>><</link>><<gsecurity>>
+			<br>
+			<<if $worn.upper.set is $worn.lower.set>>
+				<<clothingicon $worn.upper "upper">><<link [[Sacrifice your outfit to leave a false trail|Docks Sacrifice]]>><<set $phase to 0>><<dock_security -1>><</link>><<lsecurity>>
+				<br>
+			<<else>>
+				<<if $worn.upper.name isnot "naked">>
+					<<clothingicon $worn.upper "upper">><<link [[Sacrifice your top to leave a false trail|Docks Sacrifice]]>><<set $phase to 1>><<dock_security -1>><</link>><<lsecurity>>
+					<br>
+				<</if>>
+				<<if $worn.lower.name isnot "naked">>
+					<<clothingicon $worn.lower "lower">><<link [[Sacrifice your bottoms to leave a false trail|Docks Sacrifice]]>><<set $phase to 2>><<dock_security -1>><</link>><<lsecurity>>
+					<br>
+				<</if>>
+			<</if>>
+			<<if $worn.under_upper.set is $worn.under_lower.set>>
+				<<clothingicon $worn.under_upper "under_upper">><<link [[Sacrifice your under outfit to leave a false trail|Docks Sacrifice]]>><<set $phase to 3>><<dock_security -1>><</link>><<lsecurity>>
+				<br>
+			<<else>>
+				<<if $worn.under_upper.name isnot "naked">>
+					<<clothingicon $worn.under_upper "under_upper">><<link [[Sacrifice your under top to leave a false trail|Docks Sacrifice]]>><<set $phase to 4>><<dock_security -1>><</link>><<lsecurity>>
+					<br>
+				<</if>>
+				<<if $worn.under_lower.name isnot "naked">>
+					<<clothingicon $worn.under_lower "under_lower">><<link [[Sacrifice your underwear to leave a false trail|Docks Sacrifice]]>><<set $phase to 5>><<dock_security -1>><</link>><<lsecurity>>
+					<br>
+				<</if>>
+			<</if>>
+			<<if $bus is "NW" or $bus is "N" or $bus is "NE">>
+				<<swimicon "dive">><<link [[Dive into the sea|Docks Dive]]>><<endevent>><<set $eventskip to 1>><</link>>
+				<br>
+			<</if>>
+
+		<<elseif $rng is 4>>
+			You hear a click underfoot. <span class="red">INTRUDER DETECTED.</span> Intones a voice. "DO NOT RESIST." A hatch springs open, and metal arms shoot out.
+			<br><br>
+
+			<<link [[Dodge|Docks Machine Dodge]]>><</link>><<dancedifficulty 500 1200>>
+			<br>
+			<<link [[Struggle|Docks Machine Struggle]]>><</link>><<physiquedifficulty 12000 20000>>
+			<br>
+			<<link [[Go quietly|Docks Machine Brace]]>><</link>>
+			<br>
+		<<else>>
+			<<generateSecurity 1>><<person1>>
+			A <<person>> in a security uniform rounds a corner up ahead. You dive between two containers. You don't think <<he>> saw you.
+			<<if random(1, 2) is 1>>
+				As <<he>> passes by however, <<he>> reaches into your hiding place. "Got you," <<he>> says, grasping your arm and pulling you out.
+				<br><br>
+				<<He>> reaches for <<his>> radio. "Got the blighter," <<he>> says, shoving you against a container. "Roger." <<He>> lets the radio fall to <<his>> side. "Backup will be here soon. How's about we have a little fun while we wait?"
+				<br><br>
+
+				<<link [[Next|Docks Sneak Rape]]>><<set $molestationstart to 1>><</link>>
+				<br>
+			<<else>>
+				<<He>> passes without looking.<<gstress>><<stress 6>>
+				<br><br>
+
+				<<link [[Next|Docks Sneak]]>><<set $eventskip to 1>><<endevent>><</link>>
+				<br>
+			<</if>>
+		<</if>>
+	<<else>>
+		<<rng 6>>
+		<<if $rng is 1>>
+			<span class="red">You slip!</span> Something slick, like oil, covers the ground.
+			<br><br>
+
+			<<link [[Hold out your arms|Docks Slip]]>><<pain 8>><<stress 6>><</link>><<ggpain>><<gstress>>
+			<br>
+			<<link [[Try to stay upright|Docks Upright]]>><</link>><<dancedifficulty 400 1200>>
+			<br>
+		<<elseif $rng is 2>>
+			<<if !Weather.isOvercast>>
+				Moonlight reflects off the ocean. It captures you for a moment.<<lstress>><<stress -6>>
+				<br><br>
+			<<else>>
+				A cool breeze ruffles your hair.
+				<br><br>
+			<</if>>
+			<<link [[Next|Docks Sneak]]>><<set $eventskip to 1>><</link>>
+			<br>
+		<<elseif $rng is 3>>
+			<<generateSecurity 1>><<generateSecurity 2>>
+			You hear voices up ahead. Two guards are in the way.
+			<br><br>
+
+			<<set $skulduggerydifficulty to 500>>
+			<<link [[Find a different way (0:10)|Docks Find]]>><<pass 10>><<dock_security 1>><</link>><<gsecurity>>
+			<br>
+			<<link [[Sneak by|Docks Sneak By]]>><</link>><<skulduggerydifficulty>>
+			<br>
+		<<elseif $rng is 4>>
+			You're quiet as you move through the dark, but you're leaving traces of yourself. Security is paying more attention.<<gsecurity>><<dock_security 1>>
+			<br><br>
+
+			<<link [[Next|Docks Sneak]]>><<set $eventskip to 1>><</link>>
+			<br>
+		<<elseif $rng is 5>>
+			<<if currentSkillValue('skulduggery') gte random(1, 1000)>>
+				There's a security camera up ahead. You avoid it. <span class="green">You're glad you spotted it in time.</span>
+				<br><br>
+
+				<<link [[Next|Docks Sneak]]>><<set $eventskip to 1>><</link>>
+				<br>
+			<<else>>
+				You spot a security camera <span class="red">too late.</span> You hide, but anyone paying attention would have seen you.<<gsecurity>><<dock_security 1>><<crimeUp 10 "trespassing">><<crime "trespassing">>
+				<br><br>
+
+				<<link [[Next|Docks Sneak]]>><<set $eventskip to 1>><</link>>
+				<br>
+			<</if>>
+		<<else>>
+			These containers all look alike. They stack high around you. For a while, you're not quite sure where you are.<<gstress>><<stress 6>>
+			<br><br>
+
+			<<link [[Next|Docks Sneak]]>><<set $eventskip to 1>><</link>>
+			<br>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "dock_security">>
+	<<if _args[0]>>
+		<<set $dock_security += _args[0]>>
+	<</if>>
+<</widget>>
+
+<<widget "dock_security_text">>
+	<<if $dock_security gte 4>>
+		<span class="red">Security are on high alert.</span>
+	<<elseif $dock_security gte 3>>
+		<span class="pink">Security are aware of an intruder.</span>
+	<<elseif $dock_security gte 2>>
+		<span class="purple">Security are suspicious.</span>
+	<<else>>
+		<span class="teal">Security are relaxed.</span>
+	<</if>>
+<</widget>>
+
+<<widget "dockdogfucked">>
+	<<famebestiality 1>>
+	<<He>> shines a torch on you, and laughs. "Looks like you got more than you hoped for." You try to stand<<if $dock_knot>> again<</if>>, but the <<beasttype 1>> uses <<bhis 1>> weight to force you back down.
+	<br><br>
+
+	The <<person>> reaches for <<his>> radio. "Yeah," <<he>> says. "I got the intruder. You're gonna want to see this. <span class="red">Bring everyone.</span>"
+	<br><br>
+
+	<<if $dock_knot isnot "mouth">>
+		<<if $submissive gte 1500>>
+			<<link [[Beg|Docks Beg]]>><<sub 1>><<if $dock_knot>><<unset $dock_knot>><</if>><</link>><<submissivetext>>
+			<br>
+		<</if>>
+		<<link [[Plead|Docks Plead]]>><</link>>
+		<br>
+	<</if>>
+	<<link [[Remain silent|Docks Silent]]>><</link>>
+	<br>
+<</widget>>

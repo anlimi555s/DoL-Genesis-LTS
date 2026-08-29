@@ -1,0 +1,183 @@
+:: Widgets Maze [widget]
+
+<<widget "farmlands_maze_slime">>
+	You hear a squelch, and a hiss, behind you. You turn. A large slime squeezes along the corridor, filling the entire thing from top to bottom, blocking the way you came.
+	<br><br>
+	<<if $settings.voreEnabled and $settings.slimesEnabled>>
+		A limb of slime protrudes from its body, and forms the shape of an eye. It peers at you. Then the whole body trembles, and it lurches in your direction at speed.<<gstress>><<stress 6>>
+		<br><br>
+		You turn and run.
+		<br><br>
+		<<if random(1, 2) is 2>>
+			<<link [[Go left|Maze Slime Escape]]>><</link>>
+			<br>
+			<<link [[Go right|Maze Slime Deadend]]>><</link>>
+			<br>
+		<<else>>
+			<<link [[Go left|Maze Slime Deadend]]>><</link>>
+			<br>
+			<<link [[Go right|Maze Slime Escape]]>><</link>>
+			<br>
+		<</if>>
+	<<else>>
+		You turn and run through the branching corridors of the maze. You manage to lose the creature, with difficulty.<<beastescape>>
+		<br><br>
+		<<link [[Next|Maze Final]]>><</link>>
+		<br>
+	<</if>>
+<</widget>>
+
+<<widget "maze_init">>
+	<<if $per_npc.basilisk is undefined>>
+		<<beastNEWinit 1 "snake">><<saveNPC 0 "basilisk">>
+	<<else>>
+		<<loadNPC 0 "basilisk">>
+	<</if>>
+	<<set $maze_basilisk to 0>>
+<</widget>>
+
+<<widget "maze_end">>
+	<<unset $maze_basilisk>>
+	<<unset $maze_passage>>
+	<<endevent>>
+<</widget>>
+
+<<widget "maze_basilisk">>
+	<<set $maze_passage to $passage>>
+	<<set $maze_basilisk += 1>>
+	<<if $maze_basilisk is 1>>
+		<span class="red">Your pulse quickens.</span> You hear a slithering behind you, and a warm breeze on the back of your neck, like breath.
+		<br><br>
+		<<if $monster is 1>>
+			"What have we here," says a
+			<<if $NPCList[0].gender is "m">>
+				man's
+			<<else>>
+				woman's
+			<</if>>
+			voice. "Another visitor. Keep your eyes forward, unless you wish to stay longer than planned."
+			<br><br>
+			Despite those words, you feel an inexplicable urge to turn around.
+			<br><br>
+		<<else>>
+			You feel an inexplicable urge to turn around.
+			<br><br>
+		<</if>>
+		<<link [[Resist the urge to turn|Maze Turn]]>><</link>><<willpowerdifficulty 1 400>>
+		<br>
+	<<elseif $maze_basilisk is 2>>
+		<span class="red">Your pulse quickens.</span> You hear a slithering behind you, and a warm breeze on the back of your neck, like breath.
+		<br><br>
+		<<if $monster is 1>>
+			"This maze used to house a thief," the
+			<<if $NPCList[0].gender is "m">>
+				man
+			<<else>>
+				woman
+			<</if>>
+			says, close enough to bite. "A nice place to hide. Out of the way. Hard to penetrate. But the thief was too skilled for their own good. They took a prize that shouldn't be."
+			<br><br>
+			You feel the presence move to your other ear. "Trapped in a cycle, they lost interest in gold. They wanted a different sort of wealth. Something only they saw the value of. They and one other."
+			<br><br>
+			You feel an inexplicable urge to turn around.
+			<br><br>
+		<<else>>
+			You hear a hiss, close enough to bite, and the feeling of being studied. The presence moves to the other side of your head, then back again, as if swaying.
+			<br><br>
+			You feel an inexplicable urge to turn around.
+			<br><br>
+		<</if>>
+		<<link [[Resist the urge to turn|Maze Turn]]>><</link>><<willpowerdifficulty 1 600>>
+		<br>
+	<<elseif $maze_basilisk is 3>>
+		<span class="red">Your pulse quickens.</span> You hear a slithering behind you, and a warm breeze on the back of your neck, like breath.
+		<br><br>
+		<<if $monster is 1>>
+			"The thief filled these halls with their treasures," the
+			<<if $NPCList[0].gender is "m">>
+				man
+			<<else>>
+				woman
+			<</if>>
+			says. "That's how I arrived. Few remain now. Other thieves came. Some took treasures. Others became mine."
+			<br><br>
+			You feel an inexplicable urge to turn around.
+			<br><br>
+		<<else>>
+			You feel the detritus shift several metres behind you. As if you're being followed by more than one creature. Or something gargantuan.
+			<br><br>
+			You feel an inexplicable urge to turn around.
+			<br><br>
+		<</if>>
+		<<link [[Resist the urge to turn|Maze Turn]]>><</link>><<willpowerdifficulty 1 800>>
+		<br>
+	<<else>>
+		<span class="red">Your pulse quickens.</span> You hear a slithering behind you, and a warm breeze on the back of your neck, like breath.
+		<br><br>
+		<<if $monster is 1>>
+			"Do I frighten you?" the
+			<<if $NPCList[0].gender is "m">>
+				man
+			<<else>>
+				woman
+			<</if>>
+			says. "I should, but I'm nothing compared to the jaws of sin. Do you think you'll fare better than the thief?" You hear laughter like ancient trees creaking in the wind.
+			<br><br>
+			You feel an inexplicable urge to turn around.
+			<br><br>
+		<<else>>
+			You hear a hiss, and your blood runs cold. You feel like breaking into a run, and like freezing on the spot. Instead, you continue to walk.
+			<br><br>
+			You feel an inexplicable urge to turn around.
+			<br><br>
+		<</if>>
+		<<link [[Resist the urge to turn|Maze Turn]]>><</link>><<willpowerdifficulty 1 1000>>
+		<br>
+	<</if>>
+<</widget>>
+
+<<widget "petrified_init">>
+	<<set $petrified_chance to 0>>
+<</widget>>
+
+<<widget "petrified_end">>
+	<<unset $petrified_chance>><<set $eventskip to 1>>
+<</widget>>
+
+<<widget "petrified_chance">>
+	<<if _args[0]>>
+		<<set $petrified_chance += _args[0]>>
+	<<else>>
+		<<set $petrified_chance += $willpower / 100>>
+	<</if>>
+<</widget>>
+
+<<widget "gescape_chance">><<if !$settings.blindStatsEnabled>>
+	| <span class="green">+ Escape chance</span>
+<</if>><</widget>>
+
+<<widget "ggescape_chance">><<if !$settings.blindStatsEnabled>>
+	| <span class="green">+ + Escape chance</span>
+<</if>><</widget>>
+
+<<widget "gggescape_chance">><<if !$settings.blindStatsEnabled>>
+	| <span class="green">+ + + Escape chance</span>
+<</if>><</widget>>
+
+<<widget "lescape_chance">><<if !$settings.blindStatsEnabled>>
+	| <span class="red">- Escape chance</span>
+<</if>><</widget>>
+
+<<widget "llescape_chance">><<if !$settings.blindStatsEnabled>>
+	| <span class="red">- - Escape chance</span>
+<</if>><</widget>>
+
+<<widget "lllescape_chance">><<if !$settings.blindStatsEnabled>>
+	| <span class="red">- - - Escape chance</span>
+<</if>><</widget>>
+
+<<widget "petrified_chance_text">><<if !$settings.blindStatsEnabled>>
+	<<set $_progress to Math.clamp(Math.floor($petrified_chance/20),0,5)>>
+	<<set $_difficultyColour to ["red","pink","purple","blue","lblue","green"][$_progress]>>
+	<u>Escape chance:</u> <span @class=$_difficultyColour><<print Math.floor($petrified_chance)>>%</span>
+<</if>><</widget>>

@@ -1,0 +1,1672 @@
+/*ToDo: Pregnancy Story Content: Lacking events. For events that can be picked when random events can be used during player action, say entering the wolf cave*/
+:: ChildrenEvents [widget]
+
+/* The whole bathe-the-child scene: shared intro, one of four flavours
+   (gentle/shampoo/calm/tantrum), shared wrap-up, and the right prop for each.
+   Optional arg picks the flavour; leave it out for a random one. */
+<<widget "childBatheScene">>
+	<<set _flavour to _args[0]>>
+	<<if !_flavour>>
+		<<rng 5>>
+		<<switch $rng>>
+			<<case 1>><<set _flavour to "gentle">>
+			<<case 2>><<set _flavour to "shampoo">>
+			<<case 3>><<set _flavour to "calm">>
+			<<default>><<set _flavour to "tantrum">>
+		<</switch>>
+	<</if>>
+	<<if _flavour is "shampoo" or _flavour is "calm">>
+		<<wearProp "soap">>
+	<<else>>
+		<<wearProp "rag" "white">>
+	<</if>>
+	You fill a small tub with warm water and prepare the towels and a new nappy beforehand. You take <<childname>> in your arms gently and carry <<childhim>> to the bathtub, making sure to put <<childhim>> in a safe position.
+	<br><br>
+	<<switch _flavour>>
+		<<case "gentle">>
+			Next, you rub <<childname>> gently with the warm water, making sure to clean between the folds of skin, and holding <<childhis>> little body with one hand. The softness of <<childhis>> skin as you rub makes you feel extremely at ease. The baby seems to be tickled by your touches and swings <<childhis>> legs in the water, making some of it splash on your clothes and face. You can't help but smile at the situation.<<ltrauma>><<trauma -6>>
+		<<case "shampoo">>
+			Next, you gently rub <<childname>>'s head in circular motions with a handful of baby shampoo. The sweet aroma of strawberry fills the ambient, and bubbles begin to appear in the water. Your child seems curious and periodically takes one of <<childhis>> fingers to the bubbles, popping them. <<childHis>> mellow laughter echoes through the room as <<childhe>> is distracted by the foam in the bathtub.<<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
+		<<case "calm">>
+			Next, you start the bath by trying to soap your baby's body. <<childHe>> doesn't seem to like the feel of water on <<childhis>> skin, let alone seems to be enjoying your attempts to cleanse <<childhim>>. <<childname>> threatens to cry as you continue the bath, but you manage to calm <<childhim>> down after a little effort. <<childHe>> pouts in distaste until the end of the cleaning session. When you're finished, <<childhe>> doesn't seem to want to let you carry <<childhim>> back and makes uncontent sounds when you pick <<childhim>> up.<<gstress>><<stress 6>>
+		<<case "tantrum">>
+			Just touching the water makes <<childname>> let out a high-pitched, incessant cry. <<childHe>> flails <<childhis>> legs and arms into the water trying to get free as you struggle to rub <<childhim>> properly. Water splashes quickly soak your clothes. <<childHe>> continues throwing a tantrum until the end of the bath, leaving you with a headache.<<gstress>><<stress 6>>
+		<<default>>
+			<<run console.warn("childBatheScene: unexpected bath flavour: " + _flavour)>>
+	<</switch>>
+	<br><br>
+	When you're done bathing <<childhim>>, you lay <<childhim>> on a towel and gently dry <<childhis>> body with a softer fabric. You carefully finish the moment by changing the baby's nappies and putting <<childhim>> back in <<childhis>> crib.
+<</widget>>
+
+/*args[0] - location, args[1] - passageExit*/
+<<widget "childrenEvents">>
+	<<if _args[0]>>
+		<<if _args[0] is "tower">>
+			<<getChildrenIds `{location: _args[0], eggTimer: undefined}` "both">>
+		<<else>>
+			<<getChildrenIds `{location: _args[0]}`>>
+		<</if>>
+		<<if _childrenIds.length gt 0>>
+			<<set _singleEvents to true>>
+		<</if>>
+		<!-- Rework these later, they make no sense. Why can't children of different birth IDs interact? -->
+		<<if _args[0] is "tower">>
+			<<getSameBirthChildrenIds _args[0] 2 undefined "both">>
+		<<else>>
+			<<getSameBirthChildrenIds _args[0] 2>>
+		<</if>>
+		<<if Object.keys(_birthChildrenIds).length gt 0>>
+			<<set _multipleEvents to true>>
+		<</if>>
+		<<set _keys to Object.keys(_birthChildrenIds)>>
+		<<set $childPassageExit to _args[1]>>
+		<<switch _args[0]>>
+			<<case "home">>
+				<<if _singleEvents is true and (_multipleEvents is false or random(0,100) gt 40)>>
+					<<addevent `"homeSingles " + _childrenIds[random(0,_childrenIds.length - 1)]`>>
+				<<elseif _multipleEvents is true>>
+					<<set $childrenIds to _birthChildrenIds[_keys.random()]>>
+					<<addevent `"homeMultiples " + _args`>>
+				<</if>>
+			<<case "wolf_cave">>
+				<<if _singleEvents is true and (_multipleEvents is false or random(0,100) gt 40)>>
+					<<addevent `"wolfCaveSingles " + _childrenIds[random(0,_childrenIds.length - 1)]`>>
+				<<elseif _multipleEvents is true>>
+					<<set $childrenIds to _birthChildrenIds[_keys.random()]>>
+					/*<<addevent "wolfCaveMultiple _args">>*/
+				<</if>>
+			<<case "tower">>
+				<<if _singleEvents is true and (_multipleEvents is false or random(0,100) gt 40)>>
+					<<addevent `"hawkSingles " + _childrenIds[random(0,_childrenIds.length - 1)]`>>
+				<<elseif _multipleEvents is true>>
+					<<set $childrenIds to _birthChildrenIds[_keys[random(0,_keys.length - 1)]]>>
+					<<addevent `"hawkMultiples " + _args`>>
+				<</if>>
+		<</switch>>
+	<</if>>
+<</widget>>
+
+<<widget "homeSingles">>
+	<<if _args[0]>>
+		<<childSelect _args[0]>>
+		<<switch random(0,0)>>
+			<<case 0>>
+				You spot your child <<childname>> on <<childhis>> back, looking at you with <<childhis>> <<childhands>> stretched towards you.
+				<br><br>
+				Picking <<childhim>> up, <<childhe>> <<childgiggles>> while rubbing your face.
+				<br><br>
+				<<if $lactating is 1 and $settings.breastFeedingEnabled and $milk_amount gte 1>>
+					<<link [[Breast feed (0:30)|childBreastFeed]]>><<pass 30>><</link>>
+					<br>
+				<</if>>
+				<<link [[Cuddle (0:30)|childCuddle]]>><<pass 30>><</link>>
+				<br>
+				<<link [[Talk (0:15)|childTalk]]>><<pass 15>><</link>>
+				<br>
+				<<link [[Play (0:30)|childPlay]]>><<pass 30>><</link>>
+				<br>
+				<<link [[Bathe (0:30)|childBathe]]>><<pass 30>><</link>>
+		<</switch>>
+	<</if>>
+	<br>
+<</widget>>
+
+<<widget "homeMultiples">>
+	<<if $childrenIds>>
+		<<switch random(0,0)>>
+			<<case 0>>
+				You spot your children <<childrenNames $childrenIds>> sleeping together in their cot with a peaceful look on their faces.
+				<br><br>
+				<<link [[Watch (0:30)|childCotWatch]]>><<stress -2>><<trauma -2>><<pass 30>><<set $phase to 1>><</link>><<lstress>><<ltrauma>>
+				<br>
+				<<link [[Have a nap (0:30)|childCotWatch]]>><<stress -2>><<tiredness -2>><<pass 30>><<set $phase to 2>><</link>><<lstress>><<ltiredness>>
+		<</switch>>
+	<</if>>
+<</widget>>
+
+<<widget "wolfCaveSingles">>
+	<<if _args[0]>>
+		<<childSelect _args[0]>>
+		<<set _c to $children[_args[0]]>>
+		<<set _hurtEligible to ["wolf","wolfboy","wolfgirl"].includes(_c.type) and (_c.mother is "Black Wolf" or _c.father is "Black Wolf")>>
+		<<set _scene to 0>>
+		<<if _hurtEligible>>
+			<<set _scene to random(0,1)>>
+		<</if>>
+		<<switch _scene>>
+			<<case 0>>
+				You spot your <<childtype>> <<childname>> lying on a sleeping <<wolf_cave_singular>>, looking at you with <<childhis>> <<childhands>> stretched towards you.
+				<br><br>
+				Picking <<childhim>> up, <<childhe>> <<childgiggles>> while rubbing your face.
+				<br><br>
+				<<if $lactating is 1 and $settings.breastFeedingEnabled and $milk_amount gte 1>>
+					<<link [[Breast feed (0:30)|childBreastFeed]]>><<pass 30>><</link>>
+					<br>
+				<</if>>
+				<<link [[Cuddle (0:30)|childCuddle]]>><<pass 30>><</link>>
+				<br>
+				<<link [[Talk (0:15)|childTalk]]>><<pass 15>><</link>>
+				<br>
+				<<link [[Play (0:30)|childPlay]]>><<pass 30>><</link>>
+			<<case 1>>
+				<<childHe>>'s whining beside the Black Wolf, who growls at other wolves.
+				<br><br>
+				<<link [[Investigate (0:10)|Wolf Cave Hurt Pup]]>><<pass 10>><</link>>
+		<</switch>>
+	<</if>>
+	<br>
+<</widget>>
+
+<<widget "hawkSingles">>
+	<<if _args[0]>>
+		<<childSelect _args[0]>>
+		<<switch random(0,2)>>
+			<<case 0 1>>
+				You spot your <<childtype>> <<childname>> lying in the nest, looking at you with <<childhis>> <<childhands>> stretched towards you.
+				<br><br>
+				Picking <<childhim>> up, <<childhe>> <<childgiggles>> and flails about.
+				<br><br>
+
+				<<if $cmonster is 1 and $lactating is 1 and $settings.breastFeedingEnabled and $milk_amount gte 1>>
+					<<link [[Breast feed (0:30)|childBreastFeed]]>><<pass 30>><</link>>
+					<br>
+				<</if>>
+				<<link [[Cuddle (0:30)|childCuddle]]>><<pass 30>><</link>>
+				<br>
+				<<link [[Talk (0:30)|childTalk]]>><<pass 30>><</link>>
+				<br>
+				<<link [[Play (0:30)|childPlay]]>><<pass 30>><</link>>
+			<<case 2>>
+				You see <<childname>> rolling around in the nest. As soon as <<childhe>> spots you, <<childhe>> rights <<childhimself>> and <<childgiggles>>. <<childHe>> seems happy to see you! <<stress -12>><<llstress>>
+				<br><br>
+
+				<<link [[Next|$childPassageExit]]>><<unset $childPassageExit>><<endevent>><</link>>
+				<br>
+		<</switch>>
+	<</if>>
+	<br>
+<</widget>>
+
+<<widget "hawkMultiples">>
+	<<if $childrenIds>>
+		<<switch random(0,0)>>
+			<<case 0>>
+				You spot <<childrenNames $childrenIds>> tumbling over one another.
+				<<set _child1 to _childrenIds.pluck()>>
+				<<set _child2 to _childrenIds.pluck()>>
+				Every now and again they stop to stare at each other. After a moment, <<childname _child1>> moves behind <<childSelect _child2>><<childname>> and starts to groom <<childhim>>.
+				<br><br>
+
+				<<link [[Next|$childPassageExit]]>><<unset $childrenIds>><<unset $childPassageExit>><<endevent>><</link>>
+				<br>
+		<</switch>>
+	<</if>>
+<</widget>>
+
+:: Wolf Cave Hurt Pup
+<<set _hurtPupId to $childSelected.childId>>
+<<effects>><<npc "Black Wolf">>
+<<childSelect _hurtPupId>>
+
+You decide to investigate and find your <<childtype>> whimpering beside the Black Wolf, who looks aggressive and growls at any other wolf that tries to approach. <<bHe>> growls at you too, until <<bhe>> realises it's you, and calms slightly.
+<br><br>
+
+<<if $monster is 1>>
+
+	"<<childHe>>'s hurt," <<bHe>> says, gesturing at your <<childtype>>. "Tripped." <<bHe>> insistently points to something on the cave floor. A jagged rock lies not too far away from your <<childtype>>.
+	<br><br>
+
+	You kneel down and examine your <<childtype>>. There's a scrape on one of <<childhis>> paws. It's nothing serious, but painful for a young one. The Black Wolf watches you two intently.
+	<br><br>
+
+	You clean the wound as best you can with what you have available, and your <<childtype>> stops whimpering. <<childHe>> nuzzles against you and licks your hand. <<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
+	<br><br>
+
+	You three spend a bit of time together in silence until the Black Wolf retreats once again to the outside of the cave.
+
+<<else>>
+
+	The Black Wolf's face turns towards something on the cave floor, huffing insistently. <<bHe>> wants you to look. You find a jagged rock not too far away from where your <<childtype>> is.
+	<br><br>
+
+	You kneel down and examine your <<childtype>>. There's a scrape on one of <<childhis>> paws. Nothing serious, but painful for a young one. The Black Wolf circles around you both.
+	<br><br>
+
+	You clean the wound as best you can with what you have available, and your <<childtype>> stops whimpering. <<childHe>> nuzzles against you and licks your hand. <<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
+	<br><br>
+
+	You three spend a bit of time together in silence until the Black Wolf retreats once again to the outside of the cave.
+
+<</if>>
+<br><br>
+
+<<link [[Next|$childPassageExit]]>><<unset $childPassageExit>><<endevent>><</link>>
+
+:: childBreastFeed
+<<set $pregnancyStats.childBreastfedInteractions++>>
+<<if $worn.over_upper.name isnot "naked" or $worn.upper.name isnot "naked" or $worn.upper.name isnot "naked">>
+	You adjust your clothes to give <<childhim>> access to your <<breasts>>.
+<<else>>
+	You guide your baby's lips to your breast.
+<</if>>
+<br><br>
+<<set _rng to random(1, 4)>>
+<<switch _rng>>
+	<<case 1>>
+		<<childHe>> seems to realise your intent and suckles your <<print ["left","right"].pluck()>> breast with closed eyes.<<breastfeed 25>>
+	<<case 2>>
+		It takes <<childhim>> a few moments to find your nipple. <<childHe>> latches on and starts sucking. You watch your baby drink and enjoy the calm moment.<<lstress>><<stress -6>><<breastfeed 20>>
+	<<case 3>>
+		<<childHe>> latches onto your nipple and starts sucking with surprising eagerness. The strength of <<childhis>> suction soon causes you discomfort. Your nipple soon feels sore.<<gpain>><<pain 4>><<breastfeed 30>>
+	<<default>>
+		<<childHe>> refuses to take your nipple into <<childhis>> mouth, moving <<childhis>> head away and crying even louder than before.<<gstress>><<stress 6>>
+<</switch>>
+<br><br>
+
+<<link [[Next|$childPassageExit]]>><<unset $childPassageExit>><<endevent>><</link>>
+
+:: childCuddle
+<<set _rng to random(1, 5)>>
+<<switch $children[$childSelected.childId].type>>
+	<<case "human">>
+		<<switch _rng>>
+			<<case 1>>
+				<<childHe>> seems to realise your intent and wraps <<childhis>> <<childhands>> around your neck while leaning on your shoulder.
+			<<case 2>>
+				You hum a melodic lullaby, rubbing <<childname>>'s back as you gently sway to the tune. The familiarity of your voice seems to soothe <<childhis>> mood. <<childHe>> coos at you.<<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
+			<<case 3>>
+				You place a soft kiss on <<childhis>> forehead and give <<childhim>> as much skin-to-skin contact as you can. The action encourages <<childhim>> to lift <<childhis>> head and reward you with a smile.<<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
+			<<case 4>>
+				You give <<childname>> a few different objects to look at. You explain the colours, shapes, and textures of things that you see around you. <<childHe>> reaches out to touch, curious to explore <<childhis>> environment. You make sure <<childhe>> doesn't try to grasp anything too heavy or awkward.<<gstress>><<stress 6>>
+			<<default>>
+				<<childHe>> revolts against being carried, and <<childhe>> kicks <<childhis>> legs. The longer you hold <<childhim>>, the more intense <<childhis>> cries become. Some of <<childhis>> kicks connect.<<gpain>><<gstress>><<pain 4>><<stress 6>>
+		<</switch>>
+	<<case "wolf" "wolfboy" "wolfgirl">>
+		<<switch _rng>>
+			<<case 1>>
+				<<if $cmonster is 1>>
+					<<childHe>> seems to realise your intent and wraps <<childhis>> <<childhands>> around your neck while leaning on your shoulder.
+				<<else>>
+					<<childHe>> seems to realise your intent and settles into the crook of your neck.
+				<</if>>
+			<<case 2>>
+				You hum a melodic lullaby, rubbing <<childname>>'s back as you gently sway to the tune. The familiarity of your voice seems to soothe <<childhis>> mood. <<childHe>> coos at you.<<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
+			<<case 3>>
+				<<if $cmonster is 1>>
+					You place a soft kiss on <<childhis>> forehead and give <<childhim>> as much skin-to-skin contact as you can. The action encourages <<childhim>> to lift <<childhis>> head and reward you with a smile.<<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
+				<<else>>
+					You place a soft kiss on <<childhis>> forehead and give <<childhim>> as much skin-to-fur contact as you can. The action encourages <<childhim>> to lift <<childhis>> head and stick <<childhis>> tongue out at you.<<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
+				<</if>>
+			<<case 4>>
+				You give <<childname>> a few different objects to look at. You explain the colours, shapes, and textures of things that you see around you. <<childHe>> picks a stick up in <<childhis>> mouth and starts to shake it around. You make sure <<childhe>> doesn't try to grasp anything else too heavy or awkward.<<gstress>><<stress 6>>
+			<<default>>
+				<<childHe>> revolts against being carried, and <<childhe>> kicks <<childhis>> legs. The longer you hold <<childhim>>, the more intense <<childhis>> cries become. Some of <<childhis>> kicks connect.<<gpain>><<gstress>><<pain 4>><<stress 6>>
+		<</switch>>
+	<<case "hawk">>
+		<<switch _rng>>
+			<<case 1>>
+				<<if $cmonster is 1>>
+					<<childHe>> seems to realise your intent and wraps <<childhis>> <<childhands>> around your neck while leaning on your shoulder.
+				<<else>>
+					<<childHe>> seems to realise your intent and settles into the crook of your neck.
+				<</if>>
+			<<case 2>>
+				You hum a melodic lullaby, rubbing <<childname>>'s back as you gently sway to the tune. The familiarity of your voice seems to soothe <<childhis>> mood. <<childHe>> coos at you.<<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
+			<<case 3>>
+				<<if $cmonster is 1>>
+					You place a soft kiss on <<childhis>> forehead and give <<childhim>> as much skin-to-skin contact as you can. The action encourages <<childhim>> to lift <<childhis>> head and reward you with a smile.<<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
+				<<else>>
+					You place a soft kiss on <<childhis>> forehead and give <<childhim>> as much skin-to-feather contact as you can. The action encourages <<childhim>> to lift <<childhis>> head and chirp at you.<<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
+				<</if>>
+			<<case 4>>
+				You give <<childname>> a few different materials to look at. You explain the colours, shapes, and textures of things that you see around you.
+				<<if $cmonster is 1>>
+					<<childHe>> reaches out to touch, curious to explore <<childhis>> environment. <<childHe>> grabs onto a piece of cloth
+				<<else>>
+					<<childHe>> reaches out to peck at a piece of cloth that you're showing <<childhim>>. <<childHe>> manages to get it away from you,
+				<</if>>
+				and starts to shake it about. <<childHe>> <<childgiggles>>, but you make sure <<childhe>> doesn't try to grab anything else. <<gstress>><<stress 6>>
+			<<default>>
+				<<if $cmonster is 1>>
+					<<childHe>> revolts against being carried, and <<childhe>> kicks <<childhis>> legs. The longer you hold <<childhim>>, the more intense <<childhis>> cries become. Some of <<childhis>> kicks connect.<<gpain>><<gstress>><<pain 4>><<stress 6>>
+				<<else>>
+					<<childHe>> revolts against being carried and manages to slip your grasp. <<childHe>> falls harmlessly into the nest, but the act gives you quite the start. <<ggstress>><<stress 12>>
+				<</if>>
+		<</switch>>
+	<<default>>
+		<span class="red">Childtype $children[$childSelected.childId].type not found. This is a bug.</span>
+<</switch>>
+<br><br>
+
+<<link [[Next|$childPassageExit]]>><<unset $childPassageExit>><<endevent>><</link>>
+
+:: childCotWatch
+<<childSelect `$childrenIds[random(0,$childrenIds.length - 1)]`>>
+<<if $phase is 1>>
+	You stand over <<childrenNames $childrenIds>> and watch them sleep.
+	<<set _rng to random(1, 4)>>
+	<<switch _rng>>
+		<<case 1>>
+			You're transfixed by <<childname>>'s chest, rising and fallen with gentle breaths.
+		<<case 2>>
+			You find yourself stroking each of their heads.
+		<<case 3>>
+			<<childname>> opens <<childhis>> mouth in a big yawn and stretches.<<lstress>><<stress -6>>
+		<<default>>
+			<<childname>> murmurs and scrunches <<childhis>> features, as if having a bad dream.<<gstress>><<stress 6>>
+	<</switch>>
+	<br><br>
+<<elseif $phase is 2>>
+	You decide to have a nap and lie in the bed next to your children.
+	<br><br>
+	You wake up sometime later with something wrapped round your finger. While still asleep, it seems that <<childname>>'s <<childhand>> was able to reach you.
+	<br><br>
+<</if>>
+
+<<link [[Next|$childPassageExit]]>><<unset $childrenIds>><<unset $childPassageExit>><<endevent>><</link>>
+
+:: childTalk
+<<set _rng to random(1, 4)>>
+<<switch $children[$childSelected.childId].type>>
+	<<case "human">>
+		<<switch _rng>>
+			<<case 1>>
+				You recite a few nursery rhymes you remember from long ago. <<childHe>> looks alert as <<childhe>> listens to your voice. You make a few different tones and wait for <<childhis>> reaction. It seems to you like <<childhe>> recognises certain sounds and changes <<childhis>> expression accordingly. After a few more moments, <<childhe>> breaks eye contact and sucks on <<childhis>> thumb.
+			<<case 2>>
+				You gently cup <<childname>>'s right foot and count <<childhis>> toes, wriggling them before moving on to <<childhis>> next foot. <<childHe>> quiets, watching you with wide eyes as you move your finger from one toe to the next.
+			<<case 3>>
+				You chat to <<childname>>, sharing your thoughts and waiting for a response. <<childHe>> doesn't seem to be paying much attention however.<<gstress>><<stress 6>>
+			<<default>>
+				You speak to <<childname>>, but <<childhis>> cries drown your words. <<childHis>> face turns a deeper shade of red with every minute you spend trying to talk to <<childhim>>.<<gstress>><<stress 6>>
+		<</switch>>
+	<<case "wolf" "wolfboy" "wolfgirl">>
+		<<switch _rng>>
+			<<case 1>>
+				You recite a few nursery rhymes you remember from long ago. <<childHe>> looks alert as <<childhe>> listens to your voice. You make a few different tones and wait for <<childhis>> reaction. It seems to you like <<childhe>> recognises certain sounds and changes <<childhis>> expression accordingly. After a few more moments, <<childhe>> tilts <<childhis>> head at you.
+			<<case 2>>
+				You gently cup <<childname>>'s
+				<<if $cmonster is 1>>
+					right foot and count <<childhis>> toes, wriggling them before moving on to <<childhis>> next foot. <<childHe>> quiets, watching you with wide eyes as you move your finger from one toe to the next.
+				<<else>>
+					front right paw and count <<childhis>> toes, wriggling them before moving on to <<childhis>> next paw. <<childHe>> quiets, watching you with wide eyes as you move your finger from one toe to the next.
+				<</if>>
+			<<case 3>>
+				You chat to <<childname>>, sharing your thoughts and waiting for a response. <<childHe>> doesn't seem to be paying much attention however.<<gstress>><<stress 6>>
+			<<default>>
+				You speak to <<childname>>, but <<childhe>> softly barks at you every time you open your mouth. <<childHe>> headbutts your leg, then turns away.
+		<</switch>>
+	<<case "hawk">>
+		<<switch _rng>>
+			<<case 1>>
+				You recite a few nursery rhymes you remember from long ago. <<childHe>> looks alert as <<childhe>> listens to your voice. You make a few different tones and wait for <<childhis>> reaction. It seems to you like <<childhe>> recognises certain sounds. After a few more moments, <<childhe>> tilts <<childhis>> head at you.
+			<<case 2>>
+				You gently cup <<childname>>'s
+				<<if $cmonster is 1>>
+					right foot and count <<childhis>> toes, wriggling them before moving on to <<childhis>> next foot. <<childHe>> quiets, watching you with wide eyes as you move your finger from one toe to the next.
+				<<else>>
+					right leg and count <<childhis>> talons, wriggling them before moving on to <<childhis>> next leg. <<childHe>> quiets, watching you as you move your finger from one talon to the next.
+				<</if>>
+			<<case 3>>
+				You chat to <<childname>>, sharing your thoughts and waiting for a response. <<childHe>> doesn't seem to be paying much attention however.<<gstress>><<stress 6>>
+			<<default>>
+				You speak to <<childname>>, but <<childhe>> softly chirps at you every time you open your mouth. <<childHe>> headbutts your leg, then turns away.
+		<</switch>>
+	<<default>>
+		<span class="red">Childtype $children[$childSelected.childId].type not found. This is a bug.</span>
+<</switch>>
+<br><br>
+
+<<link [[Next|$childPassageExit]]>><<unset $childPassageExit>><<endevent>><</link>>
+
+:: childPlay
+<<set _rng to random(1, 6)>>
+<<switch _rng>>
+	<<case 1>>
+		You smile down at <<childname>>. You wave your hands and stick your tongue out, making several different faces in an attempt to catch <<childhis>> attention. <<childHe>> studies your expressions with curiosity. <<childHe>> is trying to imitate you, but you're unsure if it's just a reflex.
+	<<case 2>>
+		You bring <<childname>>'s <<childfeet>> to <<childhis>> <<childhands>>, moving them around and occasionally clapping them together. You give <<childhis>> body a gentle massage, from <<childhis>> <<childtoes>>, to <<childhis>> back, then all the way to <<childhis>> <<childfinger>>tips. You shower <<childhis>> frame in affectionate touches. <<childHe>> smiles in response to your broad grin.
+	<<case 3>>
+		You cover your face with both hands, then uncover it a few seconds later. <<childname>> peers up at you. <<childHe>> smiles when your eyes meet.<<lstress>><<stress -6>>
+	<<case 4>>
+		You tickle <<childname>> and blow raspberries on <<childhis>> stomach. <<childHe>> responds by interrupting <<childhis>> cries and <<childgiggles>> instead, flapping <<childhis>> arms and legs in joy.<<lstress>><<stress -6>>
+	<<case 5>>
+		You tickle <<childname>> and blow raspberries on <<childhis>> stomach. <<childHis>> cries become louder as <<childhe>> turns <<childhis>> head from side to side and squirms away. <<childHe>> seems upset over the treatment.<<gstress>><<stress 6>>
+	<<default>>
+		You get closer to <<childname>>, so <<childhe>> can study your face and its features. <<childHe>> stops crying for a moment, only to grab your hair and pull it.<<gpain>><<pain 4>>
+<</switch>>
+<br><br>
+
+<<link [[Next|$childPassageExit]]>><<unset $childPassageExit>><<endevent>><</link>>
+
+:: childBathe
+<<childBatheScene>>
+<br><br>
+
+<<link [[Next|$childPassageExit]]>><<unset $childPassageExit>><<endevent>><</link>>
+
+:: Childrens Home
+<<effects>>
+<<getChildrenIds `{location: $location}`>>
+<<switch $location>>
+	<<case "home">>
+		You are in the orphanage nursery. There are a few cradles and cots scattered around.
+	<<case "wolf_cave">>
+		<<switch Time.dayState>>
+			<<case "dawn">>
+				Many of the pups are still asleep.
+			<<case "day">>
+				The yips, growls, and tiny howls of young pups playing echo off the rocky walls.
+			<<case "dusk">>
+				Most of the pups have already settled down for the night.
+			<<case "night">>
+				The pups are all asleep, and the den is silent.
+		<</switch>>
+	<<case "alex_cottage">>
+		You are in the cottage nursery.
+		<<switch Time.dayState>>
+			<<case "dawn">>
+				The sound of birds singing early in the morning soothes the room.
+			<<case "day">>
+				Sounds from the farm can be heard through the cottage.
+			<<case "dusk">>
+				A calm breeze flows through the curtain.
+			<<case "night">>
+				Silence fills the room.
+		<</switch>>
+	<<case "tower">>
+		<<getChildrenIds `{location: $location, eggTimer: undefined}` "both">>
+		You are in the tower. You look around for your <<pluralise _childrenIds.length "child">>.
+<</switch>>
+<<if Time.dayState isnot "night" and (!$daily.childrenHomeEvent or !$daily.childrenHomeEvent.includes($location)) and random(1) is 1>>
+	<<if !$daily.childrenHomeEvent>>
+		<<set $daily.childrenHomeEvent to [$location]>>
+	<<else>>
+		<<run $daily.childrenHomeEvent.push($location)>>
+	<</if>>
+	<<cleareventpool>>
+	<<childrenEvents $location $passage>>
+	<<if _eventpool.length>>
+		<<runeventpool>>
+		<<exit>>
+	<</if>>
+<</if>>
+<br><br>
+<<childViewerDisplay _childrenIds>>
+<br>
+<<if $location isnot "tower">>
+	<<if $location is "wolf_cave">>
+		<<childicon "rope">>
+	<<else>>
+		<<childicon "teddy bear">>
+	<</if>>
+	<<if $player.inventory.childrenToys>>
+		<<if !$storedChildrenToys[$location]>><<set $storedChildrenToys[$location] to []>><</if>>
+		<<link [[Store children's toys|Childrens Home Toys]]>><</link>>
+		<br>
+	<<else>>
+		You have not bought any toys for your children here. You should take a trip to <<= $location is "wolf_cave" ? "the pet store" : "the toy shop">>.
+		<br>
+	<</if>>
+<</if>>
+<<if $location is "home">>
+	<<foodstufficon "baby_bottle_of_breast_milk">>
+	<<if V.foodstuff['baby_bottle_of_breast_milk'] and V.foodstuff['baby_bottle_of_breast_milk'].amount gt 0>>
+		<<link [[Donate breast milk|Childrens Donate Milk]]>><</link>>
+		<<if $pregnancyStats.orphanageMilkBottles gt 0>>
+			(<span class="green"><<print $pregnancyStats.orphanageMilkBottles>></span> bottles remaining)
+		<<else>>
+			(<span class="red"><<print $pregnancyStats.orphanageMilkBottles>></span> bottles remaining)
+		<</if>>
+	<<else>>
+		You have no bottled breast milk to donate.
+		<<if $pregnancyStats.orphanageMilkBottles gt 0>>
+			(<span class="green"><<print $pregnancyStats.orphanageMilkBottles>></span> bottles remaining)
+		<<else>>
+			(<span class="red"><<print $pregnancyStats.orphanageMilkBottles>></span> bottles remaining)
+		<</if>>
+	<</if>>
+	<br>
+<</if>>
+<<getouticon>><<link [[Back|$exitPassage]]>><<unset $exitPassage>><</link>>
+
+:: Childrens Donate Milk
+<<effects>>
+
+<label>Number of milk bottles to donate: <<numberslider "$donatedMilk" 1 1 `$foodstuff["baby_bottle_of_breast_milk"].amount` 1>></label>
+
+<<link [[Donate|Childrens Donate Milk 2]]>><</link>>
+<br>
+<<link [[Back|Childrens Home]]>><<unset $childActivityEvent>><<endevent>><</link>>
+
+:: Childrens Donate Milk 2
+<<effects>><<wearProp "baby bottle of breast milk">>
+
+<<set $pregnancyStats.orphanageMilkBottles += $donatedMilk>>
+<<set $pregnancyStats.orphanageMilkBottlesTotal += $donatedMilk>>
+<<set $foodstuff["baby_bottle_of_breast_milk"].amount -= $donatedMilk>>
+
+You leave behind $donatedMilk bottles of milk for your children with one of Bailey's thugs.
+<br><br>
+
+<<link [[Back|Childrens Home]]>><<unset $donatedMilk>><<unset $childActivityEvent>><<endevent>><</link>>
+
+:: Childrens Home Toys
+<<effects>>
+
+<<set _selectedCurrentToy to 0>>
+<<set _selectedLocationToy to 0>>
+
+<div id="childrenToysUI">
+	<<childrenToysUI>>
+</div>
+
+<br>
+<<getouticon>><<link [[Back|Childrens Home]]>><<unset $childActivityEvent>><<endevent>><</link>>
+
+:: Childrens Home Toys Widgets [widget]
+
+<<widget "childrenToysUI">>
+	<div class="settingsGrid">
+		<div>
+			<div class="itemInventoryHeader settingsHeader">Inventory</div>
+			<div class="itemInventory itemDetails">
+				<<for _i to 0; _i lt 10; _i++>>
+					<<set _toy to $player.inventory.childrenToys[_i]>>
+					<<if _toy and _i lt 5>>
+						<<set _name to _toy.name>>
+						<<set _icon to _name.toLowerCase().replace(".","")>>
+						<<set _index to _i - 1>>
+						<div @class="_selectedCurrentToy is _i ? 'item selected' : 'item'" @tooltip="_name" onclick="$(this).siblings().removeClass('selected'); $(this).addClass('selected')">
+							<label>
+								<<if $options.images is 1>>
+									<<childicon _icon>>
+								<<else>>
+									<span @class="_toy.colour"><<print _toy.name>></span>
+								<</if>>
+								<<radiobutton "_selectedCurrentToy" _i autocheck>>
+							</label>
+						</div>
+					<<else>>
+						<<if _i lt 5>>
+							<div class="item unknown"><<ind>></div>
+						<<else>>
+							<div class="item empty"><<ind>></div>
+						<</if>>
+					<</if>>
+				<</for>>
+			</div>
+			<div class="containerFooter">
+				<<if $player.inventory.childrenToys.length gt 0>>
+					<div class="tab inventory">
+						<<button "<span class='fa-icon fa-trash'></span> Discard">>
+							<<run $player.inventory.childrenToys.deleteAt(_selectedCurrentToy)>>
+							<<set _selectedCurrentToy to 0>>
+							<<childrenToysUIReplace>>
+						<</button>>
+					</div>
+					<br>
+					<<if $storedChildrenToys[$location].length lt 10>>
+						<div class="tab inventory">
+							<<button "<span class='fa-icon fa-import'></span> Store">>
+								<<run $storedChildrenToys[$location].push($player.inventory.childrenToys[_selectedCurrentToy])>>
+								<<run $player.inventory.childrenToys.deleteAt(_selectedCurrentToy)>>
+								<<set _selectedCurrentToy to 0>>
+								<<childrenToysUIReplace>>
+							<</button>>
+						</div>
+					<</if>>
+				<<else>>
+					<div class="tab inventory">
+						<button class="link-internal macro-button buttonDisabled" disabled><<="<span class='fa-icon fa-trash'></span> Discard">></button>
+					</div>
+					<div class="tab inventory">
+						<button class="link-internal macro-button buttonDisabled" disabled><<="<span class='fa-icon fa-import'></span> Store">></button>
+					</div>
+				<</if>>
+			</div>
+		</div>
+		<div>
+			<div class="itemInventoryHeader settingsHeader">
+				<<switch $location>>
+					<<case "wolf_cave">>Wolf Cave
+					<<case "tower">>Tower
+					<<default>>Nursery
+				<</switch>>
+			</div>
+			<div class="itemInventory itemDetails">
+				<<for _i to 0; _i lt 10; _i++>>
+					<<set _toy to $storedChildrenToys[$location][_i]>>
+					<<if _toy>>
+						<<set _name to _toy.name>>
+						<<set _icon to _name.toLowerCase().replace(".","")>>
+						<div @class="_selectedLocationToy is _i ? 'item selected' : 'item'" @tooltip="_name" onclick="$(this).siblings().removeClass('selected'); $(this).addClass('selected')">
+							<label>
+								<<if $options.images is 1>>
+									<<childicon _icon>>
+								<<else>>
+									<span @class="_toy.colour"><<print _toy.name>></span>
+								<</if>>
+								<<radiobutton "_selectedLocationToy" _i autocheck>>
+							</label>
+						</div>
+					<<else>>
+						<div class="item unknown"><<ind>></div>
+					<</if>>
+				<</for>>
+			</div>
+			<div class="containerFooter">
+				<<if $storedChildrenToys[$location].length gt 0>>
+					<div class="tab inventory">
+						<<button "<span class='fa-icon fa-trash'></span> Discard">>
+							<<run $storedChildrenToys[$location].deleteAt(_selectedLocationToy)>>
+							<<set _selectedLocationToy to 0>>
+							<<childrenToysUIReplace>>
+						<</button>>
+					</div>
+					<<if $player.inventory.childrenToys.length lt 5>>
+						<div class="tab inventory">
+							<<button "<span class='fa-icon fa-export'></span> Carry">>
+								<<run $player.inventory.childrenToys.push($storedChildrenToys[$location][_selectedLocationToy])>>
+								<<run $storedChildrenToys[$location].deleteAt(_selectedLocationToy)>>
+								<<set _selectedLocationToy to 0>>
+								<<childrenToysUIReplace>>
+							<</button>>
+						</div>
+					<<else>>
+						<div class="tab inventory">
+							<button class="link-internal macro-button no-numberify buttonDisabled" disabled><span class='fa-icon fa-export'></span>Carry</button>
+						</div>
+					<</if>>
+				<<else>>
+					<div class="tab inventory">
+						<button class="link-internal macro-button buttonDisabled" disabled><<="<span class='fa-icon fa-trash'></span> Discard">></button>
+					</div>
+					<div class="tab inventory">
+						<button class="link-internal macro-button buttonDisabled" disabled><<="<span class='fa-icon fa-export'></span> Carry">></button>
+					</div>
+				<</if>>
+			</div>
+		</div>
+	</div>
+<</widget>>
+
+<<widget "childrenToysUIReplace">>
+	<<replace "#childrenToysUI">>
+		<<childrenToysUI>>
+	<</replace>>
+<</widget>>
+
+:: Children Activity Events
+<<effects>>
+<<childSelect $childActivityEvent.childid>>
+<<childAge $childActivityEvent.childid>>
+<<childInteratedWith>>
+<<set $children[$childActivityEvent.childid].localVariables.event to false>>
+<<switch $childActivityEvent.event>>
+	/*Human Specific*/
+	<<case "transfixed">>
+		You stand over <<childname>> and watch <<childhim>> sleep. You're transfixed by <<childhis>> chest, rising and fallen with gentle breaths.
+	<<case "stroke">>
+		You stand over <<childname>> and watch <<childhim>> sleep. You find yourself stroking <<childhis>> head.
+	<<case "yawn">>
+		You stand over <<childname>> and watch <<childhim>> sleep. <<childHe>> opens <<childhis>> mouth in a big yawn and stretches.<<lstress>><<stress -6>>
+	<<case "murmur">>
+		You stand over <<childname>> and watch <<childhim>> sleep. <<childHe>> murmurs and scrunches <<childhis>> features, as if having a bad dream.<<gstress>><<stress 6>>
+	<<case "cotNap">>
+		You decide to have a nap and lie in the bed beside <<childname>>.
+		<br><br>
+		You wake up sometime later with something wrapped around your finger. While still asleep, it seems that <<childname>>'s <<childhand>> was able to reach you.<<ltiredness>><<tiredness -3>>
+	<<case "shiverInCot">>
+		<<childname>> sleeps by <<childherself>>, shivering with every unconscious breath. You tuck <<childhim>> in with a nearby baby blanket. <<childHe>>'s soon sleeping peacefully.<<lstress>><<stress -6>>
+	<<case "restlessSleep">>
+		<<childname>> is restless in <<childhis>> sleep. You lie down beside <<childhim>> and pull <<childhim>> against your chest. You hold <<childhim>> until <<childhe>> calms down. As you move to stand, <<childhe>> grasps your finger tight in <<childhis>> small hands. You snuggle for a while longer, before easing <<childhis>> hold on you and getting back to your feet.<<ltiredness>><<tiredness -6>><<llstress>><<stress -10>>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+	<<case "waveTongue">>
+		You smile down at <<childname>>. You wave your hands and stick your tongue out, making several different faces in an attempt to catch <<childhis>> attention. <<childHe>> studies your expressions with curiosity. <<childHe>> is trying to imitate you, but you're unsure if it's just a reflex.
+	<<case "handsClap">>
+		You bring <<childname>>'s feet to <<childhis>> hands, moving them around and occasionally clapping them together. You give <<childhis>> body a gentle massage, from <<childhis>> toes, to <<childhis>> back, then all the way to <<childhis>> fingertips. You shower <<childhis>> frame in affectionate touches. <<childHe>> smiles in response to your broad grin.
+	<<case "peekaboo">>
+		You cover your face with both hands, then uncover it a few seconds later. <<childname>> peers up at you. <<childHe>> smiles when your eyes meet.<<lstress>><<stress -6>>
+	<<case "blowRaspberriesHappy">>
+		You tickle <<childname>> and blow raspberries on <<childhis>> stomach. <<childHe>> responds by interrupting <<childhis>> cries and laughs instead, flapping <<childhis>> arms and legs in joy.<<lstress>><<stress -6>>
+	<<case "blowRaspberriesUpset">>
+		You tickle <<childname>> and blow raspberries on <<childhis>> stomach. <<childHis>> cries become louder as <<childhe>> turns <<childhis>> head from side to side and squirms away. <<childHe>> seems upset over the treatment.<<gstress>><<stress 6>>
+	<<case "faceStudy">>
+		You get closer to <<childname>>, so <<childhe>> can study your face and its features. <<childHe>> stops crying for a moment, only to grab your hair and pull it.<<gpain>><<pain 4>>
+	<<case "rockToSleep">>
+		You scoop the <<childtype>> up in your arms and walk while gently rocking <<childhim>> side to side and humming softly. Soon <<childhe>> calms down and falls fast asleep in your arms. You gingerly lay <<childhim>> down in the cot to rest. <<lstress>><<stress -5>>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+	<<case "holdToShoulder">>
+		You lift the <<childtype>>. <<childHe>> seems to realise your intent and wraps <<childhis>> <<childhands>> around your neck while leaning on your shoulder. You bob <<childhim>> up to down, until <<childhe>> falls asleep in your arms.<<lstress>><<stress -5>>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+	<<case "melodicLullaby">>
+		You scoop up the <<childtype>>. You hum a melodic lullaby, rubbing <<childname>>'s back as you gently sway to the tune. The familiarity of your voice seems to soothe <<childhis>> mood. <<childHe>> coos at you.<<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
+	<<case "foreheadKiss">>
+		You scoop up the <<childtype>>. You place a soft kiss on <<childhis>> forehead and give <<childhim>> as much skin-to-skin contact as you can. The action encourages <<childhim>> to lift <<childhis>> head and reward you with a smile.<<ltrauma>><<lstress>><<trauma -6>><<stress -6>>
+	<<case "objectShow">>
+		You scoop up the <<childtype>>. You give <<childname>> a few different objects to look at. You explain the colours, shapes, and textures of things that you see around you. <<childHe>> reaches out to touch, curious to explore <<childhis>> environment. You make sure <<childhe>> doesn't try to grasp anything too heavy or awkward.<<gstress>><<stress 6>>
+	<<case "carryRevolt">>
+		You scoop up the <<childtype>>. <<childHe>> revolts against being carried, and <<childhe>> kicks <<childhis>> legs. The longer you hold <<childhim>>, the more intense <<childhis>> cries become. Some of <<childhis>> kicks connect.<<gpain>><<gstress>><<pain 4>><<stress 6>>
+	<<case "nurseryRhymes">>
+		You recite a few nursery rhymes you remember from long ago. <<childHe>> looks alert as <<childhe>> listens to your voice. You make a few different tones and wait for <<childhis>> reaction. It seems to you like <<childhe>> recognises certain sounds and changes <<childhis>> expression accordingly. After a few more moments, <<childhe>> breaks eye contact and sucks on <<childhis>> thumb.
+	<<case "FeetCup">>
+		You gently cup <<childname>>'s right foot and count <<childhis>> toes, wriggling them before moving on to <<childhis>> next foot. <<childHe>> quiets, watching you with wide eyes as you move your finger from one toe to the next.
+	<<case "shareThoughts">>
+		You chat to <<childname>>, sharing your thoughts and waiting for a response. <<childHe>> doesn't seem to be paying much attention however.<<gstress>><<stress 6>>
+	<<case "speakCry">>
+		You speak to your baby, but <<childhis>> cries drown your words. <<childHis>> face turns a deeper shade of red with every minute you spend trying to talk to <<childhim>>.<<gstress>><<stress 6>>
+	<<case "smilesAndLaughs">>
+		You take <<childname>> in your arms, hoisting <<childhim>> to eye-level. The <<childtype>> is wide-eyed at the change at first, but then smiles and laughs. You repeat this several times, and soon have <<childhim>> laughing so hard that you can't help but smile yourself.<<llstress>><<stress -12>>
+	<<case "talking">>
+		You side beside <<childname>> and begin to converse with <<childhim>>. <<childHe>> gives no indication of understanding you, but smiles at your presence and seems excited by your voice. Soon enough however, <<childhe>> becomes distracted by <<childhis>> own hands and falls silent. You get back on your feet.<<lstress>><<stress -6>>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "thumbSucking">>
+		<<set $children[$childActivityEvent.childid].localVariables.talking++>>
+	<<case "talking2">>
+		You sit beside <<childname>> and begin to converse with <<childhim>>. <<childHe>> gives no indication of understanding you, but smiles at your presence and tries to mimic your sounds. <<childHe>> soon becomes distracted by <<childhis>> hands however and falls silent. You get back on your feet.<<llstress>><<stress -12>>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "thumbSucking">>
+	<<case "batheGentle">>
+		<<childBatheScene "gentle">>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+	<<case "batheShampoo">>
+		<<childBatheScene "shampoo">>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+	<<case "BatheCalm">>
+		<<childBatheScene "calm">>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+	<<case "batheTantrum">>
+		<<childBatheScene "tantrum">>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+	<<case "nappyChange">>
+		<<wearProp "rag" "white">>
+		<<childname>> looks uncomfortable. You notice a telling stink, so you fetch a nappy and lay <<childhim>> flat. You remove the old nappy and clean the <<childtype>>'s bottom diligently before giving <<childhim>> a fresh one. Clean and changed, <<childname>> looks up at you and smiles.<<lstress>><<stress -3>>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+	<<case "crawlingAttempt">>
+		You approach <<childname>>. <<childHe>> lies on <<childhis>> belly, trying to move <<childherself>>. You side beside <<childhim>>, take <<childhis>> hands in your own, and hold them to the ground to give <<childhim>> leverage. With your help, <<childhe>> manages to pull <<childhimself>> across the floor, bewildered and amused by <<childhis>> mobility. <<childHe>> gets the hang of it after a while, and you leave <<childhim>> to clumsily crawl on <<childhis>> own.<<lstress>><<stress -6>>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+		<<set $children[$childActivityEvent.childid].localVariables.crawling++>>
+	<<case "crawlingAttempt2">>
+		You take the <<childtype>>'s hands in your own and hoist <<childhim>> up, leaving only <<childhis>> feet on the ground. <<childHe>>'s confused at first, flailing <<childhis>> legs until <<childhe>> snags the ground with a kick and propels <<childherself>> forwards. <<childHis>> eyes widen at the revelation, and soon enough, with some effort and failed attempts, you have <<childhim>> moving with <<childhis>> own legs. With your help keeping <<childhim>> upright, of course. <<childHe>> grows tired after a while, and you let <<childhim>> down again.<<llstress>><<stress -10>>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+	<<case "grumpyChild">>
+		<<childname>> sits alone, wearing a scowl on <<childhis>> infant face. You sit beside <<childhim>>, but <<childhe>> ignores you. Unable to help but smile at the grumpy child's expression, you begin to tickle <<childhim>>. <<childHe>>'s not ticklish, but is amused by your teasing fingers and the silly noises you make as you playfully attack <<childhis>> sides. The scowl is soon gone, and <<childhe>> giggles and smiles instead. Mission accomplished.<<lstress>><<stress -6>>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "thumbSucking">>
+	<<case "readingAttempt">>
+		<<wearProp "open storybook">>
+		You sit beside <<childname>> and pull <<childhim>> and the inverted book into your lap. You flip it open and begin to read the simple words to <<childhim>>. <<childHe>> follows along both your voice and the colourful pictures for a while, until <<childhe>> becomes distracted and rolls off your lap.<<lstress>><<stress -6>>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "readingCorrected">>
+	<<case "babyRattle">>
+		<<wearProp "rattle">>
+		You sit beside <<childname>>. <<childHe>>'s looking down at a <<childtoy $location $childActivityEvent.toyid "lowercase">>. You take it in hand and give it a shake, causing a cacophany of rattles. The <<childtype>> looks bewildered and intrigued and reaches for this strange object. You give the <<childtoy $location $childActivityEvent.toyid "lowercase">> one last shake before handing it over for the <<childtype>> to experiment with.
+		<<if _childTotalDays lte 40>>
+			<<childHe>> simply drops it to the floor.
+		<<elseif _childTotalDays lte 95 + random(0,20)>>
+			<<childHe>> attempts to put the rattle into <<childhis>> mouth, but drops it to the floor after being unable to.
+		<<else>>
+			<<childHe>> starts give it a rattle while giggling.
+		<</if>>
+		<<lstress>><<stress -5>><<ltrauma>><<trauma -2>>
+	<<case "teddyBear">>
+		You tuck the <<childtoy $location $childActivityEvent.toyid "lowercase">> into <<childname>>'s arms. <<childHe>> grasps it tight and nuzzles against it. <<childHe>> is soon asleep again. You spend a few calming moments watching <<childhim>>.<<ltrauma>><<trauma -6>><<lstress>><<stress -6>>
+		<<if _toyid>>
+			<<set $children[$childActivityEvent.childid].localVariables.activity to "teddyBear2">>
+			<<set $children[$childActivityEvent.childid].localVariables.toy to clone(_toyName)>>
+			<<switch _toyName>>
+				<<case "red robot">><<wearProp "robot" "red">>
+				<<case "green robot">><<wearProp "robot" "green">>
+				<<default>><<wearProp _toyName>>
+			<</switch>>
+		<</if>>
+	<<case "toyCar">>
+		<<wearProp "car">>
+		You sit beside <<childname>> and take the <<childtoy $location $childActivityEvent.toyid "lowercase">> from <<childhis>> flailing hands. You place it on the floor and roll it back and forth. "Vroom! Vroom!" you say, rolling it back and forth as <<childname>> watches, enraptured. You hand <<childhim>> the toy.
+		<br><br>
+		<<if _childTotalDays lte 120 + random(0,20)>>
+			<<childHe>> drops it on the floor before looking back at you. You can't help but smile as you climb to your feet again.
+		<<else>>
+			<<childHe>> looks at it with curiosity before mimicking your actions, making excited attempts to copy your sounds. You can't help but smile as you climb to your feet again.
+		<</if>>
+		<<lstress>><<stress -5>><<ltrauma>><<trauma -2>>
+	<<case "dummy">>
+		<<wearProp "dummy">>
+		<<set _rng to random(1,100)>>
+		You rush over to <<childname>> and notice that <<childhis>> <<childtoy $location $childActivityEvent.toyid "lowercase">> lies on the floor beside <<childhim>>.
+		<br><br>
+		<<if $children[$childActivityEvent.childid].localVariables.acceptsDummy isnot false>>
+			You pick up the dummy, clean it off with the hem of your <<top>>, lift the <<childtype>> into your arms and attempt to pacify <<childhim>>.
+			<br><br>
+		<</if>>
+
+		<<if $childActivityEvent.childCry lt 4 and (_rng lte 75 or $children[$childActivityEvent.childid].localVariables.acceptsDummy is true)>>
+			<<childname>> takes a few moments to latch onto the <<childtoy $location $childActivityEvent.toyid "lowercase">>, but sucks loudly once <<childhe>> does. <<childHe>> is soon pacified once again. You deposit <<childhim>> on the floor.<<lstress>><<stress -6>>
+			<<set $children[$childActivityEvent.childid].localVariables.activity to "dummySucking">>
+			<<set $children[$childActivityEvent.childid].localVariables.acceptsDummy to true>>
+		<<elseif $childActivityEvent.childCry is 4 and $children[$childActivityEvent.childid].localVariables.acceptsDummy isnot false>>
+			Despite your attempts, the <<childcry $childActivityEvent.childCry>> <<childname>> is crying and wiggling around too much to take the <<childtoy $location $childActivityEvent.toyid "lowercase">>. You abandon the attempt and instead begin to rock and soothe the <<childtype>> with soft coos and gentle humming. It's exhausting, but <<childhe>> soon calms down and nuzzles into your chest, the emotional distress and your tender parental attentions get the better of <<childhim>> and <<childhe>> falls asleep. <<gstress>><<stress 10>><<gtiredness>><<tiredness 5>>
+			<br><br>
+			You lay <<childname>> down to take <<childhis>> nap in peace.
+			<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+		<<elseif $childActivityEvent.childCry lt 4 and $children[$childActivityEvent.childid].localVariables.acceptsDummy isnot false>>
+			Despite your attempts, the <<childcry $childActivityEvent.childCry>> <<childname>> refuses to take the <<childtoy $location $childActivityEvent.toyid "lowercase">>. You abandon the attempt and instead begin to rock and soothe the <<childtype>> with soft coos and gentle humming. It's exhausting, but <<childhe>> soon calms down and nuzzles into your chest, the emotional distress and your tender parental attentions get the better of <<childhim>> and <<childhe>> falls asleep. <<gstress>><<stress 10>><<gtiredness>><<tiredness 5>>
+			<br><br>
+			You lay <<childname>> down to take <<childhis>> nap in peace.
+			<<set $children[$childActivityEvent.childid].localVariables.acceptsDummy to false>>
+			<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+		<<else>>
+			Knowing that <<childname>> will refuse the dummy, you begin to rock and soothe the <<childtype>> with soft coos and gentle humming. It's exhausting, but eventually <<childhe>> calms down and nuzzles into your chest, the emotional distress and your tender parental attentions get the better of <<childhim>> and <<childhe>> falls asleep. <<gtiredness>><<tiredness 5>>
+			<br><br>
+			You lay <<childname>> down to take <<childhis>> nap in peace.
+			<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+		<</if>>
+	<<case "clown">>
+		<<set _rng to random(0,2)>>
+		<<set _output to ["happy","quiet","terrifying"]>>
+		You sit beside <<childname>>, pick up the toy <<childtoy $location $childActivityEvent.toyid "lowercase">>, and show it to <<childhim>>. <<childHe>> stares at the <<childtoy $location $childActivityEvent.toyid "lowercase">>, unsure what to make of it. You pull on the string, and the clown lets out a <<print _output[_rng]>> chuckle.
+		<br><br>
+		<<if _childTotalDays lte 105 + random(0,20)>>
+			<<childHe>> looks at the toy briefly before looking back up to you. You place it on the floor, stand up, and leave the <<childtype>> to play. <<lstress>><<stress -3>><<ltrauma>><<trauma -3>>
+		<<elseif random(0,100) lt 80>>
+			The <<childtype>> bursts into a giggling fit and reaches for the <<childtoy $location $childActivityEvent.toyid "lowercase">>. You hand it over, stand up, and leave the <<childtype>> to play. <<lstress>><<stress -3>><<ltrauma>><<trauma -3>>
+			<<set $children[$childActivityEvent.childid].localVariables.activity to "clownHappy">>
+		<<else>>
+			The <<childtype>> bursts into tears and begins <<childcry 4>>. You can't blame <<childhim>>. <<gstress>><<stress 6>><<gtrauma>><<trauma 3>>
+			<<set $children[$childActivityEvent.childid].localVariables.activity to "crying">>
+		<</if>>
+	/*NPCs*/
+	<<case "Robin">>
+		<<npc "Robin" 2>><<person2>>
+		You approach Robin. <<childname>> snuggles up to <<him>>. They both giggle.
+		<<if $childSelected.mother is "pc">>
+			<<set _playerRole to "mummy">>
+		<<elseif $childSelected.father is "pc">>
+			<<set _playerRole to "daddy">>
+		<<elseif $player.gender_appearance is "m">>
+			<<set _playerRole to "daddy">>
+		<<else>>
+			<<set _playerRole to "mummy">>
+		<</if>>
+		<<switch random(1, 5)>>
+			<<case 1>>
+				"I think someone missed you," Robin says, passing you the <<childtype>>.
+			<<case 2>>
+				"So cute!" Robin says, passing you the <<childtype>>.
+			<<case 3>>
+				"Look," Robin says. "It's _playerRole." <<He>> passes you the <<childtype>>.
+			<<case 4>>
+				"Can you say, '_playerRole'?" Robin asks, watching the <<childtype>>. <<childHe>> responds with an inarticulate gurgle. Robin passes <<childhim>> to you.
+			<<default>>
+				"Can you point at _playerRole?" Robin asks the <<childtype>>. <<childHe>> doesn't point, but does look at you. Robin passes <<childhim>> over.
+		<</switch>>
+		<br><br>
+		You hold <<childname>> in your arms while Robin leans in to talk. The <<childtype>> smiles alternatively at you and Robin.
+	<<case "Wraith">>
+		You watch in confusion as <<childname>> waves <<childhis>> hands around in happiness, cooing at thin air and reaching for nothing.
+		<<if C.npc["Ivory Wraith"].love lte 5>>
+			You scoop <<childhim>> up, expecting <<childhim>> to quiet down, but <<childhe>> continues to flap <<childhis>> little arms around.
+			<br><br>
+
+			You shiver as a chill runs down your spine. You fear you might not be alone, a familiar ringing in your ears making you tense up. <<stress 12>><<ggstress>>
+			<br><br>
+
+			<<childname>>'s laughter breaks the silence, forcing your thoughts to cease their racing. You look down at <<childhim>> and sigh. You manage a small smile, simply relieved that <<childhe>> seems happy.
+		<<else>>
+			Something starts to take shape above <<childhim>>. Something a terrible, familiar pale. You slowly and quietly approach <<childname>>'s crib, your eyes locked on the intruder. Your heart begins to pound. It's already picked <<childname>> up, slowly turning to you. You take a breath and brace yourself. <<ggstress>>
+			<br><br>
+
+			However, the pale figure's expression is calm. Serene, even. It holds <<childname>> tenderly and hums a soothing melody. It floats over to you, pressing its forehead to yours. A hand caresses your cheek. You look down at <<childname>>. <<childHe>> happily coos, reaching for you and smiling.
+			<br><br>
+
+			"<span class="wraith">Beautiful... So, so beautiful,</span>" it whispers, stroking <<childname>>'s hair.
+			<<if $wraith.state is "haunt">>
+				"<span class="wraith">An omen.</span>" <<lobsession 1>>
+			<<elseif $wraith.state is "despair">>
+				"<span class="wraith">A beacon of salvation amidst drowning despair.</span>" <<npcincr "Ivory Wraith" love 1>><<glove>><<gobsession 1>>
+			<<else>>
+				"<span class="wraith">A blessing.</span>" <<npcincr "Ivory Wraith" love 1>><<glove>>
+			<</if>>
+			<br><br>
+
+			You can feel its palpable love for <<childname>>. Your heart almost skips a beat as the baby yawns and clings to the pale figure as <<childhe>> would to you. You're filled with relief. <<llstress>><<stress -12>>
+			<br><br>
+
+			The pale figure leans down, gingerly pressing a kiss to each of <<childhis>> cheeks. You can hear <<childhim>> giggle as <<childhe>> toys with a strand of the pale figure's silver hair.
+			It cradles <<childhim>> close for just a moment longer, reluctant to let go. It then places <<childhim>> in your arms and floats to your other side, smiling.
+			<br><br>
+
+			You feel a pair of arms wrap around your shoulders, and a loving gaze on both you and <<childname>>. It continues to hum as its body flickers. The melody fades. You turn to look at it, but it has already disappeared. You look at <<childname>>. <<childHe>>'s fallen asleep.
+			<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+		<</if>>
+	/*Wolf Specific*/
+	<<case "sleepingStroke">>
+		You sit beside the slumbering <<childtype>> and stroke <<childhis>> fur. <<childHe>> snorts and pushes into your caressing hand. You spend a few moments together before rising to your feet. <<lstress>><<stress -5>>
+	<<case "cuddleAndNap">>
+		The <<wolf_cave_singular>> looks at you as you lie down beside it and <<childname>>. The sleepy pair adjust to make room for you, and you're soon snuggled close together. You enjoy this comfortable moment for a while, before rising to your feet. <<ltiredness>><<tiredness -6>><<lstress>><<stress -5>>
+	<<case "cryingWolf">>
+		You sit by the <<childcry>> <<childtype>> and pull <<childhim>> into your lap. You hum, soothe, and stroke the <<childtype>>'s fur, giving the occasional soft scratch to <<childhis>> ears. <<childname>> calms and begins to doze under your gentle attention. You gingerly place the sleeping <<childtype>> down and stand again.
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+	<<case "playing">>
+		You drop to all fours and join <<childname>> and the playing pups with enthusiasm. You encourage excitement and activity in your <<childtype>>, as well as the others, and try to keep the play friendly and safe. Exhausted, the pups take a moment to rest. You kiss <<childname>> on the head before climbing to your feet. <<lstress>><<stress -6>>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+	<<case "curiousGaze">>
+		You follow <<childname>>'s gaze to your legs. You walk in a circle. <<childHis>> eyes never leave your feet. Amused, you take a quick walk around the cave and the <<childtype>> follows you as best it can, transfixed by your movement. Eventually, <<childname>> grows bored and lies down to rest, <<childhis>> curiosity sated. <<llstress>><<stress -10>>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+	<<case"longingGaze">>
+		Noticing your <<childtype>>'s longing gaze, you reach between <<childhis>> ears and give <<childhim>> a gentle scratch. <<childname>>'s tongue lolls from <<childhis>> mouth, and <<childhe>> pants happily as you scritch <<childhis>> ears. <<childHe>> gives you a sad look when you finish.
+	<<case"playFighting">>
+		You keep a close eye on the two as they tussle playfully. Slowly, they grow tired of each other and playful nips and yips turn into snaps and growls. You separate <<childname>> from <<childhis>> playmate before it can escalate further, ensuring each has a break from the other. They are soon playing in an amiable fashion once again.
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "playing">>
+	<<case "fieldTrip">>
+		You see <<childname>> looking outside the cave with curiosity. <<childHis>> fascination with the outside world isn't even broken when you bend down and pick <<childhim>> up. You walk outside and take a quick tour of the surrounding area. The <<childtype>>'s eyes widen, scanning over anything and everything with great interest. You finish sating <<childname>>'s curiosity and deposit <<childhim>> back in the cave. <<llstress>><<stress -10>>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+	<<case "grumpyWolf">>
+		<<childname>> growls at your approach. You flip the grumpy <<childtype>> on <<childhis>> back and rub <<childhis>> belly. The <<childtype>> resists at first, but soon gives in, panting and yipping happily. You leave <<childname>> more cheerful than you found <<childhim>>.<<lstress>><<stress -6>>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "playing">>
+	<<case "hungryWolf">>
+		You approach <<childname>>. <<childHe>>'s trying to find a way through the other pups, trying to reach the female <<wolf_cave_singular "f">>'s nipples to feed.
+		<br><br>
+		You pick <<childhim>> up and pet <<childhim>>, keeping the <<childcry>> <<childtype>>'s attention off <<childhis>> hunger. Soon enough, several feeding pups finish, making room. The <<childtype>> latches on, eager and greedy.<<lstress>><<stress -6>>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+	<<case "gnawing">>
+		<<switch $pupToy>>
+			<<case "antler">><<wearProp "antler">>
+			<<case "boot">><<wearProp "boot">>
+			<<case "stick">><<wearProp "stick">>
+			<<default>><<wearProp "chewy bone">>
+		<</switch>>
+		You sit next to <<childname>> and grab ahold of the $pupToy. <<childHe>> growls as you gently pull on the makeshift toy and tugs it back. You continue tugging the $pupToy back and forth before finally letting <<childhim>> win. <<childname>> yips joyfully as <<childhe>> claims <<childhis>> prize and resumes playing with it, tail wagging with excitement.
+		<br><br>
+		Another pup, noticing your game, approaches <<childname>> and attempts to grab the $pupToy. You keep a close eye on the two of them, but thankfully, <<childname>>'s playmate doesn't seem interested in actually stealing the toy from <<childhim>>. You smile as the pups play tug-of-war together before standing up and leaving them to their own devices.
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "playing">>
+	<<case "squeakyToy">>
+		<<wearProp $phase>>
+		<<if $leftarm is "bound" and $rightarm is "bound">>
+			You nudge the <<= $phase>> closer to <<childname>> with your foot.
+		<<else>>
+			You pick up the $phase and sit next to <<childname>>.
+		<</if>>
+		<<childHe>> immediately sinks <<childhis>> fangs into it. The toy lets out a loud squeak in protest. You startle at the sudden sound, and <<childname>> yelps in surprise. <<gstress>><<stress 6>>
+		<br><br>
+		<<childHe>> drops the toy and looks at it with distrust. You spend the next several moments trying to reassure <<childhim>>. <<childHe>> calms down, but doesn't want to play with the $phase anymore. You decide to leave it be for now.
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "playing">>
+	<<case "squeakyToy2">>
+		<<wearProp $phase>>
+		<<if $leftarm is "bound" and $rightarm is "bound">>
+			You struggle to pick up the <<= $phase>> with your bound hands, let alone make it squeak. By the time you manage to grasp it, <<childname>> has already left.
+		<<elseif random(1, 3) is 1>>
+			You pick up the <<= $phase>> and give it a squeeze. <<childname>>'s ears perk up as it squeaks. After squeezing it again, the <<childtype>> jumps for the <<= $phase>>. <<childHe>> repeatedly bites the toy, delighted with the sounds it makes. <<stress -6>><<trauma -6>><<lstress>><<ltrauma>><<gferocity>>
+		<<elseif random(1, 3) is 2>>
+			You give the <<= $phase>> a squeeze. The <<childtype>> takes a step back. You give the toy another squeeze, and <<childhe>> bolts away from you. <<trauma 6>><<gtrauma>><<lferocity>>
+		<<else>>
+			<<getChildrenIds `{location:"wolf_cave"}`>>
+			<<set _childrenTotal to _childrenIds.length>>
+
+			You hold the <<= $phase>> out. When <<childname>> sniffs it, you give it a squeeze. <<childHe>> throws <<childhis>> head back and howls.
+			<br><br>
+			<<if random(1, 3) is 1 and _childrenTotal gte 2>>
+				<<set _child1 to $childActivityEvent.childid>>
+				<<set _childrenIds to _childrenIds.filter(childid => childid !== _child1)>>
+				<<set _child2 to _childrenIds.pluck()>>
+
+				You squeak the toy again. This time <<childhis>> <<childsibling _child2>> rushes over and howls too.
+				<br><br>
+				<<if random(1, 2) is 1 and _childrenTotal gte 3>>
+					<<set _child3 to _childrenIds.pluck()>>
+					You keep squeaking the toy, drawing the attention of another <<childSelect _child3>><<childtype>>. Soon you have a choir of pups howling together in unison with the <<= $phase>>. <<stress -6>><<trauma -6>><<lstress>><<ltrauma>><<gharmony>>
+				<<else>>
+					You keep squeaking the toy, and they howl every time. Eventually one of them grabs the <<= $phase>> and runs off. It squeaks with every step. <<stress -6>><<trauma -6>><<lstress>><<ltrauma>><<gharmony>>
+				<</if>>
+			<<elseif random(1, 3) is 2>>
+				You squeak the toy again. Instead of howling this time, the <<childtype>> watches the <<= $phase>> with wary intensity. At a third squeak, <<childhe>> snarls. You put the <<= $phase>> down. <<stress 6>><<gstress>><<gferocity>>
+			<<else>>
+				You squeak the <<= $phase>> again, and the <<childtype>> lets out another howl with a wag of <<childhis>> tail. For the next few minutes, <<childhe>> howls in harmony every time you squeak the toy for <<childhim>>. <<stress -6>><<trauma -6>><<lstress>><<ltrauma>><<gharmony>>
+			<</if>>
+		<</if>>
+	<<case "chewBone">>
+		You sit next to <<childname>> and start digging alongside <<childhim>>. The dirt is hard, but you manage to make a shallow hole. <<childname>> picks up a toy bone and drops it in the hole. You sit back and watch as <<childhe>> buries it. After pushing the unearthed dirt back into the hole, <<childhe>> sits on the mound.
+		<br><br>
+		<<switch random(1, 2)>>
+			<<case 1>>
+				You move to scritch <<childhis>> ears, but <<childhe>> gives a warning growl. <<childHe>>'s clearly preoccupied with protecting <<childhis>> bone. You back away, and <<childhe>> settles down. <<gstress>><<stress 6>>
+			<<default>>
+				You scritch <<childhis>> ears before standing up, and <<childhe>> gives a happy bark. <<lstress>><<stress -6>>
+		<</switch>>
+	<<case "chewBone2">>
+		<<wearProp "chewy bone">>
+		<<switch random(1, 3)>>
+			<<case 1>>
+				You nudge the bone closer to <<childname>>. <<childHe>> stops and stares at it. You nudge it closer, and <<childhe>> chomps down on it before pulling it away. The <<childtype>> continues to gnaw on it for several minutes. <<stress -6>><<lstress>>
+			<<case 2>>
+				You nudge the bone closer to <<childname>>. <<childHe>> jumps with a startled yelp, then chomps down on the bone and aggressively shakes it. <<gferocity>>
+			<<default>>
+				You nudge the bone closer to <<childname>>. <<childHe>> chomps down on the bone and runs off with <<childhis>> tail wagging.
+				<br><br>
+
+				<<link [[Let <<childhim>> go|Wolf Children Chew Bone]]>><<set $phase to 0>><</link>>
+				<br>
+				<<if $leftleg isnot "bound" and $rightleg isnot "bound">>
+					<<link [[Chase|Wolf Children Chew Bone]]>><<set $phase to 1>><</link>>
+					<br>
+				<</if>>
+				<<exit>>
+		<</switch>>
+	<<case "chewRope">>
+		<<wearProp "chewy rope">>
+		You sit next to <<childname>> and grab ahold of the rope. <<childHe>> growls as you gently pull on the toy and tugs it back. You continue tugging the rope back and forth before finally letting <<childhim>> win. <<childname>> yips joyfully as <<childhe>> claims <<childhis>> prize, tail wagging with excitement.
+		<br><br>
+		<<childHe>> rolls onto <<childhis>> back and holds the rope with <<childhis>> <<childhands>>, chewing on it with renewed gusto. You smile as you stand back up. <<lstress>><<stress -6>>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "playing">>
+	<<case "chewRope2">>
+		<<getChildrenIds `{location:"wolf_cave"}`>>
+		<<set _childrenTotal to _childrenIds.length>>
+
+		<<if $leftarm is "bound" and $rightarm is "bound">>
+			You struggle to grasp the rope with your bound hands. <<childname>> watches curiously for a moment, but soon bores of watching and runs off to play elsewhere.
+		<<elseif random(1, 3) is 1 and _childrenTotal gte 2 and !$worn.face.type.includes("gag")>>
+			<<set _child1 to $childActivityEvent.childid>>
+			<<set _childrenIds to _childrenIds.filter(childid => childid !== _child1)>>
+			<<set $childActivityEvent.childid2 to _childrenIds.pluck()>>
+			<<set _child2 to $childActivityEvent.childid2>>
+
+			You pull the rope away from <<childname>>. <<childHe>> goes to jump for it, but <<childhis>> <<childsibling _child2>> jumps in and beats <<childhim>> to it.
+			<br><br>
+
+			<<link [[Play with first <<childtype>>|Wolf Children Chew Rope]]>><<set $phase to 0>><</link>>
+			<br>
+			<<link [[Play with second <<childSelect _child2>><<childtype>>|Wolf Children Chew Rope]]>><<set $phase to 1>><</link>>
+			<br>
+			<<link [[Play with both|Wolf Children Chew Rope]]>><<set $phase to 2>><</link>>
+			<<exit>>
+		<<elseif random(1,3) is 2>>
+			You pull the rope away from <<childname>>. <<childHe>> turns away, uninterested.
+		<<else>>
+			You pull the rope away from <<childname>>. <<childHe>> instantly jumps at it and bites down. You continue to pull, and the <<childtype>> tugs back in return. <<childHe>> gives a little growl as you tow <<childhim>> along. Soon <<childhe>> wears out and drops the rope. <<lstress>><<ltrauma>><<gferocity>><<stress -6>><<trauma -6>>
+		<</if>>
+	<<case "rollBall">>
+		<<wearProp "chewy ball">>
+		<<childname>> gives an enthusiastic bark as you pick up the ball. You gently roll it towards <<childhim>>. <<childHe>> <<= either("manages to catch it", "fumbles around with the ball", "stares at it")>> before rolling it back towards you <<if $children[$childSelected.childId].type is "wolf">>with <<childhis>> snout<<else>>with <<childhis>> tiny <<childhands>><</if>>.
+		<br><br>
+		You pass the ball back and forth for a bit, until <<childhe>>'s tuckered out. <<childHe>> curls up around the ball and falls asleep. You pet <<childhis>> head and stand up. <<lstress>><<stress -6>>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+	<<case "rollBall2">>
+		<<if $leftarm is "bound" and $rightarm is "bound">>
+			You struggle to grasp the ball with your hands bound, but eventually manage to pick it up. When you attempt to throw it, it just falls to the ground. <<childname>> sniffs it, then loses interest and leaves.
+		<<else>>
+			<<switch random(1, 3)>>
+				<<case 1>>
+					<<childname>> becomes overly excited when you pick up the ball. <<childHe>> jumps up and nips your hand in an attempt to reach the toy.
+					<br><br>
+					You cry out in pain and drop the ball. The outburst frightens the <<childtype>>, who runs for cover. <<pain 2>><<trauma 6>><<gpain>><<gtrauma>>
+				<<case 2>>
+					<<childname>> jumps and tries to get the ball back, but misses. <<childHe>> watches closely as you wave the ball in front of <<childhim>>. Right as you wind up to release, <<childhe>> pounces and intercepts the ball. <<childHe>> is delighted with the little game and sinks <<childhis>> teeth into <<childhis>> prize. <<stress -6>><<trauma -6>><<lstress>><<ltrauma>><<gferocity>>
+				<<default>>
+					Picking up the ball instantly grabs <<childname>>'s attention. <<childHe>> watches closely as you wave the ball in front of <<childhim>>.
+					<br><br>
+
+					<<link [[Toss gently|Wolf Children Roll Ball]]>><<set $phase to 0>><</link>>
+					<br>
+					<<link [[Throw hard|Wolf Children Roll Ball]]>><<set $phase to 1>><</link>>
+					<<exit>>
+			<</switch>>
+		<</if>>
+
+	/*Hawk Specific*/
+	<<case "sleepingStrokeHawk">>
+		You climb into the nest with the slumbering <<childtype>> and stroke <<childhis>>
+		<<if _childTotalDays lt 14>>
+			tiny, pinkish feathers.
+		<<else>>
+			feathers.
+		<</if>>
+		<<childHe>> trills and pushes into your caressing hand. You spend a few moments together before rising to your feet. <<lstress>><<stress -5>>
+	<<case "cuddleAndNapHawk">>
+		<<npc "Great Hawk">>
+		<<if $childActivityEvent.otherChildrenIds.length>>
+			<<for _otherChildId range $childActivityEvent.otherChildrenIds>>
+				<<childInteratedWith _otherChildId>>
+				<<set $children[_otherChildId].localVariables.event to false>>
+			<</for>>
+			<<set _otherChildren to $childActivityEvent.otherChildrenIds.length>>
+		<</if>>
+		<<your_bird_text "cap">> nuzzles you as you lie down beside
+		<<if _otherChildren gte 2>>
+			<<bhim>>, <<childname>>, <<childrenNames $childActivityEvent.otherChildrenIds>>.
+		<<elseif _otherChildren>>
+			<<bhim>>, <<childname>> and <<childname $childActivityEvent.otherChildrenIds[0]>>.
+		<<else>>
+			<<bhim>> and <<childname>>.
+		<</if>>
+
+		<<if _otherChildren gte 2>>
+			You're somehow able to fit within the large number of small bodies, and you're soon snuggled close together.
+		<<elseif _otherChildren>>
+			The trio adjust to make room for you, and you're soon snuggled close together.
+		<<else>>
+			The pair adjust to make room for you, and you're soon snuggled close together.
+		<</if>>
+		<br><br>
+
+		You enjoy this comfortable moment for a while, before rising to your feet. <<ltiredness>><<tiredness -6>><<lstress>><<stress -5>>
+	<<case "cryingHawk">>
+		You sit by the <<childcry>> <<childtype>> and pull <<childhim>> into your lap. You hum, soothe, and stroke the <<childtype>>'s
+		<<if _childTotalDays lt 14>>
+			tiny, pinkish feathers.
+		<<else>>
+			feathers.
+		<</if>>
+		<<childname>> calms and begins to doze under your gentle attention. You gingerly place the sleeping <<childtype>> down and stand again.
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+	<<case "pickUpHawk">>
+		You scoop up the <<childtype>> and hold <<childhim>> close to your chest. The corners of your lips curve up into a dopey smile when you hear <<childhis>> <<if $children[$childActivityEvent.childid].features.monster is "monster">>giggles<<else>>tiny peeps and chirps<</if>>.
+		<<if _childTotalDays lt 14>>
+			<<childname>>'s sweet sounds make your heart flutter as you hold <<childhim>> close.
+		<<else>>
+			<<childname>>'s feathers tickle you as you hold <<childhim>> close.
+		<</if>>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+	<<case "pretendFly">>
+		You hold <<childname>> with both hands and gleefully hoist <<childhim>> up high above your head. <<childname>> looks down at you with sparkling eyes, letting <<childhis>> tiny wings take <<childhim>> on what might as well be a journey and a half in your secure grasp. You smile happily as the <<childtype>> flaps <<childhis>> wings<<if $children[$childActivityEvent.childid].features.monster is "monster">> and arms<</if>>.
+		<br><br>
+
+		One day, you recall, <<childhe>> will leave your nest and fly free. The thought makes you feel giddy and bittersweet. You hold <<childname>> close and stroke <<childhis>> small body. <<trauma -6>><<ltrauma>>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+	<<case "preen">>
+		<<childname>> seems to be unable to reach feathers that have yet to separate. You take notice and scoop the <<childtype>> up. <<childname>> lets out a small chirp as you run your fingers through <<childhis>> feathers. You begin to tidy up <<childhis>> plumage, twisting interlocked tufts in your fingers to reveal soft, newly grown feathers. <<childname>> looks up at you happily, moving to poke at an idle strand of your hair with <<childhis>> <<childhand>>. You reckon this is <<childhis>> idea of grooming you. <<stress -6>><<lstress>>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+	<<case "perch">>
+		You approach <<childname>>, noticing a discontented expression on <<childhis>> face. <<childHis>> eyes are locked on the tower's ledge. You're able to put two and two together, realising <<childname>> wants to go outside and hear you sing.
+		<br><br>
+
+		You pick <<childname>> up and make your way over to look down at the <<if Weather.isSnow>>moor, blanketed by snow.<<else>>green moor.<</if>>
+		<<if $bird.state is "home" and ["sing","groom"].includes($bird.activity)>>
+			<<npc "Great Hawk">>
+			You take a seat next to <<your_bird_text>>, who looks to you and <<childname>> with surprise. A grin crosses your face as <<childname>> snuggles into your embrace.
+			<br><br>
+
+			You take a deep breath and begin to sing. A note leaves your mouth, and then another. You sing a lullaby, which your spouse joins in on. You hold <<childname>> close as you sing, each note growing more and more quiet when you see <<childhis>> eyes growing heavy. As you reach the end of your song, you hear a small <<if $children[$childActivityEvent.childid].features.monster is "monster">>"Wah!"<<else>>peep.<</if>>
+			<br><br>
+
+			<<childname>> <<if $children[$childActivityEvent.childid].features.monster is "monster">>sings<<else>>trills<</if>> a quiet mimic of your lullaby, nuzzling into your chest. The song doesn't last long before <<childhe>> has fallen asleep. You yearn for the day you'll be able to hear your child's true voice.
+
+			<<if $monster is 1>>
+				<br><br>
+				"<<childname>> takes after us quickly," <<your_bird_text>> says with a hint of pride.
+			<</if>>
+		<<else>>
+			You take a seat right next to the most scenic overlook of the meadow below, a grin crossing your face as <<childname>> snuggles into your embrace.
+			<br><br>
+
+			You take a deep breath and begin to sing. A note leaves your mouth, and then another. You sing a lullaby of longing, the melody carried by the breeze to the world below. You hold <<childname>> close as you sing, each note growing more and more quiet when you see <<childhis>> eyes growing heavy. As you reach the end of your song, you hear a small <<if $children[$childActivityEvent.childid].features.monster is "monster">>"Wah!"<<else>>peep<</if>>.
+			<br><br>
+
+			<<childname>> <<if $children[$childActivityEvent.childid].features.monster is "monster">>sings<<else>>trills<</if>> a quiet mimic of your lullaby, nuzzling into your chest. The song doesn't last long before <<childhe>> has fallen asleep. You yearn for the day you'll be able to hear your child's true voice.
+		<</if>>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+	<<case "bathe">>
+		<<wearProp "rag">>
+		You notice with your sharp eyes that <<childname>> is in need of bathing. You scoop the <<childtype>> into your arms despite <<childhis>> chirps of protest, walking in the direction of the rainwater pool.
+		<br><br>
+
+		<<if $bird.upgrades.pot is 3 and getBirdBurnTime() gt 0>>
+			You set <<childname>> down gently and playfully splash some water onto <<childhis>> body. <<childHe>> fusses for a moment, but the warm water quickly calms <<childhim>> down.
+			<br><br>
+
+			<<childHe>> cooperates surprisingly well, letting you scrub the day's dirt and grime from <<childhis>>
+			<<if _childTotalDays lt 14>>
+				tiny pink feathers. Many of them are still stuck together. You take a piece of scrap fabric and dry <<childhim>>.
+			<<else>>
+				feathers. You take a piece of scrap fabric and dry <<childhim>>. <<childHis>> feathers immediately poof out. You can't help but giggle. <<stress -3>><<lstress>>
+			<</if>>
+		<<else>>
+			You set <<childname>> down gently and playfully splash some water onto <<childhis>> body. <<childHe>> shoots you a glare and begins to thrash around in the bath. Rivulets of water splatter over you. <<stress 3>><<gstress>>
+			<br><br>
+
+			You sigh and begin to stroke <<childhis>> plumage with one hand while you shake your other free of water. <<childname>> looks up at you, having calmed down with the gentle motion of your hand against <<childhis>> small feathers. You smile and wash <<childhim>> clean of the day's dirt and grime.
+			<br><br>
+
+			When you're done, <<childname>> is squeaky clean, albeit wet and cold. You take some scrap fabric and wrap <<childname>> into a swaddle. You hold <<childhim>> gently in your arms. <<childHe>> seems content, happy to be done with such a hectic bath. Mission accomplished.
+		<</if>>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+	<<case "batheHelp">>
+		You spot <<childname>> dipping <<childhis>> legs into the rainwater pool. You walk over and lift <<childhim>> up, gently placing <<childhim>> all the way into the water. <<childHe>> happily lets you scrub <<childhis>> feathers.
+		<br><br>
+
+		<<childHe>> starts to splash at the water's surface with <<childhis>> <<childhands>> and <<childgiggles>>. You can't help but crack a smile. <<stress -3>><<lstress>>
+		<br><br>
+
+		You pull <<childhim>> from the pool.
+		<<if $bird.upgrades.pot is 3 and getBirdBurnTime() gt 0>>
+			<<childHe>> <<if $children[$childActivityEvent.childid].features.monster is "monster">>hugs<<else>>nuzzles<</if>> you, happy with <<childhis>> warm bath.
+		<<else>>
+			<<childHe>> shivers, so you waste no time drying <<childhim>> off.
+		<</if>>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+	<<case "swingToy">>
+		/* currently unreachable. credit writer as Anonymous when properly added */
+		You come up behind <<childname>> and lift <<childhim>> beneath the <<= $cmonster ? "arms," : "wings,">> setting <<childhim>> on the swing and giving it a little push. <<childHe>> <<= $cmonster ? "giggles" : "chirps">> and flaps <<childhis>> wings in excitement as <<childhe>> tries to swing higher.
+		<<if _childTotalDays lt 14>>
+			The wind rushes right through <<childhis>> undeveloped feathers, and you're easily able to keep control of <<childhis>> swings.
+		<<else>>
+			A couple times, <<childhe>> manages to catch the air with <<childhis>> wings and swing out of your reach. You worry briefly that <<childhe>> might fall, but <<childhe>> keeps <<childhis>> balance and seems all the more excited for how close <<childhe>> gets to taking flight.
+		<</if>>
+		<br><br>
+		<<childHe>> soon grows tired, chirping softly as you pick <<childhim>> up and gently return <<childhim>> to the nest. <<ltrauma>><<trauma -6>>
+		<<set $children[$childActivityEvent.childid].localVariables.activity to "sleeping">>
+	<<case "preeningToy">>
+		/* currently unreachable. credit writer as mochamante when properly added */
+		You dangle the preening toy in front of <<childname>>, tugging gently at the fibres. Curious, the <<childtype>> hops closer, tilting <<childhis>> head to inspect it. After a few moments, you hook the toy onto the perch and step away, letting <<childhim>> engage with it at <<childhis>> own pace.
+		<br><br>
+		<<if _childTotalDays lte 40>>
+			<<switch random(1,3)>>
+				<<case 1>>
+					Eventually, <<childname>> <<if $cmonster is 1>>tugs<<else>>pecks<</if>> at the toy in short bursts. <<childHe>> tentatively nibbles on the toy's soft fibres, pulling lightly at the strands before trying to preen it. <<childHis>> tiny <<= $cmonster is 1 ? "hands" : "beak">> are working diligently. You watch with pride as <<childhe>> seems to get the hang of it. <<stress -6>><<lstress>>
+				<<case 2>>
+					A moment later, <<childname>> hops closer and gives the toy a hesitant <<= $cmonster is 1 ? "tug." : "peck.">> <<childHe>> eventually starts preening the toy, practicing <<childhis>> grooming instincts. <<childHe>> seems content, chirping softly as <<childhe>> tugs at the toy. <<trauma -6>><<ltrauma>>
+				<<default>>
+					<<childname>> gives a hesitant <<= $cmonster is 1 ? "tug" : "peck">> at the toy before, then pulls on one of the dangling strands. The toy swings back, and <<childhe>> flinches, letting out a soft chirp of distress. <<childHe>> flutters away, wary of the toy. <<stress 3>><<gstress>>
+			<</switch>>
+		<<else>>
+			<<switch random(1,4)>>
+				<<case 1>>
+					<<childname>> <<= either("ignores the toy completely and tries", "nibbles at it briefly before losing interest and attempting")>> to preen you instead. It tickles. <<lstress>><<ltrauma>><<stress -3>><<trauma -3>>
+				<<case 2>>
+					<<childname>> begins tugging at the loose fibres with <<childhis>> <<= $cmonster is 1 ? "hands," : "beak,">> mimicking preening motions. You watch as <<childhe>> grows more confident, fluffing <<childhis>> tiny feathers. <<ltrauma>><<trauma -6>>
+				<<case 3>>
+					<<childHe>> immediately preens the toy, chirping happily as <<childhe>> hops around it. <<childHis>> feathers puff up with contentment. <<lstress>><<stress -6>>
+				<<default>>
+					<<childHe>> watches intently, chirping with interest. <<childHe>> hops closer and <<= $cmonster is 1 ? "tugs" : "pecks">> at it. As <<childhe>> pulls at the threads, <<childhe>> occasionally looks to you for encouragement. <<ltrauma>><<trauma -6>>
+			<</switch>>
+		<</if>>
+	<<default>>
+		The event could not be found.<br>
+		Event: $childActivityEvent.event
+		Child: $childActivityEvent.childid
+<</switch>>
+<br><br>
+
+<<link [[Next|Childrens Home]]>><<unset $childActivityEvent>><<endevent>><</link>>
+
+:: Alex Children Interactions [widget]
+
+<<widget "alex_baby_interactions">>
+	<<npc "Alex">>
+	<<childSelectRandom "alex_cottage">>
+
+	<<switch random(1,5)>>
+		<<case 1>>
+			You see Alex holding <<childname>> out in the fields, trying to explain the different plants and crops to <<childhim>>. <<childname>> curiously looks at them. <<lstress>><<stress -6>>
+			<br><br>
+
+			<<link [[Next|Farm Work]]>><<endevent>><<set $daily.farmBabyInteraction to 1>><</link>>
+
+		<<case 2>>
+			You see Alex trying to play with <<childname>>, but <<childhe>> seems to be distracted by a butterfly that flies around Alex.
+			<br><br>
+
+			<<link [[Next|Farm Work]]>><<endevent>><<set $daily.farmBabyInteraction to 1>><</link>>
+
+		<<case 3>>
+			You see Alex lying in a field with <<childname>> peacefully snoozing on <<his>> chest.
+			<br><br>
+
+			<<link [[Next|Farm Work]]>><<endevent>><<set $daily.farmBabyInteraction to 1>><</link>>
+
+
+		<<case 4>>
+			You see Alex holding <<childname>> near the chicken coop, trying to show them to <<childhim>>. One of the chickens squawks loudly, causing <<childname>> to burst into tears.
+			<br><br>
+
+			<<link [[Comfort (0:01)|Alex Children Interactions Chicken]]>><<set $phase to 1>><<pass 1>><</link>>
+			<br>
+			<<link [[Let Alex handle it (0:01)|Alex Children Interactions Chicken]]>><<set $phase to 2>><<pass 1>><</link>>
+
+		<<case 5>>
+			<<if C.npc.Alex.gender is "f">>
+				You see Alex sitting under a tree with <<childname>> in <<his>> arms. <<His>> chest is exposed; <<hes>> probably breastfeeding <<childhim>>.
+				<br><br>
+
+				<<link [[Watch (0:10)|Alex Children Interactions Breastfeed]]>><</link>>
+				<br>
+				<<link [[Leave Alex to finish (0:01)|Farm Work]]>><<endevent>><<set $daily.farmBabyInteraction to 1>><</link>>
+
+			<<else>>
+				You see Alex trying to play with <<childname>>, but <<childhe>> seems to be distracted by a butterfly that flies around Alex.
+				<br><br>
+
+				<<link [[Next|Farm Work]]>><<endevent>><<set $daily.farmBabyInteraction to 1>><</link>>
+			<</if>>
+
+	<</switch>>
+
+<</widget>>
+
+:: Alex Children Interactions Chicken
+<<effects>>
+
+<<if $phase is 1>>
+	You approach Alex, take <<childname>> into your arms, and start humming.
+	<br><br>
+
+	<<childHe>> soon starts to calm down and yawns.
+	<br><br>
+
+	Alex kisses your cheek. "Thanks," <<he>> says with a laugh. "I'm still not used to this."
+	<br><br>
+
+	"I'll take <<childhim>> back to the nursery," <<he>> says as you hand <<childname>> back to <<him>>.
+
+<<else>>
+	Unsure what to do, Alex nervously starts to hum to distract <<childname>>. <<Hes>> off-key, but <<childname>> soon starts to calm down and laughs.
+	<br><br>
+
+	Alex sighs and takes <<childhim>> back to the nursery.
+
+<</if>>
+<br><br>
+
+<<link [[Next|Farm Work]]>><<endevent>><<set $daily.farmBabyInteraction to 1>><</link>>
+
+:: Alex Children Interactions Breastfeed
+<<effects>>
+
+<<switch random(1,2)>>
+	<<case 1>>
+		"I dunno how such a little thing can drink so much!" <<He>> laughs.
+
+	<<case 2>>
+		"Never thought this would be so tiring," <<he>> sighs.
+
+<</switch>>
+
+You follow <<him>> as <<he>> takes <<childname>> back to the nursery and places <<childhim>> in the cradle, where <<childhe>> falls asleep.
+<br><br>
+
+<<if hasSexStat("promiscuity", 3)>>
+	<span class="lewd">A lewd idea strikes you.</span>
+	<br>
+
+	<<link [[Ask for a turn (0:15)|Alex Children Interactions Breastfeed 2]]>><<set $phase to 1>><</link>><<promiscuous3>>
+	<br>
+	<<link [[Let Alex be (0:01)|Alex Children Interactions Breastfeed 2]]>><<set $phase to 2>><</link>>
+
+<<else>>
+	<<link [[Next|Farm Cottage]]>><<endevent>><</link>>
+
+<</if>>
+
+:: Alex Children Interactions Breastfeed 2
+<<effects>> <<set $alexBreasts to C.npc.Alex.breastsdesc>>
+
+<<if $phase is 1>>
+	<<if $speech_attitude is "meek">>
+		"D-do you think I could have some too?"
+	<<elseif $speech_attitude is "bratty">>
+		"Is there any left for me?"
+	<<else>>
+		"Can I have some too?"
+	<</if>>
+
+	you ask Alex as <<he>> fixes <<his>> bra. <<His>> face goes red as <<he>> processes your words.
+	<br><br>
+
+	"You, uh, what?" <<he>> says, embarrassed by your request.
+	<br><br>
+
+	You only give <<him>> a smile in response.
+
+	"You're serious? I mean, I've been feeling kind of full these days, so I guess it wouldn't hurt to," <<he>> says.
+	<br><br>
+
+	<<He>> sits on the ground and gestures to you to get closer. Alex lays your head on <<his>> lap and brings your face closer to <<his>> $alexBreasts. You quickly envelop <<his>> nipple with your mouth and start to suck.<<ggarousal>><<arousal 600>>
+	<br><br>
+
+	<<He>> brushes your hair with <<his>> hand as <span class="lewd">sweet and creamy milk flows through your mouth.</span> You move to <<his>> other breast, making Alex moan.<<gglust>><<npcincr Alex lust 5>>
+	<br><br>
+
+	<<link [[Next|Alex Children Interactions Breastfeed 3]]>><<pass 15>><</link>>
+
+<<else>>
+	Alex fixes <<his>> bra, pulls <<his>> shirt down, and leaves <<childname>> to sleep.
+	<br><br>
+
+	"Try not to wake <<childhim>>. It was a pain to get <<childhim>> to sleep," <<he>> says before leaving the nursery.
+	<br><br>
+
+	<<link [[Next|Farm Cottage]]>><<unset $alexBreasts>><<endevent>><<pass 1>><</link>>
+
+<</if>>
+
+:: Alex Children Interactions Breastfeed 3
+<<effects>>
+
+After a few minutes, the milk stops flowing and you move your mouth away from <<his>> $alexBreasts, leaving Alex panting.
+<br><br>
+
+"I think you're taking the term 'cow<<girl>>' too serious, pal," <<he>> laughs. <<He>> stands up and fixes <<his>> clothes before leaving the nursery.
+<br><br>
+
+<<link [[Next|Farm Cottage]]>><<unset $alexBreasts>><<endevent>><</link>>
+
+:: Farm Cottage Nighttime Nursery
+<<effects>>
+
+<<if $phase is 1>>
+	<<childSelectRandom "alex_cottage">>
+
+	You enter the hallway and head upstairs to the nursery. The door is slightly open, and you can see Alex standing by <<childname>>'s cot.
+	<br><br>
+
+	"Hey partner, sorry if I woke ya," Alex says, not looking away from the cot. "Thought I heard our little fella crying."
+	<br><br>
+
+	<<link [[Next|Farm Cottage Nighttime Nursery 2]]>><</link>>
+
+<<else>>
+	You ignore the sound, assuming Alex has just gone to check up on the baby.
+	<br><br>
+
+	<<if $bus is "farm_alex_room">>
+		<<link [[Next|Farm Alex Bed]]>><<endevent>><</link>>
+
+	<<else>>
+		<<link [[Next|Farm Bed]]>><<endevent>><</link>>
+	<</if>>
+
+<</if>>
+
+:: Farm Cottage Nighttime Nursery 2
+<<effects>>
+
+You step closer, and Alex immediately wraps <<his>> arm around your shoulder before bumping <<his>> head against yours. <<His>> gaze is fixated on <<childname>>'s sleeping form. <<if !npcIsPregnant("Alex")>> Being this close lets you get a good smell of alcohol, more so than normal. <</if>>
+<br><br>
+
+"Never thought I would settle down with a kid, with the farm and all. Still feels surreal," Alex says while brushing <<his>> finger against the baby's cheek.
+<br><br>
+
+You mimic the action on the other cheek. <<childname>> stirs but soon settles down into both your touches. Alex softly chuckles. <<He>> pulls <<his>> hand away before turning to face you.
+<br><Br>
+
+"Come on now, let's get you back to bed," <<he>> says, gently pushing you along.
+<br><br>
+
+<<link [[Ask if <<he>> is okay|Farm Cottage Nighttime Nursery 3]]>><<npcincr Alex love 2>><</link>><<gglove>>
+<br>
+<<link [[Stay silent|Farm Cottage Nighttime Nursery 4]]>><<set $phase to 3>><</link>>
+
+:: Farm Cottage Nighttime Nursery 3
+<<effects>>
+
+Alex looks slightly taken aback by the question. <<He>> freezes up before sighing. <<He>> turns away.
+<br><br>
+
+"I'm just nervous. Remy's breathing down our necks, and I got you, the little <<if childrenCountBetweenParents("Alex","pc") is 1 or childrenCountBetweenParents("pc","Alex") is 1>>fella<<else>>fellas<</if>>, and the farm to watch after."
+<br><br>
+
+<<link [[Supportive|Farm Cottage Nighttime Nursery 4]]>><<set $phase to 1>><<npcincr Alex dom -1>><<npcincr Alex love 1>><</link>><<glove>><<ldom>>
+<br>
+<<link [[Praise|Farm Cottage Nighttime Nursery 4]]>><<set $phase to 2>><<npcincr Alex dom 1>><<npcincr Alex love 1>><</link>><<glove>><<gdom>>
+
+:: Farm Cottage Nighttime Nursery 4
+<<effects>>
+
+<<if $phase is 1>>
+	"You got me as your support, you know. We are in this together." You pat <<his>> back which brings a smile to <<his>> face.
+	<br><br>
+
+	Alex looks back up at you and places a kiss on your lips. "What did I do to deserve a <<woman>> like you?"
+	<br><br>
+
+<<elseif $phase is 2>>
+	"And you do a damn good job taking care of everything." You lean down to place a kiss on <<his>> cheek, causing <<him>> to perk back up.
+	<br><br>
+
+	"Thanks, partner. Good to know I got your approval of my work."
+	<<He>> locks arms with you before kissing your forehead.
+	<br><br>
+
+<</if>>
+
+Alex guides you back to bed, giving you one last goodnight kiss before going back to sleep.
+<br><br>
+
+<<if $bus is "farm_alex_room">>
+	<<link [[Next|Farm Alex Bed]]>><<endevent>><</link>>
+
+<<else>>
+	<<link [[Next|Farm Bed]]>><<endevent>><</link>>
+<</if>>
+
+:: Wolf Children Chew Bone
+<<effects>>
+
+<<if $phase is 0>> /* Let child go */
+	You smile as you watch the <<childtype>> run off to play. <<stress -6>><<trauma -6>><<lstress>><<ltrauma>>
+<<else>> /* Chase */
+	After allowing the <<childtype>> a head start, you pursue.
+	<br><br>
+	<<switch random(1, 3)>>
+		<<case 1>>
+			<<childHe>> does not notice you until you catch <<childhim>>. <<childHe>> yelps and drops the bone before running for cover. It takes several minutes before <<childhe>> comes out of hiding, <<childhis>> tail between <<childhis>> legs. <<trauma 6>><<gtrauma>><<lharmony>><<lferocity>>
+		<<case 2>>
+			<<childHe>> notices your pursuit and quickens <<childhis>> pace. You soon catch <<childhim>> and scoop <<childhim>> up. <<childHis>> tail keeps wagging, but <<childhe>> maintains <<childhis>> grip on the bone. <<stress -6>><<trauma -6>><<lstress>><<ltrauma>>
+		<<default>>
+			<<childHe>> notice your pursuit and quickens <<childhis>> pace. Just as you are about to catch <<childhim>>, you allow <<childhim>> to escape. <<childHe>> continues to evade you in <<childhis>> game of keep away. <<stress -6>><<trauma -6>><<lstress>><<ltrauma>><<gharmony>>
+	<</switch>>
+<</if>>
+<br><br>
+
+<<link [[Next|Childrens Home]]>><<unset $childActivityEvent>><<endevent>><</link>>
+<br>
+
+:: Wolf Children Chew Rope
+<<effects>>
+<<set _child1 to $childActivityEvent.childid>>
+<<set _child2 to $childActivityEvent.childid2>>
+<<wearProp "chewy rope">>
+
+<<if $phase is 0>> /* Play with first wolf child*/
+	"Hey now," you chide <<childSelect _child2>><<childname>>. "You'll have to wait your turn."
+	<br><br>
+	You pull the rope away from the <<childtype>> and toss it back to <<childSelect _child1>><<childname>>. <<childHe>> grabs it right away and begins tugging.
+	<br><br>
+	<<childSelect _child2>>
+	<<switch random(1, 2)>>
+		<<case 1>>
+			<<childname>> wags <<childhis>> tail before running off to play elsewhere. <<stress -6>><<trauma -6>><<lstress>><<ltrauma>>
+		<<default>>
+			<<childname>> drops <<childhis>> head and sulks away. <<stress 6>><<trauma 6>><<gstress>><<gtrauma>>
+	<</switch>>
+<<elseif $phase is 1>> /* Play with second wolf child */
+	"You'll need to be quicker next time," you tell <<childSelect _child1>><<childname>>.
+	<br><br>
+	You pull the rope as the <<childSelect _child2>><<childtype>> tugs back, giving a happy growl.
+	<br><br>
+	<<childSelect _child1>>
+	<<switch random(1, 2)>>
+		<<case 1>>
+			<<childname>> sits and watches, wagging <<childhis>> tail. <<stress -6>><<trauma -6>><<lstress>><<ltrauma>>
+		<<default>>
+			<<childname>> whines as <<childhe>> watches you play with <<childhis>> <<childsibling _child2>>. <<stress 6>><<trauma 6>><<gstress>><<gtrauma>>
+	<</switch>>
+<<else>> /* Play with both */
+	You quickly pull the rope away from <<childSelect _child2>><<childname>>, who promptly whines at the loss of the toy.
+	<br><br>
+	"Oh, settle down, I can play with both of you," you say. You toss the rope between them.
+	<br><br>
+	<<switch random(1, 3)>>
+		<<case 1>>
+			They both latch onto either end of the rope tightly. You grab the centre and begin tugging them both. Their tails wag eagerly as you tow them around. They eventually tire and drop the rope. <<stress -6>><<trauma -6>><<lstress>><<ltrauma>><<gharmony>>
+		<<case 2>>
+			They both latch onto either end of the rope. You attempt to grab the centre, but are not prepared for how energetic they are. The rope slips from your grasp but, you are content to watch the two tug it back and forth. They growl and wag their tails for a while until they wear themselves out. <<stress -6>><<trauma -6>><<lstress>><<ltrauma>><<gharmony>><<gferocity>>
+		<<default>>
+			They both latch onto either end of the rope tightly. You grab the centre and begin tugging. However, the two are not willing to share. <<childname>> drops <<childhis>> end of the rope and begins tussling with <<childhis>> <<childsibling _child1>>.
+			<br><br>
+			<<childSelect _child1>><<childname>> yelps in pain as <<childSelect _child2>><<childname>> bites <<childSelect _child1>><<childhim>>. Acting quickly, you intervene. One of them bites your hand. <<pain 2>><<gpain>>
+			<br><br>
+			"No fighting!" you tell them as you drag them apart.
+			<br><br>
+			They growl at each other before leaving in opposite directions. You shake out your hand. <<stress 6>><<gstress>><<lharmony>><<gferocity>>
+	<</switch>>
+<</if>>
+<br><br>
+
+<<link [[Next|Childrens Home]]>><<unset $childActivityEvent>><<endevent>><</link>>
+<br>
+
+:: Wolf Children Roll Ball
+<<effects>><<wearProp "chewy ball">>
+
+<<if $phase is 0>> /* Toss gently */
+	<<switch random(1, 2)>>
+		<<case 1>>
+			With a quick flick of the wrist, you toss the ball a short distance. The <<childtype>> bounds over to it and begins happily gnawing on the ball. <<stress -6>><<trauma -6>><<lstress>><<ltrauma>><<gharmony>>
+		<<default>>
+			With a quick flick of the wrist, you toss the ball a short distance. The <<childtype>> walks over and sniffs the ball, then loses interest and leaves.
+	<</switch>>
+<<else>> /* Thow hard */
+	<<getChildrenIds `{location:"wolf_cave"}`>>
+	<<set _childrenTotal to _childrenIds.length>>
+
+	<<if random(1, 3) is 1 and _childrenTotal gte 2>>
+		<<set _child1 to $childActivityEvent.childid>>
+		<<set _childrenIds to _childrenIds.filter(childid => childid !== _child1)>>
+		<<set _child2 to _childrenIds.pluck()>>
+
+		You hurl the ball. <<childname>> sprints after it, but one of <<childhis>> siblings beats <<childhim>> to it.
+		<br><br>
+		<<childSelect _child2>>
+		<<switch random(1, 3)>>
+			<<case 1>>
+				<<childname>> retrieves the ball and runs off with it, with <<childSelect _child1>><<childname>> in close pursuit. After an improv game of tag, <<childname>> catches <<childhis>> <<childsibling _child2>>. They playfully tussle over the ball. <<stress -6>><<trauma -6>><<lstress>><<ltrauma>><<gferocity>>
+			<<case 2>>
+				<<childname>> sniffs the ball until <<childhis>> <<childsibling _child1>> arrives. <<childSelect _child1>><<childname>> picks it up and runs off with it. <<childHis>> <<childsibling _child2>> follows, wagging <<childSelect _child2>><<childhis>> tail. <<stress -6>><<trauma -6>><<lstress>><<ltrauma>><<gharmony>>
+			<<default>>
+				<<childname>> retrieves the ball and runs off as <<childSelect _child1>><<childname>> gives chase. When <<childhe>> catches up to <<childhis>> <<childsibling _child2>>, a fight breaks out.
+				<br><br>
+				You rush to intervene, but it ends before you arrive. <<childname>> retrieves <<childhis>> ball while <<childSelect _child2>><<childtype>> whimpers in pain. You spend some time consoling the other <<childtype>>. <<stress 6>><<trauma 6>><<gstress>><<gtrauma>><<lharmony>><<gferocity>>
+		<</switch>>
+	<<elseif random(1, 3) is 2>>
+		You hurl the ball. <<childname>> sprints after it.
+		<br><br>
+		<<switch random(1, 2)>>
+			<<case 1>>
+				<<if Weather.isSnow>>
+					The snow conceals the ball, but the <<childtype>> is determined. After digging up several spots, <<childhe>> finally finds it. <<childHe>> carries it around for a while, looking quite pleased with <<childhimself>>.
+				<<else>>
+					<<childHe>> quickly finds <<childhis>> ball. The <<childtype>> carries it around for a while, looking quite pleased with <<childhimself>>.
+				<</if>>
+				<<stress -6>><<trauma -6>><<lstress>><<ltrauma>>
+			<<default>>
+				<<if Weather.isSnow>>
+					The snow conceals the ball, much to the <<childtype>>'s dismay. After digging around in the snow for a while, <<childhe>> begins to whine. By the time you dig it out for <<childhim>>, your fingers are numb from the cold and <<childhe>>'s no longer interested in playing.
+				<<else>>
+					<<childHe>> quickly finds <<childhis>> ball, but <<childhe>> cannot reach it. It seems to have gotten stuck in the briar. <<childHe>> whines at the loss of <<childhis>> toy. You get scratched up trying to fetch it for <<childhim>>, but <<childhe>>'s no longer interested in playing.
+				<</if>>
+				<<pain 2>><<stress 6>><<gpain>><<gstress>>
+		<</switch>>
+	<<else>>
+		You hurl the ball. <<childname>> turns <<childhis>> head and watches the ball land off in the distance. <<childHe>> stares at it for a moment before walking off, uninterested in pursuing.
+	<</if>>
+<</if>>
+<br><br>
+
+<<link [[Next|Childrens Home]]>><<unset $childActivityEvent>><<endevent>><</link>>
+<br>

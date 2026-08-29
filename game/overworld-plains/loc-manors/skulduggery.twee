@@ -1,0 +1,2181 @@
+:: Farmland Manors
+<<set $outside to 1>><<effects>><<location "farm_manors">>
+
+You are in the hidden web of expensive countryside properties.
+<<if Time.dayState is "night">>
+	The surrounding bushes claw at you.
+<<elseif Time.dayState is "dawn">>
+	Orange light pierces the canopy above.
+<<elseif Time.dayState is "dusk">>
+	You avoid clouds of midges.
+<<else>>
+	You can hear the sea in the distance.
+<</if>>
+<br><br>
+
+<<if $stress gte $stressmax>>
+	It's all just too much for you. You pass out.
+	<br><br>
+
+	<<link [[Everything fades to black...|Farmland Dungeon Wake]]>><</link>>
+	<br>
+<<else>>
+	<<lockicon "pick">><<link [[Break into a manor (0:05)|Farmland Manors Lock]]>><<pass 5>><</link>>
+	<br>
+	<<getouticon>><<link [[Leave (0:10)|Farmland]]>><<pass 10>><</link>>
+	<br>
+<</if>>
+
+:: Farmland Manors Lock
+<<set $outside to 0>><<effects>>
+
+You approach one of the manors. Like many here, it used to be part of a farm. The walls are thick, the windows high, and the lock more sophisticated than it looks. A camera watches it, and there are others. Many eyes observing from foliage, or hidden in nooks among old stonework.
+<br><br>
+
+Imposing security. Less impressive is the lock on a gate, hidden behind a screen of plants and barbed wire.
+<br><br>
+
+<<set $lock to 600>>
+<<if currentSkillValue('skulduggery') gte $lock>>
+	<<if pcAreArmsBound("any")>>
+		You think you'd be able to pick the lock, <span class="blue">if your arms weren't bound.</span>
+		<br>
+	<<else>>
+		<<wearProp "lockpick">>
+		<span class="green">The lock looks easy to pick.</span>
+		<br><br>
+		<<lockicon "pick">><<link [[Pick it (0:10)|Farmland Manors Sneak]]>><<endevent>><<pass 10>><<crimeUp 1 "trespassing">><</link>><<crime "trespassing">>
+		<br>
+	<</if>>
+<<else>>
+	<span class="red">The lock looks beyond your ability to pick.</span><<skulduggeryrequired>>
+	<br><br>
+<</if>>
+<<getouticon>><<link [[Leave|Farmland Manors]]>><<endevent>><</link>>
+<br>
+
+:: Farmland Manors Sneak
+<<effects>>
+
+You successfully pick the lock and enter the abode.
+<br><br>
+
+<<skulduggeryuse 700 "locks">>
+
+You enter the manor and sneak around, looking for anything of value.
+<br><br>
+<<cleareventpool>>
+
+<<addinlineevent "farmland_manors_1">>
+	The interior feels stuffy, and humid. Stains on the ceiling suggest mould, though it otherwise looks well-maintained.
+	<br><br>
+	You explore the manor, and find nothing unusual or valuable, until you stumble on a huge room, full of exotic plants. Windows make up most of the ceiling. It feels like a greenhouse.
+	<br><br>
+	<<link [[Next|Farmland Manors Plants Explore]]>><</link>>
+	<br>
+
+<</addinlineevent>>
+
+<<addinlineevent "farmland_manors_2">>
+	<<generate1>><<person1>>
+	The walls are thick with gaudy decoration. Nothing looks valuable, or easy to carry. You peek into a room, and find a similar lack of taste.
+	<br><br>
+
+	You hear a snore from the room behind you. You peek around the corner. A <<person>> sits in an armchair, a valuable-looking gold chain around <<his>> neck, and a <span class="red">shotgun</span> resting against <<his>> knee.
+	<br><br>
+	<<set $skulduggerydifficulty to 900>>
+	<<link [[Steal the gold chain|Farmland Manors Chain]]>><</link>><<skulduggerydifficulty>>
+	<br>
+	<<link [[Search for easier loot (0:10)|Farmland Manors Easier]]>><<pass 10>><</link>>
+	<br>
+<</addinlineevent>>
+
+<<addinlineevent "farmland_manors_3">>
+	You walk well-decorated halls, searching for anything you could pilfer. Some of the paintings look valuable, but they're far too big to haul with you.
+	<br><br>
+	<<beastNEWinit 3 dog>>
+	You open one door, and see a <<beasttype>> curled up beside a roaring fire, asleep. You pull the door shut without a sound, and look elsewhere.
+	<br><br>
+	You find two more <<beastsplural>> before you're done, but you manage to scrounge together some odds and ends. They look like they would be worth <<printmoney 7500>> to a fence, altogether.
+	<br><br>
+
+	You hear a small bell behind you. Then a second, and a third. Three <<beastsplural>> emerge from separate rooms, eyes on you, and teeth bared.
+	<br><br>
+
+	<<if $monster is 1 or $settings.bestialityEnabled>>
+		<<link [[Defend yourself|Farmland Manors Dog Sex]]>><<set $molestationstart to 1>><</link>>
+		<br>
+		<<if hasSexStat("deviancy", 3)>>
+				<<link [[Drop to all fours|Farmland Manors Dog Fours]]>><</link>><<deviant3>>
+				<br>
+		<</if>>
+	<<else>>
+		You turn and run from the manor. You manage to lose your pursuers in the brush outside, but not without injury. <<beastescape>>
+		<br><br>
+		<<link [[Next|Farmland Manors]]>><<endevent>><</link>>
+		<br>
+	<</if>>
+<</addinlineevent>>
+
+<<addinlineevent "farmland_manors_4">>
+	The rooms are empty. As if no one lives here. There are purple marks on the floor. Something heavy was dragged through. You hear a low thrumming from the basement.
+	<br><br>
+	You walk down the stairs without making a sound. A large, beetle-shaped machine sits in the centre of a decaying basement. You feel its thrum beneath your feet. Beside it, on a table, sits an open laptop.
+	<br><br>
+	You should be able to get <<printmoney 5000>> for the laptop on the black market. More if it has any valuable information on it.
+	<br><br>
+
+	<<link [[Check the laptop (0:05)|Farmland Manors Laptop Check]]>><<pass 5>><</link>><<difficulty 50>>
+	<br>
+	<<link [[Just snatch it and run|Farmland Manors Laptop Snatch]]>><<crimeUp 50 "thievery">><<set $blackmoney += 50>><</link>><<crime "thievery">>
+	<br>
+	<<link [[Leave empty handed|Farmland Manors]]>><</link>>
+	<br>
+<</addinlineevent>>
+
+<<addinlineevent "farmland_manors_5">>
+	You find a jewel sat on a cushion, on the far side of a suspiciously long room. You peer at the walls, and see machines poking out. Laser tripwires.
+	<br><br>
+
+	<<link [[Avoid the tripwires|Farmland Manors Tripwires]]>><<crimeUp 100 "thievery">><<set $blackmoney += 100>><</link>><<dancedifficulty 1 1000>><<crime "thievery">>
+	<br>
+	<<link [[Leave|Farmland Manors]]>><</link>>
+	<br>
+<</addinlineevent>>
+
+<<addinlineevent "farmland_manors_6">>
+	<<generateyv1>><<person1>><<saveNPC 0 "farmland_manors_victim">>
+
+	You hear voices up ahead, through a door beside a cart carrying silverware and booze. You peer around the doorframe. A <<person>> lies on a table, naked and hogtied. <<His>> eyes stare right through you.
+	<<endevent>>
+	<<generate1>><<generate2>><<generate3>><<generate4>>
+	Four <<people>> sit around the table, drinking champagne and talking nonsense.
+	<br><br>
+
+	The diners seem quite intoxicated. A <<person1>><<person>> rises from <<his>> seat, and staggers in your direction. You hide in the shadows as <<he>> retrieves a bottle of wine from the cart. If you wanted to attempt a rescue, you should be able to subdue them with a little effort. Fighting them all would be difficult.
+	<br><br>
+
+	<<link [[Devise an elaborate rescue plan (1:30)|Farmland Manors Rescue Elaborate]]>><<famegood 5>><<pass 90>><</link>>
+	<br>
+	<<link [[Charge!|Farmland Manors Rescue Charge]]>><<famescrap 5>><</link>>
+	<br>
+	<<link [[Take the silverware and leave|Farmland Manors]]>><<crimeUp 40 "thievery">><<set $blackmoney += 40>><<endevent>><<clearNPC "farmland_manors_victim">><</link>><<crime "thievery">>
+	<br>
+	<<link [[Just leave|Farmland Manors]]>><<endevent>><<clearNPC "farmland_manors_victim">><</link>>
+	<br>
+<</addinlineevent>>
+
+<<addinlineevent "farmland_manors_7">>
+	The walls look dilapidated, and a layer of dust is disturbed by each footfall. The rooms are empty, save the occasional piece of covered furniture. You find nothing you could carry away, until you reach a particular room on the second storey. It's longer than the others, with a sheet covering the wall on the far side. You see the outline of something beneath it, like a painting, or mirror.
+	<br><br>
+
+	You approach it. You feel your hair stand on end. You touch the sheet, and pull it from the wall.
+	<br><br>
+
+	A portrait of a grotesque, inhuman face stares at you. Its jaws are open, revealing long fangs, but the eyes are most catching. One is an empty pit, dark stains reaching out across its cheek. The other contains a gemstone. It looks valuable.
+	<br><br>
+
+
+	<<link [[Pry the gemstone free (0:20)|Farmland Manors Sheet]]>><<stress 6>><<pass 20>><<set $blackmoney += 120>><<crimeUp 120 "thievery">><</link>><<crime "thievery">>
+	<br>
+	<<link [[Leave|Farmland Manors]]>><</link>>
+	<br>
+<</addinlineevent>>
+
+<<if $farmland_maze_found isnot true>>
+	<<addinlineevent "farmland_manors_8">>
+		<<set $farmland_maze_found to true>>
+
+		You follow a bland wooden corridor, lit by a row of hanging yellow lights. You turn a bend and emerge outside, in front of a shattered archway. A path snakes through it, and up a hill, leading to a gate in a tall stone wall. A snake has been engraved in the stone above it. You see a ceiling beyond, high above and full of holes. Shattered tiles cover the floor. You pick the lock.
+		<br><br>
+		<<generate1>><<person1>>
+		"Not many people find this place," says a <<personssimple>> voice. You turn, and find the culprit leaning on a shovel. "Know what this is?"
+		<br><br>
+
+		<<if $historytrait gte 4>>
+			<span class="green">You think you remember Winter droning about it.</span>
+			<br><br>
+			<<link [[Say what you know|Maze Intro Explain]]>><</link>>
+			<br>
+		<<else>>
+			<<link [[Guess|Maze Intro Guess]]>><</link>>
+			<br>
+		<</if>>
+		<<link [[Shake your head|Maze Intro Shake]]>><</link>>
+		<br>
+	<</addinlineevent>>
+<</if>>
+
+<<addinlineevent "farmland_manors_9">>
+	The interior is tastefully decorated. You roam the halls, scooping up anything both valuable and easy to carry, until you come across a bedroom with a security camera above the door. It's the first camera you've seen inside, and it's pointed at an inconspicuous, bare patch of wall.
+	<br><br>
+
+	<<link [[Investigate the wall|Farmland Manors Wall Investigate]]>><</link>>
+	<br>
+	<<link [[Leave with your ill-gotten gains|Farmland Manors]]>><<set $blackmoney += 40>><<crimeUp 40 "thievery">><</link>><<crime "thievery">>
+	<br>
+	<<link [[Just leave|Farmland Manors]]>><</link>>
+	<br>
+<</addinlineevent>>
+
+<<addinlineevent "farmland_manors_10">>
+	<<generate1>><<generatev2>><<person1>>
+	You hear voices from upstairs. A <<personsimple>> says something in an angry tone. A <<person2>><<personsimple>> replies with a muffled scream.
+	<br><br>
+	You creep up the stairs, towards the room with the voices, and peek through the crack in the door. A <<person2>><<person>> is tied between two tall bed posts, a cloth gag stuffed in <<his>> mouth and naked from the waist up. A <<person1>><<person>> stands behind <<person2>><<him>>, a whip taut in <<person1>><<his>> hands.
+	<br><br>
+
+	"Things don't go missing for no reason," the <<person>> says, readying a blow. "Even if you aren't the thief, you're supposed to serve me. I'm holding you responsible for failing to protect my property." <<He>> strikes. The gag muffles the <<person2>><<persons>> scream.
+	<br><br>
+
+	<<link [[Intervene|Farmland Manors Bound Intervene]]>><</link>>
+	<br>
+	<<link [[Snatch what you can and leave|Farmland Manors Bound Snatch]]>><<moneyGain 30 true true>><<endevent>><</link>><<crime "thievery">>
+	<br>
+	<<link [[Just leave|Farmland Manors]]>><<endevent>><</link>>
+	<br>
+<</addinlineevent>>
+
+<<runeventpool>>
+
+
+:: Farmland Dungeon Hood
+<<effects>>
+Blinded, the <<person>> pushes you into a walk. You trip more than once. Your captor laughs each time, before rough hands pull you to your feet.
+<<pass 10>>
+<br><br>
+You walk for several minutes, seeming to remain indoors the whole time, until something hard swipes at your ankles from behind, forcing you to the ground.
+<br><br>
+
+"See you around," the <<person>> says. You hear <<his>> footsteps as <<he>> walks away.
+<br><br>
+<<endcombat>>
+<<link [[Next|Farmland Dungeon Intro]]>><</link>>
+<br>
+
+:: Farmland Dungeon Wake
+<<effects>>
+
+<<facewear "blindfold">>
+<<pass 60>>
+<<passout>>
+
+You awaken. You don't know where you are. You can't see a thing. There's something around your head. Like a blindfold.
+<br><br>
+
+<<tearful>> you struggle to your feet.
+<br><br>
+
+<<link [[Next|Farmland Dungeon Intro]]>><</link>>
+<br>
+
+:: Farmland Dungeon Intro
+<<effects>>
+<<farmland_dungeon_init>>
+<<generate1>><<person1>>
+"What a treat you are," says an unfamiliar <<personssimple>> voice. It echoes around you, as if you were surrounded.
+<br><br>
+
+"We're deep underground," <<he>> continues. "Just you and I. Well, and the locals. If they count."
+<<if $wolfgirl gte 4>>
+	<span class="green">Your sensitive wolf ears pick <<him>> out.</span> <<Hes>> stood to your right.
+<<elseif $cat gte 4>>
+	<span class="green">Your sensitive cat ears pick <<him>> out.</span> <<Hes>> stood to your right.
+<<elseif $fox gte 4>>
+	<span class="green">Your sensitive fox ears pick <<him>> out.</span> <<Hes>> stood to your right.
+<</if>>
+<br><br>
+"Here's the deal. I'll show you the exit. Of course, <span class="red">I'll bind your arms.</span> So you don't hurt yourself. The furniture here is sharp."
+<br><br>
+
+"Refuse, and you'll be left to find your own way out. One wrong move and you'll run into the locals. They're less reasonable than I."
+<br><br>
+
+<<link [[Accept help|Farmland Dungeon Accept]]>><</link>>
+<br>
+<<link [[Refuse help|Farmland Dungeon Refuse]]>><</link>>
+<br>
+<<if $wolfgirl gte 4>>
+	<<link [[Attack|Farmland Dungeon Attack]]>><<trauma -6>><<stress -6>><</link>><<wolfgirl>>
+<<elseif $cat gte 4>>
+	<<link [[Attack|Farmland Dungeon Attack]]>><<trauma -6>><<stress -6>><</link>><<cat>>
+<<elseif $fox gte 4>>
+	<<link [[Attack|Farmland Dungeon Attack]]>><<trauma -6>><<stress -6>><</link>><<fox>>
+<</if>>
+<br>
+
+:: Farmland Dungeon Accept
+<<effects>>
+<<set $farmland_dungeon.escort to true>>
+<<bind>>
+"Good show," <<he>> says, grasping your wrists and tying them behind your back. <<He>> holds your bindings in <<his>> grip, and pushes you forward. "This way."
+<br><br>
+
+You walk in whatever direction the <<personsimple>> pushes. Aside from footsteps, your own and the <<personssimple>>, there's no sound at all. At first.
+<br><br>
+
+<<link [[Next|Farmland Dungeon Accept 2]]>><</link>>
+<br>
+
+:: Farmland Dungeon Accept 2
+<<effects>>
+
+<span class="pink">You hear a growl up ahead,</span> and freeze. It's close.
+<<if $settings.maleChance gte 100>>
+	It almost sounded human, and had a masculine quality to it.
+<<elseif $settings.maleChance lte 0>>
+	It almost sounded human, and had a feminine quality to it.
+<<else>>
+	It almost sounded human.
+<</if>>
+The <<personsimple>> responds with a swift spank to your <<bottom>>.<<gpain>><<gstress>><<pain 1>><<stress 6>>
+<br><br>
+
+"I didn't say stop," <<he>> says. Another growl, followed by rattling chains. You feel <<his>> hand move to <<his>> chest and bunch into a fist, clutching tight. There's an object hung around <<his>> neck. "Keep walking."
+<br><br>
+
+<<link [[Do as bid|Farmland Dungeon Bid]]>><<sub 1>><</link>>
+<br>
+<<link [[Ask what the noises are|Farmland Dungeon Ask]]>><</link>>
+<br>
+
+:: Farmland Dungeon Bid
+<<effects>>
+
+You take another step forward. Rapid footsteps, snarling. A hand, belonging to someone, something, other than the <<personsimple>>, <span class="red">grasps your hair and tries to pull you forwards.</span><<gstress>>
+<br><br>
+
+"Shoo!" the <<personsimple>> shouts, jerking you back. "It's the locals. They're behind bars, nothing to worry about. They can reach through, but that's all. The sooner you get moving, the sooner you'll get out. Move." <<He>> gives your <<bottom>> another spank.<<gpain>><<gstress>><<pain 1>><<stress 4>>
+<br><br>
+
+<<link [[Next|Farmland Dungeon Gauntlet]]>><</link>>
+<br>
+
+:: Farmland Dungeon Ask
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"What are those scary noises?" you ask.
+<<elseif $speech_attitude is "bratty">>
+	"What the hell was that?" you ask.
+<<else>>
+	"What are those sounds?" you ask.
+<</if>>
+<br><br>
+
+"The locals," the <<personsimple>> sighs. "Don't worry. They're locked up. We just need to walk through their prison, and we'll be in the clear."
+<br><br>
+
+You feel <<him>> lean over your shoulder. "They're behind bars, listen." You hear a rattling of metal, rapid footsteps, and snarling. A hand, belonging to someone, something, other than the <<personsimple>>, <span class="red">grasps your hair and tries to pull you forwards.</span><<gstress>>
+<br><br>
+
+"Shoo!" the <<personsimple>> shouts, jerking you back. "I suppose they can reach through, but that's all. The sooner you get moving, the sooner you'll get out. Move." <<He>> gives your <<bottom>> another spank.<<gpain>><<gstress>><<pain 1>><<stress 4>>
+<br><br>
+
+<<link [[Next|Farmland Dungeon Gauntlet]]>><</link>>
+<br>
+
+:: Farmland Dungeon Gauntlet
+<<effects>>
+
+<<if $farmland_dungeon.escort is true>>
+	<<if $phase is 1>>
+		The <<person>> gives you a sharp spank to your <<bottom>>. "What are you waiting for? Get moving."<<gpain>><<gstress>><<stress 6>>
+		<br><br>
+	<<elseif $phase is 2>>
+		The <<person>> gives you another spank. "I told you, get moving."<<ggpain>><<gstress>><<pain 2>><<stress 6>>
+		<br><br>
+	<<elseif $phase gte 3>>
+		The <<person>> gives you another spank. "Move!"<<gggpain>><<gstress>><<pain 3>><<stress 6>>
+		<br><br>
+	<</if>>
+<</if>>
+
+<<farmland_dungeon_gauntlet>>
+<<if $farmland_dungeon.escort is true>>
+	The <<person>> tries to push you forward.
+<</if>>
+
+<<if $farmland_dungeon.gauntlet gte 100>>
+	You almost trip as your feet find a step. It's a set of stairs.
+	<<if $farmland_dungeon.escort is true>>
+		"You made it," the <<person1>><<personsimple>> says. "Hope you enjoyed the trip." <<He>> gives you a final smack to the <<bottom>>, sending you on your way.
+		<br><br>
+
+		<<link [[Next|Farmland Dungeon Escape]]>><<endevent>><</link>>
+		<br>
+	<<else>>
+		You climb, step by step, until you reach the top. A fresh breeze licks your skin.
+		<br><br>
+
+		<<link [[Next|Farmland Dungeon Escape]]>><<endevent>><</link>>
+		<br>
+	<</if>>
+<<else>>
+	<<if $farmland_dungeon.gauntlet_left is "calm">>
+		You hear <span class="green">nothing</span> on the left,
+	<<elseif $farmland_dungeon.gauntlet_left is "snarl">>
+		You hear a <span class="purple">snarling</span> on the left,
+	<<elseif $farmland_dungeon.gauntlet_left is "rattle">>
+		You hear a <span class="pink">rattling</span> on the left,
+	<</if>>
+
+	<<if $farmland_dungeon.gauntlet_right is "calm">>
+		and <span class="green">nothing</span> on the right.
+	<<elseif $farmland_dungeon.gauntlet_right is "snarl">>
+		and a <span class="purple">snarling</span> on the right.
+	<<elseif $farmland_dungeon.gauntlet_right is "rattle">>
+		and a <span class="pink">rattling</span> on the right.
+	<</if>>
+	<br><br>
+
+	<<if $farmland_dungeon.gauntlet gte 80>>
+		You smell pollen on the breeze. <span class="teal">The exit is close.</span>
+	<<elseif $farmland_dungeon.gauntlet gte 60>>
+		The breeze is fresher. <span class="lblue">You're getting closer to the exit.</span>
+	<<elseif $farmland_dungeon.gauntlet gte 40>>
+		The breeze lifts your hair. <span class="blue">You're around halfway through.</span>
+	<<elseif $farmland_dungeon.gauntlet gte 20>>
+		The dusky scent on the breeze is thinning. <span class="purple">You're making progress.</span>
+	<<else>>
+		The breeze carries a dusky scent. <span class="pink">You're far from the exit.</span>
+	<</if>>
+	<br><br>
+
+	<<link [[Continue|Farmland Dungeon Gauntlet Continue]]>><<set $phase to 0>><</link>>
+	<br>
+	<<if $farmland_dungeon.escort is true>>
+		<<link [[Wait|Farmland Dungeon Gauntlet]]>><<pain 1>><<stress 6>><<set $phase += 1>><</link>><<gpain>><<gstress>>
+		<br>
+		<<link [[Kick|Farmland Dungeon Gauntlet Continue]]>><<set $phase to 1>><<pain 2>><<set $farmland_dungeon.npc_pain += 1>><</link>><<gpain>> | <span class="blue"> + ? ? ? </span>
+		<br>
+	<<else>>
+		<<link [[Wait|Farmland Dungeon Gauntlet]]>><<stress 6>><<set $phase += 1>><</link>><<gstress>>
+		<br>
+	<</if>>
+<</if>>
+
+:: Farmland Dungeon Gauntlet Continue
+<<effects>>
+
+<<if $phase is 1>>
+	<<set $phase to 0>>
+	<<if $farmland_dungeon.npc_pain gte 7>>
+		You catch the <<persons>> ankle with your foot, <span class="green">and twist it.</span>
+	<<elseif $farmland_dungeon.npc_pain is 6>>
+		You <span class="teal">crush</span> the <<persons>> toes beneath your foot.
+	<<elseif $farmland_dungeon.npc_pain is 5>>
+		You <span class="lblue">stomp</span> on the <<persons>> foot.
+	<<elseif $farmland_dungeon.npc_pain is 4>>
+		You <span class="blue">slam</span> your foot into the <<persons>> shin.
+	<<elseif $farmland_dungeon.npc_pain is 3>>
+		You <span class="purple">thrust</span> your foot into the <<person>> shin.
+	<<elseif $farmland_dungeon.npc_pain is 2>>
+		You <span class="pink">strike</span> the <<persons>> foot with your own.
+	<<else>>
+		You <span class="red">kick</span> at the <<person>>, your heel impacting <<his>> shin.
+	<</if>>
+	<<He>> shoves you forward with a cry,
+<<else>>
+	You step forward,
+<</if>>
+
+<<if $farmland_dungeon.gauntlet_left is "calm">>
+	<<if $farmland_dungeon.gauntlet_right is "calm">>
+		and remain unmolested.
+	<<elseif $farmland_dungeon.gauntlet_right is "snarl">>
+		and a hand emerges from your right, groping and fondling your <<breasts>>.<<gstress>><<garousal>><<stress 6>><<arousal 6>>
+	<<elseif $farmland_dungeon.gauntlet_right is "rattle">>
+		and a hand emerges from your right,
+		<<if !$worn.upper.type.includes("naked")>>
+			tugging and tearing at your <<print $worn.upper.name>>.<<set $worn.upper.integrity -= 10>><<integritycheck>>
+		<<elseif !$worn.under_upper.type.includes("naked")>>
+			tugging and tearing at your <<print $worn.under_upper.name>>.<<set $worn.under_upper.integrity -= 10>><<integritycheck>>
+		<<else>>
+			groping and pinching your nipples.<<gstress>><<stress 6>><<garousal>><<arousal 6>>
+		<</if>>
+	<</if>>
+<<elseif $farmland_dungeon.gauntlet_left is "snarl">>
+	<<if $farmland_dungeon.gauntlet_right is "calm">>
+		and a hand emerges from your left,
+		<<if !$worn.genitals.type.includes("naked")>>
+			and tries to tear off your <<print $worn.genitals.name>>.<<set $worn.genitals.integrity -= 100>><<integritycheck>>
+		<<else>>
+			groping and fondling your <<genitals 1>>.<<gstress>><<garousal>><<stress 6>><<arousal 600>>
+		<</if>>
+	<<elseif $farmland_dungeon.gauntlet_right is "snarl">>
+		and a pair of hands emerges from your right, grasps you by the shoulders, and pushes you against the bars opposite. They hold you there,
+		<<if $player.breastsize gte 8>>
+			your <<breasts>> pushed against them.
+		<<elseif $player.breastsize gte 3>>
+			your <<breasts>> pushing through.
+		<<else>>
+			your <<breasts>> pushed against them.
+		<</if>>
+		<br><br>
+		<<if $farmland_dungeon.escort is true>>
+		"You look like you're in a bit of trouble," the <<personsimple>> says, no urgency in <<his>> voice.
+		<</if>>
+		You feel rapid bursts of hot breath over your chest, followed by a long and wet tongue.<<ggstress>><<ggarousal>><<stress 12>><<arousal 1200>>
+		<<if $worn.upper.type.includes("naked") and $worn.under_upper.type.includes("naked")>>
+			<br><br>
+			A pair of lips press against your nipple, and suck.<<gstress>><<ggarousal>><<stress 6>><<arousal 1200>>
+		<</if>>
+	<<elseif $farmland_dungeon.gauntlet_right is "rattle">>
+		a pair of hands emerge from your left, grabbing you by the hips, and pulling you against the bars. Another pair of hands emerge from the bars in front of you, and grasp your wrists, holding you tight.
+		<br><br>
+
+		<<if !$worn.lower.type.includes("naked")>>
+			Sharp nails slice through your <<print $worn.lower.name>>.<<set $worn.lower.integrity -= 30>><<integritycheck>>
+		<<elseif !$worn.under_lower.type.includes("naked")>>
+			Sharp nails slice through your <<print $worn.under_lower.name>>.<<set $worn.under_lower.integrity -= 30>><<integritycheck>>
+		<<else>>
+			Sharp nails run over your bare <<bottom>>, making your squirm.<<ggstress>><<stress 12>><<ggarousal>><<arousal 1200>>
+		<</if>>
+	<</if>>
+<<elseif $farmland_dungeon.gauntlet_left is "rattle">>
+	<<if $farmland_dungeon.gauntlet_right is "calm">>
+		and a hand emerges from your left,
+		<<if !$worn.upper.type.includes("naked")>>
+			tugging and tearing at your <<print $worn.lower.name>>.<<set $worn.lower.integrity -= 10>><<integritycheck>>
+		<<elseif !$worn.under_upper.type.includes("naked")>>
+			tugging and tearing at your <<print $worn.under_lower.name>>.<<set $worn.under_lower.integrity -= 10>><<integritycheck>>
+		<<else>>
+			groping and pinching your <<bottom>>.<<gstress>><<stress 6>><<garousal>><<arousal 6>>
+		<</if>>
+	<<elseif $farmland_dungeon.gauntlet_right is "snarl">>
+		and a pair of hands emerge from your left, grasping your <<breasts>> and pulling you against the bars. Another pair of hands emerge in front, and grope the air in a desperate bid to touch you.
+		<<if !$worn.upper.type.includes("naked")>>
+			Sharp nails slice at your <<print $worn.upper.name>>.<<set $worn.upper.integrity -= 30>><<integritycheck>>
+		<<elseif !$worn.under_upper.type.includes("naked")>>
+			Sharp nails slice at your <<print $worn.under_upper.name>>.<<set $worn.under_upper.integrity -= 30>><<integritycheck>>
+		<<else>>
+			Sharp nails run over your bare <<breasts>>, making your squirm.<<ggstress>><<stress 12>><<ggarousal>><<arousal 1200>>
+		<</if>>
+	<<elseif $farmland_dungeon.gauntlet_right is "rattle">>
+		a flurry of hands emerge from the left and right.
+		<<if $farmland_dungeon.escort is true>>
+			The <<personsimple>> releases <<his>> grip, leaving you at their mercy.
+		<</if>>
+		<br><br>
+		<<if !$worn.upper.type.includes("naked") or !$worn.lower.type.includes("naked") or !$worn.under_lower.type.includes("naked") or !$worn.under_upper.type.includes("naked")>>
+			The creatures grope and tear at your clothing.
+		<<else>>
+			The creatures grope your exposed skin.
+		<</if>>
+		You tear yourself away from one, only to end up in the hands of another.
+		<<if $farmland_dungeon.escort is true>>
+			At last, the <<personsimple>> grasps your bindings and gives you a rough shove in the correct direction.
+		<<else>>
+			At last, you manage to orient yourself and wrest yourself free.
+		<</if>>
+		<<ggstress>><<garousal>><<stress 12>><<arousal 600>>
+		<<set $worn.upper.integrity -= 10>>
+		<<set $worn.lower.integrity -= 10>>
+		<<set $worn.under_upper.integrity -= 10>>
+		<<set $worn.under_lower.integrity -= 10>>
+		<<integritycheck>>
+	<</if>>
+<</if>>
+<br><br>
+
+<<if $farmland_dungeon.npc_pain gte 7>>
+	<<set $farmland_dungeon.antique to true>>
+	A fell shrieking erupts all around. The <<person>> releases <<his>> grasp on your bindings. "Stay back! Stay—" <<His>> voice is cut short by another shrieking choir. When it fades, <<his>> voice is gone. A heavy object lands on your foot, connected to a string. You loop it around your ankle, and walk towards the exit.
+	<br><br>
+	The shrieking continues, but nothing molests you. You find a set of stairs and climb, step by step, until you reach the top. A fresh breeze licks your skin.
+	<br><br>
+
+	<<link [[Next|Farmland Dungeon Escape]]>><<endevent>><</link>>
+	<br>
+<<elseif $arousal gte $arousalmax>>
+	<<orgasm>>
+	A fell shrieking erupts all around.
+	<br><br>
+
+	<<link [[Next|Farmland Dungeon Gauntlet Orgasm]]>><</link>>
+	<br>
+<<else>>
+	You push on.
+	<br><br>
+	<<link [[Next|Farmland Dungeon Gauntlet]]>><<set $farmland_dungeon.gauntlet += 10>><</link>>
+	<br>
+<</if>>
+
+:: Farmland Dungeon Gauntlet Orgasm
+<<effects>>
+
+You hear the thud of metal as arms up and down the hall shake the bars of their cells, desperate to reach you. A pair of them are close enough. They pull your wrists against the bars, leaving you exposed.
+<br><br>
+<<if !$worn.lower.type.includes("naked")>>
+	You feel a violent clawing at your <<print $worn.lower.name>>. By the time you struggle free, <span class="pink">there's nothing left of the fabric.</span><<lowerruined>>
+	<br><br>
+	<<link [[Next|Farmland Dungeon Gauntlet]]>><<set $farmland_dungeon.gauntlet += 10>><</link>>
+	<br>
+<<elseif !$worn.upper.type.includes("naked")>>
+	You feel a violent clawing at your <<print $worn.upper.name>>. By the time you struggle free, <span class="pink">there's nothing left of the fabric.</span><<upperruined>>
+	<br><br>
+	<<link [[Next|Farmland Dungeon Gauntlet]]>><<set $farmland_dungeon.gauntlet += 10>><</link>>
+	<br>
+<<elseif !$worn.under_lower.type.includes("naked")>>
+	You feel a violent clawing at your <<print $worn.under_lower.name>>. By the time you struggle free, <span class="pink">there's nothing left of the fabric.</span><<underlowerruined>>
+	<br><br>
+	<<link [[Next|Farmland Dungeon Gauntlet]]>><<set $farmland_dungeon.gauntlet += 10>><</link>>
+	<br>
+<<elseif !$worn.under_upper.type.includes("naked")>>
+	You feel a violent clawing at your <<print $worn.under_upper.name>>. By the time you struggle free, <span class="pink">there's nothing left of the fabric.</span><<underupperruined>>
+	<br><br>
+	<<link [[Next|Farmland Dungeon Gauntlet]]>><<set $farmland_dungeon.gauntlet += 10>><</link>>
+	<br>
+<<else>>
+	<<if $farmland_dungeon.escort is true>>
+		"I've never seen them like this before," the <<personsimple>> says, a touch of fear in <<his>> voice. "It's as if—" <<His>> words are cut off by a thud, followed by another.
+		<br><br>
+	<</if>>
+	<<endevent>>
+	<<generateRole 0 "punished" "creature">><<generateRole 1 "imprisoned" "abomination">><<person1>>
+	<<link [[Next|Farmland Dungeon Rape]]>><<set $molestationstart to 1>><</link>>
+	<br>
+<</if>>
+
+
+:: Farmland Dungeon Rape
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+	<<set $speechdisable to 1>>
+	<<set $noBodyWriting to 1>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Farmland Dungeon Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Farmland Dungeon Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Farmland Dungeon Rape Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	The creatures release you. <<tearful>> you continue down the hall.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+<<elseif $enemyhealth lte 0>>
+	The creatures release you. <<tearful>> you continue down the hall.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+<</if>>
+
+<<link [[Next|Farmland Dungeon Rape Escape]]>><</link>>
+<br>
+
+
+:: Farmland Dungeon Rape Escape
+<<effects>>
+
+You continue down the hallways. Inhuman screeches echo all around, but you manage to make it to a flight of steps. You trip and stagger your way up, until you reach the top. Cool air blows against your skin.
+<br><br>
+
+<<link [[Next|Farmland Dungeon Escape]]>><<pass 5>><</link>>
+<br>
+
+:: Farmland Dungeon Escape
+<<effects>>
+You feel grass underfoot, and continue, searching for a path.
+<br><br>
+
+<<generate1>><<person1>>
+"Now how'd you get yourself dressed up like that?" asks a <<personssimple>> voice. <<covered>>
+<br><br>
+"Here." You feel fingers on your blindfold, then it comes away, revealing a <<person>>. You're on a road in the farmland.
+<<if pcAreArmsBound("any")>>
+	<<He>> removes your arm bindings next.
+<</if>>
+<br><br>
+
+<<set $worn.face.type.push("broken")>>
+<<faceruined>>
+<<unbind>>
+
+<<link [[Thank|Farmland Dungeon Rape Thank]]>><</link>>
+<br>
+<<link [["Tell " + $NPCList[0].pronouns.him + " about the dungeon"|Farmland Dungeon Rape Tell]]>><</link>>
+<br>
+
+:: Farmland Dungeon Rape Thank
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Thank you for helping me," you say.
+<<elseif $speech_attitude is "bratty">>
+	"Thanks a million," you say.
+<<else>>
+	"Thanks for the help," you say.
+<</if>>
+<br><br>
+
+The <<person>> nods.
+<<if $exposed gte 1>>
+	"Best cover yourself," <<he>> says, handing you some towels. "Strange folk around." <<towelup>>
+<<else>>
+	"Don't mention it," <<he>> says. "Just be more careful in the future."
+<</if>>
+<br><br>
+
+<<if $farmland_dungeon.antique is true>>
+	You examine the object looped around your foot. It's an amulet. There are several sharp points, arranged in a regular pattern. The metal is corroded in places. You get the impression it belongs in a museum.
+	<br><br>
+
+	<<set $antiquemoney += 200>><<museumAntiqueStatus "antiquesilveramulet" "found">>
+<</if>>
+
+<<link [[Next|Farmland]]>><<farmland_dungeon_end>><<endevent>><<set $eventskip to 1>><</link>>
+<br>
+
+:: Farmland Dungeon Rape Tell
+
+The <<person>> strokes <<his>> chin. "People are into some really crazy things," <<he>> says, as if your words failed to penetrate. "But I ain't one to judge.
+
+<<if $exposed gte 1>>
+	You'd best cover up though." <<He>> hands you some towels, then walks away.
+	<<towelup>>
+<<else>>
+	Just be more careful. There's strange folk around, stranger even than you." <<He>> walks away.
+<</if>>
+<br><br>
+
+<<if $farmland_dungeon.antique is true>>
+	You examine the object looped around your foot. It's an amulet. There are several sharp points, arranged in a regular pattern. The metal is corroded in places. You get the impression it belongs in a museum.
+	<br><br>
+
+	<<set $antiquemoney += 200>><<museumAntiqueStatus "antiquesilveramulet" "found">>
+<</if>>
+
+<<link [[Next|Farmland]]>><<farmland_dungeon_end>><<endevent>><<set $eventskip to 1>><</link>>
+<br>
+
+:: Farmland Dungeon Refuse
+<<effects>>
+
+"Suit yourself," the <<person>> says. Then silence.
+<br><br>
+
+<<link [[Next|Farmland Dungeon Middle]]>><<endevent>><</link>>
+<br>
+
+:: Farmland Dungeon Attack
+<<effects>>
+
+You launch yourself in the direction of the <<person>>. You hear <<his>> scrambled footsteps as <<he>> tries to get away. It's to your advantage. "How do you—" is all <<he>> manages before you grasp part of a hard part of <<his>> clothing, and deliver a solid blow to <<his>> stomach.
+<br><br>
+
+The strike sends <<him>> reeling, and the object you hold comes loose. Whatever it is, <<he>> decides to prioritise <<his>> own skin. You hear <<his>> retreating footsteps.
+<br><br>
+
+You examine the item more closely. It feels like an amulet. There are several sharp points, arranged in a regular pattern. The metal feels corroded in places. You get the impression it belongs in a museum.
+<br><br>
+
+<<set $antiquemoney += 200>><<museumAntiqueStatus "antiquesilveramulet" "found">>
+
+<<link [[Next|Farmland Dungeon Middle]]>><<endevent>><</link>>
+<br>
+
+:: Farmland Dungeon Middle
+<<effects>>
+
+You are alone in a stone interior. You feel around the edge of the room. There are six doorways, and no way to tell where each leads.
+<br><br>
+
+Which door do you enter?
+<br><br>
+
+<<if !$farmland_dungeon.doorways.includes("forward_left")>>
+	<<link [[Go forward and left|Farmland Dungeon FL]]>><<pass 2>><<set $farmland_dungeon.doorways.push("forward_left")>><</link>>
+	<br>
+<</if>>
+
+<<link [[Go forward|Farmland Dungeon F]]>><<pass 2>><</link>>
+<br>
+
+<<if !$farmland_dungeon.doorways.includes("forward_right")>>
+	<<link [[Go forward and right|Farmland Dungeon FR]]>><<pass 2>><<set $farmland_dungeon.doorways.push("forward_right")>><</link>>
+	<br>
+<</if>>
+
+<<if !$farmland_dungeon.doorways.includes("left")>>
+	<<link [[Go left|Farmland Dungeon L]]>><<pass 2>><<set $farmland_dungeon.doorways.push("left")>><</link>>
+	<br>
+<</if>>
+
+<<if !$farmland_dungeon.doorways.includes("right")>>
+	<<link [[Go right|Farmland Dungeon R]]>><<pass 2>><<set $farmland_dungeon.doorways.push("right")>><</link>>
+	<br>
+<</if>>
+
+<<if !$farmland_dungeon.doorways.includes("behind")>>
+	<<link [[Go behind you|Farmland Dungeon B]]>><<pass 2>><<set $farmland_dungeon.doorways.push("behind")>><</link>>
+	<br>
+<</if>>
+
+:: Farmland Dungeon FL
+<<effects>>
+
+You pass through a door. The corridor is thin enough that you can reach both side with outstretched arms.
+<br><br>
+<<generateRole 0 "strange" "creature">><<person1>>
+The walls curve away from you, as you hear a sudden dripping up ahead. A succession of numerous drops, then silence. Then you hear a growl, and footsteps growing louder.
+<br><br>
+
+<<link [[Run|Farmland Dungeon FL Run]]>><</link>>
+<br>
+<<link [[Stay still|Farmland Dungeon FL Still]]>><</link>>
+<br>
+
+:: Farmland Dungeon FL Still
+<<effects>>
+
+You remain as still as you can. You feel warm breath on your face, and hear a wet squelching. Then nothing. <span class="green">The creature has passed.</span>
+<br><br>
+
+You return to the central room.
+<br><br>
+
+<<link [[Next|Farmland Dungeon Middle]]>><</link>>
+
+:: Farmland Dungeon FL Run
+<<effects>>
+
+You turn around and run, <span class="red">straight into a wall.</span><<gpain>><<gstress>><<pain 4>><<stress 6>>
+<br><br>
+
+A horrifying screech echoes around you, and inhuman arms bear down on you.
+<br><br>
+
+<<link [[Next|Farmland Dungeon FL Rape]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Farmland Dungeon FL Rape
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+	<<set $speechdisable to 1>>
+	<<set $noBodyWriting to 1>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Farmland Dungeon FL Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Farmland Dungeon FL Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Farmland Dungeon FL Rape Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	The <<person>> leaves you spent and shivering.
+	<br><br>
+	<<tearful>> you climb to your feet. You return to the central room.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+<<elseif $enemyhealth lte 0>>
+	With a pained screech, the creature ceases its attack. You hear the rapid patter of footsteps fade.
+	<br><br>
+	<<tearful>> you return to the central room.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+<</if>>
+
+<<link [[Next|Farmland Dungeon Middle]]>><</link>>
+<br>
+
+:: Farmland Dungeon F
+<<effects>>
+
+The doorway ahead of you is wider than the others, and you feel a faint breeze. You soon come to another door however, this one made of metal bars. It's locked. There's a large keyhole.
+<br><br>
+
+<<if !$farmland_dungeon.doorways.includes("left")>>
+	You return the way you came. <span class="lblue">Perhaps the key can be found.</span>
+	<br><br>
+	<<link [[Next|Farmland Dungeon Middle]]>><</link>>
+	<br>
+<<else>>
+	You try the large key you found earlier. <span class="green">It fits.</span>
+	<br><br>
+
+	<<link [[Go through|Farmland Dungeon F 2]]>><</link>>
+	<br>
+	<<link [[Come back later|Farmland Dungeon Middle]]>><</link>>
+	<br>
+<</if>>
+
+
+
+
+:: Farmland Dungeon F 2
+<<effects>>
+
+<span class="pink">You hear a growl up ahead,</span> and freeze. It's close.
+<<if $settings.maleChance gte 100>>
+	It almost sounded human, and had a masculine quality to it.
+<<elseif $settings.maleChance lte 0>>
+	It almost sounded human, and had a feminine quality to it.
+<<else>>
+	It almost sounded human.
+<</if>>
+The breeze is stronger here, and the tight corridor makes it clear there is no other way to turn.
+<br><br>
+
+
+You take another step forward. At once, you hear rapid footsteps, and snarling. A hand <span class="red">grasps your hair and tries to pull you forwards.</span><<gstress>>
+<br><br>
+
+You lurch backwards, and break the creature's grip. You hear the rattling of metal. The creature must be unable to reach you, perhaps locked behind bars, but you'll need to pass close by it, and others, to escape.
+<br><br>
+
+
+<<link [[Next|Farmland Dungeon Gauntlet]]>><</link>>
+<br>
+
+:: Farmland Dungeon FR
+<<effects>>
+
+Beyond the doorway is an open area. The air is still. You keep the pace slow, and your arms outstretched.
+<br><br>
+
+<span class="red">The ground beneath you gives way.</span> Your feet skid, and you plunge into water. It's shallow, but broke your fall and leaves you sodden.<<water>>
+<br><br>
+
+You feel your way to shore, and explore a bit more, but there's nothing else here. You return to the central room.
+<br><br>
+
+<<link [[Next|Farmland Dungeon Middle]]>><</link>>
+<br>
+
+:: Farmland Dungeon L
+<<effects>>
+
+You walk through the doorway, arms outstretched, and feel fabric ahead. Like a curtain. You pull it aside. You feel metal behind it. <span class="green">A large key,</span> suspended from a thin thread. The thread snaps with ease.
+<br><br>
+
+You return to the central chamber.
+<br><br>
+
+<<link [[Next|Farmland Dungeon Middle]]>><</link>>
+<br>
+
+:: Farmland Dungeon R
+<<effects>>
+
+The door seems locked at first, but the mechanisms are just rusty, and it takes a little force to open it. You inhale dust, making you choke and cough. You decide it would be unwise to continue in that direction.<<ggstress>><<stress 12>>
+<br><br>
+
+You return to the central chamber.
+<br><br>
+
+<<link [[Next|Farmland Dungeon Middle]]>><</link>>
+<br>
+
+:: Farmland Dungeon B
+<<effects>>
+
+The ground slopes upward, which is promising, until your knee thuds into solid stone.<<gpain>><<pain 4>>
+<br><br>
+The way forward is blocked by rocky debris. You return to the central room.
+<br><br>
+
+<<link [[Next|Farmland Dungeon Middle]]>><</link>>
+<br>
+
+
+:: Farmland Manors Chain
+<<effects>>
+
+<<skulduggerycheck>>
+<<if $skulduggerysuccess>>
+	You creep up to the snoring <<person>>. You freeze in place as <<he>> moves, and mutters something incomprehensible, but then <<he>> returns to <<his>> slumber.
+	<br><br>
+	<<skulduggeryuse>><<wearProp "necklace" "gold">>
+
+	You slip the gold chain off <<his>> neck. The metal alone should be worth a pretty penny.
+	<br><br>
+	<<link [[Take it and leave|Farmland Manors]]>><<set $blackmoney += 300>><<crimeUp 300 "thievery">><<endevent>><</link>><<crime "thievery">>
+	<br>
+	<<link [[Just leave|Farmland Manors]]>><<endevent>><</link>>
+	<br>
+<<else>>
+	You creep up to the snoring <<person>>. You freeze in place as <<he>> moves, and mutters something incomprehensible, but then <<he>> returns to <<his>> slumber.
+	<br><br>
+	<<skulduggeryuse>>
+
+	You touch the gold chain, <span class="red">and the <<person>> jabs <<his>> shotgun against your gut.</span>
+	<br><br>
+	"Stealing from me, are you?!" <<he>> roars, rising to <<his>> feet and pushing you against the wall.<<llcontrol>><<control -25>><<gggtrauma>><<trauma 18>><<gggstress>><<stress 18>><<gpain>><<pain 1>>
+	<br><br>
+
+	<<if $panicattacks gte 2 and $controlled is 0>>
+		<span class="purple">Panic seizes you.</span> You wrench the shotgun away from you with such force that it collides with the <<persons>> head, sending <<him>> sprawling and freeing you.
+		<br><br>
+
+		You flee the manor, and keep running until you trip and fall. You curl up and cry.
+		<br><br>
+		<<pass 15>>
+		<<link [[Next|Farm Road 6]]>><<endevent>><</link>>
+		<br>
+	<<else>>
+
+		<<if $stat_shoot gte 1000>>
+			<span class="gold">You've spent a lot of time handling guns.</span> Up close, you can now see that the shotgun isn't loaded.<<lstress>><<stress -6>>
+			<br><br>
+		<</if>>
+
+		<<link [[Punch|Farmland Manors Punch]]>><<def 1>><</link>>
+		<br>
+		<<link [[Apologise|Farmland Manors Apologise]]>><<sub 1>><</link>>
+		<br>
+
+	<</if>>
+<</if>>
+
+:: Farmland Manors Punch
+<<effects>>
+
+You smack the <<person>> in the face. <<He>> drops the shotgun in shock, growls, and advances on you.
+<br><br>
+
+<<link [[Next|Farmland Manors Rape]]>><<set $molestationstart to 1>><<set $phase to 1>><</link>>
+<br>
+
+:: Farmland Manors Rape
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+	<<if $phase is 1>>
+		<<set $enemyanger += 200>>
+		<<set $enemytrust -= 100>>
+		<<set $enemyhealth -= 20>>
+	<</if>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Farmland Manors Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Farmland Manors Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Farmland Manors Rape Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	"We're not even yet," <<he>> says, grabbing a strip of fabric from a nearby cupboard. It's a blindfold. "Hold still." <<He>> wraps it around your head, blinding you. "Now get moving."
+	<br><br>
+	<<clotheson>>
+	<<facewear "blindfold">>
+
+	<<link [[Next|Farmland Dungeon Hood]]>><</link>>
+	<br>
+
+<<else>>
+	The <<person>> steps back, and trips over <<his>> shotgun. <<tearful>> you grasp the gold chain as <<he>> falls. It remains in your grasp.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+
+	You turn to run.
+	<br><br>
+
+	<<link [[Take the chain with you|Farmland Manors]]>><<set $blackmoney += 200>><<crimeUp 200 "thievery">><<endevent>><</link>><<crime "thievery">>
+	<br>
+	<<link [[Leave it|Farmland Manors]]>><</link>>
+	<br>
+<</if>>
+
+
+:: Farmland Manors Apologise
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Pl-please," you beg. "I'm sorry!"
+<<elseif $speech_attitude is "bratty">>
+	"Sorry," you say. "Didn't mean to interrupt your beauty sleep."
+<<else>>
+	"I'm very sorry," you say. "I didn't mean to disturb you."
+<</if>>
+<br><br>
+
+The <<person>> examines your body. "I know just how you can make it up to me."
+<br><br>
+
+<<link [[Next|Farmland Manors Rape]]>><<set $molestationstart to 1>><</link>>
+<br>
+
+:: Farmland Manors Easier
+<<effects>>
+
+You search the rest of the manor, looking for anything of value. You scrape together <<printmoney 2000>> worth of loot.
+<br><br>
+
+<<link [[Take it and leave|Farmland Manors]]>><<set $blackmoney += 20>><<crimeUp 20 "thievery">><<endevent>><</link>><<crime "thievery">>
+<br>
+<<link [[Just leave|Farmland Manors]]>><<endevent>><</link>>
+<br>
+
+:: Farmland Manors Plants
+<<effects>>
+
+You take the machine, wrenching it free from the roots and wires. At once, a sweet haze fills the air. Your skin tingles. Prize in hand, you turn back the way you came.
+<br><br>
+
+You try to follow the path towards the exit, but you come to a fork in the path that you don't remember. One of the pink bulbs has opened.
+<br><br>
+
+Which way do you go?
+<br><br>
+
+<<farmland_manors_maze>>
+
+:: Farmland Manors Plants Lost
+<<effects>>
+
+<<if $rng gte 81>>
+	You run beneath a canopy of roses, their thorny branches held back by green wire.
+<<elseif $rng gte 61>>
+	You find a bridge over an artificial river. The water churns, splashing your feet.
+<<elseif $rng gte 41>>
+	You run past a statue of a centaur. It carries a spear in one hand, pointing at the horizon.
+<<elseif $rng gte 21>>
+	You avoid stepping on broken glass. The window above has been shattered.
+<<else>>
+	You find the edge of the garden, but only a sturdy grey wall greets you.
+<</if>>
+You're no closer to the exit.
+<<gdrugged>><<garousal>><<set $drugged += 60>><<arousal 600>>
+<br><br>
+
+<<if $arousal gte $arousalmax>>
+	The tingling in your skin builds, until it overwhelms you.
+	<<orgasm>>
+	You fall, shuddering, to your knees.
+	<br><br>
+
+	<<link [[Everything fades to black|Farmland Dungeon Wake]]>><</link>>
+	<br>
+<<else>>
+	<<farmland_manors_maze>>
+<</if>>
+
+:: Farmland Manors Plants Escape
+<<effects>>
+
+You follow the path, and emerge from the dense garden. <span class="green">The entrance is straight ahead.</span>
+<br><br>
+
+The rest of the manor is as you remember it. You escape outside.
+<br><br>
+
+<<link [[Next|Farmland Manors]]>><</link>>
+<br>
+
+:: Farmland Manors Dog Fours
+<<effects>>
+
+You drop to all fours, and wiggle your <<bottom>>. It has the intended effect. The <<beastsplural>> approach, but their malice is gone.
+<br><br>
+
+<<link [[Next|Farmland Manors Dog Sex]]>><<set $sexstart to 1>><</link>>
+<br>
+
+:: Farmland Manors Dog Sex
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<beastCombatInit>>
+	<<beastTrainGenerate>>
+<<elseif $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<beastCombatInit>>
+	<<beastTrainGenerate>>
+<</if>>
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<beast $enemyno>>
+<br><br>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Farmland Manors Dog Sex End]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Farmland Manors Dog Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Farmland Manors Dog Sex End
+<<effects>>
+<<if $enemyhealth lte 0>>
+	<<beastwound>>
+	<<if $combatTrain.length gt 0>>
+		The <<beasttype>> recoils in pain and fear, but another is eager for a go.
+
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Farmland Manors Dog Sex]]>><</link>>
+	<<else>>
+		The <<beasttype>> recoils in pain and fear.
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Farmland Manors Dog Sex End]]>><<set $finish to 1>><</link>>
+	<</if>>
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<<beastejaculation>>
+	<<if $combatTrain.length gt 0>>
+		Satisfied, the <<beasttype>> moves and another takes its turn.
+
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Farmland Manors Dog Sex]]>><</link>>
+	<<else>>
+		Satisfied, the <<beasttype>> moves away from you.
+		<<combatTrainAdvance>>
+		<br><br>
+		<<link [[Next|Farmland Manors Dog Sex End]]>><<set $finish to 1>><</link>>
+	<</if>>
+<<elseif $finish is 1>>
+	<<if $enemywounded is 1 and $enemyejaculated is 0>>
+		The <<beasttype>> whimpers and flees.
+	<<elseif $enemywounded is 0 and $enemyejaculated is 1>>
+		Satisfied, the <<beasttype>> leaves.
+	<<elseif $enemywounded gte 2 and $enemyejaculated is 0>>
+		Feeling that you're more trouble than you're worth, the beasts flee.
+	<<elseif $enemywounded is 0 and $enemyejaculated gte 2>>
+		The beasts leave you spent and shivering.
+	<<elseif $enemywounded gte 1 and $enemyejaculated gte 1>>
+		The beasts leave you spent and shivering.
+	<</if>>
+	<br><br>
+
+	<<tearful>> you gather yourself and stumble to the entrance.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Take the goods and leave|Farmland Manors]]>><<set $blackmoney += 75>><<crimeUp 75 "thievery">><</link>><<crime "thievery">>
+	<br>
+	<<link [[Just leave|Farmland Manors]]>><</link>>
+	<br>
+<</if>>
+
+:: Farmland Manors Laptop Snatch
+<<effects>>
+
+<<if $phase isnot 1>>
+	The laptop's owner might return soon. You snatch it, and escape the premises before they do.
+	<br><br>
+<</if>>
+
+Once outside, you shelter beneath the boughs of a tree, out of sight of any road or farm. You open the laptop, and skim through the files for anything juicy.
+<br><br>
+
+<<if $rng gte 81>>
+	You find an unsent email, recently typed. The contents are interesting.
+	<br><br>
+	<i>
+	"I've kept a close watch on the site. Attached is a list of all the notables I've seen associating with Remy. I've also run background checks on some of their employees.
+	<br><br>
+	As an aside, I'd like to request a transfer. I feel changed. Unwell. I need to get away from here."
+	</i>
+	<br><br>
+	There's a file attached. It contains a list of names. You recognise many as important people, including Mayor Quinn.
+	<br><br>
+	This information should be worth a pretty penny.<<crimeUp 50 "thievery">><<set $blackmoney += 50>>
+<<elseif $rng gte 61>>
+	Music. Porn. There's some amateur photography of the surrounding countryside, but nothing of any worth. The laptop itself is worth something, at least.
+<<elseif $rng gte 41>>
+	One file is password-protected. You can't open it yourself, but it might be worth a little on the black market.<<crimeUp 10 "thievery">><<set $blackmoney += 10>>
+<<elseif $rng gte 21>>
+	Old flight tickets. Tax returns by year. This could be useful to someone. You should be able to get a bit more for it than expected.<<crimeUp 25 "thievery">><<set $blackmoney += 25>>
+<<else>>
+	There's nothing of value here. One sneaky folder takes up a lot of space, but it's just full of porn. The laptop itself is worth something, at least.
+<</if>>
+<br><br>
+
+<<link [[Next|Farmland Manors]]>><</link>>
+<br>
+
+:: Farmland Manors Laptop Check
+<<effects>>
+
+<<if $rng gte 51>>
+	You sit in front of the laptop, spare a furtive glance at the stairs, and search the files for any information that could prove valuable.
+	<br><br>
+
+	<<rng 100>>
+	<<if $rng gte 81 and $farm_manors_usb is undefined>>
+		You find an unsent email, recently typed. The contents are interesting.
+		<br><br>
+		<i>
+		"I've kept a close watch on the site. Attached is a list of all the notables I've seen associating with Remy. I've also run background checks on estate employees.
+		<br><br>
+		As an aside, I'd like to request a transfer. I feel changed. Unwell. I need to get away from this town."
+		</i>
+		<br><br>
+		There's a file attached. It contains a list of names. You recognise many as important people, including Mayor Quinn.
+		<br><br>
+		This information might be more valuable than the laptop.
+		<br><br>
+		<<link [[Download it to a USB and run|Farmland Manors]]>><<crimeUp 500 "thievery">><<set $farm_manors_usb to 1>><</link>><<crime "thievery">>
+		<br>
+		<<link [[Just leave|Farmland Manors]]>><</link>>
+		<br>
+	<<elseif $rng gte 61>>
+		Music. Porn. There's some amateur photography of the surrounding countryside, but nothing of any worth. The laptop itself is worth something, at least.
+		<br><br>
+		<<link [[Snatch it and run|Farmland Manors Laptop Snatch]]>><<crimeUp 50 "thievery">><<set $blackmoney += 50>><</link>><<crime "thievery">>
+		<br>
+	<<elseif $rng gte 41>>
+		One file is password-protected. You can't open it yourself, but it might be worth a little on the black market.
+		<br><br>
+		<<link [[Snatch it and run|Farmland Manors Laptop Snatch]]>><<crimeUp 60 "thievery">><<set $blackmoney += 60>><</link>><<crime "thievery">>
+		<br>
+	<<elseif $rng gte 21>>
+		Old flight tickets. Tax returns by year. This could be useful to someone. You should be able to get a bit more for it than expected.
+		<br><br>
+		<<link [[Snatch it and run|Farmland Manors Laptop Snatch]]>><<crimeUp 75 "thievery">><<set $blackmoney += 75>><</link>><<crime "thievery">>
+		<br>
+	<<else>>
+		There's nothing of value here. One sneaky folder takes up a lot of space, but it's just full of porn. The laptop itself is worth something, at least.
+		<br><br>
+		<<link [[Snatch it and run|Farmland Manors Laptop Snatch]]>><<crimeUp 50 "thievery">><<set $blackmoney += 50>><</link>><<crime "thievery">>
+		<br>
+	<</if>>
+	<br><br>
+<<else>>
+	<<generate1>><<generate2>><<person1>>
+	Your search is interrupted by footsteps climbing the stairs. A <<person>> and <<person2>><<person>> come into view before you can hide. They glance at each other, then advance with violent intent.
+	<br><br>
+	"You're somewhere you shouldn't be," the <<person1>><<person>> says. "Hate to do this to you. Truly." <<His>> tone of voice is anything but regretful. The <<person2>><<person>> bunches one hand into a fist, and clasps it with the other.
+	<br><br>
+	<<link [[Next|Farmland Manors Laptop Fight]]>><<set $fightstart to 1>><</link>>
+	<br>
+<</if>>
+
+:: Farmland Manors Laptop Fight
+<<if $fightstart is 1>>
+	<<set $fightstart to 0>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust -= 100>>
+	<<set $enemyanger += 200>>
+	<<npcidlegenitals>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+
+
+<<if _combatend or ($pain gte 100 and $willpowerpain is 0)>>
+	<span id="next"><<link [[Next|Farmland Manors Laptop Fight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Farmland Manors Laptop Fight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Farmland Manors Laptop Fight Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	The pair fall away from you. <<tearful>> you snatch the laptop, then run up the stairs. "Stop <<phim>>," the <<person>> says with a weak voice, but neither are able to give pursuit.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Farmland Manors Laptop Snatch]]>><<set $phase to 1>><</link>>
+	<br>
+
+<<elseif $enemyhealth lte 0>>
+	The pair fall away from you. <<tearful>> you snatch the laptop, then run up the stairs. "Stop <<phim>>," the <<person>> says with a weak voice, but neither are able to give pursuit.
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Farmland Manors Laptop Snatch]]>><<set $phase to 1>><</link>>
+	<br>
+
+<<else>>
+	<<tearful>> you fall to the ground.
+	<br><br>
+	<<person2>>"What should we do with <<phim>>?" asks the <<person>>. The <<person1>><<person>> looks at the <<person2>><<person>>. "No. That's too much."
+	<br><br>
+	"We've no other options," the <<person1>><<person>> says. "Sorry kid." <<He>> throws a hood over your head, pulls you to your feet, and pushes you into a walk.
+	<br><br>
+
+	<<clotheson>>
+
+	<<link [[Next|Farmland Dungeon Hood]]>><</link>>
+
+<</if>>
+
+:: Farmland Manors Plants Explore
+<<effects>>
+
+You enter the jungle, and explore the maze of plants. It looks cultivated with care. The same type of flower is dotted about, a tall upright stem supporting a closed pink bulb.
+<br><br>
+You cross an ornate footbridge, and emerge in a clearing. A pulsing green light catches your eye. A glass cylinder sits on a pedestal fed by both wires and roots.
+<br><br>
+It seems important. Whatever it is, it might be worth something on the black market.
+<br><br>
+
+<<link [[Take it|Farmland Manors Plants]]>><<set $blackmoney += 100>><<crimeUp 100 "thievery">><</link>><<crime "thievery">>
+<br>
+<<link [[Leave it|Farmland Manors]]>><</link>>
+<br>
+
+:: Farmland Manors Tripwires
+<<effects>>
+
+<<if $danceSuccess>>
+	A combination of different acrobatic manoeuvres, leaps, and even cartwheels, sees you to the other side of the room <span class="green">in safety.</span> You snatch up the jewel, and escape with just as much elegance.
+	<br><br>
+	<<link [[Next|Farmland Manors]]>><</link>>
+	<br>
+<<else>>
+	You pass through the tripwires, ducking under some and stepping over others as necessary. You almost make it to the jewel, but you must have missed one. <span class="red">An alarm sounds.</span>
+	<br><br>
+
+	You snatch the gem, and run back the way you came. A metal shutter seals the entrance, trapping you within.
+	<br><br>
+
+	"INTRUDER DETECTED." bellows a voice all around. "SECURITY INITIALISED." Metal arms rip through the carpet beneath your feet.
+	<br><br>
+
+	<<link [[Next|Farmland Manors Machine]]>><<set $molestationstart to 1>><</link>>
+	<br>
+<</if>>
+
+:: Farmland Manors Machine
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+
+	<<set $machine_health to 10>><<set $machine_ammo to 3>>
+	<<if $player.vaginaExist and $settings.analEnabled>>
+		<<machine_init vaginal anal leg_chains>>
+		<<set $machine.vaginal.armed to 1>>
+		<<set $machine.anal.armed to 1>>
+	<<elseif $player.vaginaExist>>
+		<<machine_init vaginal leg_chains>>
+		<<set $machine.vaginal.armed to 1>>
+	<<else>>
+		<<machine_init anal leg_chains>>
+		<<set $machine.anal.armed to 1>>
+	<</if>>
+	<<prop rails>>
+<</if>>
+
+<<effects>>
+
+<<machine_effects>><<machine_combat>>
+<<machine_state>>
+
+<br><br>
+<<machine_actions>>
+
+<<if $machine.number lte 0 or $finish is 1>>
+	<<link [[Next|Farmland Manors Machine End]]>><</link>>
+<<else>>
+	<<link [[Next|Farmland Manors Machine]]>><</link>>
+<</if>>
+
+
+:: Farmland Manors Machine End
+<<effects>>
+
+"SECURITY MEASURES COMPLETE. DISENGAGING." The machine falls inert, and the shutters open.
+<br><br>
+<<machine_end>>
+<<clotheson>>
+
+<<tearful>> you escape the building, prize in hand.
+<br><br>
+
+<<link [[Next|Farmland Manors]]>><</link>>
+<br>
+
+:: Farmland Manors Rescue Elaborate
+<<effects>>
+
+You search for anything that could assist you, staying out of sight and leaving nothing to chance. While exploring the kitchen you find a hidden crawlspace. There are two bottles inside, marked with chemical symbols. One red, one pink.
+<br><br>
+
+<<if $sciencetrait gte 4>>
+	These aren't quite the sorts of chemicals they teach in science class, <span class="green">but you're able to put your knowledge to work regardless.</span> The red bottle will knock them out cold for a few hours. The pink bottle is a potent aphrodisiac, produced locally.
+	<br><br>
+
+	<<link [[Take the red bottle|Farmland Manors Rescue Red]]>><</link>>
+	<br>
+	<<link [[Take the pink bottle|Farmland Manors Rescue Pink]]>><</link>>
+	<br>
+<<else>>
+	<span class="red">Unfortunately, you can't tell them apart.</span> You don't think these are the sorts of chemicals they cover in science class.
+	<br><br>
+
+	<<if $rng gte 51>>
+		<<link [[Pick one at random|Farmland Manors Rescue Pink]]>><</link>>
+		<br>
+	<<else>>
+		<<link [[Pick one at random|Farmland Manors Rescue Red]]>><</link>>
+		<br>
+	<</if>>
+<</if>>
+
+:: Farmland Manors Rescue Pink
+<<effects>><<wearProp "science flask" "pink">>
+
+You grab the pink bottle, and return to the cart of booze. The stopper removed, the contents make you dizzy. It should be strong enough.
+<br><br>
+You uncork each bottle of wine, and pour your pilfered solution into each. You suspect your victims will be too intoxicated to notice the tampering.
+<br><br>
+The <<person1>><<person>> staggers over a few minutes later, and retrieves one of the bottles. <<He>> and <<his>> fellow diners are eager to drink the tainted fluid. It dribbles down their chins.
+<br><br>
+
+<<link [[Next|Farmland Manors Rescue Pink 2]]>><</link>>
+<br>
+
+:: Farmland Manors Rescue Pink 2
+<<effects>>
+
+The effect is immediate. It was a friendly dinner, their attention focused on their victim in the centre of the table. Now, the diners are more interested in each other. A brief scrap leaves a <<person2>><<person>> and <<person3>><<person>> unconscious on the floor, while the <<person1>><<person>> chases a <<person4>><<person>> from the room.
+<br><br>
+<<endevent>>
+<<loadNPC 0 "farmland_manors_victim">><<person1>>
+The <<person>>, still hogtied, watches you with fearful eyes.
+<br><br>
+
+<<link [[Reassure and rescue|Farmland Manors Rescue Reassure]]>><</link>>
+<br>
+<<link [[Just focus on the rescue|Farmland Manors Rescue Focus]]>><</link>>
+<br>
+
+
+:: Farmland Manors Rescue Red
+<<effects>><<wearProp "science flask" "red">>
+
+You grab the red bottle, and return to the cart of booze. You feel a burning sensation in your hand, but there doesn't seem to be any leakage. It should be strong enough.
+<br><br>
+
+You uncork each bottle of wine, and pour your pilfered solution into each. You suspect your victims will be too intoxicated to notice the tampering.
+<br><br>
+The <<person1>><<person>> staggers over a few minutes later, and retrieves one of the bottles. <<He>> and <<his>> fellow diners eagerly down the tainted fluid. It dribbles down their chins.
+<br><br>
+
+<<link [[Next|Farmland Manors Rescue Red 2]]>><</link>>
+<br>
+
+:: Farmland Manors Rescue Red 2
+<<effects>>
+
+The effect is immediate. The diners fall limp. The <<person>> falls off <<his>> chair, the other forward onto the table.
+<br><br>
+
+You approach. Your victims breathe as if sleeping.
+<<endevent>>
+<<loadNPC 0 "farmland_manors_victim">><<person1>>
+The <<person>>, still hogtied, watches you with fearful eyes.
+<br><br>
+
+<<link [[Reassure and rescue|Farmland Manors Rescue Reassure]]>><</link>>
+<br>
+<<link [[Just focus on the rescue|Farmland Manors Rescue Focus]]>><</link>>
+<br>
+
+:: Farmland Manors Rescue Reassure
+<<effects>><<wearProp "knife">>
+
+<<if $speech_attitude is "meek">>
+	"It's okay," you say. "I'm here to help."
+<<elseif $speech_attitude is "bratty">>
+	"The cavalry has arrived," you say.
+<<else>>
+	"Don't be afraid," you say. "I'm going to rescue you."
+<</if>>
+<br><br>
+
+It's unclear if your words reassure the <<person>>, but <<he>> doesn't seem more afraid as you draw closer. You step behind <<him>>, grab a kitchen knife, and sever the rope holding <<him>>. It was very tense, and unravels at once.
+<br><br>
+
+<<link [[Next|Farmland Manors Rescue]]>><</link>>
+<br>
+
+:: Farmland Manors Rescue Focus
+<<effects>><<wearProp "knife">>
+
+The <<person>> struggles, and you take a kitchen knife from the table. You slice through the rope holding <<him>>. It was very tense, and unravels at once.
+<br><br>
+
+<<link [[Next|Farmland Manors Rescue]]>><</link>>
+<br>
+
+
+:: Farmland Manors Rescue Charge
+<<effects>>
+
+You charge from you hiding place. The diners turn towards you with an unsettling unison, then rise from their seats.
+<br><br>
+
+"Another morsel," the <<person>> says. "Delicious."
+<br><br>
+
+<<link [[Next|Farmland Manors Rescue Fight]]>><<set $fightstart to 1>><</link>>
+<br>
+
+:: Farmland Manors Rescue Fight
+<<if $fightstart is 1>>
+	<<set $fightstart to 0>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust -= 100>>
+	<<set $enemyanger += 200>>
+	<<npcidlegenitals>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+
+
+<<if _combatend or ($pain gte 100 and $willpowerpain is 0)>>
+	<span id="next"><<link [[Next|Farmland Manors Rescue Fight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Farmland Manors Rescue Fight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Farmland Manors Rescue Fight Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Between the wine and your ministrations, the diners are now bereft of energy.
+	<br><br>
+	<<tearful>> you turn to their victim.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<loadNPC 0 "farmland_manors_victim">><<person1>>
+	The <<person>>, still hogtied, watches you with fearful eyes.
+	<br><br>
+
+	<<link [[Reassure and rescue|Farmland Manors Rescue Reassure]]>><</link>>
+	<br>
+	<<link [[Just focus on the rescue|Farmland Manors Rescue Focus]]>><</link>>
+	<br>
+
+<<elseif $enemyhealth lte 0>>
+	The diners fall before you, rendered unconscious by your brutality, helped along by their inebriation.
+	<br><br>
+	<<tearful>> you brush yourself down.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<loadNPC 0 "farmland_manors_victim">><<person1>>
+	The <<person>>, still hogtied, watches you with fearful eyes.
+	<br><br>
+
+	<<link [[Reassure and rescue|Farmland Manors Rescue Reassure]]>><</link>>
+	<br>
+	<<link [[Just focus on the rescue|Farmland Manors Rescue Focus]]>><</link>>
+	<br>
+
+<<else>>
+	<<tearful>> you fall to the ground.
+	<br><br>
+	The diners group around you, and stare from above.
+	<br>
+	"What a prize."
+	<br>
+	"Shall we keep <<phim>>?"
+	<br>
+	"I've a better idea."
+	<br><br>
+	A pause. Then laughter.
+	<br><br>
+	"What a devilish thought!"
+	<br>
+	"We'd be rewarded."
+	<br>
+	"You're serious?"
+	<br>
+	"Why not?"
+	<br><br>
+
+	The <<person1>><<person>> pulls a hood over your head, forces you to your feet, and pushes you into a walk.
+	<br><br>
+
+	<<clotheson>>
+
+	<<link [[Next|Farmland Dungeon Hood]]>><<clearNPC "farmland_manors_victim">><</link>>
+
+<</if>>
+
+
+:: Farmland Manors Rescue
+<<effects>>
+
+The <<person>> struggles to <<his>> feet. <<He>> looks around a moment, as if unsure where <<he>> is. <<He>> eyes the knife in your hand, then regards the diners lying helpless on the floor. <<He>> considers a moment, then seems to make up <<his>> mind. "I need some clothes."
+<br><br>
+
+You find some clothing for <<him>> in a nearby room, and together you escape the manor.
+<br><br>
+
+"Thank you," <<he>> says once outside. <<He>> refuses to make eye contact, as if ashamed. "I know how to get home from here." <<He>> surprises you with a hug, then walks away.
+<br><br>
+
+<<link [[Leave with the stolen silverware|Farmland Manors]]>><<endevent>><<crimeUp 40 "thievery">><<set $blackmoney += 40>><<clearNPC "farmland_manors_victim">><</link>><<crime "thievery">>
+<br>
+<<link [[Just leave|Farmland Manors]]>><<endevent>><<clearNPC "farmland_manors_victim">><</link>>
+<br>
+
+:: Farmland Manors Sheet
+<<effects>>
+
+You grasp the gemstone between your fingers, and tug. It's stuck. You twist as you do so, trying to loosen whatever holds it in place.
+<br><br>
+
+<<if $hallucinations gte 2>>
+	<<if $settings.tentaclesEnabled and $rng gte 50>>
+		The gemstone comes free all of a sudden, propelled by some other force. A thick tentacle protrudes from the portrait's eye. Another emerges from the dead socket, then more from other darkened parts of the painting.
+		<br><br>
+
+		<<link [[Next|Farmland Manors Sheet Tentacles]]>><<set $molestationstart to 1>><</link>>
+		<br>
+	<<else>>
+		<<generate1>><<generate2>>
+		The gemstone comes free all of a sudden, and leaps from your grasp. It bounces unnaturally across the floor, coming to rest at the feet of a <<person1>><<person>> and <<person2>><<person>>. You didn't hear either come in.
+		<br><br>
+		They're uninterested in the gemstone, however. They stare right at you, then advance.
+		<br><br>
+
+		<<link [[Next|Farmland Manors Sheet Rape]]>><<set $molestationstart to 1>><</link>>
+		<br>
+	<</if>>
+<<else>>
+	After a bit of effort, the gemstone pops free from the portrait's eye. It flies into the air, but you catch it as it falls, and stride from the room with your prize secure.
+	<br><br>
+
+	<<link [[Next|Farmland Manors]]>><</link>>
+	<br>
+<</if>>
+
+:: Farmland Manors Sheet Tentacles
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<set $combat to 1>>
+	<<set $enemytype to "tentacles">>
+	<<molested>>
+	<<controlloss>>
+
+	<<tentaclestart 8 15>>
+
+<</if>>
+
+<<statetentacles>>
+
+
+<<effects>>
+<<effectstentacles>>
+<<tentacles>>
+<<actionstentacles>>
+
+<<if $tentacles.active lte ($tentacles.max / 2)>>
+	<span id="next"><<link [[Next|Farmland Manors Sheet Tentacles Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Farmland Manors Sheet Tentacles]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Farmland Manors Sheet Tentacles Finish
+<<effects>>
+
+The tentacles withdraw into the painting, now dead in both eyes.
+<br><br>
+
+<<tearful>> you escape the manor.
+<br><br>
+
+<<clotheson>>
+<<endcombat>>
+
+<<link [[Next|Farmland Manors]]>><</link>>
+<br>
+
+:: Farmland Manors Sheet Rape
+
+<<if $molestationstart is 1>>
+	<<set $molestationstart to 0>>
+	<<controlloss>>
+	<<violence 1>>
+	<<neutral 1>>
+	<<molested>>
+	<<maninit>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Farmland Manors Sheet Rape Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Farmland Manors Sheet Rape]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Farmland Manors Sheet Rape Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	The pair leave you, and walk from the room, still paying no attention to the gemstone.
+	<br><br>
+	<<tearful>> you rise to your feet. You escape the manor.
+	<br><br>
+
+<<elseif $enemyhealth lte 0>>
+	The pair back away from you, step across the threshold of the room, and vanish as if they were never there.
+	<br><br>
+	<<tearful>> you rise to your feet. You escape the manor.
+
+<</if>>
+
+<<clotheson>>
+<<endcombat>>
+
+<<link [[Next|Farmland Manors]]>><</link>>
+<br>
+
+
+
+:: Farmland Manors Wall Investigate
+<<effects>>
+
+You approach the wall beneath the camera's gaze. Up close, you see a thin groove in the shape of a rectangle. You push against it, revealing a secret compartment with some cash inside.
+<br><br>
+
+<<link [[Mock the camera and steal the money|Farmland Manors Wall Mock]]>><<crimeUp 40>><<set $blackmoney += 40>><<moneyGain 70 false true>><</link>><<crime "thievery">>
+<br>
+<<if hasSexStat("exhibitionism", 4)>>
+	<<link [[Flash the camera and steal the money|Farmland Manors Wall Flash]]>><<crimeUp 40>><<set $blackmoney += 40>><<moneyGain 70 false true>><</link>><<crime "thievery">><<exhibitionist5>>
+	<br>
+<</if>>
+<<link [[Just steal the money|Farmland Manors Wall Steal]]>><<crimeUp 40>><<set $blackmoney += 40>><<moneyGain 70 false true>><</link>><<crime "thievery">>
+<br>
+<<link [[Leave with just your previous ill-gotten gains|Farmland Manors]]>><<crimeUp 40>><<set $blackmoney += 40>><</link>><<crime "thievery">>
+<br>
+<<link [[Just leave|Farmland Manors]]>><</link>>
+<br>
+
+:: Farmland Manors Wall Mock
+<<effects>>
+
+You make a rude gesture with one hand while waving the cash with the other, then run from the camera's sight.
+<br><br>
+
+You leave the manor, ill-gotten gains in hand.
+<br><br>
+
+<<link [[Next|Farmland Manors]]>><</link>>
+<br>
+
+:: Farmland Manors Wall Flash
+<<effects>>
+
+<<pulldownall>> You stick your tongue at the camera for a moment, before covering yourself and vacating the manor, ill-gotten gains in hand.
+<<exhibitionism5>>
+
+<<link [[Next|Farmland Manors]]>><</link>>
+<br>
+
+:: Farmland Manors Wall Steal
+<<effects>>
+
+You snatch the cash and vacate the premises, ill-gotten gains in hand.
+<br><br>
+
+<<link [[Next|Farmland Manors]]>><</link>>
+<br>
+
+
+:: Farmland Manors Bound Snatch
+<<effects>>
+
+You sneak around the manor, avoiding the room with the voices, lifting anything of value you can find. You leave as quiet as you entered.
+<br><br>
+
+<<link [[Next|Farmland Manors]]>><<endevent>><</link>>
+<br>
+
+
+:: Farmland Manors Bound Intervene
+<<effects>>
+
+You step into the room.<<person2>>
+<<if $speech_attitude is "meek">>
+	"L-let <<him>> go," you say.
+<<elseif $speech_attitude is "bratty">>
+	"Let <<him>> go," you say. "Or you'll be getting whipped next."
+<<else>>
+	"Let <<him>> go," you say.
+<</if>>
+<br><br>
+
+The <<person1>><<person>> turns to you. "An intruder," <<he>> says. "You think you can command me? On my own property?" <<He>> steps forward, and raises the whip.
+<br><br>
+
+<<link [[Fight|Farmland Manors Bound Fight]]>><<saveNPC 0 "farmland_manors_bound_villain">><<saveNPC 1 "farmland_manors_bound_victim">><<endevent>><<loadNPC 0 "farmland_manors_bound_villain">><<set $fightstart to 1>><</link>>
+<br>
+<<link [[Wrestle the whip away|Farmland Manors Bound Wrestle]]>><</link>><<physiquedifficulty 1 15000>>
+<br>
+<<link [[Dodge|Farmland Manors Bound Dodge]]>><</link>><<dancedifficulty 1 1000>>
+
+
+:: Farmland Manors Bound Wrestle
+<<effects>>
+
+<<if $physiqueSuccess>>
+	You grasp the <<persons>> arm and wrestle for control of the whip. You bend <<his>> arm at a painful angle, <span class="green">forcing <<him>> to drop the weapon.</span> You kick <<him>> against a dresser, brandish the whip yourself, then bind <<his>> wrists to the bedpost. You gag <<him>> for good measure.
+	<br><br>
+
+	<<link [[Next|Farmland Manors Bound Rescue]]>><<saveNPC 0 "farmland_manors_bound_villain">><<saveNPC 1 "farmland_manors_bound_victim">><<endevent>><</link>>
+	<br>
+<<else>>
+	You try to wrestle the whip from the <<persons>> grasp, but it takes all your strength just to keep one of <<his>> arms occupied. <<He>> smacks you in the stomach, hooks <<his>> leg around yours, <span class="red">and trips you.</span><<gpain>><<pain 4>>
+	<br><br>
+
+	<<link [[Defend yourself|Farmland Manors Bound Fight]]>><<saveNPC 0 "farmland_manors_bound_villain">><<saveNPC 1 "farmland_manors_bound_victim">><<endevent>><<loadNPC 0 "farmland_manors_bound_villain">><<set $fightstart to 1>><</link>>
+	<br>
+<</if>>
+
+:: Farmland Manors Bound Dodge
+<<effects>>
+
+<<if $danceSuccess>>
+	<<He>> lashes at you with the whip, but you dash aside. It cracks in the empty air. You snatch the length before <<he>> can retrieve it, wind it around your forearm, <span class="green">and yank <<him>> to the ground.</span>
+	<br><br>
+
+	You bind <<his>> wrists to the bed post, and gag <<him>> for good measure.
+	<br><br>
+
+	<<link [[Next|Farmland Manors Bound Rescue]]>><<saveNPC 0 "farmland_manors_bound_villain">><<saveNPC 1 "farmland_manors_bound_victim">><<endevent>><</link>>
+	<br>
+<<else>>
+	<<He>> lashes you with the whip, <span class="red">the length catching you on the shoulder.</span> The pain is immediate. You find yourself lying on the floor, face up.<<ggpain>><<pain 8>>
+	<br><br>
+
+	<<link [[Defend yourself|Farmland Manors Bound Fight]]>><<saveNPC 0 "farmland_manors_bound_villain">><<saveNPC 1 "farmland_manors_bound_victim">><<endevent>><<loadNPC 0 "farmland_manors_bound_villain">><<set $fightstart to 1>><</link>>
+	<br>
+<</if>>
+
+:: Farmland Manors Bound Fight
+<<if $fightstart is 1>>
+	<<person1>>
+	<<set $fightstart to 0>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust -= 100>>
+	<<set $enemyanger += 200>>
+	<<npcidlegenitals>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend or ($pain gte 100 and $willpowerpain is 0)>>
+	<span id="next"><<link [[Next|Farmland Manors Bound Fight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Farmland Manors Bound Fight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Farmland Manors Bound Fight Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	<<He>> drops the whip. You seize the opportunity and use it to bind <<his>> wrists to the bedpost while <<he>> can offer only weak resistance. You silence <<him>> with a gag for good measure.
+	<br><br>
+	<<tearful>> you turn to <<his>> victim.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<link [[Next|Farmland Manors Bound Rescue]]>><</link>>
+
+<<elseif $enemyhealth lte 0>>
+	You seize the whip from the disoriented <<persons>> hand, and use it to bind <<his>> wrists to the bedpost. "How dare—" you gag <<him>> for good measure.
+	<br><br>
+	<<tearful>> you turn to <<his>> victim.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<link [[Next|Farmland Manors Bound Rescue]]>><</link>>
+
+<<else>>
+	You fall to the ground, too hurt to continue fighting.
+	<br><br>
+	<<clotheson>>
+	<<link [[Next|Farmland Manors Bound Loss]]>><</link>>
+	<br>
+<</if>>
+
+:: Farmland Manors Bound Loss
+<<effects>>
+
+The <<person>> plants <<his>> feet either side of you. "Now," <<he>> says. "What shall I do with you? I know." <<He>> pulls a hood from a nearby dresser, puts it over your head, and drags you to your feet. <<He>> shoves you into motion.
+<br><br>
+
+<<link [[Next|Farmland Dungeon Hood]]>><<set $phase to 1>><</link>>
+
+:: Farmland Manors Bound Rescue
+<<effects>>
+<<endevent>>
+<<loadNPC 0 "farmland_manors_bound_victim">><<person1>>
+
+You free the <<persons>> arms from the bed posts. <<He>> tears the gag from <<his>> mouth.
+<br><br>
+"What the fuck are you doing?" <<he>> asks. <<He>> throws a worried glance at <<his>> tormentor. "I'm gonna get in so much trouble."
+<br><br>
+
+<<link [[Apologise|Farmland Manors Bound Apologise]]>><</link>>
+<br>
+<<link [[Get angry|Farmland Manors Bound Angry]]>><</link>>
+<br>
+<<link [[Remain silent|Farmland Manors Bound Silent]]>><</link>>
+<br>
+
+:: Farmland Manors Bound Apologise
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Please forgive me," you say. "I thought you would want this."
+<<elseif $speech_attitude is "bratty">>
+	"Some gratitude," you say. "Fine. I'm sorry, okay?"
+<<else>>
+	"Forgive me," you say. "I thought you would want this."
+<</if>>
+<br><br>
+
+The <<person>> runs a hand through <<his>> hair. "No," <<he>> sighs. "I'm being unfair. You've saved me."
+<br><br>
+Without sparing a glance at <<his>> tormentor, <<he>> crawls beneath the bed, and returns with a briefcase sealed by a combination lock. <<He>> opens it, revealing documents, and some cash.
+<br><br>
+"I'm leaving town, so I'll need most of this. Here." <<He>> hold out a wad of cash.
+<br><br>
+
+<<link [[Take the money and leave|Farmland Manors]]>><<clearNPC "farmland_manors_bound_villain">><<clearNPC "farmland_manors_bound_victim">><<moneyGain 100 true true>><<endevent>><</link>><<crime "thievery">>
+<br>
+<<link [[Just leave|Farmland Manors]]>><<clearNPC "farmland_manors_bound_villain">><<clearNPC "farmland_manors_bound_victim">><<endevent>><</link>>
+<br>
+
+:: Farmland Manors Bound Angry
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Don't be rude," you say. "I saved you."
+<<elseif $speech_attitude is "bratty">>
+	"You liked being bound and whipped?" you ask. "Don't be such a worm."
+<<else>>
+	"Don't be ungrateful," you say. "I saved you."
+<</if>>
+<br><br>
+
+The <<person>> opens <<his>> mouth to retaliate, then closes it, and looks away. "Forgive me," <<he>> says. "You're right. I need to pull myself together."
+<br><br>
+
+Without sparing a glance at <<his>> tormentor, <<he>> crawls beneath the bed, and returns with a briefcase sealed by a combination lock. <<He>> opens it, revealing documents, and some cash.
+<br><br>
+"I'm leaving town, so I'll need most of this. Here." <<He>> hold out a wad of cash.
+<br><br>
+
+<<link [[Take the money and leave|Farmland Manors]]>><<clearNPC "farmland_manors_bound_villain">><<clearNPC "farmland_manors_bound_victim">><<moneyGain 100 true true>><<endevent>><</link>><<crime "thievery">>
+<br>
+<<link [[Just leave|Farmland Manors]]>><<clearNPC "farmland_manors_bound_villain">><<clearNPC "farmland_manors_bound_victim">><<endevent>><</link>>
+<br>
+
+:: Farmland Manors Bound Silent
+<<effects>>
+
+You remain silent. The <<person>> stares at you a moment, then averts <<his>> eyes. "I'm being an idiot, aren't I?" It's not a question.
+<br><br>
+
+Without sparing a glance at <<his>> tormentor, <<he>> crawls beneath the bed, and returns with a briefcase sealed by a combination lock. <<He>> opens it, revealing documents, and some cash.
+<br><br>
+"I'm leaving town, so I'll need most of this. Here." <<He>> hold out a wad of cash.
+<br><br>
+
+<<link [[Take the money and leave|Farmland Manors]]>><<clearNPC "farmland_manors_bound_villain">><<clearNPC "farmland_manors_bound_victim">><<moneyGain 100 true true>><<endevent>><</link>><<crime "thievery">>
+<br>
+<<link [[Just leave|Farmland Manors]]>><<clearNPC "farmland_manors_bound_villain">><<clearNPC "farmland_manors_bound_victim">><<endevent>><</link>>
+<br>

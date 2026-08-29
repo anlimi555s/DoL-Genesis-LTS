@@ -1,0 +1,269 @@
+:: Widgets speech-Bailey [widget]
+<<widget "speech-bailey">>
+	<<set _npc_speech to true>>
+	<<set $_stringsPre to ($enemyanger lte 60 ? "<<He>> snickers. ":"<<He>> snarls. ")>>
+	<<if ($speechpenisvirgin is 1 and $player.virginity.penile is "Bailey") or ($speechvaginavirgin is 1 and $player.virginity.vaginal is "Bailey")>>
+		<<print $_stringsPre + `"Fuck. Your value just depreciated a little."`>>
+	<<elseif $speechanusvirgin is 1 and $player.virginity.anal is "Bailey">>
+		<<print $_stringsPre + `"You should be putting out more if you're this tight. What do you think you're good for?"`>>
+	<<elseif $speechmouthvirgin is 1 and $player.virginity.oral is "Bailey">>
+		<<print $_stringsPre + `"Don't get any funny ideas. Just take it."`>>
+	<<elseif $speechkissvirgin is 1 and $player.virginity.kiss is "Bailey">>
+		<<print $_stringsPre + `"Surprised are you? You'll learn to kiss better soon."`>>
+	<<elseif $speechnamedrop is 1>>
+		<<set $speechnamedrop to 0>>
+		<<switch _loveInterest>>
+			<<case "Robin">>
+				<<if $robinpaid is 1>>
+					<<print $_stringsPre + `"You pay <<nnpc_his 'Robin'>> debt and <<nnpc_he 'Robin'>> can't even watch."`>>
+				<<elseif C.npc.Robin.dom gte 50>>
+					<<print $_stringsPre + `"That waif's grown a spine thanks to you. Shame <<nnpc_he 'Robin'>> won't save you."`>>
+				<<else>>
+					<<print $_stringsPre + either(
+						`"That worthless brat can't save you."`,
+						`"What do you expect that waif to do? Cry until I stop?"`
+					)>>
+				<</if>>
+			<<case "Black Wolf" "Great Hawk">>
+				<<print $_stringsPre + either(
+					`"People would pay extra to see you ${$player.penisExist ? "fuck" : "get fucked by"} some beast."`,
+					`"Animals get put down. You get put to work."`
+				)>>
+			<<case "Eden">>
+				<<print $_stringsPre + `"You'll be going right back to <<nnpc_him 'Eden'>> if you keep this up."`>>
+			<<case "Gwylan">>
+				<<print `<<He>> pauses, then speaks. "Careful where you bring that name."`>>
+			<<case "Whitney">>
+				<<if $whitney_bailey_met gte 1>>
+					<<print $_stringsPre + `"That idiot's useful. Don't confuse that with important."`>>
+				<<else>>
+					<<print $_stringsPre + `"If <<nnpc_he _loveInterest>> cared about you, <<nnpc_he _loveInterest>> would pay for you."`>>
+				<</if>>
+			<<case "Kylar">>
+				<<if $kylar_abduction_bailey is 1>>
+					<<print $_stringsPre + either(
+						`"Call for <<nnpc_him 'Kylar'>> louder. Maybe <<nnpc_hes 'Kylar'>> outside the window."`,
+						`"That little freak is probably watching. Let <<nnpc_him 'Kylar'>>."`
+					)>>
+				<<else>>
+					<<print $_stringsPre + `"If <<nnpc_he _loveInterest>> cared about you, <<nnpc_he _loveInterest>> would pay for you."`>>
+				<</if>>
+			<<case "Sydney">>
+				<<if $temple_bailey>>
+					<<print $_stringsPre + either(
+						`"Save it for confession."`,
+						`"That brat would pray for you. I'd rather <<nnpc_he 'Sydney'>> paid for you."`
+					)>>
+				<<else>>
+					<<print $_stringsPre + `"If <<nnpc_he _loveInterest>> cared about you, <<nnpc_he _loveInterest>> would pay for you."`>>
+				<</if>>
+			<<case "Avery">>
+				<<if $avery_fate is "saved">>
+					<<print $_stringsPre + `"<<nnpc_He 'Avery'>>'d have let you fall."`>>
+				<<elseif $avery_mansion and $avery_fate isnot "fallen" and $avery_fate isnot "kicked" and $renttime lte 0>>
+					<<print $_stringsPre + `"I had a deal with <<nnpc_him 'Avery'>>, but <<nnpc_he 'Avery'>> dried up. Take it up with <<nnpc_him 'Avery'>>."`>>
+				<<elseif $bailey_avery_met>>
+					<<print $_stringsPre + `"Keep calling for that idiot. See if <<nnpc_his 'Avery'>> money reaches this far."`>>
+				<<else>>
+					<<print $_stringsPre + `"If <<nnpc_he _loveInterest>> cared about you, <<nnpc_he _loveInterest>> would pay for you."`>>
+				<</if>>
+			<<case "Alex">>
+				<<print $_stringsPre + either(
+					`"What do you think that idiot ${C.npc.Alex.pronoun is "f" ? "cowgirl" : "cowboy"} is going to do?"`,
+					`"Your farmer's probably face-down in a bottle somewhere."`,
+					`"That drunk couldn't find you if you were standing in <<nnpc_his 'Alex'>> field."`
+				)>>
+			<<default>>
+				<<print $_stringsPre + `"If <<nnpc_he _loveInterest>> cared about you, <<nnpc_he _loveInterest>> would pay for you."`>>
+		<</switch>>
+	<<elseif $speechgenitals is 1>>
+		<<print either(
+			`<<He>> looks at your <<genitals>>. "That'll sell."`,
+			`<<He>> looks at your <<genitals>>. "You'll earn your keep."`
+		)>>
+	<<elseif $speechbreasts is 1>>
+		<<print either(
+			`<<He>> looks at your <<breasts>>. "That'll sell."`,
+			`<<He>> looks at your <<breasts>>. "You'll earn your keep."`
+		)>>
+	<<elseif $speechpregnant is 1 and $settings.pregnancySpeechEnabled>>
+		<<if Object.values($children).some(child => child.location === "home")>>
+			<<print `<<He>> sighs at your pregnant belly. "Knocked up. Typical."`>>
+		<<else>>
+			<<print `<<He>> looks at your pregnant belly. "Couldn't keep your legs together, could you?"`>>
+		<</if>>
+	<<elseif $speechplead is 1>>
+		<<if $enemyanger lte 60>>
+			<<print $_stringsPre + either(
+				`"Save your breath."`,
+				`"Quit whining. You'll live."`,
+				`"Begging won't change what you owe me."`,
+				`"Beg harder, maybe I'm feeling generous."`
+			)>>
+		<<else>>
+			<<print $_stringsPre + either(
+				`"Every word out of your mouth adds to what you owe."`,
+				`"You'll shut up and take it if you know what's good for you."`,
+				`"Begging won't save you, you little shit."`
+			)>>
+		<</if>>
+	<<elseif $speechmoan is 1>>
+		<<if $enemyanger lte 60>>
+			<<print $_stringsPre + either(
+				`"Keep it down."`,
+				`"Save the moaning for clients."`,
+				`"Save the racket for someone who pays."`
+			)>>
+		<<else>>
+			<<print $_stringsPre + either(
+				`"Shut your mouth, brat."`,
+				`"Not another sound, you little shit."`,
+				`"One more sound and I'll give you something to moan about."`
+			)>>
+		<</if>>
+	<<elseif $speechdemand is 1>>
+		<<if $enemyanger lte 60>>
+			<<print $_stringsPre + either(
+				`"You don't give orders here."`,
+				`"You're in no position to negotiate."`,
+				`"That mouth is going to cost you, brat."`
+			)>>
+		<<else>>
+			<<print $_stringsPre + either(
+				`"Mouthy little shit."`,
+				`"Shut your goddamn mouth."`,
+				`"You don't get to make demands. You never did."`
+			)>>
+		<</if>>
+	<<elseif $speechscream is 1>>
+		<<set $speechscream to 0>>
+		<<if $enemyanger lte 60>>
+			<<print $_stringsPre + either(
+				`"Shut up."`,
+				`"Be quiet."`,
+				`"No one's coming."`,
+				`"Who exactly do you think is going to help you?"`
+			)>>
+		<<else>>
+			<<print $_stringsPre + either(
+				`"Shut up."`,
+				`"Be. Quiet."`,
+				`"Noisy little shit."`
+			)>>
+		<</if>>
+	<<elseif $speechforgive is 1>>
+		<<print `<<He>> sneers. ` + either(
+			`"I don't need your forgiveness."`,
+			`"Forgive me? For what?"`,
+			`"Close your damn mouth, or I'll close it for you."`
+		)>>
+	<<elseif $speechapologiseunforgiving is 1>>
+		<<print $_stringsPre + either(
+			`"Shut up. I've heard it all before."`,
+			`"Did you really think I would fall for that?"`,
+			`"Do you think I give a damn, you little shit?"`,
+			`"Save it. If you were sorry, you'd stop struggling."`
+		)>>
+	<<elseif $speechgrowl is 1 or $speechgrowlheat is 1 or $speechgrowlrut is 1>>
+		<<print $_stringsPre + either(
+			`"You little mutt."`,
+			`"I'll muzzle you if I have to."`,
+			`"Bite if you want. See what it costs you."`,
+			`"This is what I get for taking in strays."`
+		)>>
+	<<elseif $speechstruggle is 1>>
+		<<if $enemyanger lte 60>>
+			<<print $_stringsPre + either(
+				`"Stop struggling."`,
+				`"You're wasting both our time."`,
+				`"You're not going anywhere."`,
+				`"Don't make this difficult."`,
+				`"Stop fighting me."`
+			)>>
+		<<else>>
+			<<print $_stringsPre + either(
+				`"Quit moving, you little shit."`,
+				`"Stop squirming, damn brat."`,
+				`"That's enough."`,
+				`"Don't test my patience."`,
+				`"You're only making it worse for yourself."`
+			)>>
+		<</if>>
+	<<elseif $speechspank is 1>>
+		<<if $enemyanger lte 60>>
+			<<print $_stringsPre + either(
+				`"What have we learned?"`,
+				`"Count it against what you owe."`
+			)>>
+		<<else>>
+			<<print $_stringsPre + either(
+				`"Harder? Fine."`,
+				`"You asked for this."`,
+				`"This is for wasting my time."`,
+				`"I'll stop when you've learned your lesson."`,
+				`"You've been difficult. This is what happens."`
+			)>>
+		<</if>>
+	<<elseif $speechcum is 1>>
+		<<print $_stringsPre + either(
+			`"I hope you appreciate that."`,
+			`"Just something to remember me by."`,
+			`"We'll call that your going away gift."`
+		)>>
+	<<elseif $arousal gte 9500>>
+		<<print $_stringsPre + either(
+			`"Nice look. Some people would pay big to see you hot and bothered like this."`,
+			`"Should've brought a camera. Your profile would look great with this expression."`
+		)>>
+	<<elseif $enemyanger lte 60>>
+		<<if $rng gte 81>>
+			<<set $_options to ["default"]>>
+			<<if $hairlength gte 600>>
+				<<run $_options.push("hair")>>
+			<</if>>
+			<<if $player.breastsize gte 6 or $player.penissize gte 4>>
+				<<run $_options.push("cow")>>
+			<</if>>
+			<<if $athletics gte 750 or $physique gte $physiquesize * 0.75>>
+				<<run $_options.push("healthy")>>
+			<</if>>
+			<<switch $_options[random(0, $_options.length - 1)]>>
+				<<case "hair">><<print $_stringsPre + `"Kept your hair long? I know someone who will like that."`>>
+				<<case "cow">><<print $_stringsPre + `"Cows fetch a high price these days, you know."`>>
+				<<case "healthy">><<print $_stringsPre + `"You're strong. Good. Some people pay for the fight."`>>
+				<<case "default">><<print $_stringsPre + `"Don't make this harder than it needs to be."`>>
+			<</switch>>
+		<<else>>
+			<<print $_stringsPre + either(
+				`"Just relax. I'll handle everything like always."`,
+				`"You were always the best looking little ` + ["bastard","shit","<<bitch>>"][random(0,2)] + `."`,
+				`"It's easier this way. Trust me."`,
+				`"Stay still."`,
+				`"You're learning. Good."`,
+				`"Keep still. I'm almost done with you."`,
+				`"Hold still. You're wasting both our time."`,
+				`"You've always been the most difficult one. I hope you know that."`
+			)>>
+		<</if>>
+	<<else>>
+		<<if $rng gte 91 and $enemyanger lte 70>>
+			<<print $_stringsPre + `"Maybe I should inspect you before we go."`>>
+		<<else>>
+			<<print $_stringsPre + either(
+				`"Why do you shits have to make it harder on yourselves?"`,
+				`"I told you to hold still."`,
+				`"You're making it harder on both of us."`,
+				`"You chose this."`,
+				`"Are you going to listen to me now?"`,
+				`"I have someone willing to pay big for you."`,
+				`"You're coming with me, and that's that."`,
+				`"You owe me for the inconvenience."`,
+				`"Keep fighting. See where it gets you."`,
+				`"You're costing me money every time you move."`,
+				`"This would be over already if you'd just behave."`,
+				`"Stop squirming, you're not going anywhere."`,
+				`"Every second you fight me is a second you owe me."`
+			)>>
+		<</if>>
+	<</if>>
+<</widget>>

@@ -1,0 +1,55 @@
+:: Pregnancy Widgets [widget]
+
+/* Shared helper widgets for the pregnancy/birth scenes. Prose and logic that used
+   to be copy-pasted across the birth chains, kept in one place. */
+
+/* The dream the player has during birth when dissociating (trauma is high).
+   Same in every birth location, so it lives here once. */
+<<widget "birthDissociationVision">>
+	Everything slowly fades away once again. You stand in a black abyss. Your whole body feels fuzzy, and the pain is gone. You stand there, alone in the dark. In the distance, a bright white light hovers. It must be several kilometres away. You begin walking towards it, when you suddenly realise that you're stepping in shallow water. You step forward again to the sound of sloshing. Another step. Another. You need to get to the light. You aren't sure why, but you know you must. Something's waiting for you there, you can feel it.
+	<br><br>
+
+	You start to run. As you get closer, the darkness around you dissipates until only the light surrounds you. You continue running until you come to a wooden door with a golden handle. You grasp it and open it slowly. The light drowns you.
+	<br><br>
+<</widget>>
+
+/* Player cradles their newborn(s), by litter size. Optional arg = who places the
+   third baby (e.g. "the midwife"); leave it out to use <<he>> for the person1 NPC. */
+<<widget "birthCradle">>
+	<<switch $litter_size>>
+		<<case 3>> As you cradle one in each arm, <<if _args[0]>><<print _args[0]>><<else>><<he>><</if>> places the third directly on your chest.
+		<<case 2>> You cradle one in each arm.
+		<<default>> You cradle your baby in your arms.
+	<</switch>>
+<</widget>>
+
+/* The rush of joy after birth, shown when dissociating. Pairs with
+   <<birthDissociationVision>>, which plays earlier during the labour. */
+<<widget "birthDissociationGlee">>
+	You feel a rush of pure glee and maternal bliss. Your parental instinct kicks in, washing away your worries and trauma in a flood of joy. The precious gift in front of you is now your whole world, and at last, something feels real to you again.
+<</widget>>
+
+/* One line: the sleeping newborn(s). Works out "chest"/"chests" from $litter_size,
+   so no arguments. (The dissociation version's trauma drop stays at the call site.) */
+<<widget "birthBabySleeps">>
+	<<set _baby to $litter_size is 1 ? "baby" : "babies">>
+	Their eyes are shut, <<= _baby is "babies" ? "chests" : "chest">> rising and falling with gentle breaths.
+<</widget>>
+
+/* The helper showing you how to change & bathe the newborn(s). Same in the
+   hospital and forest-shop births; branches on $first_birth and litter size. */
+<<widget "birthAftercareNappy">>
+	<<if $first_birth>>
+		<<if $litter_size is 1>>
+			<<He>> teaches you how to change <<childname>>'s nappy and how to bathe <<childhim>>.
+		<<else>>
+			<<He>> teaches you how to change their nappies and how to bathe them.
+		<</if>>
+	<<else>>
+		<<if $litter_size is 1>>
+			<<He>> assists you with changing <<childname>>'s nappy and bathing <<childhim>>.
+		<<else>>
+			<<He>> assists you with changing their nappies and with bathing them.
+		<</if>>
+	<</if>>
+<</widget>>

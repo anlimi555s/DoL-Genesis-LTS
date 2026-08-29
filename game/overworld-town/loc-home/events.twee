@@ -1,0 +1,2015 @@
+:: Home Max
+
+<<effects>>
+
+You reach out and pet the mastiff's head. His ears twitch a little, but he's no less accepting of you than he is the other orphans.
+<br><br>
+
+The <<person>> returns. "I spoke to his owner," <<he>> says. "They're on the way."
+<br><br>
+
+More orphans arrive to investigate, each wanting a turn at petting. The <<person2>><<person>> brings a bowl of water. Max is eager to drink. "I knew he'd be thirsty," <<he>> says.
+<br><br>
+
+This continues awhile, until the <<person1>><<person>> looks out the window. "His owner's here," <<he>> says. You hear voices outside. Max recognises at least one of them, and rises to his feet, tail wagging.
+<br><br>
+
+Everyone crowds around the windows to watch as the <<person>> leads Max to his owner.<<endevent>><<generateyv1>><<person1>> A younger orphan tugs your sleeve. "Will Bailey let us have a dog?" <<he>> asks. The other orphans are listening.
+<br><br>
+
+<<link [[Express doubt|Home Max Doubt]]>><<hope -1>><<reb 1>><</link>><<lhope>><<greb>>
+<br>
+<<link [[Express hope|Home Max Hope]]>><<hope 1>><<reb -1>><</link>><<lreb>><<ghope>>
+<br>
+
+:: Home Max Doubt
+
+<<effects>>
+
+You shake your head.
+
+<<if $speech_attitude is "meek">>
+	"Bailey is too grouchy," you say.
+	<br><br>
+
+	The <<person>> looks at <<his>> feet and nods.
+	<br><br>
+<<elseif $speech_attitude is "bratty">>
+	"No," you say. "Bailey is an arse."
+	<br><br>
+
+	The <<person>> claps <<his>> hands to <<his>> face, while a <<generateyv2>><<person2>><<person>> about your age puts <<his>> hands over the younger orphan's ears. "Language!" <<he>> says, glaring at you.
+	<br><br>
+<<else>>
+	"You can get a dog when you leave the orphanage," you say.
+	<br><br>
+
+	The <<person>> looks at <<his>> feet and nods.
+	<br><br>
+<</if>>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Max Hope
+<<effects>>
+
+You nod.
+
+<<if $speech_attitude is "meek">>
+	"If we're good, then maybe," you say.
+<<elseif $speech_attitude is "bratty">>
+	"Bailey couldn't stop us anyway," you say.
+<<else>>
+	"Bailey isn't all bad," you say.
+<</if>>
+<br><br>
+The <<person>> beams as <<he>> looks back out the window.
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Intervene
+<<effects>>
+
+You step forward.
+
+<<if $speech_attitude is "meek">>
+	"S-stop!" you stammer. "Leave <<person2>><<him>> alone!"
+<<elseif $speech_attitude is "bratty">>
+	"You bully," you say. "Someone should teach you a lesson."
+<<else>>
+	"Stop," you say. "This is wrong."
+<</if>>
+<br><br>
+
+The <<person2>><<person>> gapes at you. Bailey laughs.<<person1>> "You want to pay the <<printmoney 20000>> instead?" <<he>> asks. "It's all the same to me."
+<br><br>
+
+<<if $money gte 20000>>
+	<<link [[Pay|Home Intervene Pay]]>><<hope 1>><<trauma -6>><<money -20000>><</link>><<ghope>><<ltrauma>>
+	<br>
+<</if>>
+<<link [[Fight|Home Intervene Fight]]>><<set $fightstart to 1>><</link>>
+<br>
+<<link [[Step away|Home Intervene Step]]>><</link>>
+
+:: Home Watch
+<<effects>>
+
+You watch as the hood is thrown over the <<person2>><<persons>> head, and <<his>> arms are bound. Bailey pushes <<him>> down a corridor. You follow.
+<br><br>
+
+They stop beside a metal door at the end of the hallway, and Bailey unlocks it with a silver key. <<person1>><<He>> slams the door behind them. There's no trace but the smell of dust.
+<br><br>
+<<set $orphan_rent to "taken">>
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Intervene Pay
+<<effects>>
+
+Bailey snatches the money from your hand and starts counting. "Good," <<he>> says, satisfied. <<He>> turns to the <<person2>><<person>>. "Next week I want £300." <<person2>>The <<person>> nods.
+<br><br>
+
+"Thank you," <<he>> says once Bailey is out of earshot. "I'm having trouble finding work. Everywhere's full of creeps." <<He>> laughs. "I don't want to know what Bailey had in store for me. I just hoped it wouldn't be too bad."
+<br><br>
+
+"I'll make this up to you," <<he>> continues. "I promise."
+<br><br>
+<<set $orphan_rent to "paid">>
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Intervene Step
+<<effects>>
+
+You step away. Bailey throws the black hood over the <<person2>><<persons>> head, binds <<his>> arms, and leads <<him>> down a corridor.
+<br><br>
+<<set $orphan_rent to "taken">>
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Intervene Fight
+<<if $fightstart is 1>>
+	<<set $fightstart to 0>>
+	<<neutral 1>>
+	<<set $enemyno to 1>><<set $enemynomax to 1>><<maninit>>
+	<<set $enemyhealthmax += 200>>
+	<<set $enemyanger += 200>>
+	<<npcidlegenitals>>
+	You launch a kick at Bailey's shin, but <<he>> sidesteps it and trips you up. Before <<he>> can take advantage of your vulnerability however, the <<person2>><<person>> leaps onto Bailey's back, and starts pulling <<person1>><<his>> hair. Bailey shoves <<person2>>the <<person>> against a wall, where <<he>> falls into a heap.<<person1>>
+	<br><br><br><br>
+	<<set $phase to 1>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+
+<<if $phase is 1>><<set $phase to 2>>
+	Orphans arrive to watch the fight, drawn by the noise.
+	<br><br>
+<</if>>
+
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend or ($pain gte 100 and $willpowerpain is 0)>>
+	<span id="next"><<link [[Next|Home Intervene Fight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Home Intervene Fight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Home Intervene Fight Finish
+<<effects>>
+
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation "short">>
+	<<set $orphan_rent to "paid">><<earnFeat "Bailey's Trouble Maker">>
+	<<person1>>One of the watching orphans giggles. Bailey spins to find the culprit, but another laughs behind <<him>>. Soon the whole room is filled with laughter. <<He>> looks back at you. "You'll pay for this," <<he>> says, before storming from the room.
+	<br><br>
+
+	The orphans cheer your defeat of the tyrant.
+	<<greb>><<ghope>><<reb 1>><<hope 1>><<ltrauma>><<lstress>><<trauma -6>><<stress -12>>
+	<br><br>
+
+	The <<person2>><<person>> climbs to <<his>> feet. "You saved me," <<he>> laughs. "Thank you. I'm having trouble finding work. Everywhere's full of creeps." <<He>> looks away. "I don't want to know what Bailey had in store for me. I just hoped it wouldn't be too bad."
+	<br><br>
+
+	"I'll make it up to you," <<he>> continues. "I promise."
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Orphanage]]>><</link>>
+<<elseif $enemyhealth lte 0>>
+	<<set $orphan_rent to "paid">>
+	<<person1>><<He>> backs off for a moment, surprised by your aggression and nursing a bruise. <<He>> notices the crowd formed around the hall. "You'll pay for this. Mark my words." <<He>> storms out.
+	<br><br>
+
+	The orphans cheer your defeat of the tyrant.
+	<<greb>><<ghope>><<reb 1>><<hope 1>><<ltrauma>><<lstress>><<trauma -6>><<stress -12>>
+	<br><br>
+
+	The <<person2>><<person>> climbs to <<his>> feet. "You saved me," <<he>> laughs. "Thank you. I'm having trouble finding work. Everywhere's full of creeps." <<He>> looks away. "I don't want to know what Bailey had in store for me. I just hoped it wouldn't be too bad."
+	<br><br>
+
+	"I'll make it up to you," <<he>> continues. "I promise."
+	<br><br>
+
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Orphanage]]>><</link>>
+<<else>>
+	<<set $baileydefeatedchain to 0>>
+
+	You fall to the ground, too hurt to move.
+	<<lreb>><<reb -1>>
+	<br><br>
+	The crowd disperses as Bailey drags the <<person2>><<person>> away.
+	<br><br>
+	<<set $orphan_rent to "taken">>
+	<<clotheson>>
+	<<endcombat>>
+
+	<<link [[Next|Orphanage]]>><</link>>
+<</if>>
+
+:: Home Money Take
+<<effects>>
+
+You take the money. The <<person>> smiles. "I found a good job," <<he>> says. "It's not something I imagined myself doing, but it's not so bad. I just hope Bailey doesn't keep demanding more."
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Money Refuse
+<<effects>>
+
+You refuse the money.
+
+<<if $speech_attitude is "meek">>
+	"Others here need it more than me," you say. "Help them instead."
+<<elseif $speech_attitude is "bratty">>
+	"I can look after myself," you say. "Give it to someone who's struggling."
+<<else>>
+	"Use it to help the others," you say.
+<</if>>
+<br><br>
+
+<<He>> nods. "If you're sure. Stay safe."
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Beg Give
+<<effects>>
+
+<<if $phase is 0>>
+	You hand the <<person>> £5. "Thank you," <<he>> says. <<He>> still looks anxious.
+	<br><br>
+<<elseif $phase is 1>>
+	You hand the <<person>> £25. "Thank you," <<he>> says, smiling.
+	<br><br>
+<<else>>
+	You hand the <<person>> £100. <<He>> gasps. "Thank you so much!" <<he>> says, hugging you.
+	<br><br>
+<</if>>
+
+<<endevent>>
+<<link [[Next|Orphanage]]>><</link>>
+<br>
+
+:: Home Beg Prostitution
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"You need to be able to make money on your own," you say. "People will pay lots for your body."
+	<br><br>
+	<<Hes>> taken aback by your bluntness. "I couldn't do that!" <<he>> says.
+	<br><br>
+	"You'll be safer that way," you say.
+	<br><br>
+<<elseif $speech_attitude is "bratty">>
+	"You need to learn to stand up for yourself," you say. "Have you considered prostitution?"
+	<br><br>
+	<<Hes>> taken aback by your bluntness. "I couldn't do that!" <<he>> says.
+	<br><br>
+	"So you'll just beg for help?" you ask. "You're not the only one in trouble."
+	<br><br>
+<<else>>
+	"You need to be able to make money on your own," you say. "People pay good money for whores."
+	<br><br>
+	<<Hes>> taken aback by your bluntness. "I couldn't do that!" <<he>> says.
+	<br><br>
+	"You need a more reliable source of money," you say.
+	<br><br>
+<</if>>
+<<if playerBellyVisible()>>
+	<<He>> looks at your <<bellyDescription "pc">>, and <<his>> face falls. <<He>> looks resigned. <<lhope>><<hope -1>>
+<<else>>
+	<<He>> doesn't look happy, but <<he>> understands.
+<</if>>
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Beg Skulduggery
+
+<<effects>>
+<<if $speech_attitude is "meek">>
+	"You should take the money from bad people," you say. "Steal it."
+	<br><br>
+	<<Hes>> taken aback by your bluntness. "But stealing is wrong!" <<he>> says.
+	<br><br>
+	"I know it's scary," you say. "But you need to be able to look after yourself."
+<<elseif $speech_attitude is "bratty">>
+	"You should stop begging from your fellows here," you say. "We're struggling enough. You should steal it."
+	<br><br>
+	<<Hes>> taken aback by your bluntness. "But stealing is wrong!" <<he>> says.
+	<br><br>
+	"Stealing from baddies isn't wrong," you say.
+	<br><br>
+<<else>>
+	"You're not going to make enough money like that," you say. "You should just steal it."
+	<br><br>
+	<<Hes>> taken aback by your bluntness. "But stealing is wrong!" <<he>> says.
+	<br><br>
+	"Not from here," you say. "From the people who want to hurt you."
+	<br><br>
+<</if>>
+<<He>> looks away, lost in thought.
+<br><br>
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Beg Refuse
+
+<<effects>>
+<<if $speech_attitude is "meek">>
+	"I'm sorry," you say. "I need it."
+<<elseif $speech_attitude is "bratty">>
+	"Get your own," you say.
+<<else>>
+	"Sorry," you say. "But I can't afford to give you any."
+<</if>>
+<br><br>
+<<He>> nods and walks away.
+<br><br>
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Orphanage Loft Intro
+
+<<effects>>
+<<if $phase is 0>>
+	You step on the stool. Closer, you now see the cord they mean. It's taped to the ceiling. <<= $bodysize gte 1 ? "You reach up and tug." : "With a jump, you manage to snatch the cord and tug.">>
+<<elseif $phase is 1>>
+	You ask the orphans to remove the bindings from your
+	<<if pcAreArmsBound("both")>>
+		arms first.
+	<<elseif pcAreArmsBound("left")>>
+		left arm first.
+	<<elseif pcAreArmsBound("right")>>
+		right arm first.
+	<<else>>
+		arms? No bindings on arms detected. <span class="red">This is an error, please report this to Vrelnir.</span>
+	<</if>>
+	"Oh! I didn't see those," the <<person>> says. <<He>> walks behind you and helps you out of them. The bindings fall to the floor, freeing you.<<unbind>>
+	<br><br>
+
+	You step on the stool. Closer, you now see the cord they mean. It's taped to the ceiling. <<= $bodysize gte 1 ? "You reach up and tug." : "With a jump, you manage to snatch the cord and tug.">>
+<<else>>
+	You shake your head. The <<person3>><<person>> pouts and climbs the stool. You spot what <<hes>> reaching for. A cord is taped to the ceiling.
+	<br><br>
+	With a jump, <<he>> manages to snatch the cord. <<He>> tugs.
+<</if>>
+A crack forms in the ceiling, running in two directions. A large hatch creaks open and a ladder thuds to the floor, followed by a shower of dust and broken cobwebs.
+<br><br>
+The <<person2>><<person>> screams as they get stuck in <<his>> hair, and <<his>> friend gets distracted helping <<him>> clean them off.
+<br><br>
+<<if $phase is 0>>
+	You climb the ladder
+<<else>>
+	Now just as curious as the two orphans, you climb the ladder
+<</if>>
+and shift aside a thin cover, letting you peek through the hatch. Once your eyes adjust to the gloom, you see a large space. It's filled with old boxes, with corridors lining each side. A little light pierces grimy windows. There's a lot of space up there.
+<br><br>
+<<link [[Next|Orphanage Loft Intro 2]]>><</link>>
+<br>
+
+:: Orphanage Loft Intro 2
+<<effects>>
+
+<<person1>>"Down," says a voice behind you. It's Bailey. The two younger orphans are gone.
+<br><br>
+
+You step off the ladder. Bailey climbs the first rungs and reaches for the cover. <<person1>><<Hes>> interrupted by a creaking sound from higher up. <<He>> leaps from the ladder at the sound, and almost stumbles to the floor.
+<br><br>
+
+<<He>> doesn't try to replace the cover again. Instead <<he>> pushes the ladder back and closes the hatch. "Stay out of the loft," <<he>> says, brushing dust off <<his>> shoulders.
+<br><br>
+
+You didn't know the orphanage had a loft. Bailey seems afraid to go up there. It would be a good place for surreptitious activities. <span class="gold">You've discovered the orphanage loft.</span>
+<br><br>
+
+<<specialClothesUnlock "item" "dark pendant">>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home School Bag
+<<effects>>
+
+You search high and low as the <<person>> becomes increasingly frustrated. At last, you find it
+
+<<if $rng gte 71>>
+	<<famegood 1>>
+	hanging from a light in the hallways.
+	<br><br>
+
+	You return it to the <<person>>. <<He>> looks surprised when you tell <<him>> where you found it. "But how did it get up there?" <<he>> asks, perplexed for just a moment. "Oh. I was seeing how high I could jump. It must have snagged off my back." <<He>> laughs. "That's really silly. Thank you." <<He>> leans forward and kisses you on the cheek before departing.
+	<<lstress>><<stress -6>>
+	<br><br>
+<<elseif $rng gte 41>>
+	<<famegood 1>>
+	in a kitchen cupboard.
+	<br><br>
+
+	"Thank you," the <<person>> says when you return. You tell <<him>> where you found it. "I remember now," <<he>> says. "I was hungry and looking for leftovers. Thank you." <<He>> leans forward and kisses you on the cheek before departing.
+	<<lstress>><<stress -6>>
+	<br><br>
+<<else>>
+	<<famegood 2>>
+	being carried by a <<generatey2>><<person2>><<person>>.
+	<br><br>
+
+	"This bag?" the <<person>> responds when you ask about it. "My friend left it in my room. I've been looking all over for <<person1>><<him>>."
+	<br><br>
+
+	You return the bag to the <<person1>><<person>> and tell <<him>> where you found it. <<He>> puts a hand to <<his>> face in exasperation. "I'm such an idiot," <<he>> says. "Thank you." <<He>> leans forward and kisses you on the cheek before departing.
+	<<lstress>><<stress -6>>
+	<br><br>
+<</if>>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home School Bag Refuse
+<<effects>>
+
+"It's okay," <<he>> says. "It's my problem. I'll find it."
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Scream
+<<effects>>
+
+You rush in the direction of the voice, and hear a struggle through one of the doors. You barge in.
+<br><br>
+
+A <<person2>><<person>> lies on top of a <<person3>><<person>>, trying to undress <<him>> while the <<person>> tries to push the aggressor away.
+<br><br>
+
+<<link [[Intervene|Home Scream Intervene]]>><<crimeUp 100 "assault">><<famegood 1>><</link>><<crime "assault">>
+<br>
+<<link [[Find Bailey|Home Scream Bailey]]>><<reb -1>><</link>><<lreb>>
+<br>
+
+:: Home Scream Ignore
+<<effects>>
+
+You ignore the screams. You have yourself to worry about.
+<br><br>
+
+<<endevent>>
+
+<<link [[Next|Orphanage]]>><</link>>
+<br>
+
+:: Home Scream Intervene
+<<effects>>
+
+You grab the <<person2>><<person>> by the collar and pull <<him>> back, just as the <<person3>><<person>> kicks <<person2>><<him>> in the chest. Together you force <<him>> off the bed and into the corridor.
+<br><br>
+
+<<if $rng gte 71>>
+	"Fucking sluts," the <<person>> growls. "Do you know who I am? How dare you disrespect me." The <<person3>><<person>> stands behind you for protection.
+	<br><br>
+
+	<<link [[Press the attack|Home Scream Press]]>><<reb 1>><<crimeUp 100 "assault">><</link>><<crime "assault">><<greb>>
+	<br>
+	<<link [[Protect|Home Scream Protect]]>><<hope 1>><</link>>
+	<br>
+<<elseif $rng gte 41>>
+	"I have powerful friends," the <<person2>><<person>> spits. "You'll regret that." <<He>> staggers down the corridor.
+	<br><br>
+
+	"Thank you," the <<person3>><<person>> says as <<he>> fixes <<his>> clothing. "I woke up and <<person2>><<he>><<person3>> was on top of me. I was so scared." <<He>> hugs you.
+	<br><br>
+
+	<<endevent>>
+
+	<<link [[Next|Orphanage]]>><</link>>
+	<br>
+<<else>>
+	The <<person2>><<person>> climbs to <<his>> feet and glares at you. Then <<he>> looks around. Other orphans have arrived to investigate, peeking from doorways and watching from the end of the corridor. It unnerves <<him>>, and <<he>> leaves without a word.
+	<br><br>
+
+	"Thank you," the <<person3>><<person>> says as <<he>> fixes <<his>> clothing. "I woke up and <<person2>><<he>><<person3>> was on top of me. I was so scared." <<He>> hugs you.
+	<br><br>
+
+	<<endevent>>
+
+	<<link [[Next|Orphanage]]>><</link>>
+	<br>
+<</if>>
+
+:: Home Scream Press
+<<effects>>
+
+You leap forward and shove the <<person2>><<person>>. <<He>> stumbles further back. "Fucking sluts," <<he>> repeats as <<he>> turns and flees.
+<br><br>
+
+"Thank you," the <<person3>><<person>> says as <<he>> fixes <<his>> clothing. "I woke up and <<person2>><<he>><<person3>> was on top of me. I was so scared." <<He>> hugs you.
+<br><br>
+
+<<endevent>>
+
+<<link [[Next|Orphanage]]>><</link>>
+<br>
+
+:: Home Scream Protect
+<<effects>>
+
+The <<person2>><<person>> makes another attempt to get to the <<person3>><<person>>, but you stand in <<person2>><<his>> way. <<He>> gives up, spitting more insults as <<he>> leaves.
+<br><br>
+
+"Thank you," the <<person3>><<person>> says as <<he>> fixes <<his>> clothing. "I woke up and <<person2>><<he>><<person3>> was on top of me. I was so scared." <<He>> hugs you.
+<br><br>
+
+<<endevent>>
+
+<<link [[Next|Orphanage]]>><</link>>
+<br>
+
+:: Home Scream Bailey
+<<effects>>
+
+<<person1>>You rush to Bailey's office while shouting <<his>> name.
+
+<<if $rng gte 51>>
+	You arrive at the main hall just as <<he>> enters through the front doors.
+	<br><br>
+<<else>>
+	You arrive at the main hall to find <<him>> leaving <<his>> office.
+	<br><br>
+<</if>>
+
+"I'm busy," <<he>> says before you say a word.
+<br><br>
+
+<<if $speech_attitude is "meek">>
+	"I'm sorry," you say. "But someone needs your help."
+<<elseif $speech_attitude is "bratty">>
+	"You let an intruder slip by," you say. "They're over there, assaulting a resident."
+<<else>>
+	"But someone broke in," you say. "And they're attacking someone."
+<</if>>
+You hear another scream.
+<br><br>
+
+"Fine," <<he>> says.
+<br><br>
+
+<<He>> follows you to the <<person3>><<persons>> room. Without breaking stride <<person1>><<he>> grasps the <<person2>><<person>> by the collar and waist, and hauls <<him>> off <<his>> victim.
+<br><br>
+
+The <<person2>><<person>> rolls into the hallway. "Do you know—" <<he>> begins, but Bailey crouches beside <<him>> and grasps <<his>> throat.
+<br><br>
+
+Bailey's lips move, but you can't make out the words. The <<person>> turns pale. <<He>> staggers to <<his>> feet as soon as Bailey releases <<him>>, and runs.
+<br><br>
+<<endevent>>
+
+<<link [[Next|Orphanage]]>><</link>>
+<br>
+
+:: Home Peek
+<<effects>>
+
+You peek through the gap.
+
+<<if $rng gte 51>>
+	A <<person>> is using a towel to dry.
+
+	<<if $NPCList[0].penis isnot "none">>
+		<<if $pronoun is "f">>
+			<<He>> rubs <<his>> <span class="lewd">exposed $NPCList[0].breastsdesc and $NPCList[0].penisdesc</span> with the fabric, unaware of your presence.
+			<<else>>
+			<<He>> rubs <<his>> <span class="lewd">exposed $NPCList[0].penisdesc</span> with the fabric, unaware of your presence.
+		<</if>>
+	<<else>>
+		<<if $pronoun is "f">>
+			<<He>> rubs <<his>> <span class="lewd">exposed $NPCList[0].breastsdesc and pussy</span> with the fabric, unaware of your presence.
+			<<else>>
+			<<He>> rubs <<his>> <span class="lewd">exposed pussy,</span> unaware of your presence.
+		<</if>>
+	<</if>>
+
+	You leave before being caught.
+	<br><br>
+<<else>>
+	A <<person>> sits naked in the bath, pouring water over <<his>> hair. <<if $pronoun is "f">>Your eyes are drawn to <<his>> <span class="lewd">$NPCList[0].breastsdesc,</span> but you leave before being caught.<<else>>You leave before being caught.<</if>>
+	<br><br>
+<</if>>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Close
+<<effects>>
+
+You close the door to give whoever's beyond more privacy.
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br><br>
+
+:: Home Pair
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"A-Are you laughing at me?" you ask.
+<<elseif $speech_attitude is "bratty">>
+	"You better not be laughing at me," you say.
+<<else>>
+	"Why are you laughing?" you ask.
+<</if>>
+<br><br>
+<<person2>>The <<person>> looks away from <<his>> friend, and at you.
+
+<<if $rng gte 51>>
+	<<person1>>"<<Hes>> got a crush on you," <<person2>><<he>> says. The <<person1>><<person>> looks at <<his>> friend, betrayed and mortified.
+	<br><br>
+
+	<<link [[Comfort|Home Pair Comfort]]>><</link>>
+	<br>
+	<<link [[Flirt|Home Pair Flirt]]>><</link>><<promiscuous1>>
+	<br>
+	<<link [[Spurn|Home Pair Spurn]]>><</link>>
+	<br>
+	<<link [[Ignore|Orphanage]]>><<endevent>><</link>>
+	<br>
+<<else>>
+	Without warning, <<he>> pulls <<his>> friend by the arm and together they run down the corridor.
+	<br><br>
+
+	<<link [[Next|Orphanage]]>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Home Pair Comfort
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Th-thank you," you say "It's nice to feel wanted."
+<<elseif $speech_attitude is "bratty">>
+	"Don't worry," you say. "Everyone does."
+<<else>>
+	"You're very sweet," you say. "Thank you for flattering me."
+<</if>>
+<br><br>
+The <<person2>><<person>> laughs again. The <<person1>><<person>> is blushing, but smiling.
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Pair Flirt
+<<effects>>
+<<person1>>
+<<if $speech_attitude is "meek">>
+	"Y-you find me attractive?" you ask. "But you're so <<if $pronoun is "m">>handsome<<else>>pretty<</if>>."
+<<elseif $speech_attitude is "bratty">>
+	"Don't worry," you say. "I have a crush on you too."
+<<else>>
+	"I like you too," you say, giving the <<person>> a wink.
+<</if>>
+<<promiscuity1>>
+
+The <<persons>> blush deepens. <<His>> friend gives <<him>> a little shove in your direction, but instead <<he>> turns and runs. <<His>> friend follows, still laughing.
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Pair Spurn
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"S-sorry," you say. "I don't find you attractive."
+<<elseif $speech_attitude is "bratty">>
+	"Ew," you say.
+<<else>>
+	"Sorry," you say. "You're not my type."
+<</if>>
+<br><br>
+The <<person1>><<person>> throws <<his>> hands to <<his>> face and runs away. <<His>> friend follows.
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Comfort
+<<effects>>
+
+"What's wrong?" you ask. The <<person>> looks at you.
+<br><br>
+
+"I want to go home," <<he>> says.
+<br><br>
+
+You spend the next hour listening as the <<person>> shares <<his>> fears, offering comforting words when appropriate. <<He>> misses <<his>> parents, is afraid of Bailey, is afraid to go outside, and hates the food. Despite <<his>> distress, <<he>> perks up the longer <<he>> speaks.
+<br><br>
+
+"Thank you," <<he>> says. "I feel much better. I'll try to be brave like you." <<His>> cheeks are still wet, but <<hes>> smiling.
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Darts
+<<effects>>
+
+You join in after a brief run down of the rules. Hitting the eyes gives the most points.
+<br><br>
+<<if currentSkillValue("handskill") gte 1000>>
+	Your performance is near-flawless, and you shred right through Bailey's eyes. You win every game.
+<<elseif currentSkillValue("handskill") gte 400>>
+	You play well, and win a couple of games.
+<<elseif currentSkillValue("handskill") gte 100>>
+	You consistently land darts on the picture, but fail to hit the more valuable targets.
+<<else>>
+	You're not the best player. You manage to hit the picture once. Almost.
+<</if>>
+<br><br>
+
+<<link [[Next|Orphanage]]>><</link>>
+<br>
+
+:: Home Spill Help
+<<effects>><<wearProp "mop">>
+
+You help the <<person>> to <<his>> feet.
+
+<<if $speech_attitude is "meek">>
+	"I want to help," you say. "I'll mop while you get another."
+<<elseif $speech_attitude is "bratty">>
+	"Get another mop," you say. "We're doing this together."
+<<else>>
+	"I'll dry this mop," you say. "You get a fresh one."
+<</if>>
+<br><br>
+
+You get to work mopping up the spillage. The <<person>> soon returns, and together you dry the floor before Bailey shows up.
+<br><br>
+
+"I'm so relieved," the <<person>> says. "Thank you. I'll be careful this time." <<He>> takes the bucket and mops with <<him>>.
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Encourage
+<<effects>>
+
+You sit beside the <<person1>><<person>>.
+
+<<if $speech_attitude is "meek">>
+	"I think <<person2>><<he>> likes you," you say. "You should say hello."
+<<elseif $speech_attitude is "bratty">>
+	"Don't be a wimp," you say. "Go talk to <<person2>><<him>>."
+<<else>>
+	"You should say something," you say.
+<</if>>
+<br><br>
+The <<person1>><<person>> gapes at you. "I couldn't do that," <<he>> says.
+<br><br>
+
+<<if $speech_attitude is "meek">>
+	"But <<person2>><<he>> might think you don't like <<him>>," you add.
+	<br><br>
+
+	The <<person1>><<person>> hesitates a moment. Then <<he>> clenches <<his>> fists, stands, and marches over. The <<person2>><<person>> and <<his>> friends stop talking and face the newcomer. You can't hear what <<person1>><<hes>> saying, but the <<person2>><<person>> blushes, grabs the <<person1>><<persons>> arm, and together they run from the room.
+<<elseif $speech_attitude is "bratty">>
+	"Fine," you reply. You stand and march over to the <<person2>><<person>>.
+	<br><br>
+	"Wait!" the <<person1>><<person>> whispers behind you. You ignore <<him>>.
+	<br><br>
+	The <<person2>><<person>> and <<his>> friends cut their conversation short and look at you. "My friend over there's into you," you say. The <<person1>><<persons>> face is mostly hidden by <<his>> book, but you can tell <<hes>> blushing.
+	<br><br>
+
+	The <<person2>><<person>> starts blushing too, but <<he>> walks over and sits beside the <<person1>><<person>>.
+	<br><br>
+
+	You can't make out what they're saying, but the <<person2>><<person>> grasps the <<person1>><<persons>> arm, and together they run from the room.
+<<else>>
+	"Why not?" you ask. <<person2>>"<<He>> likes you too."
+	<br><br>
+
+	The <<person1>><<person>> hesitates a moment. Then <<he>> clenches <<his>> fists, stands, and marches over. The <<person2>><<person>> and <<his>> friends stop talking and face the newcomer. You can't hear what <<person1>><<hes>> saying, but the <<person2>><<person>> blushes, grabs the <<person1>><<persons>> arm, and together they run from the room.
+<</if>>
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Flirt
+<<effects>>
+
+You sit beside the <<person1>><<person>>. "Forget about <<person2>><<him>>," you whisper, resting a hand on <<person1>><<his>> leg. "I'm right here."
+<<promiscuity1>>
+
+The <<person>> almost buries <<his>> face in the book.
+<br><br>
+
+The <<person2>><<person>> keeps glancing over.
+<br><br>
+
+<<link [[Tease|Home Tease]]>><</link>><<promiscuous2>>
+<br>
+<<link [[Leave|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Tease
+<<effects>>
+
+"What are you reading?" you ask, leaning close. Very close. You slip an arm around <<person1>><<his>> waist. <<Hes>> trembling.
+<br><br>
+
+<<person2>>"Hey!" says the <<person>>, storming over. "I saw <<person1>><<him>> first."
+<br><br>
+
+<<link [[Fight|Home Tease Fight]]>><<def 1>><</link>>
+<br>
+<<link [[Mission accomplished|Home Tease Mission]]>><<famegood 1>><</link>>
+<br>
+
+:: Home Tease Fight
+<<effects>>
+
+You rise to your feet and shove the <<person2>><<person>>. <<He>> shoves you back. You move in for another, but the <<person1>><<person>> dashes in the way. "St-stop," <<he>> says. "Please don't fight. Not over me. Oh." <<He>> throws <<his>> hands to <<his>> face and flees the room.
+<br><br>
+
+"Wait!" the <<person2>><<person>> cries. <<He>> chases after <<person1>><<him>>.
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Tease Mission
+
+<<effects>>
+
+You walk away, leaving the pair blushing awkwardly, their feelings exposed.
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Solicitation
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	You hurry out the front doors. "Leave <<person2>><<him>> alone," you say. "Taking advantage isn't fair."
+<<elseif $speech_attitude is "bratty">>
+	You storm out the front doors. "Scram," you tell the <<person1>><<person>>. "Go fuck yourself."
+<<else>>
+	You run out the front doors. "Go away," you say. "Stop picking on the vulnerable."
+<</if>>
+<br><br>
+
+"Such a brat," the <<person1>><<person>> says, putting the money away. "Fine. Starve for all I care."
+<br><br>
+
+The <<person2>><<person>> gives you a weak punch to the back. "Stupid!" <<he>> says. <<Hes>> on the verge of tears. "I really need that money."
+<br><br>
+
+<<if $money gte 5000>>
+	<<link [[Give £50|Home Solicitation Money]]>><<set $phase to 0>><<money -5000>><<hope 2>><</link>><<gghope>>
+	<br>
+<</if>>
+<<if $money gte 2000>>
+	<<link [[Give £20|Home Solicitation Money]]>><<set $phase to 1>><<money -2000>><<hope 1>><</link>><<ghope>>
+	<br>
+<</if>>
+<<link [[Apologise|Home Solicitation Apologise]]>><</link>>
+<br>
+
+:: Home Solicitation Apologise
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I'm sorry," you say. "I couldn't watch you put yourself in danger."
+<<elseif $speech_attitude is "bratty">>
+	"Have some self-respect," you say. "You can do better than that."
+<<else>>
+	"I'm sorry," you say. "I had to do what I felt was right."
+<</if>>
+<br><br>
+
+<<He>> clenches <<his>> fists, but doesn't hit you again. <<He>> runs inside.
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Solicitation Money
+<<effects>>
+
+<<if $phase is 0>>
+	You hold out £50. The <<person>> looks at it, but doesn't move. "Don't make fun of me," <<he>> says.
+	<br><br>
+
+	"I'm not," you reply. "I promise."
+	<br><br>
+
+	<<He>> takes the money. "Thank you," <<he>> sniffs. <<He>> opens <<his>> mouth to say something, but instead runs inside.
+	<br><br>
+<<elseif $phase is 1>>
+	You hold out £20. "Why?" the <<person>> asks.
+	<br><br>
+
+	"Because I want to help," you reply. "Take it."
+	<br><br>
+
+	<<He>> takes the money. "Thank you," <<he>> sniffs. <<He>> opens <<his>> mouth to say something, but instead runs inside.
+	<br><br>
+<</if>>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Rumor Eavesdrop Robin
+<<effects>><<rng>>
+You listen in on the conversation.
+<<if $robinmissing isnot 0>>
+	They're thinking of making a group to search for Robin. You notice the <<person2>><<person>> holding what looks like a missing poster. <<hope -3>><<llhope>>
+<<elseif $robin_injured gte 1>>
+	The <<person1>><<person>> wants to bring Robin to the hospital. The <<person2>><<person>> thinks Bailey won't allow it. <<hope -1>><<lhope>>
+<<elseif C.npc.Robin.trauma gte 40>>
+	The <<person1>><<person>> speaks. "Even Robin isn't safe. What do you think happened to <<nnpc_him "Robin">>?" <<hope -1>><<lhope>>
+<<elseif $rng gte 71>>
+	They're talking about the lemonade stand Robin runs on the weekends.
+	<<if $orphan_hope lte 0 and $settings.watersportsEnabled>>
+		They're joking about what liquids <<nnpc_he "Robin">> may actually be selling instead. The <<person1>><<person>> laughs.
+	<<else>>
+		They think the lemonade is tasty, and they're inspired by <<nnpc_his "Robin">> efforts. <<hope 1>><<ghope>>
+	<</if>>
+
+<<elseif $rng gte 36>>
+	<<if C.npc.Robin.dom lte 50>>
+		They're talking about how Robin never seems to resort to violence. <<hope 1>><<reb -1>><<ghope>><<lreb>>
+	<<else>>
+		They're impressed by Robin's ability to remain amicable in the face of danger. <<reb 1>><<greb>>
+	<</if>>
+
+<<else>>
+	<<if $orphan_hope gte 10>>
+		The <<person1>><<person>> mentions how good Robin is at lifting the other orphans' spirits. <<hope 1>><<ghope>>
+	<<else>>
+		They're talking about how Robin's always hiding in <<nnpc_his "Robin">> room, and that they want to do the same. <<hope -1>><<lhope>>
+	<</if>>
+<</if>>
+<br><br>
+
+<<link [[Leave|Orphanage]]>><<endevent>><<set $eventskip to 1>><</link>>
+<br>
+
+
+:: Home Rumor Eavesdrop
+<<effects>><<rng>>
+<<if $rng gte 81>>
+	You listen in on the conversation. They're talking about their experiences with Bailey. <<hope -1>><<lhope>>
+<<elseif $rng gte 61>>
+	You listen in on the conversation. They're making fun of another orphan.
+<<elseif $rng gte 41 and $loft_kylar>>
+	You listen in on the conversation. They're trading for some pepper spray. <<reb 1>><<greb>>
+<<elseif $rng gte 21>>
+	You listen in on the conversation. They're gushing about the cute animals they saw in the pet store today. <<hope 1>><<ghope>>
+<<else>>
+	You listen in on the conversation. One of them has a crush on another orphan.
+<</if>>
+<br><br>
+
+<<link [[Leave|Orphanage]]>><<endevent>><<set $eventskip to 1>><</link>>
+<br>
+
+:: Home Bandage
+<<effects>>
+
+Bailey keeps medical supplies in a cupboard adjoining the main hall. <<nnpc_He Bailey>>'d be livid were a resident to waste them, but this is an appropriate use.
+<br><br>
+
+<<if getRobinLocation() is "orphanage" and C.npc.Robin.trauma lte 20 and $rng gte 61>>
+	<<npc Robin 2>>
+	Robin enters the kitchen and spots you helping out the <<person1>><<person>>.
+	<<if C.npc.Robin.dom gte 40>>
+		"Do you need some help with that?"
+	<<else>>
+		"Is there any way I can help?"
+	<</if>>
+	<<person2>><<he>> asks. You give <<him>> a grateful nod, and <<he>> smiles back.
+	<br><br>
+
+	<<if currentSkillValue('english') gte 500>>
+		You walk Robin through the motions, explaining the best way to redress the bandages. <<He>> nods, helping you along the way.
+	<<else>>
+		You fumble through your explanation on tending wounds, but Robin seems to catch on either way.
+	<</if>>
+	<<npcincr Robin love 1>><<glove>><<set $robinSeen.pushUnique("homeBandage")>>
+	<br><br>
+
+	As you and Robin redress the injury, the <<person1>><<person>> looks away, embarrassed.
+	<br><br>
+
+	<<He>> mumbles thanks as you both finish, then heads to <<his>> room.
+
+<<else>>
+	You ask the <<person>> to sit down so you can help <<him>>. <<He>> shoots you a defensive glare, but sits and waits for you to retrieve fresh bandages. <<He>> seems embarrassed and looks away as you redress the injury.
+	<br><br>
+
+	<<He>> mumbles thanks as you finish, and heads to <<his>> room.
+
+<</if>>
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Orphan Poster
+<<effects>>
+
+<<if $phase is 1>>
+	<<wearProp "papers">>
+	You join <<him>> in picking up the paper. <<He>> thanks you, and within minutes you have them in one neat stack.
+	<br><br>
+
+	<<if $rng gte 1>>
+		"Thanks for your help," <<he>> says. You start to leave, but <<he>> grabs onto you. "Wait a second, I have something for you." <<He>> takes a piece of paper and scribbles something on it before handing it back to you.
+		<br><br>
+
+		It reads: 'Coupon for 1 free orgasm. Expires in 2 minutes'. <<He>> rubs <<his>> thighs together, waiting for your answer.
+		<br><br>
+
+		<<if hasSexStat("promiscuity", 2)>>
+			<<link [[Accept|Home Orphan Poster Sex Choice]]>><<handheldon>><<set $phase to 1>><</link>><<promiscuous2>>
+		<<else>>
+			<<insufficientStat "promiscuity" "to take up such an offer">>
+		<</if>>
+		<br>
+
+		<<link [[Refuse|Home Orphan Poster Sex Choice]]>><<handheldon>><<set $phase to 2>><</link>>
+
+	<<else>>
+		"Thanks for your help," <<he>> says.
+		<br><br>
+
+		<<if $speech_attitude is "meek">>
+			"It's n-no problem, I should have paid more attention. W-why do you have all that paper? I-If you don't mind me asking!"
+
+		<<elseif $speech_attitude is "bratty">>
+			"Yeah, yeah, it's just paper. Why do you need so much anyways?"
+
+		<<else>>
+			"No problem, accidents happen. I'm a bit curious, why do you need so much paper?"
+
+		<</if>>
+		<br><br>
+
+		<<He>> looks at the stack. "Not sure. Bailey asked me to get a bunch. Speaking of which, I better get going. Don't want to make <<nnpc_him "Bailey">> mad." <<He>> picks up the stack and heads towards Bailey's office.<<lreb>><<reb -1>>
+		<br><br>
+
+		You continue on.
+		<br><br>
+
+		<<link [[Next|Orphanage]]>><<endevent>><</link>>
+
+	<</if>>
+
+<<else>>
+	<<if $speech_attitude is "meek">>
+		You apologise to <<him>> too, both for running into <<him>> and for having to go. You depart.
+	<<elseif $speech_attitude is "bratty">>
+		You tell <<him>> to pay better attention and walk off.
+	<<else>>
+		You assure <<him>> that it was just an unfortunate accident. You make your excuses and leave.
+	<</if>>
+	<br><br>
+
+	<<link [[Next|Orphanage]]>><<endevent>><</link>>
+
+<</if>>
+
+:: Home Orphan Poster Sex Choice
+<<effects>>
+
+<<if $phase is 1>>
+	<<He>> nods enthusiastically and says, "My room isn't far from here." <<He>> leads you down the hall to a bedroom and tackles you onto the bed.
+	<br><br>
+
+	<<link [[Next|Home Orphan Poster Sex]]>><<set $sexstart to 1>><</link>>
+
+<<else>>
+	<<He>> laughs, awkwardly. "Y-yeah, well umm..." <<He>> fidgets, then slowly picks up the stack of papers. "I better go deliver these to Bailey. Umm... bye?" <<He>> speedwalks towards Bailey's office.
+	<br><br>
+
+	You continue on.
+	<br><br>
+
+	<<link [[Next|Orphanage]]>><<endevent>><</link>>
+
+<</if>>
+
+:: Home Orphan Poster Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 100>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend>>
+	<span id="next"><<link [[Next|Home Orphan Poster Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Home Orphan Poster Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Home Orphan Poster Sex Finish
+<<effects>>
+
+<<if $enemyhealth lte 0>>
+	"Ow, what the fuck?! You fucki—" You escape while <<hes>> reeling from the pain.
+
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	<<He>> flops on the bed, panting. "Wow, you're... really good." <<His>> eyes slowly widen. "Wait. Shit, I left Bailey's papers out there." <<He>> sighs, "Nah, <<nnpc_he "Bailey">> can get <<nnpc_his "Bailey">> own paper."
+
+	You get up and leave <<him>> to bask in the afterglow.<<greb>><<reb 1>>
+
+<<elseif $finish is 1>>
+	<<He>> stops, mortified. "W-was it that bad?" <<His>> eyes slowly widen. "Wait. Shit, I left Bailey's papers out there." <<He>> throws on <<his>> clothes, unable to meet your face and runs off.
+	<br><br>
+
+	You leave before <<he>> can return.
+
+<</if>>
+<br><br>
+<<clotheson>>
+<<endcombat>>
+
+<<link [[Next|Orphanage]]>><</link>>
+
+:: Home Balloon
+<<effects>>
+
+<<if $phase is 1>>
+	"Hey," you say. "You look upset. I'm not sure if this will help, but I thought you might like it." You hand <<him>> your balloon.<<handheldruined>>
+	<br><br>
+
+	<<His>> eyes light up. "Are... are you sure?" <<he>> asks as <<he>> accepts the balloon.
+	<br><br>
+
+	<<if $speech_attitude is "meek">>
+		"I am," you say, smiling at <<him>>. "It's what you need right now, isn't it? Something to brighten your day."
+	<<elseif $speech_attitude is "bratty">>
+		"'Course I'm sure," you say breezily, ruffling <<his>> hair. "All yours."
+	<<else>>
+		"Of course I am," you say. "You deserve it!"
+	<</if>>
+	<br><br>
+	<<He>> giggles. You leave <<him>> to gently bat the balloon around, looking in considerably better spirits. <<ghope>><<hope 2>>
+	<br><br>
+
+	<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<<else>>
+	"What's wrong?" you ask. The <<person>> looks at you.
+	<br><br>
+
+	"I don't like it here," <<he>> says.
+	<br><br>
+
+	You spend the next hour listening as the <<person>> shares <<his>> fears, offering comforting words when appropriate. <<He>> misses <<his>> parents, is afraid of Bailey, is afraid to go outside, and hates the food. Despite <<his>> distress, <<he>> perks up the longer <<he>> speaks.
+	<br><br>
+
+	"Thank you for listening to me," <<he>> says. "I feel better now." <<He>> gives you a quick hug and leaves, looking in considerably better spirits. <<ghope>><<hope 1>>
+	<br><br>
+
+	<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<</if>>
+
+:: Home Orphan Music Calm Choice
+<<effects>>
+
+<<if $phase is 1>>
+	<<generatey1>><<person1>>
+
+	You peep in. A <<person1>><<person>> sits in a faded room with <<his>> eyes closed.
+	<br><br>
+
+	<<switch random(1,3)>>
+		<<case 1>>
+			<<set $instrument to "violin">>
+			<<He>> plays a well-kept violin with a sturdy bow and a tranquil expression. It comes through in <<his>> music. You briefly forget about Bailey's looming debt threat. Maybe one day you can be free of it too.<<lstress>><<ltrauma>><<stress -6>><<trauma -5>>
+
+		<<case 2>>
+			<<set $instrument to "guitar">>
+			<<He>> plays a sturdy looking guitar with a sorrowful expression. Despite this, the song <<he>> plays is uplifting. The melody brings both tears and a smile to your face. Maybe one day, every day can be like this.<<lltrauma>><<trauma -10>>
+
+		<<case 3>>
+			<<set $instrument to "harp">>
+			<<He>> plays a shining harp with a tranquil expression. It comes through in <<his>> music. With every strum of the harp, you feel your stress evaporate. Hopefully, one day you can live a peaceful life.<<llstress>><<stress -12>>
+
+	<</switch>>
+	<br><br>
+
+	Other curious orphans enter as <<his>> performance continues. The room is packed by the second song's start. You all sit together, enjoying the music. With six compositions and a long, drawn out note, the recital ends.
+	<br><br>
+
+	<<link [[Next|Home Orphan Music Calm]]>><</link>>
+
+<<else>>
+	You ignore the door and continue on your way. The music fades into silence.
+	<br><br>
+
+	<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<</if>>
+
+:: Home Orphan Music Calm
+<<effects>>
+
+"What the hell are you doing in here?" A voice breaks the silence. It's Bailey. "Doesn't matter." <<nnpc_He "Bailey">> disregards everyone and locks eyes with the <<personsimple>>. "Time to pay up."
+<br><br>
+
+<<if $rng gte 76>>
+	The <<personsimple>> <span class="green">nods.</span> Wordlessly, <<he>> puts down <<his>> $instrument and grabs a shoebox off a shelf. <<He>> fishes several bills from it and hands them to Bailey.
+	<br><br>
+
+	Bailey counts them. "Good, I expect double next week." <<nnpc_He "Bailey">> pockets the money and slams the door behind <<nnpc_him "Bailey">>.
+	<br><br>
+
+	Silence descends on the room. The <<personsimple>> breaks the silence. "Well, that was something. You all should leave, I don't want to get anyone in trouble for being here."
+	<br><br>
+
+	You and the other orphans leave. Outside, they talk excitedly about learning instruments.<<ghope>><<lstress>><<hope 1>><<stress -6>>
+	<br><br>
+
+<<else>>
+	The <<personsimple>> <span class="red">trembles.</span> <<His>> eyes are wet with held back tears. <<His>> lip quivers, "I-I don't h-have it tod—"
+	<br><br>
+
+	Bailey closes the distance faster than you can react. <<nnpc_He "Bailey">> grabs the <<person1>><<person>> and violently tugs <<him>> towards the door. <<He>> screams and thrashes in Bailey's grip.
+	<br><br>
+
+	The other orphans clamour to get out the door. One bowls into you and sends you flying. Your head hits something hard, and you are dazed. You lay there trying to steady your vision.<<gpain>><<gstress>><<gtrauma>><<violence 6>><<stress 6>><<trauma 4>>
+	<br><br>
+
+	Your daze eventually wears off. The room is a silent mess. The $instrument lies in pieces on the floor. You shake your head, get up and leave.
+	<br><br>
+
+	Outside, you overhear hushed conversations. They discuss other means of acquiring money.<<llhope>><<hope -2>>
+	<br><br>
+
+<</if>>
+
+<<link [[Next|Orphanage]]>><<endevent>><<unset $instrument>><</link>>
+
+:: Home Orphan Music Stormy Choice
+<<effects>>
+
+<<if $phase is 1>>
+	The <<person1>><<person>> catches your eye and gives you a small nod of recognition, before turning <<his>> attention back to <<his>> instrument.
+	<br><br>
+
+	The room is dead silent as <<he>> plays <<his>> first notes. The music starts slow, but steadily picks up a few seconds in. It's chaotically beautiful, and soon has you swaying to the beat.
+	<br><br>
+
+	<<He>> starts to sing. The lyrics are a tirade against Bailey and the cruelty you've all faced. The others are initially silent, but soon there's a loud chant of 'Fuck Bailey' to match the song's beat.
+	<br><br>
+
+	Someone nudges you, inviting you to join.
+	<br><br>
+
+	<<if $speech_attitude isnot "meek">>
+		<<link [[Join them|Home Orphan Music Stormy]]>><<set $phase to 1>><</link>>
+
+	<<else>>
+		<<insufficientStat "submissive" "to take up such an action">>
+	<</if>>
+	<br>
+
+	<<link [[Stay silent|Home Orphan Music Stormy]]>><<set $phase to 2>><</link>>
+<<else>>
+	You walk away, prepared for the raucous noise that follows.
+	<br><br>
+
+	<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<</if>>
+
+:: Home Orphan Music Stormy
+<<effects>>
+
+<<if $phase is 1>>
+	The chorus comes back around. You cup your hands around your mouth and shout "Fuck Bailey!" It's therapeutic.<<lstress>><<ltrauma>><<ghope>><<stress -6>><<trauma -3>><<hope 1>>
+	<br><br>
+
+	The <<person1>><<person>> dissolves into a guitar riff, but the amplifier turns off. Bailey holds the extension cord in hand. Anger darkens <<nnpc_his "Bailey">> face.
+	<br><br>
+
+	"Scatter!" the <<person1>><<person>> yells. Everyone listens, and the hall dissolves into chaos. <<He>> hops off the stage and starts to run.
+	<br><br>
+
+	"Get back here, you little shit!" Bailey yells. <<nnpc_He "Bailey">> barrels past you, slamming you into the wall. Through your dazed vision, you see others pause and look at you, fear evident in their eyes.<<lreb>><<gpain>><<ggtrauma>><<reb -1>><<violence 6>><<trauma 5>>
+	<br><br>
+
+	You shake off the daze and make your way back to your room.
+
+<<else>>
+	You consider doing it, but decide not to. You shake your head at them, and they shrug in response.
+	<br><br>
+
+	The chorus comes back around, and your mob dissolves into chants of "Fuck Bailey!" once more. The <<person1>><<person>> dissolves into a guitar riff, but the amplifier turns off. Bailey holds the extension cord in hand. Anger darkens <<nnpc_his "Bailey">> face.
+	<br><br>
+
+	"Scatter!" the <<person1>><<person>> yells. Everyone listens, and the hall dissolves into chaos. <<He>> hops off the stage and starts to run.
+	<br><br>
+
+	"Get back here, you little shit!" Bailey yells. <<nnpc_He "Bailey">> takes after the <<personsimple>>, slamming an unfortunate orphan against the wall in the process. The sound is not pretty.<<llhope>><<hope -2>>
+	<br><br>
+
+	Others stop to help. You keep moving, and make your way back to your room.
+
+<</if>>
+<br><br>
+
+<<link [[Next|Bedroom]]>><<endevent>><</link>>
+
+:: Home Combat Agree
+<<effects>>
+
+You nod, recounting a few fights you've had. You leave out the messier details.
+<br><br>
+They hang onto every word, and ask a good few questions before they disperse. Your chest puffs out a little in pride.<<stress -5>><<lstress>>
+<br><br>
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+
+:: Home Combat Exaggerate
+<<effects>>
+
+<<if $englishSuccess>>
+	You tell them some highly exaggerated versions of your past fights, overplaying the strength and number of your opponents.
+	<br><br>
+	<span class="gold">They believe you</span>, and only grow more excited with each tale you tell. By the end, some of them are applauding.<<stress -5>><<trauma -10>><<lstress>><<ltrauma>>
+	<br><br>
+	"Could you show us how to fight?" one asks, and the others quickly parrot their request.
+	<br><br>
+	<<link [[Demonstrate your moves (0:20)|Home Combat Exaggerate Demonstration]]>><<pass 20>><</link>>
+	<br>
+	<<link [[Refuse |Home Combat Exaggerate Refuse]]>><</link>>
+<<else>>
+	You tell them some highly exaggerated versions of your past fights, overplaying the strength and number of your opponents.
+	<br><br>
+	<span class="red">They don't believe you for a second</span>, and once you finish they all make awkward excuses and leave.<<stress 5>><<gstress>>
+	<br><br>
+	<<link [[Next|Orphanage]]>><<endevent>><</link>>
+
+<</if>>
+
+:: Home Combat Exaggerate Demonstration
+<<effects>>
+
+You show off some punches and kicks. You're mostly just winging it, but they don't seem to notice. At some point, a few of them start copying you, and before long, all of them are trying to imitate you. This goes on for a while, and you stop once your muscles start to ache.<<physique 1>>
+<br><br>
+They thank you once the demonstration ends, walking off and excitedly talking amongst themselves about you.<<stress -8>><<lstress>>
+<br><br>
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+
+:: Home Combat Exaggerate Refuse
+<<effects>>
+
+You tell them that you have something you need to do. They seem satisfied regardless and leave you alone.
+<br><br>
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+
+:: Home Combat Refuse
+<<effects>>
+
+You tell them that you're busy right now. Though obviously disappointed, they leave you alone.
+<br><br>
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+
+:: Home Orphan Rebellious Prank
+<<effects>>
+
+<<if $phase is 0>> /* Follow them */
+	You follow the orphans into Bailey's office. They speak in hushed whispers, and they both gasp when they see you.
+	<br><br>
+	<<if $baileydefeated gte 1 or $baileydefeatedlewd gte 1>>
+		"Oh! It's you!" says the <<person1>><<person>>. "Aren't you the <<girl>> who <<= $baileydefeated gte 1 ? "kicked Bailey's ass" : "embarrassed Bailey">> in front of everyone? Do you want to join us? We're going to get one over on <<nnpc_him "Bailey">>, too!"
+	<<else>>
+		"Oh! You're not Bailey." The <<person1>><<person>> laughs<<if $orphan_hope gte 10>>. "Hey, do you want to join us?"<<else>> nervously, glancing at the bucket of murky water <<hes>> holding. "You're...not going to tell on us, are you?"<</if>>
+	<</if>>
+	<br><br>
+	"We're going to prank <<nnpc_him "Bailey">>," the <<person2>><<person>> explains. "It's the least <<nnpc_he "Bailey">> deserves after all <<nnpc_hes "Bailey">> done to us!" <<person2>><<He>> starts setting up the step ladder.
+	<br><br>
+
+	<<link [[Offer to help them set up|Home Orphan Rebellious Prank 2]]>><<set $phase to 1>><<reb 1>><</link>><<greb>>
+	<br>
+	<<link [[Offer to cover for them|Home Orphan Rebellious Prank 2]]>><<set $phase to 2>><<hope 1>><</link>><<ghope>>
+	<br>
+	<<link [[Tell them this is much too risky|Home Orphan Rebellious Prank 2]]>><<set $phase to 0>><</link>><<englishdifficulty 200 1000>>
+	<br>
+<<else>> /* Ignore them */
+	You decide to ignore them, and go on with your day.
+	<br><br>
+
+	<<link [[Next|Orphanage]]>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Home Orphan Rebellious Prank 2
+<<effects>>
+
+<<if $phase is 0>> /* Tell them this is much too risky */
+	<<if $englishSuccess>>
+		<<if $speech_attitude is "meek">>
+			You frown. "I... I'm sorry, but... I just really don't think this is a good idea. Wh-what if <<nnpc_he "Bailey">> finds out? I don't want anything bad to happen to any of you..." <span class="green">You recommend looking for hobbies that might enrich their lives, such as gardening or cooking.</span>
+		<<elseif $speech_attitude is "bratty">>
+			"And what happens if <<nnpc_he "Bailey">> finds out about all this, huh?" You put your hands on your hips. "Even if <<nnpc_he "Bailey">> doesn't find out we're involved, what's stopping <<nnpc_him "Bailey">> from just punishing everybody instead? Don't be so naive." <span class="green">You recommend they start exercising instead so that they can blow off some steam and gain the strength to defend themselves.</span>
+		<<else>>
+			You shake your head. "Sorry to rain on your parade, but this is too risky. You two would be better off spending your time on yourselves, not on Bailey." <span class="green">You recommend extracurricular activities such as reading or dancing that might help reduce the orphans' stress.</span>
+		<</if>>
+		<br><br>
+		The orphans listen closely to your advice. They thank you, and immediately rush off to follow it, inspired. <<hope 1>><<ghope>>
+		<br><br>
+		You return the bucket and step ladder to their rightful places, and go on with your day.
+	<<else>>
+		<<if $speech_attitude is "meek">>
+			You frown. "I... I'm sorry, but...I just really don't think this is a good idea. What if <<nnpc_he "Bailey">> finds out? I-I don't want anything bad to happen to you two."
+		<<elseif $speech_attitude is "bratty">>
+			"And what happens if <<nnpc_he "Bailey">> finds out about all this, huh?" You put your hands on your hips. "Even if <<nnpc_he "Bailey">> doesn't find out we're involved, what's stopping <<nnpc_him "Bailey">> from punishing everybody else? Don't be naive."
+		<<else>>
+			You shake your head. "Sorry to rain on your parade, but this is too risky. You two would be better off spending your time on yourselves, not on Bailey."
+		<</if>>
+		<br><br>
+		The orphans both deflate.
+		<br><br>
+		"Sorry," the <<person1>><<person>> mutters. "We didn't really think about the consequences..."
+		<br><br>
+		The <<person2>><<person>> folds the step ladder back up in disappointed silence. They hang their heads as they shuffle out of the office. <<hope -1>><<reb -1>><<lhope>><<lreb>>
+	<</if>>
+	<br><br>
+
+	<<link [[Next|Orphanage]]>><<endevent>><</link>>
+	<br>
+<<else>>
+	<<if $speech_attitude is "meek">>
+		"O-oh..." You giggle bashfully. "Well, if you really think I'll be any help... Alright!"
+	<<elseif $speech_attitude is "bratty">>
+		"A prank on Bailey?" You smirk and put your hands on your hips. "Count me in!"
+	<<else>>
+		You smile. "Why not? It's all in good fun."
+	<</if>>
+	<br><br>
+	The orphans both grin conspiratorially at you.
+
+	<<if $phase is 2>> /* Offer to cover for them */
+		<br><br>
+		<<if $speech_attitude is "meek">>
+			"But you two seem to have it all in hand here, so..." You glance at the door. "Maybe I should wait outside...? It'd be safer if we had someone looking out in case Bailey comes, after all. I-is that okay?"
+		<<elseif $speech_attitude is "bratty">>
+			"You two get it all set up." You thumb at the door. "I'll go watch out and distract Bailey if <<nnpc_he "Bailey">> starts coming this way so you don't get caught. Got it?"
+		<<else>>
+			"No need to have so many cooks in the kitchen, though. I'll be on the lookout." You gesture to the door. "It'd be bad if Bailey came to <<nnpc_his "Bailey">> office and caught us unaware. Sound good?"
+		<</if>>
+		<br><br>
+		The orphans nod excitedly. The <<person2>><<person>> gives you a thumbs up, and the <<person1>><<person>> leaves the door slightly ajar behind you after you leave. You hear them start to set up the bucket over the door.
+	<</if>>
+	<br><br>
+
+	<<link [[Next|Home Orphan Rebellious Prank 3]]>><</link>>
+	<br>
+<</if>>
+
+:: Home Orphan Rebellious Prank 3
+<<effects>>
+<<npc Bailey 3>><<person3>>
+
+<<if $phase is 1>> /* Offer to help them set up */
+	You help the orphans set up the classic "bucket over the door" prank. When finished, you hide behind the nearest door, leaving a gap wide enough for the three of you to peer out. <<= playerBellyVisible() ? "Your belly is awkward, but you" : "You">> squeeze together so you're all able to see.
+	<br><br>
+	When Bailey starts approaching <<his>> office,
+	<<if $orphan_hope gte 40>>
+		you know the orphans are excited, but they do their best to hold it in.
+	<<elseif $orphan_hope gte 10>>
+		the orphans are noticeably excited, and you see them eyeing each other conspicuously. You attempt to get their attention and calm them down. <<gstress>><<stress 6>>
+	<<else>>
+		the orphans are obviously restless. You hope they don't draw attention. <<ggstress>><<stress 12>>
+	<</if>>
+<<else>> /* Offer to cover for them */
+	You wait nearby Bailey's office as you keep an eye out, trying to look casual. Before the other orphans can finish, you spot Bailey rounding a corner and swiftly intercept <<him>>.
+	<br><br>
+	<<if $speech_attitude is "meek">>
+		"P-pardon me..." You timidly get Bailey's attention. "I had a question—i-if you have the time...?"
+		<br><br>
+		Bailey gives you an irritated look, but <<he>> stops, and turns away from the direction of <<his>> office.
+		<br><br>
+		"What is it?" <<He>> crosses <<his>> arms.
+		<br><br>
+		You shrink a little under <<his>> scrutiny. "It's just... I've been paying you for some time now, and I wanted to know how much left I have to pay off...?"
+	<<elseif $speech_attitude is "bratty">>
+		"Hey!" You brashly stride over to Bailey. "I'd like to lodge a complaint."
+		<br><br>
+		Bailey gives you an irritated look, but <<he>> stops, and turns away from the direction of <<his>> office.
+		<br><br>
+		"I'm sure you would," <<he>> grumbles. <<He>> crosses <<his>> arms. "What is it, then?"
+		<br><br>
+		"You've been making me pay you off for my 'care' for a while now." You mirror <<his>> stance, undaunted. "Where's all that money going exactly? Because it sure doesn't feel like it's going back into the orphanage."
+	<<else>>
+		"Excuse me." You wave at Bailey to get <<his>> attention as you approach. "I just wanted to double check with you how much you're expecting me to pay you this week."
+		<br><br>
+		Bailey gives you an irritated look, but <<he>> stops, and turns away from the direction of <<his>> office.
+		<br><br>
+		Bailey scoffs and crosses <<his>> arms. "You owe me <<printmoney $rentmoney>>."
+		<<if $baileydefeatedchain gte 2>>
+			<<He>> glares at you. "I'm not going easy on you this time if you continue to be uncooperative."
+		<<elseif $baileydefeatedchain is 1>>
+			<<He>> squints at you. "You'd better actually pay up this time."
+		<<else>>
+			<<He>> raises an eyebrow. "You'd better have it by <<rentday>>."
+		<</if>>
+		<br><br>
+		<<if $money gte $rentmoney>>
+			"I should be able to,"
+		<<else>>
+			"I'll do my best,"
+		<</if>>
+		you reply noncommittally. "Will I ever learn how much more I owe you?"
+	<</if>>
+	<br><br>
+	Bailey fails to notice <span class="green">the orphans sneaking out of <<his>> office behind <<him>>.</span> <<He>> sneers condescendingly. "Wouldn't you like to know?" Without answering your question, <<he>> turns and heads for <<his>> office. You find the two orphans, stifling giggles.
+<</if>>
+<br><br>
+
+<<link [[Next|Home Orphan Rebellious Prank End]]>><</link>>
+<br>
+
+:: Home Orphan Rebellious Prank End
+<<effects>>
+
+All three of you watch as Bailey enters <<his>> office. The bucket upends over <<him>> and <<he>> makes an undignified noise.
+<br><br>
+Soaking wet, <<he>> spins on <<his>> heels and barrels through the main hall in search of the culprits. <<He>> snarls at several orphans, who maintain innocence, before <<he>> comes across you and your partners in crime.
+<br><br>
+<<if $phase is 2>>
+	Bailey eyes you suspiciously, given your intervention.
+	<br><br>
+<</if>>
+
+<<if ($orphan_hope + $orphan_reb) / 2 gte random(10,50)>>
+	Fortunately, you and the two orphans manage to keep your composure, and Bailey scowls before giving up entirely and storming out of the hall to clean <<himself>> up.
+	<br><br>
+	<span class="green">You managed to get off scot free!</span> <<stress -6>><<hope 1>><<reb 1>><<lstress>><<ghope>><<greb>>
+	<br><br>
+	The orphans thank you for indulging them, and part ways with you, chattering excitedly.
+<<else>>
+	"It was you brats, wasn't it?" <span class="red">Bailey grabs the two orphans by the arms.</span> Hands full, <<he>> glares at you. "You'll get yours, too—sooner or later," <<he>> threatens, before dragging the orphans off. <<gstress>><<stress 6>>
+	<br><br>
+	They have to run to keep up with <<him>> if they don't want to lose their footing entirely. They shoot you fearful looks before they all disappear around a corner. <<trauma 6>><<hope -1>><<reb -1>><<gtrauma>><<lhope>><<lreb>>
+<</if>>
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Robin Mansion Fabulous
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"It's a wonderful place," you say. "The fanciest mansion in town."
+<<elseif $speech_attitude is "bratty">>
+	"It's a lot nicer than this dump," you say. "Better than most dumps, actually."
+<<else>>
+	"It's a fantastic place," you say. "Avery is quite rich."
+<</if>>
+<br><br>
+
+Robin's smile widens. "That's wonderful. The orphans and I want to put together a surprise for you, if that's okay. I'll visit sometime."
+<br><br>
+
+A <<person2>><<person>> emerges from the lounge, and looks at Robin. Robin remembers the fallen board games, and rushes over.
+<br><br>
+
+"Sorry," <<person1>><<he>> says to the <<person2>><<person>>. "I got distracted." <<person1>><<He>> turns back to you. "It was nice seeing you here again." Board games in hand, <<he>> enters the lounge.
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Robin Mansion Nothing
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"It's a normal place," you say. "I don't want to bore you with the details."
+<<elseif $speech_attitude is "bratty">>
+	"It's nothing special," you say. "Kinda boring in fact."
+<<else>>
+	"Nothing to say really," you say. "It's a normal place."
+<</if>>
+<br><br>
+
+"I'm sure it's lovely," Robin says. "The orphans and I want to put together a surprise for you, if that's okay. I'll visit sometime."
+<br><br>
+A <<person2>><<person>> emerges from the lounge, and looks at Robin. Robin remembers the fallen board games, and rushes over.
+<br><br>
+
+"Sorry," <<person1>><<he>> says to the <<person2>><<person>>. "I got distracted." <<person1>><<He>> turns back to you. "It was nice seeing you here again. I might visit sometime." Board games in hand, <<he>> enters the lounge.
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+
+:: Home Robin Mansion Refuse
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I'm sorry," you say. "But I don't want to talk about it."
+<<elseif $speech_attitude is "bratty">>
+	"I'd rather keep that to myself," you say.
+<<else>>
+	"I don't want to talk about it," you say.
+<</if>>
+<br><br>
+
+Robin frowns. "Alright. I hope it's nicer than here. The orphans and I want to put together a surprise for you, if that's okay. I'll visit sometime."
+<br><br>
+
+A <<person2>><<person>> emerges from the lounge, and looks at Robin. Robin remembers the fallen board games, and rushes over.
+<br><br>
+
+"Sorry," <<person1>><<he>> says to the <<person2>><<person>>. "I got distracted." <<person1>><<He>> turns back to you. "It was nice seeing you here again. I might visit sometime." Board games in hand, <<he>> enters the lounge.
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+
+:: Home Robin Mansion Address
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I'd love for you to visit," you say. "You know the fancy boulevard on Danube Street? Avery's is the mansion right on the top."
+<<elseif $speech_attitude is "bratty">>
+	"My new home is the mansion at the top of Danube boulevard," you say. "A real fancy place."
+<<else>>
+	"From here," you say. "Go to Danube Street, then follow the signs to Danube boulevard. It's the mansion at the very top of the hill."
+<</if>>
+<br><br>
+
+Robin isn't sure if you're joking. "But that's," <<he>> says. "Wow. They said it was fancy, but not like this." <<He>> smiles. "I'll visit once the orphans have finished preparing. I might be too intimidated to go inside though."
+<br><br>
+
+<<He>> gives you a hug, then walks away.
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Robin Mansion Nice
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I like surprises," you say. "I just hope it's not too much trouble."
+<<elseif $speech_attitude is "bratty">>
+	"It's good to know I'm missed," you say.
+<<else>>
+	"That would be nice," you say.
+<</if>>
+<br><br>
+
+"It was the orphans' idea," <<he>> says. "I don't know who in particular. They fight over who came up with it. I'll visit when they've finished preparing."
+<br><br>
+
+<<He>> gives you a hug, then walks away.
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Robin Mansion Warn
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"I'm sorry," you say. "But Avery won't like you to visit. We can always meet here."
+<<elseif $speech_attitude is "bratty">>
+	"I wouldn't visit if I were you," you say. "It's a long climb, and the people there aren't the nicest. We can always meet here."
+<<else>>
+	"I don't think that's wise," you say. "Avery wouldn't like it. We can always meet here."
+<</if>>
+<br><br>
+
+Robin nods. "You know what's best." <<He>> doesn't sound convinced. "I'm very glad to see you again." <<He>> gives you a hug, then walks away.
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Valentines Approach
+<<effects>>
+
+You approach the <<person>>.
+<<if $speech_attitude is "meek">>
+	"D-Do you need help, or is something wrong?" you ask.
+<<elseif $speech_attitude is "bratty">>
+	"Hey, what's going on?" you ask. "You've been pacing for ages."
+<<else>>
+	"Are you alright?" you ask. "You look nervous."
+<</if>>
+<br><br>
+
+<<He>> jumps, then looks at you. "Oh, it's you," <<he>> says, sounding relieved. "This is really stupid. It's Valentine's Day, and I want to confess to my crush. I can't find the courage to do it, though. Could you... could you help me?" <<he>> asks. You notice <<his>> hands are trembling slightly.
+<br><br>
+
+<<link [[Help <<him>> (0:10)|Home Valentines Help]]>><<pass 10>><</link>>
+<br>
+<<link [[Decline|Home Valentines No]]>><</link>>
+<br>
+
+:: Home Valentines No
+<<effects>>
+
+You shake your head.
+
+<<if $speech_attitude is "meek">>
+	"I-I don't think I'm the right person for this... sorry..."
+<<elseif $speech_attitude is "bratty">>
+	"Nah, I've got better things to do than play messenger."
+<<else>>
+	"Sorry, but I can't help right now."
+<</if>>
+<br><br>
+
+<<He>> looks discouraged. "Ah, alright... don't worry, I'll find someone else, or gather up the courage myself. Thanks anyway." <<He>> walks away.
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Valentines Help
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Yes, I'd be happy to help," you reply. "Or I'll try, at least."
+<<elseif $speech_attitude is "bratty">>
+	"Of course. I'll be your wingman," you reply with a grin.
+<<else>>
+	"Sure, I can help," you reply. "What do you need from me?"
+<</if>>
+<br><br>
+<<He>> breathes a sigh of relief. "Thank you, thank you!" <<His>> eyes shine hopefully. "Um... well, the person I'm looking for is..." <<He>> starts to ramble about <<his>> crush.
+
+<<if getRobinLocation() is "orphanage" and random(1,2) is 2>>
+	You immediately recognise the description. <span class="blue"><<Hes>> talking about Robin.</span> <<if $robinromance gte 1>>You feel a twinge of jealousy.<<else>>You wonder if Robin feels the same.<</if>>
+	<br><br>
+
+	"Thanks again. I'll be waiting in the garden," <<he>> says, blushing slightly. "Oh, and you'll need this. It's part of the confession." <<He>> hands you the chocolate bar and note.
+	<br><br>
+
+	<<if $robinromance gte 1>>
+		<<link [[Deliver the confession|Home Valentines Robin Romance]]>><</link>>
+		<br>
+		<<link [[Get angry|Home Valentines Get Angry]]>><</link>>
+	<<else>>
+		<<link [[Deliver the confession|Home Valentines Robin No Romance]]>><</link>>
+	<</if>>
+<<else>>
+	<<generatey2>>
+	It doesn't take you long to recognise the description. <<Hes>> talking about a <<person2>><<person>> you've seen a few times, enough to remember where <<his>> room is.
+	<br><br>
+
+	"Thanks again. I'll be waiting in the garden," <<person1>><<he>> says, blushing slightly. "Oh, and you'll need this. It's part of the confession." <<He>> hands you the chocolate bar and note.
+	<br><br>
+
+	<<link [[Deliver the confession|Home Valentines Search]]>><</link>><<englishdifficulty 1 400>>
+<</if>>
+<br>
+:: Home Valentines Robin Romance
+<<effects>>
+<<npc Robin 2>><<person2>>
+
+You find Robin's room and knock on <<his>> door.
+	<<if $robin.timer.hurt gte 1>>
+		Robin throws it open, pausing when <<he>> sees you. It's clear <<hes>> still <<npcHurt "Robin">>, but <<his>> eyes drift down to the chocolate in your hand. "Happy Valentine's Day," <<he>> says stiffly.
+	<<else>>
+		Robin throws it open and hugs you. "Happy Valentine's Day!"
+	<</if>>
+<br><br>
+<<person1>>
+<<if $speech_attitude is "meek">>
+	"Um, happy Valentine's Day... someone asked me to give you this. I didn't want to break <<his>> heart by telling them we're together..." You hand over the note and chocolate. "<<He>> wants you to meet <<him>> in the garden."
+<<elseif $speech_attitude is "bratty">>
+	"Happy Valentine's. Look, I'll be straight with you. A <<personsimple>> asked me to give you this, and something about that idiot's expression made me feel too bad to say no." You push the note and chocolate into Robin's hands. "<<Hes>> in the garden."
+<<else>>
+	"Happy Valentine's Day. Someone fancies you," you say, handing over the note and chocolate. "<<He>> asked me to help. <<He>> wants to see you in the garden."
+<</if>>
+<br><br>
+
+Robin gives you a confused look, but glances at the note. <<person2>>
+<<if $robin.timer.hurt gte 1>>
+	<<His>> shoulders relax, and <<he>> giggles.
+<<else>>
+	<<He>> giggles.
+<</if>>
+"I get it," <<he>> says. "It's complicated, telling someone you're dating their crush. It's sweet that you helped <<person1>><<him>>. Tell <<him>> I'm sorry, and that I'm already taken, but I know <<he>>'ll find someone as wonderful as <<he>> is." <<person2>><<He>> takes your hand, squeezing it gently. "Someone as wonderful as you are to me."
+<<if $robin.timer.hurt gte 1>>
+	<br><br>
+	<<He>> gives you a wry smile. "Well, usually." <<He>> exhales and wraps <<his>> arms around you.
+	<<if $robin.timer.hurt lte 5>>
+		"Let's just... wipe the slate clean, okay? I don't want to be upset with you. Not on Valentine's Day. I love you." <<He>> buries <<his>> face into your shoulder for a moment, then pulls away.
+		<<set $robin.timer.hurt to 0>>
+	<<else>>
+		"I'm still hurt, you know," <<he>> says softly, burying <<his>> face into your shoulder. "I need some more time to process everything, okay? But... I love you."
+		<<set $robin.timer.hurt to 5>>
+	<</if>>
+<</if>>
+<<He>> kisses your cheek. You smile at <<him>>.
+<br><br>
+
+Before you go, Robin presses the chocolate bar and note back into your hand. <<He>> closes the door, a smile still on <<his>> face.
+<br><br>
+
+<<link [[Report back|Home Valentines Report Back Robin]]>><</link>>
+<br>
+
+:: Home Valentines Robin No Romance
+<<effects>>
+<<npc Robin 2>><<person2>>
+
+You find Robin's room and knock on <<his>> door. <<He>> opens it and smiles at you.
+<br><br>
+<<if $speech_attitude is "meek">>
+	"S-Someone sent you this," you say. You hand over the note and chocolate. "A <<person1>><<person>>. <<Hes>> waiting in the garden, if you want to meet <<him>>."
+<<elseif $speech_attitude is "bratty">>
+	"Guess what? You've got an admirer," you say with a smirk, pushing the note and chocolate into <<his>> hands. "A <<person1>><<person>> is waiting for you in the garden. Make the most of it."
+<<else>>
+	"Someone fancies you," you say, handing over the note and chocolate. "<<person1>><<He>> wants to see you in the garden, if you want to meet <<him>>."
+<</if>>
+<br><br>
+
+<<person2>>
+Robin looks baffled. <<He>> looks down at the note and doesn't answer for a moment. "This is... unexpected," <<he>> finally responds. "Tell <<person1>><<him>> thanks, and I appreciate it, but I'm not interested. And tell <<him>> that I really hope <<he>> finds someone who returns <<his>> feelings someday." <<person2>><<He>> smiles slightly and returns the gifts to you. <<He>> goes back into <<his>> room and closes the door.
+<br><br>
+
+<<link [[Report back|Home Valentines Report Back Robin]]>><</link>>
+<br>
+
+:: Home Valentines Get Angry
+<<effects>>
+
+<<if $speech_attitude is "meek">>
+	"Sorry but... R-Robin already has a <<girlfriend>>. It's me." Your voice trembles with restrained emotion, and you avoid making eye contact.
+<<elseif $speech_attitude is "bratty">>
+	"Have you lost your mind?" you say with a scowl. <<He>> flinches at your harsh tone. "I'm not helping you send a love note to my <<nnpc_girlfriend "Robin">>."
+<<else>>
+	"Robin's already dating someone," you say, keeping your voice firm as you look <<him>> in the eye. "Me."
+<</if>>
+<br><br>
+
+The <<person1>><<persons>> cheeks turn bright red, and <<he>> snatches back the gifts. "Oh. Oh, I didn't, um, I didn't know." <<He>> looks visibly uncomfortable. "I, um, didn't mean to be a homewrecker. I-I'm really, really sorry!" <<He>> flees the scene, apologising one last time.
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Valentines Search
+<<effects>>
+
+You search for the <<person2>><<personsimple>> the orphan told you about. It doesn't take long to find <<his>> room. You knock on <<his>> door, and a <<person>> soon answers.
+<br><br>
+<<if $englishSuccess>>
+	<<if $speech_attitude is "meek">>
+		"Hello, sorry to bother you, but there's someone waiting for you in the garden. <<person1>><<He>> said to give you this." You hand over the note and chocolate.
+		<br><br>
+
+		The <<person2>><<person>> seems taken aback, but smiles at you. "Oh! Thanks for letting me know," <<he>> replies. <<He>> opens the note. Upon reading it, <<his>> smile widens, and <<he>> runs out of <<his>> room.
+		<br><br>
+
+		You feel relieved things went well. You find yourself hoping for the best for them. <<lstress>><<stress -6>>
+	<<elseif $speech_attitude is "bratty">>
+		"Look, I'm not a messenger service, but someone asked me to tell you they're waiting in the garden. Here." You hand over the note and chocolate. "Don't keep them waiting."
+		<br><br>
+
+		<<He>> blinks at you, but opens the note anyway. Upon reading it, <<he>> breaks into a wide smile. "Alright, alright, I'm going!" <<he>> says. <<He>> races out of <<his>> room, almost bumping into you.
+		<br><br>
+
+		You smirk. That was easy enough. You have a feeling everything will go well. <<lstress>><<stress -6>>
+	<<else>>
+		"Hello. Someone's waiting for you in the garden. <<person1>><<He>> asked me to give you this." You hand over the gifts the <<person>> gave you.
+		<br><br>
+
+		The <<person2>><<person>> opens the note and scans it. <<His>> eyes grow wide, and <<he>> breaks out into a smile. "Oh! Really? I'm going right now!" <<He>> races out of <<his>> room excitedly, almost bumping into you.
+		<br><br>
+
+		You watch <<him>> go. You hope everything goes well. <<lstress>><<stress -6>>
+	<</if>>
+	<br><br>
+
+	<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<<else>>
+	<<if $speech_attitude is "meek">>
+		"H-hello..." you say. "Um, garden? There's someone... ah, wait, I—"
+	<<elseif $speech_attitude is "bratty">>
+		"Hey," you say. "So, you should go to the garden because I, I mean, someone... shit, there are feelings involved and—"
+	<<else>>
+		"Hello," you say. "You... garden. Person for you. Someone's waiting, and has big feelings for you."
+	<</if>>
+	You fumble over your words, gesturing between yourselves, before giving up and holding out the note and chocolate bar.
+	<br><br>
+
+	<<He>> looks at you, confused, then <<his>> expression turns to pity. "Oh... are you asking me out? I hate to say it, but you're not my type. Actually, I already fancy someone. Sorry." There's a painfully awkward silence before <<he>> finally closes the door. <<gstress>><<stress 6>>
+	<br><br>
+
+	<<link [[Report back|Home Valentines Report Back]]>><</link>>
+<</if>>
+<br>
+
+:: Home Valentines Report Back
+<<effects>>
+
+You head to the garden and find the other orphan waiting. <<person1>><<He>> looks even more nervous than before. "Did you find <<person2>><<him>>?" <<person1>><<he>> asks. "Is <<person2>><<he>> coming?"
+<br><br>
+
+<<if $speech_attitude is "meek">>
+	"I-I'm really sorry, but... it didn't work out. I tried to convince <<him>> to come, but..." You look away, embarrassed. You return the gifts.
+	<br><br>
+
+	The <<person1>><<persons>> face crumbles. "It's alright, it's not your fault." <<He>> tries to smile, but it doesn't reach <<his>> eyes. "Thanks for trying, at least. Really." <<He>> walks away slowly.
+	<br><br>
+
+	You wish you could have done more. <<gtrauma>><<trauma 6>>
+<<elseif $speech_attitude is "bratty">>
+	"Look, I asked <<him>> to come, and <<he>> said no. <<Hes>> not interested." You keep your tone brusque, trying to hide your embarrassment. You return the gifts.
+	<br><br>
+
+	The <<person1>><<person>> flinches as if you'd struck <<him>>. "Oh." <<His>> voice is low and dejected. <<He>> blinks several times, looking away. "Well, alright, thanks for... yeah." <<He>> walks away without looking at you.
+	<br><br>
+
+	You probably could have been gentler. <<gtrauma>><<trauma 6>>
+<<else>>
+	"Sorry, but I don't think <<hes>> interested. I did my best, at least." You return the gifts.
+	<br><br>
+
+	The <<person1>><<person>> stays quiet for a few moments, before looking down at the note you just returned. "Oh, I see..." <<he>> says, disappointed. "Well, thanks for trying anyway." <<He>> walks away, shoulders slumped.
+	<br><br>
+
+	You feel a pang of guilt. <<gtrauma>><<trauma 6>>
+<</if>>
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>
+
+:: Home Valentines Report Back Robin
+<<effects>>
+
+You head to the garden and find the orphan waiting. <<person1>><<He>> looks even more nervous than before. "How did it go? Is Robin coming?"
+<br><br>
+
+<<person2>>
+<<if $robinromance gte 1>>
+	<<if $speech_attitude is "meek">>
+		"Um... Robin said <<hes>> flattered, but <<hes>> already with someone. Me, actually. Sorry, I should have been more honest from the start." You return the note and chocolate bar. "B-But <<he>> hopes you find someone as wonderful as you are."
+	<<elseif $speech_attitude is "bratty">>
+		"Yeah, about that. Robin's already got a <<girlfriend>>, and that's me." You shrug. "Sorry, I should've told you that from the start. Better luck next time." You return the note and chocolate bar. "But <<he>> says <<he>> hopes you find someone as wonderful as you are."
+	<<else>>
+		"I told <<him>> what you wanted, but <<he>> said to tell you <<hes>> already dating someone. Me, to be honest. I'm sorry I wasn't upfront with you." You return the note and chocolate bar. "But still, <<he>> hopes you find someone as wonderful as you are."
+	<</if>>
+	<br><br>
+
+	<<person1>><<His>> expression crumbles. "No, it's alright, don't worry... you were too kind." <<He>> tries to smile. "I didn't know you were dating. I'm really happy for you both, truly." <<He>> walks away before you can answer.
+<<else>>
+	<<if $speech_attitude is "meek">>
+		"I'm really sorry... Robin said <<hes>> not interested." You return the gifts. "But <<he>> hopes you find someone who returns your feelings. I-I'm sure you will..."
+	<<elseif $speech_attitude is "bratty">>
+		"Sorry. Robin said thanks, but <<hes>> not interested." You return the gifts. "But <<he>> hopes you find someone who returns your feelings."
+	<<else>>
+		"I gave <<him>> your gifts. <<He>> said <<hes>> not interested, but <<he>> hopes you find someone who returns your feelings someday." You return the gifts.
+	<</if>>
+	<br><br>
+
+	<<person1>><<He>> goes very still. "Oh." <<He>> stares down at the note for a few moments. "I see. Thanks for trying, anyway..." <<He>> walks away, shoulders slumped.
+<</if>>
+<br><br>
+
+You can't help but feel bad for <<him>>.
+<br><br>
+
+<<link [[Next|Orphanage]]>><<endevent>><</link>>
+<br>

@@ -1,0 +1,354 @@
+:: Domus Street
+
+<<set $outside to 1>><<set $location to "town">><<effects>><<set $bus to "domus">><<getTarget true>>
+You are on Domus Street. The orphanage is here. The street is dominated by small homes similar in appearance.
+<<if Time.dayState is "day">>
+	<<if Weather.precipitation is "rain">>
+		People walk quickly, driven by the rain.
+	<<elseif Weather.isFreezing>>
+		People walk brisk against the cold.
+	<<else>>
+		People tend to their gardens and go about their business all along the street.
+	<</if>>
+<<elseif Time.dayState is "dawn">>
+	<<if Weather.precipitation is "rain">>
+		It's busy. People are on their way to work, wearing raincoats or carrying umbrellas.
+	<<elseif Weather.isFreezing>>
+		It's busy. People are on their way to work, bundled against the cold.
+	<<else>>
+		It's busy. People are on their way to work.
+	<</if>>
+<<elseif Time.dayState is "dusk">>
+	<<if Weather.precipitation is "rain">>
+		People return to their homes, eager to be out of the rain.
+	<<elseif Weather.isFreezing>>
+		People return to their homes, eager to be out of the cold.
+	<<else>>
+		People return to their homes, tired after a long day.
+	<</if>>
+<<else>>
+	<<if Weather.precipitation is "rain">>
+		The street is dark, and drenched with the patter of rain.
+	<<elseif Weather.isFreezing>>
+		The street is dark and silent in the snow.
+	<<else>>
+		The street is dark and silent, save the occasional engine.
+	<</if>>
+<</if>>
+<<if $halloween is 1>>
+	Jack-o'-lanterns, skeletons, and spiders decorate the houses.
+<</if>>
+<<if Weather.isSnow>>
+	Snowmen stand in gardens.
+<</if>>
+<<streeteffects>>
+<br><br>
+<<if $exposed gte 1>>
+	<<exhibitionism "street">>
+<</if>>
+<<if $arousal gte $arousalmax>>
+	<<orgasmstreet>>
+<</if>>
+<<if $tutorial is 0 and $debug is 0>><<set $tutorial to 1>>
+	<<generate1>><<person1>>As you leave the orphanage you bump into a <<person>> passing by. <<He>> staggers back and looks at you with anger, but <<his>> rage turns to lechery as <<he>> beholds you. "You're the cutest thing I've seen all week! Come 'ere."
+	<br><br>
+	<<link [[Next|Tutorial]]>><<set $molestationstart to 1>><<set $tutorialExit to "Domus Street">><</link>>
+<<else>>
+	<<if $stress gte $stressmax and !$possessed>>
+		<<passoutstreet>>
+	<<else>>
+
+		<<if $halloween is 1 and Time.monthDay is 31 and Time.hour gte 19 and C.npc.Whitney.state isnot "dungeon" and C.npc.Whitney.init is 1 and $halloween_whitney_proposed isnot 1 and $halloween_kylar_whitney isnot 1 and !$possessed>>
+			<<set $halloween_whitney_proposed to 1>>
+			<<halloweenwhitney>>
+		<<elseif $averyDismissalScene and $averyDismissalSceneWait isnot 1 and Time.weekDay is 7 and Time.hour is 20>>
+			<<loadNPC 0 avery_sidepiece>><<person1>>
+			<<if $averyDismissalScene is 1>>
+				You see a <<person>> standing outside the orphanage wearing a
+				<<if $pronoun is "f">>
+					fancy gown. <<He>> paces around, trying to get used to being in heels.
+				<<else>>
+					sharp suit. <<He>> paces around, and it looks like <<hes>> trying to work off <<his>> nerves.
+				<</if>>
+				<span class = "blue">You recognise <<him>> now. <<Hes>> Avery's new date.</span>
+				<br><br>
+				As if on cue, you see a familiar car stopping nearby.
+				The <<personsimple>> excitedly walks over to it<<if $pronoun is "f">>, almost tripping in the process<</if>>.
+				You see <<him>> give Avery a peck on the lips as <<he>> climbs onboard. The door shuts, and the new couple drives away.
+			<<else>>
+				You bump into a <<person>>. "Oh! Sorry!" <<He>> frantically apologises, looking you over. <<He>> seems to recognise you, and smiles.
+				"Ah! I'm glad I ran into you. I never got to thank you for warning me about Avery." <span class = "blue">You recognise <<him>> now. <<Hes>> the <<personsimple>> Avery tried to replace you with.</span>
+				<br><br>
+				"It's funny, had you not warned me that day, I'd actually be out on a date with <<nnpc_him "Avery">> right now. You really helped me dodge a bullet."
+				<<He>> suddenly hugs you.
+				<br><br>
+				"I can't thank you enough. I'll see you around the orphanage!" <<stress -6>><<lstress>>
+			<</if>>
+			<<unset $averyDismissalScene>>
+			<<clearNPC avery_sidepiece>>
+			<br><br>
+			<<endevent>>
+			<<destinationeventend>>
+
+		<<elseif $adultshopgrandopening is true and $adultshopopeningevent is undefined and Time.hour gte 6 and Time.hour lte 20>>
+			<<set $adultshopopeningevent to true>>
+			<<generate1>><<person1>>
+			"Excuse me," says a voice to your right. It's a <<person>>. <<He>> holds out a flyer. 'Sirris' adult shop' is written across the top, above a collection of sex toys.
+			<br><br>
+			"<span class="gold">We're hosting a grand opening event, today only.</span> We're open until <<ampm 21 00>>. Hope you can make it."
+			<br><br>
+
+			<<He>> crosses the street to hand out a flyer to another pedestrian.
+			<br><br>
+			<<endevent>>
+			<<destinationeventend>>
+		<<elseif C.npc.Gwylan.state is "active" and !isGwylanAbsent() and !$daily.gwylan.cafe and !$daily.gwylan.cafeOfferDeclined and !$daily.gwylan.cafeSkip and !$daily.gwylan.SchoolDropOff and !["reunion", "badEndReady"].includes(statusCheck("Gwylan")) and !(between($chef_state, 7, 8) and $chef_rework lte 30) and Time.schoolDay and Time.hour is 7 and $exposed lte 0 and ($gwylan.sea + ($gwylanTalked.count("fox_mask") * 20) + ($gwylanTalked.count("dark_pendant") * 20) gte 40)>>
+			<<run statusCheck("Gwylan")>><<npc Gwylan>><<person1>>
+			<<set $daily.gwylan.SchoolDropOff to true>>
+			<<if ["Orphanage", "Bedroom", "Bathroom"].includes($passagePrev)>>
+				As you step outside the orphanage,
+			<<else>>
+				As you pass the orphanage,
+			<</if>>
+			<<if !$gwylanSeen.includes("cafe_walk")>>
+				you hear a familiar voice call out to you from across the street. It's Gwylan.
+				<br><br>
+
+				<<He>> makes <<his>> way over. "Good morning, <<pcpetname "Gwylan">>. I was just heading out for breakfast, but decided to take a detour to ask if you'd like to join me? I can take you to school afterwards if you'd like."
+
+				<<if !$gwylanSeen.includes("cafe")>>
+					<<set $gwylanSeen.pushUnique("cafe")>>
+					<br><br>
+					You look a little confused, which Gwylan picks up on. "Oh, silly me! I guess I never told you, I go to the cafe every morning for breakfast. It's become sort of a routine. But routines can get pretty boring after a while, and I really enjoy your company."
+				<</if>>
+				<<if $worn.neck.name is "familiar collar" and $worn.neck.cursed is 1 or $gwylanSeen.includes("petplay") and $worn.neck.type.includes("leash")>>
+					<<set _magicLeash to true>>
+					You feel a tug on your collar <<if $worn.neck.name is "familiar collar">>as a glowing leash appears in Gwylan's hand<<else>>and look down to see Gwylan holding your leash<</if>>. "So how about it, <<pcpetname "Gwylan" "my">>. You'd like some walkies, wouldn't you?" <<he>> speaks softly.
+				<<else>>
+					<<He>> smiles. "So how about it?"
+				<</if>>
+			<<else>>
+				you spot Gwylan waiting for you. <<He>> waves you over. "<<print either("Good morning", "Fine morning", "Nice to see you", "Hello", "There you are")>>, <<pcpetname "Gwylan">>. Sleep well?"
+				<br><br>
+
+				<<if $worn.neck.name is "familiar collar" and $worn.neck.cursed is 1 or $gwylanSeen.includes("petplay") and $worn.neck.type.includes("leash")>>
+					<<set _magicLeash to true>>
+					You feel a tug on your collar <<if $worn.neck.name is "familiar collar">>as a glowing leash appears in Gwylan's hand<<else>>and look down to see Gwylan holding your leash<</if>>. "Does my favourite <<pcpetname "Gwylan" "simple">> want some morning walkies? I'm heading to the cafe, and your company would really make my day." <<He>> smiles and scratches you behind the ear.
+				<<else>>
+					<<He>> smiles. "I'm heading out for breakfast. Would you like to accompany me?"
+				<</if>>
+			<</if>>
+			<br><br>
+
+			<<cafeicon>><<link [[Walk with Gwylan (0:05)|Gwylan Walk Cafe Solo]]>><<pass 5>><<set $phase to 0>><<set $daily.gwylan.cafe to true>><</link>>
+			<br>
+			<<refuseicon>><<link [[Decline the offer|Gwylan Walk Cafe Solo]]>><<set $phase to 1>><<set $daily.gwylan.cafeOfferDeclined to true>><</link>>
+			<br>
+		<<elseif C.npc.Avery.state is "active" and !$avery_injury and !$daily.averySchoolDropOff and Time.schoolDay and Time.hour is 7 and $exposed lte 0 and ["upper", "lower", "handheld"].some(part => $worn[part].type.includes("school")) and !$avery_mansion and (!$robinaverybeat or C.npc.Avery.rage lte 40) and ((C.npc.Avery.love gte random(20, 100) and ($rng gte 51 or Weather.precipitation isnot "none")) or (C.npc.Avery.love gte 20 and Time.weekDay is 2) or (C.npc.Avery.rage is 0 and $dateCount.Avery is 0 and !$averyRejected.dropOff))>>
+			<<npc "Avery">><<person1>>
+			<<set $daily.averySchoolDropOff to true>>
+			<<if !$weekly.averyRejected.dropOff>>
+				<<set $weekly.averyRejected.dropOff to 0>>
+			<</if>>
+			<<if !$averyRejected.dropOff>>
+				<<set $averyRejected.dropOff to 0>>
+			<</if>>
+			<<set $phase2 to 0>>
+
+			<<if $averySeen.includes("schoolDropOff")>>
+				Avery's car pulls up beside you. The windows wind down to reveal Avery dressed and ready for work. "Good morning, <<pcpetname "Avery">>," <<he>> says and unlocks the doors. "Get in.
+				<<if $averyRejected.dropOff gt 1 and random(1,2) is 2>>
+					It'll be better than walking
+					<<if Weather.precipitation isnot "none">>
+						in the <<= Weather.precipitation is "rain" ? "rain" : "snow">>."
+					<<elseif Weather.isFreezing>>
+						in the cold."
+					<<else>>
+						by yourself."
+					<</if>>
+				<<else>>
+					<<if Weather.precipitation isnot "none">>
+						<<if Weather.precipitation is "rain">>
+							Before you get <<= either("soaked","drenched")>>.<<if $averyragerevealed is 1>> I don't want you getting water on my seats.<</if>>"
+						<<else>>
+							And kick the snow off your shoes before you do.<<if $averyragerevealed is 1>> I do not want snow in my car.<</if>>"
+						<</if>>
+					<<else>>
+						Hopefully <<= either(`we can beat traffic this time`, `traffic isn't too bad today`)>>."
+					<</if>>
+				<</if>>
+			<<else>>
+				<<if $dateCount.Avery is 0 and C.npc.Avery.rage is 0 and !$averyRejected.dropOff>>
+					<<set $phase2 to 1>>
+					An expensive car pulls up beside you. The window winds down to reveal a <<personsimple>> in a <<= $pronoun is "m" ? "suit" : "smart dress">>. It's Avery, the <<personsimple>>
+					<<if $averySeen.some(event => ["meetPark", "meetStreet"].includes(event))>>
+						<<if $averySeen.includes("meetPark")>>
+							you met in the park who
+						<<else>>
+							who helped you in the streets and
+						<</if>>
+						<<if $averySeen.includes("meetCafe")>>
+							took you to the cafe.
+						<<else>>
+							offered to take you to the cafe.
+						<</if>>
+					<<else>>
+						you met the other day.
+					<</if>>
+					"Good morning, <<pcpetname "Avery">>," <<he>> says, looking you up and down. "It's nice to see you again."
+					<br><br>
+					"Are you off to school?" <<he>> asks. But before you can even answer, you hear the doors unlock. "I'll give you a lift there. You can sit in the front."
+				<<else>>
+					<<set $averySeen.pushUnique("schoolDropOff")>>
+					A familiar car pulls up beside you. The window winds down to reveal
+					<<if $averywalkintro is 1>>
+						Avery, dressed and ready for work.
+						<<if $robinaverybeat is 1>>
+							"Good morning," <<he>> greets with
+							<<if C.npc.Avery.rage gte 30>>
+								poorly repressed spite in <<his>> tone. "Decided to leave your little guard dog behind today, I see. Did it bite the hand that feeds it, perhaps?" <<he>> snipes with a derisive snort. "You know, I would take a good, long look at the kind of company you decide to keep, <<pcpetname "Avery">>. It would be a shame if you made enemies of those you shouldn't because of ill-bred brats like <<nnpc_him "Robin">>."
+							<<elseif C.npc.Avery.rage gte 20>>
+								an impatient clip to <<his>> tone. "Left that brat to find <<nnpc_his "Robin">> own way to school today?" <<He>> scoffs. "Good. I expect you to keep better company than that, <<pcpetname "Avery">>."
+							<<else>>
+								a carefully neutral expression on <<his>> face. "I see your... friend isn't with you today." There's a noticeable twitch of <<his>> brows at the mention of Robin, but <<he>> manages to keep <<his>> composure. Barely. "I hope you informed <<nnpc_him "Robin">> that <<nnpc_he "Robin">> ought to watch <<nnpc_his "Robin">> step going forward—for <<nnpc_his "Robin">> own good."
+							<</if>>
+							<br><br>
+							<<He>> glances around briefly, as if expecting another sudden intercession, then continues, "Anyway, walking alone in a town like this isn't safe<<if $allure gte (6000 * $settings.allureModifier)>>, as I'm sure you know<</if>>."
+							<br><br>
+							You hear the car doors unlock, and <<his>> eyes narrow. "Get in. It's <<= C.npc.Avery.rage gte 20 ? "for your own good" : "in your best interest">>." <<He>> flashes you a <<= either(`mirthless`,`contemptuous`,`unpleasant`,`imperious`)>> smile and adds, "I'll even let you sit in the front with me this time."
+						<<else>>
+							"Good morning, <<pcpetname "Avery">>," <<he>> says as <<he>> glances around for a few moments before looking at you. "I see your friend isn't with you today. Walking alone isn't safe, you know."
+							<br><br>
+							You hear the car doors unlock. "Get in, I'll give you a lift. You can even sit in the front this time."
+						<</if>>
+					<<else>>
+						<<set $phase2 to ($averyschoolpickupintro is 1 ? 2 : 3)>>
+						a <<personsimple>> in a <<= $pronoun is "m" ? "suit" : "smart dress">>. It's Avery. "Good morning, <<pcpetname "Avery">>," <<he>> says, looking you up and down. "I was just on my way to work when I spotted you. Walking alone isn't safe, you know."
+						<br><br>
+						You hear the car doors unlock. "Get in. I'll give you a lift."
+					<</if>>
+				<</if>>
+			<</if>>
+			<br><br>
+
+			<<getinicon>><<link [[Get in (0:10)|Avery School Drop Off Accept]]>><<pass 10>><</link>>
+			<br>
+			<<refuseicon>><<link [[Refuse|Avery School Drop Off Decline]]>><</link>>
+			<br>
+		<<elseif (dangerEvent() or $eventforced) and $eventskip is 0>>
+			<<eventsstreet>>
+		<<else>>
+			<<if $options.mapTop is true>>
+				<<map "domus">>
+				<br>
+			<</if>>
+
+			<<if $avery_valentines and $avery_valentines.invite and !$avery_valentines.done and Time.monthName is "February" and Time.monthDay is 14 and Time.hour gte 20 and !$avery_mansion>>
+				Avery waits for you by <<nnpc_his "Avery">> car.
+				<br>
+				<<icon "avery-car.png">><<link [[Valentine's Date|Avery Valentines]]>><</link>>
+				<br><br>
+			<<elseif $averydate is 1 and Time.hour is 20 and $averydatedone isnot 1 and !$avery_mansion>>
+				Avery waits for you by <<nnpc_his "Avery">> car.
+				<br>
+				<<icon "avery-car.png">><<link [[Date (1:20)|Avery Date]]>><</link>>
+				<br><br>
+			<</if>>
+			<<if Time.hour is 20 and $avery_card_gift and C.npc.Avery.state is "dismissed" and !$avery_fate>>
+				Avery leans on <<nnpc_his "Avery">> car, waiting for someone.
+				<br>
+				<<icon "avery-car.png">><<link [[Offer the card|Avery Card]]>><</link>>
+				<br><br>
+			<</if>>
+
+			Places of interest
+			<br>
+			<<homeicon>><<link [[Go home (0:01)|Orphanage]]>><<pass 1>><</link>>
+			<br>
+			<<if Time.dayState is "night">>
+				<<dooricon "domus">><<link [[Approach one of the houses (0:02)|Domus House Lock]]>><<pass 2>><</link>>
+				<br>
+			<<elseif $exposed lte 0>>
+				<<dooricon "domus">><<link [[Knock on one of the houses (0:02)|Domus House Knock]]>><<pass 2>><</link>>
+				<br>
+			<</if>>
+			<<if $demon gte 6 and Time.dayState is "night" and hasSexStat("promiscuity", 2)>>
+				<<tficon "demon">><<link [[Climb through a window (0:30)|Domus Window]]>><<pass 30>><</link>><<demon>>
+				<br>
+			<</if>>
+			<<if $exposed gte 2 and Time.dayState isnot "night" and hasSexStat("exhibitionism", 5)>>
+				<<dooricon "domus">><<link [[Beg for clothing (0:02)|Domus House Nude]]>><<pass 2>><</link>><<exhibitionist5>>
+				<br>
+			<</if>>
+			<<if $exposed gte 1 and Time.dayState isnot "night">>
+			<<else>>
+				<<add_link "Travel<br>">><<hideDisplay>>
+				<<barb>>
+				<<danube>>
+				<<if $exposed lte 0>>
+					<<buswait>>
+				<</if>>
+				<<loiter>>
+				<br>
+			<</if>>
+			<<add_link "<br>Alternate Routes<br>">><<hideDisplay>>
+			<<residential>>
+			<<stormdrain>>
+
+			<<displayLinks>>
+			<<if $options.mapTop isnot true>>
+				<br>
+				<<map "domus">>
+			<</if>>
+		<</if>>
+	<</if>>
+<</if>>
+<<set $eventskip to 0>>
+
+:: Domus Alley
+<<set $location to "alley">>
+
+<<streetSoloStalk>>
+
+:: Sneaky Picnic
+<<effects>>
+
+A girl with long brown hair sits on a bench at the side of the road, a basket on her lap, and a cup of tea in one hand. She smiles as you approach.
+<br><br>
+
+"Hello," she says. "Don't mind me. I'm just waiting for someone. Someone about to get in a lot of trouble." She pauses. "I think you will meet them in time, but I can introduce you early if you like. If you're feeling adventurous."
+<br><br>
+
+<<link [[Test new Avery scene|Sneaky Picnic Test]]>><</link>> (Will permanently progress Avery's arc if not already at this point.)
+<br>
+<<link [[Decline|Sneaky Picnic Decline]]>><</link>>
+<br>
+
+:: Sneaky Picnic Test
+<<effects>>
+
+<<if !$worn.upper.type.includes("formal") or !$worn.lower.type.includes("formal")>>
+	"You'll need to dress the part," the girl says. "Here." She takes a bundle of clothing from a tentacle within her basket, and throws it on you. "There we go!"
+	<<if $player.gender_appearance is "f">>
+		<<upperwear "evening gown">>
+	<<else>>
+		<<upperwear "tuxedo jacket">><<lowerwear "tuxedo trousers">>
+	<</if>>
+	<br><br>
+<</if>>
+<<set $avery_location to 3>>
+
+<<npc Avery>><<person1>>"Here <<he>> comes!" the girl says, pulling a newspaper from the basket and hiding behind it. "Break a leg!"
+<br><br>
+
+<<link [[Next|Avery Date]]>><<endevent>><</link>>
+<br>
+
+:: Sneaky Picnic Decline
+<<effects>>
+
+The girl smiles again. "Understood. I hope you have a pleasant day." She takes a bite from a cheese sandwich.
+<br><br>
+
+<<link [[Next|Domus Street]]>><<set $eventskip to 1>><</link>>
+<br>

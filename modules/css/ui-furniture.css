@@ -1,0 +1,95 @@
+/* stylelint-disable no-descending-specificity */
+/* Furniture shop UI */
+#furnitureDetails,
+#paperDetails,
+#toyDetails {
+	display: inline-block;
+	padding: 2px;
+	border: solid 1px var(--300);
+	height: 100%;
+	width: 90%;
+	min-width: 400px;
+	margin: 0 30px;
+	overflow: hidden;
+}
+
+#furnitureContainer,
+#paperContainer,
+#toyContainer {
+	display: flex;
+	flex-wrap: wrap;
+	margin-bottom: 5px;
+	box-sizing: border-box;
+}
+
+.shopBlock {
+	padding: 2px;
+	border: solid 1px var(--300);
+	width: 40%;
+	margin: 3px;
+	flex-grow: 1;
+	min-width: 225px;
+	box-sizing: border-box;
+}
+
+#textbox--customhanging {
+	min-width: fit-content;
+}
+
+#furnitureContainerHeader,
+#paperContainerHeader,
+#toyContainerHeader {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(7em, 1fr));
+	width: 100%;
+	grid-gap: 5px;
+	margin-top: 10px;
+	text-align: center;
+}
+
+#furnitureContainerHeader .shopTab button,
+#paperContainerHeader .shopTab button,
+#toyContainerHeader .shopTab button {
+	background-color: var(--850);
+	border: 1px solid var(--600);
+	color: var(--000);
+	width: 100%;
+	font-size: 100%;
+}
+
+#furnitureContainerHeader .shopTabSelected button,
+#paperContainerHeader .shopTabSelected button,
+#toyContainerHeader .shopTabSelected button {
+	background-color: var(--850);
+	border: 1px solid var(--gold);
+	color: var(--gold);
+	width: 100%;
+	font-size: 100%;
+}
+
+#furnitureContainerHeader button:hover,
+#paperContainerHeader button:hover,
+#toyContainerHeader button:hover {
+	background-color: var(--500);
+	border: 1px solid var(--000);
+	color: var(--000);
+}
+
+#furniture-menu-container,
+#paper-menu-container,
+#toy-menu-container {
+	border: 1px solid var(--600);
+	margin-top: 10px;
+	padding: 10px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+#furnitureDowngrade {
+	margin-bottom: 5px;
+}
+
+#furnitureDowngrade button {
+	width: 5em;
+	margin-top: 10px;
+}

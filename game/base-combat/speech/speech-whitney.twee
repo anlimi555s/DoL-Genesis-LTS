@@ -1,0 +1,59 @@
+:: Widgets speech-Whitney [widget]
+<<widget "speech-whitney">>
+	<<set _npc_speech to true>>
+	<<if ($speechpenisvirgin is 1 and $player.virginity.penile is "Whitney") or ($speechvaginavirgin is 1 and $player.virginity.vaginal is "Whitney")>>
+		<<He>> laughs. "No one can call you a virgin after this. You're my dirty slut now."
+	<<elseif $speechanusvirgin is 1 and $player.virginity.anal is "Whitney">>
+		<<He>> laughs. "Was this off limits? I want to hear you squeal, <<bitch>>!"
+	<<elseif $speechmouthvirgin is 1 and $player.virginity.oral is "Whitney">>
+		<<He>> laughs. "I bet you'll get addicted in no time!"
+	<<elseif $speechkissvirgin is 1 and $player.virginity.kiss is "Whitney">>
+		<<He>> laughs. "Why are you looking at me like that? I can't be your first, slut."
+	<<elseif $speechnamedrop is 1>>
+		<<set $speechnamedrop to 0>>
+		<<if _loveInterest is "Black Wolf">>
+			<<print `<<He>> laughs. "` + [`Did you just admit to fucking a dog? You're making this too easy.`, `I think I need to remind you whose <<bitch>> you actually are.`][random(0,1)] + `"`>>
+		<<elseif _loveInterest is "Great Hawk">>
+			<<print `<<He>> laughs. "` + [`Did you just admit to fucking a bird? You're making this too easy.`, `You can't fly away. Not from me.`][random(0,1)] + `"`>>
+		<<elseif random(1, 2) lte 1>>
+			<<switch _loveInterest>>
+				<<case "Robin">>
+					<<He>> laughs. "You've fallen for that weak little shit? I guess I know who to visit next."
+				<<case "Kylar">>
+					<<He>> scowls. "I should've known you'd fall for that freak."
+				<<case "Sydney">>
+					<<He>> laughs. "Two book criminals, sitting in a tree. Adorable."
+				<<default>>
+					<<He>> scowls. "Let me remind you why you don't have a choice."
+			<</switch>>
+		<<else>>
+			<<He>> laughs. "I don't care about your little crush. You belong to me."
+		<</if>>
+	<<elseif $speechsextoy is 1>>
+		<<set $speechsextoy to 0>>
+		<<set $_sexToy to ($rightarm is "heldSexToy" and $leftarm is "heldSexToy" ? "sex toys" : "sex toy")>>
+		<<print `<<He>> looks at your $_sexToy and grins. "` + [`Good slut.`, `I knew you were a dirty slut.`, `Don't get any bright ideas.`, `What's wrong, is your slutty mouth getting tired?`][random(0,3)] + `"`>>
+	<<elseif $speechchastity is 1>>
+		<<if $worn.genitals.name is "chastity parasite">>
+			<<print [`<<He>> laughs. "You always get a slutty look on your face when I squeeze this."`, `<<He>> raises an eyebrow. "That good?"`, `<<He>> raises an eyebrow. "Horny slut."`][random(0, 2)]>>
+		<<elseif $worn.genitals.origin is "Whitney">>
+			<<if $rng gte 86 and $player.gender_appearance is "f" and $player.penissize lt 0>>
+				<<print `<<He>> smirks. "You look so cute with your tiny${$player.virginity.penile is true ? " virgin" : " useless"} penis all locked up." <<insecurity "penis_small" 4>><<ginsecurity "penis_small">>`>>
+			<<elseif $rng gte 61>>
+				<<if playerBellyVisible() and random(0, 100) gte 50>>
+					"Good slut." <<He>> smirks. "You clearly don't need to be unlocked when you've obviously been having a lot of fun without it."
+				<<elseif ((!playerBellyVisible() and knowsAboutAnyPregnancy("pc", "Whitney")) or !$settings.pregnancySpeechEnabled) and random(0, 100) gte 50>>
+					<<print `"Good slut." <<He>> smirks. "Don't worry, you'll still be my slut even when you get ${$settings.pregnancySpeechEnabled ? "knocked" : "fucked"} up."`>>
+				<<elseif C.npc.Whitney.vagina isnot "none" and $whitneyromance and $settings.pregnancySpeechEnabled and !npcIsPregnant("Whitney")>>
+					"Good slut." <<He>> smirks. "Maybe I'll unlock you in the future, whenever I'm ready to have my own."
+				<<else>>
+					"Good slut." <<He>> smirks. "Not like you need that thing to have fun."
+				<</if>>
+			<<else>>
+				<<print `"Good slut." <<He>> smirks. "${["Can't trust a slut like you to run around without being locked up.", "I hope it's getting you all hot and bothered.", "If only these things were indestructible."][random(0,2)]}"`>>
+			<</if>>
+		<</if>>
+	<<else>>
+		<<set _noNameComment to true>>
+	<</if>>
+<</widget>>

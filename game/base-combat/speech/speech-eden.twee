@@ -1,0 +1,61 @@
+:: Widgets speech-Eden [widget]
+<<widget "speech-eden">>
+	<<set _npc_speech to true>>
+	<<if ($speechpenisvirgin is 1 and $player.virginity.penile is "Eden") or ($speechvaginavirgin is 1 and $player.virginity.vaginal is "Eden")>>
+		<<He>> speaks. "I felt your virginity. I couldn't help it. I needed to take you."
+	<<elseif $speechanusvirgin is 1 and $player.virginity.anal is "Eden">>
+		<<He>> speaks. "I know this hurts now, but you'll get used to it soon."
+	<<elseif $speechmouthvirgin is 1 and $player.virginity.oral is "Eden">>
+		<<He>> speaks. "Damn, you feel great. We're definitely doing this more often."
+	<<elseif $speechkissvirgin is 1 and $player.virginity.kiss is "Eden">>
+		<<He>> speaks. "How was that? I'm not done, though."
+	<<elseif $speechnamedrop is 1>>
+		<<set $speechnamedrop to 0>>
+		<<switch _loveInterest>>
+			<<case "Black Wolf" "Great Hawk">>
+				<<He>> speaks. "That thing will tear you apart the first chance it gets! Stay away from it."
+			<<case "Gwylan">>
+				<<He>> freezes. "That damned witch is trying to steal you from me, too?"
+			<<default>>
+				<<He>> speaks. "Whoever that is, forget them." <<He>> sounds hurt.
+		<</switch>>
+	<<elseif $speechsextoy is 1>>
+		<<set $speechsextoy to 0>>
+		<<set $_sexToy to ($rightarm is "heldSexToy" and $leftarm is "heldSexToy" ? "sex toys" : "sex toy")>>
+		Eden looks at your $_sexToy. "Toys like that aren't necessary," <<he>> says. "They might even get in the way."
+	<<else>>
+		<<set _noNameComment to true>>
+	<</if>>
+	<<if $daily.eden.huntCaught gte 1>>
+		<<switch $daily.eden.huntCaught>>
+			<<case 1>> "How dare they touch you?" Eden growls.
+			<<case 2>> "You belong to me," Eden snaps.
+			<<case 3>> "You're mine," Eden says. "Only mine."
+			<<case 4>> "I'm the only one who's allowed to do this to you," Eden says.
+			<<case 5>> "If anyone else lays their hands on you," Eden says, "they're dead."
+			<<case 6>> "Only I can touch you like this," Eden seethes.
+			<<case 7>> "Say it," Eden growls. "Tell me that you're mine."
+			<<case 8>> "You're my possession," Eden says. "Mine alone."
+			<<case 9>> "Don't forget who you belong to," Eden says.
+			<<case 10>> "I own every single part of you," Eden growls.
+		<</switch>>
+		<<set $daily.eden.huntCaught to ($daily.eden.huntCaught + 1) % 10>>
+		<<unset _noNameComment>>
+	<</if>>
+	<<if $daily.eden.robinCrash gte 1>>
+		<<switch $daily.eden.robinCrash>>
+			<<case 1>> "<<nnpc_He "Robin">> can't protect you," Eden snarls.
+			<<case 2>> "Only I can," Eden says.
+			<<case 3>> "I'm the one who provides for you," Eden says.
+			<<case 4>> "I'm the one who cares for you," Eden shouts.
+			<<case 5>> "<<nnpc_He "Robin">> didn't rescue you from the town," Eden sneers, "I did."
+			<<case 6>> "You're the only one I need," Eden says.
+			<<case 7>> "And I'm the only one you need," Eden says.
+			<<case 8>> "Everyone else is just noise," Eden says.
+			<<case 9>> "I'm never going to let you go," Eden says.
+			<<case 10>> "You belong to me and only me," Eden growls. "I'll make sure you forget about everyone else. "
+		<</switch>>
+		<<set $daily.eden.robinCrash to ($daily.eden.robinCrash + 1) % 10>>
+		<<unset _noNameComment>>
+	<</if>>
+<</widget>>

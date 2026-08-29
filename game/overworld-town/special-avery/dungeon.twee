@@ -1,0 +1,1712 @@
+:: Mansion Dungeon Intro
+<<effects>>
+<<set $outside to 0>>
+
+<<if $bus is "avery_study">>
+	Avery makes you wait outside while <<he>> unlocks the stairs to the dungeon.
+<<else>>
+	You follow Avery to the study. <<He>> makes you wait outside while <<he>> unlocks the stairs to the dungeon.
+<</if>>
+<<if $skulduggery gte 1000 and !$avery_mansion.study_secret>>
+	You listen close. <<He>> takes seven steps, then stops beside the shelf in the corner, behind the desk. It's ever so faint, but you hear <<his>> watch catch on the shelf as <<he>> reaches for something. If Avery thought keeping you outside would hide <<his>> movements from you, <span class="green"><<he>> was mistaken.</span>
+	<<set $avery_mansion.study_secret to 1>>
+<<else>>
+	You hear <<him>> pace around the study. Then <<he>> pauses. A moment later, you hear a metallic thud, the creak of wood, and a distant mechanical whir. The noise stops.
+<</if>>
+<br><br>
+
+"Come in." You step inside. The room is bathed in the ominous light. "After you."
+<br><br>
+<<link [[Next|Mansion Dungeon Intro 2]]>><</link>>
+<br>
+
+:: Mansion Dungeon Intro Ask
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Please punish me," you say, eyes downcast. "I always deserve it."
+<<elseif $speech_attitude is "bratty">>
+	"I hope you're not too tired," you say. "Let's go to the dungeon."
+<<else>>
+	"Can we go to the dungeon?" you ask.
+<</if>>
+<br><br>
+
+<<if Time.weekDay is 1>>
+	Avery raises <<his>> eyebrows. "I'm afraid we're expecting guests," <<he>> says. "We haven't the time, but I appreciate your enthusiasm."
+	<br><br>
+	<<He>> walks away.
+	<br><br>
+	<<endevent>>
+	<<avery_mansion_end_links>>
+<<else>>
+	The corner of Avery's mouth twitches. "Good. Shall we?" <<He>> gestures at the door.
+	<br><br>
+
+	<<link [[Next|Mansion Dungeon Intro]]>><</link>>
+	<br>
+<</if>>
+<br>
+
+:: Mansion Dungeon Intro Refuse
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Please don't," you say. "I'm scared."
+<<elseif $speech_attitude is "bratty">>
+	"I'm not in the mood to be whipped right now," you say.
+<<else>>
+	"Not right now," you say.
+<</if>>
+<br><br>
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+	Avery steps closer. "You've a pretty voice," <<he>> says. "The words aren't important. You're coming with me. Or else."<<gtrauma>><<gstress>><<trauma 6>><<stress 6>>
+	<br><br>
+	<<link [[Fight|Mansion Dungeon Intro Fight]]>><<set $fightstart to 1>><</link>>
+	<br>
+	<<link [[Go with Avery to the dungeon|Mansion Dungeon Intro]]>><</link>>
+	<br>
+<<else>>
+	"It would've been nice to relieve myself of stress," Avery says. "I hope you'll be more respectful in the future."
+	<br><br>
+	<<set $avery_comment_dungeon to 1>>
+	<<endevent>>
+	<<avery_mansion_dungeon_end>>
+	<<avery_mansion_end_links>>
+<</if>>
+
+:: Mansion Dungeon Intro Fight
+<<if $fightstart is 1>>
+	<<set $fightstart to 0>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust -= 100>>
+	<<set $enemyanger += 200>>
+	<<npcidlegenitals>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend or ($pain gte 100 and $willpowerpain is 0)>>
+	<span id="next"><<link [[Next|Mansion Dungeon Intro Fight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Dungeon Intro Fight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Dungeon Intro Fight Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Out of strength, Avery collapses. <<tearful>> you use the opportunity to escape from arm's reach.<<larage>><<npcincr Avery rage -1>>
+	<br><br>
+	<<His>> knees tremble as <<he>> climbs to <<his>> feet. <<He>> glares at you a moment, then walks away.
+	<br><br>
+
+<<elseif $enemyhealth lte 0>>
+	Avery's knees buckle, and <<he>> collapses in a heap. <<tearful>> you use the opportunity to escape from arm's reach.<<larage>><<npcincr Avery rage -1>><<ldom>><<npcincr Avery dom -1>>
+	<br><br>
+	<<tearful>> you recover.
+	<br><br>
+
+<<else>>
+	You fall to the ground, too hurt to continue fighting. Avery observes you a moment, considering, then <<he>> walks away.<<ggdom>><<npcincr Avery dom 3>>
+	<br><br>
+	<<tearful>> you struggle to your feet.
+	<br><br>
+<</if>>
+<<set $avery_comment_dungeon to 1>>
+<<endcombat>>
+<<clotheson>>
+<<endevent>>
+<<avery_mansion_dungeon_end>>
+<<avery_mansion_end_links>>
+
+:: Mansion Dungeon Intro 2
+<<effects>>
+<<avery_mansion_dungeon_init>>
+<<if $phase is 1>>
+	<<set $phase to 0>>
+	Avery thinks for a moment, before making up <<his>> mind.
+<<else>>
+	You walk down the spiral staircase, then down the hall, into the dungeon. The rack stands before you. Beyond it is the vault.
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.love gte random(1, 100 + Math.ceil(C.npc.Avery.rage / 2))>>
+	"Any requests?" Avery asks, gesturing at the table and its array of torture implements.
+	<br><br>
+	<<icon "whip.png">><<link [[The whip|Mansion Dungeon Whip]]>><<set $avery_dungeon.tool to "whip">><</link>>
+	<br>
+	<<sextoysicon "flogger">><<link [[The flogger|Mansion Dungeon Flogger]]>><<set $avery_dungeon.tool to "flogger">><</link>>
+	<br>
+	<<sextoysicon "paddle">><<link [[The paddle|Mansion Dungeon Paddle]]>><<set $avery_dungeon.tool to "paddle">><</link>>
+	<br>
+	<<sextoysicon "candle">><<link [[The candle|Mansion Dungeon Candle]]>><<set $avery_dungeon.tool to "candle">><</link>>
+	<br>
+	<<sextoysicon "tickler">><<link [[The tickler|Mansion Dungeon Tickler]]>><<set $avery_dungeon.tool to "tickler">><</link>>
+	<br>
+<<else>>
+	<<if C.npc.Avery.rage gte 80>>
+		<<set $avery_dungeon.tool to "whip">>
+	<<elseif C.npc.Avery.rage gte 60>>
+		<<set $avery_dungeon.tool to "flogger">>
+	<<elseif C.npc.Avery.rage gte 40>>
+		<<set $avery_dungeon.tool to "paddle">>
+	<<elseif C.npc.Avery.rage gte 20>>
+		<<set $avery_dungeon.tool to "candle">>
+	<<else>>
+		<<set $avery_dungeon.tool to "tickler">>
+	<</if>>
+
+	<<if $avery_dungeon.tool is "whip">>
+		"The rack," Avery says, thumbing the whip. "Stand next to it."
+		<br><br>
+		<<icon "whip.png">><<link [[Do as bid|Mansion Dungeon Whip]]>><</link>><<gggpain>>
+		<br>
+	<<elseif $avery_dungeon.tool is "flogger">>
+		"The rack," Avery says, thumbing the flogger. "Stand next to it."
+		<br><br>
+		<<sextoysicon "flogger">><<link [[Do as bid|Mansion Dungeon Flogger]]>><</link>><<gggpain>>
+		<br>
+	<<elseif $avery_dungeon.tool is "paddle">>
+		"My lap," Avery says, sitting on the table and thumbing a paddle. "Bend over it."
+		<br><br>
+		<<sextoysicon "paddle">><<link [[Do as bid|Mansion Dungeon Paddle]]>><</link>><<ggpain>>
+		<br>
+	<<elseif $avery_dungeon.tool is "candle">>
+		"The table," Avery says, lighting a candle. "Remove your clothes, and lie on it."
+		<br><br>
+		<<sextoysicon "candle">><<link [[Do as bid|Mansion Dungeon Candle]]>><</link>><<gpain>>
+		<br>
+	<<else>>
+		"The table," Avery says, thumbing the tickler. "Remove your clothes, and lie on it."
+		<br><br>
+		<<sextoysicon "tickler">><<link [[Do as bid|Mansion Dungeon Tickler]]>><</link>>
+		<br>
+	<</if>>
+
+
+	<<refuseicon>><<link [[Refuse|Mansion Dungeon Intro Refuse 2]]>><<npcincr Avery rage 1>><<trauma 6>><<stress 6>><</link>><<garage>><<gtrauma>><<gstress>>
+	<br>
+<</if>>
+
+
+:: Mansion Dungeon Intro Refuse 2
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Sorry to change my mind," you say. "But I'm too scared now."
+<<elseif $speech_attitude is "bratty">>
+	"On second thought," you say. "Let's not."
+<<else>>
+	"I've changed my mind," you say. "I'm not in the mood."
+<</if>>
+<br><br>
+<<if $avery_dungeon.tool is "whip">>
+	Avery pulls the whip taut. "There's no sense refusing. This is happening. Stand by the fucking rack."
+	<br><br>
+	<<icon "whip.png">><<link [[Do as bid|Mansion Dungeon Whip]]>><</link>><<gggpain>>
+	<br>
+<<elseif $avery_dungeon.tool is "flogger">>
+	Avery examines the flogger. "There's no sense refusing. This is happening. Stand by the fucking rack."
+	<br><br>
+	<<sextoysicon "flogger">><<link [[Do as bid|Mansion Dungeon Flogger]]>><</link>><<ggpain>>
+	<br>
+<<elseif $avery_dungeon.tool is "paddle">>
+	Avery slaps the paddle against <<his>> thigh, impatient. "There's no sense refusing. This is happening. Get on the fucking table."
+	<br><br>
+	<<sextoysicon "paddle">><<link [[Do as bid|Mansion Dungeon Paddle]]>><</link>><<ggpain>>
+	<br>
+<<elseif $avery_dungeon.tool is "candle">>
+	Avery trim's the candle's wick. "There's no sense refusing. This is happening. Get on the fucking table."
+	<br><br>
+	<<sextoysicon "candle">><<link [[Do as bid|Mansion Dungeon Candle]]>><</link>><<gpain>>
+	<br>
+<<else>>
+	Avery waves the tickler beneath your nose. "There's no sense refusing. This is happening. Get on the fucking table."
+	<br><br>
+	<<sextoysicon "tickler">><<link [[Do as bid|Mansion Dungeon Tickler]]>><</link>>
+	<br>
+<</if>>
+
+<<refuseicon>><<link [[Fight|Mansion Dungeon Fight]]>><<set $fightstart to 1>><</link>>
+<br>
+
+:: Mansion Dungeon Fight
+<<if $fightstart is 1>>
+	<<set $fightstart to 0>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust -= 100>>
+	<<set $enemyanger += 200>>
+	<<npcidlegenitals>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+
+
+<<if _combatend or ($pain gte 100 and $willpowerpain is 0)>>
+	<span id="next"><<link [[Next|Mansion Dungeon Fight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Dungeon Fight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Dungeon Fight Finish
+<<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Avery leans against the rack, and pants.
+	<br><br>
+	<<tearful>> you also catch your breath. <<Hes>> vulnerable. For a moment.<<larage>><<npcincr Avery rage -1>><<ldom>><<npcincr Avery dom -1>>
+	<br><br>
+	You eye the rack, and the dropped whip. This would be dangerous. <<He>>'d be trouble once free.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+
+	<<npc Avery>><<person1>>
+
+	<<link [[Bind Avery|Mansion Dungeon Bind]]>><<npcincr Avery dom -1>><<npcincr Avery rage 3>><</link>><<garage>><<ldom>>
+	<br>
+	<<link [[Leave the dungeon|Mansion Dungeon Leave Annoyed]]>><</link>>
+	<br>
+
+<<elseif $enemyhealth lte 0>>
+	Avery falls against the rack, in need of a moment to recover.
+	<br><br>
+	<<tearful>> you also catch your breath. <<Hes>> vulnerable. For a moment.<<ldom>><<npcincr Avery dom -1>>
+	<br><br>
+	You eye the rack, and the dropped whip. This would be dangerous. <<He>>'d be trouble once free.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+
+	<<npc Avery>><<person1>>
+
+	<<link [[Bind Avery|Mansion Dungeon Bind]]>><<npcincr Avery dom -1>><<npcincr Avery rage 3>><</link>><<garage>><<ldom>>
+	<br>
+	<<link [[Leave the dungeon|Mansion Dungeon Leave Annoyed]]>><</link>>
+	<br>
+
+<<else>>
+	<<tearful>> you fall to the ground. You're too hurt to continue fighting.<<ggdom>><<npcincr Avery dom 1>>
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<npc Avery>><<person1>>
+	<<if $avery_dungeon.tool is "whip">>
+		Avery lifts you by the arm, and hauls you to the rack.
+		<br><br>
+		<<icon "whip.png">><<link [[Do as bid|Mansion Dungeon Whip]]>><</link>>
+		<br>
+	<<elseif $avery_dungeon.tool is "flogger">>
+		Avery lifts you by the arm, and hauls you to the rack.
+		<br><br>
+		<<sextoysicon "flogger">><<link [[Do as bid|Mansion Dungeon Flogger]]>><</link>>
+		<br>
+	<<elseif $avery_dungeon.tool is "paddle">>
+		Avery lifts you by the arm, and hauls you to the table.
+		<br><br>
+		<<sextoysicon "paddle">><<link [[Do as bid|Mansion Dungeon Paddle]]>><</link>>
+		<br>
+	<<elseif $avery_dungeon.tool is "candle">>
+		Avery lifts you by the arm, and hauls you to the table.
+		<br><br>
+		<<sextoysicon "candle">><<link [[Do as bid|Mansion Dungeon Candle]]>><</link>>
+		<br>
+	<<else>>
+		Avery lifts you by the arm, and hauls you to the table.
+		<br><br>
+		<<sextoysicon "tickler">><<link [[Do as bid|Mansion Dungeon Tickler]]>><</link>>
+		<br>
+	<</if>>
+<</if>>
+
+
+:: Mansion Dungeon Leave Annoyed
+<<effects>>
+
+Avery recovers, and regards you a moment before speaking. "Another time then," <<he>> says through gritted teeth.
+<br><br>
+Avery follows you up the staircase, away from the dungeon, and the fell light. Avery turns to you once in the study, and gestures at the door. "Step outside. Don't test me."
+<br><br>
+
+You step outside. You hear Avery pace around the room, followed by a mechanical whirring, then a metallic thud. Avery exits the study, and stops to lock the door.
+<br><br>
+
+<<He>> doesn't look at you as <<he>> passes by.
+<br><br>
+<<set $avery_comment_dungeon to 1>>
+<<endevent>>
+<<avery_mansion_dungeon_end>>
+<<avery_mansion_end_links>>
+
+:: Mansion Dungeon Leave Annoyed 2
+<<effects>>
+
+Avery follows you up the staircase, away from the dungeon, and the fell light. Avery turns to you once in the study, and gestures at the door. "Step outside. Don't test me."
+<br><br>
+
+You step outside. You hear Avery pace around the room, followed by a mechanical whirring, then a metallic thud. Avery exits the study, and stops to lock the door.
+<br><br>
+
+<<He>> doesn't look at you as <<he>> passes by.
+<br><br>
+<<set $avery_comment_dungeon to 1>>
+<<endevent>>
+<<avery_mansion_dungeon_end>>
+<<avery_mansion_end_links>>
+
+:: Mansion Dungeon Leave Pleased
+<<effects>>
+
+Avery follows you up the staircase, away from the dungeon, and the fell light. Avery turns to you once in the study, and gestures at the door. "Step outside, if you would." <<He>> gestures at the door.
+<br><br>
+
+You step outside. You hear Avery pace around the room, followed by a mechanical whirring, then a metallic thud. Avery exits the study, and stops to lock the door.
+<br><br>
+
+<<He>> smiles as <<he>> walks by.
+<br><br>
+
+<<endevent>>
+<<avery_mansion_dungeon_end>>
+<<avery_mansion_end_links>>
+
+:: Mansion Dungeon Bind
+<<effects>>
+<<earnFeat "What Goes Around">>
+You bind Avery's wrist before <<he>> realises what you intend. <<He>> tries to resist, but <<hes>> still too weak.
+<br><br>
+
+"You worthless slut," <<he>> spits. "What the fuck do you think you're doing?"
+<br><br>
+
+<<He>> tries to kick and twist away as you bind each leg, but to no avail. <<He>> doesn't stop straining against the ropes. You know <<he>> won't stop until <<hes>> free, and the ropes are already fraying. <<He>> won't be bound long, but perhaps you've time to get something from <<him>>.
+<br><br>
+
+You raise the whip. <span class="pink">Going further could be very dangerous.</span>
+<br><br>
+
+<<if !$avery_mansion.vault_known>>
+	<<link [["Whip " + $NPCList[0].pronouns.him + " and demand the code to the vault"|Mansion Dungeon Bind Code]]>><<sadism 20>><</link>>
+	<br>
+<</if>>
+<<link [["Just whip and mock " + $NPCList[0].pronouns.him|Mansion Dungeon Bind Mock]]>><<sadism 20>><</link>>
+<br>
+<<link [[Untie Avery|Mansion Dungeon Bind Untie]]>><<npcincr Avery rage -1>><</link>><<larage>>
+<br>
+
+:: Mansion Dungeon Bind Untie
+<<effects>>
+
+You untie Avery's wrists, then lean down to untie <<his>> ankles, but <<he>> shoves you away, and unties <<himself>>.
+<br><br>
+
+"I should beat you for that," Avery says.
+<br>
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I'm sorry," you say. "Please forgive me."
+<<elseif $speech_attitude is "bratty">>
+	"It was just a joke," you say.
+<<else>>
+	"I apologise," you say.
+<</if>>
+<br>
+Avery adjusts <<his>> clothing. "I don't forgive you, but you did free me. Punishing you would be uncouth. I've had enough for now."
+<br><br>
+
+<<link [[Next|Mansion Dungeon Leave Annoyed 2]]>><</link>>
+<br>
+
+:: Mansion Dungeon Bind Code
+<<effects>>
+
+<<set $avery_mansion.vault_known to 1>>
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"You've been so mean to me," you say. "You can make it up to me. I want the code to the vault."
+<<elseif $speech_attitude is "bratty">>
+	"Let's make this quick," you say. "I don't want to mess up your lovely skin. Give me the code to the vault, and I'll let you go."
+<<else>>
+	"It's not nice being on the receiving end," you say. "Give me the code to the vault, and I'll let you go."
+<</if>>
+<br><br>
+
+The whip lashes through Avery's top, striking <<his>> back. <<He>> grunts in pain. You can't see <<his>> face, but you suspect it was through gritted teeth.
+<br><br>
+
+"The code," you repeat, punctuating your words with another lash. "Tell me." You lash <<him>> again, and again.
+<<if $sadism gte 900>>
+	A wild abandon overtakes you. You enjoy this. Avery's resistance crumbles before your whip's sadistic kisses. <<He>> screams in pain, but you barely hear <<him>> over your laughter.<<gggcontrol>><<lllstress>><<control 50>><<stress -18>><<lllpain>><<pain -18>>
+<<elseif $sadism gte 500>>
+	<<He>> refuses to speak, but <<his>> grunts become more pained, until <<he>> cries out, head thrown back.<<ggcontrol>><<llstress>><<control 25>><<stress -12>>
+<<else>>
+	<<He>> refuses to speak, and after the initial surprise, manages to keep <<his>> pained grunts to a minimum. Most of them.<<gcontrol>><<lstress>><<control 10>><<stress -6>>
+<</if>>
+<br><br>
+<span class="gold">"8975!"</span> Avery shouts. "8975! Now untie me, or else!" <<He>> continues to work against the ropes. More fibres snap. They won't last much longer.
+<br><br>
+
+<<link [[Untie Avery|Mansion Dungeon Bind Untie 2]]>><</link>>
+<br>
+<<link [[Run|Mansion Dungeon Bind Run]]>><</link>>
+<br>
+
+:: Mansion Dungeon Bind Mock
+<<effects>>
+
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"You've been so mean to me," you say, bringing your arm down. "I hope you feel sorry."
+<<elseif $speech_attitude is "bratty">>
+	"I'm going to enjoy this," you say. "I hope you don't."
+<<else>>
+	"It's fun to be on this side of things," you say. "I hope you like the switch too."
+<</if>>
+<br><br>
+
+You lash Avery with the whip, striking <<his>> top. <<He>> grunts in pain. You can't see <<his>> face, but you suspect it was through gritted teeth.
+<br><br>
+
+You lash <<him>> again, and again.
+<<if $sadism gte 900>>
+	A wild abandon overtakes you. You enjoy this. Avery's resistance crumbles before your whip's sadistic kisses. <<He>> screams in pain, but you can barely hear <<him>> over your laughter.<<gggcontrol>><<lllstress>><<control 50>><<stress -18>><<lllpain>><<pain -18>>
+	<br><br>
+	However, something within <<him>> remains defiant.
+<<elseif $sadism gte 500>>
+	<<He>> refuses to speak, but <<his>> grunts become more pained, until <<he>> cries out, head thrown back.<<ggcontrol>><<llstress>><<control 25>><<stress -12>>
+<<else>>
+	<<He>> refuses to speak, and after the initial surprise, manages to keep <<his>> pained grunts to a minimum. Most of them.<<gcontrol>><<lstress>><<control 10>><<stress -6>>
+<</if>>
+<br><br>
+<<He>> continues to work against the ropes. More fibres snap. They won't last much longer.
+<br><br>
+
+<<link [[Untie Avery|Mansion Dungeon Bind Untie 2]]>><</link>>
+<br>
+<<link [[Run|Mansion Dungeon Bind Run]]>><</link>>
+<br>
+
+
+:: Mansion Dungeon Bind Untie 2
+<<effects>><<set $bus to "avery_dungeon">>
+
+You untie Avery's wrist. <<He>> unties the other on <<his>> own, then reaches down to free <<his>> ankles.
+<br><br>
+
+Liberated from the rack, <<he>> steps towards you, malice in <<his>> eyes. <<He>> trembles with rage.
+<br><br>
+<<avery_mansion_chase_init>>
+<<avery_mansion_dungeon_end>>
+<<set $avery_comment_dungeon to 1>>
+<<link [[Apologise|Mansion Chase Apologise]]>><<trauma 6>><<npcincr Avery dom 5>><</link>><<gtrauma>><<ggdom>>
+<br>
+<<link [[Brace yourself|Mansion Chase Brace]]>><</link>>
+<br>
+<<link [[Run|Mansion Chase Run]]>><</link>>
+<br>
+
+:: Mansion Dungeon Bind Run
+<<effects>><<set $bus to "avery_study">>
+
+You turn and run up the staircase, towards the study. You hear the rack crash against the floor as Avery tears <<his>> way free, and <<his>> footsteps as <<he>> rushes after you.
+<br><br>
+<<set $avery_comment_dungeon to 1>>
+<<avery_mansion_dungeon_end>>
+<<avery_mansion_chase_init>>
+<<avery_mansion_chase_run>>
+<br>
+
+
+:: Mansion Dungeon Whip
+<<effects>>
+
+<<set $avery_dungeon.timer to 120>>
+You stand beside the rack. Avery ties the ropes around your wrists, then your ankles. <<He>> steps back to admire <<his>> handiwork.
+<br><br>
+
+"Some people suggest a safe word," <<he>> says. You can't see <<him>>, but you suspect <<hes>> smiling. "I never bother with such."
+<br><br>
+
+You cry out as pain erupts in your back. Avery lashes you again. And again. <<He>> puts so much energy into it that <<he>> grunts with exertion.
+<<masopain 20>>
+<br><br>
+
+<<if (currentSkillValue('willpower') / 10) gte (($pain - 100) + random(1, 100))>>
+	After the initial shock, <span class="green">you find that you're able to bear it.</span> For now.
+	<br><br>
+
+	<<link [[Endure it|Mansion Dungeon Whip 2]]>><<set $phase to 0>><</link>>
+	<br>
+	<<link [[Pretend to be in intolerable pain|Mansion Dungeon Whip 3]]>><<set $phase to 1>><<npcincr Avery dom 1>><</link>><<gdom>>
+	<br>
+	<<link [[Mock Avery|Mansion Dungeon Whip 2]]>><<set $phase to 2>><<set $avery_dungeon.timer += 30>><</link>><<ggpain>><<gaverytiredness>>
+	<br>
+<<else>>
+	<span class="red">It's too much for you.</span> You find yourself screaming for Avery to stop, words coming unbeckoned, tripping over each other in their haste to escape. Avery responds with laughter, and another crack of the whip.<<gdom>><<npcincr Avery dom 1>>
+	<br><br>
+
+	<<link [[Next|Mansion Dungeon Whip 2]]>><<set $phase to 1>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Dungeon Whip 2
+<<effects>>
+
+<<if $phase is 0>>
+	You bear the pain as best you can. Avery speeds up. You feel drops of liquid land on your shoulders. Droplets of Avery's sweat? Something else? You can't turn to see.
+<<elseif $phase is 1>>
+	You scream and strain against the ropes binding you. But the ropes are too strong for your limbs, and Avery's cruelty too strong for your cries. <<He>> speeds up, lashing you even faster.
+<<elseif $phase is 2>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"I thought you'd hit harder," you say. "It's okay. I'm sure you'll do better next time."
+	<<elseif $speech_attitude is "bratty">>
+		"Is that all?" you ask. "You're even weaker than you look."
+	<<else>>
+		"Is that all you can do?" you ask. "Bailey would eat you for breakfast."
+	<</if>>
+	<<masopain 10>>
+	<br><br>
+	Avery's next lash is the hardest yet. <<He>> follows it up with a terrible flurry of blows. "I'm indeed going easy on you," Avery says. <<He>> sounds exhausted. "Don't test me."
+<</if>>
+<<masopain 20>>
+<br><br>
+<<if (currentSkillValue('willpower') / 10) gte (($pain - 100) + random(1, 100))>>
+	Avery doesn't slow. A continuous wave of pain washes over your back, <span class="green">but you endure.</span>
+	<br><br>
+
+	<<link [[Endure it|Mansion Dungeon Whip 3]]>><<set $phase to 0>><</link>>
+	<br>
+	<<link [[Pretend to be in intolerable pain|Mansion Dungeon Whip 3]]>><<set $phase to 1>><<npcincr Avery dom 1>><</link>><<gdom>>
+	<br>
+	<<link [[Mock Avery|Mansion Dungeon Whip 3]]>><<set $phase to 2>><<set $avery_dungeon.timer += 30>><</link>><<ggpain>><<gaverytiredness>>
+	<br>
+<<else>>
+	<span class="red">The pain overwhelms you.</span> You scream for Avery to stop, and strain at the ropes binding your limbs. All to no avail. Avery gives no sign of even hearing you.<<gdom>><<npcincr Avery dom 1>>
+	<br><br>
+
+	<<link [[Next|Mansion Dungeon Whip 3]]>><</link>>
+	<br>
+<</if>>
+
+
+
+:: Mansion Dungeon Whip 3
+<<effects>>
+
+<<if $phase is 0>>
+	You bear the pain as best you can. Avery's blows slow as <<he>> exhausts <<his>> strength.
+<<elseif $phase is 1>>
+	You throw your head back and scream at the ceiling.
+	<br><br>
+	"You- you like that?" Avery asks, stopping for another breath. "There's-there's more to come. Much more." Despite <<his>> words, <<his>> blows slow as <<he>> exhausts <<his>> strength.
+<<elseif $phase is 2>>
+	<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+		"Please hit me harder," you say. "You're going too easy on me!"
+	<<elseif $speech_attitude is "bratty">>
+		"Just wait until my turn," you say through gritted teeth. "I'll show you how it's done."
+	<<else>>
+		"You disappoint me Avery," you say. "I thought you were a real sadist."
+	<</if>>
+	<<masopain 10>>
+	<br><br>
+	"I know what you're doing," Avery says. "You want that mouth of yours to get you in trouble? So be it." <<His>> next blow makes you feel a pain you didn't think possible. But the next is softer. So is the next. <<Hes>> tiring.
+<</if>>
+<br><br>
+<<masopain 20>>
+The pain becomes less troublesome, like you're becoming accustomed to it. You also feel Avery slowing down. <<His>> exhaustion is catching up to <<him>>.
+<br><br>
+
+<<link [[Next|Mansion Dungeon Whip End]]>><</link>>
+<br>
+
+
+:: Mansion Dungeon Whip End
+<<effects>>
+
+Avery's assault stops. The room is silent, aside from <<his>> rapid breathing. <<He>> clears <<his>> throat, and you hear <<him>> put the whip on the table.
+<br><br>
+"That'll be all," <<he>> says, walking into view. <<He>> grasps your chin, and tilts your face towards <<his>> gaze. "I deserve a rest, then I'll come collect you. Don't go anywhere." <<He>> lets your head fall, and walks away.
+<br><br>
+<<if (currentSkillValue('willpower') / 10) gte (($pain - 100) + random(1, 100))>>
+	You listen to <<his>> footsteps disappear, then try to wriggle free of your bonds. The pain in your back burns with a new intensity as you move, <span class="green">but it's unable to stop you.</span> Given a little time, you're able to pull one wrist free. You untie the other ropes.
+	<br><br>
+
+	<<link [[Next|Mansion Dungeon]]>><<endevent>><</link>>
+	<br>
+<<else>>
+	You listen to <<his>> footsteps disappear, then try to wriggle free of your bonds <span class="red">but the pain makes you shiver.</span> You remain still, and wait for it to fade.
+	<br><br>
+
+	<<link [[Recover|Mansion Dungeon Whip Recover]]>><<pass 30>><<set $avery_dungeon.timer -= 30>><</link>>
+	<br>
+
+<</if>>
+
+:: Mansion Dungeon Whip Recover
+<<effects>>
+
+You wait for the pain to subside, then try to move again.
+<<if $avery_dungeon.timer lte 0>>
+	But you hear the staircase creak. <span class="red">Avery is returning.</span> You hang limp in your bonds.
+	<br><br>
+	<<link [[Next|Mansion Dungeon Whip Return]]>><<endevent>><</link>>
+	<br>
+<<elseif (currentSkillValue('willpower') / 10) gte (($pain - 100) + random(1, 100))>>
+	The pain flares across you back, <span class="green">but it's less intense than before.</span> You manage to work one of your wrists free, and untie the others.
+	<br><br>
+
+	<<link [[Next|Mansion Dungeon]]>><<endevent>><</link>>
+	<br>
+<<else>>
+	The pain flares across your back, <span class="red">making you writhe.</span> You remain still.
+	<br><br>
+
+	<<link [[Recover|Mansion Dungeon Whip Recover]]>><<pass 30>><<set $avery_dungeon.timer -= 30>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Dungeon Flogger
+<<effects>>
+
+<<set $avery_dungeon.timer to 90>>
+
+You stand next to the rack. Avery grasps your wrists, and raises them above your head. <<He>> loops a rope around them, binding them, then <<he>> ties the rope to a hook on the ceiling.
+<<bind>>
+<br><br>
+
+"Comfortable?" <<he>> asks. Without waiting for a reply, <<he>> tugs on the rope, forcing you onto your tiptoes, then leaves you there.
+<br><br>
+
+You hear <<him>> take a couple of steps back. Then the lash strikes your back. You cry out.<<ggpain>><<pain 8>>
+<br><br>
+
+"Don't hold it in," <<he>> says. "If you scream loud enough, perhaps I'll go easy on you."
+<br><br>
+
+<<link [[Scream as loud as you can|Mansion Dungeon Flogger Scream]]>><</link>>
+<br>
+<<link [[Remain silent|Mansion Dungeon Flogger Silent]]>><<pain 4>><</link>><<gpain>>
+<br>
+<<link [[Insult Avery|Mansion Dungeon Flogger Insult]]>><<pain 8>><</link>><<ggpain>>
+<br>
+<<if hasSexStat("promiscuity", 3)>>
+	<<link [[Seduce|Mansion Dungeon Flogger Seduce]]>><</link>><<promiscuous3>>
+	<br>
+<</if>>
+
+
+:: Mansion Dungeon Flogger Scream
+<<effects>>
+
+You scream as loud as you can. Avery seems satisfied to prowl around you, observing you, rather than strike again. <<He>> pulls the flogger taut. "Perhaps I should tie you up further," <<he>> says. "Keep those legs of yours still."
+<br><br>
+
+<<He>> walks out of sight. You jump as the flogger strikes the rack, but it doesn't touch you.
+<br><br>
+
+<<link [[Next|Mansion Dungeon Flogger End]]>><</link>>
+<br>
+
+:: Mansion Dungeon Flogger Silent
+<<effects>>
+
+You remain silent. Avery replies with another strike to your back. "Act tough all you like," <<he>> says. "It'll make breaking you more satisfying."
+<br><br>
+
+To illustrate the point, <<he>> delivers the next blow at your <<bottom>>, making you lurch forward.
+<br><br>
+
+<<link [[Next|Mansion Dungeon Flogger End]]>><</link>>
+<br>
+
+:: Mansion Dungeon Flogger Insult
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Don't worry," you say. "You can go as hard as you like. I can take it."
+<<elseif $speech_attitude is "bratty">>
+	"If you're trying to tickle me," you say. "You're doing it wrong."
+<<else>>
+	"I thought you'd be able to hit harder," you say.
+<</if>>
+<br><br>
+
+Avery delivers a flurry of blows to your back and <<bottom>>, only stopping when <<his>> strength wanes. You hear <<him>> panting behind you.
+<br><br>
+
+"Your mouth will get you in trouble," <<he>> says. "I'd best correct your behaviour soon. For your safety."
+<br><br>
+
+<<link [[Next|Mansion Dungeon Flogger End]]>><</link>>
+<br>
+
+:: Mansion Dungeon Flogger Seduce
+<<effects>>
+
+
+<<set $seductiondifficulty to 8000>>
+<<seductioncheck>>
+<<seductionskilluptext>>
+<<seductionskilluse>>
+
+You writhe and wiggle as Avery strikes you, enticing <<him>> under the guise of writhing in pain.
+<<promiscuity3>>
+
+<<if $seductionrating gte $seductionrequired>>
+
+	<span class="green">You hear Avery drop the flogger.</span> Overcome by lust, <<he>> grasps your <<breasts>> from behind.
+	<br><br>
+
+	<<link [[Next|Mansion Dungeon Flogger Sex]]>><<set $sexstart to 1>><</link>>
+	<br>
+<<else>>
+
+	<span class="red">Avery strikes you again,</span> resisting your charms. "I love the way you squirm," <<he>> says.
+	<br><br>
+	<<link [[Next|Mansion Dungeon Flogger End]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Dungeon Flogger Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust += 100>><<promiscuity5>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if _combatend>>
+	<span id="next"><<link [[Next|Mansion Dungeon Flogger Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Dungeon Flogger Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Dungeon Flogger Sex Finish
+
+<<set $outside to 0>><<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Avery leans on the rack to recover. "I need a rest," <<he>> says, pushing <<himself>> away. "Don't go anywhere."
+	<br><br>
+	You hear Avery leave the dungeon, followed by a mechanical whir as <<he>> seals you inside. <<tearful>> you hang from the hook.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<link [[Struggle free (0:30)|Mansion Dungeon Flogger Untie]]>><<pass 30>><<set $avery_dungeon.timer -= 30>><</link>><<physiquedifficulty 1 15000>>
+	<br>
+	<<link [[Wait (0:30)|Mansion Dungeon Flogger Wait]]>><<pass 30>><<set $avery_dungeon.timer -= 30>><</link>>
+	<br>
+<<elseif $enemyhealth lte 0>>
+	Avery backs away from you. "I think you need some time alone," <<he>> says. "Don't go anywhere."
+	<br><br>
+	You hear Avery leave the dungeon, followed by a mechanical whir as <<he>> seals you inside. <<tearful>> you hang from the hook.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<link [[Struggle free (0:30)|Mansion Dungeon Flogger Untie]]>><<pass 30>><<set $avery_dungeon.timer -= 30>><</link>><<physiquedifficulty 1 15000>>
+	<br>
+	<<link [[Wait (0:30)|Mansion Dungeon Flogger Wait]]>><<pass 30>><<set $avery_dungeon.timer -= 30>><</link>>
+	<br>
+<<else>>
+	"Fine," Avery says. "Do note that I'm not taking advantage, despite how helpless you are." <<tearful>> you hang from the rope.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<npc Avery>><<person1>>
+	<<link [[Next|Mansion Dungeon Leave Annoyed 2]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Dungeon Flogger Untie
+<<effects>>
+
+You pull against the rope binding your wrists.
+<<if $physiqueSuccess>>
+	<span class="green">You feel it loosen.</span> Just a little at first, but you soon manage to free yourself.<<unbind>>
+	<br><br>
+
+	<<link [[Next|Mansion Dungeon]]>><</link>>
+	<br>
+<<else>>
+	<span class="red">It's too tight however,</span> and you're unable to work yourself free.
+	<br><br>
+	<<link [[Struggle free (0:30)|Mansion Dungeon Flogger Untie]]>><<pass 30>><<set $avery_dungeon.timer -= 30>><</link>><<physiquedifficulty 1 15000>>
+	<br>
+	<<link [[Wait (0:30)|Mansion Dungeon Flogger Wait]]>><<pass 30>><<set $avery_dungeon.timer -= 30>><</link>>
+	<br>
+<</if>>
+
+
+:: Mansion Dungeon Flogger Wait
+<<effects>>
+
+You wait, half-hanging from the hook in the ceiling.
+<br><br>
+
+<<if $avery_dungeon.timer lte 30>>
+	You hear the mechanical whir, followed by Avery's footsteps.
+	<br><br>
+
+	<<link [[Next|Mansion Dungeon Flogger Return]]>><</link>>
+	<br>
+<<else>>
+	<<link [[Struggle free (0:30)|Mansion Dungeon Flogger Untie]]>><<pass 30>><<set $avery_dungeon.timer -= 30>><</link>><<physiquedifficulty 1 15000>>
+	<br>
+	<<link [[Wait (0:30)|Mansion Dungeon Flogger Wait]]>><<pass 30>><<set $avery_dungeon.timer -= 30>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Dungeon Flogger Return
+<<effects>>
+<<bind>>
+<<npc Avery>>
+<<person1>>
+You hear Avery step into the dungeon. "Ah," <<he>> says. "I almost forgot you were here." <<He>> steps closer, then gropes your <<bottom>> with one hand while loosening the rope around your wrists with the other.
+<<unbind>>
+<br><br>
+
+<<link [[Next|Mansion Dungeon Leave Pleased]]>><</link>>
+<br>
+
+:: Mansion Dungeon Flogger End
+<<effects>>
+
+Avery steps close behind you, and gropes your <<bottom>> with one hand while untying your wrists with the other.
+<<unbind>>
+<br><br>
+
+<<link [[Next|Mansion Dungeon Leave Pleased]]>><</link>>
+<br>
+
+:: Mansion Dungeon Paddle
+<<effects>>
+<<set $avery_dungeon.timer to 60>>
+
+You bend over Avery's lap. <<He>> grasps your hair with one hand and rests the other on your <<bottom>>. <<He>> gives it a squeeze.
+<br><br>
+
+
+<<if C.npc.Avery.rage gte 40>>
+	"You're a bad <<girl>> sometimes," <<he>> says. "No matter. Nothing that can't be corrected."
+	<br><br>
+	<<He>> delivers a <span class="red">terrible</span> blow with the paddle, making you jolt.<<pain 9>><<ggpain>>
+<<elseif C.npc.Avery.rage gte 20>>
+	"You've been a naughty <<girl>>," <<he>> says with a tut. "Time to remind you what happens to naughty <<girls>>."
+	<br><br>
+	<<He>> delivers a <span class="pink">hard</span> blow with the paddle, making you jerk.<<pain 6>><<ggpain>>
+<<elseif C.npc.Avery.rage gte 10>>
+	"You know you've been naughty," <<he>> says with a tut. "You know what naughty <<girls>> get?"
+	<br><br>
+	<<He>> delivers a <span class="purple">firm</span> blow with the paddle, leaving you stinging.<<pain 3>><<gpain>>
+<<else>>
+	"You're a good <<girl>>," <<he>> says. "I'll go easy on you."
+	<br><br>
+	<<He>> delivers a <span class="blue">gentle</span> blow with the paddle, not quite hard enough to be painful.
+<</if>>
+<br><br>
+
+<<link [[Next|Mansion Dungeon Paddle 2]]>><</link>>
+<br>
+
+:: Mansion Dungeon Paddle 2
+<<effects>>
+
+The blows continue. <<He>> keeps your hair tight in <<his>> other hand, giving you no way to move.
+
+<<if $worn.lower.skirt_down is 1>>
+	<<if !$worn.under_lower.type.includes("naked") and $worn.under_lower.one_piece is 0>>
+		<<He>> stops only to flip up your skirt and tug down your <<print $worn.under_lower.name>>, baring your <<bottom>>.
+	<<else>>
+		<<He>> stops only to flip up your skirt, baring your <<bottom>>.
+	<</if>>
+<<elseif !$worn.lower.type.includes("naked")>>
+	<<if !$worn.under_lower.type.includes("naked") and $worn.under_lower.one_piece is 0>>
+		<<He>> stops only to tug down your <<print $worn.lower.name>> and <<print $worn.under_lower.name>>, baring your <<bottom>>.
+	<<else>>
+		<<He>> stops only to tug down your <<print $worn.lower.name>>, baring your <<bottom>>.
+	<</if>>
+<<else>>
+	<<He>> stops only to give your <<bottom>> a grope or squeeze.
+<</if>>
+<br><br>
+
+"How's that feel?" Avery asks. "Are you going to be good from now on?"
+<br><br>
+
+<<link [[Say you'll be good|Mansion Dungeon Paddle Good]]>><<npcincr Avery love 1>><</link>><<glove>>
+<br>
+<<link [[Mock Avery|Mansion Dungeon Paddle Mock]]>><<set $avery_dungeon.timer += 30>><<pain 4>><</link>><<gpain>>
+<br>
+<<link [[Remain silent|Mansion Dungeon Paddle Silent]]>><</link>>
+<br>
+
+:: Mansion Dungeon Paddle Good
+<<effects>>
+
+<<if $speech_attitude is "avery" or $speech_attitude_avery>>
+	"Ow!" you say. "I'll be good, I promise!"
+<<elseif $speech_attitude is "bratty">>
+	"Alright," you say. "I won't cause any problems."
+<<else>>
+	"I'll be good," you say.
+<</if>>
+<br><br>
+
+"I'm pleased to hear it," <<he>> says, releasing your hair to grasp your chin. "I'm going to go upstairs for a while. You'll stay here like a good puppy, and wait for my return."
+<br><br>
+<<He>> pulls you off <<his>> lap, stands, and walks towards the exit. You hear the mechanical whir as <<he>> seals you in the dungeon.
+<br><br>
+
+<<link [[Next|Mansion Dungeon]]>><</link>>
+<br>
+
+:: Mansion Dungeon Paddle Mock
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Don't be afraid of hitting me properly," you say.
+<<elseif $speech_attitude is "bratty">>
+	"You call that a paddling?" you ask. "Are you even older than you look?"
+<<else>>
+	"What's the matter?" you ask. "Is your arm tired?"
+<</if>>
+<br><br>
+
+Avery delivers a spiteful blow to your behind. "I don't have to go so easy on you, you know." <<He>> releases your hair to grasp your chin. "I'm going to go upstairs for a while. You'll stay here like a good puppy, and wait for my return."
+<br><br>
+<<He>> pulls you off <<his>> lap, stands, and walks towards the exit. You hear the mechanical whir as <<he>> seals you in the dungeon.
+<br><br>
+
+<<link [[Next|Mansion Dungeon]]>><</link>>
+<br>
+
+
+:: Mansion Dungeon Paddle Silent
+<<effects>>
+
+You remain silent. "You should speak when your betters ask a question," Avery says. <<He>> releases your hair to grasp your chin. "I'm going to go upstairs for a while. You'll stay here like a good puppy, and wait for my return."
+<br><br>
+<<He>> pulls you off <<his>> lap, stands, and walks towards the exit. You hear the mechanical whir as <<he>> seals you in the dungeon.
+<br><br>
+
+<<link [[Next|Mansion Dungeon]]>><</link>>
+<br>
+
+
+:: Mansion Dungeon Paddle Return
+<<effects>>
+Avery arrives in the dungeon, and walks over to the table.
+<br><br>
+"Now," <<he>> says. "Where were we?" <<His>> gaze falls on the paddle. "Ah, of course."
+<br><br>
+
+<<He>> sits beside you, and pulls you over <<his>> lap. You feel the paddle rests against your <<bottom>> as <<he>> grasps your hair.
+<br><br>
+"Perhaps you've been punished enough," <<he>> says. You feel the paddle fall away. <<He>> grasps your chin, then pushes <<his>> middle and forefinger into your mouth.
+<br><br>
+
+<<link [[Suck|Mansion Dungeon Paddle Suck]]>><<sub 1>><</link>>
+<br>
+<<link [[Bite|Mansion Dungeon Paddle Bite]]>><<def 1>><</link>>
+<br>
+<<link [[Keep your mouth still|Mansion Dungeon Paddle Still]]>><<pain 4>><</link>><<gpain>>
+<br>
+
+:: Mansion Dungeon Paddle Suck
+<<effects>>
+
+You suck on Avery's fingers. "There's a good <<girl>>," <<he>> says as <<he>> manipulates your tongue. You can't stop the saliva dribbling from your mouth, but <<his>> blows become softer.
+<br><br>
+<<He>> removes <<his>> fingers, then leans in for a kiss.
+<br><br>
+
+<<link [[Kiss|Mansion Dungeon Paddle Kiss]]>><<npcincr Avery love 1>><</link>><<kissvirginitywarning>><<glove>>
+<br>
+<<link [[Turn away|Mansion Dungeon Paddle Turn]]>><<npcincr Avery love -1>><<npcincr Avery rage 1>><</link>><<garage>><<llove>>
+<br>
+
+:: Mansion Dungeon Paddle Kiss
+<<effects>>
+
+You let your lips meet Avery's. <<He>> holds you there for a moment, <<his>> eyes closed.
+<<takeKissVirginity "Avery" `($auriga_artefact?"loveInterest":"romantic")`>>
+<br><br>
+
+<<He>> pulls away, then pulls you off <<his>> lap, before rising to <<his>> feet. "That'll do."
+<br><br>
+
+<<link [[Next|Mansion Dungeon Leave Pleased]]>><</link>>
+<br>
+
+:: Mansion Dungeon Paddle Turn
+<<effects>>
+
+You turn away from <<him>> before <<his>> kiss lands. <<He>> sneers, and raises the paddle again, but then decides to hold back. Instead, <<he>> pulls you from <<his>> lap by the hair, and rises to <<his>> feet.
+<br><br>
+
+"That'll be all," <<he>> says.
+<br><br>
+
+<<link [[Next|Mansion Dungeon Leave Annoyed 2]]>><</link>>
+<br>
+
+
+:: Mansion Dungeon Paddle Bite
+<<effects>>
+
+<<if $wolfgirl gte 2>>
+	You bite into Avery's fingers, and feel your fangs sink into <<him>>. <<He>> cuts <<his>> cry of pain short, then delivers a couple of desperate blows to your <<bottom>>. It's all <<he>> can manage before dropping the paddle, and wrestling <<his>> other hand free from your jaws.<<ldom>><<npcincr Avery dom -1>>
+	<br><br>
+	<<He>> pushes you to the ground, and backs away. You lick your lips.<<wolf>>
+	<br><br>
+
+	<<link [[Next|Mansion Dungeon Leave Annoyed 2]]>><</link>>
+	<br>
+<<elseif $cat gte 2>>
+	You bite into Avery's fingers, and feel your fangs sink into <<him>>. <<He>> cuts <<his>> cry of pain short, then delivers a couple of desperate blows to your <<bottom>>. It's all <<he>> can manage before dropping the paddle, and wrestling <<his>> other hand free from your jaws.<<ldom>><<npcincr Avery dom -1>>
+	<br><br>
+	<<He>> pushes you to the ground, and backs away. You lick your lips.<<cat>>
+	<br><br>
+
+	<<link [[Next|Mansion Dungeon Leave Annoyed 2]]>><</link>>
+	<br>
+<<elseif $fox gte 2>>
+	You bite into Avery's fingers, and feel your fangs sink into <<him>>. <<He>> cuts <<his>> cry of pain short, then delivers a couple of desperate blows to your <<bottom>>. It's all <<he>> can manage before <<he>> drops the paddle, and wrestles <<his>> other hand free from your jaws.<<ldom>><<npcincr Avery dom -1>>
+	<br><br>
+	<<He>> pushes you to the ground, and backs away. You lick your lips.<<fox>>
+	<br><br>
+
+	<<link [[Next|Mansion Dungeon Leave Annoyed 2]]>><</link>>
+	<br>
+<<else>>
+	You bite Avery's fingers. You feel <<him>> tense, then <<he>> delivers a barrage of retaliatory blows to your behind.
+	<br><br>
+	"Do you really want punishment that badly?" Avery asks. "Fine."
+	<br><br>
+
+	<<link [[Bite harder|Mansion Dungeon Paddle Bite 2]]>><</link>><<willpowerdifficulty 1 1000>>
+	<br>
+	<<link [[Stop biting|Mansion Dungeon Paddle Bite Stop]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Dungeon Paddle Bite 2
+<<effects>>
+
+<<if $willpowerSuccess>>
+	You bite harder, clamping <<his>> fingers within your mouth. Avery delivers a flurry of blows, <span class="green">but you hang on,</span> until <<he>> drops the paddle and wrestles <<his>> other hand free of your jaws.<<ldom>><<npcincr Avery dom -1>>
+	<br><br>
+	<<He>> pulls you off <<his>> lap, and stands.
+	<br><br>
+
+	<<link [[Next|Mansion Dungeon Leave Annoyed 2]]>><</link>>
+	<br>
+<<else>>
+	You bite harder, clamping <<his>> fingers within your mouth. Avery delivers a flurry of blows, <span class="red">forcing you to release <<him>>.</span>
+	<br><br>
+	<<He>> grasps your hair again, and leans close. "Don't try anything like that again."<<gdom>><<npcincr Avery dom 1>>
+	<br><br>
+	<<He>> pulls you off <<his>> lap, and stands.
+	<br><br>
+	<<link [[Next|Mansion Dungeon Leave Pleased]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Dungeon Paddle Bite Stop
+<<effects>>
+
+You release Avery's fingers. <<He>> grasps your hair again, and leans close. "Don't try anything like that again."
+<br><br>
+
+<<He>> pulls you off <<his>> lap, and stands.
+<br><br>
+
+<<link [[Next|Mansion Dungeon Leave Pleased]]>><</link>>
+<br>
+
+:: Mansion Dungeon Paddle Still
+<<effects>>
+
+You don't respond as Avery manipulates your tongue between <<his>> fingers. "You're like a doll," <<he>> says. "I like that, sometimes. But sometimes I want you to respond." <<He>> delivers another smack to your rear, jolting you forward.
+<br><br>
+
+Avery removes <<his>> fingers from your mouth, grasps your hair, and hauls you off <<his>> lap.
+<br><br>
+
+<<link [[Next|Mansion Dungeon Leave Pleased]]>><</link>>
+<br>
+
+:: Mansion Dungeon Candle
+<<effects>>
+<<clothesstrip>>
+<<set $avery_dungeon.timer to 30>>
+Avery lights a candle as you remove your clothes, and lie on the table. <<He>> lights another, and places them both beside you.
+<br><br>
+<<pass 5>>
+<<He>> runs <<his>> fingers over your bare skin. "Just waiting for the wax to melt," <<he>> says. "Won't take long. Don't squirm, or I'll be forced to restrain you."
+<br><br>
+
+Once melted, Avery lifts one of the candles, and tips wax on your chest. You wince, though it's not as hot as you might expect.<<gpain>><<pain 4>>
+<br><br>
+
+<<link [[Goad Avery|Mansion Dungeon Candle Goad]]>><<set $avery_dungeon.timer += 30>><<pain 4>><</link>><<gpain>>
+<br>
+<<link [[Plead|Mansion Dungeon Candle Plead]]>><</link>>
+<br>
+<<link [[Remain silent|Mansion Dungeon Candle Silent]]>><</link>>
+<br>
+
+:: Mansion Dungeon Candle Goad
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"It tickles," you say.
+<<elseif $speech_attitude is "bratty">>
+	"Is that all you've got?" you ask.
+<<else>>
+	"I can barely feel it," you say.
+<</if>>
+<br><br>
+
+Avery smirks, and pours hot wax over your abdomen. "Does this suit you better?"
+<br><br>
+
+<<link [[Next|Mansion Dungeon Candle 2]]>><</link>>
+<br>
+
+:: Mansion Dungeon Candle Plead
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Please stop," you say. "It burns."
+<<elseif $speech_attitude is "bratty">>
+	"Not so much," you say. "Are you trying to start a fire?"
+<<else>>
+	"Ow," you say. "Be careful."
+<</if>>
+<br><br>
+
+Avery tips the candle again, but stops short of pouring it. "I could go easy on you," <<he>> says. "If you're good."
+<br><br>
+
+<<link [[Next|Mansion Dungeon Candle 2]]>><</link>>
+<br>
+
+:: Mansion Dungeon Candle Silent
+<<effects>>
+
+You remain silent, wincing as Avery pours hot wax over your abdomen.
+<br><br>
+
+<<link [[Next|Mansion Dungeon Candle 2]]>><</link>>
+
+:: Mansion Dungeon Candle 2
+<<effects>>
+
+Avery continues teasing you with the hot wax, pouring it over your bare skin, watching your reaction. <<He>> swaps between the lit candles, allowing one to melt as <<he>> uses the other.<<gpain>><<pain 4>><<pass 10>>
+<br><br>
+
+<<He>> becomes more generous with the wax as <<he>> continues, until <<he>> runs out. <<He>> lights a couple more candles. "I think I'll wait for these to burn down," <<he>> says. "You stay there."
+<br><br>
+
+Avery leaves the dungeon, leaving you alone on the table. You've a bit of time before <<he>> returns.
+<br><br>
+<<endevent>>
+<<link [[Next|Mansion Dungeon]]>><</link>>
+<br>
+
+:: Mansion Dungeon Candle Return
+<<effects>>
+<<npc Avery>><<person1>>
+You lie back on the table. A moment later, Avery appears at the bottom of the stairwell, wearing nothing but a bathrobe hanging off <<his>> shoulders.
+<br><br>
+
+"Very good," Avery says. <<He>> lifts one of the candles, now well-melted, and sits beside you. "Now where were we?"
+<br><br>
+
+<<He>> pours a generous helping of wax over your skin.
+<br><br>
+
+<<link [[Respond naturally|Mansion Dungeon Candle Natural]]>><</link>>
+<br>
+<<link [[Exaggerate your response|Mansion Dungeon Candle Exaggerate]]>><<npcincr Avery 1>><</link>><<glove>>
+<br>
+<<link [[Resist responding at all|Mansion Dungeon Candle Resist]]>><</link>>
+<br>
+
+:: Mansion Dungeon Candle Natural
+<<effects>>
+
+You wince as the wax hits your skin, but soon grow accustomed to it. Avery empties one of the candles, and moves to the next.<<gpain>><<pain 4>>
+<br><br>
+
+Without warning, as if <<his>> lack of restraint surprises even <<himself>>, <<he>> throws the candle aside, and pushes <<himself>> atop you.
+<br><br>
+
+<<link [[Allow|Mansion Dungeon Candle Sex]]>><<set $sexstart to 1>><</link>>
+<br>
+<<link [[Refuse|Mansion Dungeon Candle Sex Refuse]]>><</link>>
+<br>
+
+:: Mansion Dungeon Candle Exaggerate
+<<effects>>
+
+You writhe and cry out as the wax hits your skin. It's hot, though not as bad as all that.<<gpain>><<pain 4>>
+<br><br>
+
+Your act has the intended effect. Avery is overcome by some inner urge, throws the candle aside, and climbs on top of you.
+<br><br>
+
+<<link [[Allow|Mansion Dungeon Candle Sex]]>><<set $sexstart to 1>><</link>>
+<br>
+<<link [[Refuse|Mansion Dungeon Candle Sex Refuse]]>><</link>>
+<br>
+
+
+
+
+:: Mansion Dungeon Candle Resist
+<<effects>>
+
+You feel the hot wax hit your skin, but manage to remain still, and soundless. Avery looks disappointed, and tries pouring the whole candle on you. You don't respond.
+<br><br>
+
+"Enough of this," Avery says, throwing the candle away. "There's another way you can satisfy me." <<He>> pushes <<himself>> on top of you.
+<br><br>
+
+<<link [[Allow|Mansion Dungeon Candle Sex]]>><<set $sexstart to 1>><</link>>
+<br>
+<<link [[Refuse|Mansion Dungeon Candle Sex Refuse]]>><<npcincr Avery rage 1>><</link>><<garage>>
+<br>
+
+:: Mansion Dungeon Candle Sex Refuse
+<<effects>>
+
+You raise a hand and push Avery away.
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I'm still sore from the wax," you say.
+<<elseif $speech_attitude is "bratty">>
+	"You should ask for permission before climbing on me," you say.
+<<else>>
+	"Not now," you say.
+<</if>>
+<br><br>
+
+<<if C.npc.Avery.rage gte random(20, 100) and $averyragerevealed gte 1>>
+	Avery grasps your jaw. "I didn't ask for your fucking opinion," <<he>> says. Then <<he>> takes a deep breath, and releases you.<<gpain>><<gtrauma>><<gstress>><<pain 4>><<trauma 6>><<stress 6>>
+	<br><br>
+
+	"Fine. Get the fuck off my table."
+	<br><br>
+
+	<<link [[Next|Mansion Dungeon Leave Annoyed 2]]>><<clotheson>><</link>>
+	<br>
+<<else>>
+	Avery climbs off you, and snuffs out one of the candles between forefinger and thumb. "Another time maybe."
+	<br><br>
+
+	<<link [[Next|Mansion Dungeon Leave Annoyed 2]]>><<clotheson>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Dungeon Candle Sex
+<<if $sexstart is 1>>
+	<<set $sexstart to 0>>
+	<<consensual>>
+	<<set $consensual to 1>>
+	<<neutral 1>>
+	<<maninit>>
+	<<prop table>>
+	<<set $enemytrust += 100>><<promiscuity1>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+<<if _combatend>>
+	<span id="next"><<link [[Next|Mansion Dungeon Candle Sex Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Mansion Dungeon Candle Sex]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Mansion Dungeon Candle Sex Finish
+
+<<set $outside to 0>><<effects>>
+<<if $enemyarousal gte $enemyarousalmax>>
+	<<ejaculation>>
+	Avery climbs off the table. "You can get dressed."
+	<br><br>
+	<<tearful>> you push yourself to a seated position.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<npc Avery>><<person1>>
+
+	<<link [[Next|Mansion Dungeon Leave Pleased]]>><<clotheson>><</link>>
+	<br>
+<<elseif $enemyhealth lte 0>>
+	You shove Avery off the table. <<He>> staggers, but manages to keep <<himself>> upright.
+	<br><br>
+	<<tearful>> you push yourself to a seated position.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<npc Avery>><<person1>>
+
+	<<link [[Next|Mansion Dungeon Leave Annoyed 2]]>><<clotheson>><</link>>
+	<br>
+<<else>>
+	Avery climbs off the table. <<tearful>> you push yourself to a seated position.
+	<br><br>
+	<<clotheson>>
+	<<endcombat>>
+	<<npc Avery>><<person1>>
+
+	<<link [[Next|Mansion Dungeon Leave Annoyed 2]]>><<clotheson>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Dungeon Tickler
+<<effects>>
+<<clothesstrip>>
+
+Avery watches as you remove your clothes, and lie on the table. <<He>> lifts the tickler, and leans over you, trailing it across your skin.
+<br><br>
+"You wouldn't happen to be ticklish, would you?" <<he>> asks, moving the tickler down your legs, to your feet. With a sudden movement, <<he>> assaults the base of your foot. You cringe, cry and smile in spite of yourself.<<gstress>><<stress 6>>
+<br><br>
+<<pass 3>>
+<<He>> assaults other parts of your body, every sensitive spot made vulnerable. You can't protect everywhere at once. A few minutes of this leave you a panting mess. Satisfied, Avery puts the tickler aside.
+<br><br>
+
+"That's what you get for being such a bad <<girl>>," <<he>> says. "You can put your clothes back on."
+<br><br>
+
+<<if $avery_mansion.vault_progress is 0>>
+	<i>A more extreme torture might give the opportunity to approach the vault.</i>
+	<br><br>
+<</if>>
+
+<<link [[Next|Mansion Dungeon Leave Pleased]]>><<clotheson>><</link>>
+<br>
+
+:: Mansion Dungeon Find
+<<effects>><<wearProp "bible">>
+
+You feel along the bookshelf, right where Avery stood when <<nnpc_he Avery>> opened the way to the dungeon. There are tiny scratches in the wood. You remember hearing <<nnpc_his Avery>> watch scrape against it.
+<br><br>
+
+You check the book beneath the scratches, bound in red leather.
+<br>
+<i>"The Cult of Auriga: An Esoteric History"</i>
+<br>
+You open it. A rectangle has been gouged into the pages, removing the paper, and creating a space large enough to conceal a remote. There's a single button. You press it.
+<br><br>
+
+You hear a mechanical whirring, and the desk splits in two, revealing the spiral staircase down to the dungeon. So that's how <<nnpc_he Avery>> does it.
+<br><br>
+
+<<link [[Next|Mansion Study]]>><</link>>
+<br>
+
+:: Mansion Dungeon Enter
+<<effects>>
+
+You walk down the spiral staircase, down the ominous hallway, and into Avery's dungeon. The rack waits here, and the vault beyond.
+<br><br>
+
+<<link [[Next|Mansion Dungeon]]>><</link>>
+<br>
+
+:: Mansion Dungeon
+<<set $location to "avery_mansion">><<set $bus to "avery_dungeon">><<set $avery_passage to $passage>><<set $outside to 0>><<effects>><<avery_mansion>>
+
+You are in the dungeon in Avery's mansion, lit by red light. The rack sits in the middle of the room, and the vault lies beyond.
+<br><br>
+<<if $avery_dungeon>>
+	<<if $avery_dungeon.timer lte 0>>
+		You hear the staircase creak. Avery is returning. You rush to the rack, and thread your limbs through the ropes, as if you'd never stepped away.
+		<br><br>
+		<<if $avery_dungeon.tool is "whip">>
+			<<link [[Next|Mansion Dungeon Whip Return]]>><</link>>
+			<br>
+		<<elseif $avery_dungeon.tool is "flogger">>
+			<<link [[Next|Mansion Dungeon Flogger Return]]>><</link>>
+			<br>
+		<<elseif $avery_dungeon.tool is "paddle">>
+			<<link [[Next|Mansion Dungeon Paddle Return]]>><</link>>
+			<br>
+		<<elseif $avery_dungeon.tool is "candle">>
+			<<link [[Next|Mansion Dungeon Candle Return]]>><</link>>
+			<br>
+		<</if>>
+	<<else>>
+		<<avery_mansion_dungeon_links>>
+		<<loitericon>><<link [[Wait (0:30)|Mansion Dungeon Vault Wait]]>><<set $avery_dungeon.timer -= 30>><<pass 30>><<pain -4>><</link>><<lpain>>
+		<br>
+	<</if>>
+<<elseif $avery_mansion.study_unlocked>>
+	<<if $avery_mansion.schedule is "study">>
+		You hear the walls creak, as if in warning. Avery is approaching the study.
+		<br><br>
+		<<npc Avery>><<person1>>
+		You rush upstairs, and close the entrance with the remote. Avery steps inside a moment later. You flash <<him>> an innocent smile.
+		<br><br>
+		<<link [[Next|Mansion Study]]>><<endevent>><</link>>
+		<br>
+	<<elseif $avery_mansion.schedule is "return">>
+		You hear the screech of tyres, and the rattle of the front gates. Avery has returned, and will be looking for you.
+		<br><br>
+		<<npc Avery>><<person1>>
+		You rush upstairs, and close the entrance with the remote. Avery steps inside a moment later. You flash <<him>> an innocent smile.
+		<br><br>
+		<<link [[Next|Mansion Study]]>><<endevent>><</link>>
+		<br>
+	<<else>>
+		<<avery_mansion_dungeon_links>>
+		<<icon "avery-study.png">><<link [[Return to the study|Mansion Study]]>><</link>>
+		<br>
+	<</if>>
+<<else>>
+	<<if $avery_mansion.schedule is "study">>
+		You hear the walls creak, as if in warning. Avery is approaching the study.
+		<br><br>
+		You rush upstairs, close the entrance with the remote, then leave and lock the study. Just in time for Avery to arrive.
+		<<npc Avery>><<person1>>
+		<<He>> frowns at you. You flash <<him>> an innocent smile, and walk by.
+		<br><br>
+		<<link [[Next|Mansion Bedroom]]>><<endevent>><</link>>
+		<br>
+	<<elseif $avery_mansion.schedule is "return">>
+		You hear the screech of tyres, and the rattle of the front gates. Avery has returned, and will be looking for you.
+		<br><br>
+		You rush upstairs, close the entrance with the remote, then leave and lock the study. Just in time for Avery to arrive.
+		<<npc Avery>><<person1>>
+		<<He>> frowns at you. You flash <<him>> an innocent smile, and walk by.
+		<br><br>
+		<<link [[Next|Mansion Bedroom]]>><<endevent>><</link>>
+		<br>
+	<<else>>
+		<<avery_mansion_dungeon_links>>
+		<<icon "avery-study.png">><<link [[Return to the study|Mansion Study]]>><</link>>
+		<br>
+	<</if>>
+<</if>>
+
+
+
+:: Mansion Dungeon Vault Wait
+<<effects>>
+
+There's some ointment on the table. You apply it to your back while waiting for Avery to return.
+<br><br>
+
+<<link [[Next|Mansion Dungeon]]>><</link>>
+<br>
+
+:: Mansion Dungeon Whip Return
+<<effects>>
+
+<<npc "Avery">><<person1>>
+You hear Avery arrive behind you. "I'd almost forgotten you," <<he>> says. <<He>> gives your <<bottom>> a spank, then runs <<his>> hand up your back. "Shall I untie you? Will you be a good <<girl>>?"<<gpain>><<pain 4>>
+<br><br>
+
+<<link [[Say you'll be good|Mansion Dungeon Whip Return Good]]>><<npcincr Avery dom 1>><</link>><<gdom>>
+<br>
+<<link [[Remain silent|Mansion Dungeon Whip Return Silent]]>><</link>>
+<br>
+<<link [[Insult Avery|Mansion Dungeon Whip Return Insult]]>><<npcincr Avery rage 1>><</link>><<garage>>
+<br>
+
+:: Mansion Dungeon Whip Return Good
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"Don't hurt me again," you say. "I promise I'll be a good <<girl>>, I promise!"
+<<elseif $speech_attitude is "bratty">>
+	"Don't worry," you say. "I'll play along."
+<<else>>
+	"I'll be good," you say. "I promise."
+<</if>>
+<br><br>
+
+Avery seems satisfied. <<He>> unties the ropes around your ankles first, and stops to admire your body before untying your wrists. <<He>> gestures at the staircase leading to the study. "Shall we?"
+<br><br>
+
+<<link [[Next|Mansion Dungeon Leave Pleased]]>><</link>>
+<br>
+
+
+:: Mansion Dungeon Whip Return Silent
+<<effects>>
+
+You remain silent. Avery raises an eyebrow. "Cat caught your tongue? No matter." <<He>> unties the ropes around your ankles first, and stops to admire your body before untying your wrists. <<He>> gestures at the staircase leading to the study. "Shall we?"
+<br><br>
+
+<<link [[Next|Mansion Dungeon Leave Pleased]]>><</link>>
+<br>
+
+
+:: Mansion Dungeon Whip Return Insult
+<<effects>>
+
+<<if $speech_attitude is "meek" or $speech_attitude_avery>>
+	"I thought you were going to hit me more," you say. "Are you tired?"
+<<elseif $speech_attitude is "bratty">>
+	"Lost your nerve?" you ask. "So used to hitting people who can't fight back that even they seem threatening?
+<<else>>
+	"That all you got?" you ask. "I expected more."
+<</if>>
+<br><br>
+
+Avery squeezes your <<bottom>>. Hard. "Careful <<girl>>," <<he>> says. "You're right where I want you. Best not provoke me."
+<br><br>
+
+<<He>> unties the ropes around your ankles first, and stops to admire your body before untying your wrists. <<He>> gestures at the staircase leading to the study. "Shall we?"
+<br><br>
+
+<<link [[Next|Mansion Dungeon Leave Annoyed 2]]>><</link>>
+<br>
+
+
+:: Mansion Dungeon Vault Approach
+<<effects>>
+
+You approach the thick, silvery metal door of the vault. Beside it is a keypad. You tap numbers into it at random. After four, a dull beep sounds from an attached speaker. Wrong number.
+<br><br>
+
+<<if currentSkillValue('skulduggery') gte 600>>
+	You peer at the keypad, and examine the individual keys. However, none appear more worn than any others. There's no indication at all that some keys have seen more use than others. It looks too new.
+	<br><br>
+<</if>>
+
+Avery must know the code, and you don't think <<nnpc_he Avery>> will have written it down. It would take a while, but it would be possible to brute force it. There are only so many numbers it could be.
+<br><br>
+
+<<link [[Next|Mansion Dungeon]]>><</link>>
+<br>
+
+:: Mansion Dungeon Vault Brute
+<<effects>>
+
+You tap numbers into the keypad in a systematic order, careful not to miss one.
+<<if $avery_mansion.vault_progress gte 100>>
+	The dull beep is the only answer, again and again. Until a different, higher, beep rings out. <span class="green">The vault door opens.</span> A purple smoke billows out, filling your lungs with an intense sweetness.<<garousal>><<arousal 600>>
+	<br><br>
+	<<link [[Enter|Mansion Dungeon Vault]]>><</link>>
+	<br>
+<<else>>
+	The dull beep is the only answer, again and again, as you narrow down the correct code.
+	<br><br>
+	<<link [[Next|Mansion Dungeon]]>><</link>>
+	<br>
+<</if>>
+
+:: Mansion Dungeon Vault
+<<effects>>
+
+You are in the vault in Avery's mansion, surrounded by metal walls, floor, and ceiling. It's empty save a purple cushion on a plinth.
+
+<<if $auriga_artefact is "Avery" and !$avery_fate>>
+	Resting on the cushion, <span class="pink">a white so pale.</span> <<if $fake_artefact is "pc">>The wishing stones Landry asked you to swap.<</if>>
+<</if>>
+<br><br>
+
+<<if $auriga_artefact is "Avery">>
+	<<if $fake_artefact is "pc" and !$avery_fate>>
+		<<link [[Replace the stones|Mansion Dungeon Vault Replace]]>><</link>>
+		<br>
+		/*
+		<<link [[Just take the stones|Mansion Dungeon Vault Take]]>><</link>>
+		<br>
+		*/
+	<<else>>
+		/*
+		<<link [[Take the stones|Mansion Dungeon Vault Take]]>><</link>>
+		<br> */
+	<</if>>
+<<else>>
+	/*<<if $fake_artefact is "pc">>
+		<<link [[Leave the fake stones on the plinth|Mansion Dungeon Vault Leave Fake]]>><</link>>
+		<br>
+	<<elseif $fake_artefact is "Avery">>
+		<<link [[Take the fake stones|Mansion Dungeon Vault Take Fake]]>><</link>>
+		<br>
+	<</if>>*/
+<</if>>
+<<link [[Leave|Mansion Dungeon]]>><</link>>
+<br>
+
+
+
+:: Mansion Dungeon Vault Replace
+<<effects>>
+
+You take the wishing stones. An energy rushes through your arm. For a moment, your vision is filled with a pale light, and a sensation of floating, as if underwater. <span class="green">You feel stronger.</span>
+<br><br>
+<<set $auriga_artefact to "pc">>
+<<set $fake_artefact to "Avery">>
+You leave the fake stones in their place, and step outside the vault.
+<br><br>
+
+<<link [[Next|Mansion Dungeon]]>><</link>>
+
+:: Mansion Dungeon Vault Code
+<<effects>>
+
+You approach the vault door, and type in the code Avery gave you. It beeps, and <span class="green">the vault door opens.</span> A purple smoke billows out, filling your lungs with an intense sweetness.<<garousal>><<arousal 600>>
+<br><br>
+<<link [[Enter|Mansion Dungeon Vault]]>><</link>>
+<br>
+
+:: Mansion Dungeon Vault Take
+<<effects>>
+
+<<set $auriga_artefact to "pc">>
+You take the wishing stones. An energy rushes through your arm. For a moment, your vision is filled with a pale light, and a sensation of floating, as if underwater. <span class="green">You feel stronger.</span>
+<br><br>
+
+You step outside the vault.
+<br><br>
+
+<<link [[Next|Mansion Dungeon]]>><</link>>
+
+:: Mansion Dungeon Vault Take Fake
+<<effects>>
+
+<<set $fake_artefact to "pc">>
+You take the fake stones, leaving the plinth empty. You step outside the vault.
+<br><br>
+
+<<link [[Next|Mansion Dungeon]]>><</link>>
+
+:: Mansion Dungeon Vault Leave Fake
+<<effects>>
+
+<<set $fake_artefact to "Avery">>
+You leave the fake stones on the plinth, then step outside the vault.
+<br><br>
+
+<<link [[Next|Mansion Dungeon]]>><</link>>

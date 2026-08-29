@@ -1,0 +1,1163 @@
+:: Transformation Widgets [widget]
+
+<<widget "setupTransformationPiecesObject">>
+	<<if $transformationParts is undefined>>
+		<<set $transformationParts to {
+			traits: {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", chase:"disabled", flaunting:"disabled"},
+			angel: {halo:"disabled", wings:"disabled"},
+			fallenAngel: {halo:"disabled", wings:"disabled"},
+			demon: {horns:"disabled", wings:"disabled", tail: "disabled"},
+			cat: {ears:"disabled", tail:"disabled", heterochromia:"disabled"},
+			cow: {horns:"disabled", ears:"disabled", tail:"disabled"},
+			wolf: {ears:"disabled", tail:"disabled", pubes:"disabled", pits:"disabled"},
+			bird: {tail:"disabled", wings:"disabled", eyes:"disabled", malar:"disabled", plumage:"disabled", pubes:"disabled"},
+			fox: {ears:"disabled", tail:"disabled", cheeks:"disabled"},
+		}>>
+		<<if $specialTransform is 1>>
+			<<if $angel gte 4>>
+				<<set $transformationParts.angel.halo to "default">>
+			<</if>>
+			<<if $angel gte 6>>
+				<<set $transformationParts.angel.wings to "default">>
+			<</if>>
+			<<if $fallenangel gte 2>>
+				<<set $transformationParts.fallenAngel.halo to "default">>
+				<<set $transformationParts.fallenAngel.wings to "default">>
+			<</if>>
+			<<if $demon gte 2>>
+				<<set $transformationParts.demon.horns to "default">>
+			<</if>>
+			<<if $demon gte 4>>
+				<<set $transformationParts.demon.tail to "default">>
+			<</if>>
+			<<if $demon gte 6>>
+				<<set $transformationParts.demon.wings to "default">>
+			<</if>>
+		<</if>>
+		<<if $physicalTransform is 1>>
+			<<if $wolfgirl gte 2>>
+				<<set $transformationParts.traits.fangs to "default">>
+			<</if>>
+			<<if $wolfgirl gte 4>>
+				<<set $transformationParts.wolf.ears to "default">>
+				<<set $transformationParts.wolf.pubes to "default">>
+				<<set $transformationParts.wolf.pits to "default">>
+			<</if>>
+			<<if $wolfgirl gte 6>>
+				<<set $transformationParts.wolf.tail to "default">>
+			<</if>>
+			<<if $cat gte 2>>
+				<<set $transformationParts.traits.fangs to "default">>
+			<</if>>
+			<<if $cat gte 4>>
+				<<set $transformationParts.cat.ears to "default">>
+			<</if>>
+			<<if $cat gte 6>>
+				<<set $transformationParts.cat.tail to "default">>
+			<</if>>
+			<<if $cat gte 7>>
+				<<set $transformationParts.cat.heterochromia to "default">>
+			<</if>>
+			<<if $cow gte 2>>
+				<<set $transformationParts.cow.horns to "default">>
+			<</if>>
+			<<if $cow gte 4>>
+				<<set $transformationParts.cow.ears to "default">>
+			<</if>>
+			<<if $cow gte 6>>
+				<<set $transformationParts.cow.tail to "default">>
+			<</if>>
+		<</if>>
+	<</if>>
+	<<if $transformationParts.fallenAngel.halo is 1>>
+		<<set $transformationParts.fallenAngel.halo to "default">>
+		<<set $transformationParts.fallenAngel.wings to "default">>
+	<</if>>
+	<<if $transformationParts.demon.horns is 1>>
+		<<set $transformationParts.demon.horns to "default">>
+		<<set $transformationParts.demon.tail to "default">>
+		<<set $transformationParts.demon.wings to "default">>
+	<</if>>
+	<<if $angel lt 4>>
+		<<set $transformationParts.angel.halo to "disabled">>
+	<</if>>
+	<<if $angel lt 6>>
+		<<set $transformationParts.angel.wings to "disabled">>
+	<</if>>
+	<<if $fallenangel is 1>>
+		<<set $transformationParts.fallenAngel.halo to "disabled">>
+		<<set $transformationParts.fallenAngel.wings to "disabled">>
+	<</if>>
+	<<if $transformationParts.wolf.cheeks is undefined>>
+		<<if $wolfgirl gte 5>>
+			<<set $transformationParts.wolf.cheeks to "feral">>
+		<<else>>
+			<<set $transformationParts.wolf.cheeks to "disabled">>
+		<</if>>
+	<</if>>
+	<<if $transformationParts.bird is undefined>>
+		<<set $transformationParts.bird to {tail:"disabled", wings:"disabled", eyes:"disabled", malar:"disabled", plumage:"disabled"}>>
+	<</if>>
+	<<if $transformationParts.bird.pubes is undefined>>
+		<<if $harpy gte 6>>
+			<<set $transformationParts.bird.pubes to "hidden">>
+		<<else>>
+			<<set $transformationParts.bird.pubes to "disabled">>
+		<</if>>
+	<</if>>
+	<<if $transformationParts.fox is undefined>>
+		<<set $transformationParts.fox to {ears:"disabled", tail:"disabled", cheeks:"disabled"}>>
+	<</if>>
+	<<if $transformationParts.traits is undefined>>
+		<<set $transformationParts.traits to {fangs:"disabled", sharpEyes:"disabled", mateForLife:"disabled", chase:"disabled", flaunting:"disabled"}>>
+		<<if $wolfgirl gte 2 or $cat gte 2 or $fox gte 2>>
+			<<set $transformationParts.traits.fangs to "default">>
+		<</if>>
+		<<if $cat gte 2 or $harpy gte 2 or $fox gte 2>>
+			<<set $transformationParts.traits.sharpEyes to "default">>
+		<</if>>
+	<</if>>
+	/* Setup chimera's config */
+	<<set _defaultChimeraConfig to {
+		demoncat: {
+			tail: true
+		},
+		demoncow: {
+			tail: true,
+			horns: true,
+		},
+		demonwolf: {
+			tail: true
+		},
+		demonfox: {
+			tail: true,
+			ears: true
+		},
+		demonharpy: {
+			wings: true
+		},
+		angelharpy: {
+			wings: true
+		},
+		fallenharpy: {
+			wings: true
+		},
+	}>>
+	/* Convert chimera obj back to an object if it was something else. Necessary for object.assign next. */
+	<<if typeof $chimera !== 'object'>>
+		<<set $chimera to {}>>
+	<</if>>
+	/* Takes default object and transposes chimera config ontop of it, assigning the result to chimera config. */
+	<<set $chimera = Object.keys(_defaultChimeraConfig).reduce((acc, key) => {
+		acc[key] = Object.assign({}, _defaultChimeraConfig[key], $chimera[key] || {});
+		return acc;
+	}, {})>>
+<</widget>>
+
+<<widget "transform">>/*First arg is transformation, second is the intensity of change.*/
+	<<if _args[1]>>
+		<<switch _args[0]>>
+			<<case "wolf">>  <<set $wolfbuild  = Math.clamp($wolfbuild  + _args[1], 0, 100)>>
+			<<case "cat">>   <<set $catbuild   = Math.clamp($catbuild   + _args[1], 0, 100)>>
+			<<case "cow">>   <<set $cowbuild   = Math.clamp($cowbuild   + _args[1], 0, 100)>>
+			<<case "bird">>  <<set $birdbuild  = Math.clamp($birdbuild  + _args[1], 0, 100)>>
+			<<case "fox">>   <<set $foxbuild   = Math.clamp($foxbuild   + _args[1], 0, 100)>>
+			<<case "angel">> <<set $angelbuild = Math.clamp($angelbuild + _args[1], 0, 100)>>
+			<<case "fallen">> <<set $fallenbuild = Math.clamp($fallenbuild + _args[1], 0, 100)>>
+			<<case "demon">> <<set $demonbuild = Math.clamp($demonbuild + _args[1], 0, 100)>>
+		<</switch>>
+	<</if>>
+	<<if !["angel", "fallen", "demon"].includes(_args[0]) and _args[1] gte 1 and !($worn.neck.name is "familiar collar" and $worn.neck.cursed is 1)>>
+		<<if _args[0] isnot "wolf" and $worn.neck.name isnot "spiked collar" and $worn.neck.name isnot "spiked collar with leash">>
+			<<set $wolfbuild = Math.clamp($wolfbuild - _args[1], 0, 100)>>
+		<</if>>
+		<<if _args[0] isnot "cat" and $worn.neck.name isnot "cat bell collar">>
+			<<set $catbuild  = Math.clamp($catbuild  - _args[1], 0, 100)>>
+		<</if>>
+		<<if _args[0] isnot "cow" and $worn.neck.name isnot "cow bell">>
+			<<set $cowbuild  = Math.clamp($cowbuild  - _args[1], 0, 100)>>
+		<</if>>
+		<<if _args[0] isnot "bird" and $worn.head.name isnot "feathered hair clip" and $worn.neck.name isnot "feather necklace">>
+			<<set $birdbuild = Math.clamp($birdbuild - _args[1], 0, 100)>>
+		<</if>>
+		<<if _args[0] isnot "fox" and $worn.head.name isnot "spirit mask" and $worn.neck.name isnot "jasper pendant">>
+			<<set $foxbuild = Math.clamp($foxbuild - _args[1], 0, 100)>>
+		<</if>>
+	<</if>>
+<</widget>>
+
+
+<<widget "transformationStateUpdate">>
+	<<if !($worn.neck.name is "familiar collar" and $worn.neck.cursed is 1)>>
+		<<if $wolfbuild gte 1 and $worn.neck.name isnot "spiked collar" and $worn.neck.name isnot "spiked collar with leash" and playerNormalPregnancyType() isnot "wolf">>
+			<<transform wolf -1>>
+		<</if>>
+
+		<<if $catbuild gte 1 and $worn.neck.name isnot "cat bell collar" and playerNormalPregnancyType() isnot "cat">>
+			<<transform cat -1>>
+		<</if>>
+
+		<<if $cowbuild gte 1 and $worn.neck.name isnot "cow bell" and playerNormalPregnancyType() isnot "cow">>
+			<<transform cow -1>>
+		<</if>>
+
+		<<if $birdbuild gte 1 and $worn.head.name isnot "feathered hair clip" and $worn.neck.name isnot "feather necklace" and playerNormalPregnancyType() isnot "hawk">>
+			<<transform bird -1>>
+		<</if>>
+
+		<<if $foxbuild gte 1 and $worn.head.name isnot "spirit mask" and $worn.neck.name isnot "jasper pendant" and playerNormalPregnancyType() isnot "fox">>
+			<<transform fox -1>>
+		<</if>>
+	<</if>>
+
+	<<transformationAlteration>>
+
+	<<if $cat gt 0 or $wolfgirl gt 0 or $cow gt 0 or $harpy gt 0 or $fox gt 0>>
+		<<set $physicalTransform to 1>>
+	<<else>>
+		<<set $physicalTransform to 0>>
+	<</if>>
+	<<if ($physicalTransform is 1 or $specialTransform is 1) and !($hypnosis_traits.peace and $settings.hypnosisEnabled)>>
+		<<if $harpy gte 6 and ($angel gte 6 or $fallenangel gte 2 or $demon gte 6)>>
+			<<if $transformationParts.bird.wings is "hidden" and ($transformationParts.demon.wings is "hidden" or $transformationParts.angel.wings is "hidden" or $transformationParts.fallenAngel.wings is "hidden")>>
+			<<else>>
+				<<set _excludeWings to true>>
+			<</if>>
+		<</if>>
+		<<set _keys to Object.keys($transformationParts)>>
+		<<for _i to 0; _i lt _keys.length; _i++>>
+			<<set _key to _keys[_i]>>
+			<<for _label, _value range $transformationParts[_key]>>
+				<<if _value is "hidden" and _key isnot "traits" and !["pubes", "pits"].includes(_label) and !(_label is "wings" and _excludeWings is true)>>
+					<<if $panicattacks gte 2>>
+						<<set $transformationParts[clone(_key)][clone(_label)] to "default">>
+						<<set _hidingFailed to true>>
+						<<set $effectsmessage to 1>>
+						<<set $hiddenTransformMessage to 1>>
+					<<else>>
+						<<trauma 15>>
+						<<set $effectsmessage to 1>>
+						<<set $hiddenTransformMessage to 2>>
+					<</if>>
+				<</if>>
+			<</for>>
+		<</for>>
+	<</if>>
+
+	<<set _tfs to ["angel", "fallenangel", "demon", "dryad", "wolfgirl", "cat", "cow", "harpy", "fox"]>>
+	<<for _i to 0; _i lt _tfs.length; _i++>>
+		<<set _tf to _tfs[_i]>>
+		<<if V[_tf] gte (_tf is "fallenangel" ? 2 : 6)>>
+			<<set $transformationHistory.pushUnique(_tf)>>
+		<</if>>
+	<</for>>
+<</widget>>
+
+<<widget "transformationAlteration">>
+	<<if $settings.transformDivineEnabled>>
+		<<if ($demonbuild gte 5 and $specialTransform isnot 1) or ($demon gte 1 and $specialTransform is 1)>>
+			<<demonTransform $demon>>
+		<<elseif ($angelbuild gte 5 and $specialTransform isnot 1) or ($angel gte 1 and $specialTransform is 1)>>
+			<<angelTransform $angel>>
+		<<elseif $fallenangel gte 2>>
+			<<fallenButNotOut $fallenangel>>
+		<</if>>
+	<</if>>
+
+	<<if $settings.transformAnimalEnabled>>
+		<<script>>
+			let manifestArray = [V.wolfgirl, V.cat, V.cow, V.harpy, V.fox];
+			var highestManifestIndex = manifestArray.indexOf(Math.max(...manifestArray));
+
+			if (manifestArray[highestManifestIndex] > 0) {
+				T.activeTransformIndex = highestManifestIndex;
+			} else {
+				let buildArray = [V.wolfbuild, V.catbuild, V.cowbuild, V.birdbuild, V.foxbuild];
+				let buildMax = Math.max(...buildArray);
+				let highestBuildIndex = buildArray.indexOf(buildMax);
+
+				if (buildArray.count(buildMax) === 1 && buildArray[highestBuildIndex] >= 5) {
+					T.activeTransformIndex = highestBuildIndex;
+				}
+			}
+		<</script>>
+
+		<<switch _activeTransformIndex>>
+			<<case 0>>
+				<<wolfTransform $wolfgirl>>
+			<<case 1>>
+				<<catTransform $cat>>
+			<<case 2>>
+				<<cowTransform $cow>>
+			<<case 3>>
+				<<harpyTransform $harpy>>
+			<<case 4>>
+				<<foxTransform $fox>>
+		<</switch>>
+	<</if>>
+<</widget>>
+
+<<widget "hirsuteHideCheck">>
+	<<if !$settings.pubicHairEnabled and !["hidden", "disabled"].includes($transformationParts.wolf.pubes)>>
+		<<set $transformationParts.wolf.pubes to "hidden">>
+	<</if>>
+	<<if !$settings.pubicHairEnabled and !["hidden", "disabled"].includes($transformationParts.wolf.pits)>>
+		<<set $transformationParts.wolf.pits to "hidden">>
+	<</if>>
+	<<if !$settings.pubicHairEnabled and !["hidden", "disabled"].includes($transformationParts.bird.pubes)>>
+		<<set $transformationParts.bird.pubes to "hidden">>
+	<</if>>
+<</widget>>
+
+/* Used to temporarily hide all transformation parts, such as when needing to turn the player into Janet. showTransformations will bring back all parts this widget hid. */
+<<widget "hideTransformations">>
+	<<set $saveTransformations to clone($transformationParts)>>
+	<<for _transformation, _parts range $transformationParts>>
+		<<for _part, _value range _parts>>
+			<<if _value isnot "disabled" and _value isnot "hidden">>
+				<<set $transformationParts[_transformation][_part] to "hidden">>
+			<</if>>
+		<</for>>
+	<</for>>
+<</widget>>
+
+<<widget "showTransformations">>
+	<<if $saveTransformations isnot undefined>>
+		<<set $transformationParts to clone($saveTransformations)>>
+		<<unset $saveTransformations>>
+	<</if>>
+<</widget>>
+
+<<widget "fallenTransform">>
+	<<if $angel gte 6>>
+		<span class="red">Your halo shatters and your wings blacken. An overwhelming sense of loss overcomes you.</span>
+		<<set $trauma to $traumamax>>
+		<<set $fallenangel to 2>>
+		<<set $transformationParts.fallenAngel.halo to ($transformationParts.angel.halo is "hidden" ? "default" : $transformationParts.angel.halo)>>
+		<<set $transformationParts.fallenAngel.wings to ($transformationParts.angel.wings is "classic" ? "classic" : "default")>>
+		<<set _freshFallen to true>>
+		<<earnFeat "Fallen Angel">>
+	<<elseif $angel gte 4>>
+		<span class="red">Your halo shatters and fades.</span>
+	<</if>>
+	<<if $angel gt 0>>
+		<<angelTransform 99>>
+	<</if>>
+	<<if $fallenangel is 2>>
+		<<set $specialTransform to 1>>
+	<</if>>
+<</widget>>
+
+<<widget "fallenButNotOut">>
+	<<if _args[0] gte 0>>
+		<<switch _args[0]>>
+			<<case 2>>
+				<<if $fallenbuild gte 20>>
+					<<set $fallenangel to 3>>
+					<<run $timeMessages.pushUnique("fallenAngelFeathers")>>
+				<</if>>
+			<<case 3>>
+				<<if $fallenbuild gte 30>>
+					<<set $fallenangel to 4>>
+					<<run $timeMessages.pushUnique("fallenAngelWings")>>
+					<<set $transformationParts.fallenAngel.wings to ($transformationParts.fallenAngel.wings is "classic" ? "classicfallenplus" : "fallenplus")>>
+				<</if>>
+			<<case 99>>
+				<<set $specialTransform to 0>>
+				<<set $fallenangel to 0>>
+				<<set $transformationParts.fallenAngel.halo to "disabled">>
+				<<set $transformationParts.fallenAngel.wings to "disabled">>
+		<</switch>>
+	<</if>>
+<</widget>>
+
+<<widget "fallenDescend">>
+	<<set $demonbuild to 30>>
+	<<set $demon to 6>>
+	<<set $fallenangel to 1>>
+	<<set $specialTransform to 1>>
+	<<run $timeMessages.pushUnique("fallenAngelDescend")>>
+
+	<<set $transformationParts.fallenAngel.halo to "disabled">>
+	<<set $transformationParts.fallenAngel.wings to "disabled">>
+
+	<<set $transformationParts.demon.horns to "default">>
+	<<set $transformationParts.demon.tail to "default">>
+	<<set $transformationParts.demon.wings to "default">>
+	<<arousal 600>>
+<</widget>>
+
+
+/* <<angelTransform step>> If neither is provided, force full transformation */
+<<widget "angelTransform">>
+	<<if _args[0] gte 0>>
+		<<switch _args[0]>>
+			<<case 0>>
+				<<if $angelbuild gte 25>>
+					<<set $angel to 1>>
+					<<set $specialTransform to 1>>
+					<<run $timeMessages.pushUnique("angelUp1")>>
+				<</if>>
+			<<case 1>>
+				<<if $angelbuild gte 30>>
+					<<set $angel to 2>>
+					<<run $timeMessages.pushUnique("angelUp2")>>
+				<<elseif $angelbuild lt 25>>
+					<<set $angel to 0>>
+					<<set $specialTransform to 0>>
+					<<run $timeMessages.pushUnique("angelDown0")>>
+				<</if>>
+			<<case 2>>
+				<<if $angelbuild gte 35>>
+					<<set $angel to 3>>
+					<<run $timeMessages.pushUnique("angelUp3")>>
+				<<elseif $angelbuild lt 30>>
+					<<set $angel to 1>>
+					<<run $timeMessages.pushUnique("angelDown1")>>
+				<</if>>
+			<<case 3>>
+				<<if $angelbuild gte 40>>
+					<<set $angel to 4>>
+					<<run $timeMessages.pushUnique("angelUp4")>>
+					<<set $transformationParts.angel.halo to "default">>
+				<<elseif $angelbuild lt 35>>
+					<<set $angel to 2>>
+					<<run $timeMessages.pushUnique("angelDown2")>>
+				<</if>>
+			<<case 4>>
+				<<if $angelbuild gte 45 and $settings.transformDivineEnabled>>
+					<<set $angel to 5>>
+					<<run $timeMessages.pushUnique("angelUp5")>>
+				<<elseif $angelbuild lt 40>>
+					<<set $angel to 3>>
+					<<run $timeMessages.pushUnique("angelDown3")>>
+					<<set $transformationParts.angel.halo to "disabled">>
+				<</if>>
+			<<case 5>>
+				<<if $angelbuild gte 50 and $settings.transformDivineEnabled>>
+					<<set $angel to 6>>
+					<<run $timeMessages.pushUnique("angelUp6")>>
+					<<set $transformationParts.angel.wings to "default">>
+				<<elseif $angelbuild lt 45>>
+					<<set $angel to 4>>
+					<<run $timeMessages.pushUnique("angelDown4")>>
+				<</if>>
+			<<case 6>>
+				<<if $angelbuild lt 50>>
+					<<set $angel to 5>>
+					<<run $timeMessages.pushUnique("angelDown5")>>
+					<<set $transformationParts.angel.wings to "disabled">>
+				<</if>>
+			<<case 99>>
+				<<set $specialTransform to 0>>
+				<<set $angel to 0>>
+				<<set $angelbuild to 0>>
+				<<set $transformationParts.angel.halo to "disabled">>
+				<<set $transformationParts.angel.wings to "disabled">>
+		<</switch>>
+	<<else>>
+		<<clearDivineTransformations>>
+		<<set $specialTransform to 1>>
+		<<set $angel to 6>>
+		<<set $angelbuild to 50>>
+		<<set $transformationParts.angel.halo to "default">>
+		<<set $transformationParts.angel.wings to "default">>
+	<</if>>
+<</widget>>
+
+/* <<demonTransform step>> If neither is provided, force full transformation */
+<<widget "demonTransform">>
+	<<if _args[0] gte 0>>
+		<<switch _args[0]>>
+			<<case 0>>
+				<<if $demonbuild gte 5 and $settings.transformDivineEnabled and $specialTransform isnot 1>>
+					<<set $demon to 1>>
+					<<set $specialTransform to 1>>
+					<<run $timeMessages.pushUnique("demonUp1")>>
+					<<arousal 600>>
+				<</if>>
+			<<case 1>>
+				<<if $demonbuild gte 10 and $settings.transformDivineEnabled>>
+					<<set $demon to 2>>
+					<<run $timeMessages.pushUnique("demonUp2")>>
+					<<arousal 600>>
+					<<set $transformationParts.demon.horns to "default">>
+				<<elseif $demonbuild lt 5>>
+					<<set $demon to 0>>
+					<<set $specialTransform to 0>>
+					<<run $timeMessages.pushUnique("demonDown0")>>
+				<</if>>
+			<<case 2>>
+				<<if $demonbuild gte 15 and $settings.transformDivineEnabled>>
+					<<set $demon to 3>>
+					<<run $timeMessages.pushUnique("demonUp3")>>
+					<<arousal 600>>
+				<<elseif $demonbuild lt 10>>
+					<<set $demon to 1>>
+					<<run $timeMessages.pushUnique("demonDown1")>>
+					<<set $transformationParts.demon.horns to "disabled">>
+				<</if>>
+			<<case 3>>
+				<<if $demonbuild gte 20 and $settings.transformDivineEnabled>>
+					<<set $demon to 4>>
+					<<run $timeMessages.pushUnique("demonUp4")>>
+					<<set $transformationParts.demon.tail to "default">>
+					<<arousal 600>>
+				<<elseif $demonbuild lt 15>>
+					<<set $demon to 2>>
+					<<run $timeMessages.pushUnique("demonDown2")>>
+				<</if>>
+			<<case 4>>
+				<<if $demonbuild gte 25 and $settings.transformDivineEnabled>>
+					<<set $demon to 5>>
+					<<run $timeMessages.pushUnique("demonUp5")>>
+					<<arousal 600>>
+				<<elseif $demonbuild lt 20>>
+					<<set $demon to 3>>
+					<<run $timeMessages.pushUnique("demonDown3")>>
+					<<set $transformationParts.demon.tail to "disabled">>
+					<<set $transformationParts.traits.flaunting to "disabled">>
+				<</if>>
+			<<case 5>>
+				<<if $demonbuild gte 30 and $settings.transformDivineEnabled>>
+					<<set $demon to 6>><<set $demonFeat to true>>
+					<<run $timeMessages.pushUnique("demonUp6")>>
+					<<arousal 600>>
+					<<set $transformationParts.demon.wings to "default">>
+				<<elseif $demonbuild lt 25>>
+					<<set $demon to 4>>
+					<<run $timeMessages.pushUnique("demonDown4")>>
+				<</if>>
+			<<case 6>>
+				<<if $demonbuild lt 30>>
+					<<set $demon to 5>>
+					<<run $timeMessages.pushUnique("demonDown5")>>
+					<<set $transformationParts.demon.wings to "disabled">>
+				<<else>>
+					<<set $demonFeat to true>>
+				<</if>>
+			<<case 99>>
+				<<set $specialTransform to 0>>
+				<<set $demon to 0>>
+				<<set $demonbuild to 0>>
+				<<set $transformationParts.demon.horns to "disabled">>
+				<<set $transformationParts.demon.tail to "disabled">>
+				<<set $transformationParts.demon.wings to "disabled">>
+				<<set $transformationParts.traits.flaunting to "disabled">>
+		<</switch>>
+	<<else>>
+		<<clearDivineTransformations>>
+		<<set $specialTransform to 1>>
+		<<set $demon to 6>>
+		<<set $demonbuild to 30>>
+		<<set $transformationParts.demon.horns to "default">>
+		<<set $transformationParts.demon.tail to "default">>
+		<<set $transformationParts.demon.wings to "default">>
+	<</if>>
+<</widget>>
+
+/* <<wolfTransform step>> If neither is provided, force full transformation */
+<<widget "wolfTransform">>
+	<<if _args[0] gte 0>>
+		<<switch _args[0]>>
+			<<case 0>>
+				<<if $wolfbuild gte 5>>
+					<<set $wolfgirl to 1>>
+					<<set $physicalTransform to 1>>
+					<<run $timeMessages.pushUnique("wolfUp1")>>
+				<</if>>
+			<<case 1>>
+				<<if $wolfbuild gte 10>>
+					<<set $wolfgirl to 2>>
+					<<run $timeMessages.pushUnique("wolfUp2")>>
+					<<set $transformationParts.traits.fangs to "default">>
+				<<elseif $wolfbuild lt 5>>
+					<<set $wolfgirl to 0>>
+					<<run $timeMessages.pushUnique("wolfDown0")>>
+					<<set $physicalTransform to 0>>
+				<</if>>
+			<<case 2>>
+				<<if $wolfbuild gte 15>>
+					<<set $wolfgirl to 3>>
+					<<run $timeMessages.pushUnique("wolfUp3")>>
+				<<elseif $wolfbuild lt 10>>
+					<<set $wolfgirl to 1>>
+					<<run $timeMessages.pushUnique("wolfDown1")>>
+					<<set $transformationParts.traits.fangs to "disabled">>
+				<</if>>
+			<<case 3>>
+				<<if $wolfbuild gte 20>>
+					<<set $wolfgirl to 4>>
+					<<run $timeMessages.pushUnique("wolfUp4")>>
+					<<set $transformationParts.wolf.ears to "default">>
+					<<set $transformationParts.wolf.pubes to ($settings.pubicHairEnabled? "default" : "hidden")>>
+					<<set $transformationParts.wolf.pits to ($settings.pubicHairEnabled? "default" : "hidden")>>
+				<<elseif $wolfbuild lt 15>>
+					<<set $wolfgirl to 2>>
+					<<run $timeMessages.pushUnique("wolfDown2")>>
+				<</if>>
+			<<case 4>>
+				<<if $wolfbuild gte 25>>
+					<<set $wolfgirl to 5>>
+					<<run $timeMessages.pushUnique("wolfUp5")>>
+					<<set $transformationParts.wolf.cheeks to "feral">>
+				<<elseif $wolfbuild lt 20>>
+					<<set $wolfgirl to 3>>
+					<<run $timeMessages.pushUnique("wolfDown3")>>
+					<<set $transformationParts.wolf.ears to "disabled">>
+					<<set $transformationParts.wolf.pubes to "disabled">>
+					<<set $transformationParts.wolf.pits to "disabled">>
+				<</if>>
+			<<case 5>>
+				<<if $wolfbuild gte 30>>
+					<<set $wolfgirl to 6>>
+					<<run $timeMessages.pushUnique("wolfUp6")>>
+					<<set $transformationParts.wolf.tail to "default">>
+				<<elseif $wolfbuild lt 25>>
+					<<set $wolfgirl to 4>>
+					<<run $timeMessages.pushUnique("wolfDown4")>>
+					<<set $transformationParts.wolf.cheeks to "disabled">>
+				<</if>>
+			<<case 6>>
+				<<if $wolfbuild lt 30>>
+					<<set $wolfgirl to 5>>
+					<<run $timeMessages.pushUnique("wolfDown5")>>
+					<<set $transformationParts.wolf.tail to "disabled">>
+				<</if>>
+			<<case 99>>
+				<<set $physicalTransform to 0>>
+				<<set $wolfgirl to 0>>
+				<<set $wolfbuild to 0>>
+				<<set $transformationParts.traits.fangs to "disabled">>
+				<<set $transformationParts.wolf.cheeks to "disabled">>
+				<<set $transformationParts.wolf.ears to "disabled">>
+				<<set $transformationParts.wolf.pubes to "disabled">>
+				<<set $transformationParts.wolf.pits to "disabled">>
+				<<set $transformationParts.wolf.tail to "disabled">>
+		<</switch>>
+	<<else>>
+		<<clearAnimalTransformations>>
+		<<set $physicalTransform to 1>>
+		<<set $wolfgirl to 6>>
+		<<set $wolfbuild to 100>>
+		<<set $transformationParts.traits.fangs to "default">>
+		<<set $transformationParts.wolf.cheeks to "feral">>
+		<<set $transformationParts.wolf.ears to "default">>
+		<<set $transformationParts.wolf.pubes to ($settings.pubicHairEnabled? "default" : "hidden")>>
+		<<set $transformationParts.wolf.pits to ($settings.pubicHairEnabled? "default" : "hidden")>>
+		<<set $transformationParts.wolf.tail to "default">>
+	<</if>>
+<</widget>>
+
+/* <<catTransform step>> If neither is provided, force full transformation */
+<<widget "catTransform">>
+	<<if _args[0] gte 0>>
+		<<switch _args[0]>>
+			<<case 0>>
+				<<if $catbuild gte 25>>
+					<<set $cat to 1>>
+					<<run $timeMessages.pushUnique("catUp1")>>
+					<<set $physicalTransform to 1>>
+				<</if>>
+			<<case 1>>
+				<<if $catbuild gte 30 and $settings.transformAnimalEnabled>>
+					<<set $cat to 2>>
+					<<run $timeMessages.pushUnique("catUp2")>>
+					<<set $transformationParts.traits.fangs to "default">>
+					<<set $transformationParts.traits.sharpEyes to "default">>
+				<<elseif $catbuild lt 25>>
+					<<set $cat to 0>><<set $physicalTransform to 0>>
+					<<run $timeMessages.pushUnique("catDown0")>>
+				<</if>>
+			<<case 2>>
+				<<if $catbuild gte 35 and $settings.transformAnimalEnabled>>
+					<<set $cat to 3>>
+					<<run $timeMessages.pushUnique("catUp3")>>
+				<<elseif $catbuild lt 30>>
+					<<set $cat to 1>>
+					<<run $timeMessages.pushUnique("catDown1")>>
+					<<set $transformationParts.traits.fangs to "disabled">>
+					<<set $transformationParts.traits.sharpEyes to "disabled">>
+				<</if>>
+			<<case 3>>
+				<<if $catbuild gte 40 and $settings.transformAnimalEnabled>>
+					<<set $cat to 4>>
+					<<run $timeMessages.pushUnique("catUp4")>>
+					<<set $transformationParts.cat.ears to "default">>
+				<<elseif $catbuild lt 35>>
+					<<set $cat to 2>>
+					<<run $timeMessages.pushUnique("catDown2")>>
+				<</if>>
+			<<case 4>>
+				<<if $catbuild gte 45 and $settings.transformAnimalEnabled>>
+					<<set $cat to 5>>
+					<<run $timeMessages.pushUnique("catUp5")>>
+				<<elseif $catbuild lt 40>>
+					<<set $cat to 3>>
+					<<run $timeMessages.pushUnique("catDown3")>>
+					<<set $transformationParts.cat.ears to "disabled">>
+				<</if>>
+			<<case 5>>
+				<<if $catbuild gte 50 and $settings.transformAnimalEnabled>>
+					<<set $cat to 6>>
+					<<run $timeMessages.pushUnique("catUp6")>>
+					<<set $transformationParts.cat.tail to "default">>
+				<<elseif $catbuild lt 45>>
+					<<set $cat to 4>>
+					<<run $timeMessages.pushUnique("catDown4")>>
+				<</if>>
+			<<case 6>>
+				<<if $catbuild gte 55>>
+					<<set $cat to 7>>
+					<<run $timeMessages.pushUnique("catUp7")>>
+					<<run window.determineCatEyeStages()>>
+					<<set $original_colour = [$leftEyeColour, $rightEyeColour]>>
+					<<set $transformationParts.cat.heterochromia to "default">>
+					<<catHeterochromiaTF 0>>
+				<<elseif $catbuild lt 50>>
+					<<set $cat to 5>>
+					<<run $timeMessages.pushUnique("catDown5")>>
+					<<set $transformationParts.cat.tail to "disabled">>
+					<<set $transformationParts.cat.heterochromia to "disabled">>
+				<</if>>
+			<<case 7>>
+				<<if $catbuild gte 60>>
+					<<set $cat to 8>>
+					<<run $timeMessages.pushUnique("catUp8")>>
+					<<catHeterochromiaTF 1>>
+				<<elseif $catbuild lt 55>>
+					<<set $leftEyeColour to $original_colour[0]>>
+					<<set $rightEyeColour to $original_colour[1]>>
+					<<set $cat to 6>>
+					<<run $timeMessages.pushUnique("catDown6")>>
+				<</if>>
+			<<case 8>>
+				<<if $catbuild gte 65>>
+					<<set $cat to 9>>
+					<<run $timeMessages.pushUnique("catUp9")>>
+					<<catHeterochromiaTF 2>>
+				<<elseif $catbuild lt 60>>
+					<<catHeterochromiaTF 0>>
+					<<set $cat to 7>>
+					<<run $timeMessages.pushUnique("catDown7")>>
+				<</if>>
+			<<case 9>>
+				<<if $catbuild gte 70>>
+					<<set $cat to 10>>
+					<<run $timeMessages.pushUnique("catUp10")>>
+					<<catHeterochromiaTF 3>>
+				<<elseif $catbuild lt 65>>
+					<<catHeterochromiaTF 1>>
+					<<set $cat to 8>>
+					/* No message for catDown8 */
+				<</if>>
+			<<case 10>>
+				<<if $catbuild lt 70>>
+					<<catHeterochromiaTF 2>>
+					<<set $cat to 9>>
+					<<run $timeMessages.pushUnique("catDown9")>>
+				<</if>>
+			<<case 99>>
+				<<set $physicalTransform to 0>>
+				<<set $cat to 0>>
+				<<set $catbuild to 0>>
+				<<set $transformationParts.traits.fangs to "disabled">>
+				<<set $transformationParts.traits.sharpEyes to "disabled">>
+				<<set $transformationParts.cat.ears to "disabled">>
+				<<set $transformationParts.cat.tail to "disabled">>
+		<</switch>>
+	<<else>>
+		<<clearAnimalTransformations>>
+		<<set $physicalTransform to 1>>
+		<<set $cat to 6>>
+		<<set $catbuild to 100>>
+		<<set $transformationParts.traits.fangs to "default">>
+		<<set $transformationParts.traits.sharpEyes to "default">>
+		<<set $transformationParts.cat.ears to "default">>
+		<<set $transformationParts.cat.tail to "default">>
+	<</if>>
+<</widget>>
+
+<<widget "catHeterochromiaTF">>
+	<<if _args[0] gte 0 or _args[0] == "hide">>
+		<<if $transformationParts.cat.heterochromia isnot "hidden" and _args[0] isnot "hide">>
+			<<set $leftEyeColour to "cat_tf_stage_" + _args[0] + "_left">>
+			<<set $rightEyeColour to "cat_tf_stage_" + _args[0] + "_right">>
+			<<if _args[0] >= 3>>
+				<<set $heterochromia to 1>>
+			<<else>>
+				<<set $heterochromia to 0>>
+			<</if>>
+		<<else>>
+			<<if V.original_colour isnot undefined>>
+				<<set $leftEyeColour to $original_colour[0]>>
+				<<set $rightEyeColour to $original_colour[1]>>
+			<</if>>
+			<<set $heterochromia to 0>>
+		<</if>>
+	<</if>>
+<</widget>>
+
+<<widget "cowTransform">>
+	<<if _args[0] gte 0>>
+		<<switch _args[0]>>
+			<<case 0>>
+				<<if $cowbuild gte 5>>
+					<<set $cow to 1>>
+					<<run $timeMessages.pushUnique("cowUp1")>>
+					<<set $physicalTransform to 1>>
+				<</if>>
+			<<case 1>>
+				<<if $cowbuild gte 10>>
+					<<set $cow to 2>>
+					<<run $timeMessages.pushUnique("cowUp2")>>
+					<<set $transformationParts.cow.horns to "default">>
+				<<elseif $cowbuild lt 5>>
+					<<set $cow to 0>><<set $physicalTransform to 0>>
+					<<run $timeMessages.pushUnique("cowDown0")>>
+				<</if>>
+			<<case 2>>
+				<<if $cowbuild gte 15>>
+					<<set $cow to 3>>
+					<<run $timeMessages.pushUnique("cowUp3")>>
+				<<elseif $cowbuild lt 10>>
+					<<set $cow to 1>>
+					<<run $timeMessages.pushUnique("cowDown1")>>
+					<<set $transformationParts.cow.horns to "disabled">>
+				<</if>>
+			<<case 3>>
+				<<if $cowbuild gte 20>>
+					<<set $cow to 4>>
+					<<run $timeMessages.pushUnique("cowUp4")>>
+					<<set $transformationParts.cow.ears to "default">>
+				<<elseif $cowbuild lt 15>>
+					<<set $cow to 2>>
+					<<run $timeMessages.pushUnique("cowDown2")>>
+				<</if>>
+			<<case 4>>
+				<<if $cowbuild gte 25>>
+					<<set $cow to 5>>
+					<<run $timeMessages.pushUnique("cowUp5")>>
+				<<elseif $cowbuild lt 20>>
+					<<set $cow to 3>>
+					<<run $timeMessages.pushUnique("cowDown3")>>
+					<<set $transformationParts.cow.ears to "disabled">>
+				<</if>>
+			<<case 5>>
+				<<if $cowbuild gte 30>>
+					<<set $cow to 6>>
+					<<run $timeMessages.pushUnique("cowUp6")>>
+					<<set $semen_max to 4000>>
+					<<set $milk_max to 6000>>
+					<<set $transformationParts.cow.tail to "default">>
+				<<elseif $cowbuild lt 25>>
+					<<set $cow to 4>>
+					<<run $timeMessages.pushUnique("cowDown4")>>
+				<</if>>
+			<<case 6>>
+				<<if $cowbuild lt 30>>
+					<<set $semen_max to 3000>>
+					<<set $milk_max to 3000>>
+					<<set $cow to 5>>
+					<<run $timeMessages.pushUnique("cowDown5")>>
+					<<set $transformationParts.cow.tail to "disabled">>
+				<</if>>
+			<<case 99>>
+				<<set $physicalTransform to 0>>
+				<<set $cow to 0>>
+				<<set $cowbuild to 0>>
+				<<set $semen_max to 3000>>
+				<<set $milk_max to 3000>>
+				<<set $transformationParts.cow.tail to "disabled">>
+				<<set $transformationParts.cow.ears to "disabled">>
+				<<set $transformationParts.cow.horns to "disabled">>
+		<</switch>>
+	<<else>>
+		<<clearAnimalTransformations>>
+		<<set $physicalTransform to 1>>
+		<<set $cow to 6>>
+		<<set $cowbuild to 100>>
+		<<set $semen_max to 4000>>
+		<<set $milk_max to 6000>>
+		<<set $transformationParts.cow.horns to "default">>
+		<<set $transformationParts.cow.ears to "default">>
+		<<set $transformationParts.cow.tail to "default">>
+	<</if>>
+	<<semenvolume 0>>
+	<<milkvolume 0>>
+<</widget>>
+
+/* <<harpyTransform step>> If neither is provided, force full transformation */
+<<widget "harpyTransform">>
+	<<if _args[0] gte 0>>
+		<<switch _args[0]>>
+			<<case 0>>
+				<<if $birdbuild gte 5 and $physicalTransform isnot 1>>
+					<<set $harpy to 1>>
+					<<run $timeMessages.pushUnique("harpyUp1")>>
+					<<set $physicalTransform to 1>>
+				<</if>>
+			<<case 1>>
+				<<if $birdbuild gte 10>>
+					<<set $harpy to 2>>
+					<<run $timeMessages.pushUnique("harpyUp2")>>
+					<<set $transformationParts.bird.eyes to "default">>
+					<<set $transformationParts.bird.malar to "default">>
+					<<set $transformationParts.traits.sharpEyes to "default">>
+				<<elseif $birdbuild lt 5>>
+					<<set $harpy to 0>><<set $physicalTransform to 0>>
+					<<run $timeMessages.pushUnique("harpyDown0")>>
+				<</if>>
+			<<case 2>>
+				<<if $birdbuild gte 15>>
+					<<set $harpy to 3>>
+					<<run $timeMessages.pushUnique("harpyUp3")>>
+					<<set $transformationParts.traits.mateForLife to "default">>
+				<<elseif $birdbuild lt 10>>
+					<<set $harpy to 1>>
+					<<run $timeMessages.pushUnique("harpyDown1")>>
+					<<set $transformationParts.bird.eyes to "disabled">>
+					<<set $transformationParts.bird.malar to "disabled">>
+					<<set $transformationParts.traits.sharpEyes to "disabled">>
+				<</if>>
+			<<case 3>>
+				<<if $birdbuild gte 20>>
+					<<set $harpy to 4>>
+					<<run $timeMessages.pushUnique("harpyUp4")>>
+					<<set $transformationParts.bird.tail to "default">>
+					<<set $transformationParts.bird.plumage to "default">>
+				<<elseif $birdbuild lt 15>>
+					<<set $harpy to 2>>
+					<<run $timeMessages.pushUnique("harpyDown2")>>
+					<<set $transformationParts.traits.mateForLife to "disabled">>
+				<</if>>
+			<<case 4>>
+				<<if $birdbuild gte 25>>
+					<<set $harpy to 5>>
+					<<run $timeMessages.pushUnique("harpyUp5")>>
+				<<elseif $birdbuild lt 20>>
+					<<set $harpy to 3>>
+					<<run $timeMessages.pushUnique("harpyDown3")>>
+					<<set $transformationParts.bird.tail to "disabled">>
+					<<set $transformationParts.bird.plumage to "disabled">>
+				<</if>>
+			<<case 5>>
+				<<if $birdbuild gte 30>>
+					<<set $harpy to 6>>
+					<<run $timeMessages.pushUnique("harpyUp6")>>
+					<<set $transformationParts.bird.wings to "default">>
+					<<if $settings.pubicHairEnabled>>
+						<<set $transformationParts.bird.pubes to "default">>
+					<<else>>
+						<<set $transformationParts.bird.pubes to "hidden">>
+					<</if>>
+				<<elseif $birdbuild lt 25>>
+					<<set $harpy to 4>>
+					<<run $timeMessages.pushUnique("harpyDown4")>>
+				<</if>>
+			<<case 6>>
+				<<if $birdbuild lt 30>>
+					<<set $harpy to 5>>
+					<<run $timeMessages.pushUnique("harpyDown5")>>
+					<<set $transformationParts.bird.wings to "disabled">>
+					<<set $transformationParts.bird.pubes to "disabled">>
+					<<if $angel gte 6>>
+						<<set $transformationParts.angel.wings to "default">>
+					<</if>>
+					<<if $demon gte 6>>
+						<<set $transformationParts.demon.wings to "default">>
+					<</if>>
+					<<if $fallenangel gte 2>>
+						<<set $transformationParts.fallenAngel.wings to "default">>
+					<</if>>
+				<</if>>
+			<<case 99>>
+				<<set $physicalTransform to 0>>
+				<<set $harpy to 0>>
+				<<set $birdbuild to 0>>
+				<<set $transformationParts.bird.eyes to "disabled">>
+				<<set $transformationParts.bird.malar to "disabled">>
+				<<set $transformationParts.bird.tail to "disabled">>
+				<<set $transformationParts.bird.plumage to "disabled">>
+				<<set $transformationParts.bird.pubes to "disabled">>
+				<<set $transformationParts.traits.sharpEyes to "disabled">>
+				<<set $transformationParts.traits.mateForLife to "disabled">>
+				<<set $transformationParts.bird.wings to "disabled">>
+				<<if !["hidden", "disabled"].includes($transformationParts.bird.wings)>>
+					<<if $angel gte 6>>
+						<<set $transformationParts.angel.wings to "default">>
+					<</if>>
+					<<if $demon gte 6>>
+						<<set $transformationParts.demon.wings to "default">>
+					<</if>>
+					<<if $fallenangel gte 2>>
+						<<set $transformationParts.fallenAngel.wings to "default">>
+					<</if>>
+				<</if>>
+		<</switch>>
+	<<else>>
+		<<set $physicalTransform to 1>>
+		<<set $harpy to 6>>
+		<<set $birdbuild to 100>>
+		<<set $transformationParts.bird.eyes to "default">>
+		<<set $transformationParts.bird.malar to "default">>
+		<<set $transformationParts.bird.tail to "default">>
+		<<set $transformationParts.bird.plumage to "default">>
+		<<set $transformationParts.bird.wings to "default">>
+		<<set $transformationParts.traits.sharpEyes to "default">>
+		<<set $transformationParts.traits.mateForLife to "default">>
+		<<if $settings.pubicHairEnabled>>
+			<<set $transformationParts.bird.pubes to "default">>
+		<<else>>
+			<<set $transformationParts.bird.pubes to "hidden">>
+		<</if>>
+	<</if>>
+<</widget>>
+
+/* <<foxTransform step>> If neither is provided, force full transformation */
+<<widget "foxTransform">>
+	<<if _args[0] gte 0>>
+		<<switch _args[0]>>
+			<<case 0>>
+				<<if $foxbuild gte 5>>
+					<<set $fox to 1>>
+					<<run $timeMessages.pushUnique("foxUp1")>>
+					<<set $physicalTransform to 1>>
+				<</if>>
+			<<case 1>>
+				<<if $foxbuild gte 10>>
+					<<set $fox to 2>>
+					<<run $timeMessages.pushUnique("foxUp2")>>
+					<<set $transformationParts.traits.fangs to "default">>
+					<<set $transformationParts.traits.sharpEyes to "default">>
+				<<elseif $foxbuild lt 5>>
+					<<set $fox to 0>>
+					<<run $timeMessages.pushUnique("foxDown0")>>
+					<<set $physicalTransform to 0>>
+				<</if>>
+			<<case 2>>
+				<<if $foxbuild gte 15>>
+					<<set $fox to 3>>
+					<<run $timeMessages.pushUnique("foxUp3")>>
+					<<set $transformationParts.traits.mateForLife to "default">>
+				<<elseif $foxbuild lt 10>>
+					<<set $fox to 1>>
+					<<run $timeMessages.pushUnique("foxDown1")>>
+					<<set $transformationParts.traits.fangs to "disabled">>
+					<<set $transformationParts.traits.sharpEyes to "disabled">>
+				<</if>>
+			<<case 3>>
+				<<if $foxbuild gte 20>>
+					<<set $fox to 4>>
+					<<run $timeMessages.pushUnique("foxUp4")>>
+					<<set $transformationParts.fox.ears to "default">>
+					<<set $transformationParts.traits.chase to "default">>
+				<<elseif $foxbuild lt 15>>
+					<<set $fox to 2>>
+					<<run $timeMessages.pushUnique("foxDown2")>>
+					<<set $transformationParts.traits.mateForLife to "disabled">>
+				<</if>>
+			<<case 4>>
+				<<if $foxbuild gte 25>>
+					<<set $fox to 5>>
+					<<run $timeMessages.pushUnique("foxUp5")>>
+					<<set $transformationParts.fox.cheeks to "default">>
+				<<elseif $foxbuild lt 20>>
+					<<set $fox to 3>>
+					<<run $timeMessages.pushUnique("foxDown3")>>
+					<<set $transformationParts.fox.ears to "disabled">>
+					<<set $transformationParts.traits.chase to "disabled">>
+				<</if>>
+			<<case 5>>
+				<<if $foxbuild gte 30>>
+					<<set $fox to 6>>
+					<<run $timeMessages.pushUnique("foxUp6")>>
+					<<set $transformationParts.fox.tail to "default">>
+				<<elseif $foxbuild lt 25>>
+					<<set $fox to 4>>
+					<<run $timeMessages.pushUnique("foxDown4")>>
+					<<set $transformationParts.fox.cheeks to "disabled">>
+				<</if>>
+			<<case 6>>
+				<<if $foxbuild lt 30>>
+					<<set $fox to 5>>
+					<<run $timeMessages.pushUnique("foxDown5")>>
+					<<set $transformationParts.fox.tail to "disabled">>
+				<</if>>
+			<<case 99>>
+				<<set $physicalTransform to 0>>
+				<<set $fox to 0>>
+				<<set $foxbuild to 0>>
+				<<set $transformationParts.traits.fangs to "disabled">>
+				<<set $transformationParts.traits.sharpEyes to "disabled">>
+				<<set $transformationParts.traits.mateForLife to "disabled">>
+				<<set $transformationParts.traits.chase to "disabled">>
+				<<set $transformationParts.fox.cheeks to "disabled">>
+				<<set $transformationParts.fox.ears to "disabled">>
+				<<set $transformationParts.fox.tail to "disabled">>
+		<</switch>>
+	<<else>>
+		<<clearAnimalTransformations>>
+		<<set $physicalTransform to 1>>
+		<<set $fox to 6>>
+		<<set $foxbuild to 100>>
+		<<set $transformationParts.traits.fangs to "default">>
+		<<set $transformationParts.traits.sharpEyes to "default">>
+		<<set $transformationParts.traits.mateForLife to "default">>
+		<<set $transformationParts.traits.chase to "default">>
+		<<set $transformationParts.fox.cheeks to "default">>
+		<<set $transformationParts.fox.ears to "default">>
+		<<set $transformationParts.fox.tail to "default">>
+	<</if>>
+<</widget>>
+
+<<widget "clearAnimalTransformations">>
+	<<harpyTransform 99>>
+	<<cowTransform 99>>
+	<<catTransform 99>>
+	<<wolfTransform 99>>
+	<<foxTransform 99>>
+<</widget>>
+
+<<widget "clearDivineTransformations">>
+	<<demonTransform 99>>
+	<<angelTransform 99>>
+	<<fallenButNotOut 99>>
+<</widget>>
+
+<<widget "revealTransformations">>
+	/* DO NOT USE without calling rehideTransformations before scene end */
+	<<set $tfPartsHidden to clone($transformationParts)>>
+	<<if $harpy gte 6 and ($angel gte 6 or $fallenangel gte 2 or $demon gte 6)>>
+		<<if $transformationParts.bird.wings is "hidden" and ($transformationParts.demon.wings is "hidden" or $transformationParts.angel.wings is "hidden" or $transformationParts.fallenAngel.wings is "hidden")>>
+		<<else>>
+			<<set $_excludeWings to true>>
+		<</if>>
+	<</if>>
+	<<set $_keys to Object.keys($transformationParts)>>
+	<<for $_i to 0; $_i lt $_keys.length; $_i++>>
+		<<set $_key to $_keys[$_i]>>
+		<<for $_label, $_value range $transformationParts[$_key]>>
+			<<if $_value is "hidden" and $_key isnot "traits" and !["pubes", "pits", "cheeks"].includes($_label) and !($_label is "wings" and $_excludeWings is true)>>
+				<<set $transformationParts[clone($_key)][clone($_label)] to "default">>
+				<<set $tfPartsHidden[clone($_key)][clone($_label)] to "hideLater">>
+				<<set _unhidden to true>>
+			<</if>>
+		<</for>>
+	<</for>>
+<</widget>>
+
+<<widget "rehideTransformations">>
+	<<if $tfPartsHidden>>
+		<<set $_keys to Object.keys($tfPartsHidden)>>
+		<<for $_i to 0; $_i lt $_keys.length; $_i++>>
+			<<set $_key to $_keys[$_i]>>
+			<<for $_label, $_value range $tfPartsHidden[$_key]>>
+				<<if $_value is "hideLater">>
+					<<set $transformationParts[clone($_key)][clone($_label)] to "hidden">>
+				<</if>>
+			<</for>>
+		<</for>>
+		<<unset $tfPartsHidden>>
+	<</if>>
+<</widget>>

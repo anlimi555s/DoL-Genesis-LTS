@@ -1,0 +1,67 @@
+:: Supermarket Lock
+<<set $outside to 0>><<effects>><<set $lock to 200>>
+
+The shutters protecting the supermarket windows would be liftable, if not for the padlock.
+<br><br>
+
+<<if currentSkillValue('skulduggery') gte $lock>>
+	<<if pcAreArmsBound("both")>>
+		You think you'd be able to pick the lock, <span class="blue">if your arms weren't bound.</span>
+	<<else>>
+		<<wearProp "lockpick">>
+		<span class="green">The lock looks easy to pick.</span>
+		<br><br>
+
+		<<lockicon "pick">><<link [[Pick it (0:10)|Supermarket]]>><<pass 10>><<crimeUp 5 "trespassing">><</link>><<crime "trespassing">>
+	<</if>>
+	<br>
+<<else>>
+	<span class="red">The lock looks beyond your ability to pick.</span>
+	<<skulduggeryrequired>>
+	<br><br>
+<</if>>
+<<getouticon>><<link [[Leave|Shopping Centre]]>><<endevent>><</link>>
+
+:: Supermarket
+<<set $outside to 0>><<location "shopping_centre">><<effects>>
+<<wearProp "shopping basket">>
+You are in the supermarket. All sorts of fresh ingredients line the shelves, or sit on display in fridges.
+<br><br>
+
+<<if Time.dayState is "night" and Time.hour isnot $closinghour>>
+	You are alone in the darkness.
+	<br><br>
+<<elseif $exposed gte 1>>
+	You crouch behind a display to protect your dignity.
+	<br><br>
+<</if>>
+
+<<if $stress gte $stressmax>>
+	<<unset $shoppingBasket>>
+	<<passoutshop "shop">>
+<<else>>
+	<<if Time.hour is 21>>
+		It's closing time. Security is herding everyone outside.
+		<<if $exposed gte 1>>
+			Panic swells within you as you realise how embarrassed you'll be should security find you exposed like this.
+		<</if>>
+		<br><br>
+		<<if $exposed lte 0>>
+			<<highicon>><<link [[Go outside|High Street]]>><<unset $shoppingBasket>><</link>>
+			<br>
+		<<else>>
+			<<ind>><<link [["Hide until it's over (1:00)"|Supermarket]]>><<pass 1 hour>><</link>>
+		<</if>>
+	<<else>>
+		<<if Time.dayState is "night" and Time.hour isnot 21>>
+			<<if !$weekly.theft.supermarket>>
+				<<shopicon "register">><<link [[Examine the cash register|Supermarket Register]]>><</link>>
+				<br><br>
+			<</if>>
+		<</if>>
+		<<supermarketDisplay "supermarket">>
+		<br>
+		<<getouticon>><<link [[Leave|Shopping Centre]]>><<unset $shoppingBasket>><</link>>
+		<br>
+	<</if>>
+<</if>>

@@ -1,0 +1,22 @@
+:: npcList [widget]
+<<widget "npcList">>
+	<<script>>
+		const NPCList = [];
+		for (let idx = 0; idx < 6; ++idx) {
+			NPCList.push(clone(setup.baseNPC));
+			/* carry over values from existing generated npcs and add current index */
+			/* uses .description to detect if npc is not a stub, in case of trouble try another variable */
+			if (V.NPCList && V.NPCList[idx].description) {
+				const npc = NPCList[idx];
+				npc.index = idx;
+				Object.assign(npc, V.NPCList[idx]);
+				if (!npc.type) npc.type = "human";
+			}
+		}
+		V.NPCList = clone(NPCList);
+	<</script>>
+	/* should this even be here? */
+	<<set $BeastList to ["dog","cat","pig","wolf","dolphin","lizard","bear","boar","creature","horse","fox","hawk","cow","spider"]>>
+
+	<<set $npcListVersion to 3>>
+<</widget>>

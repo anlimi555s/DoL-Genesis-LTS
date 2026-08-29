@@ -1,0 +1,535 @@
+:: Wren Heist Intro
+<<effects>>
+
+<<He>> pulls a crumpled up piece of paper from <<his>> pocket. You lean over to look at it. <<= currentSkillValue("history") gte 600 ? "You recognise it as blueprints to a house" : "It looks like a mess of lines and numbers">>.
+<br><br>
+"There's a party tonight," Wren says. <<He>> taps the centre of the paper. "The person throwing it is rich and doesn't care who knows it. All of the fancy jewellery and valuables are right in plain sight. We're going to go and take whatever we can carry." <<He>> smiles at you. "<<if $prison?.wren_names is 2>>A jailbird like you is no stranger to stealing<<elseif crimeSumCurrent() gte 5000>>You've been making waves in the underworld<<elseif $fame.social gte 600>>I've heard you like to schmooze with the upper class<</if>>. You're perfect for this job. It'll be easy, just in-and-out."
+<br><br>
+You consider the offer. Wren leans forward, pitching <<his>> voice lower. "I'll even sweeten the pot for you. We split the profits <<= C.npc.Wren.love gte 40 ? "fifty-fifty" : C.npc.Wren.love gte 20 ? "sixty-forty" : "seventy-thirty">>. Sound good?"
+<br><br>
+
+<<link [[Accept|Wren Heist Intro End]]>><<set $phase to 1>><<npcincr Wren love 1>><</link>><<glove "Wren">>
+<br>
+<<link [[Refuse|Wren Heist Intro End]]>><<set $phase to 0>><<npcincr Wren love -1>><</link>><<llove "Wren">>
+<br>
+
+:: Wren Heist Intro End
+<<effects>>
+
+<<if $phase is 0>>
+	You decline Wren's offer.
+	<br><br>
+	"Suit yourself," <<he>> says.
+<<elseif $phase is 1>>
+	<<outfitChecks>>
+	<<set $wrenHeist to true>>
+	<<set $wrenHeistDance to {}>>
+	<<if C.npc.Wren.love gte 40>>
+		<<set $wrenHeistDance.profits to "50/50">>
+	<<elseif C.npc.Wren.love gte 20>>
+		<<set $wrenHeistDance.profits to "60/40">>
+	<<else>>
+		<<set $wrenHeistDance.profits to "70/30">>
+	<</if>>
+
+	You accept the terms of Wren's offer.
+	<br><br>
+	<<He>> writes something on the bottom of the paper, then slides it across the table to you. "Be at that address on <span class="green">Danube Street tonight at seven,</span>" <<he>> says. "Don't be late." <<He>> hesitates, looking you up and down. "Wear something <<= _top?.reveal gte 500 or _bottom?.reveal gte 500 ? "like this" : "slutty" >>," <<he>> says with a wink.
+<</if>>
+<br><br>
+Wren slips away without another word.
+<br><br>
+A few moments later, Landry slides into the seat across from you. <<nnpc_He "Landry">> looks calmer. "Sorry about that," <<he>> says. "What do you need?"
+<br><br>
+
+<<endevent>>
+<<npc Landry>><<person1>>
+
+<<landryoptions>>
+<<getouticon>><<link [[Leave|Pub]]>><<endevent>><</link>>
+
+:: Wren Heist Arrival
+<<effects>><<outfitChecks>>
+
+You arrive at the address Wren gave you. A few cars are parked in front of the grand mansion. Party-goers in expensive clothing and jewellery mingle outside.
+<br><br>
+<<if !_top or _top.type.includes("costume") or _bottom.type.includes("costume")>>
+	A few of them <<= !_top ? "leer at you" : "look your way">>. They whisper to each other behind their hands. You can hear the tinkling of laughter.<<stress 6>><<gstress>><<trauma 6>><<gtrauma>>
+<<elseif _top.reveal gte 500 or _bottom.reveal gte 500>>
+	Quite a few of them stare at you. One <<generate1>><<person1>><<person>> adjusts <<his>> <<= $pronoun is "m" ? "tie" : "lavallière">>, <<his>> face bright red.<<endevent>>
+<<elseif !(_top.type.includes("formal") or _bottom.type.includes("formal"))>>
+	You wish you had dressed a bit nicer.<<stress 6>><<gstress>>
+<<else>>
+	No one gives you a second glance.
+<</if>>
+<br><br>
+You look around for Wren, but there's no sign of <<nnpc_him "Wren">>. A hand grabs you before you can go inside. Two large security guards flank you.
+<br><br>
+<<generate1>><<saveNPC 0 "wren_heist_guard_1">><<generate2>><<saveNPC 1 "wren_heist_guard_2">>
+"There you are," one says. <<person1>>"We were told you'd be pretty, but <<= $beauty gte ($beautymax / 7) * 6 ? "you're gorgeous!" : $beauty gte ($beautymax / 7) * 3 ? "<<nnpc_he 'Wren'>> didn't say just how pretty." : "it looks like that was a lie.">>" <<He>> starts pulling you towards the back of the house.
+<br><br>
+
+<<link [[Tell them to let go of you|Wren Heist Dance Intro]]>><<set $phase to 0>><</link>>
+<br>
+<<link [[Follow silently|Wren Heist Dance Intro]]>><<set $phase to 1>><</link>>
+<br>
+
+:: Wren Heist Dance Intro
+<<set $outside to 0>><<effects>>
+
+<<if $phase is 0>>
+	<<if $speech_attitude is "meek">>
+		"I don't know what you mean," you say. "Where are we going? I'm supposed to m-meet someone... please let me go."
+	<<elseif $speech_attitude is "bratty">>
+		"I have no idea what you're talking about. Let go of me," you demand. "I'm supposed to meet a friend."
+	<<else>>
+		"I don't know what you're talking about, but I'm supposed to meet someone," you say. "Can you let go of me?"
+	<</if>>
+	<br><br>
+	The guards exchange a glance over your head. "Don't play dumb, <<girl>>," the <<person2>><<person>> says. "We've heard all about you. You're the entertainment!"
+<<else>>
+	You follow along without saying anything.
+<</if>>
+<br><br>
+The guards don't spare you a glance as they usher you to the main party. There is a small, round stage set up in the centre of the room. All of the party-goers are mingling around it. Some glance your way. A few keep staring long past what's polite.
+<br><br>
+"Thank goodness," a <<generate3>><<person3>><<person>> says, rushing up to you. <<He>> looks frazzled. "I thought we were going to be without a dancer. Go on, hurry up! Everyone's waiting!"
+<br><br>
+As if on cue, the lights dim. A spotlight lands on you. You make your way to the stage while everyone watches.
+<br><br>
+
+<<link [[Dance|Wren Heist Dance]]>><<endevent>><<set $dancestart to 1>><<set $wrenHeistDance.phase to 0>><<set $wrenHeistDance.blackMoney to 0>><</link>>
+<br>
+
+:: Wren Heist Dance
+<<effects>>
+
+<<if $dancestart is 1>>
+	<<unset $dancestart>>
+	<<danceinit>>
+	<<set $dancing to 1>>
+	<<set $venuemod to 0>>
+	<<set $dancelocation to "wren_heist">>
+	<<set $timer to 3>>
+	<<set $wrenHeistDance.phase += 1>>
+	<<generate1>><<person1>><<set $audience to 1>>
+<</if>>
+
+<<switch $timer>>
+	<<case 3>>
+		You notice Wren weaving through the crowd. <<nnpc_He "Wren">> is dressed as a <<nnpc_waiter "Wren">>.
+	<<case 2>>
+		One of the partygoers flags <<nnpc_him "Wren">> down. <<He>> takes a
+		<<if $wrenHeistDance.phase is 1>>
+			flute of champagne
+		<<elseif $wrenHeistDance.phase is 2>>
+			plate of food
+		<<elseif $wrenHeistDance.phase is 3>>
+			dessert
+		<<else>>
+			glass of sherry
+		<</if>>
+		off Wren's tray.
+	<<case 1>>
+		<<if $wrenHeistDance.help is false and $wrenHeistDance.phase is 3>>
+			<<set _special_pronoun to $per_npc.wren_heist_fighting.pronoun>>
+			Someone stops <<nnpc_him "Wren">>. <span class="red">It's the <<= $per_npc.wren_heist_fighting.fullDescription>>, and <<if _special_pronoun is "m">>he<<else>>she<</if>> doesn't look happy.</span> Neither does Wren, who says something to the <<if _special_pronoun is "m">>man<<else>>woman<</if>>. The two of them leave the room. <<stress 6>><<gstress>>
+		<<else>>
+			<<set $wrenHeistDance.blackMoney += 500>>
+			<<if currentSkillValue('skulduggery') gte 800 or $transformationParts.traits.sharpEyes isnot "disabled">>
+				While <<person1>><<he>> is distracted, Wren reaches
+				<<if $wrenHeistDance.phase is 1>>
+					into <<his>> <<= $pronoun is "m" ? "pocket and takes <<his>> wallet." : "purse and takes <<his>> clutch.">>
+				<<elseif $wrenHeistDance.phase is 2>>
+					for <<his>> wrist and takes <<his>> watch.
+				<<elseif $wrenHeistDance.phase is 3>>
+					<<= $pronoun is "m" ? "into <<his>> breast pocket and takes <<his>> pocket watch" : "behind <<his>> neck and takes <<his>> necklace">>.
+				<<else>>
+					down and takes the mobile phone from <<his>> hand.
+				<</if>>
+			<</if>>
+		<</if>>
+	<<case 0>>
+		<<if $wrenHeistDance.help is false and $wrenHeistDance.phase is 3>>
+			You have time before your next dance. You're not sure if Wren's managed to slip away from the <<= $per_npc.wren_heist_fighting.fullDescription>>. You wander until you find <<nnpc_him "Wren">>.
+		<<else>>
+			Wren notices you watching <<nnpc_him "Wren">> and jerks <<nnpc_his "Wren">> head towards the
+			<<if $wrenHeistDance.phase is 1>>
+				wine cellar.
+			<<elseif $wrenHeistDance.phase is 2>>
+				kitchen.
+			<<elseif $wrenHeistDance.phase is 3>>
+				stairs.
+			<<else>>
+				exit.
+			<</if>>
+			<<nnpc_He "Wren">> makes <<nnpc_his "Wren">> way there.
+		<</if>>
+<</switch>>
+<<set $forceddance to 1>>
+<br><br>
+<<danceeffects>>
+<<danceaudience>>
+<<if $timer is 0>>
+	<<set $danceevent to "finish">>
+<<else>>
+	<<danceactions>>
+<</if>>
+
+<<if $danceevent is "finish">>
+	<<runicon>><<link [[Stop|Wren Heist Break]]>><<set $wrenHeistDance.blackMoney += $audienceexcitement * 10>><<pass 20>><<clotheson>><<endevent>><</link>>
+<</if>>
+
+:: Wren Heist Break
+<<effects>>
+<<npc Wren>><<person1>>
+
+<<switch $wrenHeistDance.phase>>
+	<<case 1>> /* wine cellar */
+		The lights dim. You make your way off the stage to <<= currentSkillValue("danceskill") gte 600 ? "enthusiastic" : "tepid">> applause. As the rest of the party-goers start to chat, you sneak away to the wine cellar.
+		<br><br>
+		Wren is there, waiting. <<He>> smiles when <<he>> sees you. "Nice work out there," <<he>> says. "Sorry, I didn't warn you in advance, but you did fine. That little distraction should keep them talking for a bit. Now, help me load up a few of these bottles."
+		<br><br>
+
+		<<link [[Next|Wren Heist Break Wine Cellar]]>><</link>>
+		<br>
+	<<case 2>> /* kitchen */
+		You follow Wren into the kitchen. <<He>> is rooting through a cutlery drawer. <<if currentSkillValue('skulduggery') gte 600 or $transformationParts.traits.sharpEyes isnot "disabled">>You notice <<him>> slipping some into <<his>> pockets.<</if>> <<He>> waves you over.
+		<br><br>
+		"Having fun yet?" <<he>> asks.
+		<br><br>
+
+		<<link [[Flirt|Wren Heist Break Kitchen]]>><<set $phase to 0>><</link>><<promiscuous1>>
+		<br>
+		<<link [[Remain professional|Wren Heist Break Kitchen]]>><<set $phase to 1>><</link>>
+		<br>
+	<<case 3>> /* stairs */
+		<<if $wrenHeistDance.help is false>>
+			"Couldn't handle one little fight?" <<he>> says. <<His>> voice is light, but <<his>> smile doesn't quite reach <<his>> eyes. "No matter, I took care of it. Just a shame we lost that time. I was about to lift a very nice pocket watch."<<npcincr Wren love -1>><<llove>>
+			<br><br>
+			"But it's all good, I saved the best for last," <<he>> says. <<His>> smile is more genuine this time.
+		<<else>>
+			"I saved the best for last," <<he>> says.
+		<</if>>
+		"It's just upstairs." <<He>> gestures for you to go first. "After you."
+		<br><br>
+
+		<<link [[Go upstairs first|Wren Heist Break Upstairs]]>><<set $phase to 1>><</link>>
+		<br>
+		<<link [[Go upstairs second|Wren Heist Break Upstairs]]>><<set $phase to 0>><</link>>
+		<br>
+	<<case 4>> /* exit */
+		The lights come back on. Everyone claps <<= currentSkillValue("danceskill") gte 600 ? "with enthusiasm" : "politely">>. You step off the stage and make your way to the exit.
+		<br><br>
+		Wren straightens as you approach. "Let's go," <<he>> says.
+		<br><br>
+
+		<<link [[Next|Wren Heist Exit]]>><<run delete $wrenHeistDance.phase>><</link>>
+		<br>
+<</switch>>
+
+:: Wren Heist Break Wine Cellar
+<<effects>>
+<<wearProp "wine bottle">>
+
+You look over the wine. Thanks to Landry, you remember which bottles are the most valuable. You and Wren take a few of them.
+<br><br>
+As <<he>> goes to deposit your haul somewhere safe, a spotlight lands on you. The crowd watches you expectantly. You walk back up on stage.
+<br><br>
+
+<<link [[Dance|Wren Heist Dance]]>><<endevent>><<set $dancestart to 1>><</link>>
+<br>
+
+:: Wren Heist Break Kitchen
+<<effects>>
+
+<<if $phase is 0>> /* Flirt */
+	<<if $speech_attitude is "meek">>
+		"A little," you say. "But I would have more fun w-with you."
+	<<elseif $speech_attitude is "bratty">>
+		You lean closer. "Not nearly as much as I could have with you."
+	<<else>>
+		"I'll admit it's been pretty fun," you say. "I wish we were spending more time together, though."
+	<</if>>
+	<<promiscuity1>>
+	<<He>> smirks at you. "Careful. If I didn't know any better, I'd think you want to mix business with pleasure."
+<<else>> /* Remain professional */
+	<<if $speech_attitude is "meek">>
+		"I don't think this is s-supposed to be fun," you say.
+	<<elseif $speech_attitude is "bratty">>
+		"I'm here to work, not have fun," you say.
+	<<else>>
+		"Business before pleasure, Wren," you remind <<him>>.
+	<</if>>
+	<br><br>
+	<<He>> grins at you. "Why can't business be pleasurable?"
+<</if>>
+<br><br>
+<<He>> grabs more silverware before jerking <<his>> head. "I hear our host keeps the really expensive china in the dining room cupboards. Care to join me?"
+<br><br>
+<span class="gold">Wren will be able to take more with your help!</span>
+<br><br>
+
+<<link [[Help|Wren Heist Break Kitchen 2]]>><<set $phase to 1>><<set $wrenHeistDance.help to true>><<set $wrenHeistDance.blackMoney += 500>><</link>><<set $skulduggerydifficulty to 600>><<skulduggerydifficulty>>
+<br>
+<<link [[Go back to the party|Wren Heist Break Kitchen 2]]>><<set $phase to 0>><</link>>
+<br>
+
+:: Wren Heist Break Kitchen 2
+<<effects>>
+
+<<if $phase is 0>> /* Go back to the party */
+	You leave Wren to raid the china cabinet <<himself>> and head back to the party. Soon, the lights dim, and you're called back onstage.
+	<br><br>
+
+	<<link [[Go back to the party|Wren Heist Dance]]>><<endevent>><<set $dancestart to 1>><</link>>
+	<br>
+<<else>> /* Help */
+	You nod. Wren leads you into the dining room. Servers rush by you in a steady stream. <<He>> weaves through them. You <<= currentSkillValue("danceskill") gte 600 ? "follow in <<his>> wake" : "stumble into a few before breaking free">>.
+	<br><br>
+	You find the china cabinet tucked along the back wall. Wren crouches to fiddle with the lock. The doors soon open. You waste no time and start to take as much as you can carry.
+	<br><br>
+	<<skulduggerycheck "silent">>
+	<<if $skulduggerysuccess is 1>>
+		Wren leads you to <<his>> car. It's fairly nondescript. You don't think you could identify it if someone asked.<<set $wrenHeistDance.car to true>>
+		<br><br>
+		"Here," <<he>> says, opening the back door. "Careful now. That's all fragile."
+		<br><br>
+		You place it all in the car, then follow <<him>> back to the party. You're soon called back onstage.
+		<br><br>
+
+		<<link [[Dance|Wren Heist Dance]]>><<endevent>><<set $dancestart to 1>><</link>>
+		<br>
+	<<else>>
+		<<endevent>>
+		"Hey," a voice says. "Are you two supposed to be here?"
+		<br><br>
+		You turn around. A <<generate1>><<person1>><<person>> stands in front of you with <<his>> arms folded. <<He>> is wearing an earpiece and has a baton on <<his>> waist.
+		<br><br>
+		"Whoops," Wren says cheerfully. "You're up, <<girl>>."
+		<br><br>
+		Before you can say anything, <<nnpc_he "Wren">> shoves you into the arms of the <<personsimple>>.
+		<br><br>
+
+		<<link [[Next|Wren Heist Break Kitchen Fight]]>><<set $fightstart to 1>><</link>>
+		<br>
+	<</if>>
+<</if>>
+
+:: Wren Heist Break Kitchen Fight
+<<if $fightstart is 1>>
+	<<set $fightstart to 0>>
+	<<neutral 1>>
+	<<maninit>>
+	<<set $enemytrust -= 100>>
+	<<set $enemyanger += 200>>
+	<<npcidlegenitals>>
+	<<enable_rescue>>
+<</if>>
+
+<<effects>>
+<<effectsman>>
+<<alarmstate>>
+<<man>>
+<<stateman>>
+<br><br>
+<<actionsman>>
+
+<<if _combatend or ($pain gte 100 and $willpowerpain is 0)>>
+	<span id="next"><<link [[Next|Wren Heist Break Kitchen Fight Finish]]>><</link>></span><<nexttext>>
+<<else>>
+	<span id="next"><<link [[Next|Wren Heist Break Kitchen Fight]]>><</link>></span><<nexttext>>
+<</if>>
+
+:: Wren Heist Break Kitchen Fight Finish
+<<effects>>
+<<person1>>
+
+<<if $enemyhealth lte 0>>
+	"Fuck!" <<he>> shouts as <<he>> stumbles into the china cabinet.
+	<br><br>
+	Delicate tea cups and large platters crash around <<him>>. <<He>> stares at it in horror. You take the opportunity to sneak away before <<he>> comes to <<his>> senses.
+<<elseif $enemyarousal gte $enemyarousalmax>>
+	<<He>> moans as <<he>> cums. "Damn," <<he>> says. "You're pretty good at that. I'll let you go this time, but don't let me catch you sneaking around where you shouldn't again, okay?"
+	<br><br>
+	You nod and take the chance to slip away.
+<<elseif $alarm is 1 and $rescue is 1>>
+	<<loadNPC 1 "wren_heist_guard_1">><<loadNPC 2 "wren_heist_guard_2">>
+	The sound of footsteps grows rapidly closer. Soon, two pairs of hands are yanking the <<person1>><<person>> off of you. You recognise the two large security guards from the start of the party.
+	<br><br>
+	"What in the world are you doing?" the <<person2>><<person>> asks. "Let go of <<phim>>—<<pshe>> needs to get on stage now. The audience is getting rowdy!"
+	<br><br>
+	"But—" the <<person1>><<person>> tries to say.
+	<br><br>
+	The <<person3>><<person>> interrupts <<person1>><<him>>. "We don't have time to hear your excuses," <<person3>><<he>> says. "Come on, <<girl>>. Let's go."
+<<else>>
+	<<set $wrenHeistDance.help to false>><<saveNPC 0 "wren_heist_fighting">>
+	The <<person>> hauls you to your feet and marches you down the hallway. A passing partygoer, horrified at your battered and bruised state, notifies security. As the <<person>> struggles to explain <<himself>>, you take advantage of the confusion and slip away.
+<</if>>
+<br><br>
+<<clotheson>>
+<<endcombat>>
+
+You rush into the main room just as the lights dim. The spotlight finds you amid the crowd. You head to the stage, prepared to dance again.
+<br><br>
+
+<<link [[Dance|Wren Heist Dance]]>><<endevent>><<set $dancestart to 1>><</link>>
+<br>
+
+:: Wren Heist Break Upstairs
+<<effects>>
+
+<<if $phase is 0>> /* Go upstairs second */
+	"Oh, no," you say. "You go first." <<He>> shrugs and bounds up the stairs ahead of you.
+	<br><br>
+<</if>>
+You go upstairs. The sounds of the party are muffled beneath your feet. You search through the rooms with Wren.
+<br><br>
+<<He>> pulls you into a dimly-lit room. There is a safe with a complicated-looking lock. You <<= currentSkillValue('skulduggery') gte 800 ? "think you can break into it with some effort" : "know there's no way you can break into it">>.
+<<He>> crouches before the safe and fiddles with the keypad. It pops open, and <<he>> gives a self-satisfied hum. "A good thief never reveals <<his>> tricks, in case you're wondering," <<he>> says.
+<br><br>
+You help <<him>> search through the safe's contents. Most of it seems to be legal papers. You try to read some of them, but your eyes glaze over after the first few lines. Wren reaches into the safe one last time. <<His>> eyes widen.
+<br><br>
+
+<<if $museumAntiques.paintings.paintingward is "notFound">>
+	<span class="gold"><<He>> pulls out a rolled up canvas.</span> It's yellowed with age. <<He>> spreads it out on the ground and waves you over to look.
+	The first thing you notice is the moon.
+	<<if $hallucinations gte 1>>
+		<span class="red">A red sliver along the bottom waxes and wanes as if breathing.</span>
+	<<else>>
+		It has a sickle of red along the bottom. Droplets rain down like tears.
+	<</if>>
+	Your attention is then pulled to the nude figure at the heart of the painting. Their long brown hair flows down their bare back.
+	<<if $awarelevel gte 2>>
+		You notice that they have beast-like ears and a tail.
+		<<if $wolfgirl gte 6 or $cat gte 6 or $fox gte 6>>
+			You think you recognise the shape, but the impression is so fleeting, you can't be sure.
+		<</if>>
+		With the blends of reds and browns, it's hard to tell if they're really even there.
+	<</if>>
+	<br><br>
+
+	Wren rolls it back up. "Cult stuff," <<he>> says. "I'd tell you not to get involved, but
+	<<if $wrenSeen?.includes("winter")>>
+		could you deliver this to our mutual friend?"
+	<<elseif $wrenSeen?.includes("letter")>>
+		I don't think Landry would mind if I borrowed <<nnpc_his "Landry">> errand <<girl>>. Mind returning this to its original owner? You'll find <<nnpc_him "Winter">> at the museum on weekends."
+	<<else>>
+		I owe a favour. Mind returning this to its original owner? You'll find <<nnpc_him "Winter">> at the museum on weekends."
+	<</if>>
+	You take the painting with a nod.
+	<br><br>
+
+	<<museumPaintingGet "paintingward">>
+
+	You ask if <<hes>> found anything else, but <<he>> quickly denies it. "No, just more papers," <<he>> says. "At least this wasn't a total bust."
+	<br><br>
+	<<set $skulduggerydifficulty to 600>><<skulduggerycheck "silent">>
+	<<if $skulduggerysuccess is 1 or $transformationParts.traits.sharpEyes isnot "disabled">>
+		<<set $wrenHeistDance.sneak to true>>
+		You see Wren put something in <<his>> pocket.
+		<br><br>
+	<</if>>
+<<else>>
+	You ask if <<hes>> found something, but <<he>> quickly denies it. "No, just more papers," <<he>> says. "Seems like this was a bust."
+	<br><br>
+	<<set $skulduggerydifficulty to 600>><<skulduggerycheck "silent">>
+	<<if $skulduggerysuccess is 1 or $transformationParts.traits.sharpEyes isnot "disabled">>
+		<<set $wrenHeistDance.sneak to true>>
+		You see Wren put something in <<his>> pocket.
+		<br><br>
+	<</if>>
+<</if>>
+
+"You should get back," <<he>> says. "Can't have the star attraction go missing. I'll clean up, then come find you after you're done."
+<br><br>
+There doesn't seem to be much room for argument. You take one last look at the safe before heading downstairs. The party seems to be winding down. You head to the stage to perform your last dance.
+<br><br>
+
+<<link [[Dance|Wren Heist Dance]]>><<endevent>><<set $dancestart to 1>><</link>>
+<br>
+
+:: Wren Heist Exit
+<<effects>>
+
+You follow <<him>> to <<his>> car.<<if $wrenHeistDance.car isnot true>> It's fairly nondescript. You don't think you could identify it if someone asked.<</if>> <<He>> opens the trunk and starts digging through the stolen contents.
+<br><br>
+"I think we agreed on <<= $wrenHeistDance.profits is "50/50" ? "fifty-fifty" : $wrenHeistDance.profits is "60/40" ? "sixty-forty" : "seventy-thirty">>, right?"
+<<if (C.npc.Wren.love gte 40 and $wrenHeistDance.profits is "60/40") or (C.npc.Wren.love gte 20 and $wrenHeistDance.profits is "70/30")>>
+	<<He>> pauses. "You did such good work today, let's call it <<= C.npc.Wren.love gte 40 ? "fifty-fifty" : "sixty-forty">>."
+
+	<<if C.npc.Wren.love gte 40>>
+		<<set $wrenHeistDance.profits to "50/50">>
+	<<else>>
+		<<set $wrenHeistDance.profits to "60/40">>
+	<</if>>
+<</if>>
+<br><br>
+<<He>> starts dividing the goods.
+<br><br>
+
+<<if $wrenHeistDance.sneak is true>>
+	You remember <<him>> stashing something in <<his>> pocket. Maybe you could take it for yourself.
+	<br><br>
+
+	<<link [[Try to take it|Wren Heist End]]>><<set $phase to 0>><</link>><<set $skulduggerydifficulty to 800>><<skulduggerydifficulty>>
+	<br>
+	<<link [[Leave it be|Wren Heist End]]>><<set $phase to 1>><</link>>
+	<br>
+<<else>>
+	<<link [[Wait|Wren Heist End]]>><<set $phase to 1>><</link>>
+	<br>
+<</if>>
+
+:: Wren Heist End
+<<effects>>
+<<set _profitShare = $wrenHeistDance.profits is "50/50" ? 0.5 : $wrenHeistDance.profits is "60/40" ? 0.4 : 0.3>>
+<<set _playerBlackMoney to Math.round($wrenHeistDance.blackMoney * _profitShare)>>
+
+<<if $phase is 0>> /* Try to take it */
+	You reach out for <<his>> pocket while <<he>> is distracted.
+	<br><br>
+	<<skulduggerycheck "silent">>
+	<<if $skulduggerysuccess is 1>>
+		<<set $blackmoney += _playerBlackMoney>>
+		<<if $wrenHeistCricketBall is undefined>>
+			<<wearProp "signed cricket ball">><<earnFeat "Player of the Match">><<set _getCricketBall to true>>
+			Your hand closes around a cricket ball.<<set $blackmoney += 1500>>
+		<<else>>
+			Your hand closes around a <<= either("necklace", "bracelet")>>.<<set $blackmoney += 500>>
+		<</if>>
+		You sneak it into your pocket. Wren eyes you, but <<he>> doesn't say anything. <<He>> finishes dividing the stolen goods, then pushes <<= $wrenHeistDance.profits is "50/50" ? "50" : $wrenHeistDance.profits is "60/40" ? "40" : "30">>% at you.
+		<br><br>
+		"Pleasure doing business with you. I'll come find you if there's ever a chance to do this again," <<he>> says.
+	<<else>>
+		Wren grabs your wrist the instant it enters <<his>> pocket. <<He>> looks more amused than angry, but <<his>> grip is tight.
+		<br><br>
+		"If that's the best you've got, you have a long way to go," <<he>> says. "I'd offer to give you some one-on-one training, but maybe not tonight."
+		<br><br>
+		<<He>> releases you. You rub your aching wrist.<<pain 4>><<gpain>>
+		<br><br>
+		"If you're that hard up for money," <<he>> says, "you know where to find me. We can play for it. Maybe you'll put on another show."
+	<</if>>
+<<else>> /* Leave it be or wait */
+	<<set $blackmoney += _playerBlackMoney>>
+	<<He>> finishes dividing the stolen goods, then pushes <<= $wrenHeistDance.profits is "50/50" ? "50" : $wrenHeistDance.profits is "60/40" ? "40" : "30">>% at you. "Pleasure doing business with you. I'll come find you if there's ever a chance to do this again," <<he>> says.
+<</if>>
+<br><br>
+<<He>> winks at you as <<he>> gets into <<his>> car. Soon enough, <<he>> drives around a corner, leaving you alone on Danube Street.
+<br><br>
+<<if _getCricketBall is true>>
+	<<set $wrenHeistCricketBall to true>>
+	After Wren's car rounds the corner, you take out the cricket ball. It shines red and gold in the streetlight. Something on it catches your eye and you look a bit closer. There is a signature on it. You <<= currentSkillValue("history") gte 600 ? "remember Winter talking about the person's name, and" : "don't recognise the name, but">> you think it may be valuable to a fence.
+	<br><br>
+<</if>>
+
+<<set $wrenSeen.pushUnique("heist")>>
+<<set $wrenSeenLast to "heist">>
+<<clearNPC "wren_heist_guard_1">><<clearNPC "wren_heist_guard_2">><<clearNPC "wren_heist_fighting">>
+
+<<link [[Next|Danube Street]]>><<endevent>><<set $eventskip to 1>><</link>>
+<br>
+
+
+
+

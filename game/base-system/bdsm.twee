@@ -1,0 +1,84 @@
+:: Widgets BDSM [widget]
+<<widget "attach_leash">>
+	<<if $worn.neck.colour>><<set $_colour to $worn.neck.colour>><</if>>
+	<<set $_collaredpolice to $worn.neck.collaredpolice>>
+	<<if $worn.neck.name is "familiar collar">>
+		/* Ideally all collars that can have leashes should work similar, and there shouldn't be unique clothing objects for collars versus collars with leashes, but I'm not touching that right now. */
+		<<if $npc.includes("Gwylan")>>
+			<<set $worn.neck.type.pushUnique("leash")>>
+			<<set $familiarLeash to $passage>>
+		<<else>>
+			/* To catch any stray cases of an NPC 'attaching a leash' to the collar, only Gwylan should be able to do it */
+			<<set _magicLeash to true>>
+		<</if>>
+	<<elseif $worn.neck.name is "collar">>
+		<<set $worn.neck.type.push("broken")>>
+		<<neckruined _args[1]>>
+		<<neckwear 21 $_colour>>
+	<<elseif $worn.neck.name is "free use collar">>
+		<<set $worn.neck.type.push("broken")>>
+		<<neckruined _args[1]>>
+		<<neckwear 22 $_colour>>
+	<<elseif $worn.neck.name is "leather collar">>
+		<<set $worn.neck.type.push("broken")>>
+		<<neckruined _args[1]>>
+		<<neckwear 24 $_colour>>
+	<<elseif $worn.neck.name is "spiked collar">>
+		<<set $_cursed to $worn.neck.cursed>>
+		<<set $worn.neck.type.push("broken")>>
+		<<neckruined _args[1]>>
+		<<neckwear 26 $_colour>>
+		<<if !_args[0] or $_cursed>><<set $worn.neck.cursed to 1>><</if>>
+	<</if>>
+	<<set $worn.neck.collaredpolice to $_collaredpolice>>
+<</widget>>
+
+<<widget "detach_leash">>
+	<<if $worn.neck.colour>><<set $_colour to $worn.neck.colour>><</if>>
+	<<set $_collaredpolice to $worn.neck.collaredpolice>>
+	<<if $worn.neck.name is "familiar collar">>
+		/* Ideally all collars that can have leashes should work similar, and there shouldn't be unique clothing objects for collars versus collars with leashes, but I'm not touching that right now. */
+		<<if $npc.includes("Gwylan")>>
+			<<set $worn.neck.type.delete("leash")>>
+			<<unset $familiarLeash>>
+		<</if>>
+	<<elseif $worn.neck.name is "collar with leash">>
+		<<set $worn.neck.type.push("broken")>>
+		<<neckruined _args[1]>>
+		<<neckwear 1 $_colour>>
+	<<elseif $worn.neck.name is "free use collar with leash">>
+		<<set $worn.neck.type.push("broken")>>
+		<<neckruined _args[1]>>
+		<<neckwear 20 $_colour>>
+	<<elseif $worn.neck.name is "leather collar with leash">>
+		<<set $worn.neck.type.push("broken")>>
+		<<neckruined _args[1]>>
+		<<neckwear 25 $_colour>>
+	<<elseif $worn.neck.name is "spiked collar with leash">>
+		<<set $_cursed to $worn.neck.cursed>>
+		<<set $worn.neck.type.push("broken")>>
+		<<neckruined _args[1]>>
+		<<neckwear 10 $_colour>>
+		<<if !_args[0] or $_cursed>><<set $worn.neck.cursed to 1>><</if>>
+		<<set $worn.neck.collared to 1>>
+	<</if>>
+	<<set $worn.neck.collaredpolice to $_collaredpolice>>
+<</widget>>
+
+<<widget "pull_leash">><<silently>>
+	<<set $_pull to _args[0] || "pulls">>
+	<<set $_text_output to $_pull + " your ">>
+	<<if $worn.neck.type.includes("leash")>>
+		<<set $_text_output += "leash">>
+	<<elseif $worn.neck.collared is 1>>
+		<<set $_text_output += "collar">>
+	<<elseif $worn.neck.has_collar>>
+		<<set $_text_output += $worn.neck.name>>
+	<<elseif $worn.upper.has_collar>>
+		<<set $_text_output to $_pull + " the collar of your " + $worn.upper.name>>
+	<<elseif $worn.neck.name isnot "naked">>
+		<<set $_text_output += $worn.neck.name>>
+	<<else>>
+		<<set $_text_output to $_pull + " the nape of your neck">>
+	<</if>>
+<</silently>><<print $_text_output>><</widget>>

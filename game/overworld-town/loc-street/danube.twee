@@ -1,0 +1,296 @@
+:: Danube Street
+
+<<set $outside to 1>><<set $location to "town">><<effects>><<set $bus to "danube">><<getTarget true>>
+You are on Danube Street. The houses here are spacious and stately.
+<<if Weather.dayState is "day">>
+	<<if Weather.precipitation is "rain">>
+		The rain has driven people indoors.
+	<<elseif Weather.precipitation is "snow">>
+		The snow has kept most indoors.
+	<<else>>
+		You hear activity from the walled gardens.
+	<</if>>
+<<elseif Weather.dayState is "dawn">>
+	<<if Weather.precipitation is "rain">>
+		People hurry through the rain, out of large homes and into expensive cars.
+	<<elseif Weather.precipitation is "snow">>
+		The large gardens look picturesque in the early morning snow.
+	<<else>>
+		You see movement through the windows.
+	<</if>>
+<<elseif Weather.dayState is "dusk">>
+	<<if Weather.precipitation is "rain">>
+		The rainclouds above cast an early gloom.
+	<<elseif Weather.precipitation is "snow">>
+		Snow settles for the night.
+	<<else>>
+		They cast creepy shadows in the dimming light.
+	<</if>>
+<<elseif Weather.dayState is "night">>
+	<<if Weather.precipitation is "rain">>
+		You make out splotches of light from windows, far from the road.
+	<<elseif Weather.precipitation is "snow">>
+		Light casts through ornate windows, over the snow.
+	<<else>>
+		Light from the windows does little to alleviate the darkness.
+	<</if>>
+<</if>>
+<<if $halloween is 1>>
+Some homes host extravagant Halloween displays.
+<</if>>
+<<streeteffects>>
+<br><br>
+<<if $exposed gte 1>>
+	<<exhibitionism "street">>
+<</if>>
+<<if $arousal gte $arousalmax>>
+	<<orgasmstreet>>
+<</if>>
+<<if $stress gte $stressmax and !$possessed>>
+	<<passoutstreet>>
+<<else>>
+
+	<<if C.npc.Gwylan.state is "active" and !isGwylanAbsent() and !$daily.gwylan.cafe and !$daily.gwylan.cafeOfferDeclined and !$daily.gwylan.cafeSkip and !$daily.gwylan.SchoolDropOff and !["reunion", "badEndReady"].includes(statusCheck("Gwylan")) and C.npc.Avery.state is "active" and $avery_mansion and !(between($chef_state, 7, 8) and $chef_rework lte 30) and Time.schoolDay and Time.hour is 7 and $exposed lte 0 and ($gwylan.sea + ($gwylanTalked.count("fox_mask") * 20) + ($gwylanTalked.count("dark_pendant") * 20) gte 40)>>
+			<<run statusCheck("Gwylan")>><<npc Gwylan>><<person1>>
+			<<set $daily.gwylan.SchoolDropOff to true>>
+			<<if ["Mansion Lounge", "Mansion Kitchen", "Mansion Dining", "Mansion Display", "Mansion Bedroom", "Mansion Study", "Mansion Pool", "Mansion Garage", "Mansion Garden"].includes($passagePrev)>>
+				As you head outside Avery's mansion and walk off Danube Boulevard,
+			<<else>>
+				As you pass by Danube Boulevard,
+			<</if>>
+			<<if !$gwylanSeen.includes("cafe_walk")>>
+				you hear a familiar voice call out to you from across the street. It's Gwylan.
+				<br><br>
+
+				<<He>> makes <<his>> way over. "Good morning, <<pcpetname "Gwylan">>. I was just heading out for breakfast, but decided to take a detour to ask if you'd like to join me? I can take you to school afterwards if you'd like."
+
+				<<if !$gwylanSeen.includes("cafe")>>
+					<<set $gwylanSeen.pushUnique("cafe")>>
+					<br><br>
+					You look a little confused, which Gwylan picks up on. "Oh, silly me! I guess I never told you, I go to the cafe every morning for breakfast. It's become sort of a routine. But routines can get pretty boring after a while, and I really enjoy your company."
+				<</if>>
+				<<if $worn.neck.name is "familiar collar" and $worn.neck.cursed is 1 or $gwylanSeen.includes("petplay") and $worn.neck.type.includes("leash")>>
+					<<set _magicLeash to true>>
+					You feel a tug on your collar <<if $worn.neck.name is "familiar collar">>as a glowing leash appears in Gwylan's hand<<else>>and look down to see Gwylan holding your leash<</if>>. "So how about it, <<pcpetname "Gwylan" "my">>. You'd like some walkies, wouldn't you?" <<he>> speaks softly.
+				<<else>>
+					<<He>> smiles. "So how about it?"
+				<</if>>
+			<<else>>
+				you spot Gwylan waiting for you. <<He>> waves you over. "<<print either("Good morning", "Fine morning", "Nice to see you", "Hello", "There you are")>>, <<pcpetname "Gwylan">>. Sleep well?"
+				<br><br>
+
+				<<if $worn.neck.name is "familiar collar" and $worn.neck.cursed is 1 or $gwylanSeen.includes("petplay") and $worn.neck.type.includes("leash")>>
+					<<set _magicLeash to true>>
+					You feel a tug on your collar <<if $worn.neck.name is "familiar collar">>as a glowing leash appears in Gwylan's hand<<else>>and look down to see Gwylan holding your leash<</if>>. "Does my favourite <<pcpetname "Gwylan" "simple">> want some morning walkies? I'm heading to the cafe, and your company would really make my day." <<He>> smiles and scratches you behind the ear.
+				<<else>>
+					<<He>> smiles. "I'm heading out for breakfast. Would you like to accompany me?"
+				<</if>>
+			<</if>>
+			<br><br>
+
+			<<cafeicon>><<link [[Walk with Gwylan (0:05)|Gwylan Walk Cafe Solo]]>><<pass 5>><<set $phase to 0>><<set $daily.gwylan.cafe to true>><</link>>
+			<br>
+			<<refuseicon>><<link [[Decline the offer|Gwylan Walk Cafe Solo]]>><<set $phase to 1>><<set $daily.gwylan.cafeOfferDeclined to true>><</link>>
+			<br>
+	<<elseif (dangerEvent() or $eventforced) and $eventskip is 0>>
+		<<eventsstreet>>
+	<<else>>
+		<<if $options.mapTop is true>>
+			<<map "danube">>
+			<br>
+		<</if>>
+
+		<<if $wrenHeist is true and (Time.hour gte 19 and Time.hour lte 20) and $wrenHeistDance.attended isnot true>>
+			In the distance, you see the mansion where you're supposed to meet Wren. <<nnpc_He "Wren">> will be waiting for you there.
+			<br>
+			<<if $exposed lte 0>>
+				<<dooricon "danube">><<link [[Head to the mansion (1:20)|Wren Heist Arrival]]>><<set $wrenHeistDance.attended to true>><</link>>
+			<<else>>
+				<span class="red">You can't go in your current state of exposure.</span>
+			<</if>>
+			<br><br>
+		<</if>>
+
+		Places of interest
+		<br>
+		<<if $exposed lte 0 and Time.openingHours(2)>>
+			<<spaicon>><<link [[Spa (0:02)|Spa]]>><<pass 2>><</link>>
+			<br>
+		<<elseif Time.hour is $closinghour>>
+			<<spaicon>><span class="blue">People are leaving the spa.</span> It must be closing time.
+			<br>
+		<<elseif !Time.openingHours(2)>>
+			<<spaicon>><<link [[Spa (0:02)|Spa Lock]]>><<pass 2>><</link>>
+			<br>
+		<</if>>
+		<<if $avery_mansion>>
+			<<if $avery_fate is "fallen" or $avery_fate is "kicked">>
+				<<if $avery_mansion_fire_time gte 1>>
+					<<icon "front-gate.png">><<link [[Avery's mansion (0:05)|Mansion Fire]]>><<pass 5>><</link>>
+					<br>
+				<<else>>
+					<<icon "front-gate.png">><<link [[Avery's mansion (0:05)|Mansion Ruin]]>><<pass 5>><</link>>
+					<br>
+				<</if>>
+			<<else>>
+				<<icon "front-gate.png">><<link [[Avery's mansion (0:05)|Mansion Enter]]>><<pass 5>><</link>>
+				<br>
+			<</if>>
+		<</if>>
+		<<if $exhibitionismrun is "danube" and $exposed lte 1>>
+			<<oakicon>><<link [[Oak behind spa (0:02)|Danube Challenge]]>><<pass 2>><</link>>
+			<br>
+		<</if>>
+		<<if $syndromekylar gte 1>>
+			<<kylarmanoricon>><<link [[Kylar's manor (0:02)|Manor Garden]]>><<pass 2>><</link>>
+			<br>
+		<</if>>
+		<<if Time.dayState is "night">>
+			<<dooricon "danube">><<link [[Approach one of the houses (0:02)|Danube House Lock]]>><<pass 2>><</link>>
+			<br>
+		<<elseif $exposed lte 0>>
+			<<dooricon "danube">><<link [[Knock on one of the houses (0:02)|Danube House Knock]]>><<pass 2>><</link>>
+			<br>
+		<</if>>
+		<<foresticon>><<link [[Forest (0:10)|Forest]]>><<pass 10>><<set $forest to 0>><<set $eventskip to 1>><</link>>
+		<br><br>
+		<<if $exposed gte 1 and Time.dayState isnot "night">>
+		<<else>>
+			<<add_link "Travel<br>">><<hideDisplay>>
+			<<domus>>
+			<<wolf>>
+			<<connudatus>>
+			<<if $exposed lte 0>>
+				<<buswait>>
+			<</if>>
+			<<loiter>>
+		<</if>>
+		<<add_link "<br>Alternate routes<br>">><<hideDisplay>>
+		<<residential>>
+		<<stormdrain>>
+		<<displayLinks>>
+		<<if $options.mapTop isnot true>>
+			<br>
+			<<map "danube">>
+		<</if>>
+	<</if>>
+<</if>>
+<<set $eventskip to 0>>
+
+:: Danube Challenge
+
+<<set $outside to 1>><<set $location to "oak">><<effects>>
+
+<<if $exhibitionismrunon is 0>>
+
+	You walk behind the spa, and find the oak the note mentioned. It stands at the edge of the forest. This is where you were told to strip. There's no one around.
+	<br><br>
+	<<if hasSexStat("exhibitionism", 3)>>
+		<<link [[Strip|Danube Challenge Strip]]>><<set $phase to 0>><</link>><<exhibitionist3>>
+		<br>
+	<<else>>
+		<<insufficientStat "exhibitionism" "to do this">>
+		<br>
+	<</if>>
+	<<link [[Leave|Danube Street]]>><</link>>
+	<br>
+
+<<else>>
+
+	You return to the oak tree behind the Spa. No one's around, and you can't be seen from the main road. You look into the tree branches. You can't see the camera, but you know it's there.
+	<br><br>
+
+	<<if hasSexStat("exhibitionism", 3)>>
+		<<link [[Strip|Danube Challenge 2]]>><</link>><<exhibitionist3>>
+		<br>
+	<<else>>
+		<<insufficientStat "exhibitionism" "to do this">>
+		<br>
+	<</if>>
+	<<link [[Leave|Danube Street]]>><</link>>
+
+<</if>>
+
+:: Danube Challenge Strip
+
+<<set $challengetimer to 10>>
+<<set $outside to 1>><<set $location to "oak">><<effects>>
+<<strip>>
+<<if $phase is 0>>
+	You <<nervously>> remove your clothing as the note said, until you're stood naked, here on the outskirts of town.
+<<else>>
+	You take a deep breath and glance around. This is a lot of money. You <<nervously>> remove your clothing as the note said, until you're stood naked, here on the outskirts of town.
+<</if>>
+<<exhibitionism3>>
+Something flashes in the oak's branches. A camera. <<covered>> You feel your face heat up, but notice something else above you. A small parachute floats down, carrying a little box. You catch it. There's a note inside.
+<br><br>
+<i>It was nice working with you.</i>
+<br><br>
+There's <<moneyGain 100>> behind the paper. You get dressed as fast as your shaking hands will allow. You don't think anyone saw you. Except the camera.
+<br><br>
+<<set $exhibitionismrun to undefined>><<set $exhibitionismrunon to 1>>
+<<link [[Leave|Danube Street]]>><<clotheson>><</link>>
+<br>
+
+:: Danube Challenge 2
+<<effects>><<strip>>
+
+You quickly take off all your clothes. You take one last look around, making sure no one's there to see your nudity. There's a flash from the tree's branches, just like last time. But you're not done yet.
+<br><br>
+
+<<if hasSexStat("exhibitionism", 5)>>
+	<<skinicon "masturbate">><<link [[Masturbate|Danube Challenge Masturbate]]>><<set $masturbationstart to 1>><</link>><<exhibitionist5>>
+<<else>>
+	<<skinicon "masturbate">><<link [[Masturbate|Danube Challenge Masturbate]]>><<set $masturbationstart to 1>><<trauma 6>><<stress 12>><</link>><<ggtrauma>><<ggstress>>
+<</if>>
+<br>
+<<getouticon>><<link [[Leave|Danube Street]]>><<clotheson>><</link>>
+<br>
+
+:: Danube Challenge Masturbate
+<<strip>><<effects>>
+
+<<if $masturbationstart is 1>>
+	<<set $masturbationstart to 0>>
+	<<set $masturbationstat += 1>>
+	Shivering, you begin to pleasure yourself.
+	<<exhibitionism5>>
+	<<masturbationstart>>
+<</if>>
+
+<<masturbationeffects>>
+<<masturbationactions>>
+<<masturbationControls "orgasmcurrent">>
+
+:: Danube Challenge Masturbate Finish
+<<effects>><<set $challengetimer to 10>><<wearProp "cash four">>
+
+<<if $orgasmcurrent gte 1>>
+	<<fameexhibitionism 1>><<generate1>><<person1>>
+	You finish and catch your breath. Your skin is covered in a thin layer of sweat. It's not long before another parachute carrying a box descends towards you, same as last time. You open the box to find <<moneyGain 300>> and another note.
+	<br><br>
+
+	<i>Another good job. Here's your cash. Will contact you again.</i>
+	<br><br>
+
+	You take the money. You see some movement out of the corner of your eye. You turn. Standing there, right next to the sauna's back door, is a <<person1>><<person>>. <<He>> stares at you in shock, a cigarette dangling limply from <<his>> mouth. You are standing completely naked in front of <<him>>, and <<he>> can see everything. <<if hasSexStat("exhibitionism", 5)>><<ggarousal>><<arousal 1200>><<else>><<gtrauma>><<gstress>><<trauma 6>><<stress 6>><</if>>
+	<br><br>
+
+	<<if $speech_attitude is "bratty">>
+		You pick up your clothes to cover yourself, then yell at the <<person1>><<person>>. "Hey, fuck off!" That snaps <<him>> out of it, and <<he>> quickly leaves.
+	<<else>>
+		You yelp. You grab your clothes and run off, finding a quiet place to put your clothes back on.
+	<</if>>
+
+	<<endmasturbation>>
+	<<endcombat>>
+	<<set $exhibitionismrun to undefined>><<set $exhibitionismrunon to 2>><<clotheson>>
+	<<link [[Leave|Danube Street]]>><<endevent>><</link>>
+
+<<else>>
+	You stop what you're doing. You wait for another balloon or another camera flash, but nothing happens. After a few minutes, you put on your clothes and walk away. The note said to orgasm, and you stopped before you came.
+	<br><br>
+	<<endmasturbation>>
+	<<endcombat>>
+	<<link [[Next|Danube Street]]>><<clotheson>><</link>>
+<</if>>

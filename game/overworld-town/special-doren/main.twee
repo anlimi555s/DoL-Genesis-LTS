@@ -1,0 +1,782 @@
+:: Doren Intro
+<<set $outside to 0>><<set $location to "flats">><<effects>>
+
+<<set $dorenintro to 1>>
+<<person1>>Doren turns to you once outside the station. "I'm so sorry," <<he>> says. "I thought they'd be more helpful. Now I've just stressed you for no reason." <<He>> looks up and behind you, at one of the tall buildings on the street. "I know." Hand on your back, <<he>> leads you towards it.<<npcincr Doren dom 1>><<gdom "Doren">>
+<br><br>
+You climb to the fifth floor and stop at Room 55. Doren unlocks it and holds it open for you. The interior is quite spartan. There's an old television covered in a film of dust and a sofa, but little else. "This is my flat," <<he>> says. "I only really come here to sleep. I like being out and about." <<He>> walks over to the closed blinds and lets the light in. "I didn't know where else to take you. I can't just forget what you told me." <<He>> walks over to what you think is the kitchen. "Make yourself at home. Just gonna get a drink."
+<br><br>
+You sit on the sofa, disturbing some dust. Doren sits beside you and passes you a glass of water.
+<br><br>
+<<socialiseicon "breakdown">><<link [[Confide and cry (1:00)|Doren Intro Cry]]>><<pass 1 hour>><<trauma -6>><<stress -12>><<npcincr Doren love 1>><<npcincr Doren dom 1>><</link>><<glove>><<gdom "Doren">><<ggcontrol>><<ltrauma>><<lstress>>
+<br>
+<<socialiseicon>><<link [[Just talk (1:00)|Doren Intro Talk]]>><<pass 1 hour>><<trauma -6>><<stress -12>><<npcincr Doren love 1>><</link>><<glove>><<ltrauma>><<lstress>>
+<br>
+
+:: Doren Intro Cry
+<<set $outside to 0>><<set $location to "flats">><<effects>>
+
+Feeling safe, you cry in <<his>> arms. As the sobs subside you share some of the horrible things people have done to you. It's painful to talk about, but you feel cathartic afterwards. <<His>> dog Max also comes and comforts you. <<if $maxTheDog is true>>You realise the dog you met at the orphanage is Doren's!<</if>>
+<<control 25>>
+<br><br>
+Doren pulls away from you and smiles. "I need to get back to school or I'll be in trouble." You look at the clock on the wall and realise a whole hour has passed. "I'm not home often, but if you visit between four and five in the afternoon I should be here. Visit as often as you like. Every day if you want. I mean it."
+<br><br>
+Before dropping you off, <<he>> stops briefly at a drive-through and shares a meal with you in <<his>> car.
+<br><br>
+"Cheers," <<he>> says, toasting <<his>> burger and drink with yours. <<stress -6>><<lstress>>
+<br><br>
+<<He>> drives you back to school and waves goodbye in the front courtyard. You feel guilty for having spent so much of <<his>> time, but <<he>> doesn't seem to mind.
+<br><br>
+<<endevent>>
+<<schoolicon "building">><<link [[Return to school (0:05)|School Front Courtyard]]>><<pass 5>><</link>>
+<br>
+
+:: Doren Intro Talk
+<<set $outside to 0>><<set $location to "flats">><<effects>>
+
+You talk with Doren over a variety of topics. <<He>> soon takes over the conversation, regaling you with personal stories. <<He>> seems to live an adventurous life. <<His>> dog Max comes out and asks for pets. You and Doren fulfill it. <<if $maxTheDog is true>>You realise the dog you met at the orphanage is Doren's!<</if>>
+<br><br>
+<<He>> smiles at you. "I need to get back to school or I'll be in trouble." You look at the clock on the wall and realise a whole hour has passed. "I'm not home often, but if you visit between four and five in the afternoon I should be here. Visit as often as you like. Every day if you want. I mean it."
+<br><br>
+Before dropping you off, <<he>> stops briefly at a drive-through and shares a meal with you in <<his>> car.
+<br><br>
+"Cheers," <<he>> says, toasting <<his>> burger and drink with yours. <<stress -6>><<lstress>>
+<br><br>
+<<He>> drives you back to school. You feel guilty for having spent so much of <<his>> time, but <<he>> doesn't seem to mind.
+<br><br>
+<<endevent>>
+<<schoolicon "building">><<link [[Return to school (0:05)|School Front Courtyard]]>><<pass 5>><</link>>
+<br>
+
+:: Doren Entrance
+<<set $outside to 0>><<set $location to "flats">><<effects>>
+
+<<if Time.hour is 16>>
+	You climb to Doren's flat and knock on the door. <<npc Doren>><<person1>><<He>> answers it, smiling. "Glad to see you! Come on in." You enter the flat and sit on the sofa. "What would you like to do?" <<he>> says.
+	<br><br>
+	<<socialiseicon "breakdown">><<link [[Cry (1:00)|Doren Cry]]>><<control 5>><<trauma -6>><<stress -12>><<pain -4>><<npcincr Doren love 1>><<npcincr Doren dom 1>><<pass 1 hour>><</link>><<glove>><<gdom "Doren">><<gcontrol>><<ltrauma>><<lstress>><<lpain>>
+	<br>
+	<<socialiseicon>><<link [[Talk (1:00)|Doren Talk]]>><<trauma -6>><<stress -12>><<npcincr Doren love 1>><<pass 1 hour>><</link>><<glove>><<ltrauma>><<lstress>>
+	<br>
+<<else>>
+	You climb to Doren's flat and knock on the door. There's no answer. <<npc Doren>><<person1>><<He>> said <<he>> would be home at four in the afternoon.
+	<br><br>
+	<<endevent>>
+	<<if $debug is 1 and Time.hour isnot 16>>
+		<<loitericon>><<link [[Wait for Doren (DEBUG)|$passage]]>><<passTimeUntil 16>><</link>>
+		<br>
+	<</if>>
+	<<getouticon>><<link [[Leave|Barb Street]]>><</link>>
+	<br>
+<</if>>
+
+:: Doren Cry
+<<set $outside to 0>><<set $location to "flats">><<effects>>
+
+<<switch random(1,2)>>
+	<<case 1>>
+		Wordlessly, you cry on <<his>> shoulder as <<he>> holds you in <<his>> arms. <<His>> dog Max joins in to comfort you at some point. You feel better afterwards.
+	<<case 2>>
+		You lean into <<him>> and sob. <<He>> takes you in <<his>> arms and holds you steady. <<His>> dog Max joins in to comfort you at some point. You don't say anything, but you feel much better.
+<</switch>>
+<br><br>
+
+<<if $rng % 2>>
+	You lean back and see the imprint of your face left on <<his>> shirt. You two laugh at the sight.<<pain -1>><<lpain>>
+<<else>>
+	You lean back and see <<his>> misty eyes looking back at you. <<He>> gives you a soft smile as <<he>> wipes <<his>> tears away.
+<</if>>
+<br><br>
+
+<<if $rng gte 81 and C.npc.Doren.love gte 10>>
+	<<He>> pulls away from you. "I have to get ready now." <<He>> pauses a moment. "You can come with me if you like. I'm just going for a jog."
+	<br><br>
+
+	<<link [[Go for a jog (0:30)|Doren Jog]]>><<npcincr Doren love 1>><<stress -12>><<trauma -6>><</link>><<glove>><<gathletics>><<ltrauma>><<lstress>>
+	<br>
+	<<link [[Leave|Barb Street]]>><<endevent>><</link>>
+	<br>
+<<else>>
+	<<He>> pulls away from you. "I have to get ready now. People are expecting me. It was nice seeing you. You can come back tomorrow if you like."
+	<br><br>
+
+	<<link [[Next|Barb Street]]>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Doren Talk
+<<set $outside to 0>><<set $location to "flats">><<effects>>
+
+You chat with Doren over a variety of topics. <<Hes>> either very interested in what you have to say, or good at appearing so. <<His>> dog Max joins you two at some point.
+<br><br>
+
+<<if $rng gte 81 and C.npc.Doren.love gte 10>>
+	<<He>> stands up. "I have to get ready now." <<He>> pauses a moment. "You can come with me if you like. I'm just going for a jog."
+	<br><br>
+	<<link [[Go for a jog (0:30)|Doren Jog]]>><<npcincr Doren love 1>><<stress -12>><<trauma -6>><</link>><<glove>><<gathletics>><<ltrauma>><<lstress>>
+	<br>
+	<<link [[Leave|Barb Street]]>><<endevent>><</link>>
+	<br>
+<<else>>
+	<<He>> stands up. "I have to get ready now. People are expecting me. It was nice seeing you. You can come back tomorrow if you like."
+	<br><br>
+	<<link [[Next|Barb Street]]>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Doren Jog
+<<set $outside to 1>><<set $location to "town">><<effects>>
+
+Doren puts on a pair of running shoes. "Don't worry, we're not gonna go hard."
+<br><br>
+
+Together you jog around town. <<He>> shows you several paths through alleyways you didn't know existed. "It's great to have some company," <<he>> says at one point.
+<br><br>
+
+<<He>> stops beside the toilets in the park. "Just need a quick break. Won't be long." You're thankful for a break yourself.
+<br><br>
+
+<<if dangerEvent()>>
+	You're waiting outside when a <<generate2>><<person2>><<person>> walks up to you. "Hey, <<girl>>, you all alone?" <<he>> says, resting an arm next to your head. <<He>> glances around to see if anyone's watching. "How about we find somewhere private?"
+	<br><br>
+	<<He>> tries to pull you into the toilets, just as Doren comes out. <<person1>>Doren takes one look at the <<person2>><<person>>, then punches <<him>> in the jaw.
+	<br><br>
+	The <<person>> falls backwards, clutching <<his>> face. Doren stands over <<him>> and grabs <<his>> collar. "Stay the fuck away from <<phim>> you creep, or I'll twist your head right off. Come on, let's go before someone sees. Might look bad."
+	<br><br>
+<<else>>
+	<<He>> didn't lie, and is back in less than a minute. "Come on, <<lassie>>, no time to waste!" You jog after <<him>>.
+	<br><br>
+<</if>>
+<<endevent>>
+
+<<npc Doren>><<person1>>
+You continue to jog through town, and end up back at Barb Street. You stop outside Doren's building. "Thanks for coming along," <<he>> pants. "You can come up and shower if you like. I don't mind waiting."
+<<physique 1>><<athletics 4>><<pass 30>>
+<br><br>
+
+<<link [[Shower (0:20)|Doren Shower]]>><<pass 20>><</link>>
+<br>
+<<if hasSexStat("promiscuity", 2)>>
+	<<link [[Ask Doren to shower with you|Doren Shower Ask]]>><</link>><<promiscuous2>>
+<<else>>
+	<<insufficientStat "promiscuity" "to take things further">>
+<</if>>
+<br>
+<<link [[Say goodbye|Doren Shower Refuse]]>><</link>>
+<br>
+
+:: Doren Shower Ask
+<<set $outside to 1>><<set $location to "flats">><<effects>>
+<<if $dorenShowerAsk is undefined>>
+	<<set $dorenShowerAsk to 0>>
+<</if>>
+<<set $dorenShowerAsk += 1>>
+
+With a playful smile on your lips, you tilt your head, leaning closer to Doren.
+<<switch $speech_attitude>>
+	<<case "meek">>
+		"It'd be great if you join me..."
+	<<case "bratty">>
+		"Why wait when you can come join me?"
+	<<default>>
+		"Why don't you come join me?"
+<</switch>>
+<<if $control lt $controlmax>>
+	<<if $promiscuity lte 39>>
+		<<set $promiscuity += 2>>
+		Performing such a lewd act excites you and <span class="green">restores your sense of</span>—
+		<<control 25>><<arousal 200>><<set $stress -= 600>><<combattrauma -60>>
+	<<elseif $promiscuity gte 40>>
+		Performing such a lewd act excites you, but does nothing to lift the cloud hanging over you. <span class="pink">You need to do something more</span>—
+		<<arousal 200>>
+	<</if>>
+<<else>>
+	<<if $promiscuity lte 39>>
+		<<set $promiscuity += 1>>
+		You already feel in control, but performing such a lewd act <span class="green">soothes</span> and excites—
+		<<control 25>><<arousal 200>><<set $stress -= 600>><<combattrauma -60>>
+	<<elseif $promiscuity gte 40>>
+		You already feel in control and the act is <span class="pink">too tame to soothe</span>, but it does—
+		<<arousal 200>>
+	<</if>>
+<</if>>
+<br><br>
+
+<<if !$dorenSeen.includes("shower_ask")>>
+	<<set $dorenSeen.pushUnique("shower_ask")>>
+	<<He>> looks at you, horrified. "No."
+<<else>>
+	"No," <<he>> answers curtly.
+<</if>>
+<br><br>
+
+<<link [[Shower (0:20)|Doren Shower]]>><<pass 20>><</link>>
+<br>
+<<link [[Say goodbye|Doren Shower Refuse]]>><</link>>
+<br>
+
+:: Doren Shower
+
+<<set $outside to 0>><<set $location to "flats">><<effects>>
+You enter Doren's flat once more. "It's just through there," <<he>> says. "Take your time. I'll find something to keep me occupied."
+<br><br>
+
+You enter the bathroom and strip. You notice there's only one towel on the rack.
+<br><br>
+
+<<strip>>
+
+<<link [[That's not a problem|Doren Shower 1]]>><</link>>
+<br>
+<<link [[Dress and ask for a fresh one|Doren Shower 2]]>><</link>>
+<br>
+<<if hasSexStat("exhibitionism", 4)>>
+	<<link [[Remain naked and ask for a fresh one|Doren Shower 3]]>><</link>><<exhibitionist4>>
+	<br>
+<</if>>
+
+:: Doren Shower Refuse
+<<set $outside to 0>><<set $location to "flats">><<effects>>
+
+You thank Doren but say you'll wash at home. "Alright," <<he>> says. "Thanks for the company. You can come by tomorrow if you like."
+<br><br>
+
+<<endevent>>
+<<link [[Next|Barb Street]]>><</link>>
+<br>
+
+:: Doren Shower 1
+<<set $outside to 0>><<set $location to "flats">><<effects>>
+
+<<wash>><<wearProp "soap">>
+You wash until you're squeaky clean.
+<br><br>
+
+Doren smiles at you on your way out. "Come back tomorrow if you like."
+<br><br>
+
+<<link [[Next|Barb Street]]>><<clothesontowel>><<endevent>><</link>>
+<br>
+
+:: Doren Shower 2
+<<set $outside to 0>><<set $location to "flats">><<effects>>
+<<wash>>
+You dress and ask Doren for a fresh towel. "Sorry, <<lassie>>. I forget that might bother some people. I've a fresh one around here somewhere."
+<br><br>
+
+New towel in hand, you return to the shower and wash until you're squeaky clean.
+<br><br>
+
+Doren smiles at you on your way out. "Come back tomorrow if you like."
+<br><br>
+
+<<endevent>>
+<<link [[Next|Barb Street]]>><<clothesontowel>><</link>>
+<br>
+
+:: Doren Shower 3
+<<set $outside to 0>><<set $location to "flats">><<effects>>
+
+You leave your clothes in the bathroom and step into the hallway, feeling a thrill as you do. You walk to the front room, where Doren is still taking off <<his>> shoes. "Need something la..." <<He>> cuts off as soon as <<he>> looks up and sees you, <<lewdness>> on display. "I think you, ah, forgot something." <<He>> averts <<his>> gaze.
+<<exhibitionism4>>
+<<if $speech_attitude is "meek">>
+	"Could I please have a fresh towel?" you say, as if nothing is amiss.
+<<elseif $speech_attitude is "bratty">>
+	"Gimme a fresh towel," you say, as if nothing is amiss.
+<<else>>
+	"Could I have a fresh towel?" you say, as if nothing is amiss.
+<</if>>
+<br><br>
+
+"Of course," <<he>> says. "I forget that's something people might want." <<He>> gets a fresh towel from the kitchen, and stares at the corner of the room while handing it to you. "You do realise you're naked, right?"
+<br><br>
+
+<<if $speech_attitude is "meek">>
+	"It's fine. I feel safe here, with you," you reply, smiling shyly.
+<<elseif $speech_attitude is "bratty">>
+	"I'm not wasting time dressing just to fetch a towel," you reply.
+<<else>>
+	"Yes. I hope you don't mind," you reply.
+<</if>>
+<br><br>
+
+"It's not a problem," <<he>> says, still not looking at you. "Just caught me off guard is all."
+<br><br>
+
+You return to the shower and wash until you're squeaky clean.
+<br><br>
+
+<<wash>>
+Doren smiles at you on the way out. "Come back tomorrow if you like."
+<br><br>
+
+<<endevent>>
+<<link [[Next|Barb Street]]>><<clothesontowel>><</link>>
+<br>
+
+:: Doren Loft
+<<effects>>
+You tell Doren about the loft at the orphanage.
+<br><br>
+<<He>> nods, and smiles. "I've an idea. Let's set up a reading nook! I'll get the books. We got lots of them from the book drive." <<He>> taps <<his>> chin as <<he>> thinks. "But setting it up is probably gonna cost us <<printmoney 250000>>. What do you say?"
+<br><br>
+<<if $money gte 250000>>
+	<<link [[Set up reading nook (£2500 3:00)|Doren Loft 2]]>><<set $phase to 1>><<money -250000 "orphanageUpgrades">><</link>><<gggtiredness>>
+<<else>>
+	<span class="blue">You don't have enough money to set up the reading nook.</span>
+<</if>>
+<br>
+<<link [[Refuse|Doren Loft 2]]>><<set $phase to 2>><<set $phase2 to 2>><</link>>
+
+:: Doren Loft 2
+<<effects>>
+
+<<if $phase is 1>>
+	<<set $location to "home">><<set $outside to 0>>
+	You hand over the money. Doren's face lights up. "I'll go prepare. See you at the orphanage." <<He>> waves you goodbye as <<he>> leaves.
+	<br><br>
+	<<wearProp "box">>
+	You return to the orphanage. As soon as you reach the front door, Doren appears around the corner, in <<his>> car. <<He>> pulls up. You help <<him>> unload heavy boxes, and show <<him>> the way to the loft.
+	<br><br>
+	"Nice." <<He>> looks around the loft, and picks the ideal spot by a window. "Alright, <<lassie>>," <<he>> says after taking measurements. "Let's head to the woodshop."
+	<br><br>
+	<<link [[Next|Doren Loft 3]]>><<pass 20>><</link>>
+<<else>>
+	<<if $phase2 is 2>>
+		"Maybe another time then, <<lassie>>?"
+	<<else>>
+		"See ya later, <<lassie>>."
+	<</if>>
+	Doren waves you goodbye before leaving.
+	<br><br>
+	<<link [[Next|Park]]>><<endevent>><</link>>
+<</if>>
+
+:: Doren Loft 3
+<<effects>><<set $location to "park">><<set $outside to 0>>
+
+You arrive at the woodshop in the community garden. Doren <<if C.npc.Doren.dom gte 10>>helps you put on protective gear, then puts on <<his>> own<<else>>dons protective gear, then helps you with yours<</if>>. <<He>> explains the construction plan.
+<<if currentSkillValue('maths') gte 700>>You're able to follow.
+<<elseif currentSkillValue('maths') gte 500>>It seems simple enough.
+<<elseif currentSkillValue('maths') gte 300>>You think you get the hang of it somewhat.
+<<else>>You have a hard time keeping up.
+<</if>>
+<br><br>
+
+<<if $schooltrait is 4>>
+	Doren looks impressed. "As expected from you, <<lassie>>. All my colleagues say you do well in their classes. Good job!"
+<<elseif currentSkillValue('maths') gte 700>>
+	Doren looks impressed. "As expected from you, <<lassie>><<if $mathsprojectwon is 1>> the Maths Competition Winner.<</if>> River told me you're good at maths.<<if C.npc.River.love gte 40>> <<nnpc_Hes "River">> quite fond of you.<</if>>"
+<<elseif currentSkillValue('maths') gte 500>>
+	Doren smiles. "Seems like you got the hang of it."
+<<else>>
+	Doren notices you're struggling and explains things in a way you understand. "It's okay not to get things the first try. What matters is you keep on trying."
+<</if>>
+<<gmaths>><<mathsskill>>
+<br><br>
+
+"My <<grandpa>> taught me how to do woodwork. <<if currentSkillValue('maths') lt 500>>Like you, <</if>>I struggled at first, but <<he>> was very patient and explained things thoroughly, helping me every step of the way." Doren smiles as <<he>> reminisces.
+<br><br>
+
+<<link [[Next|Doren Loft 4]]>><<pass 20>><</link>>
+
+:: Doren Loft 4
+<<effects>>
+
+Doren talks you through how to attach each panel with wood glue and screws, for the base cabinets and the toe-kick section.
+<br><br>
+
+"Which one would you like to do? Gluing or screwing?"
+<br><br>
+
+<<if $awareness gte 200>>
+	You <<if $speech_attitude is "meek">>giggle<<elseif $speech_attitude is "bratty">>laugh<<else>>chuckle<</if>> at <<his>> wording. Shaking <<his>> head, Doren smiles defeatedly.
+	<br><br>
+<</if>>
+
+<<link [[Gluing|Doren Loft 5]]>><<tiredness 4>><<pass 5>><<set $phase to 1>><</link>>
+<br>
+<<link [[Screwing|Doren Loft 5]]>><<tiredness 4>><<pass 5>><<set $phase to 2>><</link>>
+
+:: Doren Loft 5
+<<effects>>
+
+"Countersinking pilot holes prevents splitting and damaging the material. Like so," Doren explains as
+<<if $phase is 1>> /* Gluing */
+	<<he>> drives in the screws. You spread glue with your finger and attach the pieces together.
+<<else>> /* Screwing */
+	you drive in the screws. Then <<he>> spreads glue with <<his>> finger and attaches the pieces together.
+<</if>>
+<br><br>
+
+<<He>> smiles, and gives you a thumbs up. "Nice! We're almost done. Do you want to make the drawer fronts or stain the wood?"
+<br><br>
+
+<<link [[Make the drawer fronts|Doren Loft 6]]>><<tiredness 4>><<pass 30>><<set $phase to 1>><</link>>
+<br>
+<<link [[Stain the wood|Doren Loft 6]]>><<tiredness 4>><<pass 30>><<set $phase to 2>><</link>>
+
+:: Doren Loft 6
+<<effects>>
+Using rails, stiles, and centre panels,
+<<if $phase is 1>>
+	you make the drawer fronts while <<he>> stains
+<<else>>
+	Doren makes the drawer fronts while you stain
+<</if>>
+the wood surfaces and seals them with a sprayer.
+<br><br>
+
+When reaching for the iron, <<he>> accidentally touches your hands. "Oh, sorry, <<lassie>>."
+<br><br>
+
+<<if $trauma gte ($traumamax / 5) * 4>>
+	<<if $panicviolence gte 1>>
+		<span class="red">You flinch and hit Doren from the sudden touch.</span><<gstress>><<stress 5>>
+		<br><br>
+		<<set _outburst to 1>>
+	<<elseif $panicparalysis gte 1>>
+		<span class="red">Your muscles seize up, leaving you motionless.</span><<gstress>><<stress 5>>
+		<br><br>
+	<</if>>
+	"Are you alright, <<lassie>>?" <<he>> asks, <<if C.npc.Doren.dom gte 50>>apologetic and worried<<else>>concerned<</if>>.
+	<br><br>
+
+	<<if _outburst>>
+		<<link [[Apologise|Doren Loft 7]]>><<npcincr Doren love 1>><<npcincr Doren dom 1>><<set $phase to 2>><</link>><br>
+	<</if>>
+	<<link [[Say you're fine|Doren Loft 7]]>><<set $phase to 3>><</link>><br>
+	<<link [[Break down|Doren Loft 7]]>><<set $phase to 4>><<trauma -6>><<stress -12>><<pain -4>><<npcincr Doren love 1>><<npcincr Doren dom 1>><</link>><<glove>><<gdom "Doren">><<gcontrol>><<ltrauma>><<lstress>><<lpain>><br>
+	<<link [[Act like nothing happened|Doren Loft 7]]>><<set $phase to 5>><</link>><br>
+<<else>>
+	<<link [[Say it's fine|Doren Loft 7]]>><<set $phase to 0>><</link>><br>
+	<<link [[Flirt|Doren Loft 7]]>><<set $phase to 1>><</link>><<handholdingvirginitywarning>><<promiscuous1>><br>
+<</if>>
+
+:: Doren Loft 7
+<<effects>>
+<<if $phase is 0>> /* Say it's fine */
+	Doren nods and continues on.
+<<elseif $phase is 1>> /* Flirt */
+	Seizing the opportunity, you hold <<his>> hand.
+		<<takeHandholdingVirginity "Doren" "consensual" null true>>
+		<<switch $speech_attitude>>
+			<<case "meek">>"I don't mind at all. Could we hold hands for a bit? Please?"
+			<<case "bratty">>"It's okay. If I don't hold your hand, who will?"
+			<<default>>"I don't mind. I wanna hold your hand actually."
+		<</switch>>
+	<br><br>
+	Doren chuckles. "We can't work like this, <<lassie>>."
+	<br><br>
+	"Fine."
+	<<switch $speech_attitude>>
+		<<case "meek">>You pout and let go of <<his>> hand.
+		<<case "bratty">>You roll your eyes, letting go of <<his>> hand.
+		<<default>>You smile and let go of <<his>> hand.
+	<</switch>>
+<<elseif $phase is 2>> /* Apologise */
+	You apologise to <<him>> for your outburst. Doren shakes <<his>> head. "It's okay, <<lassie>>. I understand. There's nothing to apologise for."
+<<elseif $phase is 3>> /* Say you're fine */
+	<<switch $speech_attitude>>
+		<<case "meek">>"I-I'm fine. Don't worry about me," you reassure <<him>>, hiding your jittery hands.
+		<<case "bratty">>"I'm fine! Geez." You put on a brave face, shrugging it off.
+		<<default>>"I'm fine. Nothing to worry about," you reassure <<him>>.
+	<</switch>>
+	Doren nods, sceptical but <<he>> doesn't push it. "Alright. If you say so, <<lassie>>."
+<<elseif $phase is 4>> /* Break down */
+	You burst into tears, leaning onto <<him>>. Doren holds you in <<his>> arms until you feel better.
+<<else>> /* Act like nothing happened */
+	<<switch $speech_attitude>>
+		<<case "meek">>"I-it's fine. I-I'm fine. I promise," you stutter, hiding your jittery hands.
+		<<case "bratty">>You put on a brave face, shrugging it off. "Hmm? What happened?"
+		<<default>>You act like nothing happened. "What are you talking about? Everything's fine."
+	<</switch>>
+	Doren nods, sceptical but <<he>> doesn't push it. "Alright. If you say so, <<lassie>>."
+<</if>>
+<br><br>
+<<if $phase is 2 or $phase is 3 or $phase is 4 or $phase is 5>>
+	You two continue when you feel ready to.<<npcincr Doren dom 5>><<ggdom "Doren">>
+	<br><br>
+<</if>>
+<<He>> heats the veneer edging with an iron, allowing you to bond the strip of plywood. You press it firm into place with a scrap piece of wood, concealing the exposed layers of the face frames.
+<br><br>
+Once the adhesive cools, <<he>> trims away the excess with a utility knife and sands the edges smooth until they blend with the surface.
+<br><br>
+Finally, you pack up and return to the loft.
+<br><br>
+
+<<link [[Next|Doren Loft 8]]>><<tiredness 4>><<pass 30>><</link>>
+
+:: Doren Loft 8
+<<effects>><<set $location to "home">><<set $outside to 0>>
+Doren calls a friend of <<his>> to help move the woodwork up the loft. Once there, <<he>> secures the toe kick base into the wall studs and floor. The cabinets are positioned on top of the base and screwed securely. Curious orphans peek their heads to see what you're up to.
+<br><br>
+After the lower cabinets are installed, you work together to assemble and mount the tall vertical shelving units. <<He>> uses a level and wood shims to keep everything aligned.
+<br><br>
+Once the structure is complete, <<he>> attaches the face frames to the front of the cabinets using wood glue and brad nails. Following Doren's instructions, you install the drawer faces carefully, using playing cards as spacers to maintain even gaps around all edges. All nail holes and joints are filled with wood filler and sanded smooth.
+<br><br>
+"Alright, <<lassie>>. Vacuuming or caulking? The choice is yours."
+<br><br>
+<<if $awareness gte 200>>
+	You <<if $speech_attitude is "meek">>giggle<<elseif $speech_attitude is "bratty">>laugh<<else>>chuckle<</if>> at <<his>> wording. Shaking <<his>> head, Doren smiles defeatedly.
+	<br><br>
+<</if>>
+
+<<link [[Vacuuming|Doren Loft 9]]>><<tiredness 4>><<pass 10>><<set $phase to 1>><</link>>
+<br>
+<<link [[Caulking|Doren Loft 9]]>><<tiredness 4>><<pass 10>><<set $phase to 2>><</link>>
+
+:: Doren Loft 9
+<<effects>>
+<<if $phase is 1>>
+	Doren covers <<his>> ears as you vacuum the dust away. Then it's <<his>> turn to apply caulk to all the joints.
+<<else>>
+	"You may want to cover your ears, <<lassie>>," Doren warns you before vacuuming the dust away. Then it's your turn to apply caulk to all the joints.
+<</if>>
+Putting on respirators, you both prim and paint the reading nook with a spray gun.
+<br><br>
+
+"It's therapeutic, isn't it?" Doren asks with a smile. <<Hes>> right. <<stress -5>><<lstress>>
+<br><br>
+To finish it up, you place a plywood plank over a thick foam, wrap them in a thick fabric, then staple it tightly to make an upholstered cushion. Doren throws pillows into the seating area, then places a reading lamp to the side and a soft rug before the toe kick.
+<br><br>
+And with that, the reading nook is completed!
+<br><br>
+
+<<link [[Next|Doren Loft 10]]>><<tiredness 4>><<pass 20>><</link>>
+
+:: Doren Loft 10
+<<effects>>
+<<wearProp "open storybook">>
+
+Doren claps <<his>> hands together. "Alright!" <<He>> pauses to admire the handiwork. "Oh. The books!"
+<br><br>
+You open the boxes. One is filled with books. Novels, comics, newspapers, magazines, and reference books. Another is filled with bookmarks, flash cards, stationery and craft supplies.
+<br><br>
+"Those are helpful resources to study. Knowledge is power, after all," <<he>> says, opening a box full of decorations. "Can't forget about these, either. A welcoming space to learn is also very important."
+<br><br>
+You and Doren chat while arranging books and decorations on the bookshelf. Together, you create a miniature diorama with lighting, music, and motion sensors, and display it with the books. Finally, you two finish the reading nook up with garlands, hanging paper butterflies and fairy lights.
+<br><br>
+Resting <<his>> hands on <<his>> waist, Doren beholds the reading nook and smiles proudly. "Good job, <<lassie>>. All done. High five!" You give <<him>> a high five.
+<br><br>
+<<tiredness 4>>
+
+<<link [[Thank <<him>>|Doren Loft Thank]]>><<set $phase to 1>><</link>>
+<br>
+<<link [[Thank and hug <<him>>|Doren Loft Thank]]>><<set $phase to 2>><</link>>
+<br>
+<<link [[Remain silent|Doren Loft Thank]]>><<set $phase to 0>><</link>>
+
+
+:: Doren Loft Thank
+<<effects>>
+
+<<if $phase isnot 0>>
+	<<switch $speech_attitude>>
+		<<case "meek">>"Thank you so much," you say. "I couldn't have done it without you."
+		<<case "bratty">>"Thanks," you say. "This will keep them educated."
+		<<default>> "Thank you," you say. "You've been a great help."
+	<</switch>>
+	<<if $phase is 2>>
+		<br><br>
+		You
+		<<switch $speech_attitude>>
+			<<case "meek">>shyly open your arms for
+			<<case "bratty">>pull <<him>> into
+			<<default>>open your arms for
+		<</switch>>
+		a hug. <<He>> returns it with a soft chuckle.
+	<</if>>
+	<br><br>
+<</if>>
+
+"<<if $phase isnot 0>>Of course I'd help. <</if>>It's great that you've set up this reading nook for the orphans. I'm also glad you asked for my help." Doren beams at you. "I'm proud of you, <<lassie>>."<<lstress>><<stress -5>><<ltrauma>><<trauma -5>><<npcincr Doren love 5>><<gglove>>
+<br><br>
+The orphans rush in to hug and thank Doren as well, earning a hearty laugh from <<him>>. <<hope 10>><<ggghope>>
+<br><br>
+"I've got to go return the tools now. See ya later, <<lassie>>." <<He>> waves goodbye to everyone before leaving as they see <<him>> off.
+<br><br>
+
+<<link [[Next|Orphanage Loft]]>><<set $loft_doren to 1>><<set $loft_upgrade += 1>><<endevent>><</link>>
+
+:: Doren Beach Volleyball
+<<location "beach">><<effects>>
+<<npc Doren>><<generate2>><<generate3>><<generate4>>
+
+You approach a group of four playing volleyball, spotting Doren among them, dressed in
+<<if C.npc.Doren.gender isnot "m">>
+	a <<= either ("bikini","swimsuit")>>.
+<<else>>
+	<<= either ("board shorts","a speedo")>>.
+<</if>>
+<<person1>><<He>><<if C.npc.Doren.love gte 50>> enthusiastically<</if>> waves you over.
+<br><br>
+
+<<link [[Join in (0:30)|Doren Beach Volleyball Play]]>><<athletics 3>><<physique 1>><<pass 30>><<stress -12>><<tiredness 6>><<status 1>><<npcincr Doren love 1>><</link>><<glove>><<gcool>><<gathletics>><<llstress>><<gtiredness>>
+<br>
+<<link [[Leave|Beach]]>><<endevent>><</link>>
+<br>
+
+:: Doren Beach Volleyball Play
+<<location "beach">><<effects>>
+<<wearProp "volleyball">>
+
+The group is happy to have a new player joining, particularly the <<person2>><<person>>, who's out of breath. "Thank you! I'm out." <<He>> watches the game unfold as <<he>> rests.
+<br><br>
+<<physique 3>>
+<<outfitChecks>>
+
+<<if dangerEvent()>>
+	<<if $rng gte 51>>
+		You are so focused on the opposing team you do not notice one of your own sneak up on you. A pair of hands grasp the rim of your _bottom.name.
+		<<if C.npc.Doren.love gte 10 and ((($worn.under_lower.name is "naked" or $worn.lower.name is "naked") and $uncomfortable.nude is true) or $uncomfortable.underwear is true)>>
+			Doren immediately grabs <<person3>><<his>> arms <<if C.npc.Doren.dom gte 10>>in a vice grip<</if>>.
+			<br><br>
+			"Behave yourself or else."
+			<br><br>
+			<<person1>><<He>> releases the <<person3>><<person>>, who backs off.
+			<br><br>
+			"I'm so sorr—"
+			<br><br>
+			Doren cuts <<person3>><<him>> off. "Apologise to <<phim>>, not me."
+			<br><br>
+			<<person3>><<He>> turns to you, apologising profusely. "I'm so sorry!" <<trauma -1>><<ltrauma>>
+		<<else>>
+			Before you can react, the <<person3>><<person>> has
+			<<if _bottomIsSkirt>>
+				lifted <<lowerit>>,
+			<<elseif _bottom?.set isnot _top?.set>>
+				pulled <<lowerit>> all the way to your knees,
+			<<else>>
+				pulled <<lowerit>> aside,
+			<</if>>
+			<<if $worn.under_lower.name is "naked" or $worn.lower.name is "naked">>
+				<<if $uncomfortable.nude is false>>
+					exposing your <<genitals>> for all to see. Laughter and lewd gestures erupt from both teams, yet you feel a thrill.
+					<br><br>
+					You fix your clothes, taking a bit longer than you need to. Shooting daggers at the other players, <<if C.npc.Doren.love gte 10>>Doren helps you<<if C.npc.Doren.dom gte 10>>, shielding you from prying eyes<</if>>.<</if>> The laughter dies down.
+					<<garousal>><<arousal 300>>
+				<<else>>
+					exposing your <<genitals>> for all to see. Laughter and lewd gestures erupt from both teams as your face turns red and you hasten to protect your dignity. Shooting daggers at the other players, <<if C.npc.Doren.love gte 10>>Doren helps you<<if C.npc.Doren.dom gte 10>>, shielding you from prying eyes<</if>>.<</if>> The laughter dies down.
+					<<garousal>><<gstress>><<gtrauma>><<arousal 300>><<stress 3>><<trauma 3>>
+				<</if>>
+			<<else>>
+				<<if $uncomfortable.underwear is false>>
+					exposing your $worn.under_lower.name. Laughter erupts from both teams, including you. Doren shakes <<person1>><<his>> head, defeated. It's just your $worn.under_lower.name_simple; you're not embarrassed.
+					<<gcool>><<status 5>><<garousal>><<gstress>>
+				<<else>>
+					exposing your $worn.under_lower.name. Laughter erupts from both teams, and you hasten to protect your dignity. Shooting daggers at the other players, <<if C.npc.Doren.love gte 10>>Doren helps you<<if C.npc.Doren.dom gte 10>>, shielding you from prying eyes<</if>>.<</if>> The laughter dies down.
+					<<llcool>><<status -10>><<garousal>><<gstress>><<gtrauma>><<arousal 100>><<stress 1>><<trauma 1>>
+				<</if>>
+			<</if>>
+		<</if>>
+		<br><br>
+	<<else>>
+		<<if _topless is true and $rng gte 16>>
+			Part-way through the match the ball collides with your bare chest, sending you sprawling.
+			<<if $player.breastsize gte 2>>
+				<br>
+				Your <<breasts>> hurt a little from the bare skin impact.
+				<<pain 1>><<gpain>>
+				<br><br>
+			<</if>>
+			Doren rushes to your side and helps you up. It's embarrassing, but you soon dust yourself off.
+			<br><br>
+		<<else>>
+			Part-way through the match the ball collides with Doren's chest. <<person1>><<He>> sucks air between <<his>> teeth and serves the ball right back.
+			<br><br>
+		<</if>>
+	<</if>>
+<<else>>
+	<<person1>>
+	<<switch random(1, 5)>>
+		<<case 1>>
+			You both have a good time.
+		<<case 2>>
+			Working together, you and Doren dominate the game.
+		<<case 3>>
+			Doren is as athletic as expected. <<He>> hits the ball to you, and you spike it over the net for an easy point.
+		<<case 4>>
+			Doren spikes the ball over the net, scoring points left and right. You wonder why <<he>> hadn't become a PE teacher. <<His>> love for literature must be strong like <<him>>.
+		<<case 5>>
+			Doren switches teams for the next round. The competition between you two is intense.
+	<</switch>>
+	<br><br>
+<</if>>
+
+<<if Time.hour > 10>>
+	"Alright, I'm gonna go <<= either ("swim","surf")>> now. See ya later, <<lassie>>." Smiling, Doren gives you a wave before <<person1>><<he>> heads to the changing room. The other players seem disappointed, but wave their goodbyes to <<him>>. The group soon disperses.
+	<br><br>
+
+	<<link [[Next|Beach]]>><<endevent>><</link>>
+	<br>
+<<else>>
+	<<link [[Play more (0:30)|Doren Beach Volleyball Play]]>><<athletics 3>><<physique 1>><<pass 30>><<stress -12>><<tiredness 6>><<status 1>><<npcincr Doren love 1>><</link>><<glove>><<gcool>><<gathletics>><<llstress>><<gtiredness>>
+	<br>
+	<<link [[Stop|Beach]]>><<endevent>><</link>>
+	<br>
+<</if>>
+
+:: Doren Beach Volunteer
+<<location "beach">><<effects>>
+<<set $monthly.volunteer to true>><<wearProp "trash bag">>
+<<upperundress "volunteer">><<lowerundress "volunteer">>
+<<upperwear "utility vest with shirt">><<lowerwear "cargo pants">>
+/* using utility vest with shirt as a placeholder until hi-vis vest sprite is made */
+<<set _robin to statusCheck("Robin")>>
+<<set _rng to random(1, 2)>>
+
+<<npc Doren>><<person1>>
+
+You spend time picking up litter and debris scattered across the beach. A competition begins between a <<generatey2>><<person2>><<person>> and a <<generate3>><<person3>><<person>> to see who can fill rubbish bags the most, their hands darting out to snatch up any trash before the other one can. It's very productive.
+<br><br>
+
+You take a break at the picnic table, looking at
+<<switch random(1,4)>>
+	<<case 1>>
+		<<if Time.openingHours() and $balloonStand.open is true>>
+			<<if _robin_location is "beach">>
+				<<if $balloonStand.robin.status is "sabotaged">>
+					people milling around the balloon stand. Across the way, a harried Robin desperately tries to attract people to <<nnpc_his Robin>> stand.
+				<<elseif $balloonStand.robin.status is "helped">>
+					Robin selling lemonade across the balloon stand. <<nnpc_He Robin>> has more customers than usual. <<nnpc_He Robin>> catches you looking and waves at you.
+				<<else>>
+					Robin selling lemonade just a few feet away, speaking to a solitary customer. <<nnpc_He Robin>> catches you looking and smiles tentatively.
+				<</if>>
+			<<elseif $robinmissing isnot 0>>
+				<<if $balloonStand.robin.status is "sabotaged">>
+					people milling around the balloon stand. You glance over at the spot where Robin normally set up shop. You can't help but feel responsible for <<nnpc_his Robin>> absence.
+				<<elseif $balloonStand.robin.status is "helped">>
+					a <<personsimple>> pointing another customer looking for a drink in the direction of Robin's stand. <<He>> quickly corrects <<himself>>, looking dispirited at Robin's absence.
+				<<else>>
+					the spot where Robin normally set up shop.
+				<</if>>
+			<</if>>
+		<<elseif _robin_location is "beach">>
+			Robin selling lemonade just a few feet away. <<nnpc_He Robin>> catches you looking and waves at you.
+		<</if>>
+	<<case 2>>the waves crashing into shore.
+	<<case 3>>the beachside bar not far from here.
+	<<case 4>>a seagull investigating a half-buried crisp bag.
+<</switch>>
+<br><br>
+
+"Here you go, <<lassie>>."
+<<if C.npc.Doren.love gte 50>>
+	Doren playfully moves <<if _robin_location is "beach" and _rng is 1>>a cup of lemonade<<else>>a bottle of water<</if>>, dodging your reach before finally handing it to you. Then <<person1>><<he>> drinks <<his>> own, hiding <<his>> smile behind it.
+<<else>>
+	Doren hands you <<if _robin_location is "beach" and _rng is 1>>a cup of lemonade<<else>>a bottle of water<</if>> before drinking one <<person1>><<himself>>.
+<</if>>
+"I'm glad you came. The more the merrier."<<npcincr Doren love 1>><<glove>>
+<br><br>
+
+Other volunteers join in, chatting with you and Doren. <<trauma -6>><<stress -12>><<ltrauma>><<lstress>>
+<br><br>
+
+<<if _robin_location is "beach" and _rng is 1>>
+	<<set _dorenlemonade to 10 + Math.floor(Math.random()*21)>>
+	<<set $robinmoney += _dorenlemonade>>
+<</if>>
+
+<<link [[Next|Beach]]>><<endevent>><<storeonupper "volunteer">><<storeonlower "volunteer">><</link>>
+<br>
