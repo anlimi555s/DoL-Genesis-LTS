@@ -83,10 +83,7 @@ graph TD
     CSS --> IL2["ImageLoaderHook CssReplacer"]
 ```
 
-**⚠ 当前未解**：天气修复后地点贴图不显示。候选假设（待诊断数据裁决）：
-1. 修复 A 切断"空转重试兜底"，ImageLoaderHook 劫持的异步加载一旦失败/晚到即永久空层
-2. 修复 C 的 `loaded.value=false` 与 initialize 重入的时序问题
-3. 用户存档 `V.options.images/weatherUpdate` 实际值导致走了非预期分支
+**⚠ 调查中（2026-08-29）**：地点贴图不显示。已确认的事实：① 诊断数据 `images=1 weatherUpdate=true canvasSkyboxInDom=true`，走新 canvas 路径；② location 层画布像素全透明；③ logcat 有 `ctx.reset is not a function` 报错（FF122+ 才有该 API）。未决：天气修复 A/B/C 与贴图显示的关系（修复前贴图状态待实测裁决）。当前动作：天气修复已整体回退，遥测诊断输出保留，待重新定位。
 
 ## 4. 角色模型渲染（已确认非瓶颈）
 
@@ -134,3 +131,16 @@ graph TD
 ```
 
 **依据**：Speedometer 移动端 Firefox 落后 Chrome；社区共识 hybrid（webdev-support 2024）；GeckoView jank bug 修复集中在 115-118。
+
+## 8. 引擎 API 兼容性审计（GeckoView 102 = Firefox 102）
+
+> 审计工具：`devTools/api-scan.py`（每次上游合并后重跑）。扫描范围：game/ + modules/ 共 230 文件。
+
+| API | 调用次数 | FF 102 | 处理 |
+|-----|---------|--------|------|
+| `ctx.reset()` | 4 | 缺失（FF122+） | ✅ polyfill（`game/00-framework-tools/polyfills.js`） |
+| `Math.clamp()` | 249 | 缺失（FF130+） | ✅ polyfill（同上） |
+| `ctx.filter`（blur 等） | 6 | 无效（FF116+，静默） | ⚠ 静默降级：反射/发光无模糊，图仍在。不可 JS polyfill，等 116+ 内核自动恢复 |
+| `window.print` | 33 | 无打印 UI | 📝 功能缺失，不崩 |
+
+其余全绿：语法级（?. / ?? / ??= / #private / top-level await）与运行时（replaceAll / at() / structuredClone / ResizeObserver / clipboard / CSS color-mix / lch / :has 未使用）均无缺口。

@@ -45,10 +45,10 @@ Weather.Renderer.AnimationGroup = class AnimationGroup {
 		if (!V.weatherObj) return;
 
 		deltaTime = Math.min(deltaTime, this.updateRate);
-		// LTS 修复：无动画时不再触发 onUpdate（原实现空转时每帧全画布重合成，
-		// 移动端白白占用 CPU。所有动态效果均通过 animationGroup.add 驱动，
-		// 静态层的空 tick 无可见收益）。回退：恢复下方 onUpdate() 调用即可。
+		// If there are no child animations, still trigger the onUpdate callback
+		// so that layers/effects that rely on the animation group's tick still redraw.
 		if (this.animations.size < 1) {
+			this.onUpdate();
 			return;
 		}
 		const updatedEffects = new Set();
