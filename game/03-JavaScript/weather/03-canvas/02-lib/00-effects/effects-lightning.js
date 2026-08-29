@@ -50,6 +50,10 @@ Weather.Renderer.Effects.add({
 			frameDelay: rate,
 			offset: 0,
 			alwaysDisplay: false,
+			// LTS 修复：无闪电时 ticker 不再推进重绘（canUpdate 检查 condition）。
+			// 原实现 4 层 × 20fps 恒定重绘，即使 Weather.enableLightning=false。
+			// 回退：删除此行即可。
+			condition: () => Weather.enableLightning,
 		});
 		this.parentLayer.animationGroup.add(`${this.id}_ticker`, ticker);
 		ticker.enable();
@@ -289,6 +293,10 @@ Weather.Renderer.Effects.add({
 			frameDelay: rate,
 			offset: 0,
 			alwaysDisplay: false,
+			// LTS 修复：无闪电时 ticker 不再推进重绘（canUpdate 检查 condition）。
+			// 原实现 4 层 × 20fps 恒定重绘，即使 Weather.enableLightning=false。
+			// 回退：删除此行即可。
+			condition: () => Weather.enableLightning,
 		});
 		this.parentLayer.animationGroup.add(`${this.id}_ticker`, ticker);
 		ticker.enable();
