@@ -21,11 +21,13 @@
     ],
     "plugins": {
       "cordova-plugin-save-dialog": {},
-      "cordova-plugin-rnk-toast": {}
+      "cordova-plugin-rnk-toast": {},
+      "cordova-plugin-geckoview-engine": {}
     }
   },
   "devDependencies": {
     "cordova-android": "11.0.x",
+    "cordova-plugin-geckoview-engine": "github:tuanway/cordova-plugin-geckoview-engine",
     "cordova-plugin-rnk-toast": "^0.0.3",
     "cordova-plugin-save-dialog": "^2.0.1"
   }

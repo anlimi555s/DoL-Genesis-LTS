@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-packageName="com.vrelnir.dol" id="dol" version="0.5.11.9" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-packageName="com.vrelnir.dol_debug" id="dol" version="0.5.11.9" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name short="DoL">Degrees of Lewdity</name>
     <description>Degrees of Lewdity</description>
     <author email="9096-Vrelnir@users.noreply.gitgud.io" href="https://gitgud.io/Vrelnir/degrees-of-lewdity">
@@ -7,7 +7,11 @@
     </author>
     <content src="index.html" />
     <allow-intent href="https:*" />
+    <preference name="webview" value="com.cordova.geckoview.GeckoViewEngine" />
     <platform name="android">
+        <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/application">
+            <application android:largeHeap="true" />
+        </edit-config>
         <hook src="scripts/prevent_unnecessary_deletes.js" type="before_prepare" />
         <hook src="scripts/prepare_files.js" type="before_compile" />
         <hook src="scripts/move_built_apks.js" type="after_compile" />
