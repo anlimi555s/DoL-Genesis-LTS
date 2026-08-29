@@ -45,10 +45,16 @@ Weather.Renderer.AnimationGroup = class AnimationGroup {
 		if (!V.weatherObj) return;
 
 		deltaTime = Math.min(deltaTime, this.updateRate);
-		// If there are no child animations, still trigger the onUpdate callback
-		// so that layers/effects that rely on the animation group's tick still redraw.
+		// LTS 修复：无动画时降频为 1 秒一次兜底重绘（原实现按 updateRate 空转全画布重合成，
+		// 移动端白白占用 CPU）。保留低频兜底的原因：静态层的图片是异步加载，
+		// 晚到时需要后续重绘补画（官方空转 tick 实际承担了失败重试职责）。
+		// 回退：恢复为无条件 this.onUpdate() 即可。
 		if (this.animations.size < 1) {
-			this.onUpdate();
+			const now = performance.now();
+			if (now - (this._lastIdleDraw || 0) >= 1000) {
+				this._lastIdleDraw = now;
+				this.onUpdate();
+			}
 			return;
 		}
 		const updatedEffects = new Set();
