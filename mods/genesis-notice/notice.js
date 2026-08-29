@@ -8,26 +8,26 @@
 	var NOTICE_URL = 'https://cdn.jsdelivr.net/gh/anlimi555s/DoL-Genesis-LTS@main/notice.html';
 	var CACHE_KEY = 'genesis_notice_cache';
 	var CACHE_TTL = 10 * 60 * 1000; // 10 分钟
-
-	var injectedHtml = null;
+	var LOG = '[genesis-notice]';
 
 	function injectSidebar(html) {
-		if (!html || typeof $ === 'undefined') return;
+		if (!html) { console.log(LOG, 'empty html, skip'); return; }
+		if (typeof $ === 'undefined') { console.log(LOG, 'jQuery not ready'); return; }
 		try {
 			var old = document.getElementById('genesis-sidebar-notice');
 			if (old && old.parentNode) old.parentNode.removeChild(old);
 		} catch (e) { /* ignore */ }
+		// 注入点：SugarCube 原生侧边栏 #ui-bar-body 末尾（无 susato UI 依赖）
+		var target = document.getElementById('ui-bar-body');
+		if (!target) { console.log(LOG, '#ui-bar-body not found, skip inject'); return; }
 		try {
 			var div = document.createElement('div');
 			div.id = 'genesis-sidebar-notice';
 			div.style.cssText = 'margin:6px 0;padding:6px 10px;border:1px solid var(--gold,#D4AF37);border-radius:6px;background:rgba(212,175,55,0.06);font-size:12px;line-height:1.5;';
 			div.innerHTML = html;
-			var target = document.getElementById('overlayButtons');
-			if (target && target.parentNode) {
-				target.parentNode.insertBefore(div, target.nextSibling);
-				injectedHtml = html;
-			}
-		} catch (e) { console.warn('[genesis-notice] inject failed:', e); }
+			target.appendChild(div);
+			console.log(LOG, 'notice injected');
+		} catch (e) { console.warn(LOG, 'inject failed:', e); }
 	}
 
 	function loadNotice() {
@@ -36,29 +36,33 @@
 			var cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
 			if (cached && cached.t && Date.now() - cached.t < CACHE_TTL && cached.html) {
 				injectSidebar(cached.html);
+				console.log(LOG, 'from cache');
 				return;
 			}
 		} catch (e) { /* ignore */ }
 		// 2. 拉远程
+		console.log(LOG, 'fetching notice...');
 		fetch(NOTICE_URL, { cache: 'no-store' })
 			.then(function (r) { return r.ok ? r.text() : Promise.reject(new Error('HTTP ' + r.status)); })
 			.then(function (html) {
+				console.log(LOG, 'fetched', (html || '').length, 'chars');
 				if (!html || !html.trim()) return;
 				try { localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), html: html })); } catch (e) { /* ignore */ }
 				injectSidebar(html);
 			})
-			.catch(function (e) { /* 网络失败静默，通告不是关键路径 */ });
+			.catch(function (e) { console.warn(LOG, 'fetch failed:', String(e).slice(0, 150)); });
 	}
 
 	// 每次 passageend 都尝试（侧边栏 DOM 存在才注入）
 	if (window.jQuery) {
 		window.jQuery(document).on(':passageend', loadNotice);
+		console.log(LOG, 'passageend hook ready');
 	} else {
-		// 兜底：轮询
 		var timer = setInterval(function () {
 			if (window.jQuery) {
 				window.jQuery(document).on(':passageend', loadNotice);
 				clearInterval(timer);
+				console.log(LOG, 'passageend hook ready (late)');
 			}
 		}, 1000);
 	}
