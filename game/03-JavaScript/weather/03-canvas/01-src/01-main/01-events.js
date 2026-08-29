@@ -96,6 +96,15 @@ $(document).on(":passagestart", () => {
 		delete Weather.banner;
 	}
 
+	// LTS 修复：天气开关关闭时停止画布循环（对齐 caption.twee 的 weatherUpdate/images 渲染条件）。
+	// 原实现开关关闭后 rAF 循环照跑（离屏白烧）。stopAll + loaded=false 后，
+	// 开关重开会走下方初始化路径自动恢复。回退：删除本段即可。
+	if (!(V.options.weatherUpdate && V.options.images)) {
+		Weather.sidebar?.stopAll();
+		if (Weather.sidebar) Weather.sidebar.loaded.value = false;
+		return;
+	}
+
 	// Return if sidebar has already been initialised
 	if (!V.weatherObj || Weather.sidebar?.loaded.value) return;
 	Weather.activeRenderer = Weather.sidebar;
