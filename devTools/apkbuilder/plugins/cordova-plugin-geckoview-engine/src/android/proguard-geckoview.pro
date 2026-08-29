@@ -1,0 +1,9 @@
+-keep class org.apache.cordova.** { *; }
+-keep class com.cordova.geckoview.** { *; }
+-keep class org.mozilla.geckoview.** { *; }
+-keep class org.mozilla.gecko.** { *; }
+-keep class org.yaml.snakeyaml.** { *; }
+-keep class java.beans.** { *; }
+-dontwarn org.mozilla.**
+-dontwarn org.yaml.snakeyaml.**
+-dontwarn java.beans.**

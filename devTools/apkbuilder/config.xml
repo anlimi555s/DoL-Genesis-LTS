@@ -7,8 +7,12 @@
     </author>
     <content src="index.html" />
     <allow-intent href="https:*" />
-    <preference name="webview" value="com.cordova.geckoview.GeckoViewEngine" />
+    <preference name="webview" value="com.cordova.geckoview.HybridEngine" />
     <platform name="android">
+        <preference name="android-compileSdkVersion" value="33" />
+        <preference name="android-targetSdkVersion" value="33" />
+        <preference name="AndroidGradlePluginVersion" value="7.3.1" />
+        <preference name="android-buildToolsVersion" value="33.0.2" />
         <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/application">
             <application android:largeHeap="true" />
         </edit-config>

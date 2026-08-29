@@ -1,0 +1,24 @@
+{
+  "name": "cordova-plugin-geckoview-engine",
+  "version": "1.0.0",
+  "description": "Cordova WebView engine using Mozilla GeckoView.",
+  "cordova": {
+    "id": "cordova-plugin-geckoview-engine",
+    "platforms": [
+      "android"
+    ]
+  },
+  "keywords": [
+    "cordova",
+    "geckoview",
+    "firefox",
+    "webview",
+    "engine"
+  ],
+  "engines": [
+    {
+      "name": "cordova-android",
+      "version": ">=10.0.0"
+    }
+  ]
+}

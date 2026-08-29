@@ -57,3 +57,12 @@ fs.readFile(path.resolve(sourcePath, sourceName), (err, data) => {
         if (err) console.log('Error writing html', err);
     })
 });
+
+// LTS hybrid 引擎：HybridEngine.java 手动同步（cordova prepare 不复制它，
+// 插件源目录与 prepare 的插件发现机制不一致，直接兜底拷贝保证每次构建都带上）
+const hybridSrc = path.resolve('plugins/cordova-plugin-geckoview-engine/src/android/HybridEngine.java');
+const hybridDst = path.resolve('platforms/android/app/src/main/java/com/cordova/geckoview/HybridEngine.java');
+if (fs.existsSync(hybridSrc) && !fs.existsSync(hybridDst)) {
+    fs.copySync(hybridSrc, hybridDst);
+    console.log('LTS: HybridEngine.java copied to platforms');
+}

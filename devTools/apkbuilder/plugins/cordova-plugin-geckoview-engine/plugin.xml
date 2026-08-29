@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin id="cordova-plugin-geckoview-engine"
+        version="1.2.0"
+        xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <name>Cordova GeckoView Engine</name>
+    <description>Replaces Cordova's default Android WebView with Mozilla GeckoView (optimized size).</description>
+
+    <platform name="android">
+
+        <!-- Make GeckoView the active Cordova WebView engine -->
+        <edit-config file="app/src/main/res/xml/config.xml"
+                     mode="merge"
+                     target="/widget">
+            <preference name="webView"
+                        value="com.cordova.geckoview.GeckoViewEngine" />
+        </edit-config>
+
+        <!-- Inject custom Gradle config: repos, GeckoView dep, ABI filters, Java 17, packaging -->
+        <framework src="src/android/build.gradle"
+                   custom="true"
+                   type="gradleReference" />
+
+        <!-- Allow cleartext HTTP so the embedded localhost server can serve app assets -->
+        <edit-config file="app/src/main/AndroidManifest.xml"
+                     mode="merge"
+                     target="/manifest/application">
+            <application android:usesCleartextTraffic="true" />
+        </edit-config>
+
+        <!-- R8/ProGuard rules for GeckoView + Cordova -->
+        <resource-file src="src/android/proguard-geckoview.pro"
+                       target="app/proguard-geckoview.pro" />
+
+        <!-- Engine Java source -->
+        <source-file src="src/android/GeckoViewEngine.java"
+                     target-dir="src/com/cordova/geckoview" />
+        <source-file src="src/android/HybridEngine.java"
+                     target-dir="src/com/cordova/geckoview" />
+        <source-file src="src/android/LocalHttpServer.java"
+                     target-dir="src/com/cordova/geckoview" />
+        <source-file src="src/android/MimeTypeHelper.java"
+                     target-dir="src/com/cordova/geckoview" />
+
+    </platform>
+
+    <js-module src="www/geckoview-engine.js" name="GeckoViewEngine">
+        <clobbers target="window.GeckoViewEngine" />
+    </js-module>
+
+</plugin>
