@@ -6,7 +6,7 @@ const path = require('path');
 
 const sourcePath = path.resolve('../..'); // assume we're in gameDir/devTools/apkbuilder
 const sourceDirs = ["img"]; // it's almost universally just img
-const sourceName = "Degrees of Lewdity.html"; // game's compiled html
+const sourceName = "DoL-Genesis-LTS.html"; // game's compiled html (compile.sh 软链固定名)
 const targetPath = path.resolve('./platforms/android/app/src/main/assets/www');
 const targetName = "index.html";
 

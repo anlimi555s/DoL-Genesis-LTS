@@ -37,11 +37,6 @@
 		}
 	}
 
-	if (window.GenesisCompatRegisterApply) {
-		window.GenesisCompatRegisterApply('data:covered-trait', migrateCovered);
-	}
-
-	// 时机：第一个 passage 渲染结束后
 	if (window.jQuery) {
 		window.jQuery(document).one(':passageend', migrateCovered);
 	} else {

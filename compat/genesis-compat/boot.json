@@ -1,14 +1,11 @@
 {
   "name": "GenesisCompat",
-  "nickName": "Genesis 兼容层 - 图片路由",
-  "version": "0.1.0",
+  "nickName": "Genesis 兼容层",
+  "version": "0.2",
   "styleFileList": [],
   "scriptFileList_inject_early": [
-    "dist/registry.js",
-    "dist/retro-model.js",
-    "dist/patch-redirect.js",
-    "dist/global-shims.js",
-    "dist/retro-apply.js",
+    "dist/retro-path-translate.js",
+    "dist/img-translate.js",
     "dist/migrate.js"
   ],
   "scriptFileList_earlyload": [],

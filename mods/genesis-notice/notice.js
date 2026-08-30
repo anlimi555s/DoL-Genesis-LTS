@@ -5,7 +5,7 @@
 (function () {
 	'use strict';
 
-	var NOTICE_URL = 'https://cdn.jsdelivr.net/gh/anlimi555s/DoL-Genesis-LTS@v0.1.1/notice.html';
+	var NOTICE_URL = 'https://cdn.jsdelivr.net/gh/anlimi555s/DoL-Genesis-LTS@v0.2/notice.html';
 	var CACHE_KEY = 'genesis_notice_cache';
 	var CACHE_TTL = 10 * 60 * 1000; // 10 分钟
 

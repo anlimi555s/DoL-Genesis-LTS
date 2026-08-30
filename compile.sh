@@ -20,9 +20,9 @@ function compile() {
 		VERSION="$FORCE_VERSION"
 	fi
 	if [ -z "${VERSION}" ]; then
-		TARGET="Degrees of Lewdity.html"
+		TARGET="DoL-Genesis-LTS.html"
 	else
-		TARGET="Degrees of Lewdity $VERSION.html"
+		TARGET="DoL-Genesis-LTS $VERSION.html"
 	fi
 
 	TWEEGO_EXE="tweego"
@@ -70,9 +70,9 @@ function compile() {
 		echoError "Build failed."
 		exit 1
 	else
-		if [ "$TARGET" != "Degrees of Lewdity.html" ]; then
+		if [ "$TARGET" != "DoL-Genesis-LTS.html" ]; then
 			# android builder expects to find a file by this name. this is a symbolic link, not a full copy
-			ln -fs "$TARGET" "Degrees of Lewdity.html" || cp -f "$TARGET" "Degrees of Lewdity.html"
+			ln -fs "$TARGET" "DoL-Genesis-LTS.html" || cp -f "$TARGET" "DoL-Genesis-LTS.html"
 		fi
 		echo "Done: \"$TARGET\""
 		exit 0

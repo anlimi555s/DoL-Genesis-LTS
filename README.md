@@ -1,15 +1,15 @@
-# DoL-Genesis-LTS v0.1
+# DoL-Genesis-LTS v0.2
 
 Degrees of Lewdity fork ：LTS platform. Mods that ran keep running. / DoL 稳定平台：让能跑的永远能跑。
 
 ## 这是什么
 
-基于 DoL 0.5.11.9 + ModLoader 的长期支持（LTS）整合版。追官方更新，同时保证旧 mod 和美化包不炸：
+基于 DoL 0.5.11.9 + ModLoader 2.101.1 的长期支持（LTS）整合版。追官方更新，同时保证旧 mod 和美化包不炸：
 
-- **旧美化包复活**：0.5.4~0.5.8 时代的美型/衣服包，只要 boot.json 声明 `"compat": "0.5.8"`（或写包针对的版本号），引擎自动回退渲染模型，直接能用
+- **旧美化包复活**：0.5.4~0.5.8 时代的美型/衣服包，boot.json 声明 `"compat": "0.5.8"`（或写包针对的版本号），加载时图片路径按规则翻译成新版命名，直接能用。规则从 git 全量 rename 提取，无需映射表、无需改包
 - **新包零介入**：0.5.9+ 的现代包不声明，直接跑
 - **数据兼容**：covered trait 等数据变更自动迁移
-- **老包脚本兼容**：官方删除的全局 API 自动垫片
+- **旧功能/内容 mod 迁移**：有需要迁移到新版本的旧 mod，请在 [Issues](https://github.com/anlimi555s/DoL-Genesis-LTS/issues) 提交，我们手动迁移
 
 ## 下载
 

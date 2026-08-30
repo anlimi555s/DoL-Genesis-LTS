@@ -13,12 +13,25 @@
 			passages: new Map(), // name -> {n, bodyMs, totalMs, max}
 			model: { compiles: 0, compileMs: 0, composes: 0, composeMs: 0 },
 			weather: { draws: 0, drawMs: 0 },
+			// 沙盒（GenesisCompat）：环境初始化 / 层函数求值 / 替换成本 / 路径翻译
+			sandbox: { initMs: 0, srcCalls: 0, srcMs: 0, srcCrashes: 0, replaceMs: 0, replacedFields: 0, layers: 0, translateCalls: 0, translateHits: 0, translate404s: 0 },
 			longTasks: 0,
 			recentGaps: [],
 			frames: { n: 0, sumMs: 0, slowMs: 0 },
 		},
 		_lastReport: {},
 		patched: { model: false, compose: false, weather: false },
+		// 供 GenesisCompat retro-apply 调用的埋点钩子（零依赖，纯计数/计时）
+		sandbox: {
+			init: (ms) => { L.stats.sandbox.initMs = ms; },
+			replace: (ms, fields, layers) => {
+				L.stats.sandbox.replaceMs += ms;
+				L.stats.sandbox.replacedFields += fields;
+				L.stats.sandbox.layers = Math.max(L.stats.sandbox.layers, layers);
+			},
+			srcCall: (ms) => { L.stats.sandbox.srcCalls++; L.stats.sandbox.srcMs += ms; },
+			srcCrash: () => { L.stats.sandbox.srcCrashes++; },
+		},
 	});
 
 	function patch(obj, key, onDone) {
@@ -175,6 +188,8 @@
 			`weatherDraws=${weatherDraws10s} weatherDrawAvgMs=${s.weather.draws ? (s.weather.drawMs / s.weather.draws).toFixed(1) : 0} ` +
 			`modelCompiles=${modelCompiles10s} compileAvgMs=${s.model.compiles ? (s.model.compileMs / s.model.compiles).toFixed(1) : 0} ` +
 			`composeCalls=${diff('composes', s.model.composes)} composeAvgMs=${s.model.composes ? (s.model.composeMs / s.model.composes).toFixed(1) : 0} ` +
+			`translateCalls=${diff('translateCalls', s.sandbox.translateCalls)} translateHits=${s.sandbox.translateHits} translate404s=${s.sandbox.translate404s} ` +
+			`genesis=${JSON.stringify(s.sandbox.genesis || {})} ` +
 			`longTasks=${s.longTasks} recentGaps=[${s.recentGaps.join(',')}] ` +
 			`top5=[${top}]`
 		);

@@ -272,7 +272,7 @@ class CanvasModel {
 					layer[propname] = layer[fnkey](options);
 				} catch (e) {
 					if (layer.show) {
-						console.error("Error evaluating layer " + layer.name + " property " + propname);
+						console.error("Error evaluating layer " + layer.name + " property " + propname + ":", e); // LTS: 附带异常详情
 					}
 				}
 			}

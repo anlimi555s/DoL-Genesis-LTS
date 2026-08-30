@@ -58,3 +58,7 @@ devTools/apkbuilder/jdk17/
 devTools/apkbuilder/_dl/
 devTools/apkbuilder/build-extras.gradle
 devTools/apkbuilder/cdv-gradle-config.json
+
+# 分析/提取产物
+*_extracted/
+devTools/gen-retro-env/work/
